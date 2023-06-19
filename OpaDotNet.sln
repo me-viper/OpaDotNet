@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpaDotNet.Wasm", "src\OpaDotNet.Wasm\OpaDotNet.Wasm.csproj", "{87D3E3C6-ACDB-4A13-8F7C-26021D15A1B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpaDotNet.Tests", "tests\OpaDotNet.Tests.csproj", "{676DAA20-DB64-433D-B61B-DAA2A53C084C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{A281747F-28C4-4E09-A1FD-C402EAD384F6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{87D3E3C6-ACDB-4A13-8F7C-26021D15A1B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87D3E3C6-ACDB-4A13-8F7C-26021D15A1B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87D3E3C6-ACDB-4A13-8F7C-26021D15A1B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87D3E3C6-ACDB-4A13-8F7C-26021D15A1B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{676DAA20-DB64-433D-B61B-DAA2A53C084C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{676DAA20-DB64-433D-B61B-DAA2A53C084C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{676DAA20-DB64-433D-B61B-DAA2A53C084C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{676DAA20-DB64-433D-B61B-DAA2A53C084C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{676DAA20-DB64-433D-B61B-DAA2A53C084C} = {A281747F-28C4-4E09-A1FD-C402EAD384F6}
+	EndGlobalSection
+EndGlobal

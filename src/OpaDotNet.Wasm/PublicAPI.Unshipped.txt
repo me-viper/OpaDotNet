@@ -1,0 +1,75 @@
+#nullable enable
+OpaDotNet.Wasm.BuiltinArg
+OpaDotNet.Wasm.BuiltinArg.As<T>(System.Func<T>? defaultValue = null) -> T?
+OpaDotNet.Wasm.BuiltinArg.AsOrFail<T>() -> T
+OpaDotNet.Wasm.BuiltinArg.Raw.get -> System.Text.Json.Nodes.JsonNode?
+OpaDotNet.Wasm.BuiltinContext
+OpaDotNet.Wasm.BuiltinContext.FunctionName.get -> string!
+OpaDotNet.Wasm.BuiltinContext.OpaContext.get -> int
+OpaDotNet.Wasm.Compilation.RegoCliCompiler
+OpaDotNet.Wasm.Compilation.RegoCliCompiler.CompileBundle(string! bundlePath, string![]? entrypoints = null, string? capabilitiesFilePath = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<System.IO.Stream!>!
+OpaDotNet.Wasm.Compilation.RegoCliCompiler.CompileFile(string! sourceFilePath, string![]? entrypoints = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<System.IO.Stream!>!
+OpaDotNet.Wasm.Compilation.RegoCliCompiler.RegoCliCompiler(Microsoft.Extensions.Options.IOptions<OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions!>! options, Microsoft.Extensions.Logging.ILogger<OpaDotNet.Wasm.Compilation.RegoCliCompiler!>? logger = null) -> void
+OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions
+OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.OpaToolPath.get -> string?
+OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.OpaToolPath.set -> void
+OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.OutputPath.get -> string?
+OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.OutputPath.set -> void
+OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.RegoCliCompilerOptions() -> void
+OpaDotNet.Wasm.Compilation.RegoCompilationException
+OpaDotNet.Wasm.Compilation.RegoCompilationException.RegoCompilationException(string! sourceFile, string? message) -> void
+OpaDotNet.Wasm.Compilation.RegoCompilationException.RegoCompilationException(string! sourceFile, string? message, System.Exception? innerException) -> void
+OpaDotNet.Wasm.Compilation.RegoCompilationException.SourceFile.get -> string!
+OpaDotNet.Wasm.DefaultOpaImportsAbi
+OpaDotNet.Wasm.DefaultOpaImportsAbi.DefaultOpaImportsAbi(Microsoft.Extensions.Logging.ILogger<OpaDotNet.Wasm.DefaultOpaImportsAbi!>? logger = null) -> void
+OpaDotNet.Wasm.DefaultOpaImportsAbi.Logger.get -> Microsoft.Extensions.Logging.ILogger!
+OpaDotNet.Wasm.ExportResolutionException
+OpaDotNet.Wasm.ExportResolutionException.AbiVersion.get -> System.Version!
+OpaDotNet.Wasm.ExportResolutionException.ExportResolutionException(System.Version! abiVersion, string! externalName) -> void
+OpaDotNet.Wasm.ExportResolutionException.ExternalName.get -> string!
+OpaDotNet.Wasm.IOpaEvaluator
+OpaDotNet.Wasm.IOpaEvaluator.AbiVersion.get -> System.Version!
+OpaDotNet.Wasm.IOpaEvaluator.Evaluate<TInput, TOutput>(TInput input, string? entrypoint = null) -> OpaDotNet.Wasm.PolicyEvaluationResult<TOutput>!
+OpaDotNet.Wasm.IOpaEvaluator.EvaluatePredicate<TInput>(TInput input, string? entrypoint = null) -> OpaDotNet.Wasm.PolicyEvaluationResult<bool>!
+OpaDotNet.Wasm.IOpaEvaluator.EvaluateRaw(System.ReadOnlySpan<char> inputJson, string? entrypoint = null) -> string!
+OpaDotNet.Wasm.IOpaEvaluator.Reset() -> void
+OpaDotNet.Wasm.IOpaEvaluator.UpdateData(System.ReadOnlySpan<char> dataJson) -> void
+OpaDotNet.Wasm.IOpaEvaluatorFactory
+OpaDotNet.Wasm.IOpaEvaluatorFactory.CreateWithData<TData>(System.IO.Stream! policy, TData? data, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null) -> OpaDotNet.Wasm.IOpaEvaluator!
+OpaDotNet.Wasm.IOpaEvaluatorFactory.CreateWithJsonData(System.IO.Stream! policy, string? dataJson = null, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null) -> OpaDotNet.Wasm.IOpaEvaluator!
+OpaDotNet.Wasm.IOpaImportsAbi
+OpaDotNet.Wasm.IOpaImportsAbi.Abort(string! message) -> void
+OpaDotNet.Wasm.IOpaImportsAbi.Func(OpaDotNet.Wasm.BuiltinContext! context) -> object!
+OpaDotNet.Wasm.IOpaImportsAbi.Func(OpaDotNet.Wasm.BuiltinContext! context, OpaDotNet.Wasm.BuiltinArg! arg1) -> object!
+OpaDotNet.Wasm.IOpaImportsAbi.Func(OpaDotNet.Wasm.BuiltinContext! context, OpaDotNet.Wasm.BuiltinArg! arg1, OpaDotNet.Wasm.BuiltinArg! arg2) -> object!
+OpaDotNet.Wasm.IOpaImportsAbi.Func(OpaDotNet.Wasm.BuiltinContext! context, OpaDotNet.Wasm.BuiltinArg! arg1, OpaDotNet.Wasm.BuiltinArg! arg2, OpaDotNet.Wasm.BuiltinArg! arg3) -> object!
+OpaDotNet.Wasm.IOpaImportsAbi.Func(OpaDotNet.Wasm.BuiltinContext! context, OpaDotNet.Wasm.BuiltinArg! arg1, OpaDotNet.Wasm.BuiltinArg! arg2, OpaDotNet.Wasm.BuiltinArg! arg3, OpaDotNet.Wasm.BuiltinArg! arg4) -> object!
+OpaDotNet.Wasm.IOpaImportsAbi.PrintLn(string! message) -> void
+OpaDotNet.Wasm.OpaEvaluationException
+OpaDotNet.Wasm.OpaEvaluationException.OpaEvaluationException(string? message) -> void
+OpaDotNet.Wasm.OpaEvaluationException.OpaEvaluationException(string? message, System.Exception? innerException) -> void
+OpaDotNet.Wasm.OpaRuntimeException
+OpaDotNet.Wasm.OpaRuntimeException.OpaRuntimeException(string? message) -> void
+OpaDotNet.Wasm.OpaRuntimeException.OpaRuntimeException(string? message, System.Exception? innerException) -> void
+OpaDotNet.Wasm.PolicyEvaluationResult<T>
+OpaDotNet.Wasm.PolicyEvaluationResult<T>.PolicyEvaluationResult() -> void
+OpaDotNet.Wasm.PolicyEvaluationResult<T>.Result.get -> T
+OpaDotNet.Wasm.PolicyEvaluationResult<T>.Result.set -> void
+OpaDotNet.Wasm.WasmPolicyEngineOptions
+OpaDotNet.Wasm.WasmPolicyEngineOptions.MaxAbiVersion.get -> System.Version?
+OpaDotNet.Wasm.WasmPolicyEngineOptions.MaxAbiVersion.init -> void
+OpaDotNet.Wasm.WasmPolicyEngineOptions.MaxMemoryPages.get -> long?
+OpaDotNet.Wasm.WasmPolicyEngineOptions.MaxMemoryPages.init -> void
+OpaDotNet.Wasm.WasmPolicyEngineOptions.MinMemoryPages.get -> long
+OpaDotNet.Wasm.WasmPolicyEngineOptions.MinMemoryPages.init -> void
+OpaDotNet.Wasm.WasmPolicyEngineOptions.SerializationOptions.get -> System.Text.Json.JsonSerializerOptions!
+OpaDotNet.Wasm.WasmPolicyEngineOptions.SerializationOptions.init -> void
+OpaDotNet.Wasm.WasmPolicyEngineOptions.WasmPolicyEngineOptions() -> void
+static OpaDotNet.Wasm.WasmPolicyEngineOptions.Default.get -> OpaDotNet.Wasm.WasmPolicyEngineOptions!
+virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.Abort(string! message) -> void
+virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.Func(OpaDotNet.Wasm.BuiltinContext! context) -> object!
+virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.Func(OpaDotNet.Wasm.BuiltinContext! context, OpaDotNet.Wasm.BuiltinArg! arg1) -> object!
+virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.Func(OpaDotNet.Wasm.BuiltinContext! context, OpaDotNet.Wasm.BuiltinArg! arg1, OpaDotNet.Wasm.BuiltinArg! arg2) -> object!
+virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.Func(OpaDotNet.Wasm.BuiltinContext! context, OpaDotNet.Wasm.BuiltinArg! arg1, OpaDotNet.Wasm.BuiltinArg! arg2, OpaDotNet.Wasm.BuiltinArg! arg3) -> object!
+virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.Func(OpaDotNet.Wasm.BuiltinContext! context, OpaDotNet.Wasm.BuiltinArg! arg1, OpaDotNet.Wasm.BuiltinArg! arg2, OpaDotNet.Wasm.BuiltinArg! arg3, OpaDotNet.Wasm.BuiltinArg! arg4) -> object!
+virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.PrintLn(string! message) -> void

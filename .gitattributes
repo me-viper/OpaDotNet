@@ -1,0 +1,4 @@
+* text=auto eol=lf
+*.razor text=auto eol=lf
+*.sln text eol=crlf
+*.png -text
