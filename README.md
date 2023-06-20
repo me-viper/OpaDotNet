@@ -1,4 +1,7 @@
-﻿# Open Policy Agent (OPA) WebAssembly dotnet core SDK
+﻿[![CI](https://github.com/me-viper/OpaDotNet/workflows/CI/badge.svg)](https://github.com/me-viper/OpaDotNet)
+[![NuGet](https://img.shields.io/nuget/v/OpaDotNet.Wasm.svg)](https://www.nuget.org/packages/OpaDotNet.Wasm/)
+
+# Open Policy Agent (OPA) WebAssembly dotnet core SDK
 
 This is SDK for using WebAssembly (wasm) compiled [Open Policy Agent](https://www.openpolicyagent.org/) Rego policies with dotnet core.
 
