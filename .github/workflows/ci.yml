@@ -34,7 +34,7 @@ jobs:
     - name: Download OPA CLI
       run: curl -L --fail -o /usr/local/bin/opa https://openpolicyagent.org/downloads/${OPA_CLI_VERSION}/opa_linux_amd64_static && chmod 755 /usr/local/bin/opa
       env:
-        NUGET_API_KEY: ${{ env.OPA_CLI_VERSION }}
+        NUGET_API_KEY: ${{ vars.OPA_CLI_VERSION }}
     - name: Test
       run: dotnet test -c Release --no-build --verbosity normal
     - name: Pack
