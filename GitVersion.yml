@@ -1,4 +1,5 @@
-#mode: Mainline
+mode: Mainline
+next-version: 1.0
 tag-prefix: '[vV]'
 branches:
   develop:
