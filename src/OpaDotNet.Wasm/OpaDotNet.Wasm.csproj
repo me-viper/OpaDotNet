@@ -11,6 +11,7 @@
         <Description>Open Policy Agent (OPA) WebAssembly dotnet core SDK</Description>
         <PackageProjectUrl>https://github.com/me-viper/OpaDotNet</PackageProjectUrl>
         <PackageReadmeFile>README.md</PackageReadmeFile>
+
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
@@ -27,9 +28,13 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions"/>
-        <PackageReference Include="Microsoft.Extensions.Options"/>
-        <PackageReference Include="Wasmtime"/>
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+        <PackageReference Include="Microsoft.Extensions.Options" />
+        <PackageReference Include="Microsoft.SourceLink.GitHub">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Wasmtime" />
     </ItemGroup>
 
 </Project>

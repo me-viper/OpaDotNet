@@ -10,8 +10,6 @@
         <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
         <Features>strict</Features>
-        <EmbedUntrackedSources>true</EmbedUntrackedSources>
-
         <Authors>Andrii Kurochka</Authors>
     </PropertyGroup>
 
