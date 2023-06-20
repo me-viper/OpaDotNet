@@ -42,6 +42,8 @@ jobs:
       run: dotnet test -c Release --no-build /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
     - name: Coveralls
       uses: coverallsapp/github-action@v2
+      with:
+        path-to-lcov: ./tests/TestResults/coverage.info
     - name: Pack
       run: dotnet pack -c Release --no-build -o ./artifacts
     - name: Push Nuget Package
