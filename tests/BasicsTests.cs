@@ -34,7 +34,7 @@ public class BasicsTests
 
     public static IEnumerable<object?[]> BasicTestCases()
     {
-        var versions = new[] { null, "1.0", "1.1", "1.2" };
+        var versions = new[] { null, "1.0", "1.1", "1.2", "1.3" };
 
         const string data = "{ \"world\": \"world\" }";
         const string passInput = "{ \"message\": \"world\"}";
@@ -86,7 +86,7 @@ public class BasicsTests
             {
                 "entrypoints.rego",
                 null,
-                null,
+                data,
                 passInput,
                 v,
                 true
@@ -96,7 +96,7 @@ public class BasicsTests
             {
                 "entrypoints.rego",
                 null,
-                null,
+                data,
                 failInput,
                 v,
                 false
@@ -127,7 +127,7 @@ public class BasicsTests
             options: new() { MaxAbiVersion = ver }
             );
 
-        var result1Str = engine.EvaluateRaw(input);
+        var result1Str = engine.EvaluateRaw(input, entrypoint);
         Assert.NotEmpty(result1Str);
 
         _output.WriteLine(result1Str);

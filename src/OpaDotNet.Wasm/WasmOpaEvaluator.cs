@@ -76,7 +76,7 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
                 _jsonOptions
                 );
         }
-        else if (abiVersion > new Version(1, 3))
+        else if (abiVersion >= new Version(1, 3))
         {
             _abi = new Internal.V13.WasmPolicyEngine(
                 new Internal.V13.OpaExportsAbi(instance),
