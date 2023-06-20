@@ -31,6 +31,8 @@ jobs:
       run: dotnet gitversion /updateprojectfiles /output buildserver
     - name: Build
       run: dotnet build -c Release
+    - name: Download OPA CLI
+      run: curl -L -o /usr/local/bin/opa https://openpolicyagent.org/downloads/v0.53.1/opa_linux_amd64_static && chmod 755 /usr/local/bin/opa
     - name: Test
       run: dotnet test -c Release --no-build --verbosity normal
     - name: Pack
