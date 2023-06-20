@@ -43,7 +43,7 @@ jobs:
     - name: Coveralls
       uses: coverallsapp/github-action@v2
       with:
-        path-to-lcov: ./tests/TestResults/coverage.info
+        file: ./tests/TestResults/coverage.info
     - name: Pack
       run: dotnet pack -c Release --no-build -o ./artifacts
     - name: Push Nuget Package
