@@ -44,6 +44,7 @@ jobs:
       uses: coverallsapp/github-action@v2
       with:
         file: ./tests/TestResults/coverage.info
+        format: lcov
     - name: Pack
       run: dotnet pack -c Release --no-build -o ./artifacts
     - name: Push Nuget Package
