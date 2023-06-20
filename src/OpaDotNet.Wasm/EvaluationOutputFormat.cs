@@ -9,7 +9,7 @@ internal enum EvaluationOutputFormat
     /// JSON
     /// </summary>
     Json,
-    
+
     /// <summary>
     /// Serialized Rego values.
     /// </summary>

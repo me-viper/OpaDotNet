@@ -3,7 +3,7 @@
 public class DefaultOpaImportsAbi : IOpaImportsAbi
 {
     protected ILogger Logger { get; }
-    
+
     public DefaultOpaImportsAbi(ILogger<DefaultOpaImportsAbi>? logger = null)
     {
         Logger = logger ?? NullLogger<DefaultOpaImportsAbi>.Instance;
@@ -13,7 +13,7 @@ public class DefaultOpaImportsAbi : IOpaImportsAbi
     {
         throw new OpaEvaluationException("Aborted: " + message);
     }
-    
+
     public virtual void PrintLn(string message)
     {
     }

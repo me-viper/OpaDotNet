@@ -7,13 +7,13 @@ public interface IOpaImportsAbi
     /// </summary>
     /// <param name="message">Error message</param>
     void Abort(string message);
-    
+
     /// <summary>
     /// Called to emit a message from the policy evaluation.
     /// </summary>
     /// <param name="message">Message</param>
     void PrintLn(string message);
-    
+
     /// <summary>
     /// Called to dispatch the built-in function.
     /// </summary>
@@ -28,7 +28,7 @@ public interface IOpaImportsAbi
     /// <param name="arg1">Function argument.</param>
     /// <returns>JSON serializable function result.</returns>
     object Func(BuiltinContext context, BuiltinArg arg1);
-    
+
     /// <summary>
     /// Called to dispatch the built-in function.
     /// </summary>
@@ -37,7 +37,7 @@ public interface IOpaImportsAbi
     /// <param name="arg2">Function argument.</param>
     /// <returns>JSON serializable function result.</returns>
     object Func(BuiltinContext context, BuiltinArg arg1, BuiltinArg arg2);
-    
+
     /// <summary>
     /// Called to dispatch the built-in function.
     /// </summary>
@@ -47,7 +47,7 @@ public interface IOpaImportsAbi
     /// <param name="arg3">Function argument.</param>
     /// <returns>JSON serializable function result.</returns>
     object Func(BuiltinContext context, BuiltinArg arg1, BuiltinArg arg2, BuiltinArg arg3);
-    
+
     /// <summary>
     /// Called to dispatch the built-in function.
     /// </summary>

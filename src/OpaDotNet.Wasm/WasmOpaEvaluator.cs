@@ -7,29 +7,29 @@ namespace OpaDotNet.Wasm;
 internal sealed class WasmOpaEvaluator : IOpaEvaluator
 {
     private readonly ILogger _logger;
-    
+
     private readonly Engine _engine;
-    
+
     private readonly Linker _linker;
-    
+
     private readonly Store _store;
-    
+
     private readonly Module _module;
-    
+
     private readonly JsonSerializerOptions _jsonOptions;
-    
+
     private readonly IWasmPolicyEngine _abi;
 
     private readonly Memory _memory;
-    
+
     public Version AbiVersion => _abi.AbiVersion;
-    
+
     public Version PolicyAbiVersion { get; }
-    
+
     internal WasmOpaEvaluator(WasmPolicyEngineConfiguration configuration)
     {
         ArgumentNullException.ThrowIfNull(configuration);
-        
+
         _engine = configuration.Engine;
         _linker = configuration.Linker;
         _store = configuration.Store;
@@ -37,27 +37,27 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
         _jsonOptions = configuration.Options.SerializationOptions;
         _logger = configuration.Logger;
         _memory = configuration.Memory;
-        
+
         SetupLinker(configuration.Imports);
-        
+
         var instance = _linker.Instantiate(_store, _module);
-        
+
         var abiMajorVar = instance.GetGlobal("opa_wasm_abi_version")?.GetValue();
         var abiMinorVar = instance.GetGlobal("opa_wasm_abi_minor_version")?.GetValue();
-        
+
         if (abiMajorVar is not int abiMajor)
             throw new OpaRuntimeException("Failed to get value from opa_wasm_abi_version global");
 
         if (abiMinorVar is not int abiMinor)
             throw new OpaRuntimeException("Failed to get value from opa_wasm_abi_minor_version global");
-        
+
         PolicyAbiVersion = new Version(abiMajor, abiMinor);
 
         var abiVersion = configuration.Options.MaxAbiVersion ?? PolicyAbiVersion;
-        
+
         if (abiVersion > PolicyAbiVersion)
             abiVersion = PolicyAbiVersion;
-        
+
         if (abiVersion < new Version(1, 2))
         {
             _abi = new Internal.V10.WasmPolicyEngine(
@@ -85,7 +85,7 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
                 _jsonOptions
                 );
         }
-        
+
         if (_abi == null)
             throw new OpaRuntimeException($"Failed to initialize ABI for {PolicyAbiVersion}");
     }
@@ -93,7 +93,7 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
     private void SetupLinker(IOpaImportsAbi imports)
     {
         BuiltinContext MakeContext(string funcName) => new() { FunctionName = funcName };
-        
+
         BuiltinContext Context(int id)
         {
             if (!_abi.Builtins.TryGetValue(id, out var funcName))
@@ -101,21 +101,21 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
 
             return MakeContext(funcName);
         }
-        
+
         _linker.Define("env", "memory", _memory);
-        
+
         _linker.Define(
-            "env", 
-            "opa_abort", 
+            "env",
+            "opa_abort",
             Function.FromCallback(_store, (int ptr) => imports.Abort(ReadJson<string>(ptr)))
             );
-        
+
         _linker.Define(
             "env",
             "opa_println",
             Function.FromCallback(_store, (int ptr) => imports.PrintLn(ReadJson<string>(ptr)))
             );
-        
+
         _linker.Define(
             "env",
             "opa_builtin0",
@@ -127,7 +127,7 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
                     return WriteJson(result).ToInt32();
                 })
             );
-        
+
         _linker.Define(
             "env",
             "opa_builtin1",
@@ -140,7 +140,7 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
                     return WriteJson(result).ToInt32();
                 })
             );
-        
+
         _linker.Define(
             "env",
             "opa_builtin2",
@@ -154,7 +154,7 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
                     return WriteJson(result).ToInt32();
                 })
             );
-        
+
         _linker.Define(
             "env",
             "opa_builtin3",
@@ -169,7 +169,7 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
                     return WriteJson(result).ToInt32();
                 })
             );
-        
+
         _linker.Define(
             "env",
             "opa_builtin4",
@@ -186,32 +186,32 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
                 })
             );
     }
-    
+
     private nint WriteJsonString(ReadOnlySpan<char> data)
     {
         return _abi.WriteJsonString(data);
     }
-    
+
     private nint WriteJson<T>(T data)
     {
         return _abi.WriteJson(data);
     }
-    
+
     private string ReadJsonString(nint ptr)
     {
         return _abi.ReadJsonString(ptr);
     }
-    
+
     private T ReadJson<T>(nint ptr)
     {
         return _abi.ReadJson<T>(ptr);
     }
-    
+
     public void UpdateData(ReadOnlySpan<char> dataJson)
     {
         _abi.SetData(dataJson);
     }
-    
+
     public void Reset()
     {
         _abi.Reset();
@@ -220,21 +220,21 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
     public PolicyEvaluationResult<bool> EvaluatePredicate<TInput>(TInput input, string? entrypoint = null)
     {
         var result = EvalInternal<TInput, PolicyEvaluationResult<bool>[]>(input, entrypoint);
-        
+
         if (result == null || result.Length == 0)
             throw new OpaEvaluationException("Policy evaluator returned empty result");
-        
+
         return result[0];
     }
-    
-    public PolicyEvaluationResult<TOutput> Evaluate<TInput, TOutput>(TInput input, string? entrypoint = null) 
+
+    public PolicyEvaluationResult<TOutput> Evaluate<TInput, TOutput>(TInput input, string? entrypoint = null)
         where TOutput : notnull
     {
         var result = EvalInternal<TInput, PolicyEvaluationResult<TOutput>[]>(input, entrypoint);
-        
+
         if (result == null || result.Length == 0)
             throw new OpaEvaluationException("Policy evaluator returned empty result");
-        
+
         return result[0];
     }
 
@@ -243,14 +243,14 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
         var resultPtr = EvalInternal(inputJson, entrypoint);
         return _memory.ReadNullTerminatedString(resultPtr);
     }
-    
+
     private TOutput? EvalInternal<TInput, TOutput>(TInput input, string? entrypoint = null)
     {
         var s = JsonSerializer.Serialize(input, _jsonOptions);
         var jsonAdr = EvalInternal(s, entrypoint);
         return _memory.ReadNullTerminatedJson<TOutput>(jsonAdr, _jsonOptions);
     }
-    
+
     private nint EvalInternal(ReadOnlySpan<char> inputJson, string? entrypoint = null)
     {
         try
@@ -262,7 +262,7 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
             throw new OpaEvaluationException("Evaluation failed", ex);
         }
     }
-    
+
     public void Dispose()
     {
         _abi.Dispose();

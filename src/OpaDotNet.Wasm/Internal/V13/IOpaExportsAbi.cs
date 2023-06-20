@@ -8,7 +8,7 @@ internal interface IOpaExportsAbi : V12.IOpaExportsAbi
     /// </summary>
     /// <param name="ptr">Address of the reference</param>
     void ValueFree(nint ptr);
-    
+
     /// <summary>
     /// Stash free heap blocks in a shadow heap to enable <see cref="V10.IOpaExportsAbi.Eval"/> to allocate only blocks
     /// that it can subsequently free with a call to <see cref="V10.IOpaExportsAbi.HeapPtrSet"/>.
@@ -16,7 +16,7 @@ internal interface IOpaExportsAbi : V12.IOpaExportsAbi
     /// to save before calling <see cref="HeapBlocksRestore"/>
     /// </summary>
     void HeapBlocksStash();
-    
+
     /// <summary>
     /// Restore heap blocks stored by <see cref="HeapBlocksStash"/> to the heap.
     /// This should only be called after a <see cref="V10.IOpaExportsAbi.HeapPtrSet"/> to the a
@@ -24,7 +24,7 @@ internal interface IOpaExportsAbi : V12.IOpaExportsAbi
     /// call to <see cref="HeapBlocksStash"/>.
     /// </summary>
     void HeapBlocksRestore();
-    
+
     /// <summary>
     /// Drop all heap blocks saved by <see cref="HeapBlocksStash"/>..
     /// This leaks memory in the VM unless the caller subsequently

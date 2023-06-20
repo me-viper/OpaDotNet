@@ -15,7 +15,9 @@
       "decl": {
         "type": "function",
         "args": [
-          { "type": "string" }
+          {
+            "type": "string"
+          }
         ],
         "result": {
           "type": "string"
@@ -27,7 +29,9 @@
       "decl": {
         "type": "function",
         "args": [
-          { "type": "object" }
+          {
+            "type": "object"
+          }
         ],
         "result": {
           "type": "string"
@@ -39,8 +43,12 @@
       "decl": {
         "type": "function",
         "args": [
-          { "type": "string" },
-          { "type": "string" }
+          {
+            "type": "string"
+          },
+          {
+            "type": "string"
+          }
         ],
         "result": {
           "type": "string"
@@ -52,9 +60,15 @@
       "decl": {
         "type": "function",
         "args": [
-          { "type": "string" },
-          { "type": "string" },
-          { "type": "string" }
+          {
+            "type": "string"
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "string"
+          }
         ],
         "result": {
           "type": "string"
@@ -66,10 +80,18 @@
       "decl": {
         "type": "function",
         "args": [
-          { "type": "string" },
-          { "type": "string" },
-          { "type": "string" },
-          { "type": "string" }
+          {
+            "type": "string"
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "string"
+          }
         ],
         "result": {
           "type": "string"
@@ -81,10 +103,18 @@
       "decl": {
         "type": "function",
         "args": [
-          { "type": "number" },
-          { "type": "number" },
-          { "type": "boolean" },
-          { "type": "null" }
+          {
+            "type": "number"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "null"
+          }
         ],
         "result": {
           "type": "string"
@@ -96,7 +126,9 @@
       "decl": {
         "type": "function",
         "args": [
-          { "type": "string" }
+          {
+            "type": "string"
+          }
         ],
         "result": {
           "type": "boolean"

@@ -11,31 +11,31 @@ namespace OpaDotNet.Tests;
 public class StringifiedSupportTests : IAsyncLifetime
 {
     private IOpaEvaluator _engine = default!;
-    
+
     private readonly ILoggerFactory _loggerFactory;
-    
+
     private readonly OptionsWrapper<RegoCliCompilerOptions> _options = new(new());
-    
+
     private string BasePath { get; } = Path.Combine("TestData", "Opa", "stringified-support");
-    
+
     public StringifiedSupportTests(ITestOutputHelper output)
     {
         _loggerFactory = new LoggerFactory(new[] { new XunitLoggerProvider(output) });
     }
-    
+
     public async Task InitializeAsync()
     {
         var compiler = new RegoCliCompiler(_options, _loggerFactory.CreateLogger<RegoCliCompiler>());
         var policyStream = await compiler.CompileBundle(
-            BasePath, 
+            BasePath,
             new[]
             {
-                "stringified/support", 
+                "stringified/support",
                 "stringified/support/plainInputBoolean",
                 "stringified/support/plainInputNumber",
                 "stringified/support/plainInputString",
             });
-        
+
         var factory = new OpaEvaluatorFactory(loggerFactory: _loggerFactory);
         _engine = factory.CreateWithJsonData(policyStream, null);
     }
@@ -55,7 +55,7 @@ public class StringifiedSupportTests : IAsyncLifetime
         Assert.NotNull(resultPos);
         Assert.Equal(expected, resultPos.Result);
     }
-    
+
     [Theory]
     [InlineData(true, true)]
     [InlineData(false, false)]
@@ -65,7 +65,7 @@ public class StringifiedSupportTests : IAsyncLifetime
         Assert.NotNull(resultPos);
         Assert.Equal(expected, resultPos.Result);
     }
-    
+
     [Theory]
     [InlineData(5, true)]
     [InlineData(6, false)]
