@@ -153,7 +153,8 @@ public class BasicsTests
     [InlineData("{ \"world\": \"world\" }", "{ \"message\": \"world1\"}", false)]
     public void StringData(string? data, string input, bool expectedResult)
     {
-        var factory = new OpaEvaluatorFactory(loggerFactory: _loggerFactory);
+        IOpaEvaluatorFactory factory = new OpaEvaluatorFactory(loggerFactory: _loggerFactory);
+        
         using var engine = factory.CreateWithJsonData(
             File.OpenRead(Path.Combine(BasePath, "simple.wasm")),
             data
@@ -177,7 +178,7 @@ public class BasicsTests
     [InlineData("{ \"message\": \"world1\"}", false)]
     public void TypedData(string input, bool expectedResult)
     {
-        var factory = new OpaEvaluatorFactory(loggerFactory: _loggerFactory);
+        IOpaEvaluatorFactory factory = new OpaEvaluatorFactory(loggerFactory: _loggerFactory);
         
         var opts = new WasmPolicyEngineOptions
         {

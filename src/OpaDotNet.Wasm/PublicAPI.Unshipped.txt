@@ -48,6 +48,10 @@ OpaDotNet.Wasm.IOpaImportsAbi.PrintLn(string! message) -> void
 OpaDotNet.Wasm.OpaEvaluationException
 OpaDotNet.Wasm.OpaEvaluationException.OpaEvaluationException(string? message) -> void
 OpaDotNet.Wasm.OpaEvaluationException.OpaEvaluationException(string? message, System.Exception? innerException) -> void
+OpaDotNet.Wasm.OpaEvaluatorFactory
+OpaDotNet.Wasm.OpaEvaluatorFactory.CreateWithData<TData>(System.IO.Stream! policy, TData? data, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null) -> OpaDotNet.Wasm.IOpaEvaluator!
+OpaDotNet.Wasm.OpaEvaluatorFactory.CreateWithJsonData(System.IO.Stream! policy, string? dataJson = null, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null) -> OpaDotNet.Wasm.IOpaEvaluator!
+OpaDotNet.Wasm.OpaEvaluatorFactory.OpaEvaluatorFactory(OpaDotNet.Wasm.IOpaImportsAbi? importsAbi = null, Microsoft.Extensions.Logging.ILoggerFactory? loggerFactory = null) -> void
 OpaDotNet.Wasm.OpaRuntimeException
 OpaDotNet.Wasm.OpaRuntimeException.OpaRuntimeException(string? message) -> void
 OpaDotNet.Wasm.OpaRuntimeException.OpaRuntimeException(string? message, System.Exception? innerException) -> void

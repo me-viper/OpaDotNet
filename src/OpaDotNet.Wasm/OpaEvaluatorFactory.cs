@@ -2,7 +2,7 @@
 
 namespace OpaDotNet.Wasm;
 
-internal class OpaEvaluatorFactory : IOpaEvaluatorFactory
+public class OpaEvaluatorFactory : IOpaEvaluatorFactory
 {
     private readonly ILoggerFactory _loggerFactory;
 
