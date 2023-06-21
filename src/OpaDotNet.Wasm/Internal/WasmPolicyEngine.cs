@@ -11,12 +11,12 @@ internal abstract class WasmPolicyEngine<TAbi> : IWasmPolicyEngine
 {
     public abstract Version AbiVersion { get; }
 
-    protected Instance Instance { get; }
-
     public IReadOnlyDictionary<string, int> Entrypoints { get; }
 
     public IReadOnlyDictionary<int, string> Builtins { get; }
 
+    protected Instance Instance { get; }
+    
     protected nint BasePtr { get; }
 
     protected nint DataPtr { get; set; }
