@@ -19,20 +19,12 @@ internal class WasmPolicyEngine : WasmPolicyEngine<IOpaExportsAbi>
 
         var context = Abi.ContextCreate();
 
-        // Input.
         var parsedAdr = WriteJsonString(inputJson);
         Abi.ContextSetInput(context, parsedAdr);
-
-        // Data.
         Abi.ContextSetData(context, DataPtr);
-
-        // Entrypoint.
         Abi.ContextSetEntrypoint(context, entrypointId);
-
-        // Eval.
         Abi.Eval(context);
 
-        // Result.
         var resultAdr = Abi.ContextGetResult(context);
 
         return Abi.JsonDump(resultAdr);

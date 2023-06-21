@@ -1,6 +1,5 @@
 ﻿using OpaDotNet.Tests.Common;
 using OpaDotNet.Wasm;
-using OpaDotNet.Wasm.Compilation;
 
 using Xunit.Abstractions;
 

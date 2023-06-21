@@ -158,5 +158,5 @@ internal interface IOpaExportsAbi
     /// <returns>
     /// The return value is reserved for future use.
     /// </returns>
-    nint Eval(nint contextPtr);
+    void Eval(nint contextPtr);
 }

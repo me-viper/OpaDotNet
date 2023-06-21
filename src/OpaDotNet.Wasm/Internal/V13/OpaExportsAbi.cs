@@ -1,6 +1,4 @@
-﻿using OpaDotNet.Wasm.Internal.V12;
-
-using Wasmtime;
+﻿using Wasmtime;
 
 namespace OpaDotNet.Wasm.Internal.V13;
 

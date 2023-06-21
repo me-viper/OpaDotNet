@@ -5,3 +5,4 @@ exclude:
   - name: All
     paths:
       - tests
+  - name: ArrangeTrailingCommaInMultilineLists

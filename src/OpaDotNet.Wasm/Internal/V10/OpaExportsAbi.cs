@@ -173,8 +173,8 @@ internal class OpaExportsAbi : IOpaExportsAbi
         return _getResult(contextPtr.ToInt32());
     }
 
-    public nint Eval(nint contextPtr)
+    public void Eval(nint contextPtr)
     {
-        return _eval(contextPtr.ToInt32());
+        _eval(contextPtr.ToInt32());
     }
 }

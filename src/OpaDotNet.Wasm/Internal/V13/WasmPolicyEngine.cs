@@ -33,13 +33,7 @@ internal class WasmPolicyEngine : WasmPolicyEngine<IOpaExportsAbi>
         var entrypointId = GetEntrypoint(entrypoint);
 
         var inputLength = Encoding.UTF8.GetByteCount(inputJson);
-        var delta = EvalHeapPtr + inputLength - Memory.GetLength();
-
-        if (delta > 0)
-        {
-            var pages = Math.Ceiling((double)delta / Memory.PageSize);
-            Memory.Grow((long)pages);
-        }
+        EnsureMemory(inputLength);
 
         var inputPtr = EvalHeapPtr;
         var bytesWritten = Memory.WriteString(inputPtr, inputJson, Encoding.UTF8);

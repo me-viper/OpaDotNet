@@ -97,7 +97,7 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
             if (!_abi.Builtins.TryGetValue(id, out var funcName))
                 throw new OpaRuntimeException($"Failed to resolve builtin with ID {id}");
 
-            return new() { FunctionName = funcName, OpaContext = ctx };
+            return new BuiltinContext { FunctionName = funcName, OpaContext = ctx };
         }
 
         _linker.Define("env", "memory", _memory);
@@ -119,9 +119,9 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
             "opa_builtin0",
             Function.FromCallback(
                 _store,
-                (int id, int _) =>
+                (int id, int ctx) =>
                 {
-                    var result = imports.Func(Context(id));
+                    var result = imports.Func(Context(id, ctx));
                     return WriteJson(result).ToInt32();
                 })
             );
@@ -131,10 +131,10 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
             "opa_builtin1",
             Function.FromCallback(
                 _store,
-                (int id, int _, int arg1) =>
+                (int id, int ctx, int arg1) =>
                 {
                     var a1 = new BuiltinArg(() => ReadJsonString(arg1));
-                    var result = imports.Func(Context(id), a1);
+                    var result = imports.Func(Context(id, ctx), a1);
                     return WriteJson(result).ToInt32();
                 })
             );
@@ -144,11 +144,11 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
             "opa_builtin2",
             Function.FromCallback(
                 _store,
-                (int id, int _, int arg1, int arg2) =>
+                (int id, int ctx, int arg1, int arg2) =>
                 {
                     var a1 = new BuiltinArg(() => ReadJsonString(arg1));
                     var a2 = new BuiltinArg(() => ReadJsonString(arg2));
-                    var result = imports.Func(Context(id), a1, a2);
+                    var result = imports.Func(Context(id, ctx), a1, a2);
                     return WriteJson(result).ToInt32();
                 })
             );
@@ -158,12 +158,12 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
             "opa_builtin3",
             Function.FromCallback(
                 _store,
-                (int id, int _, int arg1, int arg2, int arg3) =>
+                (int id, int ctx, int arg1, int arg2, int arg3) =>
                 {
                     var a1 = new BuiltinArg(() => ReadJsonString(arg1));
                     var a2 = new BuiltinArg(() => ReadJsonString(arg2));
                     var a3 = new BuiltinArg(() => ReadJsonString(arg3));
-                    var result = imports.Func(Context(id), a1, a2, a3);
+                    var result = imports.Func(Context(id, ctx), a1, a2, a3);
                     return WriteJson(result).ToInt32();
                 })
             );
@@ -173,13 +173,13 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
             "opa_builtin4",
             Function.FromCallback(
                 _store,
-                (int id, int _, int arg1, int arg2, int arg3, int arg4) =>
+                (int id, int ctx, int arg1, int arg2, int arg3, int arg4) =>
                 {
                     var a1 = new BuiltinArg(() => ReadJsonString(arg1));
                     var a2 = new BuiltinArg(() => ReadJsonString(arg2));
                     var a3 = new BuiltinArg(() => ReadJsonString(arg3));
                     var a4 = new BuiltinArg(() => ReadJsonString(arg4));
-                    var result = imports.Func(Context(id), a1, a2, a3, a4);
+                    var result = imports.Func(Context(id, ctx), a1, a2, a3, a4);
                     return WriteJson(result).ToInt32();
                 })
             );

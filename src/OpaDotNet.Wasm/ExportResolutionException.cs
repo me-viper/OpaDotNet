@@ -1,5 +1,8 @@
-﻿namespace OpaDotNet.Wasm;
+﻿using System.Diagnostics.CodeAnalysis;
 
+namespace OpaDotNet.Wasm;
+
+[ExcludeFromCodeCoverage]
 public class ExportResolutionException : OpaRuntimeException
 {
     public Version AbiVersion { get; private set; }

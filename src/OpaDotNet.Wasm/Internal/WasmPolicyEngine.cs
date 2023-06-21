@@ -84,6 +84,17 @@ internal abstract class WasmPolicyEngine<TAbi> : IWasmPolicyEngine
 
         return entrypointId;
     }
+    
+    protected void EnsureMemory(int size)
+    {
+        var delta = EvalHeapPtr + size - Memory.GetLength();
+
+        if (delta > 0)
+        {
+            var pages = Math.Ceiling((double)delta / Memory.PageSize);
+            Memory.Grow((long)pages);
+        }
+    }
 
     public abstract nint Eval(ReadOnlySpan<char> inputJson, string? entrypoint = null);
 
