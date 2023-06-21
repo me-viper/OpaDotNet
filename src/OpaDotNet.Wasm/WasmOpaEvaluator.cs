@@ -92,14 +92,12 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
 
     private void SetupLinker(IOpaImportsAbi imports)
     {
-        BuiltinContext MakeContext(string funcName) => new() { FunctionName = funcName };
-
-        BuiltinContext Context(int id)
+        BuiltinContext Context(int id, int ctx = 0)
         {
             if (!_abi.Builtins.TryGetValue(id, out var funcName))
                 throw new OpaRuntimeException($"Failed to resolve builtin with ID {id}");
 
-            return MakeContext(funcName);
+            return new() { FunctionName = funcName, OpaContext = ctx };
         }
 
         _linker.Define("env", "memory", _memory);

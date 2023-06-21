@@ -151,7 +151,7 @@ public class BasicsTests
     [Theory]
     [InlineData("{ \"world\": \"world\" }", "{ \"message\": \"world\"}", true)]
     [InlineData("{ \"world\": \"world\" }", "{ \"message\": \"world1\"}", false)]
-    public void SimpleRunFromCompiled(string? data, string input, bool expectedResult)
+    public void StringData(string? data, string input, bool expectedResult)
     {
         var factory = new OpaEvaluatorFactory(loggerFactory: _loggerFactory);
         using var engine = factory.CreateWithJsonData(
@@ -161,6 +161,41 @@ public class BasicsTests
 
         var resultStr = engine.EvaluateRaw(input);
         var result = JsonSerializer.Deserialize<PolicyResult[]>(resultStr);
+
+        Assert.NotNull(result);
+        Assert.Collection(result, p => Assert.Equal(expectedResult, p.Result));
+
+        _output.WriteLine(resultStr);
+
+        Assert.NotEmpty(resultStr);
+    }
+
+    private record Data(string World);
+    
+    [Theory]
+    [InlineData("{ \"message\": \"world\"}", true)]
+    [InlineData("{ \"message\": \"world1\"}", false)]
+    public void TypedData(string input, bool expectedResult)
+    {
+        var factory = new OpaEvaluatorFactory(loggerFactory: _loggerFactory);
+        
+        var opts = new WasmPolicyEngineOptions
+        {
+            SerializationOptions = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true,
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            },
+        };
+
+        using var engine = factory.CreateWithData(
+            File.OpenRead(Path.Combine(BasePath, "simple.wasm")),
+            new Data("world"),
+            opts
+            );
+
+        var resultStr = engine.EvaluateRaw(input);
+        var result = JsonSerializer.Deserialize<PolicyResult[]>(resultStr, opts.SerializationOptions);
 
         Assert.NotNull(result);
         Assert.Collection(result, p => Assert.Equal(expectedResult, p.Result));

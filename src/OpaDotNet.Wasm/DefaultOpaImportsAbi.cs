@@ -1,5 +1,8 @@
-﻿namespace OpaDotNet.Wasm;
+﻿using System.Diagnostics.CodeAnalysis;
 
+namespace OpaDotNet.Wasm;
+
+[ExcludeFromCodeCoverage]
 public class DefaultOpaImportsAbi : IOpaImportsAbi
 {
     protected ILogger Logger { get; }
