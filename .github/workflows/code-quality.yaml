@@ -7,6 +7,8 @@ on:
       - main
       - develop
       - 'releases/*'
+    paths:
+      - '**.cs'
 
 jobs:
   qodana:
