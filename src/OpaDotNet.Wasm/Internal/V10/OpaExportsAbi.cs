@@ -2,7 +2,7 @@
 
 namespace OpaDotNet.Wasm.Internal.V10;
 
-internal class OpaExportsAbi : IOpaExportsAbi
+internal class OpaExportsAbi : IOpaExportsAbi, IAbiInitializer<OpaExportsAbi>
 {
     private static Version Version { get; } = new(1, 0);
 
@@ -28,8 +28,13 @@ internal class OpaExportsAbi : IOpaExportsAbi
     private readonly Action<int, int> _setEntrypoint;
     private readonly Func<int, int> _getResult;
     private readonly Func<int, int> _eval;
+    
+    static OpaExportsAbi IAbiInitializer<OpaExportsAbi>.Initialize(Instance instance)
+    {
+        return new OpaExportsAbi(instance);
+    }
 
-    public OpaExportsAbi(Instance instance)
+    protected OpaExportsAbi(Instance instance)
     {
         ArgumentNullException.ThrowIfNull(instance);
 

@@ -4,13 +4,13 @@ using Wasmtime;
 
 namespace OpaDotNet.Wasm.Internal.V12;
 
-internal class WasmPolicyEngine : WasmPolicyEngine<IOpaExportsAbi>
+internal class EngineImpl<TAbi> : V10.EngineImpl<TAbi>
+    where TAbi : IOpaExportsAbi, IAbiInitializer<TAbi>
 {
-    public WasmPolicyEngine(
-        IOpaExportsAbi abi,
+    public EngineImpl(
         Memory memory,
         Instance instance,
-        JsonSerializerOptions? options = null) : base(abi, memory, instance, options)
+        JsonSerializerOptions? options = null) : base(memory, instance, options)
     {
     }
 

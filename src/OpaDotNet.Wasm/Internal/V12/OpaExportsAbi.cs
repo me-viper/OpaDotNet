@@ -2,13 +2,18 @@
 
 namespace OpaDotNet.Wasm.Internal.V12;
 
-internal class OpaExportsAbi : V10.OpaExportsAbi, IOpaExportsAbi
+internal class OpaExportsAbi : V10.OpaExportsAbi, IOpaExportsAbi, IAbiInitializer<OpaExportsAbi>
 {
     private static Version Version { get; } = new(1, 2);
 
     private readonly Func<int, int, int, int, int, int, int, int> _evalV12;
 
-    public OpaExportsAbi(Instance instance) : base(instance)
+    static OpaExportsAbi IAbiInitializer<OpaExportsAbi>.Initialize(Instance instance)
+    {
+        return new OpaExportsAbi(instance);
+    }
+
+    protected OpaExportsAbi(Instance instance) : base(instance)
     {
         _evalV12 = instance.GetFunction<int, int, int, int, int, int, int, int>("opa_eval")
             ?? throw new ExportResolutionException(Version, "opa_eval");

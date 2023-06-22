@@ -6,12 +6,13 @@ using Wasmtime;
 
 namespace OpaDotNet.Wasm.Internal.V13;
 
-internal class WasmPolicyEngine : WasmPolicyEngine<IOpaExportsAbi>, IUpdateDataExtension
+internal class EngineImpl<TAbi> : V12.EngineImpl<TAbi>, IUpdateDataExtension
+    where TAbi : IOpaExportsAbi, IAbiInitializer<TAbi>
 {
     public override Version AbiVersion => new(1, 3);
 
-    public WasmPolicyEngine(IOpaExportsAbi abi, Memory memory, Instance instance, JsonSerializerOptions? options = null)
-        : base(abi, memory, instance, options)
+    public EngineImpl(Memory memory, Instance instance, JsonSerializerOptions? options = null)
+        : base(memory, instance, options)
     {
     }
 
@@ -24,13 +25,10 @@ internal class WasmPolicyEngine : WasmPolicyEngine<IOpaExportsAbi>, IUpdateDataE
     public override void Reset()
     {
         Abi.HeapBlocksStashClear();
-        Abi.HeapPtrSet(BasePtr);
-
-        DataPtr = BasePtr;
-        EvalHeapPtr = BasePtr;
+        base.Reset();
     }
 
-    public void UpdateDataPath(ReadOnlySpan<char> dataJson, IEnumerable<string> path)
+    void IUpdateDataExtension.UpdateDataPath(ReadOnlySpan<char> dataJson, IEnumerable<string> path)
     {
         ArgumentNullException.ThrowIfNull(path);
         
@@ -49,7 +47,7 @@ internal class WasmPolicyEngine : WasmPolicyEngine<IOpaExportsAbi>, IUpdateDataE
         EvalHeapPtr = Abi.HeapPrtGet();
     }
 
-    public void RemoveDataPath(IEnumerable<string> path)
+    void IUpdateDataExtension.RemoveDataPath(IEnumerable<string> path)
     {
         ArgumentNullException.ThrowIfNull(path);
         
@@ -65,23 +63,5 @@ internal class WasmPolicyEngine : WasmPolicyEngine<IOpaExportsAbi>, IUpdateDataE
         Abi.HeapBlocksStash();
         
         EvalHeapPtr = Abi.HeapPrtGet();
-    }
-
-    public override nint Eval(ReadOnlySpan<char> inputJson, string? entrypoint = null)
-    {
-        var entrypointId = GetEntrypoint(entrypoint);
-
-        var inputLength = Encoding.UTF8.GetByteCount(inputJson);
-        EnsureMemory(inputLength);
-
-        var inputPtr = EvalHeapPtr;
-        var bytesWritten = Memory.WriteString(inputPtr, inputJson, Encoding.UTF8);
-
-        var resultHeapPtr = inputPtr + bytesWritten;
-        var resultPtr = Abi.Eval(0, entrypointId, DataPtr, inputPtr, inputLength, resultHeapPtr, EvaluationOutputFormat.Json);
-
-        Abi.HeapPtrSet(EvalHeapPtr);
-
-        return resultPtr;
     }
 }

@@ -2,7 +2,7 @@
 
 namespace OpaDotNet.Wasm.Internal.V13;
 
-internal class OpaExportsAbi : V12.OpaExportsAbi, IOpaExportsAbi
+internal class OpaExportsAbi : V12.OpaExportsAbi, IOpaExportsAbi, IAbiInitializer<OpaExportsAbi>
 {
     private static Version Version { get; } = new(1, 3);
 
@@ -13,8 +13,13 @@ internal class OpaExportsAbi : V12.OpaExportsAbi, IOpaExportsAbi
     private readonly Action _heapBlocksRestore;
 
     private readonly Action _heapStashClear;
+    
+    static OpaExportsAbi IAbiInitializer<OpaExportsAbi>.Initialize(Instance instance)
+    {
+        return new OpaExportsAbi(instance);
+    }
 
-    public OpaExportsAbi(Instance instance) : base(instance)
+    protected OpaExportsAbi(Instance instance) : base(instance)
     {
         _valueFree = instance.GetAction<int>("opa_value_free")
             ?? throw new ExportResolutionException(Version, "opa_value_free");

@@ -2,6 +2,9 @@
 
 namespace OpaDotNet.Wasm.Internal.V10;
 
+/// <summary>
+/// OPA WASM ABI v1.0
+/// </summary>
 [PublicAPI]
 internal interface IOpaExportsAbi
 {

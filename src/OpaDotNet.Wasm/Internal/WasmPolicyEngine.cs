@@ -1,13 +1,11 @@
 ﻿using System.Text;
 
-using OpaDotNet.Wasm.Internal.V10;
-
 using Wasmtime;
 
 namespace OpaDotNet.Wasm.Internal;
 
 internal abstract class WasmPolicyEngine<TAbi> : IWasmPolicyEngine
-    where TAbi : IOpaExportsAbi
+    where TAbi : V10.IOpaExportsAbi, IAbiInitializer<TAbi>
 {
     private JsonSerializerOptions JsonOptions { get; }
     
@@ -28,16 +26,14 @@ internal abstract class WasmPolicyEngine<TAbi> : IWasmPolicyEngine
     public IReadOnlyDictionary<int, string> Builtins { get; }
     
     protected WasmPolicyEngine(
-        TAbi abi,
         Memory memory,
         Instance instance,
         JsonSerializerOptions? options = null)
     {
-        ArgumentNullException.ThrowIfNull(abi);
         ArgumentNullException.ThrowIfNull(memory);
         ArgumentNullException.ThrowIfNull(instance);
 
-        Abi = abi;
+        Abi = TAbi.Initialize(instance);
         Memory = memory;
         JsonOptions = options ?? JsonSerializerOptions.Default;
 

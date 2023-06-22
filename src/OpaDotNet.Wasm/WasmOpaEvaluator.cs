@@ -7,6 +7,10 @@ using Wasmtime;
 
 namespace OpaDotNet.Wasm;
 
+using EngineV10 = Internal.V10.EngineImpl<Internal.V10.OpaExportsAbi>;
+using EngineV12 = Internal.V12.EngineImpl<Internal.V12.OpaExportsAbi>;
+using EngineV13 = Internal.V13.EngineImpl<Internal.V13.OpaExportsAbi>;
+
 internal sealed class WasmOpaEvaluator : IOpaEvaluator
 {
     private readonly ILogger _logger;
@@ -63,8 +67,7 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
 
         if (abiVersion < new Version(1, 2))
         {
-            _abi = new Internal.V10.WasmPolicyEngine(
-                new Internal.V10.OpaExportsAbi(instance),
+            _abi = new EngineV10(
                 _memory,
                 instance,
                 _jsonOptions
@@ -72,8 +75,7 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
         }
         else if (abiVersion == new Version(1, 2))
         {
-            _abi = new Internal.V12.WasmPolicyEngine(
-                new Internal.V12.OpaExportsAbi(instance),
+            _abi = new EngineV12(
                 _memory,
                 instance,
                 _jsonOptions
@@ -81,8 +83,7 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
         }
         else if (abiVersion >= new Version(1, 3))
         {
-            _abi = new Internal.V13.WasmPolicyEngine(
-                new Internal.V13.OpaExportsAbi(instance),
+            _abi = new EngineV13(
                 _memory,
                 instance,
                 _jsonOptions

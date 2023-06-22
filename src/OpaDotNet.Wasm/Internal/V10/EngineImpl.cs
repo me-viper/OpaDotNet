@@ -2,10 +2,11 @@
 
 namespace OpaDotNet.Wasm.Internal.V10;
 
-internal class WasmPolicyEngine : WasmPolicyEngine<IOpaExportsAbi>
+internal class EngineImpl<TAbi> : WasmPolicyEngine<TAbi>
+    where TAbi : IOpaExportsAbi, IAbiInitializer<TAbi>
 {
-    public WasmPolicyEngine(IOpaExportsAbi abi, Memory memory, Instance instance, JsonSerializerOptions? options = null)
-        : base(abi, memory, instance, options)
+    public EngineImpl(Memory memory, Instance instance, JsonSerializerOptions? options = null)
+        : base(memory, instance, options)
     {
     }
 
