@@ -27,7 +27,7 @@ public class CustomBuiltinsTests : IAsyncLifetime
     {
         var options = new OptionsWrapper<RegoCliCompilerOptions>(new());
         var compiler = new RegoCliCompiler(options, _loggerFactory.CreateLogger<RegoCliCompiler>());
-        var policyStream = await compiler.CompileBundle(
+        var policy = await compiler.CompileBundle(
             BasePath,
             new[]
             {
@@ -48,7 +48,7 @@ public class CustomBuiltinsTests : IAsyncLifetime
             loggerFactory: _loggerFactory
             );
 
-        _engine = factory.CreateWithJsonData(policyStream, null);
+        _engine = factory.CreateFromBundle(policy);
     }
 
     public Task DisposeAsync()

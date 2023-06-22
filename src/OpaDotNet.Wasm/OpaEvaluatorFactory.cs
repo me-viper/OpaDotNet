@@ -14,32 +14,15 @@ public class OpaEvaluatorFactory : IOpaEvaluatorFactory
         _importsAbi = importsAbi ?? new DefaultOpaImportsAbi(_loggerFactory.CreateLogger<DefaultOpaImportsAbi>());
     }
 
-    public IOpaEvaluator CreateWithData<TData>(Stream policy, TData? data, WasmPolicyEngineOptions? options = null)
+    private IOpaEvaluator Create(OpaPolicy policy, WasmPolicyEngineOptions? options = null)
     {
-        ArgumentNullException.ThrowIfNull(policy);
-
-        string? dataJson = null;
-
-        if (data != null)
-        {
-            options ??= WasmPolicyEngineOptions.Default;
-            dataJson = JsonSerializer.Serialize<TData>(data, options.SerializationOptions);
-        }
-
-        return CreateWithJsonData(policy, dataJson, options);
-    }
-
-    public IOpaEvaluator CreateWithJsonData(Stream policy, string? dataJson = null, WasmPolicyEngineOptions? options = null)
-    {
-        ArgumentNullException.ThrowIfNull(policy);
-
         options ??= WasmPolicyEngineOptions.Default;
-
+        
         var engine = new Engine();
         var linker = new Linker(engine);
         var store = new Store(engine);
         var memory = new Memory(store, options.MinMemoryPages, options.MaxMemoryPages);
-        var module = Module.FromStream(engine, "policy", policy);
+        var module = Module.FromStream(engine, "policy", policy.Policy);
 
         var config = new WasmPolicyEngineConfiguration
         {
@@ -54,9 +37,45 @@ public class OpaEvaluatorFactory : IOpaEvaluatorFactory
         };
 
         var result = new WasmOpaEvaluator(config);
-
-        result.UpdateData(dataJson);
-
+        result.SetDataFromStream(policy.Data);
         return result;
+    }
+    
+    public IOpaEvaluator CreateFromBundle(Stream policyBundle, WasmPolicyEngineOptions? options = null)
+    {
+        ArgumentNullException.ThrowIfNull(policyBundle);
+
+        options ??= WasmPolicyEngineOptions.Default;
+
+        OpaPolicy? policy = null;
+        
+        try
+        {
+            policy = TarGzHelper.ReadBundle(policyBundle);
+            
+            if (policy == null)
+                throw new OpaRuntimeException("Failed to unpack policy bundle");
+            
+            return Create(policy, options);
+        }
+        catch (OpaRuntimeException)
+        {
+            throw;
+        }
+        catch (Exception ex)
+        {
+            throw new OpaRuntimeException("Failed to unpack policy bundle", ex);
+        }
+        finally
+        {
+            policy?.Dispose();
+        }
+    }
+    
+    public IOpaEvaluator CreateFromWasm(Stream policyWasm, WasmPolicyEngineOptions? options = null)
+    {
+        ArgumentNullException.ThrowIfNull(policyWasm);
+        
+        return Create(new(policyWasm), options);
     }
 }

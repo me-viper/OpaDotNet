@@ -19,4 +19,5 @@ internal interface IWasmPolicyEngine : IDisposable
     nint Eval(ReadOnlySpan<char> inputJson, string? entrypoint = null);
 
     void Reset();
+    void SetData(Stream? data);
 }

@@ -45,22 +45,24 @@ public class AbiVersioningTests : IAsyncLifetime
         var abiVer = string.IsNullOrWhiteSpace(ver) ? null : Version.Parse(ver);
         var expectedVer = Version.Parse(expectedVersion);
 
-        var engine = _factory.CreateWithJsonData(
+        var engine = _factory.CreateFromWasm(
             File.OpenRead(Path.Combine(BasePath, "simple.wasm")),
-            "{ \"world\": \"world\" }",
             options: new() { MaxAbiVersion = abiVer }
             );
 
+        engine.SetDataFromRawJson("{ \"world\": \"world\" }");
+        
         Assert.Equal(expectedVer, engine.AbiVersion);
     }
 
     [Fact]
     public void PolicyAbiVersion()
     {
-        var engine = _factory.CreateWithJsonData(
-            File.OpenRead(Path.Combine(BasePath, "simple.wasm")),
-            "{ \"world\": \"world\" }"
+        var engine = _factory.CreateFromWasm(
+            File.OpenRead(Path.Combine(BasePath, "simple.wasm"))
             );
+        
+        engine.SetDataFromRawJson("{ \"world\": \"world\" }");
 
         Assert.Equal(new Version(1, 2), ((WasmOpaEvaluator)engine).PolicyAbiVersion);
     }

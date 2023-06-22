@@ -9,11 +9,11 @@ public sealed class OpaPolicyEvaluatorProvider : IDisposable
 {
     private readonly RegoCliCompiler _compiler;
     
-    private readonly IOptions<OpaPolicyBuilderOptions> _options;
+    private readonly IOptions<OpaPolicyEvaluatorProviderOptions> _options;
     
     private IOpaEvaluator? _evaluator;
 
-    public OpaPolicyEvaluatorProvider(RegoCliCompiler compiler, IOptions<OpaPolicyBuilderOptions> options)
+    public OpaPolicyEvaluatorProvider(RegoCliCompiler compiler, IOptions<OpaPolicyEvaluatorProviderOptions> options)
     {
         _compiler = compiler;
         _options = options;
@@ -23,9 +23,9 @@ public sealed class OpaPolicyEvaluatorProvider : IDisposable
     {
         if (_evaluator == null)
         {
-            var policy = await _compiler.CompileBundle(_options.Value.PolicyBundlePath);
+            await using var policy = await _compiler.CompileBundle(_options.Value.PolicyBundlePath);
             var factory = new OpaEvaluatorFactory();
-            _evaluator = factory.Create(policy);
+            _evaluator = factory.CreateFromBundle(policy);
         }
         
         return _evaluator;

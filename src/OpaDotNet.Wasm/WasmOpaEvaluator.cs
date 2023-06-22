@@ -205,9 +205,23 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
         return _abi.ReadJson<T>(ptr);
     }
 
-    public void UpdateData(ReadOnlySpan<char> dataJson)
+    public void SetDataFromRawJson(ReadOnlySpan<char> dataJson)
     {
         _abi.SetData(dataJson);
+    }
+
+    public void SetDataFromStream(Stream? utf8Json)
+    {
+        _abi.SetData(utf8Json);
+    }
+    
+    public void SetData<T>(T? data)
+    {
+        if (data == null)
+            _abi.SetData(ReadOnlySpan<char>.Empty);
+        
+        var s = JsonSerializer.Serialize(data, _jsonOptions);
+        _abi.SetData(s);
     }
 
     public void Reset()

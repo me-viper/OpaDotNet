@@ -33,10 +33,12 @@ OpaDotNet.Wasm.IOpaEvaluator.Evaluate<TInput, TOutput>(TInput input, string? ent
 OpaDotNet.Wasm.IOpaEvaluator.EvaluatePredicate<TInput>(TInput input, string? entrypoint = null) -> OpaDotNet.Wasm.PolicyEvaluationResult<bool>!
 OpaDotNet.Wasm.IOpaEvaluator.EvaluateRaw(System.ReadOnlySpan<char> inputJson, string? entrypoint = null) -> string!
 OpaDotNet.Wasm.IOpaEvaluator.Reset() -> void
-OpaDotNet.Wasm.IOpaEvaluator.UpdateData(System.ReadOnlySpan<char> dataJson) -> void
+OpaDotNet.Wasm.IOpaEvaluator.SetData<T>(T? data) -> void
+OpaDotNet.Wasm.IOpaEvaluator.SetDataFromRawJson(System.ReadOnlySpan<char> dataJson) -> void
+OpaDotNet.Wasm.IOpaEvaluator.SetDataFromStream(System.IO.Stream? utf8Json) -> void
 OpaDotNet.Wasm.IOpaEvaluatorFactory
-OpaDotNet.Wasm.IOpaEvaluatorFactory.CreateWithData<TData>(System.IO.Stream! policy, TData? data, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null) -> OpaDotNet.Wasm.IOpaEvaluator!
-OpaDotNet.Wasm.IOpaEvaluatorFactory.CreateWithJsonData(System.IO.Stream! policy, string? dataJson = null, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null) -> OpaDotNet.Wasm.IOpaEvaluator!
+OpaDotNet.Wasm.IOpaEvaluatorFactory.CreateFromBundle(System.IO.Stream! policyBundle, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null) -> OpaDotNet.Wasm.IOpaEvaluator!
+OpaDotNet.Wasm.IOpaEvaluatorFactory.CreateFromWasm(System.IO.Stream! policyWasm, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null) -> OpaDotNet.Wasm.IOpaEvaluator!
 OpaDotNet.Wasm.IOpaImportsAbi
 OpaDotNet.Wasm.IOpaImportsAbi.Abort(string! message) -> void
 OpaDotNet.Wasm.IOpaImportsAbi.Func(OpaDotNet.Wasm.BuiltinContext! context) -> object!
@@ -49,8 +51,8 @@ OpaDotNet.Wasm.OpaEvaluationException
 OpaDotNet.Wasm.OpaEvaluationException.OpaEvaluationException(string? message) -> void
 OpaDotNet.Wasm.OpaEvaluationException.OpaEvaluationException(string? message, System.Exception? innerException) -> void
 OpaDotNet.Wasm.OpaEvaluatorFactory
-OpaDotNet.Wasm.OpaEvaluatorFactory.CreateWithData<TData>(System.IO.Stream! policy, TData? data, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null) -> OpaDotNet.Wasm.IOpaEvaluator!
-OpaDotNet.Wasm.OpaEvaluatorFactory.CreateWithJsonData(System.IO.Stream! policy, string? dataJson = null, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null) -> OpaDotNet.Wasm.IOpaEvaluator!
+OpaDotNet.Wasm.OpaEvaluatorFactory.CreateFromBundle(System.IO.Stream! policyBundle, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null) -> OpaDotNet.Wasm.IOpaEvaluator!
+OpaDotNet.Wasm.OpaEvaluatorFactory.CreateFromWasm(System.IO.Stream! policyWasm, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null) -> OpaDotNet.Wasm.IOpaEvaluator!
 OpaDotNet.Wasm.OpaEvaluatorFactory.OpaEvaluatorFactory(OpaDotNet.Wasm.IOpaImportsAbi? importsAbi = null, Microsoft.Extensions.Logging.ILoggerFactory? loggerFactory = null) -> void
 OpaDotNet.Wasm.OpaRuntimeException
 OpaDotNet.Wasm.OpaRuntimeException.OpaRuntimeException(string? message) -> void

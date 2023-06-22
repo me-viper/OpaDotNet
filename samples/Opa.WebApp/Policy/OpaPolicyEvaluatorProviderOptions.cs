@@ -1,6 +1,6 @@
 ﻿namespace Opa.WebApp.Policy;
 
-public class OpaPolicyBuilderOptions
+public class OpaPolicyEvaluatorProviderOptions
 {
     public string PolicyBundlePath { get; set; } = default!;
 }

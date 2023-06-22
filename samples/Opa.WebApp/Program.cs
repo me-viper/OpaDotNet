@@ -13,7 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Logging.AddSimpleConsole(p => p.IncludeScopes = true);
 
-builder.Services.Configure<OpaPolicyBuilderOptions>(p => p.PolicyBundlePath = "./OpaBundle");
+builder.Services.Configure<OpaPolicyEvaluatorProviderOptions>(p => p.PolicyBundlePath = "./OpaBundle");
 
 builder.Services.AddSingleton<RegoCliCompiler>();
 builder.Services.AddSingleton<OpaPolicyEvaluatorProvider>();

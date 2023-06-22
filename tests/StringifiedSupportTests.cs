@@ -26,7 +26,7 @@ public class StringifiedSupportTests : IAsyncLifetime
     public async Task InitializeAsync()
     {
         var compiler = new RegoCliCompiler(_options, _loggerFactory.CreateLogger<RegoCliCompiler>());
-        var policyStream = await compiler.CompileBundle(
+        var policy = await compiler.CompileBundle(
             BasePath,
             new[]
             {
@@ -37,7 +37,7 @@ public class StringifiedSupportTests : IAsyncLifetime
             });
 
         var factory = new OpaEvaluatorFactory(loggerFactory: _loggerFactory);
-        _engine = factory.CreateWithJsonData(policyStream, null);
+        _engine = factory.CreateFromBundle(policy);
     }
 
     public Task DisposeAsync()

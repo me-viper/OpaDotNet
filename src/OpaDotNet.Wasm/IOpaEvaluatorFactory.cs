@@ -2,7 +2,7 @@ namespace OpaDotNet.Wasm;
 
 public interface IOpaEvaluatorFactory
 {
-    IOpaEvaluator CreateWithData<TData>(Stream policy, TData? data, WasmPolicyEngineOptions? options = null);
-
-    IOpaEvaluator CreateWithJsonData(Stream policy, string? dataJson = null, WasmPolicyEngineOptions? options = null);
+    IOpaEvaluator CreateFromBundle(Stream policyBundle, WasmPolicyEngineOptions? options = null);
+    
+    IOpaEvaluator CreateFromWasm(Stream policyWasm, WasmPolicyEngineOptions? options = null);
 }

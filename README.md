@@ -37,10 +37,11 @@ var factory = new OpaEvaluatorFactory();
 
 const string data = "{ \"world\": \"world\" }";
 
-using var engine = factory.CreateWithJsonData(
-    File.OpenRead("policy.wasm"),
-    data
+using var engine = factory.CreateFromWasm(
+    File.OpenRead("policy.wasm")
     );
+
+engine.SetDataFromRawJson(data);
 
 ```
 
@@ -120,7 +121,7 @@ var policyStream = await compiler.CompileFile("example.rego", new[] { "example/h
 // Use compiled policy.
 var factory = new OpaEvaluatorFactory();
 
-using var engine = factory.CreateWithJsonData(policyStream);
+using var engine = factory.CreateFromBundle(policyStream);
 ```
 
 ## 3rd Party Libraries and Contributions

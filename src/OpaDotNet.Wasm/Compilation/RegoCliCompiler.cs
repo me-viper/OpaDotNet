@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 using Microsoft.Extensions.Options;
@@ -164,40 +165,8 @@ public class RegoCliCompiler
                 );
         }
 
-        try
-        {
-            var bundle = File.OpenRead(outputFileName);
-
-            var result = await TarGzHelper.GetFileAsync(
-                bundle,
-                p => string.Equals(p.Name, "/policy.wasm", StringComparison.OrdinalIgnoreCase),
-                cancellationToken
-                );
-
-            if (result == null)
-            {
-                throw new RegoCompilationException(
-                    sourcePath,
-                    $"Bundle {outputFileName} didn't contain expected compiled policy file policy.wasm"
-                    );
-            }
-
-            _logger.LogInformation("Compilation succeeded");
-
-            return result;
-        }
-        finally
-        {
-            try
-            {
-                _logger.LogDebug("Cleaning up");
-                File.Delete(outputFileName);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogWarning(ex, "Failed to clean up result file {FileName}", outputFileName);
-            }
-        }
+        _logger.LogInformation("Compilation succeeded");
+        return new DeleteOnCloseFileStream(outputFileName, FileMode.Open);
     }
 
     private async Task<StringBuilder> RunProcess(
@@ -250,5 +219,44 @@ public class RegoCliCompiler
         }
 
         return errors;
+    }
+    
+    [ExcludeFromCodeCoverage]
+    private class DeleteOnCloseFileStream : FileStream
+    {
+        private readonly string _path; 
+        
+        public DeleteOnCloseFileStream(string path, FileMode mode) : base(path, mode)
+        {
+            _path = path;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+            
+            if (disposing)
+            {
+                DeleteFile();
+            }
+        }
+
+        public override async ValueTask DisposeAsync()
+        {
+            await base.DisposeAsync();
+            DeleteFile();
+        }
+        
+        private void DeleteFile()
+        {
+            try
+            {
+                File.Delete(_path);
+            }
+            // ReSharper disable once EmptyGeneralCatchClause
+            catch (Exception)
+            {
+            }
+        }
     }
 }

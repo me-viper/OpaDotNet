@@ -29,7 +29,11 @@ public interface IOpaEvaluator : IDisposable
     /// <returns>Policy evaluation result as JSON string</returns>
     string EvaluateRaw(ReadOnlySpan<char> inputJson, string? entrypoint = null);
 
-    void UpdateData(ReadOnlySpan<char> dataJson);
+    void SetDataFromRawJson(ReadOnlySpan<char> dataJson);
+    
+    void SetDataFromStream(Stream? utf8Json);
 
+    void SetData<T>(T? data);
+    
     void Reset();
 }

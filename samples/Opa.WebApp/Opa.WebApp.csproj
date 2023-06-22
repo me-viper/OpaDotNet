@@ -16,4 +16,10 @@
       </None>
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Update="OpaBundle\access\data.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
 </Project>

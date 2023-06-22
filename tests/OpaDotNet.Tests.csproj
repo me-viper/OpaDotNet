@@ -111,6 +111,21 @@
         <None Update="TestData\Opa\basics\composite.rego">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <None Update="TestData\Opa\compile-bundle\example\test1.rego">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="TestData\Opa\compile-bundle\example\test2.rego">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="TestData\Opa\compile-bundle\example\test2\data.json">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="TestData\Opa\compile-bundle\example\test1\data.json">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="TestData\Opa\compile-bundle\bundle.tar.gz">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
     <ItemGroup>
