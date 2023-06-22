@@ -1,5 +1,8 @@
-﻿namespace OpaDotNet.Wasm.Internal.V10;
+﻿using JetBrains.Annotations;
 
+namespace OpaDotNet.Wasm.Internal.V10;
+
+[PublicAPI]
 internal interface IOpaExportsAbi
 {
     /// <summary>

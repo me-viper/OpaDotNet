@@ -1,5 +1,8 @@
-﻿namespace OpaDotNet.Wasm.Compilation;
+﻿using JetBrains.Annotations;
 
+namespace OpaDotNet.Wasm.Compilation;
+
+[PublicAPI]
 public class RegoCliCompilerOptions
 {
     public string? OpaToolPath { get; set; }

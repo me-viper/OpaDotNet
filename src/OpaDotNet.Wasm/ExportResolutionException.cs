@@ -1,7 +1,10 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
+using JetBrains.Annotations;
+
 namespace OpaDotNet.Wasm;
 
+[PublicAPI]
 [ExcludeFromCodeCoverage]
 public class ExportResolutionException : OpaRuntimeException
 {

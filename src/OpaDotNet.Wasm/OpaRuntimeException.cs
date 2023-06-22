@@ -1,5 +1,8 @@
-﻿namespace OpaDotNet.Wasm;
+﻿using JetBrains.Annotations;
 
+namespace OpaDotNet.Wasm;
+
+[PublicAPI]
 public class OpaRuntimeException : Exception
 {
     public OpaRuntimeException(string? message) : base(message)
