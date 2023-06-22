@@ -193,10 +193,10 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
         return _abi.DumpData();
     }
 
-    private nint WriteJsonString(ReadOnlySpan<char> data)
-    {
-        return _abi.WriteJsonString(data);
-    }
+    // private nint WriteJsonString(ReadOnlySpan<char> data)
+    // {
+    //     return _abi.WriteJsonString(data);
+    // }
 
     private nint WriteJson<T>(T data)
     {
@@ -286,6 +286,7 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
         }
         catch (WasmtimeException ex)
         {
+            _logger.LogError(ex, "Evaluation failed");
             throw new OpaEvaluationException("Evaluation failed", ex);
         }
     }

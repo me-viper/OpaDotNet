@@ -15,10 +15,13 @@ builder.Logging.AddSimpleConsole(p => p.IncludeScopes = true);
 
 builder.Services.Configure<OpaPolicyEvaluatorProviderOptions>(p => p.PolicyBundlePath = "./OpaBundle");
 
-builder.Services.AddSingleton<RegoCliCompiler>();
-builder.Services.AddSingleton<OpaPolicyEvaluatorProvider>();
 builder.Services.AddSingleton<IAuthorizationPolicyProvider, OpaPolicyProvider>();
 builder.Services.AddSingleton<IAuthorizationHandler, OpaPolicyHandler>();
+
+builder.Services.AddSingleton<IRegoCompiler, RegoCliCompiler>();
+builder.Services.AddSingleton<OpaPolicyService>();
+builder.Services.AddHostedService(p => p.GetRequiredService<OpaPolicyService>());
+builder.Services.AddSingleton<IOpaPolicyService>(p => p.GetRequiredService<OpaPolicyService>());
 
 builder.Services
     .AddAuthentication(BasicAuthenticationHandler.BasicAuth)
@@ -61,11 +64,13 @@ var app = builder.Build();
 app.UseAuthentication();
 app.UseAuthorization();
 
+// Evaluate example/user policy for user.
 app.MapGet("/", [Authorize("example/user")] (ClaimsPrincipal user) => $"Hello {user.Identity?.Name}!");
 app.MapGet(
     "/resource/{id}", 
     async ([FromServices] IAuthorizationService authorizationService, ClaimsPrincipal user, string id) =>
     {
+        // Evaluate example/resource policy for user and resource.
         var result = await authorizationService.AuthorizeAsync(user, id, "example/resource");
         
         if (result.Succeeded)
