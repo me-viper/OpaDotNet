@@ -75,7 +75,7 @@
         <None Update="TestData\Opa\basics\simple.rego">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
-        <None Update="TestData\Opa\basics\simple.wasm">
+        <None Update="TestData\Opa\basics\simple-1.2.wasm">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
         <None Update="TestData\Opa\basics\builtins.rego">
