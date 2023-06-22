@@ -9,13 +9,7 @@ namespace OpaDotNet.Wasm.Internal;
 internal abstract class WasmPolicyEngine<TAbi> : IWasmPolicyEngine
     where TAbi : IOpaExportsAbi
 {
-    public abstract Version AbiVersion { get; }
-
-    public IReadOnlyDictionary<string, int> Entrypoints { get; }
-
-    public IReadOnlyDictionary<int, string> Builtins { get; }
-
-    protected Instance Instance { get; }
+    private JsonSerializerOptions JsonOptions { get; }
     
     protected nint BasePtr { get; }
 
@@ -27,8 +21,12 @@ internal abstract class WasmPolicyEngine<TAbi> : IWasmPolicyEngine
 
     protected Memory Memory { get; }
 
-    protected JsonSerializerOptions JsonOptions { get; }
+    public abstract Version AbiVersion { get; }
 
+    public IReadOnlyDictionary<string, int> Entrypoints { get; }
+
+    public IReadOnlyDictionary<int, string> Builtins { get; }
+    
     protected WasmPolicyEngine(
         TAbi abi,
         Memory memory,
@@ -41,7 +39,6 @@ internal abstract class WasmPolicyEngine<TAbi> : IWasmPolicyEngine
 
         Abi = abi;
         Memory = memory;
-        Instance = instance;
         JsonOptions = options ?? JsonSerializerOptions.Default;
 
         var epPtr = Abi.Entrypoints();
@@ -68,6 +65,7 @@ internal abstract class WasmPolicyEngine<TAbi> : IWasmPolicyEngine
         GC.SuppressFinalize(this);
     }
 
+    // ReSharper disable once VirtualMemberNeverOverridden.Global
     protected virtual void Dispose(bool disposing)
     {
         if (disposing)

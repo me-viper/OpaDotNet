@@ -1,5 +1,8 @@
-﻿namespace OpaDotNet.Wasm.Internal;
+﻿using JetBrains.Annotations;
 
+namespace OpaDotNet.Wasm.Internal;
+
+[PublicAPI]
 internal enum OpaResult
 {
     Ok,
