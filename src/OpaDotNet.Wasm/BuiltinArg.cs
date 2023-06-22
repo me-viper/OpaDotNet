@@ -1,7 +1,10 @@
 using System.Text.Json.Nodes;
 
+using JetBrains.Annotations;
+
 namespace OpaDotNet.Wasm;
 
+[PublicAPI]
 public class BuiltinArg
 {
     private readonly Lazy<JsonNode?> _arg;

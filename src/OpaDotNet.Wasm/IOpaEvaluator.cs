@@ -1,5 +1,8 @@
-﻿namespace OpaDotNet.Wasm;
+﻿using JetBrains.Annotations;
 
+namespace OpaDotNet.Wasm;
+
+[PublicAPI]
 public interface IOpaEvaluator : IDisposable
 {
     Version AbiVersion { get; }
