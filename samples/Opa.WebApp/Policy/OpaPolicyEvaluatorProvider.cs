@@ -12,6 +12,8 @@ public sealed class OpaPolicyEvaluatorProvider : IDisposable
     private readonly IOptions<OpaPolicyEvaluatorProviderOptions> _options;
     
     private IOpaEvaluator? _evaluator;
+    
+    private readonly SemaphoreSlim _semaphore = new(1, 1);
 
     public OpaPolicyEvaluatorProvider(RegoCliCompiler compiler, IOptions<OpaPolicyEvaluatorProviderOptions> options)
     {
@@ -19,13 +21,29 @@ public sealed class OpaPolicyEvaluatorProvider : IDisposable
         _options = options;
     }
 
-    public async ValueTask<IOpaEvaluator> GetPolicyEvaluator()
+    public async ValueTask<IOpaEvaluator> GetPolicyEvaluator(CancellationToken cancellationToken = default)
     {
         if (_evaluator == null)
         {
-            await using var policy = await _compiler.CompileBundle(_options.Value.PolicyBundlePath);
-            var factory = new OpaEvaluatorFactory();
-            _evaluator = factory.CreateFromBundle(policy);
+            try
+            {
+                await _semaphore.WaitAsync(cancellationToken);
+            
+                if (_evaluator == null)
+                {
+                    await using var policy = await _compiler.CompileBundle(
+                        _options.Value.PolicyBundlePath, 
+                        cancellationToken: cancellationToken
+                        );
+                    
+                    var factory = new OpaEvaluatorFactory();
+                    _evaluator = factory.CreateFromBundle(policy);
+                }
+            }
+            finally
+            {
+                _semaphore.Release();
+            }
         }
         
         return _evaluator;
@@ -34,5 +52,6 @@ public sealed class OpaPolicyEvaluatorProvider : IDisposable
     public void Dispose()
     {
         _evaluator?.Dispose();
+        _semaphore.Dispose();
     }
 }
