@@ -24,8 +24,7 @@ OpaDotNet.Wasm.Compilation.RegoCompilationException.RegoCompilationException(str
 OpaDotNet.Wasm.Compilation.RegoCompilationException.RegoCompilationException(string! sourceFile, string? message, System.Exception? innerException) -> void
 OpaDotNet.Wasm.Compilation.RegoCompilationException.SourceFile.get -> string!
 OpaDotNet.Wasm.DefaultOpaImportsAbi
-OpaDotNet.Wasm.DefaultOpaImportsAbi.DefaultOpaImportsAbi(Microsoft.Extensions.Logging.ILogger<OpaDotNet.Wasm.DefaultOpaImportsAbi!>? logger = null) -> void
-OpaDotNet.Wasm.DefaultOpaImportsAbi.Logger.get -> Microsoft.Extensions.Logging.ILogger!
+OpaDotNet.Wasm.DefaultOpaImportsAbi.DefaultOpaImportsAbi() -> void
 OpaDotNet.Wasm.ExportResolutionException
 OpaDotNet.Wasm.ExportResolutionException.AbiVersion.get -> System.Version!
 OpaDotNet.Wasm.ExportResolutionException.ExportResolutionException(System.Version! abiVersion, string! externalName) -> void

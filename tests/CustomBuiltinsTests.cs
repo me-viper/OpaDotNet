@@ -163,13 +163,16 @@ public class CustomBuiltinsTests : IAsyncLifetime
 
     private class CustomOpaImportsAbi : DefaultOpaImportsAbi
     {
-        public CustomOpaImportsAbi(ILogger<CustomOpaImportsAbi> logger) : base(logger)
+        private readonly ILogger _logger;
+        
+        public CustomOpaImportsAbi(ILogger<CustomOpaImportsAbi> logger)
         {
+            _logger = logger;
         }
 
         public override void PrintLn(string message)
         {
-            Logger.LogDebug("{Message}", message);
+            _logger.LogDebug("{Message}", message);
         }
 
         public override object Func(BuiltinContext context)

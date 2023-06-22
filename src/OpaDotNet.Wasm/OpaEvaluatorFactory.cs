@@ -11,7 +11,7 @@ public class OpaEvaluatorFactory : IOpaEvaluatorFactory
     public OpaEvaluatorFactory(IOpaImportsAbi? importsAbi = null, ILoggerFactory? loggerFactory = null)
     {
         _loggerFactory = loggerFactory ?? NullLoggerFactory.Instance;
-        _importsAbi = importsAbi ?? new DefaultOpaImportsAbi(_loggerFactory.CreateLogger<DefaultOpaImportsAbi>());
+        _importsAbi = importsAbi ?? new DefaultOpaImportsAbi();
     }
 
     private IOpaEvaluator Create(OpaPolicy policy, WasmPolicyEngineOptions? options = null)

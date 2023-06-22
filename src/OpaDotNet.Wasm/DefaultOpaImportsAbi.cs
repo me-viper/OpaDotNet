@@ -5,13 +5,6 @@ namespace OpaDotNet.Wasm;
 [ExcludeFromCodeCoverage]
 public class DefaultOpaImportsAbi : IOpaImportsAbi
 {
-    protected ILogger Logger { get; }
-
-    public DefaultOpaImportsAbi(ILogger<DefaultOpaImportsAbi>? logger = null)
-    {
-        Logger = logger ?? NullLogger<DefaultOpaImportsAbi>.Instance;
-    }
-
     public virtual void Abort(string message)
     {
         throw new OpaEvaluationException("Aborted: " + message);
