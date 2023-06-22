@@ -6,6 +6,9 @@ OpaDotNet.Wasm.BuiltinArg.Raw.get -> System.Text.Json.Nodes.JsonNode?
 OpaDotNet.Wasm.BuiltinContext
 OpaDotNet.Wasm.BuiltinContext.FunctionName.get -> string!
 OpaDotNet.Wasm.BuiltinContext.OpaContext.get -> int
+OpaDotNet.Wasm.Compilation.IRegoCompiler
+OpaDotNet.Wasm.Compilation.IRegoCompiler.CompileBundle(string! bundlePath, string![]? entrypoints = null, string? capabilitiesFilePath = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<System.IO.Stream!>!
+OpaDotNet.Wasm.Compilation.IRegoCompiler.CompileFile(string! sourceFilePath, string![]? entrypoints = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<System.IO.Stream!>!
 OpaDotNet.Wasm.Compilation.RegoCliCompiler
 OpaDotNet.Wasm.Compilation.RegoCliCompiler.CompileBundle(string! bundlePath, string![]? entrypoints = null, string? capabilitiesFilePath = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<System.IO.Stream!>!
 OpaDotNet.Wasm.Compilation.RegoCliCompiler.CompileFile(string! sourceFilePath, string![]? entrypoints = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<System.IO.Stream!>!

@@ -6,7 +6,7 @@ using Microsoft.Extensions.Options;
 
 namespace OpaDotNet.Wasm.Compilation;
 
-public class RegoCliCompiler
+public class RegoCliCompiler : IRegoCompiler
 {
     private readonly ILogger _logger;
 
