@@ -36,7 +36,7 @@ public interface IOpaEvaluator : IDisposable
     
     void SetDataFromStream(Stream? utf8Json);
 
-    void SetData<T>(T? data);
+    void SetData<T>(T? data) where T : class;
     
     void Reset();
 }

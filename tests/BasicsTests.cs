@@ -325,4 +325,26 @@ public class BasicsTests
         var result2 = engine.EvaluatePredicate(inp);
         Assert.Equal(expected, !result2.Result);
     }
+    
+    [Fact]
+    public void Reset()
+    {
+        var data = "{\"world\":\"world\"}";
+        
+        var factory = new OpaEvaluatorFactory(loggerFactory: _loggerFactory);
+
+        using var engine = (WasmOpaEvaluator)factory.CreateFromWasm(
+            File.OpenRead(Path.Combine(BasePath, "simple-1.3.wasm"))
+            );
+        
+        engine.SetDataFromRawJson(data);
+        
+        var result1 = engine.DumpData();
+        Assert.Equal(data, result1);
+        
+        engine.Reset();
+        
+        var result2 = engine.DumpData();
+        Assert.Empty(result2);
+    }
 }

@@ -37,16 +37,16 @@ public class AbiVersioningTests : IAsyncLifetime
     [Theory]
     [InlineData("1.0", "1.0")]
     [InlineData("1.1", "1.0")]
-    [InlineData("1.2", AbiVersion)]
-    [InlineData("10.0", AbiVersion)]
-    [InlineData(null, AbiVersion)]
+    [InlineData("1.2", "1.2")]
+    [InlineData("10.0", "1.3")]
+    [InlineData(null, "1.3")]
     public void MaxAbiVersion(string? ver, string expectedVersion)
     {
         var abiVer = string.IsNullOrWhiteSpace(ver) ? null : Version.Parse(ver);
         var expectedVer = Version.Parse(expectedVersion);
 
         var engine = _factory.CreateFromWasm(
-            File.OpenRead(Path.Combine(BasePath, "simple.wasm")),
+            File.OpenRead(Path.Combine(BasePath, "simple-1.3.wasm")),
             options: new() { MaxAbiVersion = abiVer }
             );
 
@@ -59,7 +59,7 @@ public class AbiVersioningTests : IAsyncLifetime
     public void PolicyAbiVersion()
     {
         var engine = _factory.CreateFromWasm(
-            File.OpenRead(Path.Combine(BasePath, "simple.wasm"))
+            File.OpenRead(Path.Combine(BasePath, "simple-1.2.wasm"))
             );
         
         engine.SetDataFromRawJson("{ \"world\": \"world\" }");

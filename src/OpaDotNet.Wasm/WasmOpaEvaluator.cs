@@ -184,6 +184,11 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
                 })
             );
     }
+    
+    internal string DumpData()
+    {
+        return _abi.DumpData();
+    }
 
     private nint WriteJsonString(ReadOnlySpan<char> data)
     {
@@ -215,7 +220,7 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
         _abi.SetData(utf8Json);
     }
     
-    public void SetData<T>(T? data)
+    public void SetData<T>(T? data) where T : class
     {
         if (data == null)
             _abi.SetData(ReadOnlySpan<char>.Empty);

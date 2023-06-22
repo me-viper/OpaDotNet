@@ -125,6 +125,12 @@ internal abstract class WasmPolicyEngine<TAbi> : IWasmPolicyEngine
         EvalHeapPtr = Abi.HeapPrtGet();
     }
 
+    public string DumpData()
+    {
+        var jsonPtr = Abi.JsonDump(DataPtr);
+        return Memory.ReadNullTerminatedString(jsonPtr);
+    }
+
     public virtual void Reset()
     {
         DataPtr = BasePtr;
