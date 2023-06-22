@@ -1,4 +1,8 @@
-﻿using JetBrains.Annotations;
+﻿using System.Diagnostics.CodeAnalysis;
+
+using JetBrains.Annotations;
+
+using OpaDotNet.Wasm.Extensions;
 
 namespace OpaDotNet.Wasm;
 
@@ -39,4 +43,7 @@ public interface IOpaEvaluator : IDisposable
     void SetData<T>(T? data) where T : class;
     
     void Reset();
+
+    bool TryGetExtension<TExtension>([MaybeNullWhen(false)] out TExtension extension)
+        where TExtension : class, IOpaEvaluatorExtension;
 }

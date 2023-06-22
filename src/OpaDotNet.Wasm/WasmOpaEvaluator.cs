@@ -1,4 +1,7 @@
-﻿using OpaDotNet.Wasm.Internal;
+﻿using System.Diagnostics.CodeAnalysis;
+
+using OpaDotNet.Wasm.Extensions;
+using OpaDotNet.Wasm.Internal;
 
 using Wasmtime;
 
@@ -232,6 +235,13 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
     public void Reset()
     {
         _abi.Reset();
+    }
+    
+    public bool TryGetExtension<TExtension>([MaybeNullWhen(false)] out TExtension extension)
+        where TExtension : class, IOpaEvaluatorExtension
+    {
+        extension = _abi as TExtension;
+        return extension != null;
     }
 
     public PolicyEvaluationResult<bool> EvaluatePredicate<TInput>(TInput input, string? entrypoint = null)

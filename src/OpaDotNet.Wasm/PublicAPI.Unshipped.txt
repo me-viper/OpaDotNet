@@ -27,6 +27,10 @@ OpaDotNet.Wasm.ExportResolutionException
 OpaDotNet.Wasm.ExportResolutionException.AbiVersion.get -> System.Version!
 OpaDotNet.Wasm.ExportResolutionException.ExportResolutionException(System.Version! abiVersion, string! externalName) -> void
 OpaDotNet.Wasm.ExportResolutionException.ExternalName.get -> string!
+OpaDotNet.Wasm.Extensions.IOpaEvaluatorExtension
+OpaDotNet.Wasm.Extensions.IUpdateDataExtension
+OpaDotNet.Wasm.Extensions.IUpdateDataExtension.RemoveDataPath(System.Collections.Generic.IEnumerable<string!>! path) -> void
+OpaDotNet.Wasm.Extensions.IUpdateDataExtension.UpdateDataPath(System.ReadOnlySpan<char> dataJson, System.Collections.Generic.IEnumerable<string!>! path) -> void
 OpaDotNet.Wasm.IOpaEvaluator
 OpaDotNet.Wasm.IOpaEvaluator.AbiVersion.get -> System.Version!
 OpaDotNet.Wasm.IOpaEvaluator.Evaluate<TInput, TOutput>(TInput input, string? entrypoint = null) -> OpaDotNet.Wasm.PolicyEvaluationResult<TOutput>!
@@ -36,6 +40,7 @@ OpaDotNet.Wasm.IOpaEvaluator.Reset() -> void
 OpaDotNet.Wasm.IOpaEvaluator.SetData<T>(T? data) -> void
 OpaDotNet.Wasm.IOpaEvaluator.SetDataFromRawJson(System.ReadOnlySpan<char> dataJson) -> void
 OpaDotNet.Wasm.IOpaEvaluator.SetDataFromStream(System.IO.Stream? utf8Json) -> void
+OpaDotNet.Wasm.IOpaEvaluator.TryGetExtension<TExtension>(out TExtension! extension) -> bool
 OpaDotNet.Wasm.IOpaEvaluatorFactory
 OpaDotNet.Wasm.IOpaEvaluatorFactory.CreateFromBundle(System.IO.Stream! policyBundle, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null) -> OpaDotNet.Wasm.IOpaEvaluator!
 OpaDotNet.Wasm.IOpaEvaluatorFactory.CreateFromWasm(System.IO.Stream! policyWasm, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null) -> OpaDotNet.Wasm.IOpaEvaluator!

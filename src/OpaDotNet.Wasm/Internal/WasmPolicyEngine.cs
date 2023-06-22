@@ -121,6 +121,7 @@ internal abstract class WasmPolicyEngine<TAbi> : IWasmPolicyEngine
         var dataPtr = Abi.Malloc(len);
         var bytesRead = data.Read(Memory.GetSpan(dataPtr, len));
         DataPtr = Abi.JsonParse(dataPtr, bytesRead);
+        Abi.Free(dataPtr);
         
         EvalHeapPtr = Abi.HeapPrtGet();
     }
@@ -143,8 +144,10 @@ internal abstract class WasmPolicyEngine<TAbi> : IWasmPolicyEngine
         var dataLength = Encoding.UTF8.GetByteCount(data);
         var dataPtr = Abi.Malloc(dataLength);
         var bytesWritten = Memory.WriteString(dataPtr, data, Encoding.UTF8);
-
-        return Abi.JsonParse(dataPtr, bytesWritten);
+        var result = Abi.JsonParse(dataPtr, bytesWritten);
+        Abi.Free(dataPtr);
+        
+        return result;
     }
 
     public virtual nint WriteJson<T>(T data)

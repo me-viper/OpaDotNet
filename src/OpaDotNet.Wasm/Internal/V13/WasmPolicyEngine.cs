@@ -1,10 +1,12 @@
 ﻿using System.Text;
 
+using OpaDotNet.Wasm.Extensions;
+
 using Wasmtime;
 
 namespace OpaDotNet.Wasm.Internal.V13;
 
-internal class WasmPolicyEngine : WasmPolicyEngine<IOpaExportsAbi>
+internal class WasmPolicyEngine : WasmPolicyEngine<IOpaExportsAbi>, IUpdateDataExtension
 {
     public override Version AbiVersion => new(1, 3);
 
@@ -26,6 +28,43 @@ internal class WasmPolicyEngine : WasmPolicyEngine<IOpaExportsAbi>
 
         DataPtr = BasePtr;
         EvalHeapPtr = BasePtr;
+    }
+
+    public void UpdateDataPath(ReadOnlySpan<char> dataJson, IEnumerable<string> path)
+    {
+        ArgumentNullException.ThrowIfNull(path);
+        
+        Abi.HeapBlocksRestore();
+        
+        var valPtr = WriteJsonString(dataJson);
+        var pathPtr = WriteJson(path);
+        var result = Abi.ValueAddPath(DataPtr, pathPtr, valPtr);
+        
+        if (result != OpaResult.Ok)
+            throw new OpaEvaluationException($"Failed to update data: {result}");
+        
+        Abi.ValueFree(pathPtr);
+        Abi.HeapBlocksStash();
+        
+        EvalHeapPtr = Abi.HeapPrtGet();
+    }
+
+    public void RemoveDataPath(IEnumerable<string> path)
+    {
+        ArgumentNullException.ThrowIfNull(path);
+        
+        Abi.HeapBlocksRestore();
+        
+        var pathPtr = WriteJson(path);
+        var result = Abi.ValueRemovePath(DataPtr, pathPtr);
+        
+        if (result != OpaResult.Ok)
+            throw new OpaEvaluationException($"Failed to update data: {result}");
+        
+        Abi.ValueFree(pathPtr);
+        Abi.HeapBlocksStash();
+        
+        EvalHeapPtr = Abi.HeapPrtGet();
     }
 
     public override nint Eval(ReadOnlySpan<char> inputJson, string? entrypoint = null)
