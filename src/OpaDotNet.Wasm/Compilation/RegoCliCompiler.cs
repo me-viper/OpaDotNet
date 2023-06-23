@@ -57,7 +57,8 @@ public class RegoCliCompiler : IRegoCompiler
         var outputPath = _options.Value.OutputPath ?? bundleDirectory.FullName;
         var outputFileName = Path.Combine(outputPath, $"{Guid.NewGuid()}.tar.gz");
 
-        var args = $"build -b -t wasm {entrypointArg} {capabilitiesArg} -o {outputFileName} {bundleDirectory.FullName}";
+        var args = $"build -b -t wasm {entrypointArg} {capabilitiesArg} -o {outputFileName} " +
+            $"{_options.Value.ExtraArguments} {bundleDirectory.FullName}";
 
         return await Run(bundleDirectory.FullName, bundleDirectory.FullName, args, outputFileName, cancellationToken);
     }
@@ -85,7 +86,7 @@ public class RegoCliCompiler : IRegoCompiler
             entrypointArg = string.Join(" ", entrypoints.Select(p => $"-e {p}"));
 
         // opa build -t wasm -e example/hello .\simple.rego
-        var args = $"build -t wasm {entrypointArg} -o {outputFileName} {fi.FullName}";
+        var args = $"build -t wasm {entrypointArg} -o {outputFileName} {_options.Value.ExtraArguments} {fi.FullName}";
 
         return await Run(fi.Directory!.FullName, fi.FullName, args, outputFileName, cancellationToken);
     }

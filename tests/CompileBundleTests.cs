@@ -21,7 +21,7 @@ public class CompileBundleTests
     public async Task Compile()
     {
         var compiler = new RegoCliCompiler(
-            new OptionsWrapper<RegoCliCompilerOptions>(new()), 
+            new OptionsWrapper<RegoCliCompilerOptions>(new() { ExtraArguments = "--debug" }), 
             _loggerFactory.CreateLogger<RegoCliCompiler>()
             );
         
