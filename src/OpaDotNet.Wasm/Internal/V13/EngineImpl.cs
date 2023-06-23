@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-using OpaDotNet.Wasm.Extensions;
+﻿using OpaDotNet.Wasm.Extensions;
 
 using Wasmtime;
 
