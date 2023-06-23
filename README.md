@@ -100,7 +100,7 @@ opa build -t wasm -e example/hello example.rego
 ```
 
 Which is compiling the `example.rego` policy file.
-The result will be an OPA bundle with the `policy.wasm` binary included. See (./samples) for a more comprehensive example.
+The result will be an OPA bundle with the `policy.wasm` binary included. See [./samples](./samples) for a more comprehensive example.
 
 See `opa build --help` for more details.
 
