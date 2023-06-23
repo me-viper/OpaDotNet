@@ -15,7 +15,7 @@ public class AbiVersioningTests : IAsyncLifetime
 
     private const string AbiVersion = "1.2";
 
-    private string BasePath { get; } = Path.Combine("TestData", "Opa", "basics");
+    private string BasePath { get; } = Path.Combine("TestData", "basics");
 
     public AbiVersioningTests(ITestOutputHelper output)
     {

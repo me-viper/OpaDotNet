@@ -26,7 +26,7 @@ public class CompileBundleTests
             );
         
         var policy = await compiler.CompileBundle(
-            Path.Combine("TestData", "Opa", "compile-bundle", "example"),
+            Path.Combine("TestData", "compile-bundle", "example"),
             new[] { "test1/hello", "test2/hello" }
             );
         
@@ -47,7 +47,7 @@ public class CompileBundleTests
     [Fact]
     public Task FileBundle()
     {
-        var path = Path.Combine("TestData", "Opa", "compile-bundle", "bundle.tar.gz");
+        var path = Path.Combine("TestData", "compile-bundle", "bundle.tar.gz");
         
         var factory = new OpaEvaluatorFactory();
         var evaluator = factory.CreateFromBundle(File.OpenRead(path));

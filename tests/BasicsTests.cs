@@ -23,7 +23,7 @@ public class BasicsTests
 
     private readonly ILoggerFactory _loggerFactory;
 
-    private string BasePath { get; } = Path.Combine("TestData", "Opa", "basics");
+    private string BasePath { get; } = Path.Combine("TestData", "basics");
 
     private readonly OptionsWrapper<RegoCliCompilerOptions> _options = new(new());
 

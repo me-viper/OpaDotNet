@@ -16,7 +16,7 @@ public class CustomBuiltinsTests : IAsyncLifetime
 
     private readonly ILoggerFactory _loggerFactory;
 
-    private string BasePath { get; } = Path.Combine("TestData", "Opa", "custom-builtins");
+    private string BasePath { get; } = Path.Combine("TestData", "custom-builtins");
 
     public CustomBuiltinsTests(ITestOutputHelper output)
     {

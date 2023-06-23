@@ -18,7 +18,7 @@ public class MemoryTests : IAsyncLifetime
 
     private readonly ITestOutputHelper _output;
 
-    private string BasePath { get; } = Path.Combine("TestData", "Opa", "memory");
+    private string BasePath { get; } = Path.Combine("TestData", "memory");
 
     public MemoryTests(ITestOutputHelper output)
     {

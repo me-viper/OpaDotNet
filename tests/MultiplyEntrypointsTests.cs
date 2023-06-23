@@ -14,7 +14,7 @@ public class MultiplyEntrypointsTests : IAsyncLifetime
 
     private readonly ILoggerFactory _loggerFactory;
 
-    private string BasePath { get; } = Path.Combine("TestData", "Opa", "multiple-entrypoints");
+    private string BasePath { get; } = Path.Combine("TestData", "multiple-entrypoints");
 
     public MultiplyEntrypointsTests(ITestOutputHelper output)
     {

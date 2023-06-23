@@ -16,7 +16,7 @@ public class StringifiedSupportTests : IAsyncLifetime
 
     private readonly OptionsWrapper<RegoCliCompilerOptions> _options = new(new());
 
-    private string BasePath { get; } = Path.Combine("TestData", "Opa", "stringified-support");
+    private string BasePath { get; } = Path.Combine("TestData", "stringified-support");
 
     public StringifiedSupportTests(ITestOutputHelper output)
     {
