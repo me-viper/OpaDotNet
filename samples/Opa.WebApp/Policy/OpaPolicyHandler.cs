@@ -6,8 +6,6 @@ namespace Opa.WebApp.Policy;
 
 public class OpaPolicyHandler : AuthorizationHandler<OpaPolicyRequirement>
 {
-    private readonly SemaphoreSlim _semaphore = new(1, 1);
-    
     private readonly IOpaPolicyService _service;
     
     private readonly ILogger _logger;
@@ -29,27 +27,14 @@ public class OpaPolicyHandler : AuthorizationHandler<OpaPolicyRequirement>
         if (string.IsNullOrWhiteSpace(user))
             return;
         
-        var opaPolicy = _service.Evaluator;
         var input = new OpaPolicyInput(user, context.Resource as string);
         
         using var scope = _logger.BeginScope(new { requirement.PolicyName, input.User, input.Resource });
         
         try
         {
-            PolicyEvaluationResult<bool> result;
-
-            try
-            {
-                // Implementations of IOpaEvaluator are not thread-safe.
-                await _semaphore.WaitAsync();
-                
-                _logger.LogDebug("Evaluating policy");
-                result = opaPolicy.EvaluatePredicate(input, requirement.PolicyName);
-            }
-            finally
-            {
-                _semaphore.Release();
-            }
+            _logger.LogDebug("Evaluating policy");
+            var result = await _service.EvaluatePredicate(input, requirement.PolicyName);
             
             if (result.Result)
             {

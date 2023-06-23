@@ -4,5 +4,8 @@ namespace Opa.WebApp.Policy;
 
 public interface IOpaPolicyService : IDisposable
 {
-    IOpaEvaluator Evaluator { get; }
+    Task<PolicyEvaluationResult<bool>> EvaluatePredicate(
+        OpaPolicyInput input, 
+        string policyName, 
+        CancellationToken cancellationToken = default);
 }
