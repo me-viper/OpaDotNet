@@ -28,6 +28,8 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
     private readonly IWasmPolicyEngine _abi;
 
     private readonly Memory _memory;
+    
+    private IOpaImportsAbi _importsAbi;
 
     public Version AbiVersion => _abi.AbiVersion;
 
@@ -44,6 +46,7 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
         _jsonOptions = configuration.Options.SerializationOptions;
         _logger = configuration.Logger;
         _memory = configuration.Memory;
+        _importsAbi = configuration.Imports;
 
         SetupLinker(configuration.Imports);
 
@@ -289,6 +292,10 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
         {
             _logger.LogError(ex, "Evaluation failed");
             throw new OpaEvaluationException("Evaluation failed", ex);
+        }
+        finally
+        {
+            _importsAbi.Reset();
         }
     }
 

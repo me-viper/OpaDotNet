@@ -189,10 +189,10 @@ public class CustomBuiltinsTests : IAsyncLifetime
         public override object Func(BuiltinContext context, BuiltinArg arg1)
         {
             if (string.Equals("custom.oneArgBuiltin", context.FunctionName, StringComparison.Ordinal))
-                return $"hello {arg1.As<string>()}";
+                return $"hello {arg1.AsOrNull<string>()}";
 
             if (string.Equals("custom.oneArgObjectBuiltin", context.FunctionName, StringComparison.Ordinal))
-                return $"hello {arg1.As<ArgObj>()}";
+                return $"hello {arg1.AsOrNull<ArgObj>()}";
 
             return base.Func(context, arg1);
         }
@@ -200,7 +200,7 @@ public class CustomBuiltinsTests : IAsyncLifetime
         public override object Func(BuiltinContext context, BuiltinArg arg1, BuiltinArg arg2)
         {
             if (string.Equals("custom.twoArgBuiltin", context.FunctionName, StringComparison.Ordinal))
-                return $"hello {arg1.As<string>()} {arg2.As<string>()}";
+                return $"hello {arg1.AsOrNull<string>()} {arg2.AsOrNull<string>()}";
 
             return base.Func(context, arg1, arg2);
         }
@@ -208,7 +208,7 @@ public class CustomBuiltinsTests : IAsyncLifetime
         public override object Func(BuiltinContext context, BuiltinArg arg1, BuiltinArg arg2, BuiltinArg arg3)
         {
             if (string.Equals("custom.threeArgBuiltin", context.FunctionName, StringComparison.Ordinal))
-                return $"hello {arg1.As<string>()} {arg2.As<string>()} {arg3.As<string>()}";
+                return $"hello {arg1.AsOrNull<string>()} {arg2.AsOrNull<string>()} {arg3.AsOrNull<string>()}";
 
             return base.Func(context, arg1, arg2, arg3);
         }
@@ -216,12 +216,12 @@ public class CustomBuiltinsTests : IAsyncLifetime
         public override object Func(BuiltinContext context, BuiltinArg arg1, BuiltinArg arg2, BuiltinArg arg3, BuiltinArg arg4)
         {
             if (string.Equals("custom.fourArgBuiltin", context.FunctionName, StringComparison.Ordinal))
-                return $"hello {arg1.As<string>()} {arg2.As<string>()} {arg3.As<string>()} {arg4.As<string>()}";
+                return $"hello {arg1.AsOrNull<string>()} {arg2.AsOrNull<string>()} {arg3.AsOrNull<string>()} {arg4.AsOrNull<string>()}";
 
             if (string.Equals("custom.fourArgTypesBuiltin", context.FunctionName, StringComparison.Ordinal))
             {
-                return $"hello {arg1.As<double>().ToString(CultureInfo.InvariantCulture)} " +
-                    $"{arg2.AsOrFail<int>()} {arg3.As<bool>()} {arg4.As<string?>() ?? "<null>"}";
+                return $"hello {arg1.AsOrNull<double>().ToString(CultureInfo.InvariantCulture)} " +
+                    $"{arg2.As<int>()} {arg3.AsOrNull<bool>()} {arg4.AsOrNull<string?>() ?? "<null>"}";
             }
 
             return base.Func(context, arg1, arg2, arg3, arg4);

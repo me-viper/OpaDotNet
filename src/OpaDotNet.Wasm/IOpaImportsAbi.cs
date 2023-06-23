@@ -58,4 +58,9 @@ public interface IOpaImportsAbi
     /// <param name="arg4">Function argument.</param>
     /// <returns>JSON serializable function result.</returns>
     object Func(BuiltinContext context, BuiltinArg arg1, BuiltinArg arg2, BuiltinArg arg3, BuiltinArg arg4);
+    
+    /// <summary>
+    /// Resets built-ins between evaluations.
+    /// </summary>
+    void Reset();
 }

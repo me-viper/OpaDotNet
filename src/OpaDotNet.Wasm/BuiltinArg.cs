@@ -23,9 +23,9 @@ public class BuiltinArg
 
     public JsonNode? Raw => _arg.Value;
 
-    public T AsOrFail<T>() where T : notnull
+    public T As<T>() where T : notnull
     {
-        var result = As<T>();
+        var result = AsOrNull<T>();
 
         if (result == null)
             throw new OpaEvaluationException("Argument is null");
@@ -33,7 +33,7 @@ public class BuiltinArg
         return result;
     }
 
-    public T? As<T>(Func<T>? defaultValue = null)
+    public T? AsOrNull<T>(Func<T>? defaultValue = null)
     {
         return Raw switch
         {

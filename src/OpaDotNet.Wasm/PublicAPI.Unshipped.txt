@@ -1,7 +1,7 @@
 #nullable enable
 OpaDotNet.Wasm.BuiltinArg
-OpaDotNet.Wasm.BuiltinArg.As<T>(System.Func<T>? defaultValue = null) -> T?
-OpaDotNet.Wasm.BuiltinArg.AsOrFail<T>() -> T
+OpaDotNet.Wasm.BuiltinArg.As<T>() -> T
+OpaDotNet.Wasm.BuiltinArg.AsOrNull<T>(System.Func<T>? defaultValue = null) -> T?
 OpaDotNet.Wasm.BuiltinArg.Raw.get -> System.Text.Json.Nodes.JsonNode?
 OpaDotNet.Wasm.BuiltinContext
 OpaDotNet.Wasm.BuiltinContext.FunctionName.get -> string!
@@ -27,6 +27,7 @@ OpaDotNet.Wasm.Compilation.RegoCompilationException.RegoCompilationException(str
 OpaDotNet.Wasm.Compilation.RegoCompilationException.SourceFile.get -> string!
 OpaDotNet.Wasm.DefaultOpaImportsAbi
 OpaDotNet.Wasm.DefaultOpaImportsAbi.DefaultOpaImportsAbi() -> void
+OpaDotNet.Wasm.DefaultOpaImportsAbi.ValueCache.get -> System.Collections.Concurrent.ConcurrentDictionary<string!, object!>!
 OpaDotNet.Wasm.ExportResolutionException
 OpaDotNet.Wasm.ExportResolutionException.AbiVersion.get -> System.Version!
 OpaDotNet.Wasm.ExportResolutionException.ExportResolutionException(System.Version! abiVersion, string! externalName) -> void
@@ -56,6 +57,7 @@ OpaDotNet.Wasm.IOpaImportsAbi.Func(OpaDotNet.Wasm.BuiltinContext! context, OpaDo
 OpaDotNet.Wasm.IOpaImportsAbi.Func(OpaDotNet.Wasm.BuiltinContext! context, OpaDotNet.Wasm.BuiltinArg! arg1, OpaDotNet.Wasm.BuiltinArg! arg2, OpaDotNet.Wasm.BuiltinArg! arg3) -> object!
 OpaDotNet.Wasm.IOpaImportsAbi.Func(OpaDotNet.Wasm.BuiltinContext! context, OpaDotNet.Wasm.BuiltinArg! arg1, OpaDotNet.Wasm.BuiltinArg! arg2, OpaDotNet.Wasm.BuiltinArg! arg3, OpaDotNet.Wasm.BuiltinArg! arg4) -> object!
 OpaDotNet.Wasm.IOpaImportsAbi.PrintLn(string! message) -> void
+OpaDotNet.Wasm.IOpaImportsAbi.Reset() -> void
 OpaDotNet.Wasm.OpaEvaluationException
 OpaDotNet.Wasm.OpaEvaluationException.OpaEvaluationException(string? message) -> void
 OpaDotNet.Wasm.OpaEvaluationException.OpaEvaluationException(string? message, System.Exception? innerException) -> void
@@ -87,4 +89,6 @@ virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.Func(OpaDotNet.Wasm.BuiltinContext! 
 virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.Func(OpaDotNet.Wasm.BuiltinContext! context, OpaDotNet.Wasm.BuiltinArg! arg1, OpaDotNet.Wasm.BuiltinArg! arg2) -> object!
 virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.Func(OpaDotNet.Wasm.BuiltinContext! context, OpaDotNet.Wasm.BuiltinArg! arg1, OpaDotNet.Wasm.BuiltinArg! arg2, OpaDotNet.Wasm.BuiltinArg! arg3) -> object!
 virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.Func(OpaDotNet.Wasm.BuiltinContext! context, OpaDotNet.Wasm.BuiltinArg! arg1, OpaDotNet.Wasm.BuiltinArg! arg2, OpaDotNet.Wasm.BuiltinArg! arg3, OpaDotNet.Wasm.BuiltinArg! arg4) -> object!
+virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.Now() -> System.DateTimeOffset
 virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.PrintLn(string! message) -> void
+virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.Reset() -> void
