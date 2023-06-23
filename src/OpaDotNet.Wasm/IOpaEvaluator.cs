@@ -6,9 +6,15 @@ using OpaDotNet.Wasm.Extensions;
 
 namespace OpaDotNet.Wasm;
 
+/// <summary>
+/// OPA policy evaluator.
+/// </summary>
 [PublicAPI]
 public interface IOpaEvaluator : IDisposable
 {
+    /// <summary>
+    /// ABI version used for evaluation.
+    /// </summary>
     Version AbiVersion { get; }
 
     /// <summary>
@@ -36,14 +42,34 @@ public interface IOpaEvaluator : IDisposable
     /// <returns>Policy evaluation result as JSON string</returns>
     string EvaluateRaw(ReadOnlySpan<char> inputJson, string? entrypoint = null);
 
+    /// <summary>
+    /// Sets external data.
+    /// </summary>
+    /// <param name="dataJson">External data JSON as raw string</param>
     void SetDataFromRawJson(ReadOnlySpan<char> dataJson);
     
+    /// <summary>
+    /// Sets external data.
+    /// </summary>
+    /// <param name="utf8Json">External data JSON as UTF-8 encoded stream</param>
     void SetDataFromStream(Stream? utf8Json);
 
+    /// <summary>
+    /// Sets external data.
+    /// </summary>
+    /// <param name="data">External data</param>
     void SetData<T>(T? data) where T : class;
     
+    /// <summary>
+    /// Resets evaluator to initial state. External data is removed.
+    /// </summary>
     void Reset();
 
+    /// <summary>
+    /// Gets ABI version specific extensions.
+    /// </summary>
+    /// <param name="extension">ABI extension implementation</param>
+    /// <returns><c>true</c> if extension is supported; otherwise <c>false</c></returns>
     bool TryGetExtension<TExtension>([MaybeNullWhen(false)] out TExtension extension)
         where TExtension : class, IOpaEvaluatorExtension;
 }
