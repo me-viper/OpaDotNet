@@ -78,13 +78,21 @@ public sealed class OpaPolicyService : IHostedService, IOpaPolicyService
     {
         _logger.LogDebug("Compiling");
 
-        await using var policy = await _compiler.CompileBundle(
-            _options.Value.PolicyBundlePath, 
-            cancellationToken: cancellationToken
-            );
+        try
+        {
+            await using var policy = await _compiler.CompileBundle(
+                _options.Value.PolicyBundlePath, 
+                cancellationToken: cancellationToken
+                );
                     
-        var factory = new OpaEvaluatorFactory(loggerFactory: _loggerFactory);
-        _evaluator = factory.CreateFromBundle(policy);
+            var factory = new OpaEvaluatorFactory(loggerFactory: _loggerFactory);
+            _evaluator = factory.CreateFromBundle(policy);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Bundle compilation failed");
+            throw;
+        }
         
         _logger.LogDebug("Compilation succeeded");
     }

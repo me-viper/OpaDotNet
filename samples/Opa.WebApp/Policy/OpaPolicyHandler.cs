@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 
-using OpaDotNet.Wasm;
-
 namespace Opa.WebApp.Policy;
 
 public class OpaPolicyHandler : AuthorizationHandler<OpaPolicyRequirement>
