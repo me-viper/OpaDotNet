@@ -28,8 +28,8 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
     private readonly IWasmPolicyEngine _abi;
 
     private readonly Memory _memory;
-    
-    private IOpaImportsAbi _importsAbi;
+
+    private readonly IOpaImportsAbi _importsAbi;
 
     public Version AbiVersion => _abi.AbiVersion;
 
@@ -191,7 +191,7 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
                 })
             );
     }
-    
+
     internal string DumpData()
     {
         return _abi.DumpData();
@@ -226,12 +226,12 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
     {
         _abi.SetData(utf8Json);
     }
-    
+
     public void SetData<T>(T? data) where T : class
     {
         if (data == null)
             _abi.SetData(ReadOnlySpan<char>.Empty);
-        
+
         var s = JsonSerializer.Serialize(data, _jsonOptions);
         _abi.SetData(s);
     }
@@ -241,7 +241,7 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
         _abi.Reset();
         _importsAbi.Reset();
     }
-    
+
     public bool TryGetExtension<TExtension>([MaybeNullWhen(false)] out TExtension extension)
         where TExtension : class, IOpaEvaluatorFeature
     {
