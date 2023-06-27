@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-using OpaDotNet.Wasm.Extensions;
+using OpaDotNet.Wasm.Features;
 using OpaDotNet.Wasm.Internal;
 
 using Wasmtime;
@@ -242,7 +242,7 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
     }
     
     public bool TryGetExtension<TExtension>([MaybeNullWhen(false)] out TExtension extension)
-        where TExtension : class, IOpaEvaluatorExtension
+        where TExtension : class, IOpaEvaluatorFeature
     {
         extension = _abi as TExtension;
         return extension != null;

@@ -1,10 +1,10 @@
-﻿using OpaDotNet.Wasm.Extensions;
+﻿using OpaDotNet.Wasm.Features;
 
 using Wasmtime;
 
 namespace OpaDotNet.Wasm.Internal.V13;
 
-internal class EngineImpl<TAbi> : V12.EngineImpl<TAbi>, IUpdateDataExtension
+internal class EngineImpl<TAbi> : V12.EngineImpl<TAbi>, IUpdateDataFeature
     where TAbi : IOpaExportsAbi, IAbiInitializer<TAbi>
 {
     public override Version AbiVersion => new(1, 3);
@@ -26,7 +26,7 @@ internal class EngineImpl<TAbi> : V12.EngineImpl<TAbi>, IUpdateDataExtension
         base.Reset();
     }
 
-    void IUpdateDataExtension.UpdateDataPath(ReadOnlySpan<char> dataJson, IEnumerable<string> path)
+    void IUpdateDataFeature.UpdateDataPath(ReadOnlySpan<char> dataJson, IEnumerable<string> path)
     {
         ArgumentNullException.ThrowIfNull(path);
         
@@ -45,7 +45,7 @@ internal class EngineImpl<TAbi> : V12.EngineImpl<TAbi>, IUpdateDataExtension
         EvalHeapPtr = Abi.HeapPrtGet();
     }
 
-    void IUpdateDataExtension.RemoveDataPath(IEnumerable<string> path)
+    void IUpdateDataFeature.RemoveDataPath(IEnumerable<string> path)
     {
         ArgumentNullException.ThrowIfNull(path);
         

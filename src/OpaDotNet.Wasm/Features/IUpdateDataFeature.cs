@@ -1,6 +1,6 @@
-﻿namespace OpaDotNet.Wasm.Extensions;
+﻿namespace OpaDotNet.Wasm.Features;
 
-public interface IUpdateDataExtension : IOpaEvaluatorExtension
+public interface IUpdateDataFeature : IOpaEvaluatorFeature
 {
     void UpdateDataPath(ReadOnlySpan<char> dataJson, IEnumerable<string> path);
     

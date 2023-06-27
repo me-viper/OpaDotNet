@@ -2,7 +2,7 @@
 
 using JetBrains.Annotations;
 
-using OpaDotNet.Wasm.Extensions;
+using OpaDotNet.Wasm.Features;
 
 namespace OpaDotNet.Wasm;
 
@@ -71,5 +71,5 @@ public interface IOpaEvaluator : IDisposable
     /// <param name="extension">ABI extension implementation</param>
     /// <returns><c>true</c> if extension is supported; otherwise <c>false</c></returns>
     bool TryGetExtension<TExtension>([MaybeNullWhen(false)] out TExtension extension)
-        where TExtension : class, IOpaEvaluatorExtension;
+        where TExtension : class, IOpaEvaluatorFeature;
 }
