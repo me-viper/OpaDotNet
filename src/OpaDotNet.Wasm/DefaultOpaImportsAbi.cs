@@ -1,8 +1,11 @@
 ﻿using System.Collections.Concurrent;
 using System.Diagnostics.CodeAnalysis;
 
+using JetBrains.Annotations;
+
 namespace OpaDotNet.Wasm;
 
+[PublicAPI]
 [ExcludeFromCodeCoverage]
 public partial class DefaultOpaImportsAbi : IOpaImportsAbi
 {

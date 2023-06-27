@@ -6,12 +6,20 @@ using Microsoft.Extensions.Options;
 
 namespace OpaDotNet.Wasm.Compilation;
 
+/// <summary>
+/// Compiles OPA bundle with opa cli tool.
+/// </summary>
 public class RegoCliCompiler : IRegoCompiler
 {
     private readonly ILogger _logger;
 
     private readonly IOptions<RegoCliCompilerOptions> _options;
 
+    /// <summary>
+    /// Creates new instance of <see cref="RegoCliCompiler"/> class.
+    /// </summary>
+    /// <param name="options">Compilation options</param>
+    /// <param name="logger">Logger instance</param>
     public RegoCliCompiler(
         IOptions<RegoCliCompilerOptions> options,
         ILogger<RegoCliCompiler>? logger = null)
@@ -22,9 +30,10 @@ public class RegoCliCompiler : IRegoCompiler
         _logger = logger ?? NullLogger<RegoCliCompiler>.Instance;
     }
 
+    /// <inheritdoc />
     public async Task<Stream> CompileBundle(
         string bundlePath,
-        string[]? entrypoints = null,
+        IEnumerable<string>? entrypoints = null,
         string? capabilitiesFilePath = null,
         CancellationToken cancellationToken = default)
     {
@@ -32,7 +41,7 @@ public class RegoCliCompiler : IRegoCompiler
 
         var entrypointArg = string.Empty;
 
-        if (entrypoints?.Length > 0)
+        if (entrypoints != null)
             entrypointArg = string.Join(" ", entrypoints.Select(p => $"-e {p}"));
 
         var capabilitiesArg = string.Empty;
@@ -63,9 +72,10 @@ public class RegoCliCompiler : IRegoCompiler
         return await Run(bundleDirectory.FullName, bundleDirectory.FullName, args, outputFileName, cancellationToken);
     }
 
+    /// <inheritdoc />
     public async Task<Stream> CompileFile(
         string sourceFilePath,
-        string[]? entrypoints = null,
+        IEnumerable<string>? entrypoints = null,
         CancellationToken cancellationToken = default)
     {
         ArgumentException.ThrowIfNullOrEmpty(sourceFilePath);
@@ -82,7 +92,7 @@ public class RegoCliCompiler : IRegoCompiler
 
         var entrypointArg = string.Empty;
 
-        if (entrypoints?.Length > 0)
+        if (entrypoints != null)
             entrypointArg = string.Join(" ", entrypoints.Select(p => $"-e {p}"));
 
         // opa build -t wasm -e example/hello .\simple.rego

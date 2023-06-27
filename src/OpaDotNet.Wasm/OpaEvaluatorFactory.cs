@@ -41,6 +41,7 @@ public class OpaEvaluatorFactory : IOpaEvaluatorFactory
         return result;
     }
     
+    /// <inheritdoc />
     public IOpaEvaluator CreateFromBundle(Stream policyBundle, WasmPolicyEngineOptions? options = null)
     {
         ArgumentNullException.ThrowIfNull(policyBundle);
@@ -72,6 +73,7 @@ public class OpaEvaluatorFactory : IOpaEvaluatorFactory
         }
     }
     
+    /// <inheritdoc />
     public IOpaEvaluator CreateFromWasm(Stream policyWasm, WasmPolicyEngineOptions? options = null)
     {
         ArgumentNullException.ThrowIfNull(policyWasm);
