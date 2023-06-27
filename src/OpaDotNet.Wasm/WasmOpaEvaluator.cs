@@ -239,6 +239,7 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
     public void Reset()
     {
         _abi.Reset();
+        _importsAbi.Reset();
     }
     
     public bool TryGetExtension<TExtension>([MaybeNullWhen(false)] out TExtension extension)
