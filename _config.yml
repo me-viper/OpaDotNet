@@ -1,6 +1,7 @@
-title: Open Policy Agent for dotnet core
+title: OpaDotNet
 description: SDK for using WebAssembly (wasm) compiled Open Policy Agent Rego policies with dotnet core
 show_downloads: true
+logo: /assets/img/logo.png
 remote_theme: pages-themes/minimal@v0.2.0
 plugins:
 - jekyll-remote-theme
