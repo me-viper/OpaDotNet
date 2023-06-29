@@ -19,7 +19,7 @@ public interface IOpaImportsAbi
     /// </summary>
     /// <param name="context">Call context.</param>
     /// <returns>JSON serializable function result.</returns>
-    object Func(BuiltinContext context);
+    object? Func(BuiltinContext context);
 
     /// <summary>
     /// Called to dispatch the built-in function.
@@ -27,7 +27,7 @@ public interface IOpaImportsAbi
     /// <param name="context">Call context.</param>
     /// <param name="arg1">Function argument.</param>
     /// <returns>JSON serializable function result.</returns>
-    object Func(BuiltinContext context, BuiltinArg arg1);
+    object? Func(BuiltinContext context, BuiltinArg arg1);
 
     /// <summary>
     /// Called to dispatch the built-in function.
@@ -36,7 +36,7 @@ public interface IOpaImportsAbi
     /// <param name="arg1">Function argument.</param>
     /// <param name="arg2">Function argument.</param>
     /// <returns>JSON serializable function result.</returns>
-    object Func(BuiltinContext context, BuiltinArg arg1, BuiltinArg arg2);
+    object? Func(BuiltinContext context, BuiltinArg arg1, BuiltinArg arg2);
 
     /// <summary>
     /// Called to dispatch the built-in function.
@@ -46,7 +46,7 @@ public interface IOpaImportsAbi
     /// <param name="arg2">Function argument.</param>
     /// <param name="arg3">Function argument.</param>
     /// <returns>JSON serializable function result.</returns>
-    object Func(BuiltinContext context, BuiltinArg arg1, BuiltinArg arg2, BuiltinArg arg3);
+    object? Func(BuiltinContext context, BuiltinArg arg1, BuiltinArg arg2, BuiltinArg arg3);
 
     /// <summary>
     /// Called to dispatch the built-in function.
@@ -57,7 +57,7 @@ public interface IOpaImportsAbi
     /// <param name="arg3">Function argument.</param>
     /// <param name="arg4">Function argument.</param>
     /// <returns>JSON serializable function result.</returns>
-    object Func(BuiltinContext context, BuiltinArg arg1, BuiltinArg arg2, BuiltinArg arg3, BuiltinArg arg4);
+    object? Func(BuiltinContext context, BuiltinArg arg1, BuiltinArg arg2, BuiltinArg arg3, BuiltinArg arg4);
     
     /// <summary>
     /// Resets built-ins between evaluations.

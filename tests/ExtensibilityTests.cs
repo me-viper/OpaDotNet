@@ -37,7 +37,7 @@ public class ExtensibilityTests
         
         Assert.True(result.Result);
         
-        var gotExtension = engine.TryGetExtension<IUpdateDataFeature>(out _);
+        var gotExtension = engine.TryGetFeature<IUpdateDataFeature>(out _);
         
         Assert.False(gotExtension);
     }
@@ -59,7 +59,7 @@ public class ExtensibilityTests
         
         Assert.True(result.Result);
         
-        var gotExtension = engine.TryGetExtension<IUpdateDataFeature>(out _);
+        var gotExtension = engine.TryGetFeature<IUpdateDataFeature>(out _);
         
         Assert.True(gotExtension);
     }
@@ -82,7 +82,7 @@ public class ExtensibilityTests
         var result1 = engine.EvaluatePredicate(initialInput);
         Assert.True(result1.Result);
         
-        var gotExtension = engine.TryGetExtension<IUpdateDataFeature>(out var ext);
+        var gotExtension = engine.TryGetFeature<IUpdateDataFeature>(out var ext);
         Assert.True(gotExtension);
         Assert.NotNull(ext);
         
@@ -113,7 +113,7 @@ public class ExtensibilityTests
         var result1 = engine.EvaluatePredicate(initialInput);
         Assert.True(result1.Result);
         
-        var gotExtension = engine.TryGetExtension<IUpdateDataFeature>(out var ext);
+        var gotExtension = engine.TryGetFeature<IUpdateDataFeature>(out var ext);
         Assert.True(gotExtension);
         Assert.NotNull(ext);
         
@@ -143,7 +143,7 @@ public class ExtensibilityTests
         var result1 = engine.EvaluatePredicate(initialInput);
         Assert.True(result1.Result);
         
-        var gotExtension = engine.TryGetExtension<IUpdateDataFeature>(out var ext);
+        var gotExtension = engine.TryGetFeature<IUpdateDataFeature>(out var ext);
         Assert.True(gotExtension);
         Assert.NotNull(ext);
         

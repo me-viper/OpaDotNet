@@ -202,7 +202,7 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
     //     return _abi.WriteJsonString(data);
     // }
 
-    private nint WriteJson<T>(T data)
+    private nint WriteJson<T>(T? data)
     {
         return _abi.WriteJson(data);
     }
@@ -242,11 +242,11 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
         _importsAbi.Reset();
     }
 
-    public bool TryGetExtension<TExtension>([MaybeNullWhen(false)] out TExtension extension)
-        where TExtension : class, IOpaEvaluatorFeature
+    public bool TryGetFeature<TFeature>([MaybeNullWhen(false)] out TFeature feature)
+        where TFeature : class, IOpaEvaluatorFeature
     {
-        extension = _abi as TExtension;
-        return extension != null;
+        feature = _abi as TFeature;
+        return feature != null;
     }
 
     public PolicyEvaluationResult<bool> EvaluatePredicate<TInput>(TInput input, string? entrypoint = null)

@@ -68,8 +68,8 @@ public interface IOpaEvaluator : IDisposable
     /// <summary>
     /// Gets ABI version specific extensions.
     /// </summary>
-    /// <param name="extension">ABI extension implementation</param>
+    /// <param name="feature">ABI extension implementation</param>
     /// <returns><c>true</c> if extension is supported; otherwise <c>false</c></returns>
-    bool TryGetExtension<TExtension>([MaybeNullWhen(false)] out TExtension extension)
-        where TExtension : class, IOpaEvaluatorFeature;
+    bool TryGetFeature<TFeature>([MaybeNullWhen(false)] out TFeature feature)
+        where TFeature : class, IOpaEvaluatorFeature;
 }
