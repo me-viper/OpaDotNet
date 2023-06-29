@@ -132,3 +132,4 @@ using var engine = factory.CreateFromBundle(policyStream);
 * [Moq](https://github.com/moq/moq4) - The most popular and friendly mocking library for .NET.
 * [xUnit.net](https://xunit.net/) - Free, open source, community-focused unit testing tool for the .NET Framework.
 * [wasmtime-dotnet](https://github.com/bytecodealliance/wasmtime-dotnet) - .NET embedding of Wasmtime.
+* [IPNetwork2](https://github.com/lduchosal/ipnetwork) - Utility classes take care of complex network, IPv4, IPv6, CIDR calculation for .NET developers.

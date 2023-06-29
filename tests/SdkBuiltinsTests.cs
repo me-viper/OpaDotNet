@@ -1,8 +1,12 @@
-﻿using Microsoft.Extensions.Options;
+﻿using System.Text.Json.Nodes;
+
+using Microsoft.Extensions.Options;
 
 using OpaDotNet.Tests.Common;
 using OpaDotNet.Wasm;
 using OpaDotNet.Wasm.Compilation;
+
+using Wasmtime;
 
 using Xunit.Abstractions;
 
@@ -167,6 +171,160 @@ t3 := o { o := uuid.rfc4122("k1") }
         
         Assert.Equal(result.t1, result.t3);
         Assert.NotEqual(result.t1, result.t2);
+    }
+    
+    [Fact]
+    public async Task NetCidrContains()
+    {
+        var src = """
+package sdk
+t1 := o { o := net.cidr_contains("127.0.0.64/24", "127.0.0.64/26") }
+t2 := o { o := net.cidr_contains("127.0.0.64/24", "127.0.0.1") }
+t3 := o { o := net.cidr_contains("127.0.0.64/26", "127.0.0.64/24") }
+t4 := o { o := net.cidr_contains("127.0.0.64/24", "127.10.0.1") }
+""";
+        using var eval = await Build(src, "sdk");
+        
+        var result = eval.EvaluateValue(
+            new { t1 = false, t2 = false, t3 = true, t4 = true },
+            "sdk"
+            );
+        
+        Assert.True(result.t1);
+        Assert.True(result.t2);
+        Assert.False(result.t3);
+        Assert.False(result.t4);
+    }
+    
+    [Fact]
+    public async Task NetCidrContainsMatches()
+    {
+        var src = """
+package sdk
+t1 := o { o := net.cidr_contains_matches(["127.0.0.64/24", "10.0.0.64/24"], ["127.0.0.64/26", "127.0.0.1", "10.0.0.100", "1.0.0.1"]) }
+t2 := o { o := net.cidr_contains_matches("1.1.1.0/24", "1.1.1.128") }
+t3 := o { o := net.cidr_contains_matches(["1.1.1.0/24", "1.1.2.0/24"], "1.1.1.128") }
+t4 := o { o := net.cidr_contains_matches(["1.1.1.0/24", "1.1.2.0/24", "foo"], "1.1.1.128") }
+""";
+        using var eval = await Build(src, "sdk");
+        
+        var result = eval.EvaluateValue(
+            new
+            {
+                t1 = Array.Empty<int[]>(), 
+                t2 = Array.Empty<string[]>(),
+                t3 = Array.Empty<JsonArray?>(),
+                t4 = Array.Empty<JsonArray?>(),
+            },
+            "sdk"
+            );
+        
+        Assert.Collection(
+            result.t1,
+            p => Assert.Collection(p, pp => Assert.Equal(0, pp), pp => Assert.Equal(0, pp)),
+            p => Assert.Collection(p, pp => Assert.Equal(0, pp), pp => Assert.Equal(1, pp)),
+            p => Assert.Collection(p, pp => Assert.Equal(1, pp), pp => Assert.Equal(2, pp))
+            );
+        
+        Assert.Collection(
+            result.t2,
+            p => Assert.Collection(p, pp => Assert.Equal("1.1.1.0/24", pp), pp => Assert.Equal("1.1.1.128", pp))
+            );
+        
+        Assert.NotNull(result.t3);
+        Assert.Collection(
+            result.t3,
+            p => Assert.Collection(p, pp => Assert.Equal(0, pp.GetValue<int>()), pp => Assert.Equal("1.1.1.128", pp.GetValue<string>()))
+            );
+        
+        Assert.Null(result.t4);
+    }
+    
+    [Fact]
+    public async Task NetCidrContainsMatchesObjects()
+    {
+        var src = """
+package sdk
+t1 := o { o := net.cidr_contains_matches([["1.1.0.0/16", "foo"], "1.1.2.0/24"], ["1.1.1.128", ["1.1.254.254", "bar"]]) }
+""";
+        using var eval = await Build(src, "sdk");
+        
+        var ex = Assert.Throws<OpaEvaluationException>(() => eval.EvaluateValue(new { t1 = (object?)null, }, "sdk"));
+        Assert.IsType<WasmtimeException>(ex.InnerException);
+        Assert.IsType<NotSupportedException>(ex.InnerException.InnerException);
+    }
+    
+    [Fact]
+    public async Task Net()
+    {
+        var src = """
+package sdk
+t1 := o { o := net.cidr_contains_matches(["127.0.0.64/24", "10.0.0.64/24"], ["127.0.0.64/26", "127.0.0.1", "10.0.0.100", "1.0.0.1"]) }
+t2 := o { o := net.cidr_expand("192.168.0.0/30") }
+t31 := o { o := net.cidr_is_valid("192.168.0.0/30") }
+t32 := o { o := net.cidr_is_valid("192.168.0.500/30") }
+""";
+        using var eval = await Build(src, "sdk");
+        
+        var result = eval.EvaluateValue(
+            new
+            {
+                t1 = Array.Empty<int[]>(), 
+                t2 = Array.Empty<string>(), 
+                t31 = false, 
+                t32 = true,
+                t41 = Array.Empty<string>(),
+                t42 = Array.Empty<string>(),
+            },
+            "sdk"
+            );
+        
+        Assert.Collection(
+            result.t1,
+            p => Assert.Collection(p, pp => Assert.Equal(0, pp), pp => Assert.Equal(0, pp)),
+            p => Assert.Collection(p, pp => Assert.Equal(0, pp), pp => Assert.Equal(1, pp)),
+            p => Assert.Collection(p, pp => Assert.Equal(1, pp), pp => Assert.Equal(2, pp))
+            );
+        
+        Assert.Collection(
+            result.t2,
+            p => Assert.Equal("192.168.0.0", p),
+            p => Assert.Equal("192.168.0.1", p),
+            p => Assert.Equal("192.168.0.2", p),
+            p => Assert.Equal("192.168.0.3", p)
+            );
+        
+        Assert.True(result.t31);
+        Assert.False(result.t32);
+    }
+    
+    [Fact]
+    public async Task NetLookupIP()
+    {
+        var src = """
+package sdk
+t1 := o { o := net.lookup_ip_addr("google.com") }
+t2 := o { o := net.lookup_ip_addr("bing.com1") }
+""";
+        using var eval = await Build(src, "sdk");
+        
+        var result = eval.EvaluateValue(
+            new
+            {
+                t1 = Array.Empty<string>(), 
+                t2 = Array.Empty<string>(), 
+            },
+            "sdk"
+            );
+        
+        // Assert.Collection(
+        //     result.t1,
+        //     p => Assert.Equal("142.251.215.238", p),
+        //     p => Assert.Equal("2607:f8b0:400a:80b::200e", p)
+        //     );
+        
+        Assert.NotNull(result.t1);
+        Assert.Null(result.t2);
     }
     
     private async Task<IOpaEvaluator> Build(
