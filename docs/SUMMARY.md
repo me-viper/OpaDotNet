@@ -7,6 +7,7 @@
 * OPA Compatibility
     * [ABI](ABI.md)
     * [Built-in Functions](Builtins.md)
+* [Source Code](https://github.com/me-viper/OpaDotNet)
 
 ## Details
 
