@@ -18,7 +18,7 @@
 
 ## Integration
 
-* [ASP.NET Core](stub.md)
+* [ASP.NET Core](AspNet/Intro.md)
 
 ## API
 
