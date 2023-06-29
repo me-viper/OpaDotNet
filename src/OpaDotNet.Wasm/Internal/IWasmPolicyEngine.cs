@@ -8,7 +8,7 @@ internal interface IWasmPolicyEngine : IDisposable
 
     nint WriteJsonString(ReadOnlySpan<char> data);
 
-    nint WriteJson<T>(T data);
+    nint WriteJson<T>(T? data);
 
     string ReadJsonString(nint ptr);
 

@@ -144,10 +144,8 @@ internal abstract class WasmPolicyEngine<TAbi> : IWasmPolicyEngine
         return result;
     }
 
-    public virtual nint WriteJson<T>(T data)
+    public virtual nint WriteJson<T>(T? data)
     {
-        ArgumentNullException.ThrowIfNull(data);
-
         var s = JsonSerializer.Serialize(data, JsonOptions);
         return WriteJsonString(s);
     }

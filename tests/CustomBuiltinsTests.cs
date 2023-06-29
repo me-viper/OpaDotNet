@@ -175,7 +175,7 @@ public class CustomBuiltinsTests : IAsyncLifetime
             _logger.LogDebug("{Message}", message);
         }
 
-        public override object Func(BuiltinContext context)
+        public override object? Func(BuiltinContext context)
         {
             if (string.Equals("custom.zeroArgBuiltin", context.FunctionName, StringComparison.Ordinal))
                 return "hello";
@@ -186,7 +186,7 @@ public class CustomBuiltinsTests : IAsyncLifetime
             return base.Func(context);
         }
 
-        public override object Func(BuiltinContext context, BuiltinArg arg1)
+        public override object? Func(BuiltinContext context, BuiltinArg arg1)
         {
             if (string.Equals("custom.oneArgBuiltin", context.FunctionName, StringComparison.Ordinal))
                 return $"hello {arg1.AsOrNull<string>()}";
@@ -197,7 +197,7 @@ public class CustomBuiltinsTests : IAsyncLifetime
             return base.Func(context, arg1);
         }
 
-        public override object Func(BuiltinContext context, BuiltinArg arg1, BuiltinArg arg2)
+        public override object? Func(BuiltinContext context, BuiltinArg arg1, BuiltinArg arg2)
         {
             if (string.Equals("custom.twoArgBuiltin", context.FunctionName, StringComparison.Ordinal))
                 return $"hello {arg1.AsOrNull<string>()} {arg2.AsOrNull<string>()}";
@@ -205,7 +205,7 @@ public class CustomBuiltinsTests : IAsyncLifetime
             return base.Func(context, arg1, arg2);
         }
 
-        public override object Func(BuiltinContext context, BuiltinArg arg1, BuiltinArg arg2, BuiltinArg arg3)
+        public override object? Func(BuiltinContext context, BuiltinArg arg1, BuiltinArg arg2, BuiltinArg arg3)
         {
             if (string.Equals("custom.threeArgBuiltin", context.FunctionName, StringComparison.Ordinal))
                 return $"hello {arg1.AsOrNull<string>()} {arg2.AsOrNull<string>()} {arg3.AsOrNull<string>()}";
@@ -213,7 +213,7 @@ public class CustomBuiltinsTests : IAsyncLifetime
             return base.Func(context, arg1, arg2, arg3);
         }
 
-        public override object Func(BuiltinContext context, BuiltinArg arg1, BuiltinArg arg2, BuiltinArg arg3, BuiltinArg arg4)
+        public override object? Func(BuiltinContext context, BuiltinArg arg1, BuiltinArg arg2, BuiltinArg arg3, BuiltinArg arg4)
         {
             if (string.Equals("custom.fourArgBuiltin", context.FunctionName, StringComparison.Ordinal))
                 return $"hello {arg1.AsOrNull<string>()} {arg2.AsOrNull<string>()} {arg3.AsOrNull<string>()} {arg4.AsOrNull<string>()}";
