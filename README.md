@@ -8,6 +8,8 @@ This is SDK for using WebAssembly (wasm) compiled [Open Policy Agent](https://ww
 
 Initial implementation was based on [Open Policy Agent WebAssemby NPM Module](https://github.com/open-policy-agent/npm-opa-wasm)
 
+For more information check out [the guide](https://andrii-kurochka.gitbook.io/opadotnet.wasm/).
+
 ## Supported ABI
 
 | Version | Status             |
