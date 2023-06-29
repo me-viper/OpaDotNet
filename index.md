@@ -6,6 +6,8 @@ layout: default
 
 This is SDK for using WebAssembly (wasm) compiled [Open Policy Agent](https://www.openpolicyagent.org/) Rego policies with dotnet core.
 
+For more information check out [the guide](https://andrii-kurochka.gitbook.io/opadotnet.wasm/).
+
 ## Getting Started
 
 ### Install nuget package
