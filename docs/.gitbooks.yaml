@@ -1,0 +1,5 @@
+root: ./docs/
+
+​structure:
+    home: README.md
+    summary: SUMMARY.md​
