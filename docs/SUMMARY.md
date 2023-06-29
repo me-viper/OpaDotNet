@@ -8,13 +8,17 @@
     * [ABI](ABI.md)
     * [Built-in Functions](Builtins.md)
 
-## Your Content
+## Details
 
-* [Directory structure](structure.md)
-* [Markdown](syntax/markdown.md)
-    * [Headings](syntax/markdown.md#headings)
+* [Evaluation](stub.md)
+* [Compilation](stub.md)
+* [Custom Built-ins](stub.md)
+* [Extensions](stub.md)
 
+## Integration
 
-## How To
+* [ASP.NET Core](stub.md)
 
-* [How To](stub.md)
+## API
+
+* [Reference](stub.md)
