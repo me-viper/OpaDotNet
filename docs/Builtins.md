@@ -6,25 +6,25 @@ Bellow is the list of supported OPA built-in functions as for version v0.53.1 al
 
 | Function   | Status             | OpaDotNet version  |
 |------------|--------------------|--------------------|
-| [indexof_n](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-strings-indexof_n)  | :heavy_check_mark: | [v1.0.0](https://www.nuget.org/packages/OpaDotNet.Wasm/1.0.0) |
+| [indexof_n](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-strings-indexof_n)  | :white_check_mark: | [v1.0.0](https://www.nuget.org/packages/OpaDotNet.Wasm/1.0.0) |
 | [sprintf](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-strings-sprintf)    | TBD | - |
-| [strings.strings.any_prefix_match](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-strings-stringsany_prefix_match)    | :heavy_check_mark: | [v1.0.0](https://www.nuget.org/packages/OpaDotNet.Wasm/1.0.0) |
-| [strings.any_suffix_match](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-strings-stringsany_suffix_match)    | :heavy_check_mark: | [v1.0.0](https://www.nuget.org/packages/OpaDotNet.Wasm/1.0.0) |
+| [strings.strings.any_prefix_match](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-strings-stringsany_prefix_match)    | :white_check_mark: | [v1.0.0](https://www.nuget.org/packages/OpaDotNet.Wasm/1.0.0) |
+| [strings.any_suffix_match](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-strings-stringsany_suffix_match)    | :white_check_mark: | [v1.0.0](https://www.nuget.org/packages/OpaDotNet.Wasm/1.0.0) |
 
 ## Time
 
 | Function   | Status             | OpaDotNet version  |
 |------------|--------------------|--------------------|
-| [time.add_date](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timeadd_date) | :heavy_check_mark: | [v1.0.0](https://www.nuget.org/packages/OpaDotNet.Wasm/1.0.0) |
-| [time.clock](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timeclock) | :heavy_check_mark: | [v1.0.0](https://www.nuget.org/packages/OpaDotNet.Wasm/1.0.0) |
-| [time.date](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timedate) | :heavy_check_mark: | [v1.0.0](https://www.nuget.org/packages/OpaDotNet.Wasm/1.0.0) |
-| [time.diff](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timediff) | :heavy_check_mark: | [v1.0.0](https://www.nuget.org/packages/OpaDotNet.Wasm/1.0.0) |
+| [time.add_date](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timeadd_date) | :white_check_mark: | [v1.0.0](https://www.nuget.org/packages/OpaDotNet.Wasm/1.0.0) |
+| [time.clock](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timeclock) | :white_check_mark: | [v1.0.0](https://www.nuget.org/packages/OpaDotNet.Wasm/1.0.0) |
+| [time.date](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timedate) | :white_check_mark: | [v1.0.0](https://www.nuget.org/packages/OpaDotNet.Wasm/1.0.0) |
+| [time.diff](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timediff) | :white_check_mark: | [v1.0.0](https://www.nuget.org/packages/OpaDotNet.Wasm/1.0.0) |
 | [time.format](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timeformat) | - | - |
-| [time.now_ns](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timenow_ns) | :heavy_check_mark: | [v1.0.0](https://www.nuget.org/packages/OpaDotNet.Wasm/1.0.0) |
+| [time.now_ns](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timenow_ns) | :white_check_mark: | [v1.0.0](https://www.nuget.org/packages/OpaDotNet.Wasm/1.0.0) |
 | [time.parse_duration_ns](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timeparse_duration_ns) | - | - |
 | [time.parse_ns](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timeparse_ns) | - | - |
 | [time.parse_rfc3339_ns](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timeparse_rfc3339_ns) | - | - |
-| [time.weekday](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timeweekday) | :heavy_check_mark: | [v1.0.0](https://www.nuget.org/packages/OpaDotNet.Wasm/1.0.0) |
+| [time.weekday](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timeweekday) | :white_check_mark: | [v1.0.0](https://www.nuget.org/packages/OpaDotNet.Wasm/1.0.0) |
 
 ## JSON
 
@@ -157,7 +157,7 @@ Bellow is the list of supported OPA built-in functions as for version v0.53.1 al
 
 | Function   | Status             | OpaDotNet version  |
 |------------|--------------------|--------------------|
-| [uuid.rfc4122](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-uuid-uuidrfc4122) | :heavy_check_mark: | [v1.0.0](https://www.nuget.org/packages/OpaDotNet.Wasm/1.0.0) |
+| [uuid.rfc4122](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-uuid-uuidrfc4122) | :white_check_mark: | [v1.0.0](https://www.nuget.org/packages/OpaDotNet.Wasm/1.0.0) |
 
 ## SemVer
 

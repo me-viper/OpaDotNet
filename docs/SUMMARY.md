@@ -4,7 +4,7 @@
 
 * [What is OpaDotNet?](WhatIs.md)
 * [How to start?](HowToStart.md)
-* [OPA Compatibility]
+* OPA Compatibility
     * [ABI](ABI.md)
     * [Built-in Functions](Builtins.md)
 

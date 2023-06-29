@@ -2,6 +2,6 @@
 
 | Version | Status             |
 |---------|--------------------|
-| 1.0     | :heavy_check_mark: |
-| 1.2     | :heavy_check_mark: |
-| 1.3     | :heavy_check_mark: |
+| 1.0     | :white_check_mark: |
+| 1.2     | :white_check_mark: |
+| 1.3     | :white_check_mark: |
