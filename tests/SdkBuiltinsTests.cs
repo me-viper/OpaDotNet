@@ -174,6 +174,30 @@ t3 := o { o := uuid.rfc4122("k1") }
     }
     
     [Fact]
+    public async Task RandIntN()
+    {
+        var src = """
+package sdk
+t1 := o { o := rand.intn("k1", 1000) }
+t2 := o { o := rand.intn("k2", 1000) }
+t3 := o { o := rand.intn("k1", 1000) }
+""";
+        using var eval = await Build(src, "sdk");
+        
+        var result = eval.EvaluateValue(
+            new { t1 = -1, t2 = -1, t3 = -1 },
+            "sdk"
+            );
+        
+        Assert.NotNull(result);
+        Assert.NotEqual(-1, result.t1);
+        Assert.NotEqual(-1, result.t2);
+        Assert.NotEqual(-1, result.t3);
+        
+        Assert.Equal(result.t1, result.t3);
+    }
+    
+    [Fact]
     public async Task NetCidrContains()
     {
         var src = """
@@ -239,21 +263,75 @@ t4 := o { o := net.cidr_contains_matches(["1.1.1.0/24", "1.1.2.0/24", "foo"], "1
         
         Assert.Null(result.t4);
     }
-    
-    [Fact]
-    public async Task NetCidrContainsMatchesObjects()
-    {
-        var src = """
-package sdk
-t1 := o { o := net.cidr_contains_matches([["1.1.0.0/16", "foo"], "1.1.2.0/24"], ["1.1.1.128", ["1.1.254.254", "bar"]]) }
+
+    private const string NetCidrContainsMatchesArrayObjectsCase1 = """
+t1 := o { o := net.cidr_contains_matches([["1.1.0.0/16", "foo", 1], "1.1.2.0/24"], {"x": "1.1.1.128", "y": ["1.1.254.254", "bar"]}) }
 """;
-        using var eval = await Build(src, "sdk");
+    
+    private const string NetCidrContainsMatchesArrayObjectsCase2 = """
+t1 := o { o := net.cidr_contains_matches([["1.1.2.0/24", "foo", 1], "1.1.0.0/16"], {"x": "1.1.1.128", "y": ["1.1.254.254", "bar"]}) }
+""";
+    
+    [Theory]
+    [InlineData(NetCidrContainsMatchesArrayObjectsCase1, 0)]
+    [InlineData(NetCidrContainsMatchesArrayObjectsCase2, 1)]
+    public async Task NetCidrContainsMatchesArrayObjects(string s, int expectedIndex)
+    {
+        var result = await BuildAndEvaluate(
+            s,
+            new { t1 = Array.Empty<JsonArray>() }
+            );
         
-        var ex = Assert.Throws<OpaEvaluationException>(() => eval.EvaluateValue(new { t1 = (object?)null, }, "sdk"));
-        Assert.IsType<WasmtimeException>(ex.InnerException);
-        Assert.IsType<NotSupportedException>(ex.InnerException.InnerException);
+        Assert.NotNull(result.t1);
+        Assert.Collection(
+            result.t1,
+            p => Assert.Collection(
+                p, 
+                pp => Assert.Equal(expectedIndex, pp.GetValue<int>()), 
+                pp => Assert.Equal("y", pp.GetValue<string>())
+                ),
+            p => Assert.Collection(
+                p, 
+                pp => Assert.Equal(expectedIndex, pp.GetValue<int>()), 
+                pp => Assert.Equal("x", pp.GetValue<string>())
+                ) 
+            );
     }
     
+    private const string NetCidrContainsMatchesTupleObjectsCase1 = """
+t1 := o { o := net.cidr_contains_matches({["1.1.0.0/16", "foo", 1], "1.1.2.0/24"}, {"x": "1.1.1.128", "y": ["1.1.254.254", "bar"]}) }
+""";
+    
+    private const string NetCidrContainsMatchesTupleObjectsCase2 = """
+t1 := o { o := net.cidr_contains_matches({["1.1.2.0/24", "foo", 1], "1.1.0.0/16"}, {"x": "1.1.1.128", "y": ["1.1.254.254", "bar"]}) }
+""";
+    
+    [Theory(Skip = "Don't know how to deduce set type")]
+    [InlineData(NetCidrContainsMatchesTupleObjectsCase1, 1)]
+    [InlineData(NetCidrContainsMatchesTupleObjectsCase2, 1)]
+    public async Task NetCidrContainsMatchesTupleObjects(string s, int expectedIndex)
+    {
+        var result = await BuildAndEvaluate(
+            s,
+            new { t1 = Array.Empty<JsonArray>() }
+            );
+        
+        Assert.NotNull(result.t1);
+        Assert.Collection(
+            result.t1,
+            p => Assert.Collection(
+                p, 
+                pp => Assert.Equal(expectedIndex, pp.GetValue<int>()), 
+                pp => Assert.Equal("y", pp.GetValue<string>())
+                ),
+            p => Assert.Collection(
+                p, 
+                pp => Assert.Equal(expectedIndex, pp.GetValue<int>()), 
+                pp => Assert.Equal("x", pp.GetValue<string>())
+                ) 
+            );
+    }
+
     [Fact]
     public async Task Net()
     {
@@ -325,6 +403,18 @@ t2 := o { o := net.lookup_ip_addr("bing.com1") }
         
         Assert.NotNull(result.t1);
         Assert.Null(result.t2);
+    }
+    
+    private async Task<T> BuildAndEvaluate<T>(
+        string statement,
+        T value) where T : notnull
+    {
+        var src = $"""
+package sdk
+{statement}
+""";
+        using var eval = await Build(src, "sdk");
+        return eval.EvaluateValue(value, "sdk");
     }
     
     private async Task<IOpaEvaluator> Build(
