@@ -69,7 +69,7 @@ public class RegoCliCompiler : IRegoCompiler
         var args = $"build -b -t wasm {entrypointArg} {capabilitiesArg} -o {outputFileName} " +
             $"{_options.Value.ExtraArguments} {bundleDirectory.FullName}";
 
-        return await Run(bundleDirectory.FullName, bundleDirectory.FullName, args, outputFileName, cancellationToken);
+        return await Run(bundleDirectory.FullName, bundleDirectory.FullName, args, outputFileName, cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -98,7 +98,7 @@ public class RegoCliCompiler : IRegoCompiler
         // opa build -t wasm -e example/hello .\simple.rego
         var args = $"build -t wasm {entrypointArg} -o {outputFileName} {_options.Value.ExtraArguments} {fi.FullName}";
 
-        return await Run(fi.Directory!.FullName, fi.FullName, args, outputFileName, cancellationToken);
+        return await Run(fi.Directory!.FullName, fi.FullName, args, outputFileName, cancellationToken).ConfigureAwait(false);
     }
 
     private async Task<Stream> Run(
@@ -134,7 +134,7 @@ public class RegoCliCompiler : IRegoCompiler
                 );
         }
 
-        _ = await RunProcess(versionProcess, sourcePath, cancellationToken);
+        _ = await RunProcess(versionProcess, sourcePath, cancellationToken).ConfigureAwait(false);
 
         var compilationProcess = new ProcessStartInfo
         {
@@ -158,7 +158,7 @@ public class RegoCliCompiler : IRegoCompiler
                 );
         }
 
-        var errors = await RunProcess(process, sourcePath, cancellationToken);
+        var errors = await RunProcess(process, sourcePath, cancellationToken).ConfigureAwait(false);
 
         if (process.ExitCode != 0)
         {
@@ -215,7 +215,7 @@ public class RegoCliCompiler : IRegoCompiler
 
         try
         {
-            await process.WaitForExitAsync(ct.Token);
+            await process.WaitForExitAsync(ct.Token).ConfigureAwait(false);
         }
         catch (OperationCanceledException ex)
         {
@@ -254,7 +254,7 @@ public class RegoCliCompiler : IRegoCompiler
 
         public override async ValueTask DisposeAsync()
         {
-            await base.DisposeAsync();
+            await base.DisposeAsync().ConfigureAwait(false);
             DeleteFile();
         }
 
