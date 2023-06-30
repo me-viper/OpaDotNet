@@ -3,83 +3,90 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text.Json.Nodes;
 
-using Microsoft.Extensions.Primitives;
-
 namespace OpaDotNet.Wasm;
 
 public partial class DefaultOpaImportsAbi
 {
+    private record CidrOrIp(IPNetwork Net, JsonNode Key)
+    {
+        private static CidrOrIp Parse(JsonNode? node, object? key = null)
+        {
+            if (node is JsonValue jv)
+            {
+                var k = key != null ? JsonValue.Create(key) : jv;
+                return new(ParseNetwork(jv.GetValue<string>()), k!);
+            }
+            
+            if (node is JsonArray ja)
+            {
+                if (!OpaSet.TryParse<string>(ja, out var set))
+                    throw new FormatException($"Format {node} is not supported");
+                
+                JsonNode k = key == null ? ja : JsonValue.Create(key)!;
+                return new(ParseNetwork(set.Item1), k);
+            }
+            
+            throw new FormatException($"Format {node} is not supported");
+        }
+        
+        public static List<CidrOrIp> ParseAll(JsonNode node)
+        {
+            var result = new List<CidrOrIp>();
+            
+            if (node is JsonArray ja)
+            {
+                for (var i = 0; i < ja.Count; i++)
+                    result.Add(Parse(ja[i], i));
+                
+                return result;
+            }
+            
+            if (node is JsonValue jv)
+            {
+                result.Add(Parse(jv));
+                return result;
+            }
+            
+            if (node is JsonObject jo)
+            {
+                foreach (var (key, n) in jo)
+                    result.Add(Parse(n, key));
+                
+                return result;
+            }
+            
+            throw new FormatException($"Format {node} is not supported");
+        }
+    }
+    
     private static IEnumerable<object[]>? CidrContainsMatches(JsonNode? cidrs, JsonNode? cidrOrIps)
     {
         if (cidrs == null || cidrOrIps == null)
-            return Array.Empty<object[]>();
-
-        string[] cidrVal;
-        string[] cidrOrIpsVal;
-        
-        try
-        {
-            cidrVal = cidrs switch
-            {
-                JsonArray ja => ja.Deserialize<string[]>() ?? Array.Empty<string>(),
-                JsonValue jv => new[] { jv.GetValue<string>() },
-                _ => throw new NotSupportedException($"Format {cidrs} is not supported"),
-            };
-        }
-        catch (JsonException ex)
-        {
-            throw new NotSupportedException($"Format {cidrs} is not supported", ex);
-        }
+            return null;
 
         try
         {
-            cidrOrIpsVal = cidrOrIps switch
-            {
-                JsonArray ja => ja.Deserialize<string[]>() ?? Array.Empty<string>(),
-                JsonValue jv => new[] { jv.GetValue<string>() },
-                _ => throw new NotSupportedException($"Format {cidrOrIps} is not supported"),
-            };
-        }
-        catch (JsonException ex)
-        {
-            throw new NotSupportedException($"Format {cidrOrIps} is not supported", ex);
-        }
+            var x = CidrOrIp.ParseAll(cidrs).ToArray();
+            var y = CidrOrIp.ParseAll(cidrOrIps).ToArray();
         
-        return CidrContainsMatches(cidrVal, cidrOrIpsVal);
-    }
-
-    private static IEnumerable<object[]>? CidrContainsMatches(string[] cidrs, string[] cidrOrIps)
-    {
-        List<IPNetwork> sourceCidrs;
-        List<IPNetwork> targetCidrs;
-        
-        try
-        {
-            sourceCidrs = cidrs.Select(ParseNetwork).ToList();
-            targetCidrs = cidrOrIps.Select(ParseNetwork).ToList();
+            return CidrContainsMatches(x, y);
         }
         catch (FormatException)
         {
             return null;
         }
+    }
+    
+    private static IEnumerable<JsonNode[]> CidrContainsMatches(CidrOrIp[] cidrs, CidrOrIp[] cidrOrIps)
+    {
+        var results = new List<JsonNode[]>();
         
-        var results = new List<object[]>();
-        
-        for (var i = 0; i < sourceCidrs.Count; i++)
+        foreach (var c in cidrs)
         {
-            for (var j = 0; j < targetCidrs.Count; j++)
+            foreach (var t in cidrOrIps)
             {
-                if (sourceCidrs[i].Contains(targetCidrs[j]))
-                {
-                    var tc = targetCidrs[i].Cidr == 32 
-                        ? targetCidrs[i].FirstUsable.ToString()
-                        : targetCidrs[i].ToString();
-                        
-                    object iVal = sourceCidrs.Count == 1 ? sourceCidrs[i].ToString() : i; 
-                    object jVal = targetCidrs.Count == 1 ? tc : j; 
-                    
-                    results.Add(new[] { iVal, jVal });
-                }
+                if (c.Net.Contains(t.Net))
+                    results.Add(new[] { c.Key, t.Key });
             }
         }
         
