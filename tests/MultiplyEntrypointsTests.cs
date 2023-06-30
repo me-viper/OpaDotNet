@@ -32,7 +32,8 @@ public class MultiplyEntrypointsTests : IAsyncLifetime
                 "example",
                 "example/one",
                 "example/two",
-            });
+            }
+            );
 
         var factory = new OpaEvaluatorFactory(loggerFactory: _loggerFactory);
         _engine = factory.CreateFromBundle(policy);

@@ -13,10 +13,9 @@ public interface IUpdateDataFeature : IOpaEvaluatorFeature
     /// <example>
     /// Base object <c>{"a": {"b": 123 }}</c>, path <c>["a", "x", "y"]</c>,
     /// and value <c>{"foo": "bar"}</c>
-     
     /// </example>
     void UpdateDataPath(ReadOnlySpan<char> dataJson, IEnumerable<string> path);
-    
+
     /// <summary>
     /// Removes JSON from external data.
     /// </summary>

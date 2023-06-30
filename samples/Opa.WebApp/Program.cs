@@ -35,28 +35,32 @@ builder.Services
                 {
                     if (string.IsNullOrWhiteSpace(context.Username))
                         return Task.CompletedTask;
-                    
+
                     // For sample purposes we don't bother with checking passwords.
                     var claims = new[]
                     {
-                        new Claim(ClaimTypes.NameIdentifier, 
-                            context.Username, 
-                            ClaimValueTypes.String, 
-                            context.Options.ClaimsIssuer),
                         new Claim(
-                            ClaimTypes.Name, 
-                            context.Username, 
-                            ClaimValueTypes.String, 
-                            context.Options.ClaimsIssuer)
+                            ClaimTypes.NameIdentifier,
+                            context.Username,
+                            ClaimValueTypes.String,
+                            context.Options.ClaimsIssuer
+                            ),
+                        new Claim(
+                            ClaimTypes.Name,
+                            context.Username,
+                            ClaimValueTypes.String,
+                            context.Options.ClaimsIssuer
+                            )
                     };
-                    
-                    context.Principal = new (new ClaimsIdentity(claims, context.Scheme.Name));
+
+                    context.Principal = new(new ClaimsIdentity(claims, context.Scheme.Name));
                     context.Success();
-                    
+
                     return Task.CompletedTask;
                 }
             };
-        });
+        }
+        );
 
 builder.Services.AddAuthorization();
 
@@ -65,18 +69,19 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 // Evaluate example/user policy for user.
-app.MapGet("/", [Authorize("example/user")] (ClaimsPrincipal user) => $"Hello {user.Identity?.Name}!");
+app.MapGet("/", [Authorize("example/user")](ClaimsPrincipal user) => $"Hello {user.Identity?.Name}!");
 app.MapGet(
-    "/resource/{id}", 
+    "/resource/{id}",
     async ([FromServices] IAuthorizationService authorizationService, ClaimsPrincipal user, string id) =>
     {
         // Evaluate example/resource policy for user and resource.
         var result = await authorizationService.AuthorizeAsync(user, id, "example/resource");
-        
+
         if (result.Succeeded)
             return Results.Ok($"You can access resource {id}");
-        
+
         return Results.Forbid();
-    });
+    }
+    );
 
 app.Run();

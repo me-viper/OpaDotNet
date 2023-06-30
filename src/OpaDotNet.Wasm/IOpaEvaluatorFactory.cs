@@ -15,7 +15,7 @@ public interface IOpaEvaluatorFactory
     /// <param name="options">Evaluator configuration</param>
     /// <returns>Evaluator instance</returns>
     IOpaEvaluator CreateFromBundle(Stream policyBundle, WasmPolicyEngineOptions? options = null);
-    
+
     /// <summary>
     /// Creates evaluator from compiled wasm policy file.
     /// </summary>

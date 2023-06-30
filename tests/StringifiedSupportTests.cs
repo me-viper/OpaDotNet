@@ -34,7 +34,8 @@ public class StringifiedSupportTests : IAsyncLifetime
                 "stringified/support/plainInputBoolean",
                 "stringified/support/plainInputNumber",
                 "stringified/support/plainInputString",
-            });
+            }
+            );
 
         var factory = new OpaEvaluatorFactory(loggerFactory: _loggerFactory);
         _engine = factory.CreateFromBundle(policy);

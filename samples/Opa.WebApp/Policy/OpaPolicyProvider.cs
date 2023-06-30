@@ -12,16 +12,16 @@ public class OpaPolicyProvider : IAuthorizationPolicyProvider
     public OpaPolicyProvider(IOptions<AuthorizationOptions> options)
     {
         ArgumentNullException.ThrowIfNull(options);
-        
+
         _default = new DefaultAuthorizationPolicyProvider(options);
     }
-    
+
     public Task<AuthorizationPolicy?> GetPolicyAsync(string policyName)
     {
         var policy = new AuthorizationPolicyBuilder(BasicAuthenticationHandler.BasicAuth);
-        
+
         policy.RequireAuthenticatedUser();
-        
+
         // policyName corresponds to an entrypoint in rego policy file.
         policy.AddRequirements(new OpaPolicyRequirement(policyName));
 

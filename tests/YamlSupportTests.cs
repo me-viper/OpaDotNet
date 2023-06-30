@@ -8,10 +8,10 @@ using Xunit.Abstractions;
 
 namespace OpaDotNet.Tests;
 
-public class YamlSupportTests  : IAsyncLifetime
+public class YamlSupportTests : IAsyncLifetime
 {
     private IOpaEvaluator _engine = default!;
-    
+
     private readonly ITestOutputHelper _output;
 
     private readonly ILoggerFactory _loggerFactory;
@@ -40,8 +40,9 @@ public class YamlSupportTests  : IAsyncLifetime
                 "yaml/support/hasYAMLWarning",
                 "yaml/support/canMarshalYAML",
                 "yaml/support/isValidYAML",
-            });
-        
+            }
+            );
+
         var factory = new OpaEvaluatorFactory();
         _engine = factory.CreateFromBundle(policy);
     }
@@ -51,7 +52,7 @@ public class YamlSupportTests  : IAsyncLifetime
         _engine.Dispose();
         return Task.CompletedTask;
     }
-    
+
     [Fact(Skip = "Yaml is not supported yet")]
     public void CanParseYaml()
     {

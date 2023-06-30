@@ -17,7 +17,7 @@ public class OpaEvaluatorFactory : IOpaEvaluatorFactory
     private IOpaEvaluator Create(OpaPolicy policy, WasmPolicyEngineOptions? options = null)
     {
         options ??= WasmPolicyEngineOptions.Default;
-        
+
         var engine = new Engine();
         var linker = new Linker(engine);
         var store = new Store(engine);
@@ -40,7 +40,7 @@ public class OpaEvaluatorFactory : IOpaEvaluatorFactory
         result.SetDataFromStream(policy.Data);
         return result;
     }
-    
+
     /// <inheritdoc />
     public IOpaEvaluator CreateFromBundle(Stream policyBundle, WasmPolicyEngineOptions? options = null)
     {
@@ -49,14 +49,14 @@ public class OpaEvaluatorFactory : IOpaEvaluatorFactory
         options ??= WasmPolicyEngineOptions.Default;
 
         OpaPolicy? policy = null;
-        
+
         try
         {
             policy = TarGzHelper.ReadBundle(policyBundle);
-            
+
             if (policy == null)
                 throw new OpaRuntimeException("Failed to unpack policy bundle");
-            
+
             return Create(policy, options);
         }
         catch (OpaRuntimeException)
@@ -72,12 +72,12 @@ public class OpaEvaluatorFactory : IOpaEvaluatorFactory
             policy?.Dispose();
         }
     }
-    
+
     /// <inheritdoc />
     public IOpaEvaluator CreateFromWasm(Stream policyWasm, WasmPolicyEngineOptions? options = null)
     {
         ArgumentNullException.ThrowIfNull(policyWasm);
-        
+
         return Create(new(policyWasm), options);
     }
 }
