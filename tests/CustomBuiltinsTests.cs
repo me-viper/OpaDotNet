@@ -164,7 +164,7 @@ public class CustomBuiltinsTests : IAsyncLifetime
     private class CustomOpaImportsAbi : DefaultOpaImportsAbi
     {
         private readonly ILogger _logger;
-        
+
         public CustomOpaImportsAbi(ILogger<CustomOpaImportsAbi> logger)
         {
             _logger = logger;

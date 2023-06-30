@@ -18,7 +18,8 @@ public class BuiltinArg
             {
                 var json = getArg();
                 return JsonNode.Parse(json);
-            });
+            }
+            );
     }
 
     public JsonNode? Raw => _arg.Value;

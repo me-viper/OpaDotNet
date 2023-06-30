@@ -51,7 +51,7 @@ public class AbiVersioningTests : IAsyncLifetime
             );
 
         engine.SetDataFromRawJson("{ \"world\": \"world\" }");
-        
+
         Assert.Equal(expectedVer, engine.AbiVersion);
     }
 
@@ -61,7 +61,7 @@ public class AbiVersioningTests : IAsyncLifetime
         var engine = _factory.CreateFromWasm(
             File.OpenRead(Path.Combine(BasePath, "simple-1.2.wasm"))
             );
-        
+
         engine.SetDataFromRawJson("{ \"world\": \"world\" }");
 
         Assert.Equal(new Version(1, 2), ((WasmOpaEvaluator)engine).PolicyAbiVersion);

@@ -8,7 +8,7 @@ internal abstract class WasmPolicyEngine<TAbi> : IWasmPolicyEngine
     where TAbi : V10.IOpaExportsAbi, IAbiInitializer<TAbi>
 {
     private JsonSerializerOptions JsonOptions { get; }
-    
+
     protected nint BasePtr { get; }
 
     protected nint DataPtr { get; set; }
@@ -24,7 +24,7 @@ internal abstract class WasmPolicyEngine<TAbi> : IWasmPolicyEngine
     public IReadOnlyDictionary<string, int> Entrypoints { get; }
 
     public IReadOnlyDictionary<int, string> Builtins { get; }
-    
+
     protected WasmPolicyEngine(
         Memory memory,
         Instance instance,
@@ -78,7 +78,7 @@ internal abstract class WasmPolicyEngine<TAbi> : IWasmPolicyEngine
 
         return entrypointId;
     }
-    
+
     protected void EnsureMemory(int size)
     {
         var delta = EvalHeapPtr + size - Memory.GetLength();
@@ -102,7 +102,7 @@ internal abstract class WasmPolicyEngine<TAbi> : IWasmPolicyEngine
         DataPtr = WriteJsonString(dataJson);
         EvalHeapPtr = Abi.HeapPrtGet();
     }
-    
+
     public virtual void SetData(Stream? data)
     {
         Abi.HeapPtrSet(BasePtr);
@@ -111,12 +111,12 @@ internal abstract class WasmPolicyEngine<TAbi> : IWasmPolicyEngine
             return;
 
         var len = (int)data.Length;
-        
+
         var dataPtr = Abi.Malloc(len);
         var bytesRead = data.Read(Memory.GetSpan(dataPtr, len));
         DataPtr = Abi.JsonParse(dataPtr, bytesRead);
         Abi.Free(dataPtr);
-        
+
         EvalHeapPtr = Abi.HeapPrtGet();
     }
 
@@ -140,7 +140,7 @@ internal abstract class WasmPolicyEngine<TAbi> : IWasmPolicyEngine
         var bytesWritten = Memory.WriteString(dataPtr, data, Encoding.UTF8);
         var result = Abi.JsonParse(dataPtr, bytesWritten);
         Abi.Free(dataPtr);
-        
+
         return result;
     }
 

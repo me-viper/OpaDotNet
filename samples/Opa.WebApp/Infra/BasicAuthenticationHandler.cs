@@ -10,19 +10,19 @@ namespace Opa.WebApp.Infra;
 internal class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
 {
     public const string BasicAuth = "Basic";
-    
+
     private BasicAuthenticationEvents AuthEvents
     {
         get => (BasicAuthenticationEvents)base.Events!;
         set => base.Events = value;
     }
-    
+
     protected override Task<object> CreateEventsAsync() => Task.FromResult<object>(new BasicAuthenticationEvents());
-    
+
     public BasicAuthenticationHandler(
-        IOptionsMonitor<AuthenticationSchemeOptions> options, 
-        ILoggerFactory logger, 
-        UrlEncoder encoder, 
+        IOptionsMonitor<AuthenticationSchemeOptions> options,
+        ILoggerFactory logger,
+        UrlEncoder encoder,
         ISystemClock clock) : base(options, logger, encoder, clock)
     {
     }
@@ -30,23 +30,23 @@ internal class BasicAuthenticationHandler : AuthenticationHandler<Authentication
     protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
     {
         var authorizationHeader = Request.Headers["Authorization"].FirstOrDefault();
-        
+
         if (string.IsNullOrWhiteSpace(authorizationHeader))
             return AuthenticateResult.Fail("No credential");
-        
+
         if (string.Equals(BasicAuth, authorizationHeader, StringComparison.Ordinal))
             return AuthenticateResult.Fail("No credentials");
-        
+
         if (!authorizationHeader.StartsWith(BasicAuth + ' ', StringComparison.OrdinalIgnoreCase))
             return AuthenticateResult.Fail("Invalid authentication scheme");
-        
+
         var encodedCredentials = authorizationHeader[BasicAuth.Length..].Trim();
 
         try
         {
             string decodedCredentials;
             byte[] base64DecodedCredentials;
-            
+
             try
             {
                 base64DecodedCredentials = Convert.FromBase64String(encodedCredentials);
@@ -70,7 +70,7 @@ internal class BasicAuthenticationHandler : AuthenticationHandler<Authentication
             }
 
             var delimiterIndex = decodedCredentials.IndexOf(":", StringComparison.OrdinalIgnoreCase);
-            
+
             if (delimiterIndex == -1)
             {
                 const string missingDelimiterMessage = "Invalid credentials";
@@ -86,18 +86,18 @@ internal class BasicAuthenticationHandler : AuthenticationHandler<Authentication
                 Username = username,
                 Password = password
             };
-            
+
             await AuthEvents.ValidateCredentials(validateCredentialsContext);
-            
+
             if (validateCredentialsContext.Result.Succeeded)
             {
                 if (validateCredentialsContext.Principal == null)
                     return AuthenticateResult.Fail("Invalid principal");
-                
+
                 var ticket = new AuthenticationTicket(validateCredentialsContext.Principal, Scheme.Name);
                 return AuthenticateResult.Success(ticket);
             }
-            
+
             if (validateCredentialsContext.Result.Failure != null)
                 return AuthenticateResult.Fail(validateCredentialsContext.Result.Failure);
 
@@ -115,7 +115,7 @@ internal class BasicAuthenticationHandler : AuthenticationHandler<Authentication
             return authenticationFailedContext.Result;
         }
     }
-    
+
     protected override Task HandleChallengeAsync(AuthenticationProperties properties)
     {
         Response.StatusCode = 401;

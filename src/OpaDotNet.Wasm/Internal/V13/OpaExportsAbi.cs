@@ -13,7 +13,7 @@ internal class OpaExportsAbi : V12.OpaExportsAbi, IOpaExportsAbi, IAbiInitialize
     private readonly Action _heapBlocksRestore;
 
     private readonly Action _heapStashClear;
-    
+
     static OpaExportsAbi IAbiInitializer<OpaExportsAbi>.Initialize(Instance instance)
     {
         return new OpaExportsAbi(instance);

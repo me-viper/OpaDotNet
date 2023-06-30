@@ -4,9 +4,11 @@
 
 # Open Policy Agent (OPA) WebAssembly dotnet core SDK
 
-This is SDK for using WebAssembly (wasm) compiled [Open Policy Agent](https://www.openpolicyagent.org/) Rego policies with dotnet core.
+This is SDK for using WebAssembly (wasm) compiled [Open Policy Agent](https://www.openpolicyagent.org/) Rego policies
+with dotnet core.
 
-Initial implementation was based on [Open Policy Agent WebAssemby NPM Module](https://github.com/open-policy-agent/npm-opa-wasm)
+Initial implementation was based
+on [Open Policy Agent WebAssemby NPM Module](https://github.com/open-policy-agent/npm-opa-wasm)
 
 For more information check out [the guide](https://andrii-kurochka.gitbook.io/opadotnet.wasm/).
 
@@ -51,7 +53,8 @@ engine.SetDataFromRawJson(data);
 
 `IOpaEvaluator` has several APIs for policy evaluation:
 
-* `EvaluatePredicate` - Evaluates named policy with specified input. Response interpreted as simple `true`/`false` result.
+* `EvaluatePredicate` - Evaluates named policy with specified input. Response interpreted as simple `true`/`false`
+  result.
 * `Evaluate` - Evaluates named policy with specified input.
 * `EvaluateRaw` - Evaluates named policy with specified raw JSON input.
 
@@ -102,7 +105,8 @@ opa build -t wasm -e example/hello example.rego
 ```
 
 Which is compiling the `example.rego` policy file.
-The result will be an OPA bundle with the `policy.wasm` binary included. See [./samples](./samples) for a more comprehensive example.
+The result will be an OPA bundle with the `policy.wasm` binary included. See [./samples](./samples) for a more
+comprehensive example.
 
 See `opa build --help` for more details.
 
@@ -128,8 +132,10 @@ using var engine = factory.CreateFromBundle(policyStream);
 
 ## 3rd Party Libraries and Contributions
 
-* [OPA](https://www.openpolicyagent.org/) - An open source, general-purpose policy engine that unifies policy enforcement across the stack.
+* [OPA](https://www.openpolicyagent.org/) - An open source, general-purpose policy engine that unifies policy
+  enforcement across the stack.
 * [Moq](https://github.com/moq/moq4) - The most popular and friendly mocking library for .NET.
 * [xUnit.net](https://xunit.net/) - Free, open source, community-focused unit testing tool for the .NET Framework.
 * [wasmtime-dotnet](https://github.com/bytecodealliance/wasmtime-dotnet) - .NET embedding of Wasmtime.
-* [IPNetwork2](https://github.com/lduchosal/ipnetwork) - Utility classes take care of complex network, IPv4, IPv6, CIDR calculation for .NET developers.
+* [IPNetwork2](https://github.com/lduchosal/ipnetwork) - Utility classes take care of complex network, IPv4, IPv6, CIDR
+  calculation for .NET developers.

@@ -14,7 +14,7 @@ internal static class TarGzHelper
         ms.Seek(0, SeekOrigin.Begin);
 
         var tr = new TarReader(ms);
-        
+
         static Stream ReadEntry(TarEntry entry)
         {
             if (entry.DataStream == null)
@@ -23,13 +23,13 @@ internal static class TarGzHelper
             var result = new MemoryStream((int)entry.DataStream.Length);
             entry.DataStream.CopyToAsync(result);
             result.Seek(0, SeekOrigin.Begin);
-            
+
             return result;
         }
-        
+
         Stream? policy = null;
         Stream? data = null;
-        
+
         while (tr.GetNextEntry() is { } entry)
         {
             if (string.Equals(entry.Name, "/policy.wasm", StringComparison.OrdinalIgnoreCase))
@@ -38,13 +38,13 @@ internal static class TarGzHelper
             if (string.Equals(entry.Name, "/data.json", StringComparison.OrdinalIgnoreCase))
                 data = ReadEntry(entry);
         }
-        
+
         if (policy == null)
             throw new OpaRuntimeException("Bundle does not contain policy.wasm file");
 
         return new(policy, data);
     }
-    
+
     // public static async Task<OpaPolicy> ReadBundleAsync(
     //     Stream archive,
     //     CancellationToken cancellationToken = default)

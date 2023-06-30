@@ -11,13 +11,13 @@ internal static class EvaluatorExtensions
         this IOpaEvaluator eval,
         TResult value,
         string entrypoint,
-        string? input = null) 
+        string? input = null)
         where TResult : notnull
     {
         var result = eval.Evaluate<object?, TResult>(input, entrypoint);
         return result.Result;
     }
-    
+
     public static async Task<Stream> Compile(this IRegoCompiler compiler, string source, string entrypoint)
     {
         var fileName = $"{Guid.NewGuid()}.rego";

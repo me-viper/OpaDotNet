@@ -12,39 +12,39 @@ namespace Opa.WebApp.Policy;
 public sealed class OpaPolicyService : IHostedService, IOpaPolicyService
 {
     private IOpaEvaluator _evaluator = default!;
-    
+
     private readonly IRegoCompiler _compiler;
-    
+
     private readonly ILogger _logger;
-    
+
     private readonly ILoggerFactory _loggerFactory;
-    
+
     private readonly FileSystemWatcher _policyWatcher;
-    
+
     private readonly IOptions<OpaPolicyServiceOptions> _options;
-    
+
     private readonly SemaphoreSlim _semaphore = new(1, 1);
-    
+
     private readonly ConcurrentBag<string> _changes = new();
-    
+
     private readonly PeriodicTimer _changesMonitor;
-    
+
     private readonly CancellationTokenSource _cancellationTokenSource = new();
-    
+
     public OpaPolicyService(
-        IRegoCompiler compiler, 
+        IRegoCompiler compiler,
         IOptions<OpaPolicyServiceOptions> options,
         ILoggerFactory loggerFactory)
     {
         ArgumentNullException.ThrowIfNull(compiler);
         ArgumentNullException.ThrowIfNull(options);
         ArgumentNullException.ThrowIfNull(loggerFactory);
-        
+
         _compiler = compiler;
         _options = options;
         _loggerFactory = loggerFactory;
         _logger = loggerFactory.CreateLogger<ILogger<OpaPolicyService>>();
-        
+
         _policyWatcher = new()
         {
             Path = _options.Value.PolicyBundlePath,
@@ -52,24 +52,24 @@ public sealed class OpaPolicyService : IHostedService, IOpaPolicyService
             NotifyFilter = NotifyFilters.LastWrite,
             IncludeSubdirectories = true,
         };
-        
+
         _policyWatcher.Changed += PolicyChanged;
         _changesMonitor = new(_options.Value.MonitoringInterval);
     }
-    
+
     private void PolicyChanged(object sender, FileSystemEventArgs e)
     {
         if (e.ChangeType != WatcherChangeTypes.Changed)
             return;
-        
+
         var changedFile = new FileInfo(e.FullPath);
-        
+
         if (!changedFile.Exists)
             return;
-        
+
         if (_cancellationTokenSource.Token.IsCancellationRequested)
             return;
-        
+
         _logger.LogDebug("Detected policy change in {File}. Stashing until next recompilation cycle", e.FullPath);
         _changes.Add(changedFile.FullName);
     }
@@ -81,10 +81,10 @@ public sealed class OpaPolicyService : IHostedService, IOpaPolicyService
         try
         {
             await using var policy = await _compiler.CompileBundle(
-                _options.Value.PolicyBundlePath, 
+                _options.Value.PolicyBundlePath,
                 cancellationToken: cancellationToken
                 );
-                    
+
             var factory = new OpaEvaluatorFactory(loggerFactory: _loggerFactory);
             _evaluator = factory.CreateFromBundle(policy);
         }
@@ -93,10 +93,10 @@ public sealed class OpaPolicyService : IHostedService, IOpaPolicyService
             _logger.LogError(ex, "Bundle compilation failed");
             throw;
         }
-        
+
         _logger.LogDebug("Compilation succeeded");
     }
-    
+
     private async Task TrackPolicyChanged(CancellationToken cancellationToken)
     {
         try
@@ -105,15 +105,15 @@ public sealed class OpaPolicyService : IHostedService, IOpaPolicyService
             {
                 if (_changes.IsEmpty)
                     continue;
-                
+
                 try
                 {
                     _logger.LogDebug("Detected changes. Recompiling");
                     await _semaphore.WaitAsync(cancellationToken);
-                    
+
                     await CompileBundle(cancellationToken);
                     _logger.LogDebug("Recompilation succeeded");
-                    
+
                     _changes.Clear();
                 }
                 finally
@@ -129,7 +129,7 @@ public sealed class OpaPolicyService : IHostedService, IOpaPolicyService
     }
 
     public async Task<PolicyEvaluationResult<bool>> EvaluatePredicate(
-        OpaPolicyInput input, 
+        OpaPolicyInput input,
         string policyName,
         CancellationToken cancellationToken = default)
     {
@@ -139,7 +139,7 @@ public sealed class OpaPolicyService : IHostedService, IOpaPolicyService
         try
         {
             var token = CancellationTokenSource.CreateLinkedTokenSource(_cancellationTokenSource.Token, cancellationToken).Token;
-            
+
             // Opa evaluators are not thread-safe.
             await _semaphore.WaitAsync(token);
             return _evaluator.EvaluatePredicate(input, policyName);
@@ -163,12 +163,12 @@ public sealed class OpaPolicyService : IHostedService, IOpaPolicyService
         {
             _semaphore.Release();
         }
-        
+
         _logger.LogDebug("Watching policy for changes");
         _policyWatcher.EnableRaisingEvents = true;
-        
+
         _ = Task.Run(() => TrackPolicyChanged(_cancellationTokenSource.Token), _cancellationTokenSource.Token);
-        
+
         _logger.LogDebug("Started");
     }
 

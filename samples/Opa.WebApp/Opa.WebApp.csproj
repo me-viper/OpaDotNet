@@ -7,19 +7,19 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\OpaDotNet.Wasm\OpaDotNet.Wasm.csproj" />
+        <ProjectReference Include="..\..\src\OpaDotNet.Wasm\OpaDotNet.Wasm.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="OpaBundle\policy.rego">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
+        <None Update="OpaBundle\policy.rego">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
     <ItemGroup>
-      <Content Update="OpaBundle\access\data.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
+        <Content Update="OpaBundle\access\data.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
     </ItemGroup>
 
 </Project>

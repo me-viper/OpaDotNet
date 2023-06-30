@@ -130,7 +130,8 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
                 {
                     var result = imports.Func(Context(id, ctx));
                     return WriteJson(result).ToInt32();
-                })
+                }
+                )
             );
 
         _linker.Define(
@@ -143,7 +144,8 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
                     var a1 = new BuiltinArg(() => ReadJsonString(arg1));
                     var result = imports.Func(Context(id, ctx), a1);
                     return WriteJson(result).ToInt32();
-                })
+                }
+                )
             );
 
         _linker.Define(
@@ -157,7 +159,8 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
                     var a2 = new BuiltinArg(() => ReadJsonString(arg2));
                     var result = imports.Func(Context(id, ctx), a1, a2);
                     return WriteJson(result).ToInt32();
-                })
+                }
+                )
             );
 
         _linker.Define(
@@ -172,7 +175,8 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
                     var a3 = new BuiltinArg(() => ReadJsonString(arg3));
                     var result = imports.Func(Context(id, ctx), a1, a2, a3);
                     return WriteJson(result).ToInt32();
-                })
+                }
+                )
             );
 
         _linker.Define(
@@ -188,7 +192,8 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
                     var a4 = new BuiltinArg(() => ReadJsonString(arg4));
                     var result = imports.Func(Context(id, ctx), a1, a2, a3, a4);
                     return WriteJson(result).ToInt32();
-                })
+                }
+                )
             );
     }
 

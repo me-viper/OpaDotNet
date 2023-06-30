@@ -28,7 +28,7 @@ internal class OpaExportsAbi : IOpaExportsAbi, IAbiInitializer<OpaExportsAbi>
     private readonly Action<int, int> _setEntrypoint;
     private readonly Func<int, int> _getResult;
     private readonly Func<int, int> _eval;
-    
+
     static OpaExportsAbi IAbiInitializer<OpaExportsAbi>.Initialize(Instance instance)
     {
         return new OpaExportsAbi(instance);

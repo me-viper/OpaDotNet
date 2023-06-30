@@ -231,12 +231,12 @@ public class RegoCliCompiler : IRegoCompiler
 
         return errors;
     }
-    
+
     [ExcludeFromCodeCoverage]
     private class DeleteOnCloseFileStream : FileStream
     {
-        private readonly string _path; 
-        
+        private readonly string _path;
+
         public DeleteOnCloseFileStream(string path, FileMode mode) : base(path, mode)
         {
             _path = path;
@@ -245,7 +245,7 @@ public class RegoCliCompiler : IRegoCompiler
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
-            
+
             if (disposing)
             {
                 DeleteFile();
@@ -257,13 +257,14 @@ public class RegoCliCompiler : IRegoCompiler
             await base.DisposeAsync();
             DeleteFile();
         }
-        
+
         private void DeleteFile()
         {
             try
             {
                 File.Delete(_path);
             }
+
             // ReSharper disable once EmptyGeneralCatchClause
             catch (Exception)
             {

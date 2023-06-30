@@ -17,7 +17,7 @@ public class RegoCliCompilerOptions
     /// Directory requires write permissions.
     /// </remarks>
     public string? OutputPath { get; set; }
-    
+
     /// <summary>
     /// Extra arguments to pass to opa cli tool.
     /// </summary>

@@ -19,7 +19,7 @@ internal class EngineImpl<TAbi> : V10.EngineImpl<TAbi>
     public override nint Eval(ReadOnlySpan<char> inputJson, string? entrypoint = null)
     {
         var entrypointId = GetEntrypoint(entrypoint);
-        
+
         Abi.HeapPtrSet(EvalHeapPtr);
 
         var inputLength = Encoding.UTF8.GetByteCount(inputJson);

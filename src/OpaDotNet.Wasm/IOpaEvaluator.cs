@@ -47,7 +47,7 @@ public interface IOpaEvaluator : IDisposable
     /// </summary>
     /// <param name="dataJson">External data JSON as raw string</param>
     void SetDataFromRawJson(ReadOnlySpan<char> dataJson);
-    
+
     /// <summary>
     /// Sets external data.
     /// </summary>
@@ -59,7 +59,7 @@ public interface IOpaEvaluator : IDisposable
     /// </summary>
     /// <param name="data">External data</param>
     void SetData<T>(T? data) where T : class;
-    
+
     /// <summary>
     /// Resets evaluator to initial state. External data is removed.
     /// </summary>

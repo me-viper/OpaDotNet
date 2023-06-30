@@ -16,49 +16,49 @@ public partial class DefaultOpaImportsAbi
                 var k = key != null ? JsonValue.Create(key) : jv;
                 return new(ParseNetwork(jv.GetValue<string>()), k!);
             }
-            
+
             if (node is JsonArray ja)
             {
                 if (!OpaSet.TryParse<string>(ja, out var set))
                     throw new FormatException($"Format {node} is not supported");
-                
+
                 JsonNode k = key == null ? ja : JsonValue.Create(key)!;
                 return new(ParseNetwork(set.Item1), k);
             }
-            
+
             throw new FormatException($"Format {node} is not supported");
         }
-        
+
         public static List<CidrOrIp> ParseAll(JsonNode node)
         {
             var result = new List<CidrOrIp>();
-            
+
             if (node is JsonArray ja)
             {
                 for (var i = 0; i < ja.Count; i++)
                     result.Add(Parse(ja[i], i));
-                
+
                 return result;
             }
-            
+
             if (node is JsonValue jv)
             {
                 result.Add(Parse(jv));
                 return result;
             }
-            
+
             if (node is JsonObject jo)
             {
                 foreach (var (key, n) in jo)
                     result.Add(Parse(n, key));
-                
+
                 return result;
             }
-            
+
             throw new FormatException($"Format {node} is not supported");
         }
     }
-    
+
     private static IEnumerable<object[]>? CidrContainsMatches(JsonNode? cidrs, JsonNode? cidrOrIps)
     {
         if (cidrs == null || cidrOrIps == null)
@@ -68,7 +68,7 @@ public partial class DefaultOpaImportsAbi
         {
             var x = CidrOrIp.ParseAll(cidrs).ToArray();
             var y = CidrOrIp.ParseAll(cidrOrIps).ToArray();
-        
+
             return CidrContainsMatches(x, y);
         }
         catch (FormatException)
@@ -76,11 +76,11 @@ public partial class DefaultOpaImportsAbi
             return null;
         }
     }
-    
+
     private static IEnumerable<JsonNode[]> CidrContainsMatches(CidrOrIp[] cidrs, CidrOrIp[] cidrOrIps)
     {
         var results = new List<JsonNode[]>();
-        
+
         foreach (var c in cidrs)
         {
             foreach (var t in cidrOrIps)
@@ -89,34 +89,34 @@ public partial class DefaultOpaImportsAbi
                     results.Add(new[] { c.Key, t.Key });
             }
         }
-        
+
         return results;
     }
-    
+
     private static string[]? CidrExpand(string cidr)
     {
         if (!TryParseNetwork(cidr, out var result))
             return null;
-        
+
         return result.ListIPAddress()
             .Select(p => p.ToString())
             .ToArray();
     }
-    
+
     private static bool CidrIsValid(string cidr)
     {
         return IPNetwork.TryParse(cidr, out _);
     }
-    
+
     private static string[] CidrMerge(string[] addresses)
     {
         throw new NotImplementedException("net.cidr_merge");
     }
-    
+
     private static string[]? LookupIPAddress(string name)
     {
         var result = new List<string>();
-        
+
         try
         {
             var ipv4 = Dns.GetHostEntry(name, AddressFamily.InterNetwork);
@@ -126,7 +126,7 @@ public partial class DefaultOpaImportsAbi
         {
             return null;
         }
-        
+
         try
         {
             var ipv4 = Dns.GetHostEntry(name, AddressFamily.InterNetworkV6);
@@ -137,7 +137,7 @@ public partial class DefaultOpaImportsAbi
             if (result.Count == 0)
                 return null;
         }
-        
+
         return result.ToArray();
     }
 
@@ -145,20 +145,20 @@ public partial class DefaultOpaImportsAbi
     {
         if (TryParseNetwork(cidrOrIp, out var result))
             return result;
-        
+
         throw new FormatException($"Invalid IP/CIDR format '{cidrOrIp}'");
     }
-    
+
     private static bool TryParseNetwork(string cidrOrIp, [MaybeNullWhen(false)] out IPNetwork result)
     {
         result = null;
-        
+
         if (IPAddress.TryParse(cidrOrIp, out var ip))
         {
             result = new IPNetwork(ip, 32);
             return true;
         }
-        
+
         return IPNetwork.TryParse(cidrOrIp, out result);
     }
 }

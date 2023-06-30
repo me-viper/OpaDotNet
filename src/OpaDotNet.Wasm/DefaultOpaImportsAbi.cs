@@ -31,7 +31,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
     public virtual void PrintLn(string message)
     {
     }
-    
+
     public virtual object? Func(BuiltinContext context)
     {
         return context.FunctionName switch

@@ -29,37 +29,37 @@ internal class EngineImpl<TAbi> : V12.EngineImpl<TAbi>, IUpdateDataFeature
     void IUpdateDataFeature.UpdateDataPath(ReadOnlySpan<char> dataJson, IEnumerable<string> path)
     {
         ArgumentNullException.ThrowIfNull(path);
-        
+
         Abi.HeapBlocksRestore();
-        
+
         var valPtr = WriteJsonString(dataJson);
         var pathPtr = WriteJson(path);
         var result = Abi.ValueAddPath(DataPtr, pathPtr, valPtr);
-        
+
         if (result != OpaResult.Ok)
             throw new OpaEvaluationException($"Failed to update data: {result}");
-        
+
         Abi.ValueFree(pathPtr);
         Abi.HeapBlocksStash();
-        
+
         EvalHeapPtr = Abi.HeapPrtGet();
     }
 
     void IUpdateDataFeature.RemoveDataPath(IEnumerable<string> path)
     {
         ArgumentNullException.ThrowIfNull(path);
-        
+
         Abi.HeapBlocksRestore();
-        
+
         var pathPtr = WriteJson(path);
         var result = Abi.ValueRemovePath(DataPtr, pathPtr);
-        
+
         if (result != OpaResult.Ok)
             throw new OpaEvaluationException($"Failed to update data: {result}");
-        
+
         Abi.ValueFree(pathPtr);
         Abi.HeapBlocksStash();
-        
+
         EvalHeapPtr = Abi.HeapPrtGet();
     }
 }

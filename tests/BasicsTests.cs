@@ -126,7 +126,7 @@ public class BasicsTests
             policy,
             options: new() { MaxAbiVersion = ver }
             );
-        
+
         engine.SetDataFromRawJson(data);
 
         var result1Str = engine.EvaluateRaw(input, entrypoint);
@@ -156,13 +156,13 @@ public class BasicsTests
     public void StringData(string? data, string input, bool expectedResult)
     {
         var factory = new OpaEvaluatorFactory(loggerFactory: _loggerFactory);
-        
+
         using var engine = factory.CreateFromWasm(
             File.OpenRead(Path.Combine(BasePath, "simple-1.2.wasm"))
             );
 
         engine.SetDataFromRawJson(data);
-        
+
         var resultStr = engine.EvaluateRaw(input);
         var result = JsonSerializer.Deserialize<PolicyResult[]>(resultStr);
 
@@ -173,22 +173,22 @@ public class BasicsTests
 
         Assert.NotEmpty(resultStr);
     }
-    
+
     [Theory]
     [InlineData("{ \"world\": \"world\" }", "{ \"message\": \"world\"}", true)]
     [InlineData("{ \"world\": \"world\" }", "{ \"message\": \"world1\"}", false)]
     public Task StreamData(string data, string input, bool expectedResult)
     {
         var factory = new OpaEvaluatorFactory(loggerFactory: _loggerFactory);
-        
+
         var dataStream = new MemoryStream();
         var buffer = Encoding.UTF8.GetBytes(data);
         dataStream.Write(buffer);
         dataStream.Seek(0, SeekOrigin.Begin);
-        
+
         using var engine = factory.CreateFromWasm(File.OpenRead(Path.Combine(BasePath, "simple-1.2.wasm")));
         engine.SetDataFromStream(dataStream);
-        
+
         var resultStr = engine.EvaluateRaw(input);
         var result = JsonSerializer.Deserialize<PolicyResult[]>(resultStr);
 
@@ -202,14 +202,14 @@ public class BasicsTests
     }
 
     private record Data(string World);
-    
+
     [Theory]
     [InlineData("{ \"message\": \"world\"}", true)]
     [InlineData("{ \"message\": \"world1\"}", false)]
     public void TypedData(string input, bool expectedResult)
     {
         var factory = new OpaEvaluatorFactory(loggerFactory: _loggerFactory);
-        
+
         var opts = new WasmPolicyEngineOptions
         {
             SerializationOptions = new JsonSerializerOptions
@@ -223,7 +223,7 @@ public class BasicsTests
             File.OpenRead(Path.Combine(BasePath, "simple-1.2.wasm")),
             opts
             );
-        
+
         engine.SetData(new Data("world"));
 
         var resultStr = engine.EvaluateRaw(input);
@@ -255,7 +255,7 @@ public class BasicsTests
         var compiler = new RegoCliCompiler(_options, _loggerFactory.CreateLogger<RegoCliCompiler>());
         var policy = await compiler.CompileFile(Path.Combine(BasePath, "composite.rego"), new[] { "example" });
         var factory = new OpaEvaluatorFactory(loggerFactory: _loggerFactory);
-        
+
         using var engine = factory.CreateFromBundle(policy, options: opts);
         var result = engine.Evaluate<object?, CompositeResult>(null, "example");
 
@@ -287,7 +287,7 @@ public class BasicsTests
             );
 
         engine.SetDataFromRawJson("{ \"world\": \"world\" }");
-        
+
         var result1 = engine.EvaluatePredicate(inp);
         Assert.Equal(expected, result1.Result);
 
@@ -316,7 +316,7 @@ public class BasicsTests
             );
 
         engine.SetDataFromRawJson("{ \"world\": \"world\" }");
-        
+
         var result1 = engine.EvaluatePredicate(inp);
         Assert.Equal(expected, result1.Result);
 
@@ -325,25 +325,25 @@ public class BasicsTests
         var result2 = engine.EvaluatePredicate(inp);
         Assert.Equal(expected, !result2.Result);
     }
-    
+
     [Fact]
     public void Reset()
     {
         var data = "{\"world\":\"world\"}";
-        
+
         var factory = new OpaEvaluatorFactory(loggerFactory: _loggerFactory);
 
         using var engine = (WasmOpaEvaluator)factory.CreateFromWasm(
             File.OpenRead(Path.Combine(BasePath, "simple-1.3.wasm"))
             );
-        
+
         engine.SetDataFromRawJson(data);
-        
+
         var result1 = engine.DumpData();
         Assert.Equal(data, result1);
-        
+
         engine.Reset();
-        
+
         var result2 = engine.DumpData();
         Assert.Empty(result2);
     }
