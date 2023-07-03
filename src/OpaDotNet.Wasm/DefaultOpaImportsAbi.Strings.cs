@@ -1,4 +1,7 @@
-﻿namespace OpaDotNet.Wasm;
+﻿using System.Text;
+using System.Text.Json.Nodes;
+
+namespace OpaDotNet.Wasm;
 
 public partial class DefaultOpaImportsAbi
 {
@@ -14,6 +17,21 @@ public partial class DefaultOpaImportsAbi
         }
 
         return result.ToArray();
+    }
+
+    private static string? Sprintf(string format, JsonNode? values)
+    {
+        if (values is not JsonArray ja)
+            return null;
+
+        var result = new StringBuilder();
+
+        foreach (var val in ja)
+        {
+            result.Append(val);
+        }
+
+        return result.ToString();
     }
 
     private static bool AnyPrefixMatch(IEnumerable<string> search, IEnumerable<string> baseStr)

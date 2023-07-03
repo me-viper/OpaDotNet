@@ -129,7 +129,7 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
                 (int id, int ctx) =>
                 {
                     var result = imports.Func(Context(id, ctx));
-                    return WriteJson(result).ToInt32();
+                    return WriteValue(result).ToInt32();
                 }
                 )
             );
@@ -143,7 +143,7 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
                 {
                     var a1 = new BuiltinArg(() => ReadJsonString(arg1));
                     var result = imports.Func(Context(id, ctx), a1);
-                    return WriteJson(result).ToInt32();
+                    return WriteValue(result).ToInt32();
                 }
                 )
             );
@@ -158,7 +158,7 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
                     var a1 = new BuiltinArg(() => ReadJsonString(arg1));
                     var a2 = new BuiltinArg(() => ReadJsonString(arg2));
                     var result = imports.Func(Context(id, ctx), a1, a2);
-                    return WriteJson(result).ToInt32();
+                    return WriteValue(result).ToInt32();
                 }
                 )
             );
@@ -174,7 +174,7 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
                     var a2 = new BuiltinArg(() => ReadJsonString(arg2));
                     var a3 = new BuiltinArg(() => ReadJsonString(arg3));
                     var result = imports.Func(Context(id, ctx), a1, a2, a3);
-                    return WriteJson(result).ToInt32();
+                    return WriteValue(result).ToInt32();
                 }
                 )
             );
@@ -191,7 +191,7 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
                     var a3 = new BuiltinArg(() => ReadJsonString(arg3));
                     var a4 = new BuiltinArg(() => ReadJsonString(arg4));
                     var result = imports.Func(Context(id, ctx), a1, a2, a3, a4);
-                    return WriteJson(result).ToInt32();
+                    return WriteValue(result).ToInt32();
                 }
                 )
             );
@@ -207,9 +207,14 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
     //     return _abi.WriteJsonString(data);
     // }
 
-    private nint WriteJson<T>(T? data)
+    // private nint WriteJson<T>(T? data)
+    // {
+    //     return _abi.WriteJson(data);
+    // }
+
+    private nint WriteValue<T>(T? data)
     {
-        return _abi.WriteJson(data);
+        return _abi.WriteValue(data);
     }
 
     private string ReadJsonString(nint ptr)

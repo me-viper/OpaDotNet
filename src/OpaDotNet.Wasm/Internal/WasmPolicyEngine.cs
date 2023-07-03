@@ -1,4 +1,7 @@
 ﻿using System.Text;
+using System.Text.RegularExpressions;
+
+using OpaDotNet.Wasm.Rego;
 
 using Wasmtime;
 
@@ -142,6 +145,24 @@ internal abstract class WasmPolicyEngine<TAbi> : IWasmPolicyEngine
         Abi.Free(dataPtr);
 
         return result;
+    }
+
+    public virtual nint WriteValueString(ReadOnlySpan<char> data)
+    {
+        var dataLength = Encoding.UTF8.GetByteCount(data);
+        var dataPtr = Abi.Malloc(dataLength);
+        var bytesWritten = Memory.WriteString(dataPtr, data, Encoding.UTF8);
+        var result = Abi.ValueParse(dataPtr, bytesWritten);
+        Abi.Free(dataPtr);
+
+        return result;
+    }
+
+    public nint WriteValue<T>(T? data)
+    {
+        var s = JsonSerializer.Serialize(data, JsonOptions);
+        s = RegoValueHelper.SetFromJson(s);
+        return WriteValueString(s);
     }
 
     public virtual nint WriteJson<T>(T? data)
