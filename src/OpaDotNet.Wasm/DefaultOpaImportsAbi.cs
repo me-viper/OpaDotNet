@@ -62,6 +62,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
         return context.FunctionName switch
         {
             "indexof_n" => IndexOfN(arg1.As<string>(), arg2.As<string>()),
+            "sprintf" => Sprintf(arg1.As<string>(), arg2.Raw),
             "rand.intn" => RandIntN(arg1.As<string>(), arg2.As<int>()),
             "strings.any_prefix_match" => AnyPrefixMatch(arg1.As<string[]>(), arg2.As<string[]>()),
             "strings.any_suffix_match" => AnySuffixMatch(arg1.As<string[]>(), arg2.As<string[]>()),

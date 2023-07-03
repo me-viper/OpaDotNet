@@ -3,6 +3,8 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text.Json.Nodes;
 
+using OpaDotNet.Wasm.Rego;
+
 namespace OpaDotNet.Wasm;
 
 public partial class DefaultOpaImportsAbi
@@ -19,7 +21,7 @@ public partial class DefaultOpaImportsAbi
 
             if (node is JsonArray ja)
             {
-                if (!OpaSet.TryParse<string>(ja, out var set))
+                if (!RegoValueHelper.TryParseTuple<string>(ja, out var set))
                     throw new FormatException($"Format {node} is not supported");
 
                 JsonNode k = key == null ? ja : JsonValue.Create(key)!;
@@ -59,7 +61,7 @@ public partial class DefaultOpaImportsAbi
         }
     }
 
-    private static IEnumerable<object[]>? CidrContainsMatches(JsonNode? cidrs, JsonNode? cidrOrIps)
+    private static RegoSetOfAny? CidrContainsMatches(JsonNode? cidrs, JsonNode? cidrOrIps)
     {
         if (cidrs == null || cidrOrIps == null)
             return null;
@@ -77,7 +79,7 @@ public partial class DefaultOpaImportsAbi
         }
     }
 
-    private static IEnumerable<JsonNode[]> CidrContainsMatches(CidrOrIp[] cidrs, CidrOrIp[] cidrOrIps)
+    private static RegoSetOfAny CidrContainsMatches(CidrOrIp[] cidrs, CidrOrIp[] cidrOrIps)
     {
         var results = new List<JsonNode[]>();
 
@@ -90,17 +92,17 @@ public partial class DefaultOpaImportsAbi
             }
         }
 
-        return results;
+        return new(results.ToArray());
     }
 
-    private static string[]? CidrExpand(string cidr)
+    private static RegoSet<string>? CidrExpand(string cidr)
     {
         if (!TryParseNetwork(cidr, out var result))
             return null;
 
-        return result.ListIPAddress()
-            .Select(p => p.ToString())
-            .ToArray();
+        var r = result.ListIPAddress().Select(p => p.ToString());
+
+        return new RegoSet<string>(r);
     }
 
     private static bool CidrIsValid(string cidr)

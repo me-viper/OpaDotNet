@@ -1,4 +1,6 @@
-﻿namespace OpaDotNet.Wasm;
+﻿using OpaDotNet.Wasm.Rego;
+
+namespace OpaDotNet.Wasm;
 
 public class WasmPolicyEngineOptions
 {
@@ -7,7 +9,10 @@ public class WasmPolicyEngineOptions
     /// </summary>
     public static WasmPolicyEngineOptions Default { get; } = new();
 
-    private readonly JsonSerializerOptions _serializationOptions = JsonSerializerOptions.Default;
+    private readonly JsonSerializerOptions _serializationOptions = new()
+    {
+        Converters = { RegoSetJsonConverterFactory.Instance }
+    };
 
     /// <summary>
     /// Minimal number of 64k pages available for WASM engine.
@@ -32,6 +37,10 @@ public class WasmPolicyEngineOptions
     public JsonSerializerOptions SerializationOptions
     {
         get => _serializationOptions;
-        init => _serializationOptions = value ?? throw new ArgumentNullException(nameof(value));
+        init
+        {
+            _serializationOptions = value ?? throw new ArgumentNullException(nameof(value));
+            _serializationOptions.Converters.Add(RegoSetJsonConverterFactory.Instance);
+        }
     }
 }
