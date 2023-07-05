@@ -22,4 +22,9 @@ public class RegoCliCompilerOptions
     /// Extra arguments to pass to opa cli tool.
     /// </summary>
     public string? ExtraArguments { get; set; }
+    
+    /// <summary>
+    /// OPA capabilities version.
+    /// </summary>
+    public string? CapabilitiesVersion { get; set; }
 }

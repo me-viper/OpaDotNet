@@ -1,1 +1,3 @@
 #nullable enable
+OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.CapabilitiesVersion.get -> string?
+OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.CapabilitiesVersion.set -> void
