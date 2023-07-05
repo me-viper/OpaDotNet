@@ -13,19 +13,41 @@ public partial class DefaultOpaImportsAbi
     {
         private static CidrOrIp Parse(JsonNode? node, object? key = null)
         {
+            static JsonNode MakeKey(object key)
+            {
+                if (key is JsonNode jn)
+                    return jn;
+
+                return JsonValue.Create(key)!;
+            }
+
             if (node is JsonValue jv)
             {
-                var k = key != null ? JsonValue.Create(key) : jv;
-                return new(ParseNetwork(jv.GetValue<string>()), k!);
+                var k = key == null ? jv : MakeKey(key);
+                return new(ParseNetwork(jv.GetValue<string>()), k);
             }
 
             if (node is JsonArray ja)
             {
-                if (!RegoValueHelper.TryParseTuple<string>(ja, out var set))
-                    throw new FormatException($"Format {node} is not supported");
+                string net;
 
-                JsonNode k = key == null ? ja : JsonValue.Create(key)!;
-                return new(ParseNetwork(set.Item1), k);
+                if (!ja.IsRegoSet())
+                {
+                    if (!ja.TryGetTuple<string>(out var set))
+                        throw new FormatException($"Format {node} is not supported");
+
+                    net = set.Item1;
+                }
+                else
+                {
+                    if (!ja.TryGetRegoSet<JsonNode>(out var set))
+                        throw new FormatException($"Format {node} is not supported");
+
+                    net = set.Set.First().ToString();
+                }
+
+                var k = key == null ? ja : MakeKey(key);
+                return new(ParseNetwork(net), k);
             }
 
             throw new FormatException($"Format {node} is not supported");
@@ -37,6 +59,17 @@ public partial class DefaultOpaImportsAbi
 
             if (node is JsonArray ja)
             {
+                if (ja.IsRegoSet())
+                {
+                    if (!ja.TryGetRegoSet<JsonNode>(out var set))
+                        throw new FormatException($"Format {node} is not supported");
+
+                    foreach (var s in set.Set)
+                        result.Add(Parse(s, s));
+
+                    return result;
+                }
+
                 for (var i = 0; i < ja.Count; i++)
                     result.Add(Parse(ja[i], i));
 

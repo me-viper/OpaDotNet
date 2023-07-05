@@ -164,44 +164,20 @@ net.cidr_contains_matches([["1.1.0.0/16", "foo", 1], "1.1.2.0/24"], {"x": "1.1.1
 net.cidr_contains_matches([["1.1.2.0/24", "foo", 1], "1.1.0.0/16"], {"x": "1.1.1.128", "y": ["1.1.254.254", "bar"]})
 """, """{[1, "x"], [1, "y"]}"""
         )]
-    public async Task NetCidrContainsMatches(string func, string expected)
+    [InlineData(
+        """
+net.cidr_contains_matches({["1.1.0.0/16", "foo", 1], "1.1.2.0/24"}, {"x": "1.1.1.128", "y": ["1.1.254.254", "bar"]})
+""", """{[["1.1.0.0/16", "foo", 1], "x"], [["1.1.0.0/16", "foo", 1], "y"]}"""
+        )]
+    [InlineData(
+        """
+net.cidr_contains_matches({["1.1.2.0/24", "foo", 1], "1.1.0.0/16"}, {"x": "1.1.1.128", "y": ["1.1.254.254", "bar"]})
+""", """{["1.1.0.0/16", "x"], ["1.1.0.0/16", "y"]}"""
+        )]
+    public async Task NetCidrContainsMatchesObjects(string func, string expected)
     {
         var result = await RunTestCase(func, expected, new TimeImports());
         Assert.True(result.Assert);
-    }
-
-    private const string NetCidrContainsMatchesTupleObjectsCase1 = """
-t1 := o { o := net.cidr_contains_matches({["1.1.0.0/16", "foo", 1], "1.1.2.0/24"}, {"x": "1.1.1.128", "y": ["1.1.254.254", "bar"]}) }
-""";
-
-    private const string NetCidrContainsMatchesTupleObjectsCase2 = """
-t1 := o { o := net.cidr_contains_matches({["1.1.2.0/24", "foo", 1], "1.1.0.0/16"}, {"x": "1.1.1.128", "y": ["1.1.254.254", "bar"]}) }
-""";
-
-    [Theory(Skip = "Don't know how to deduce set type")]
-    [InlineData(NetCidrContainsMatchesTupleObjectsCase1, 1)]
-    [InlineData(NetCidrContainsMatchesTupleObjectsCase2, 1)]
-    public async Task NetCidrContainsMatchesTupleObjects(string s, int expectedIndex)
-    {
-        var result = await BuildAndEvaluate(
-            s,
-            new { t1 = Array.Empty<JsonArray>() }
-            );
-
-        Assert.NotNull(result.t1);
-        Assert.Collection(
-            result.t1,
-            p => Assert.Collection(
-                p,
-                pp => Assert.Equal(expectedIndex, pp!.GetValue<int>()),
-                pp => Assert.Equal("y", pp!.GetValue<string>())
-                ),
-            p => Assert.Collection(
-                p,
-                pp => Assert.Equal(expectedIndex, pp!.GetValue<int>()),
-                pp => Assert.Equal("x", pp!.GetValue<string>())
-                )
-            );
     }
 
     [Theory]

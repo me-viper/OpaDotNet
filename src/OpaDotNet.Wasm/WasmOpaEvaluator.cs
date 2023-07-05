@@ -2,6 +2,7 @@
 
 using OpaDotNet.Wasm.Features;
 using OpaDotNet.Wasm.Internal;
+using OpaDotNet.Wasm.Rego;
 
 using Wasmtime;
 
@@ -141,7 +142,7 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
                 _store,
                 (int id, int ctx, int arg1) =>
                 {
-                    var a1 = new BuiltinArg(() => ReadJsonString(arg1));
+                    var a1 = new BuiltinArg(() => ReadValueString(arg1));
                     var result = imports.Func(Context(id, ctx), a1);
                     return WriteValue(result).ToInt32();
                 }
@@ -155,8 +156,8 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
                 _store,
                 (int id, int ctx, int arg1, int arg2) =>
                 {
-                    var a1 = new BuiltinArg(() => ReadJsonString(arg1));
-                    var a2 = new BuiltinArg(() => ReadJsonString(arg2));
+                    var a1 = new BuiltinArg(() => ReadValueString(arg1));
+                    var a2 = new BuiltinArg(() => ReadValueString(arg2));
                     var result = imports.Func(Context(id, ctx), a1, a2);
                     return WriteValue(result).ToInt32();
                 }
@@ -170,9 +171,9 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
                 _store,
                 (int id, int ctx, int arg1, int arg2, int arg3) =>
                 {
-                    var a1 = new BuiltinArg(() => ReadJsonString(arg1));
-                    var a2 = new BuiltinArg(() => ReadJsonString(arg2));
-                    var a3 = new BuiltinArg(() => ReadJsonString(arg3));
+                    var a1 = new BuiltinArg(() => ReadValueString(arg1));
+                    var a2 = new BuiltinArg(() => ReadValueString(arg2));
+                    var a3 = new BuiltinArg(() => ReadValueString(arg3));
                     var result = imports.Func(Context(id, ctx), a1, a2, a3);
                     return WriteValue(result).ToInt32();
                 }
@@ -186,10 +187,10 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
                 _store,
                 (int id, int ctx, int arg1, int arg2, int arg3, int arg4) =>
                 {
-                    var a1 = new BuiltinArg(() => ReadJsonString(arg1));
-                    var a2 = new BuiltinArg(() => ReadJsonString(arg2));
-                    var a3 = new BuiltinArg(() => ReadJsonString(arg3));
-                    var a4 = new BuiltinArg(() => ReadJsonString(arg4));
+                    var a1 = new BuiltinArg(() => ReadValueString(arg1));
+                    var a2 = new BuiltinArg(() => ReadValueString(arg2));
+                    var a3 = new BuiltinArg(() => ReadValueString(arg3));
+                    var a4 = new BuiltinArg(() => ReadValueString(arg4));
                     var result = imports.Func(Context(id, ctx), a1, a2, a3, a4);
                     return WriteValue(result).ToInt32();
                 }
@@ -202,15 +203,15 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
         return _abi.DumpData();
     }
 
-    // private nint WriteJsonString(ReadOnlySpan<char> data)
-    // {
-    //     return _abi.WriteJsonString(data);
-    // }
+    private nint WriteJsonString(ReadOnlySpan<char> data)
+    {
+        return _abi.WriteJsonString(data);
+    }
 
-    // private nint WriteJson<T>(T? data)
-    // {
-    //     return _abi.WriteJson(data);
-    // }
+    private nint WriteJson<T>(T? data)
+    {
+        return _abi.WriteJson(data);
+    }
 
     private nint WriteValue<T>(T? data)
     {
@@ -220,6 +221,12 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
     private string ReadJsonString(nint ptr)
     {
         return _abi.ReadJsonString(ptr);
+    }
+
+    private string ReadValueString(nint ptr)
+    {
+        var s = _abi.ReadValueString(ptr);
+        return RegoValueHelper.JsonFromRegoValue(s);
     }
 
     private T ReadJson<T>(nint ptr)
