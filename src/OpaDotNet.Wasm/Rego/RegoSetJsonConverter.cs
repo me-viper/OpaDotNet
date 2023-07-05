@@ -33,13 +33,34 @@ internal class RegoSetJsonConverterFactory : JsonConverterFactory
 
 internal class RegoSetJsonConverter<T> : JsonConverter<RegoSet<T>>
 {
-    public override RegoSet<T> Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override RegoSet<T>? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
-        throw new NotSupportedException();
+        RegoSet<T>? result = null;
+
+        while (reader.Read())
+        {
+            if (reader.TokenType != JsonTokenType.PropertyName)
+                continue;
+
+            if (!string.Equals(reader.GetString(), "__rego_set", StringComparison.Ordinal))
+                continue;
+
+            while (reader.Read())
+            {
+                if (reader.TokenType == JsonTokenType.StartArray)
+                {
+                    var ar = JsonSerializer.Deserialize<IEnumerable<T>>(ref reader, options);
+                    result = new RegoSet<T>(ar ?? Array.Empty<T>());
+                }
+            }
+        }
+
+        return result;
     }
 
     public override void Write(Utf8JsonWriter writer, RegoSet<T> value, JsonSerializerOptions options)
     {
+        writer.WriteStartArray();
         writer.WriteStartObject();
         writer.WritePropertyName("__rego_set");
         writer.WriteStartArray();
@@ -52,5 +73,6 @@ internal class RegoSetJsonConverter<T> : JsonConverter<RegoSet<T>>
 
         writer.WriteEndArray();
         writer.WriteEndObject();
+        writer.WriteEndArray();
     }
 }

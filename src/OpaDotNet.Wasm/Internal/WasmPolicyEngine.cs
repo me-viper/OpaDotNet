@@ -161,7 +161,7 @@ internal abstract class WasmPolicyEngine<TAbi> : IWasmPolicyEngine
     public nint WriteValue<T>(T? data)
     {
         var s = JsonSerializer.Serialize(data, JsonOptions);
-        s = RegoValueHelper.SetFromJson(s);
+        s = RegoValueHelper.JsonToRegoValue(s);
         return WriteValueString(s);
     }
 
@@ -174,6 +174,12 @@ internal abstract class WasmPolicyEngine<TAbi> : IWasmPolicyEngine
     public virtual string ReadJsonString(nint ptr)
     {
         var jsonAdr = Abi.JsonDump(ptr);
+        return Memory.ReadNullTerminatedString(jsonAdr);
+    }
+
+    public virtual string ReadValueString(nint ptr)
+    {
+        var jsonAdr = Abi.ValueDump(ptr);
         return Memory.ReadNullTerminatedString(jsonAdr);
     }
 

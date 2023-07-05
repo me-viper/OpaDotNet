@@ -1,0 +1,132 @@
+{
+  "builtins": [
+    {
+      "name": "custom.setOrArray",
+      "decl": {
+        "type": "function",
+        "args": [
+          {
+            "of": [
+              {
+                "dynamic": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "of": {
+                  "type": "string"
+                },
+                "type": "set"
+              }
+            ],
+            "type": "any"
+          }
+        ],
+        "result": {
+          "of": [
+            {
+              "dynamic": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "of": {
+                "type": "string"
+              },
+              "type": "set"
+            }
+          ],
+          "type": "any"
+        }
+      }
+    },
+    {
+      "name": "custom.set",
+      "decl": {
+        "type": "function",
+        "args": [],
+        "result": {
+          "of": {
+            "type": "string"
+          },
+          "type": "set"
+        }
+      }
+    },
+    {
+      "name": "custom.array",
+      "decl": {
+        "type": "function",
+        "args": [],
+        "result": {
+          "of": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      }
+    },
+    {
+      "name": "is_array",
+      "description": "Returns `true` if the input value is an array.",
+      "categories": [
+        "types"
+      ],
+      "decl": {
+        "args": [
+          {
+            "name": "x",
+            "type": "any"
+          }
+        ],
+        "result": {
+          "description": "`true` if `x` is an array, `false` otherwise.",
+          "name": "result",
+          "type": "boolean"
+        },
+        "type": "function"
+      }
+    },
+    {
+      "name": "is_set",
+      "description": "Returns `true` if the input value is a set.",
+      "categories": [
+        "types"
+      ],
+      "decl": {
+        "args": [
+          {
+            "name": "x",
+            "type": "any"
+          }
+        ],
+        "result": {
+          "description": "`true` if `x` is a set, `false` otherwise.",
+          "name": "result",
+          "type": "boolean"
+        },
+        "type": "function"
+      }
+    },
+    {
+      "name": "eq",
+      "decl": {
+        "args": [
+          {
+            "type": "any"
+          },
+          {
+            "type": "any"
+          }
+        ],
+        "result": {
+          "type": "boolean"
+        },
+        "type": "function"
+      },
+      "infix": "="
+    }
+  ]
+}

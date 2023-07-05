@@ -14,6 +14,8 @@ internal interface IWasmPolicyEngine : IDisposable
 
     nint WriteJson<T>(T? data);
 
+    string ReadValueString(nint ptr);
+
     string ReadJsonString(nint ptr);
 
     T ReadJson<T>(nint ptr);
