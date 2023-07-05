@@ -203,11 +203,13 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
         return _abi.DumpData();
     }
 
+    // ReSharper disable once UnusedMember.Local
     private nint WriteJsonString(ReadOnlySpan<char> data)
     {
         return _abi.WriteJsonString(data);
     }
 
+    // ReSharper disable once UnusedMember.Local
     private nint WriteJson<T>(T? data)
     {
         return _abi.WriteJson(data);
@@ -218,6 +220,7 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
         return _abi.WriteValue(data);
     }
 
+    // ReSharper disable once UnusedMember.Local
     private string ReadJsonString(nint ptr)
     {
         return _abi.ReadJsonString(ptr);

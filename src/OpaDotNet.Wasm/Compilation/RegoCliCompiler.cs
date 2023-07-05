@@ -47,7 +47,7 @@ public class RegoCliCompiler : IRegoCompiler
 
         var capabilitiesArg = string.Empty;
         FileInfo? capsFile = null;
-        
+
         if (!string.IsNullOrWhiteSpace(capabilitiesFilePath))
         {
             var fi = new FileInfo(capabilitiesFilePath);
@@ -59,7 +59,7 @@ public class RegoCliCompiler : IRegoCompiler
                     $"Capabilities file {fi.FullName} was not found"
                     );
             }
-            
+
             if (!string.IsNullOrWhiteSpace(_options.Value.CapabilitiesVersion))
             {
                 capsFile = await MergeCapabilities(
@@ -121,18 +121,18 @@ public class RegoCliCompiler : IRegoCompiler
     }
 
     private async Task<FileInfo> MergeCapabilities(
-        string basePath, 
-        FileInfo file, 
-        string version, 
+        string basePath,
+        FileInfo file,
+        string version,
         CancellationToken cancellationToken)
     {
         var fileName = string.IsNullOrWhiteSpace(_options.Value.OpaToolPath)
             ? "opa"
             : Path.Combine(_options.Value.OpaToolPath, "opa");
-        
+
         var capsFileName = Path.Combine(basePath, $"{Guid.NewGuid()}.json");
         var result = new FileInfo(capsFileName);
-        
+
         var sw = new StreamWriter(result.FullName);
         await using var _ = sw.ConfigureAwait(false);
 
@@ -154,12 +154,12 @@ public class RegoCliCompiler : IRegoCompiler
                 "Failed to start compilation process"
                 );
         }
-        
+
         _logger.LogInformation("Writing {Version} capabilities to {File}", version, result.FullName);
-        
+
         capsProcess.OutputDataReceived += (_, args) => sw.WriteLine(args.Data);
         capsProcess.BeginOutputReadLine();
-        
+
         using var timeoutCancellationToken = new CancellationTokenSource(TimeSpan.FromSeconds(60));
         using var ct = CancellationTokenSource.CreateLinkedTokenSource(
             cancellationToken,
@@ -181,7 +181,7 @@ public class RegoCliCompiler : IRegoCompiler
                 ex
                 );
         }
-        
+
         if (capsProcess.ExitCode != 0)
         {
             throw new RegoCompilationException(
@@ -189,42 +189,42 @@ public class RegoCliCompiler : IRegoCompiler
                 $"Return code {capsProcess.ExitCode} didn't indicate success."
                 );
         }
-        
+
         await sw.FlushAsync().ConfigureAwait(false);
         await sw.DisposeAsync().ConfigureAwait(false);
-        
+
         if (!result.Exists)
             throw new RegoCompilationException(capsFileName, "Failed to locate capabilities file");
-        
+
         try
         {
             var capsFs = result.Open(FileMode.Open, FileAccess.ReadWrite);
             await using var __ = capsFs.ConfigureAwait(false);
             var capsDoc = JsonNode.Parse(capsFs);
-            
+
             if (capsDoc == null)
                 throw new RegoCompilationException(result.FullName, "Failed to parse capabilities file");
-            
+
             var capsBins = capsDoc.Root["builtins"]?.AsArray();
-            
+
             if (capsBins == null)
                 throw new RegoCompilationException(result.FullName, "Failed to parse capabilities file");
-            
+
             var exCapsFs = file.OpenRead();
             await using var ___ = exCapsFs.ConfigureAwait(false);
-            
+
             var exCapsDoc = await JsonDocument.ParseAsync(exCapsFs, default, cancellationToken).ConfigureAwait(false);
             var exCapsBins = exCapsDoc.RootElement.GetProperty("builtins");
-            
+
             foreach (var bin in exCapsBins.EnumerateArray())
                 capsBins.Add(bin);
-            
+
             capsFs.SetLength(0);
             await capsFs.FlushAsync(ct.Token).ConfigureAwait(false);
 
             var writer = new Utf8JsonWriter(capsFs);
             await using var ____ = writer.ConfigureAwait(false);
-            
+
             capsDoc.WriteTo(writer);
         }
         catch (Exception ex)
@@ -235,10 +235,10 @@ public class RegoCliCompiler : IRegoCompiler
                 ex
                 );
         }
-        
+
         return result;
     }
-    
+
     private async Task<Stream> Run(
         string basePath,
         string sourcePath,

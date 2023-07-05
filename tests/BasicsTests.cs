@@ -1,6 +1,8 @@
 ﻿using System.Text;
 using System.Text.Json.Serialization;
 
+using JetBrains.Annotations;
+
 using Microsoft.Extensions.Options;
 
 using OpaDotNet.Tests.Common;
@@ -16,7 +18,7 @@ public class BasicsTests
     private record PolicyResult
     {
         [JsonPropertyName("result")]
-        public bool Result { get; set; }
+        public bool Result { get; [UsedImplicitly] set; }
     }
 
     private readonly ITestOutputHelper _output;
@@ -201,7 +203,7 @@ public class BasicsTests
         return Task.CompletedTask;
     }
 
-    private record Data(string World);
+    private record Data([UsedImplicitly] string World);
 
     [Theory]
     [InlineData("{ \"message\": \"world\"}", true)]
@@ -239,9 +241,9 @@ public class BasicsTests
 
     private record CompositeResult
     {
-        public string X { get; set; } = default!;
-        public int Y { get; set; }
-        public bool Z { get; set; }
+        public string X { [UsedImplicitly] get; set; } = default!;
+        public int Y { [UsedImplicitly] get; set; }
+        public bool Z { [UsedImplicitly] get; set; }
     }
 
     [Fact]
