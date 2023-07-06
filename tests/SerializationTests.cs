@@ -96,7 +96,7 @@ public class SerializationTests : IAsyncLifetime
         {
             if (string.Equals(context.FunctionName, "custom.setOrArray", StringComparison.Ordinal))
             {
-                if (arg1.Raw.TryGetRegoSet<string>(out var set))
+                if (arg1.Raw.TryGetRegoSet<string>(out var set, context.JsonSerializerOptions))
                     return set;
 
                 return arg1.Raw;

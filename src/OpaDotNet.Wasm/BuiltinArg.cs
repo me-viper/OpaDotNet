@@ -9,7 +9,9 @@ public class BuiltinArg
 {
     private readonly Lazy<JsonNode?> _arg;
 
-    internal BuiltinArg(Func<string> getArg)
+    private readonly JsonSerializerOptions _jsonOptions;
+    
+    internal BuiltinArg(Func<string> getArg, JsonSerializerOptions jsonOptions)
     {
         ArgumentNullException.ThrowIfNull(getArg);
 
@@ -20,6 +22,8 @@ public class BuiltinArg
                 return JsonNode.Parse(json);
             }
             );
+        
+        _jsonOptions = jsonOptions;
     }
 
     public JsonNode? Raw => _arg.Value;
@@ -40,7 +44,7 @@ public class BuiltinArg
         {
             null => defaultValue != null ? defaultValue() : default,
             JsonValue jv => jv.GetValue<T>(),
-            _ => Raw.Deserialize<T>(),
+            _ => Raw.Deserialize<T>(_jsonOptions),
         };
     }
 }

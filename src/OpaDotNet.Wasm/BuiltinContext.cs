@@ -14,4 +14,9 @@ public record BuiltinContext
     /// Reserved for future use.
     /// </summary>
     public int OpaContext { get; internal init; }
+    
+    /// <summary>
+    /// JSON serialization options.
+    /// </summary>
+    public JsonSerializerOptions JsonSerializerOptions { get; internal init; } = default!;
 }

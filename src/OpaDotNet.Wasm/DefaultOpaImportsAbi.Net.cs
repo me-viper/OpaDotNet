@@ -11,7 +11,7 @@ public partial class DefaultOpaImportsAbi
 {
     private record CidrOrIp(IPNetwork Net, JsonNode Key)
     {
-        private static CidrOrIp Parse(JsonNode? node, object? key = null)
+        private static CidrOrIp Parse(JsonNode? node, JsonSerializerOptions options, object? key = null)
         {
             static JsonNode MakeKey(object key)
             {
@@ -40,7 +40,7 @@ public partial class DefaultOpaImportsAbi
                 }
                 else
                 {
-                    if (!ja.TryGetRegoSet<JsonNode>(out var set))
+                    if (!ja.TryGetRegoSet<JsonNode>(out var set, options))
                         throw new FormatException($"Format {node} is not supported");
 
                     net = set.Set.First().ToString();
@@ -53,7 +53,7 @@ public partial class DefaultOpaImportsAbi
             throw new FormatException($"Format {node} is not supported");
         }
 
-        public static List<CidrOrIp> ParseAll(JsonNode node)
+        public static List<CidrOrIp> ParseAll(JsonNode node, JsonSerializerOptions options)
         {
             var result = new List<CidrOrIp>();
 
@@ -61,31 +61,31 @@ public partial class DefaultOpaImportsAbi
             {
                 if (ja.IsRegoSet())
                 {
-                    if (!ja.TryGetRegoSet<JsonNode>(out var set))
+                    if (!ja.TryGetRegoSet<JsonNode>(out var set, options))
                         throw new FormatException($"Format {node} is not supported");
 
                     foreach (var s in set.Set)
-                        result.Add(Parse(s, s));
+                        result.Add(Parse(s, options, s));
 
                     return result;
                 }
 
                 for (var i = 0; i < ja.Count; i++)
-                    result.Add(Parse(ja[i], i));
+                    result.Add(Parse(ja[i], options, i));
 
                 return result;
             }
 
             if (node is JsonValue jv)
             {
-                result.Add(Parse(jv));
+                result.Add(Parse(jv, options));
                 return result;
             }
 
             if (node is JsonObject jo)
             {
                 foreach (var (key, n) in jo)
-                    result.Add(Parse(n, key));
+                    result.Add(Parse(n, options, key));
 
                 return result;
             }
@@ -94,15 +94,15 @@ public partial class DefaultOpaImportsAbi
         }
     }
 
-    private static RegoSetOfAny? CidrContainsMatches(JsonNode? cidrs, JsonNode? cidrOrIps)
+    private static RegoSetOfAny? CidrContainsMatches(JsonNode? cidrs, JsonNode? cidrOrIps, JsonSerializerOptions options)
     {
         if (cidrs == null || cidrOrIps == null)
             return null;
 
         try
         {
-            var x = CidrOrIp.ParseAll(cidrs).ToArray();
-            var y = CidrOrIp.ParseAll(cidrOrIps).ToArray();
+            var x = CidrOrIp.ParseAll(cidrs, options).ToArray();
+            var y = CidrOrIp.ParseAll(cidrOrIps, options).ToArray();
 
             return CidrContainsMatches(x, y);
         }

@@ -9,7 +9,7 @@ public class WasmPolicyEngineOptions
     /// </summary>
     public static WasmPolicyEngineOptions Default { get; } = new();
 
-    internal static JsonSerializerOptions JsonSerializationOptions = new()
+    private readonly JsonSerializerOptions _jsonSerializationOptions = new()
     {
         Converters = { RegoSetJsonConverterFactory.Instance }
     };
@@ -36,11 +36,11 @@ public class WasmPolicyEngineOptions
     /// <exception cref="ArgumentNullException">Value is null</exception>
     public JsonSerializerOptions SerializationOptions
     {
-        get => JsonSerializationOptions;
+        get => _jsonSerializationOptions;
         init
         {
-            JsonSerializationOptions = value ?? throw new ArgumentNullException(nameof(value));
-            JsonSerializationOptions.Converters.Add(RegoSetJsonConverterFactory.Instance);
+            _jsonSerializationOptions = value ?? throw new ArgumentNullException(nameof(value));
+            _jsonSerializationOptions.Converters.Add(RegoSetJsonConverterFactory.Instance);
         }
     }
 }

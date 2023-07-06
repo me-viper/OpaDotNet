@@ -27,17 +27,23 @@ internal static partial class RegoValueHelper
         return true;
     }
 
-    public static bool TryGetRegoSet<T>(this JsonNode? node, [MaybeNullWhen(false)] out RegoSet<T> set)
+    public static bool TryGetRegoSet<T>(
+        this JsonNode? node, 
+        [MaybeNullWhen(false)] out RegoSet<T> set,
+        JsonSerializerOptions? options = default)
     {
         set = null;
 
         if (node is not JsonArray ja)
             return false;
 
-        return ja.TryGetRegoSet(out set);
+        return ja.TryGetRegoSet(out set, options);
     }
 
-    public static bool TryGetRegoSet<T>(this JsonArray ar, [MaybeNullWhen(false)] out RegoSet<T> set)
+    public static bool TryGetRegoSet<T>(
+        this JsonArray ar,
+        [MaybeNullWhen(false)] out RegoSet<T> set,
+        JsonSerializerOptions? options = default)
     {
         ArgumentNullException.ThrowIfNull(ar);
 
@@ -46,7 +52,7 @@ internal static partial class RegoValueHelper
         if (!ar.IsRegoSet())
             return false;
 
-        set = ar[0]!.Deserialize<RegoSet<T>>(WasmPolicyEngineOptions.JsonSerializationOptions);
+        set = ar[0]!.Deserialize<RegoSet<T>>(options);
 
         return set != null;
     }
