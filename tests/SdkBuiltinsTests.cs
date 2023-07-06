@@ -263,6 +263,16 @@ t2 := o { o := net.lookup_ip_addr("bing.com1") }
         var result = await RunTestCase(func, expected);
         Assert.True(result.Assert);
     }
+    
+    [Theory]
+    [InlineData("""base64url.encode_no_pad("message")""", "\"bWVzc2FnZQ\"")]
+    [InlineData("""hex.decode("6d657373616765")""", "\"message\"")]
+    [InlineData("""hex.encode("message")""", "\"6d657373616765\"")]
+    public async Task Encoding(string func, string expected)
+    {
+        var result = await RunTestCase(func, expected);
+        Assert.True(result.Assert);
+    }
 
     // ReSharper disable once ClassNeverInstantiated.Local
     private record TestCaseResult

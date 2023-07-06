@@ -56,6 +56,9 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
             "crypto.md5" => HashMd5(arg1.As<string>()),
             "crypto.sha1" => HashSha1(arg1.As<string>()),
             "crypto.sha256" => HashSha256(arg1.As<string>()),
+            "base64url.encode_no_pad" => Base64UrlEncodeNoPad(arg1.As<string>()),
+            "hex.decode" => HexDecode(arg1.As<string>()),
+            "hex.encode" => HexEncode(arg1.As<string>()),
             _ => throw new NotImplementedException(context.FunctionName)
         };
     }

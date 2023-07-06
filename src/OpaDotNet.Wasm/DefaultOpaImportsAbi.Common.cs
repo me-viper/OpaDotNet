@@ -1,4 +1,6 @@
-﻿namespace OpaDotNet.Wasm;
+﻿using System.Text;
+
+namespace OpaDotNet.Wasm;
 
 public partial class DefaultOpaImportsAbi
 {
@@ -28,5 +30,26 @@ public partial class DefaultOpaImportsAbi
         ValueCache.TryAdd(cacheKey, result);
 
         return (Guid)result;
+    }
+    
+    private static string Base64UrlEncodeNoPad(string x)
+    {
+        var bytes = Encoding.UTF8.GetBytes(x);
+        
+        return Convert.ToBase64String(bytes)
+            .Trim('=')
+            .Replace('+', '-')
+            .Replace('/', '_');
+    }
+    
+    private static string HexEncode(string x)
+    {
+        return Convert.ToHexString(Encoding.UTF8.GetBytes(x)).ToLowerInvariant();
+    }
+    
+    private static string HexDecode(string x)
+    {
+        var bytes = Convert.FromHexString(x);
+        return Encoding.UTF8.GetString(bytes);
     }
 }
