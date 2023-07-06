@@ -59,6 +59,8 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
             "base64url.encode_no_pad" => Base64UrlEncodeNoPad(arg1.As<string>()),
             "hex.decode" => HexDecode(arg1.As<string>()),
             "hex.encode" => HexEncode(arg1.As<string>()),
+            "urlquery.encode" => UrlQueryEncode(arg1.As<string>()),
+            "urlquery.decode" => UrlQueryDecode(arg1.As<string>()),
             _ => throw new NotImplementedException(context.FunctionName)
         };
     }
@@ -78,6 +80,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
             "crypto.hmac.sha1" => HmacSha1(arg1.As<string>(), arg2.As<string>()),
             "crypto.hmac.sha256" => HmacSha256(arg1.As<string>(), arg2.As<string>()),
             "crypto.hmac.sha512" => HmacSha512(arg1.As<string>(), arg2.As<string>()),
+            "regex.split" => RegexSplit(arg1.As<string>(), arg2.As<string>()),
             "net.cidr_contains_matches" => CidrContainsMatches(arg1.Raw, arg2.Raw, context.JsonSerializerOptions),
             _ => throw new NotImplementedException(context.FunctionName)
         };
@@ -85,7 +88,12 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
 
     public virtual object? Func(BuiltinContext context, BuiltinArg arg1, BuiltinArg arg2, BuiltinArg arg3)
     {
-        throw new NotImplementedException(context.FunctionName);
+        return context.FunctionName switch
+        {
+            "regex.find_n" => RegexFindN(arg1.As<string>(), arg2.As<string>(), arg3.As<int>()),
+            "regex.replace" => RegexReplace(arg1.As<string>(), arg2.As<string>(), arg3.As<string>()),
+            _ => throw new NotImplementedException(context.FunctionName)
+        };
     }
 
     public virtual object? Func(BuiltinContext context, BuiltinArg arg1, BuiltinArg arg2, BuiltinArg arg3, BuiltinArg arg4)
