@@ -268,7 +268,22 @@ t2 := o { o := net.lookup_ip_addr("bing.com1") }
     [InlineData("""base64url.encode_no_pad("message")""", "\"bWVzc2FnZQ\"")]
     [InlineData("""hex.decode("6d657373616765")""", "\"message\"")]
     [InlineData("""hex.encode("message")""", "\"6d657373616765\"")]
+    [InlineData("""urlquery.encode("x=https://w.org/ref/#encoding")""", "\"x%3dhttps%3a%2f%2fw.org%2fref%2f%23encoding\"")]
+    [InlineData("""urlquery.decode("x%3Dhttps%3A%2F%2Fw.org%2Fref%2F%23encoding")""", "\"x=https://w.org/ref/#encoding\"")]
     public async Task Encoding(string func, string expected)
+    {
+        var result = await RunTestCase(func, expected);
+        Assert.True(result.Assert);
+    }
+ 
+    [Theory]
+    [InlineData("""regex.find_n("aa", "aaabbbaaaccc", 1)""", "[\"aa\"]")]
+    [InlineData("""regex.find_n("aa", "aaabbbaaaccc", -1)""", "[\"aa\", \"aa\"]")]
+    [InlineData("""regex.find_n("aa", "aaabbbaaaccc", 0)""", "[]")]
+    [InlineData("""regex.find_n("aa", "aaabbbaaaccc", 5)""", "[\"aa\", \"aa\"]")]
+    [InlineData("""regex.replace("aaabbbaaccca", "a+", "x")""", "\"xbbbxcccx\"")]
+    [InlineData("""regex.split("a+", "aaabbbaaccca")""", "[\"\", \"bbb\", \"ccc\", \"\"]")]
+    public async Task Regex(string func, string expected)
     {
         var result = await RunTestCase(func, expected);
         Assert.True(result.Assert);
