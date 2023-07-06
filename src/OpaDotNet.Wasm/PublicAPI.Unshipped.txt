@@ -1,3 +1,4 @@
 #nullable enable
+OpaDotNet.Wasm.BuiltinContext.JsonSerializerOptions.get -> System.Text.Json.JsonSerializerOptions!
 OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.CapabilitiesVersion.get -> string?
 OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.CapabilitiesVersion.set -> void

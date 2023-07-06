@@ -111,7 +111,7 @@ public class RegoSetTests
             {
                 Assert.True(p.IsRegoSet());
 
-                p.TryGetRegoSet<int>(out var set);
+                p.TryGetRegoSet<int>(out var set, opts);
 
                 Assert.NotNull(set);
                 Assert.Collection(

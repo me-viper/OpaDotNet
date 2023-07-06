@@ -67,7 +67,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
             "strings.any_prefix_match" => AnyPrefixMatch(arg1.As<string[]>(), arg2.As<string[]>()),
             "strings.any_suffix_match" => AnySuffixMatch(arg1.As<string[]>(), arg2.As<string[]>()),
             "time.diff" => Diff(arg1.As<long>(), arg2.As<long>()),
-            "net.cidr_contains_matches" => CidrContainsMatches(arg1.Raw, arg2.Raw),
+            "net.cidr_contains_matches" => CidrContainsMatches(arg1.Raw, arg2.Raw, context.JsonSerializerOptions),
             _ => throw new NotImplementedException(context.FunctionName)
         };
     }
