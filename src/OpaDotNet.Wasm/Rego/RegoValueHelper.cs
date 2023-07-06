@@ -40,6 +40,29 @@ internal static partial class RegoValueHelper
         return ja.TryGetRegoSet(out set, options);
     }
 
+    public static bool TryGetRegoSetArray(
+        this JsonArray ar,
+        [MaybeNullWhen(false)] out JsonArray set)
+    {
+        ArgumentNullException.ThrowIfNull(ar);
+
+        set = null;
+
+        if (!ar.IsRegoSet())
+            return false;
+
+        try
+        {
+            set = ar[0]!["__rego_set"]!.AsArray();
+        }
+        catch (InvalidOperationException)
+        {
+            return false;
+        }
+
+        return true;
+    }
+    
     public static bool TryGetRegoSet<T>(
         this JsonArray ar,
         [MaybeNullWhen(false)] out RegoSet<T> set,
