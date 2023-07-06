@@ -53,6 +53,9 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
             "net.cidr_expand" => CidrExpand(arg1.As<string>()),
             "net.cidr_is_valid" => CidrIsValid(arg1.As<string>()),
             "net.lookup_ip_addr" => LookupIPAddress(arg1.As<string>()),
+            "crypto.md5" => HashMd5(arg1.As<string>()),
+            "crypto.sha1" => HashSha1(arg1.As<string>()),
+            "crypto.sha256" => HashSha256(arg1.As<string>()),
             _ => throw new NotImplementedException(context.FunctionName)
         };
     }
@@ -67,6 +70,11 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
             "strings.any_prefix_match" => AnyPrefixMatch(arg1.As<string[]>(), arg2.As<string[]>()),
             "strings.any_suffix_match" => AnySuffixMatch(arg1.As<string[]>(), arg2.As<string[]>()),
             "time.diff" => Diff(arg1.As<long>(), arg2.As<long>()),
+            "crypto.hmac.equal" => HmacEqual(arg1.As<string>(), arg2.As<string>()),
+            "crypto.hmac.md5" => HmacMd5(arg1.As<string>(), arg2.As<string>()),
+            "crypto.hmac.sha1" => HmacSha1(arg1.As<string>(), arg2.As<string>()),
+            "crypto.hmac.sha256" => HmacSha256(arg1.As<string>(), arg2.As<string>()),
+            "crypto.hmac.sha512" => HmacSha512(arg1.As<string>(), arg2.As<string>()),
             "net.cidr_contains_matches" => CidrContainsMatches(arg1.Raw, arg2.Raw, context.JsonSerializerOptions),
             _ => throw new NotImplementedException(context.FunctionName)
         };
