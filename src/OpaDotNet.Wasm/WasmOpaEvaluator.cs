@@ -107,7 +107,7 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
 
             return new BuiltinContext
             {
-                FunctionName = funcName, 
+                FunctionName = funcName,
                 OpaContext = ctx,
                 JsonSerializerOptions = _jsonOptions,
             };

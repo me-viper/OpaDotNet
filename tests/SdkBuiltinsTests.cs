@@ -1,5 +1,7 @@
 ﻿using System.Text.Json.Nodes;
 
+using JetBrains.Annotations;
+
 using Microsoft.Extensions.Options;
 
 using OpaDotNet.Tests.Common;
@@ -38,10 +40,19 @@ public class SdkBuiltinsTests
     [Theory]
     [InlineData("""sprintf("%s", ["hi!"])""", "\"hi!\"")]
     [InlineData("""sprintf("%s", [10])""", "\"10\"")]
-    [InlineData("""sprintf("%s", [[1, "hi", 3]])""", """
+    [InlineData(
+        """sprintf("%s", [[1, "hi", 3]])""", """
 "[1, \"hi\", 3]"
-""")]
+"""
+        )]
     [InlineData("""sprintf("%s", [{1,2,3}])""", "\"{1, 2, 3}\"")]
+    
+    // Not really compatible with how rego formats objects but close enough.
+    [InlineData(
+        """sprintf("%s", [{"a": 1, "b": "b", "c": true}])""", """
+"{\"c\":true,\"b\":\"b\",\"a\":1}"
+"""
+        )]
     [InlineData("""sprintf("%d", [10])""", "\"10\"")]
     [InlineData("""sprintf("%b", [3])""", "\"11\"")]
     [InlineData("""sprintf("%10b", [3])""", "\"        11\"")]
@@ -240,9 +251,9 @@ t2 := o { o := net.lookup_ip_addr("bing.com1") }
     // ReSharper disable once ClassNeverInstantiated.Local
     private record TestCaseResult
     {
-        public bool Assert { get; set; }
-        public JsonNode Expected { get; set; } = default!;
-        public JsonNode? Actual { get; set; }
+        public bool Assert { get; [UsedImplicitly] set; }
+        public JsonNode Expected { get; [UsedImplicitly] set; } = default!;
+        public JsonNode? Actual { get; [UsedImplicitly] set; }
     }
 
     private async Task<TestCaseResult> RunTestCase(string actual, string expected, IOpaImportsAbi? imports = null)
