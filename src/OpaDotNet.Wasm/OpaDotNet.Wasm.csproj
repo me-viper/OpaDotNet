@@ -20,23 +20,23 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <None Include="..\..\README.md" Pack="true" PackagePath="" />
+        <None Include="..\..\README.md" Pack="true" PackagePath=""/>
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="IPNetwork2" />
-        <PackageReference Include="JetBrains.Annotations" />
+        <PackageReference Include="IPNetwork2"/>
+        <PackageReference Include="JetBrains.Annotations"/>
         <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
-        <PackageReference Include="Microsoft.Extensions.Options" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions"/>
+        <PackageReference Include="Microsoft.Extensions.Options"/>
         <PackageReference Include="Microsoft.SourceLink.GitHub">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Wasmtime" />
+        <PackageReference Include="Wasmtime"/>
     </ItemGroup>
 
 </Project>

@@ -46,7 +46,7 @@ public class SdkBuiltinsTests
 """
         )]
     [InlineData("""sprintf("%s", [{1,2,3}])""", "\"{1, 2, 3}\"")]
-    
+
     // Not really compatible with how rego formats objects but close enough.
     [InlineData(
         """sprintf("%s", [{"a": 1, "b": "b", "c": true}])""", """
@@ -120,7 +120,7 @@ t3 := o { o := strings.any_suffix_match(["saaa", "sbbb", "sccc"], ["xx"]) }
         var result = await RunTestCase(func, expected, new TimeImports());
         Assert.True(result.Assert);
     }
-    
+
     [Theory]
     [InlineData("""time.parse_duration_ns("-10s")""", "-10000000000")]
     [InlineData("""time.parse_duration_ns("1µs")""", "1000")]
@@ -258,7 +258,7 @@ t2 := o { o := net.lookup_ip_addr("bing.com1") }
         Assert.NotNull(result.t1);
         Assert.Null(result.t2);
     }
-    
+
     [Theory]
     [InlineData("""crypto.md5("message")""", "\"78e731027d8fd50ed642340b7c9a63b3\"")]
     [InlineData("""crypto.sha1("message")""", "\"6f9b9af3cd6e8b8a73c2cdced37fe9f59226e27d\"")]
@@ -274,7 +274,7 @@ t2 := o { o := net.lookup_ip_addr("bing.com1") }
         var result = await RunTestCase(func, expected);
         Assert.True(result.Assert);
     }
-    
+
     [Theory]
     [InlineData("""base64url.encode_no_pad("message")""", "\"bWVzc2FnZQ\"")]
     [InlineData("""hex.decode("6d657373616765")""", "\"message\"")]
@@ -286,7 +286,7 @@ t2 := o { o := net.lookup_ip_addr("bing.com1") }
         var result = await RunTestCase(func, expected);
         Assert.True(result.Assert);
     }
- 
+
     [Theory]
     [InlineData("""regex.find_n("aa", "aaabbbaaaccc", 1)""", "[\"aa\"]")]
     [InlineData("""regex.find_n("aa", "aaabbbaaaccc", -1)""", "[\"aa\", \"aa\"]")]

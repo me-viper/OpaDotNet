@@ -2,8 +2,6 @@
 using System.Text;
 using System.Text.Json.Nodes;
 
-using Microsoft.Extensions.Primitives;
-
 using OpaDotNet.Wasm.Rego;
 
 namespace OpaDotNet.Wasm;
@@ -54,7 +52,7 @@ public partial class DefaultOpaImportsAbi
 
             return $"[{string.Join(", ", arStr)}]";
         }
-        
+
         if (node is JsonObject jo)
             return jo.ToJsonString();
 
