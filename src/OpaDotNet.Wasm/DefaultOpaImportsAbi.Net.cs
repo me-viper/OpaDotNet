@@ -94,7 +94,7 @@ public partial class DefaultOpaImportsAbi
         }
     }
 
-    private static RegoSetOfAny? CidrContainsMatches(JsonNode? cidrs, JsonNode? cidrOrIps, JsonSerializerOptions options)
+    private static RegoSet<object>? CidrContainsMatches(JsonNode? cidrs, JsonNode? cidrOrIps, JsonSerializerOptions options)
     {
         if (cidrs == null || cidrOrIps == null)
             return null;
@@ -112,7 +112,7 @@ public partial class DefaultOpaImportsAbi
         }
     }
 
-    private static RegoSetOfAny CidrContainsMatches(CidrOrIp[] cidrs, CidrOrIp[] cidrOrIps)
+    private static RegoSet<object> CidrContainsMatches(CidrOrIp[] cidrs, CidrOrIp[] cidrOrIps)
     {
         var results = new List<JsonNode[]>();
 

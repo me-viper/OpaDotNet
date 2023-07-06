@@ -8,9 +8,6 @@ internal class RegoSetJsonConverterFactory : JsonConverterFactory
 
     public override bool CanConvert(Type typeToConvert)
     {
-        if (typeToConvert == typeof(RegoSetOfAny))
-            return true;
-
         if (!typeToConvert.IsGenericType)
             return false;
 
@@ -19,9 +16,6 @@ internal class RegoSetJsonConverterFactory : JsonConverterFactory
 
     public override JsonConverter? CreateConverter(Type typeToConvert, JsonSerializerOptions options)
     {
-        if (typeToConvert == typeof(RegoSetOfAny))
-            return new RegoSetJsonConverter<object>();
-
         var wrappedType = typeToConvert.GetGenericArguments()[0];
 
         var t = typeof(RegoSetJsonConverter<>).MakeGenericType(wrappedType);
