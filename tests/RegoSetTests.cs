@@ -65,14 +65,14 @@ public class RegoSetTests
     [Fact]
     public void SerializeSetOfAny()
     {
-        var o = new object[] { "1", "2", new RegoSetOfAny(new object[] { 3, 4 }) };
+        var o = new object[] { "1", "2", new RegoSet<object>(new object[] { 3, 4 }) };
 
         var opts = new JsonSerializerOptions
         {
             Converters = { RegoSetJsonConverterFactory.Instance },
         };
 
-        var s = JsonSerializer.Serialize(new RegoSetOfAny(o), opts);
+        var s = JsonSerializer.Serialize(new RegoSet<object>(o), opts);
         Assert.Equal("""[{"__rego_set":["1","2",[{"__rego_set":[3,4]}]]}]""", s);
     }
 
