@@ -36,7 +36,25 @@ public class SdkBuiltinsTests
     }
 
     [Theory]
-    [InlineData("sprintf(\"%s\", [\"hi!\"])", "\"hi!\"")]
+    [InlineData("""sprintf("%s", ["hi!"])""", "\"hi!\"")]
+    [InlineData("""sprintf("%s", [10])""", "\"10\"")]
+    [InlineData("""sprintf("%s", [[1, "hi", 3]])""", """
+"[1, \"hi\", 3]"
+""")]
+    [InlineData("""sprintf("%s", [{1,2,3}])""", "\"{1, 2, 3}\"")]
+    [InlineData("""sprintf("%d", [10])""", "\"10\"")]
+    [InlineData("""sprintf("%b", [3])""", "\"11\"")]
+    [InlineData("""sprintf("%10b", [3])""", "\"        11\"")]
+    [InlineData("""sprintf("%x", [11])""", "\"b\"")]
+    [InlineData("""sprintf("%e", [123.456])""", "\"1.234560e+002\"")]
+    [InlineData("""sprintf("%E", [123.456])""", "\"1.234560E+002\"")]
+    [InlineData("""sprintf("%f", [123.456])""", "\"123.456000\"")]
+    [InlineData("""sprintf("%F", [123.456])""", "\"123.456000\"")]
+    [InlineData("""sprintf("%g", [123.456])""", "\"123.456\"")]
+    [InlineData("""sprintf("%G", [123.456])""", "\"123.456\"")]
+    [InlineData("""sprintf("%.0f", [123.456])""", "\"123\"")]
+    [InlineData("""sprintf("%10.3f", [123.456])""", "\"   123.456\"")]
+    [InlineData("""sprintf("%s %d", ["hi", 1])""", "\"hi 1\"")]
     public async Task Sprintf(string func, string expected)
     {
         var result = await RunTestCase(func, expected);
