@@ -120,6 +120,17 @@ t3 := o { o := strings.any_suffix_match(["saaa", "sbbb", "sccc"], ["xx"]) }
         var result = await RunTestCase(func, expected, new TimeImports());
         Assert.True(result.Assert);
     }
+    
+    [Theory]
+    [InlineData("""time.parse_duration_ns("-10s")""", "-10000000000")]
+    [InlineData("""time.parse_duration_ns("1µs")""", "1000")]
+    [InlineData("""time.parse_duration_ns("1.5h")""", "5400000000000")]
+    [InlineData("""time.parse_duration_ns("1ns")""", "1")]
+    public async Task TimeParseDurationNs(string func, string expected)
+    {
+        var result = await RunTestCase(func, expected, new TimeImports());
+        Assert.True(result.Assert);
+    }
 
     [Fact]
     public async Task UuidRfc4122()
