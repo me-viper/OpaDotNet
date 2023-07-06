@@ -28,7 +28,7 @@ internal static partial class RegoValueHelper
     }
 
     public static bool TryGetRegoSet<T>(
-        this JsonNode? node, 
+        this JsonNode? node,
         [MaybeNullWhen(false)] out RegoSet<T> set,
         JsonSerializerOptions? options = default)
     {
@@ -62,7 +62,7 @@ internal static partial class RegoValueHelper
 
         return true;
     }
-    
+
     public static bool TryGetRegoSet<T>(
         this JsonArray ar,
         [MaybeNullWhen(false)] out RegoSet<T> set,
