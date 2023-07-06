@@ -87,7 +87,7 @@ public class RegoCliCompiler : IRegoCompiler
         }
         finally
         {
-            //capsFile?.Delete();
+            capsFile?.Delete();
         }
     }
 

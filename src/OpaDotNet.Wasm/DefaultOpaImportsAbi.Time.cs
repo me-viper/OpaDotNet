@@ -58,32 +58,32 @@ public partial class DefaultOpaImportsAbi
     private static long? ParseDurationNs(string duration)
     {
         double time;
-        
+
         // Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h".
         if (duration[^2..] == "ms")
         {
             time = double.Parse(duration[..^2], CultureInfo.InvariantCulture);
             return TimeSpan.FromSeconds(time).Ticks * 100;
         }
-        
+
         if (duration[^2..] == "us" || duration[^2..] == "µs")
         {
             time = double.Parse(duration[..^2], CultureInfo.InvariantCulture);
             return TimeSpan.FromMicroseconds(time).Ticks * 100;
         }
-        
+
         if (duration[^2..] == "ns")
         {
             time = double.Parse(duration[..^2], CultureInfo.InvariantCulture);
             return (long)time;
         }
-        
+
         if (duration[^1] == 'h')
         {
             time = double.Parse(duration[..^1], CultureInfo.InvariantCulture);
             return TimeSpan.FromHours(time).Ticks * 100;
         }
-        
+
         if (duration[^1] == 'm')
         {
             time = double.Parse(duration[..^1], CultureInfo.InvariantCulture);
@@ -98,7 +98,7 @@ public partial class DefaultOpaImportsAbi
 
         return null;
     }
-    
+
     private static long ParseRfc3339Ns(string s)
     {
         throw new NotImplementedException();
