@@ -1,5 +1,6 @@
 ﻿using System.Collections.Concurrent;
 using System.Diagnostics.CodeAnalysis;
+using System.Text.Json.Nodes;
 
 using JetBrains.Annotations;
 
@@ -62,6 +63,8 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
             "hex.encode" => HexEncode(arg1.As<string>()),
             "urlquery.encode" => UrlQueryEncode(arg1.As<string>()),
             "urlquery.decode" => UrlQueryDecode(arg1.As<string>()),
+            "urlquery.decode_object" => UrlQueryDecodeObject(arg1.As<string>()),
+            "urlquery.encode_object" => UrlQueryEncodeObject(arg1.Raw, context.JsonSerializerOptions),
             _ => throw new NotImplementedException(context.FunctionName)
         };
     }

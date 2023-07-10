@@ -281,6 +281,14 @@ t2 := o { o := net.lookup_ip_addr("bing.com1") }
     [InlineData("""hex.encode("message")""", "\"6d657373616765\"")]
     [InlineData("""urlquery.encode("x=https://w.org/ref/#encoding")""", "\"x%3dhttps%3a%2f%2fw.org%2fref%2f%23encoding\"")]
     [InlineData("""urlquery.decode("x%3Dhttps%3A%2F%2Fw.org%2Fref%2F%23encoding")""", "\"x=https://w.org/ref/#encoding\"")]
+    [InlineData(
+        """urlquery.decode_object("e=1&e=2&d=b&d=a&c=true&b=bbb&a=1")""", 
+        """{"a": ["1"], "b": ["bbb"], "c": ["true"], "d": ["b", "a"], "e": ["1", "2"]}""")]
+    [InlineData(
+        """urlquery.encode_object({"a": "1", "b": "bbb", "c": "true", "d": {"a", "b"}, "e": ["1", "2"]})""", 
+        "\"e=1&e=2&d=b&d=a&c=true&b=bbb&a=1\"")]
+    [InlineData("""urlquery.encode_object({})""", "\"\"")]
+    [InlineData("""urlquery.encode_object({"a": "b?b"})""", "\"a=b%3fb\"")]
     public async Task Encoding(string func, string expected)
     {
         var result = await RunTestCase(func, expected);
