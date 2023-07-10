@@ -6,25 +6,27 @@ Bellow is the list of supported OPA built-in functions as for version v0.53.1 al
 
 | Function   | Status             | OpaDotNet version  |
 |------------|--------------------|--------------------|
-| [indexof_n](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-strings-indexof_n)  | :white_check_mark: | [v1.0.0](https://www.nuget.org/packages/OpaDotNet.Wasm/1.0.0) |
-| [sprintf](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-strings-sprintf)    | TBD | - |
-| [strings.strings.any_prefix_match](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-strings-stringsany_prefix_match)    | :white_check_mark: | [v1.0.0](https://www.nuget.org/packages/OpaDotNet.Wasm/1.0.0) |
-| [strings.any_suffix_match](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-strings-stringsany_suffix_match)    | :white_check_mark: | [v1.0.0](https://www.nuget.org/packages/OpaDotNet.Wasm/1.0.0) |
+| [indexof_n](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-strings-indexof_n)  | :white_check_mark: | v1.0.0 |
+| [sprintf](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-strings-sprintf)    | :white_check_mark: | v1.1.0 (*) |
+| [strings.strings.any_prefix_match](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-strings-stringsany_prefix_match)    | :white_check_mark: | v1.0.0 |
+| [strings.any_suffix_match](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-strings-stringsany_suffix_match)    | :white_check_mark: | v1.0.0 |
+
+\* Inconsistent behavior with native implementation when argument is object.
 
 ## Time
 
 | Function   | Status             | OpaDotNet version  |
 |------------|--------------------|--------------------|
-| [time.add_date](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timeadd_date) | :white_check_mark: | [v1.0.0](https://www.nuget.org/packages/OpaDotNet.Wasm/1.0.0) |
-| [time.clock](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timeclock) | :white_check_mark: | [v1.0.0](https://www.nuget.org/packages/OpaDotNet.Wasm/1.0.0) |
-| [time.date](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timedate) | :white_check_mark: | [v1.0.0](https://www.nuget.org/packages/OpaDotNet.Wasm/1.0.0) |
-| [time.diff](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timediff) | :white_check_mark: | [v1.0.0](https://www.nuget.org/packages/OpaDotNet.Wasm/1.0.0) |
+| [time.add_date](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timeadd_date) | :white_check_mark: | v1.0.0 |
+| [time.clock](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timeclock) | :white_check_mark: | v1.0.0 |
+| [time.date](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timedate) | :white_check_mark: | v1.0.0 |
+| [time.diff](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timediff) | :white_check_mark: | v1.0.0 |
 | [time.format](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timeformat) | - | - |
-| [time.now_ns](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timenow_ns) | :white_check_mark: | [v1.0.0](https://www.nuget.org/packages/OpaDotNet.Wasm/1.0.0) |
-| [time.parse_duration_ns](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timeparse_duration_ns) | - | - |
+| [time.now_ns](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timenow_ns) | :white_check_mark: | v1.0.0 |
+| [time.parse_duration_ns](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timeparse_duration_ns) | :white_check_mark: | v1.1.0 |
 | [time.parse_ns](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timeparse_ns) | - | - |
 | [time.parse_rfc3339_ns](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timeparse_rfc3339_ns) | - | - |
-| [time.weekday](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timeweekday) | :white_check_mark: | [v1.0.0](https://www.nuget.org/packages/OpaDotNet.Wasm/1.0.0) |
+| [time.weekday](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timeweekday) | :white_check_mark: | v1.0.0 |
 
 ## JSON
 
@@ -44,10 +46,10 @@ Bellow is the list of supported OPA built-in functions as for version v0.53.1 al
 
 | Function   | Status             | OpaDotNet version  |
 |------------|--------------------|--------------------|
-| [regex.find_n](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-regex-regexfind_n) | - | - |
+| [regex.find_n](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-regex-regexfind_n) | :white_check_mark: | v1.1.0 |
 | [regex.globs_match](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-regex-regexglobs_match) | - | - |
-| [regex.replace](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-regex-regexreplace) | - | - |
-| [regex.split](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-regex-regexsplit) | - | - |
+| [regex.replace](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-regex-regexreplace) | :white_check_mark: | v1.1.0 |
+| [regex.split](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-regex-regexsplit) | :white_check_mark: | v1.1.0 |
 | [regex.template_match](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-regex-regextemplate_match) | - | - |
 
 ## Glob
@@ -67,12 +69,12 @@ Bellow is the list of supported OPA built-in functions as for version v0.53.1 al
 
 | Function   | Status             | OpaDotNet version  |
 |------------|--------------------|--------------------|
-| [base64url.encode_no_pad](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-encoding-base64urlencode_no_pad) | - | - |
-| [hex.decode](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-encoding-hexdecode) | - | - |
-| [hex.encode](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-encoding-hexencode) | - | - |
-| [urlquery.decode](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-encoding-urlquerydecode) | - | - |
+| [base64url.encode_no_pad](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-encoding-base64urlencode_no_pad) | :white_check_mark: | v1.1.0 |
+| [hex.decode](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-encoding-hexdecode) | :white_check_mark: | v1.1.0 |
+| [hex.encode](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-encoding-hexencode) | :white_check_mark: | v1.1.0 |
+| [urlquery.decode](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-encoding-urlquerydecode) | :white_check_mark: | v1.1.0 |
 | [urlquery.decode_object](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-encoding-urlquerydecode_object) | - | - |
-| [urlquery.encode](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-encoding-urlqueryencode) | - | - |
+| [urlquery.encode](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-encoding-urlqueryencode) | :white_check_mark: | v1.1.0 |
 | [urlquery.encode_object](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-encoding-urlqueryencode_object) | - | - |
 
 ## JWT
@@ -100,14 +102,14 @@ Bellow is the list of supported OPA built-in functions as for version v0.53.1 al
 
 | Function   | Status             | OpaDotNet version  |
 |------------|--------------------|--------------------|
-| [crypto.hmac.equal](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptohmacequal) | - | - |
-| [crypto.hmac.md5](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptohmacmd5) | - | - |
-| [crypto.hmac.sha1](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptohmacsha1) | - | - |
-| [crypto.hmac.sha256](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptohmacsha256) | - | - |
-| [crypto.hmac.sha512](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptohmacsha512) | - | - |
-| [crypto.md5](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptomd5) | - | - |
-| [crypto.sha1](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptosha1) | - | - |
-| [crypto.sha256](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptosha256) | - | - |
+| [crypto.hmac.equal](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptohmacequal) | :white_check_mark: | v1.1.0 |
+| [crypto.hmac.md5](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptohmacmd5) | :white_check_mark: | v1.1.0 |
+| [crypto.hmac.sha1](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptohmacsha1) |:white_check_mark: | v1.1.0 |
+| [crypto.hmac.sha256](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptohmacsha256) | :white_check_mark: | v1.1.0 |
+| [crypto.hmac.sha512](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptohmacsha512) | :white_check_mark: | v1.1.0 |
+| [crypto.md5](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptomd5) | :white_check_mark: | v1.1.0 |
+| [crypto.sha1](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptosha1) | :white_check_mark: | v1.1.0 |
+| [crypto.sha256](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptosha256) | :white_check_mark: | v1.1.0 |
 | [crypto.x509.parse_and_verify_certificates](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptox509parse_and_verify_certificates) | - | - |
 | [crypto.x509.parse_certificate_request](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptox509parse_certificate_request) | - | - |
 | [crypto.x509.parse_certificates](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptox509parse_certificates) | - | - |
@@ -147,17 +149,19 @@ Bellow is the list of supported OPA built-in functions as for version v0.53.1 al
 
 | Function   | Status             | OpaDotNet version  |
 |------------|--------------------|--------------------|
-| [net.cidr_contains_matches](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-net-netcidr_contains_matches) | - | - |
-| [net.cidr_expand](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-net-netcidr_expand) | - | - |
-| [net.cidr_is_valid](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-net-netcidr_is_valid) | - | - |
+| [net.cidr_contains_matches](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-net-netcidr_contains_matches) | :white_check_mark: | v1.1.0 |
+| [net.cidr_expand](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-net-netcidr_expand) | :white_check_mark: | v1.1.0 |
+| [net.cidr_is_valid](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-net-netcidr_is_valid) | :white_check_mark: | v1.1.0 |
 | [net.cidr_merge](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-net-netcidr_merge) | - | - |
-| [net.lookup_ip_addr](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-net-netlookup_ip_addr) | - | - |
+| [net.lookup_ip_addr](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-net-netlookup_ip_addr) | :white_check_mark: | v1.1.0 (*) |
+
+\* There might be inconsistent behavior with native implementation due to different DNS resolver.
 
 ## UUID
 
 | Function   | Status             | OpaDotNet version  |
 |------------|--------------------|--------------------|
-| [uuid.rfc4122](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-uuid-uuidrfc4122) | :white_check_mark: | [v1.0.0](https://www.nuget.org/packages/OpaDotNet.Wasm/1.0.0) |
+| [uuid.rfc4122](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-uuid-uuidrfc4122) | :white_check_mark: | v1.0.0 |
 
 ## SemVer
 
