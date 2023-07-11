@@ -73,30 +73,30 @@ Bellow is the list of supported OPA built-in functions as for version v0.53.1 al
 | [hex.decode](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-encoding-hexdecode) | :white_check_mark: | v1.1.0 |
 | [hex.encode](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-encoding-hexencode) | :white_check_mark: | v1.1.0 |
 | [urlquery.decode](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-encoding-urlquerydecode) | :white_check_mark: | v1.1.0 |
-| [urlquery.decode_object](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-encoding-urlquerydecode_object) | - | - |
+| [urlquery.decode_object](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-encoding-urlquerydecode_object) | :white_check_mark: | v1.1.0 |
 | [urlquery.encode](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-encoding-urlqueryencode) | :white_check_mark: | v1.1.0 |
-| [urlquery.encode_object](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-encoding-urlqueryencode_object) | - | - |
+| [urlquery.encode_object](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-encoding-urlqueryencode_object) | :white_check_mark: | v1.1.0 |
 
 ## JWT
 
 | Function   | Status             | OpaDotNet version  |
 |------------|--------------------|--------------------|
-| [io.jwt.encode_sign](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokensign-iojwtencode_sign) | - | - |
-| [io.jwt.encode_sign_raw](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokensign-iojwtencode_sign_raw) | - | - |
-| [io.jwt.decode](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtdecode) | - | - |
-| [io.jwt.decode_verify](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtdecode_verify) | - | - |
-| [io.jwt.verify_es256](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtverify_es256) | - | - |
-| [io.jwt.verify_es384](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtverify_es384) | - | - |
-| [io.jwt.verify_es512](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtverify_es512) | - | - |
-| [io.jwt.verify_hs256](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtverify_hs256) | - | - |
-| [io.jwt.verify_hs384](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtverify_hs384) | - | - |
-| [io.jwt.verify_hs512](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtverify_hs512) | - | - |
-| [io.jwt.verify_ps256](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtverify_ps256) | - | - |
-| [io.jwt.verify_ps384](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtverify_ps384) | - | - |
-| [io.jwt.verify_ps512](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtverify_ps512) | - | - |
-| [io.jwt.verify_rs256](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtverify_rs256) | - | - |
-| [io.jwt.verify_rs384](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtverify_rs384) | - | - |
-| [io.jwt.verify_rs512](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtverify_rs512) | - | - |
+| [io.jwt.encode_sign](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokensign-iojwtencode_sign) | :white_check_mark: | v1.1.0 |
+| [io.jwt.encode_sign_raw](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokensign-iojwtencode_sign_raw) | :white_check_mark: | v1.1.0 |
+| [io.jwt.decode](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtdecode) | :white_check_mark: | v1.1.0 |
+| [io.jwt.decode_verify](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtdecode_verify) | :white_check_mark: | v1.1.0 |
+| [io.jwt.verify_es256](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtverify_es256) | :white_check_mark: | v1.1.0 |
+| [io.jwt.verify_es384](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtverify_es384) | :white_check_mark: | v1.1.0 |
+| [io.jwt.verify_es512](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtverify_es512) | :white_check_mark: | v1.1.0 |
+| [io.jwt.verify_hs256](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtverify_hs256) | :white_check_mark: | v1.1.0 |
+| [io.jwt.verify_hs384](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtverify_hs384) | :white_check_mark: | v1.1.0 |
+| [io.jwt.verify_hs512](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtverify_hs512) | :white_check_mark: | v1.1.0 |
+| [io.jwt.verify_ps256](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtverify_ps256) | :white_check_mark: | v1.1.0 |
+| [io.jwt.verify_ps384](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtverify_ps384) | :white_check_mark: | v1.1.0 |
+| [io.jwt.verify_ps512](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtverify_ps512) | :white_check_mark: | v1.1.0 |
+| [io.jwt.verify_rs256](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtverify_rs256) | :white_check_mark: | v1.1.0 |
+| [io.jwt.verify_rs384](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtverify_rs384) | :white_check_mark: | v1.1.0 |
+| [io.jwt.verify_rs512](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtverify_rs512) | :white_check_mark: | v1.1.0 |
 
 ## Cryptography
 
