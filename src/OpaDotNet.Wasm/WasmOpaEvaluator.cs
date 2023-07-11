@@ -113,11 +113,11 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
             };
         }
 
-        string ValueOrJson(EvaluationOutputFormat t, int arg)
+        string ValueOrJson(RegoValueFormat t, int arg)
         {
-            return t == EvaluationOutputFormat.Value ? ReadValueString(arg) : ReadJsonString(arg);
+            return t == RegoValueFormat.Value ? ReadValueString(arg) : ReadJsonString(arg);
         }
-        
+
         _linker.Define("env", "memory", _memory);
 
         _linker.Define(

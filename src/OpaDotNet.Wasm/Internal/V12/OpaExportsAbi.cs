@@ -26,7 +26,7 @@ internal class OpaExportsAbi : V10.OpaExportsAbi, IOpaExportsAbi, IAbiInitialize
         nint inputPtr,
         int inputLength,
         nint heapPtr,
-        EvaluationOutputFormat format)
+        RegoValueFormat format)
     {
         return _evalV12(
             reserved,

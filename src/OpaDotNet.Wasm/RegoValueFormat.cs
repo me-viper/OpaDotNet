@@ -1,9 +1,9 @@
 ﻿namespace OpaDotNet.Wasm;
 
 /// <summary>
-/// Policy evaluation result output format.
+/// Value format.
 /// </summary>
-internal enum EvaluationOutputFormat
+internal enum RegoValueFormat
 {
     /// <summary>
     /// JSON

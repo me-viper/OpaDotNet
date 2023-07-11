@@ -7,11 +7,11 @@ namespace OpaDotNet.Wasm;
 [PublicAPI]
 public class BuiltinArg
 {
-    private readonly Func<EvaluationOutputFormat, JsonNode?> _arg;
+    private readonly Func<RegoValueFormat, JsonNode?> _arg;
 
     private readonly JsonSerializerOptions _jsonOptions;
 
-    internal BuiltinArg(Func<EvaluationOutputFormat, string> getArg, JsonSerializerOptions jsonOptions)
+    internal BuiltinArg(Func<RegoValueFormat, string> getArg, JsonSerializerOptions jsonOptions)
     {
         ArgumentNullException.ThrowIfNull(getArg);
 
@@ -27,12 +27,12 @@ public class BuiltinArg
     /// <summary>
     /// Json with REGO sets specific patches.
     /// </summary>
-    public JsonNode? Raw => _arg(EvaluationOutputFormat.Value);
+    public JsonNode? Raw => _arg(RegoValueFormat.Value);
 
     /// <summary>
     /// Raw Json with REGO sets serialized as arrays.
     /// </summary>
-    public JsonNode? RawJson => _arg(EvaluationOutputFormat.Json);
+    public JsonNode? RawJson => _arg(RegoValueFormat.Json);
 
     public T As<T>() where T : notnull
     {

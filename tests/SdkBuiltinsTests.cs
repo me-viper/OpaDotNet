@@ -474,7 +474,7 @@ io.jwt.encode_sign_raw(
         var result = await RunTestCase(func, expected);
         Assert.True(result.Assert);
     }
-    
+
     // ReSharper disable once ClassNeverInstantiated.Local
     private record TestCaseResult
     {

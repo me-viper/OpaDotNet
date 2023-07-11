@@ -16,5 +16,5 @@ internal interface IOpaExportsAbi : V10.IOpaExportsAbi
     /// <param name="heapPtr">Heap address to use</param>
     /// <param name="format">Output format</param>
     /// <returns>Address to the serialised result value</returns>
-    nint Eval(int reserved, int entrypointId, nint dataPtr, nint inputPtr, int inputLength, nint heapPtr, EvaluationOutputFormat format);
+    nint Eval(int reserved, int entrypointId, nint dataPtr, nint inputPtr, int inputLength, nint heapPtr, RegoValueFormat format);
 }

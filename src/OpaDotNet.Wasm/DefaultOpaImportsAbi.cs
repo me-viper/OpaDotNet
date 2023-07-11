@@ -22,7 +22,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
     {
         return _random;
     }
-    
+
     [ExcludeFromCodeCoverage]
     protected virtual Guid NewGuid()
     {
