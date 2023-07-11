@@ -4,5 +4,6 @@ OpaDotNet.Wasm.BuiltinContext.JsonSerializerOptions.get -> System.Text.Json.Json
 OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.CapabilitiesVersion.get -> string?
 OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.CapabilitiesVersion.set -> void
 virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.NewGuid() -> System.Guid
+virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.OnError(OpaDotNet.Wasm.BuiltinContext! context, System.Exception! ex) -> bool
 virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.Random() -> System.Random!
 virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.Trace(string! message) -> bool

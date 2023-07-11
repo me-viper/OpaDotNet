@@ -95,8 +95,12 @@ public class SdkBuiltinsTests
         Assert.True(result.Assert);
     }
 
-    private class TimeImports : DefaultOpaImportsAbi
+    private class TimeImports : TestImportsAbi
     {
+        public TimeImports(ITestOutputHelper output) : base(output)
+        {
+        }
+
         protected override DateTimeOffset Now()
         {
             return new DateTimeOffset(2023, 6, 5, 14, 27, 39, TimeSpan.Zero);
@@ -112,7 +116,7 @@ public class SdkBuiltinsTests
     [InlineData("time.weekday(1687527385064073200)", "\"Friday\"")]
     public async Task Time(string func, string expected)
     {
-        var result = await RunTestCase(func, expected, new TimeImports());
+        var result = await RunTestCase(func, expected, new TimeImports(_output));
         Assert.True(result.Assert);
     }
 
@@ -123,7 +127,7 @@ public class SdkBuiltinsTests
     [InlineData("""time.parse_duration_ns("1ns")""", "1")]
     public async Task TimeParseDurationNs(string func, string expected)
     {
-        var result = await RunTestCase(func, expected, new TimeImports());
+        var result = await RunTestCase(func, expected, new TimeImports(_output));
         Assert.True(result.Assert);
     }
 
@@ -247,7 +251,7 @@ net.cidr_contains_matches({["1.1.2.0/24", "foo", 1], "1.1.0.0/16"}, {"x": "1.1.1
         )]
     public async Task NetCidrContainsMatchesObjects(string func, string expected)
     {
-        var result = await RunTestCase(func, expected, new TimeImports());
+        var result = await RunTestCase(func, expected, new TimeImports(_output));
         Assert.True(result.Assert);
     }
 
@@ -558,7 +562,7 @@ package sdk
     {
         var compiler = new RegoCliCompiler(_options, _loggerFactory.CreateLogger<RegoCliCompiler>());
         var policy = await compiler.Compile(source, entrypoint);
-        var factory = new OpaEvaluatorFactory(imports);
+        var factory = new OpaEvaluatorFactory(imports ?? new TestImportsAbi(_output));
 
         var engineOpts = new WasmPolicyEngineOptions
         {
