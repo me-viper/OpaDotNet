@@ -11,6 +11,8 @@ using OpaDotNet.Wasm.Compilation;
 
 using Xunit.Abstractions;
 
+// ReSharper disable StringLiteralTypo
+
 namespace OpaDotNet.Tests;
 
 public class SdkBuiltinsTests
@@ -350,7 +352,6 @@ t2 := o { o := net.lookup_ip_addr("bing.com1") }
         Assert.True(result.Assert);
     }
 
-    // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.NMNr4CG25CGV2KDjnHvhKZvVkbvZGl9v086QHfBOs8A
     [Theory]
     [InlineData(
         """io.jwt.verify_hs256("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.unABLifoQHexZxogSrZQ5X0TVEnPWgpVAy6X6l7aaio", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")""",
