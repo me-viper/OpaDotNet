@@ -95,38 +95,31 @@ public partial class DefaultOpaImportsAbi
             if (string.IsNullOrWhiteSpace(constraints.Cert))
                 return null;
 
-            try
+            if (constraints.Cert.IndexOf("-----BEGIN CERTIFICATE", StringComparison.Ordinal) >= 0)
             {
-                if (constraints.Cert.IndexOf("-----BEGIN CERTIFICATE", StringComparison.Ordinal) >= 0)
-                {
-                    var cert = X509Certificate2.CreateFromPem(constraints.Cert);
+                var cert = X509Certificate2.CreateFromPem(constraints.Cert);
 
-                    SecurityKey k;
+                SecurityKey k;
 
-                    if (cert.GetECDsaPublicKey() != null)
-                        k = new ECDsaSecurityKey(cert.GetECDsaPublicKey());
-                    else if (cert.GetRSAPublicKey() != null)
-                        k = new RsaSecurityKey(cert.GetRSAPublicKey());
-                    else
-                        k = new X509SecurityKey(cert);
-
-                    result.IssuerSigningKey = k;
-                }
-                else if (constraints.Cert.IndexOf("-----BEGIN", StringComparison.Ordinal) >= 0)
-                {
-                    var rsa = RSA.Create();
-                    rsa.ImportFromPem(constraints.Cert);
-                    result.IssuerSigningKey = new RsaSecurityKey(rsa);
-                }
+                if (cert.GetECDsaPublicKey() != null)
+                    k = new ECDsaSecurityKey(cert.GetECDsaPublicKey());
+                else if (cert.GetRSAPublicKey() != null)
+                    k = new RsaSecurityKey(cert.GetRSAPublicKey());
                 else
-                {
-                    var jwks = new JsonWebKeySet(constraints.Cert);
-                    result.IssuerSigningKeys = jwks.Keys;
-                }
+                    k = new X509SecurityKey(cert);
+
+                result.IssuerSigningKey = k;
             }
-            catch (Exception)
+            else if (constraints.Cert.IndexOf("-----BEGIN", StringComparison.Ordinal) >= 0)
             {
-                return null;
+                var rsa = RSA.Create();
+                rsa.ImportFromPem(constraints.Cert);
+                result.IssuerSigningKey = new RsaSecurityKey(rsa);
+            }
+            else
+            {
+                var jwks = new JsonWebKeySet(constraints.Cert);
+                result.IssuerSigningKeys = jwks.Keys;
             }
         }
 
