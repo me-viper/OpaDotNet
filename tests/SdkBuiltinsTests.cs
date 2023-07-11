@@ -82,22 +82,14 @@ public class SdkBuiltinsTests
         Assert.True(result.Assert);
     }
 
-    [Fact]
-    public async Task StringsAnySuffixMatch()
+    [Theory]
+    [InlineData("""strings.any_suffix_match(["saaa", "sbbb", "sccc"], ["bb"])""", "true")]
+    [InlineData("""strings.any_suffix_match(["saaa", "sbbb", "sccc"], ["xx", "yy", "cc"])""", "true")]
+    [InlineData("""strings.any_suffix_match(["saaa", "sbbb", "sccc"], ["xx"])""", "false")]
+    public async Task StringsAnySuffixMatch(string func, string expected)
     {
-        var src = """
-package sdk
-t1 := o { o := strings.any_suffix_match(["saaa", "sbbb", "sccc"], ["bb"]) }
-t2 := o { o := strings.any_suffix_match(["saaa", "sbbb", "sccc"], ["xx", "yy", "cc"]) }
-t3 := o { o := strings.any_suffix_match(["saaa", "sbbb", "sccc"], ["xx"]) }
-""";
-
-        using var eval = await Build(src, "sdk");
-        var result = eval.EvaluateValue(new { t1 = false, t2 = false, t3 = false }, "sdk");
-
-        Assert.True(result.t1);
-        Assert.True(result.t2);
-        Assert.False(result.t3);
+        var result = await RunTestCase(func, expected);
+        Assert.True(result.Assert);
     }
 
     private class TimeImports : DefaultOpaImportsAbi
