@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Nodes;
-
-using OpaDotNet.Wasm;
+﻿using OpaDotNet.Wasm;
 using OpaDotNet.Wasm.Compilation;
 
 namespace OpaDotNet.Tests.Common;

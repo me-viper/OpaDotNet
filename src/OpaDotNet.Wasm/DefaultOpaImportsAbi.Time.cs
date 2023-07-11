@@ -1,7 +1,5 @@
 ﻿using System.Globalization;
 
-using DateTimeOffset = System.DateTimeOffset;
-
 namespace OpaDotNet.Wasm;
 
 public partial class DefaultOpaImportsAbi

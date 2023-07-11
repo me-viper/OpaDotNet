@@ -5,8 +5,6 @@ using System.Web;
 
 using Microsoft.Extensions.Primitives;
 
-using OpaDotNet.Wasm.Rego;
-
 namespace OpaDotNet.Wasm;
 
 public partial class DefaultOpaImportsAbi

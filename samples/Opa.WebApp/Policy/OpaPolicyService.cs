@@ -5,8 +5,6 @@ using Microsoft.Extensions.Options;
 using OpaDotNet.Wasm;
 using OpaDotNet.Wasm.Compilation;
 
-using FileInfo = System.IO.FileInfo;
-
 namespace Opa.WebApp.Policy;
 
 public sealed class OpaPolicyService : IHostedService, IOpaPolicyService
