@@ -17,6 +17,18 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
         return DateTimeOffset.Now;
     }
 
+    [ExcludeFromCodeCoverage]
+    protected virtual Random Random()
+    {
+        return _random;
+    }
+    
+    [ExcludeFromCodeCoverage]
+    protected virtual Guid NewGuid()
+    {
+        return Guid.NewGuid();
+    }
+
     public virtual void Reset()
     {
         ValueCache.Clear();

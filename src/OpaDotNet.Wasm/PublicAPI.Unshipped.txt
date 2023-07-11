@@ -3,3 +3,5 @@ OpaDotNet.Wasm.BuiltinArg.RawJson.get -> System.Text.Json.Nodes.JsonNode?
 OpaDotNet.Wasm.BuiltinContext.JsonSerializerOptions.get -> System.Text.Json.JsonSerializerOptions!
 OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.CapabilitiesVersion.get -> string?
 OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.CapabilitiesVersion.set -> void
+virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.NewGuid() -> System.Guid
+virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.Random() -> System.Random!

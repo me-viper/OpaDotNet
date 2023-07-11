@@ -20,7 +20,7 @@ public partial class DefaultOpaImportsAbi
         if (ValueCache.TryGetValue(cacheKey, out var result))
             return (int)result;
 
-        result = _random.Next(n);
+        result = Random().Next(n);
         ValueCache.TryAdd(cacheKey, result);
 
         return (int)result;
@@ -33,7 +33,7 @@ public partial class DefaultOpaImportsAbi
         if (ValueCache.TryGetValue(cacheKey, out var result))
             return (Guid)result;
 
-        result = Guid.NewGuid();
+        result = NewGuid();
         ValueCache.TryAdd(cacheKey, result);
 
         return (Guid)result;

@@ -24,8 +24,14 @@ public class BuiltinArg
         _jsonOptions = jsonOptions;
     }
 
+    /// <summary>
+    /// Json with REGO sets specific patches.
+    /// </summary>
     public JsonNode? Raw => _arg(EvaluationOutputFormat.Value);
 
+    /// <summary>
+    /// Raw Json with REGO sets serialized as arrays.
+    /// </summary>
     public JsonNode? RawJson => _arg(EvaluationOutputFormat.Json);
 
     public T As<T>() where T : notnull
