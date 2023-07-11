@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Nodes;
+﻿using System.Text;
+using System.Text.Json.Nodes;
 
 using JetBrains.Annotations;
 
@@ -122,6 +123,42 @@ public class SdkBuiltinsTests
     {
         var result = await RunTestCase(func, expected, new TimeImports());
         Assert.True(result.Assert);
+    }
+
+    private class DebugImports : DefaultOpaImportsAbi
+    {
+        public StringBuilder Output { get; } = new();
+
+        public override void PrintLn(string message)
+        {
+            throw new Exception("Boom!");
+        }
+
+        protected override bool Trace(string message)
+        {
+            Output.Append(message);
+            return base.Trace(message);
+        }
+    }
+
+    [Fact]
+    public async Task Trace()
+    {
+        var src = """
+package sdk
+
+t1 := o { 
+    o := "hi!"
+    trace(o)
+}
+""";
+        var import = new DebugImports();
+        using var eval = await Build(src, "sdk", import);
+
+        var result = eval.EvaluateValue(new { t1 = string.Empty }, "sdk");
+
+        Assert.Equal("hi!", result.t1);
+        Assert.Equal("hi!", import.Output.ToString());
     }
 
     [Fact]

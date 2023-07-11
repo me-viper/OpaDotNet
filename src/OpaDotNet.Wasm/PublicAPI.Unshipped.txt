@@ -5,3 +5,4 @@ OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.CapabilitiesVersion.get -> str
 OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.CapabilitiesVersion.set -> void
 virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.NewGuid() -> System.Guid
 virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.Random() -> System.Random!
+virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.Trace(string! message) -> bool

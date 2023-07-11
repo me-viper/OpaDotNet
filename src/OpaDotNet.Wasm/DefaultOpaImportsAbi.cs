@@ -44,6 +44,12 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
     {
     }
 
+    [ExcludeFromCodeCoverage]
+    protected virtual bool Trace(string message)
+    {
+        return true;
+    }
+
     public virtual object? Func(BuiltinContext context)
     {
         return context.FunctionName switch
@@ -57,6 +63,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
     {
         return context.FunctionName switch
         {
+            "trace" => Trace(arg1.As<string>()),
             "time.date" => Date(arg1.As<long>()),
             "time.clock" => Clock(arg1.As<long>()),
             "time.weekday" => Weekday(arg1.As<long>()),
