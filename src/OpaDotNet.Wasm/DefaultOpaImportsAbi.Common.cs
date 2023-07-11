@@ -49,6 +49,15 @@ public partial class DefaultOpaImportsAbi
             .Replace('/', '_');
     }
 
+    private static byte[] Base64UrlDecode(string x)
+    {
+        var s = x.PadRight(x.Length + (4 - x.Length % 4) % 4, '=')
+            .Replace('-', '+')
+            .Replace('_', '/');
+
+        return Convert.FromBase64String(s);
+    }
+
     private static string HexEncode(string x)
     {
         return Convert.ToHexString(Encoding.UTF8.GetBytes(x)).ToLowerInvariant();
@@ -69,23 +78,23 @@ public partial class DefaultOpaImportsAbi
     {
         if (string.IsNullOrWhiteSpace(x))
             return null;
-        
+
         var result = new Dictionary<string, List<string>>();
-        
+
         var queryIndex = x.IndexOf('?');
         queryIndex = queryIndex == -1 ? 0 : queryIndex;
-        
+
         var q = x[queryIndex..];
-        
+
         var queryParts = new StringTokenizer(q, new[] { '&' });
-        
+
         foreach (var part in queryParts)
         {
             var eqIndex = part.IndexOf('=');
-            
+
             string key;
             string? value = null;
-            
+
             if (eqIndex == -1)
                 key = part.ToString();
             else
@@ -93,14 +102,14 @@ public partial class DefaultOpaImportsAbi
                 key = part.Substring(0, eqIndex);
                 value = HttpUtility.UrlDecode(part.Substring(eqIndex + 1));
             }
-            
+
             if (!result.ContainsKey(key))
                 result.Add(key, new());
-            
+
             if (!string.IsNullOrWhiteSpace(value))
                 result[key].Add(value);
         }
-        
+
         return result;
     }
 
@@ -108,43 +117,43 @@ public partial class DefaultOpaImportsAbi
     {
         return HttpUtility.UrlEncode(x);
     }
-    
+
     private static string? UrlQueryEncodeObject(JsonNode? obj, JsonSerializerOptions options)
     {
         var result = new List<string>();
-        
+
         if (obj == null)
             return null;
-        
+
         // Empty object will be represented as {} which will be converted to set.
         // But we know set is not allowed here so it must be empty object.
         if (obj.IsRegoSet())
             return string.Empty;
-        
+
         if (obj is not JsonObject jo)
             return null;
-        
+
         foreach (var (k, v) in jo)
         {
             if (v.IsRegoSet())
             {
                 if (!v.TryGetRegoSet<string>(out var set, options))
                     return null;
-                
+
                 result.Add(string.Join('&', set.Set.Select(p => $"{k}={HttpUtility.UrlEncode(p)}")));
                 continue;
             }
-            
+
             if (v is JsonArray ja)
             {
                 var values = ja.Select(p => $"{k}={HttpUtility.UrlEncode(p!.GetValue<string>())}");
                 result.Add(string.Join('&', values));
                 continue;
             }
-            
+
             result.Add($"{k}={HttpUtility.UrlEncode(v!.GetValue<string>())}");
         }
-        
+
         return string.Join('&', result);
     }
 

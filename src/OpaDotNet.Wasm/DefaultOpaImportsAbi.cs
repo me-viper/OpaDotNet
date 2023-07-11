@@ -65,6 +65,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
             "urlquery.decode" => UrlQueryDecode(arg1.As<string>()),
             "urlquery.decode_object" => UrlQueryDecodeObject(arg1.As<string>()),
             "urlquery.encode_object" => UrlQueryEncodeObject(arg1.Raw, context.JsonSerializerOptions),
+            "io.jwt.decode" => JwtDecode(arg1.As<string>()),
             _ => throw new NotImplementedException(context.FunctionName)
         };
     }
@@ -86,6 +87,19 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
             "crypto.hmac.sha512" => HmacSha512(arg1.As<string>(), arg2.As<string>()),
             "regex.split" => RegexSplit(arg1.As<string>(), arg2.As<string>()),
             "net.cidr_contains_matches" => CidrContainsMatches(arg1.Raw, arg2.Raw, context.JsonSerializerOptions),
+            "io.jwt.decode_verify" => JwtDecodeVerify(arg1.As<string>(), arg2.As<JwtConstraints>()),
+            "io.jwt.verify_hs256" => JwtVerifyHs(arg1.As<string>(), arg2.As<string>(), "HS256"),
+            "io.jwt.verify_hs384" => JwtVerifyHs(arg1.As<string>(), arg2.As<string>(), "HS384"),
+            "io.jwt.verify_hs512" => JwtVerifyHs(arg1.As<string>(), arg2.As<string>(), "HS512"),
+            "io.jwt.verify_es256" => JwtVerifyCert(arg1.As<string>(), arg2.As<string>(), "ES256"),
+            "io.jwt.verify_es384" => JwtVerifyCert(arg1.As<string>(), arg2.As<string>(), "ES384"),
+            "io.jwt.verify_es512" => JwtVerifyCert(arg1.As<string>(), arg2.As<string>(), "ES512"),
+            "io.jwt.verify_ps256" => JwtVerifyCert(arg1.As<string>(), arg2.As<string>(), "PS256"),
+            "io.jwt.verify_ps384" => JwtVerifyCert(arg1.As<string>(), arg2.As<string>(), "PS384"),
+            "io.jwt.verify_ps512" => JwtVerifyCert(arg1.As<string>(), arg2.As<string>(), "PS512"),
+            "io.jwt.verify_rs256" => JwtVerifyCert(arg1.As<string>(), arg2.As<string>(), "RS256"),
+            "io.jwt.verify_rs384" => JwtVerifyCert(arg1.As<string>(), arg2.As<string>(), "RS384"),
+            "io.jwt.verify_rs512" => JwtVerifyCert(arg1.As<string>(), arg2.As<string>(), "RS512"),
             _ => throw new NotImplementedException(context.FunctionName)
         };
     }

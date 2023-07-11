@@ -282,11 +282,13 @@ t2 := o { o := net.lookup_ip_addr("bing.com1") }
     [InlineData("""urlquery.encode("x=https://w.org/ref/#encoding")""", "\"x%3dhttps%3a%2f%2fw.org%2fref%2f%23encoding\"")]
     [InlineData("""urlquery.decode("x%3Dhttps%3A%2F%2Fw.org%2Fref%2F%23encoding")""", "\"x=https://w.org/ref/#encoding\"")]
     [InlineData(
-        """urlquery.decode_object("e=1&e=2&d=b&d=a&c=true&b=bbb&a=1")""", 
-        """{"a": ["1"], "b": ["bbb"], "c": ["true"], "d": ["b", "a"], "e": ["1", "2"]}""")]
+        """urlquery.decode_object("e=1&e=2&d=b&d=a&c=true&b=bbb&a=1")""",
+        """{"a": ["1"], "b": ["bbb"], "c": ["true"], "d": ["b", "a"], "e": ["1", "2"]}"""
+        )]
     [InlineData(
-        """urlquery.encode_object({"a": "1", "b": "bbb", "c": "true", "d": {"a", "b"}, "e": ["1", "2"]})""", 
-        "\"e=1&e=2&d=b&d=a&c=true&b=bbb&a=1\"")]
+        """urlquery.encode_object({"a": "1", "b": "bbb", "c": "true", "d": {"a", "b"}, "e": ["1", "2"]})""",
+        "\"e=1&e=2&d=b&d=a&c=true&b=bbb&a=1\""
+        )]
     [InlineData("""urlquery.encode_object({})""", "\"\"")]
     [InlineData("""urlquery.encode_object({"a": "b?b"})""", "\"a=b%3fb\"")]
     public async Task Encoding(string func, string expected)
@@ -307,6 +309,94 @@ t2 := o { o := net.lookup_ip_addr("bing.com1") }
         var result = await RunTestCase(func, expected);
         Assert.True(result.Assert);
     }
+
+    [Theory]
+    [InlineData(
+        """io.jwt.decode("eyJ0eXAiOiAiSldUIiwgImFsZyI6ICJFUzI1NiJ9.eyJuYmYiOiAxNDQ0NDc4NDAwLCAiaXNzIjogInh4eCJ9.lArczfN-pIL8oUU-7PU83u-zfXougXBZj6drFeKFsPEoVhy9WAyiZlRshYqjTSXdaw8yw2L-ovt4zTUZb2PWMg")""",
+        """[{"typ": "JWT", "alg": "ES256"}, {"nbf": 1444478400, "iss": "xxx"}, "940adccdf37ea482fca1453eecf53cdeefb37d7a2e8170598fa76b15e285b0f128561cbd580ca266546c858aa34d25dd6b0f32c362fea2fb78cd35196f63d632"]"""
+        )]
+    public async Task Jwt(string func, string expected)
+    {
+        var result = await RunTestCase(func, expected);
+        Assert.True(result.Assert);
+    }
+
+    // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.NMNr4CG25CGV2KDjnHvhKZvVkbvZGl9v086QHfBOs8A
+    [Theory]
+    [InlineData(
+        """io.jwt.verify_hs256("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.unABLifoQHexZxogSrZQ5X0TVEnPWgpVAy6X6l7aaio", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")""",
+        """true"""
+        )]
+    [InlineData(
+        """io.jwt.decode_verify("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.unABLifoQHexZxogSrZQ5X0TVEnPWgpVAy6X6l7aaio", {"secret": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"})""",
+        """[true,{"alg":"HS256","typ":"JWT"},{}]"""
+        )]
+    public async Task JwtHs256(string func, string expected)
+    {
+        var result = await RunTestCase(func, expected);
+        Assert.True(result.Assert);
+    }
+
+    [Fact]
+    public async Task JwtJwkCerts()
+    {
+        var src = """
+package sdk
+
+es256_token := "eyJ0eXAiOiAiSldUIiwgImFsZyI6ICJFUzI1NiJ9.eyJuYmYiOiAxNDQ0NDc4NDAwLCAiaXNzIjogInh4eCJ9.lArczfN-pIL8oUU-7PU83u-zfXougXBZj6drFeKFsPEoVhy9WAyiZlRshYqjTSXdaw8yw2L-ovt4zTUZb2PWMg"
+
+jwks := `{
+    "keys": [{
+        "kty":"EC",
+        "crv":"P-256",
+        "x":"z8J91ghFy5o6f2xZ4g8LsLH7u2wEpT2ntj8loahnlsE",
+        "y":"7bdeXLH61KrGWRdh7ilnbcGQACxykaPKfmBccTHIOUo"
+    }]
+}`
+
+r := io.jwt.verify_es256(es256_token, jwks)
+""";
+        using var eval = await Build(src, "sdk");
+
+        var result = eval.EvaluateValue(
+            new { r = false, },
+            "sdk"
+            );
+
+        Assert.True(result.r);
+    }
+
+    [Fact]
+    public async Task JwtPemCerts()
+    {
+        var src = """
+package sdk
+
+es256_token := "eyJ0eXAiOiAiSldUIiwgImFsZyI6ICJFUzI1NiJ9.eyJuYmYiOiAxNDQ0NDc4NDAwLCAiaXNzIjogInh4eCJ9.lArczfN-pIL8oUU-7PU83u-zfXougXBZj6drFeKFsPEoVhy9WAyiZlRshYqjTSXdaw8yw2L-ovt4zTUZb2PWMg"
+
+cert := `-----BEGIN CERTIFICATE-----
+MIIBcDCCARagAwIBAgIJAMZmuGSIfvgzMAoGCCqGSM49BAMCMBMxETAPBgNVBAMM
+CHdoYXRldmVyMB4XDTE4MDgxMDE0Mjg1NFoXDTE4MDkwOTE0Mjg1NFowEzERMA8G
+A1UEAwwId2hhdGV2ZXIwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAATPwn3WCEXL
+mjp/bFniDwuwsfu7bASlPae2PyWhqGeWwe23Xlyx+tSqxlkXYe4pZ23BkAAscpGj
+yn5gXHExyDlKo1MwUTAdBgNVHQ4EFgQUElRjSoVgKjUqY5AXz2o74cLzzS8wHwYD
+VR0jBBgwFoAUElRjSoVgKjUqY5AXz2o74cLzzS8wDwYDVR0TAQH/BAUwAwEB/zAK
+BggqhkjOPQQDAgNIADBFAiEA4yQ/88ZrUX68c6kOe9G11u8NUaUzd8pLOtkKhniN
+OHoCIHmNX37JOqTcTzGn2u9+c8NlnvZ0uDvsd1BmKPaUmjmm
+-----END CERTIFICATE-----`
+
+r := io.jwt.verify_es256(es256_token, cert)
+""";
+        using var eval = await Build(src, "sdk");
+
+        var result = eval.EvaluateValue(
+            new { r = false, },
+            "sdk"
+            );
+
+        Assert.True(result.r);
+    }
+
 
     // ReSharper disable once ClassNeverInstantiated.Local
     private record TestCaseResult
