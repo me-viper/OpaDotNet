@@ -1,7 +1,9 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 
 using JetBrains.Annotations;
@@ -188,5 +190,40 @@ public partial class DefaultOpaImportsAbi
             return false;
 
         return ValidateToken(jwt, tvp) != null;
+    }
+    
+    private static readonly string[] ReservedJwtHeaders = { "alg", "kid", "x5t", "enc", "zip" }; 
+    
+    private static string JwtEncodeSign(JsonNode? headers, JsonNode? payload, JsonNode? key)
+    {
+        return JwtEncodeSignRaw(
+            JsonSerializer.Serialize(headers),
+            JsonSerializer.Serialize(payload),
+            JsonSerializer.Serialize(key)
+            );
+    }
+
+    private static string JwtEncodeSignRaw(string headers, string payload, string key)
+    {
+        var jwtPayload = JsonExtensions.DeserializeJwtPayload(payload);
+        var baseHeader = JsonExtensions.DeserializeJwtHeader(headers);
+        
+        var jwk = new JsonWebKey(key);
+        var alg = baseHeader.Alg ?? jwk.Alg;
+        var signingCredentials = new SigningCredentials(jwk, alg);
+        
+        // The 'alg', 'kid', 'x5t', 'enc', and 'zip' claims are added by default based on the SigningCredentials,
+        // EncryptingCredentials, and/or CompressionAlgorithm provided and SHOULD NOT be included in this dictionary.
+        var jwtHeader = new JwtHeader(
+            signingCredentials, 
+            null, 
+            null, 
+            baseHeader.Where(p => !ReservedJwtHeaders.Contains(p.Key)).ToDictionary(p => p.Key, p => p.Value)
+            );
+        
+        var token = new JwtSecurityToken(jwtHeader, jwtPayload);
+        var handler = new JwtSecurityTokenHandler();
+        
+        return handler.WriteToken(token);
     }
 }

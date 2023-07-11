@@ -7,26 +7,26 @@ namespace OpaDotNet.Wasm;
 [PublicAPI]
 public class BuiltinArg
 {
-    private readonly Lazy<JsonNode?> _arg;
+    private readonly Func<EvaluationOutputFormat, JsonNode?> _arg;
 
     private readonly JsonSerializerOptions _jsonOptions;
 
-    internal BuiltinArg(Func<string> getArg, JsonSerializerOptions jsonOptions)
+    internal BuiltinArg(Func<EvaluationOutputFormat, string> getArg, JsonSerializerOptions jsonOptions)
     {
         ArgumentNullException.ThrowIfNull(getArg);
 
-        _arg = new Lazy<JsonNode?>(
-            () =>
-            {
-                var json = getArg();
-                return JsonNode.Parse(json);
-            }
-            );
+        _arg = p =>
+        {
+            var json = getArg(p);
+            return JsonNode.Parse(json);
+        };
 
         _jsonOptions = jsonOptions;
     }
 
-    public JsonNode? Raw => _arg.Value;
+    public JsonNode? Raw => _arg(EvaluationOutputFormat.Value);
+
+    public JsonNode? RawJson => _arg(EvaluationOutputFormat.Json);
 
     public T As<T>() where T : notnull
     {
@@ -44,6 +44,7 @@ public class BuiltinArg
         {
             null => defaultValue != null ? defaultValue() : default,
             JsonValue jv => jv.GetValue<T>(),
+            T t => t,
             _ => Raw.Deserialize<T>(_jsonOptions),
         };
     }

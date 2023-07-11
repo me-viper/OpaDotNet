@@ -122,28 +122,11 @@ public partial class DefaultOpaImportsAbi
     {
         var result = new List<string>();
 
-        if (obj == null)
-            return null;
-
-        // Empty object will be represented as {} which will be converted to set.
-        // But we know set is not allowed here so it must be empty object.
-        if (obj.IsRegoSet())
-            return string.Empty;
-
         if (obj is not JsonObject jo)
             return null;
 
         foreach (var (k, v) in jo)
         {
-            if (v.IsRegoSet())
-            {
-                if (!v.TryGetRegoSet<string>(out var set, options))
-                    return null;
-
-                result.Add(string.Join('&', set.Set.Select(p => $"{k}={HttpUtility.UrlEncode(p)}")));
-                continue;
-            }
-
             if (v is JsonArray ja)
             {
                 var values = ja.Select(p => $"{k}={HttpUtility.UrlEncode(p!.GetValue<string>())}");

@@ -64,7 +64,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
             "urlquery.encode" => UrlQueryEncode(arg1.As<string>()),
             "urlquery.decode" => UrlQueryDecode(arg1.As<string>()),
             "urlquery.decode_object" => UrlQueryDecodeObject(arg1.As<string>()),
-            "urlquery.encode_object" => UrlQueryEncodeObject(arg1.Raw, context.JsonSerializerOptions),
+            "urlquery.encode_object" => UrlQueryEncodeObject(arg1.RawJson, context.JsonSerializerOptions),
             "io.jwt.decode" => JwtDecode(arg1.As<string>()),
             _ => throw new NotImplementedException(context.FunctionName)
         };
@@ -110,6 +110,8 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
         {
             "regex.find_n" => RegexFindN(arg1.As<string>(), arg2.As<string>(), arg3.As<int>()),
             "regex.replace" => RegexReplace(arg1.As<string>(), arg2.As<string>(), arg3.As<string>()),
+            "io.jwt.encode_sign" => JwtEncodeSign(arg1.RawJson, arg2.RawJson, arg3.RawJson),
+            "io.jwt.encode_sign_raw" => JwtEncodeSignRaw(arg1.As<string>(), arg2.As<string>(), arg3.As<string>()),
             _ => throw new NotImplementedException(context.FunctionName)
         };
     }

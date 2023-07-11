@@ -113,6 +113,11 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
             };
         }
 
+        string ValueOrJson(EvaluationOutputFormat t, int arg)
+        {
+            return t == EvaluationOutputFormat.Value ? ReadValueString(arg) : ReadJsonString(arg);
+        }
+        
         _linker.Define("env", "memory", _memory);
 
         _linker.Define(
@@ -147,7 +152,7 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
                 _store,
                 (int id, int ctx, int arg1) =>
                 {
-                    var a1 = new BuiltinArg(() => ReadValueString(arg1), _jsonOptions);
+                    var a1 = new BuiltinArg(p => ValueOrJson(p, arg1), _jsonOptions);
                     var result = imports.Func(Context(id, ctx), a1);
                     return WriteValue(result).ToInt32();
                 }
@@ -161,8 +166,8 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
                 _store,
                 (int id, int ctx, int arg1, int arg2) =>
                 {
-                    var a1 = new BuiltinArg(() => ReadValueString(arg1), _jsonOptions);
-                    var a2 = new BuiltinArg(() => ReadValueString(arg2), _jsonOptions);
+                    var a1 = new BuiltinArg(p => ValueOrJson(p, arg1), _jsonOptions);
+                    var a2 = new BuiltinArg(p => ValueOrJson(p, arg2), _jsonOptions);
                     var result = imports.Func(Context(id, ctx), a1, a2);
                     return WriteValue(result).ToInt32();
                 }
@@ -176,9 +181,9 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
                 _store,
                 (int id, int ctx, int arg1, int arg2, int arg3) =>
                 {
-                    var a1 = new BuiltinArg(() => ReadValueString(arg1), _jsonOptions);
-                    var a2 = new BuiltinArg(() => ReadValueString(arg2), _jsonOptions);
-                    var a3 = new BuiltinArg(() => ReadValueString(arg3), _jsonOptions);
+                    var a1 = new BuiltinArg(p => ValueOrJson(p, arg1), _jsonOptions);
+                    var a2 = new BuiltinArg(p => ValueOrJson(p, arg2), _jsonOptions);
+                    var a3 = new BuiltinArg(p => ValueOrJson(p, arg3), _jsonOptions);
                     var result = imports.Func(Context(id, ctx), a1, a2, a3);
                     return WriteValue(result).ToInt32();
                 }
@@ -192,10 +197,10 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
                 _store,
                 (int id, int ctx, int arg1, int arg2, int arg3, int arg4) =>
                 {
-                    var a1 = new BuiltinArg(() => ReadValueString(arg1), _jsonOptions);
-                    var a2 = new BuiltinArg(() => ReadValueString(arg2), _jsonOptions);
-                    var a3 = new BuiltinArg(() => ReadValueString(arg3), _jsonOptions);
-                    var a4 = new BuiltinArg(() => ReadValueString(arg4), _jsonOptions);
+                    var a1 = new BuiltinArg(p => ValueOrJson(p, arg1), _jsonOptions);
+                    var a2 = new BuiltinArg(p => ValueOrJson(p, arg2), _jsonOptions);
+                    var a3 = new BuiltinArg(p => ValueOrJson(p, arg3), _jsonOptions);
+                    var a4 = new BuiltinArg(p => ValueOrJson(p, arg4), _jsonOptions);
                     var result = imports.Func(Context(id, ctx), a1, a2, a3, a4);
                     return WriteValue(result).ToInt32();
                 }
