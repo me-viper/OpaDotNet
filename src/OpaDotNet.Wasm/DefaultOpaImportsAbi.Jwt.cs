@@ -25,7 +25,7 @@ public partial class DefaultOpaImportsAbi
         [JsonPropertyName("alg")]
         public string? Alg { get; [UsedImplicitly] set; }
 
-        [JsonPropertyName("iis")]
+        [JsonPropertyName("iss")]
         public string? Iss { get; [UsedImplicitly] set; }
 
         [JsonPropertyName("time")]
@@ -150,7 +150,7 @@ public partial class DefaultOpaImportsAbi
 
     private static SecurityToken? ValidateToken(string jwt, TokenValidationParameters parameters)
     {
-        IdentityModelEventSource.ShowPII = true;
+        // IdentityModelEventSource.ShowPII = true;
         var handler = new JwtSecurityTokenHandler();
 
         try

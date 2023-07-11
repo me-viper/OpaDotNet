@@ -16,10 +16,10 @@ internal static class MemoryExtensions
         return encoding.GetBytes(value, memory.GetSpan(address, (int)Math.Min(int.MaxValue, memory.GetLength() - address)));
     }
 
-    public static void WriteBytes(this Memory memory, long address, ReadOnlySpan<byte> bytes)
-    {
-        bytes.CopyTo(memory.GetSpan(address, bytes.Length));
-    }
+    // public static void WriteBytes(this Memory memory, long address, ReadOnlySpan<byte> bytes)
+    // {
+    //     bytes.CopyTo(memory.GetSpan(address, bytes.Length));
+    // }
 
     public static T? ReadNullTerminatedJson<T>(this Memory memory, long address, JsonSerializerOptions? options = null)
     {

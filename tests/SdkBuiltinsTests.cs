@@ -365,6 +365,14 @@ t2 := o { o := net.lookup_ip_addr("bing.com1") }
         """io.jwt.decode_verify("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.unABLifoQHexZxogSrZQ5X0TVEnPWgpVAy6X6l7aaio", {"secret": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"})""",
         """[true,{"alg":"HS256","typ":"JWT"},{}]"""
         )]
+    [InlineData(
+        """io.jwt.decode_verify("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ4eHgifQ.Mt8_pnXt43Dh1SnoOQLSzXHnb3BPoTa4ATIDXJig0g8", {"iss": "xxx", "secret": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"})""",
+        """[true,{"alg":"HS256","typ":"JWT"},{"iss":"xxx"}]"""
+        )]
+    [InlineData(
+        """io.jwt.decode_verify("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.unABLifoQHexZxogSrZQ5X0TVEnPWgpVAy6X6l7aaio", {"iss": "yyy", "secret": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"})""",
+        """[false,{},{}]"""
+        )]
     public async Task JwtHs256(string func, string expected)
     {
         var result = await RunTestCase(func, expected);
