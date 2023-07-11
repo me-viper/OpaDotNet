@@ -29,7 +29,7 @@ internal static class EvaluatorExtensions
         }
         finally
         {
-            //File.Delete(fileName);
+            File.Delete(fileName);
         }
     }
 }
