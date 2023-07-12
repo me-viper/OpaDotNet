@@ -21,7 +21,7 @@ internal static class TarGzHelper
                 throw new InvalidOperationException($"Failed to read {entry.Name}");
 
             var result = new MemoryStream((int)entry.DataStream.Length);
-            entry.DataStream.CopyToAsync(result);
+            entry.DataStream.CopyTo(result);
             result.Seek(0, SeekOrigin.Begin);
 
             return result;
