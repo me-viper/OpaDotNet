@@ -139,3 +139,4 @@ using var engine = factory.CreateFromBundle(policyStream);
 * [wasmtime-dotnet](https://github.com/bytecodealliance/wasmtime-dotnet) - .NET embedding of Wasmtime.
 * [IPNetwork2](https://github.com/lduchosal/ipnetwork) - Utility classes take care of complex network, IPv4, IPv6, CIDR
   calculation for .NET developers.
+* [BenchmarkDotNet](https://github.com/dotnet/BenchmarkDotNet) - Powerful .NET library for benchmarking.
