@@ -355,10 +355,10 @@ t2 := o { o := net.lookup_ip_addr("bing.com1") }
         var result = await RunTestCase(func, expected);
         Assert.True(result.Assert);
     }
-    
+
     private const string JwtVerifyIssToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ4eHgifQ.Mt8_pnXt43Dh1SnoOQLSzXHnb3BPoTa4ATIDXJig0g8";
     private const string JwtVerifyIssSecret = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-    
+
     [Theory]
     [InlineData(
         $$"""io.jwt.verify_hs256("{{JwtVerifyIssToken}}", "{{JwtVerifyIssSecret}}")""",
@@ -377,10 +377,10 @@ t2 := o { o := net.lookup_ip_addr("bing.com1") }
         var result = await RunTestCase(func, expected);
         Assert.True(result.Assert);
     }
-    
+
     private const string JwtVerifyAudToken = "eyJhbGciOiJIUzM4NCIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ4eHgiLCJhdWQiOiJhYWEifQ.xZbdtbn-es4obumv6H1DVrdiZL8GTOya-ujROx63yots_FjvG_5fop00c0ah6MNB";
     private const string JwtVerifyAudSecret = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-    
+
     [Theory]
     [InlineData(
         $$"""io.jwt.verify_hs384("{{JwtVerifyAudToken}}", "{{JwtVerifyAudSecret}}")""",
@@ -403,10 +403,10 @@ t2 := o { o := net.lookup_ip_addr("bing.com1") }
         var result = await RunTestCase(func, expected);
         Assert.True(result.Assert);
     }
-    
+
     private const string JwtVerifyTimeToken = "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ4eHgiLCJleHAiOjE2ODkxNDE4NDcsIm5iZiI6MTY4ODk2OTA0N30.iaQZYESw0-enygzry1EYKT7_xiNGhqExlWG62fUmt3mhb31LXNLKEZL_ki-nhDuQf6hkydakXpIc6m6lVIp-iQ";
     private const string JwtVerifyTimeSecret = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-    
+
     [Theory]
     [InlineData(
         $$"""io.jwt.verify_hs512("{{JwtVerifyTimeToken}}", "{{JwtVerifyTimeSecret}}")""",

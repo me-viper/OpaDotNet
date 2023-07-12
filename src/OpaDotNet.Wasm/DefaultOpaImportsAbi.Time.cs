@@ -13,9 +13,9 @@ public partial class DefaultOpaImportsAbi
 
         var now = Now();
         result = (now.Ticks - DateTimeOffset.UnixEpoch.Ticks) * 100;
-        
+
         ValueCache.TryAdd(cacheKey, result);
-        
+
         return (long)result;
     }
 

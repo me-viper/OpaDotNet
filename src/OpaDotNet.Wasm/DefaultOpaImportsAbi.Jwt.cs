@@ -33,7 +33,7 @@ public partial class DefaultOpaImportsAbi
 
         [JsonPropertyName("aud")]
         public string? Aud { get; [UsedImplicitly] set; }
-        
+
         [JsonIgnore]
         public bool SignatureOnly { get; set; }
     }
@@ -112,16 +112,16 @@ public partial class DefaultOpaImportsAbi
                 result.IssuerSigningKeys = jwks.Keys;
             }
         }
-        
+
         if (constraints.SignatureOnly)
             return result;
-        
+
         result.LifetimeValidator = (before, expires, _, _) =>
         {
             var now = DateTimeOffset.UtcNow;
             return now.Date >= (before ?? now.Date) && now.Date <= (expires ?? now.Date);
         };
-        
+
         if (constraints.Time != null)
         {
             result.RequireExpirationTime = true;
@@ -164,7 +164,7 @@ public partial class DefaultOpaImportsAbi
 #if DEBUG
         IdentityModelEventSource.ShowPII = true;
 #endif
-        
+
         var handler = new JwtSecurityTokenHandler();
 
         try

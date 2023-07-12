@@ -49,7 +49,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
     {
         return true;
     }
-    
+
     /// <summary>
     /// Called if built-in function throws error.
     /// </summary>
@@ -61,7 +61,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
     {
         if (ex is NotImplementedException)
             return true;
-        
+
         return false;
     }
 
@@ -79,7 +79,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
         {
             if (OnError(context, ex))
                 throw;
-                
+
             return null;
         }
     }
@@ -118,7 +118,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
         {
             if (OnError(context, ex))
                 throw;
-                
+
             return null;
         }
     }
@@ -162,7 +162,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
         {
             if (OnError(context, ex))
                 throw;
-                
+
             return null;
         }
     }
@@ -184,7 +184,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
         {
             if (OnError(context, ex))
                 throw;
-                
+
             return null;
         }
     }
@@ -203,7 +203,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
         {
             if (OnError(context, ex))
                 throw;
-                
+
             return null;
         }
     }
