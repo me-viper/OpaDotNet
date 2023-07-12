@@ -3,6 +3,8 @@ using System.Diagnostics.CodeAnalysis;
 
 using JetBrains.Annotations;
 
+// ReSharper disable HeapView.BoxingAllocation
+
 namespace OpaDotNet.Wasm;
 
 [PublicAPI]

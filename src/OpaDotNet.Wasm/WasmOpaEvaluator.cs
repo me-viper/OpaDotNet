@@ -230,7 +230,6 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
         return _abi.WriteValue(data);
     }
 
-    // ReSharper disable once UnusedMember.Local
     private string ReadJsonString(nint ptr)
     {
         return _abi.ReadJsonString(ptr);

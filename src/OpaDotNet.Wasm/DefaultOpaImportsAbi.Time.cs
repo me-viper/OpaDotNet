@@ -121,13 +121,21 @@ public partial class DefaultOpaImportsAbi
         // Fall back patterns
         "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffffK",
         DateTimeFormatInfo.InvariantInfo.UniversalSortableDateTimePattern,
-        DateTimeFormatInfo.InvariantInfo.SortableDateTimePattern
+        DateTimeFormatInfo.InvariantInfo.SortableDateTimePattern,
     };
 
     private static long? ParseRfc3339Ns(string s)
     {
-        if (!DateTimeOffset.TryParseExact(s, Rfc3339Formats, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out var result))
+        if (!DateTimeOffset.TryParseExact(
+            s,
+            Rfc3339Formats,
+            CultureInfo.InvariantCulture,
+            DateTimeStyles.AdjustToUniversal,
+            out var result
+            ))
+        {
             return null;
+        }
 
         return (result.Ticks - DateTimeOffset.UnixEpoch.Ticks) * 100;
     }

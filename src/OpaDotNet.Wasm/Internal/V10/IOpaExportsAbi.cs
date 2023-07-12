@@ -28,7 +28,7 @@ internal interface IOpaExportsAbi
     nint Entrypoints();
 
     /// <summary>
-    /// Frees a pointer.
+    /// Frees memory allocated with <see cref="Malloc"/>.
     /// </summary>
     /// <param name="ptr">Address of the pointer</param>
     void Free(nint ptr);
