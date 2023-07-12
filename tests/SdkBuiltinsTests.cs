@@ -131,6 +131,17 @@ public class SdkBuiltinsTests
         Assert.True(result.Assert);
     }
 
+    [Theory]
+    [InlineData("""time.parse_rfc3339_ns("1985-04-12T23:20:50.52Z")""", "482196050520000000")]
+    [InlineData("""time.parse_rfc3339_ns("1996-12-19T16:39:57-08:00")""", "851042397000000000")]
+    [InlineData("""time.parse_rfc3339_ns("1990-12-31T23:59:59Z")""", "662687999000000000")]
+    [InlineData("""time.parse_rfc3339_ns("1937-01-01T12:00:27.87+00:20")""", "-1041337172130000000")]
+    public async Task TimeParseRfc3339Ns(string func, string expected)
+    {
+        var result = await RunTestCase(func, expected, new TimeImports(_output));
+        Assert.True(result.Assert);
+    }
+
     private class DebugImports : DefaultOpaImportsAbi
     {
         public StringBuilder Output { get; } = new();
@@ -256,10 +267,19 @@ net.cidr_contains_matches({["1.1.2.0/24", "foo", 1], "1.1.0.0/16"}, {"x": "1.1.1
     }
 
     [Theory]
-    [InlineData("net.cidr_expand(\"192.168.0.0/30\")", "{\"192.168.0.0\", \"192.168.0.1\", \"192.168.0.2\", \"192.168.0.3\"}")]
+    [InlineData("""net.cidr_merge(["192.0.128.0/24", "192.0.129.0/24"])""", """{"192.0.128.0/23"}""")]
     [InlineData("net.cidr_is_valid(\"192.168.0.0/30\")", "true")]
     [InlineData("net.cidr_is_valid(\"192.168.0.500/30\")", "false")]
     public async Task Net(string func, string expected)
+    {
+        var result = await RunTestCase(func, expected);
+        Assert.True(result.Assert);
+    }
+
+    [Theory]
+    [InlineData("""net.cidr_merge(["192.0.128.0/24", "192.0.129.0/24"])""", """{"192.0.128.0/23"}""")]
+    [InlineData("""net.cidr_merge(["2001:0db8::/32", "2001:0db9::/32"])""", """{"2001:db8::/31"}""")]
+    public async Task NetCidrMerge(string func, string expected)
     {
         var result = await RunTestCase(func, expected);
         Assert.True(result.Assert);
@@ -558,6 +578,24 @@ io.jwt.encode_sign_raw(
     {
         var result = await RunTestCase(func, expected);
         Assert.True(result.Assert);
+    }
+
+    [Fact]
+    public async Task OpaRuntime()
+    {
+        var src = """
+package sdk
+r := opa.runtime()
+""";
+        using var eval = await Build(src, "sdk");
+
+        var result = eval.EvaluateValue(
+            new { r = new JsonObject(), },
+            "sdk"
+            );
+
+        Assert.NotNull(result.r);
+        _output.WriteLine(result.r.ToString());
     }
 
     // ReSharper disable once ClassNeverInstantiated.Local

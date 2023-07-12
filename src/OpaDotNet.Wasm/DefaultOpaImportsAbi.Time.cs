@@ -107,8 +107,28 @@ public partial class DefaultOpaImportsAbi
         return null;
     }
 
-    private static long ParseRfc3339Ns(string s)
+    private static string[] Rfc3339Formats { get; } =
     {
-        throw new NotImplementedException();
+        "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffffK",
+        "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'ffffffK",
+        "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffK",
+        "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'ffffK",
+        "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffK",
+        "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'ffK",
+        "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fK",
+        "yyyy'-'MM'-'dd'T'HH':'mm':'ssK",
+
+        // Fall back patterns
+        "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffffK",
+        DateTimeFormatInfo.InvariantInfo.UniversalSortableDateTimePattern,
+        DateTimeFormatInfo.InvariantInfo.SortableDateTimePattern
+    };
+
+    private static long? ParseRfc3339Ns(string s)
+    {
+        if (!DateTimeOffset.TryParseExact(s, Rfc3339Formats, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out var result))
+            return null;
+
+        return (result.Ticks - DateTimeOffset.UnixEpoch.Ticks) * 100;
     }
 }

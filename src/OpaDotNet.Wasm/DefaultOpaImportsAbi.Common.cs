@@ -1,7 +1,11 @@
-﻿using System.Text;
+﻿using System.Diagnostics;
+using System.Reflection;
+using System.Text;
 using System.Text.Json.Nodes;
 using System.Text.RegularExpressions;
 using System.Web;
+
+using JetBrains.Annotations;
 
 using Microsoft.Extensions.Primitives;
 
@@ -10,6 +14,33 @@ namespace OpaDotNet.Wasm;
 public partial class DefaultOpaImportsAbi
 {
     private static Random _random = new();
+
+    private class RuntimeEnv
+    {
+        [UsedImplicitly]
+        public string? Version { get; set; }
+
+        [UsedImplicitly]
+        public Dictionary<string, string> Env { get; set; } = new();
+    }
+
+    private static RuntimeEnv OpaRuntime()
+    {
+        var result = new RuntimeEnv();
+
+        result.Version = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).FileVersion;
+        var ev = Environment.GetEnvironmentVariables();
+
+        foreach (var k in ev.Keys)
+        {
+            if (k?.ToString() == null || ev[k]?.ToString() == null)
+                continue;
+
+            result.Env.Add(k.ToString()!, ev[k]!.ToString()!);
+        }
+
+        return result;
+    }
 
     private int RandIntN(string key, int n)
     {

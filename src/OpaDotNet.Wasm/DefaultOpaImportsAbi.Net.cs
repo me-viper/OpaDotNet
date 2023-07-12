@@ -143,9 +143,11 @@ public partial class DefaultOpaImportsAbi
         return IPNetwork.TryParse(cidr, out _);
     }
 
-    private static string[] CidrMerge(string[] addresses)
+    private static RegoSet<string> CidrMerge(string[] addresses)
     {
-        throw new NotImplementedException("net.cidr_merge");
+        var nets = addresses.Select(ParseNetwork).ToArray();
+        var result = IPNetwork.Supernet(nets).Select(p => p.ToString()).ToArray();
+        return new RegoSet<string>(result);
     }
 
     private static string[]? LookupIPAddress(string name)

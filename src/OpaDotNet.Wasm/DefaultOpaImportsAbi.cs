@@ -72,6 +72,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
             return context.FunctionName switch
             {
                 "time.now_ns" => NowNs(),
+                "opa.runtime" => OpaRuntime(),
                 _ => throw new NotImplementedException(context.FunctionName),
             };
         }
@@ -99,6 +100,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
                 "uuid.rfc4122" => NewGuid(arg1.As<string>()),
                 "net.cidr_expand" => CidrExpand(arg1.As<string>()),
                 "net.cidr_is_valid" => CidrIsValid(arg1.As<string>()),
+                "net.cidr_merge" => CidrMerge(arg1.As<string[]>()),
                 "net.lookup_ip_addr" => LookupIPAddress(arg1.As<string>()),
                 "crypto.md5" => HashMd5(arg1.As<string>()),
                 "crypto.sha1" => HashSha1(arg1.As<string>()),

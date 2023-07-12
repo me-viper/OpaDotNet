@@ -25,7 +25,7 @@ Bellow is the list of supported OPA built-in functions as for version v0.53.1 al
 | [time.now_ns](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timenow_ns) | :white_check_mark: | v1.0.0 |
 | [time.parse_duration_ns](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timeparse_duration_ns) | :white_check_mark: | v1.1.0 |
 | [time.parse_ns](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timeparse_ns) | - | - |
-| [time.parse_rfc3339_ns](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timeparse_rfc3339_ns) | - | - |
+| [time.parse_rfc3339_ns](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timeparse_rfc3339_ns) | :white_check_mark: | v1.1.0 |
 | [time.weekday](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timeweekday) | :white_check_mark: | v1.0.0 |
 
 ## JSON
@@ -152,7 +152,7 @@ Bellow is the list of supported OPA built-in functions as for version v0.53.1 al
 | [net.cidr_contains_matches](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-net-netcidr_contains_matches) | :white_check_mark: | v1.1.0 |
 | [net.cidr_expand](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-net-netcidr_expand) | :white_check_mark: | v1.1.0 |
 | [net.cidr_is_valid](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-net-netcidr_is_valid) | :white_check_mark: | v1.1.0 |
-| [net.cidr_merge](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-net-netcidr_merge) | - | - |
+| [net.cidr_merge](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-net-netcidr_merge) | :white_check_mark: | v1.1.0 |
 | [net.lookup_ip_addr](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-net-netlookup_ip_addr) | :white_check_mark: | v1.1.0 (*) |
 
 \* There might be inconsistent behavior with native implementation due to different DNS resolver.
@@ -188,4 +188,4 @@ Bellow is the list of supported OPA built-in functions as for version v0.53.1 al
 
 | Function   | Status             | OpaDotNet version  |
 |------------|--------------------|--------------------|
-| [trace](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tracing-tr)  | - | - |
+| [trace](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tracing-tr)  | :white_check_mark: | v1.1.0 |
