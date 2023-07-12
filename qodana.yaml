@@ -6,4 +6,5 @@ exclude:
     paths:
       - tests
       - samples
+      - bench
   - name: ArrangeTrailingCommaInMultilineLists
