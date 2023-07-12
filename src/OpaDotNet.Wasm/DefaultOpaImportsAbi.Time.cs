@@ -4,9 +4,19 @@ namespace OpaDotNet.Wasm;
 
 public partial class DefaultOpaImportsAbi
 {
-    private static long NowNs(DateTimeOffset now)
+    private long NowNs()
     {
-        return (now.Ticks - DateTimeOffset.UnixEpoch.Ticks) * 100;
+        var cacheKey = "time.now_ns";
+
+        if (ValueCache.TryGetValue(cacheKey, out var result))
+            return (long)result;
+
+        var now = Now();
+        result = (now.Ticks - DateTimeOffset.UnixEpoch.Ticks) * 100;
+        
+        ValueCache.TryAdd(cacheKey, result);
+        
+        return (long)result;
     }
 
     private static int[] Date(long ns)

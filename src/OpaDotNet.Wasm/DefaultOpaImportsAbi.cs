@@ -71,7 +71,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
         {
             return context.FunctionName switch
             {
-                "time.now_ns" => NowNs(Now()),
+                "time.now_ns" => NowNs(),
                 _ => throw new NotImplementedException(context.FunctionName),
             };
         }

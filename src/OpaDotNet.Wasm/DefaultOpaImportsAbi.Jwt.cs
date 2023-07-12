@@ -29,10 +29,13 @@ public partial class DefaultOpaImportsAbi
         public string? Iss { get; [UsedImplicitly] set; }
 
         [JsonPropertyName("time")]
-        public string? Time { get; [UsedImplicitly] set; }
+        public long? Time { get; [UsedImplicitly] set; }
 
         [JsonPropertyName("aud")]
         public string? Aud { get; [UsedImplicitly] set; }
+        
+        [JsonIgnore]
+        public bool SignatureOnly { get; set; }
     }
 
     private static object[] JwtDecode(string jwt)
@@ -69,24 +72,11 @@ public partial class DefaultOpaImportsAbi
             ValidateIssuer = false,
             ValidateAudience = false,
             RequireExpirationTime = false,
+            ValidateLifetime = false,
         };
 
         if (!string.IsNullOrWhiteSpace(constraints.Alg))
             result.ValidAlgorithms = new[] { constraints.Alg };
-
-        if (!string.IsNullOrWhiteSpace(constraints.Time))
-        {
-            result.RequireExpirationTime = true;
-
-            if (!long.TryParse(constraints.Time, out var time))
-                return null;
-
-            result.LifetimeValidator = (before, expires, _, _) =>
-            {
-                var now = new DateTimeOffset(time / 100, TimeSpan.Zero);
-                return now.Date > before && now.Date < expires;
-            };
-        }
 
         if (!string.IsNullOrWhiteSpace(constraints.Secret))
             result.IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(constraints.Secret));
@@ -122,6 +112,27 @@ public partial class DefaultOpaImportsAbi
                 result.IssuerSigningKeys = jwks.Keys;
             }
         }
+        
+        if (constraints.SignatureOnly)
+            return result;
+        
+        result.LifetimeValidator = (before, expires, _, _) =>
+        {
+            var now = DateTimeOffset.UtcNow;
+            return now.Date >= (before ?? now.Date) && now.Date <= (expires ?? now.Date);
+        };
+        
+        if (constraints.Time != null)
+        {
+            result.RequireExpirationTime = true;
+
+            result.LifetimeValidator = (before, expires, _, _) =>
+            {
+                var ticks = (constraints.Time.Value / 100) + DateTimeOffset.UnixEpoch.Ticks;
+                var now = new DateTimeOffset(ticks, TimeSpan.Zero);
+                return now.Date >= (before ?? now.Date) && now.Date <= expires;
+            };
+        }
 
         if (!string.IsNullOrWhiteSpace(constraints.Iss))
         {
@@ -150,7 +161,10 @@ public partial class DefaultOpaImportsAbi
 
     private static SecurityToken? ValidateToken(string jwt, TokenValidationParameters parameters)
     {
-        // IdentityModelEventSource.ShowPII = true;
+#if DEBUG
+        IdentityModelEventSource.ShowPII = true;
+#endif
+        
         var handler = new JwtSecurityTokenHandler();
 
         try
@@ -166,7 +180,7 @@ public partial class DefaultOpaImportsAbi
 
     private static bool JwtVerifyHs(string jwt, string secret, string alg)
     {
-        var tvp = MakeTokenValidationParameters(new() { Secret = secret, Alg = alg });
+        var tvp = MakeTokenValidationParameters(new() { Secret = secret, Alg = alg, SignatureOnly = true });
 
         if (tvp == null)
             return false;
@@ -176,7 +190,7 @@ public partial class DefaultOpaImportsAbi
 
     private static bool JwtVerifyCert(string jwt, string cert, string alg)
     {
-        var tvp = MakeTokenValidationParameters(new() { Cert = cert, Alg = alg });
+        var tvp = MakeTokenValidationParameters(new() { Cert = cert, Alg = alg, SignatureOnly = true });
 
         if (tvp == null)
             return false;
