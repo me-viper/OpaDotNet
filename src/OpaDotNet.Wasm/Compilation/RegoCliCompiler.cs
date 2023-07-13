@@ -16,18 +16,18 @@ public class RegoCliCompiler : IRegoCompiler
 
     private readonly IOptions<RegoCliCompilerOptions> _options;
 
+    private static IOptions<RegoCliCompilerOptions> Default { get; } = new OptionsWrapper<RegoCliCompilerOptions>(new());
+    
     /// <summary>
     /// Creates new instance of <see cref="RegoCliCompiler"/> class.
     /// </summary>
     /// <param name="options">Compilation options</param>
     /// <param name="logger">Logger instance</param>
     public RegoCliCompiler(
-        IOptions<RegoCliCompilerOptions> options,
+        IOptions<RegoCliCompilerOptions>? options = null,
         ILogger<RegoCliCompiler>? logger = null)
     {
-        ArgumentNullException.ThrowIfNull(options);
-
-        _options = options;
+        _options = options ?? Default;
         _logger = logger ?? NullLogger<RegoCliCompiler>.Instance;
     }
 

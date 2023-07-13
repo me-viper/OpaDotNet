@@ -12,7 +12,6 @@ OpaDotNet.Wasm.Compilation.IRegoCompiler.CompileFile(string! sourceFilePath, Sys
 OpaDotNet.Wasm.Compilation.RegoCliCompiler
 OpaDotNet.Wasm.Compilation.RegoCliCompiler.CompileBundle(string! bundlePath, System.Collections.Generic.IEnumerable<string!>? entrypoints = null, string? capabilitiesFilePath = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<System.IO.Stream!>!
 OpaDotNet.Wasm.Compilation.RegoCliCompiler.CompileFile(string! sourceFilePath, System.Collections.Generic.IEnumerable<string!>? entrypoints = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<System.IO.Stream!>!
-OpaDotNet.Wasm.Compilation.RegoCliCompiler.RegoCliCompiler(Microsoft.Extensions.Options.IOptions<OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions!>! options, Microsoft.Extensions.Logging.ILogger<OpaDotNet.Wasm.Compilation.RegoCliCompiler!>? logger = null) -> void
 OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions
 OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.ExtraArguments.get -> string?
 OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.ExtraArguments.set -> void
