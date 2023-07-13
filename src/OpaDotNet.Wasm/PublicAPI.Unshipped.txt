@@ -1,11 +1,1 @@
 #nullable enable
-OpaDotNet.Wasm.BuiltinArg.RawJson.get -> System.Text.Json.Nodes.JsonNode?
-OpaDotNet.Wasm.BuiltinContext.JsonSerializerOptions.get -> System.Text.Json.JsonSerializerOptions!
-OpaDotNet.Wasm.Compilation.RegoCliCompiler.RegoCliCompiler(Microsoft.Extensions.Options.IOptions<OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions!>? options = null, Microsoft.Extensions.Logging.ILogger<OpaDotNet.Wasm.Compilation.RegoCliCompiler!>? logger = null) -> void
-OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.CapabilitiesVersion.get -> string?
-OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.CapabilitiesVersion.set -> void
-OpaDotNet.Wasm.OpaEvaluatorFactory.OpaEvaluatorFactory(System.Func<OpaDotNet.Wasm.IOpaImportsAbi!>? importsAbiFactory = null, Microsoft.Extensions.Logging.ILoggerFactory? loggerFactory = null) -> void
-virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.NewGuid() -> System.Guid
-virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.OnError(OpaDotNet.Wasm.BuiltinContext! context, System.Exception! ex) -> bool
-virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.Random() -> System.Random!
-virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.Trace(string! message) -> bool
