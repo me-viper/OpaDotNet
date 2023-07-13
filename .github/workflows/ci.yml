@@ -45,13 +45,3 @@ jobs:
       with:
         file: ./tests/TestResults/coverage.info
         format: lcov
-    - name: Pack
-      run: dotnet pack -c Release --no-build -o ./artifacts
-    - name: Push Nuget Package
-      run: dotnet nuget push "./artifacts/*.nupkg" -k ${NUGET_API_KEY} -s https://api.nuget.org/v3/index.json --skip-duplicate
-      env:
-        NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
-    - name: Push Nuget Symbols
-      run: dotnet nuget push "./artifacts/*.snupkg" -k ${NUGET_API_KEY} -s https://api.nuget.org/v3/index.json --skip-duplicate
-      env:
-        NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
