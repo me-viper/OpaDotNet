@@ -30,7 +30,7 @@ csharp_space_around_binary_operators = before_and_after
 [*.csproj]
 indent_size = 2
 
-[*.{yaml,yml,json}]
+[*.{yaml,yml,json,md}]
 indent_size = 2
 
 [*.razor]
