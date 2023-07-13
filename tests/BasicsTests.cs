@@ -119,7 +119,7 @@ public class BasicsTests
     {
         var ver = string.IsNullOrWhiteSpace(abiVersion) ? null : Version.Parse(abiVersion);
 
-        var compiler = new RegoCliCompiler(_options, _loggerFactory.CreateLogger<RegoCliCompiler>());
+        var compiler = new RegoCliCompiler(logger: _loggerFactory.CreateLogger<RegoCliCompiler>());
         var entrypoints = string.IsNullOrWhiteSpace(entrypoint) ? null : new[] { entrypoint };
         var policy = await compiler.CompileFile(Path.Combine(BasePath, source), entrypoints);
         var factory = new OpaEvaluatorFactory(loggerFactory: _loggerFactory);
