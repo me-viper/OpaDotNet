@@ -44,7 +44,7 @@ public class CustomBuiltinsTests : IAsyncLifetime
             );
 
         var factory = new OpaEvaluatorFactory(
-            importsAbi: new CustomOpaImportsAbi(_loggerFactory.CreateLogger<CustomOpaImportsAbi>()),
+            importsAbiFactory: () => new CustomOpaImportsAbi(_loggerFactory.CreateLogger<CustomOpaImportsAbi>()),
             loggerFactory: _loggerFactory
             );
 

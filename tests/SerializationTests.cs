@@ -41,7 +41,7 @@ public class SerializationTests : IAsyncLifetime
             Path.Combine("TestData", "serialization", "capabilities.json")
             );
 
-        var factory = new OpaEvaluatorFactory(new SerializationImports());
+        var factory = new OpaEvaluatorFactory(() => new SerializationImports());
         _engine = factory.CreateFromBundle(policy);
     }
 

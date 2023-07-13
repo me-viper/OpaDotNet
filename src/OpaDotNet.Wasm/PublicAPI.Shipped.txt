@@ -64,7 +64,6 @@ OpaDotNet.Wasm.OpaEvaluationException.OpaEvaluationException(string? message, Sy
 OpaDotNet.Wasm.OpaEvaluatorFactory
 OpaDotNet.Wasm.OpaEvaluatorFactory.CreateFromBundle(System.IO.Stream! policyBundle, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null) -> OpaDotNet.Wasm.IOpaEvaluator!
 OpaDotNet.Wasm.OpaEvaluatorFactory.CreateFromWasm(System.IO.Stream! policyWasm, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null) -> OpaDotNet.Wasm.IOpaEvaluator!
-OpaDotNet.Wasm.OpaEvaluatorFactory.OpaEvaluatorFactory(OpaDotNet.Wasm.IOpaImportsAbi? importsAbi = null, Microsoft.Extensions.Logging.ILoggerFactory? loggerFactory = null) -> void
 OpaDotNet.Wasm.OpaRuntimeException
 OpaDotNet.Wasm.OpaRuntimeException.OpaRuntimeException(string? message) -> void
 OpaDotNet.Wasm.OpaRuntimeException.OpaRuntimeException(string? message, System.Exception? innerException) -> void

@@ -6,12 +6,12 @@ public class OpaEvaluatorFactory : IOpaEvaluatorFactory
 {
     private readonly ILoggerFactory _loggerFactory;
 
-    private readonly IOpaImportsAbi _importsAbi;
+    private readonly Func<IOpaImportsAbi> _importsAbi;
 
-    public OpaEvaluatorFactory(IOpaImportsAbi? importsAbi = null, ILoggerFactory? loggerFactory = null)
+    public OpaEvaluatorFactory(Func<IOpaImportsAbi>? importsAbiFactory = null, ILoggerFactory? loggerFactory = null)
     {
         _loggerFactory = loggerFactory ?? NullLoggerFactory.Instance;
-        _importsAbi = importsAbi ?? new DefaultOpaImportsAbi();
+        _importsAbi = importsAbiFactory ?? (static () => new DefaultOpaImportsAbi());
     }
 
     private IOpaEvaluator Create(OpaPolicy policy, WasmPolicyEngineOptions? options = null)
@@ -31,7 +31,7 @@ public class OpaEvaluatorFactory : IOpaEvaluatorFactory
             Store = store,
             Memory = memory,
             Module = module,
-            Imports = _importsAbi,
+            Imports = _importsAbi(),
             Logger = _loggerFactory.CreateLogger<WasmOpaEvaluator>(),
             Options = options,
         };

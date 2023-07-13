@@ -1,5 +1,8 @@
 ﻿namespace OpaDotNet.Wasm.Features;
 
+/// <summary>
+/// External data manipulation.
+/// </summary>
 public interface IUpdateDataFeature : IOpaEvaluatorFeature
 {
     /// <summary>
