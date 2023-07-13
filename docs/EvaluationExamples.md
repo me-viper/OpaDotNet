@@ -115,7 +115,7 @@ var factory = new OpaEvaluatorFactory();
 // Create evaluator from compiled policy module.
 using var engine = factory.CreateFromBundle(File.OpenRead("bundle.tar.gz"));
 
-// External data is bundle.
+// External data is in the bundle already.
 
 // Evaluate. Policy query will return false.
 var policyResult1 = engine.EvaluatePredicate(new { password = "wrong!" });
