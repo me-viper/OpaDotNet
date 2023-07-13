@@ -13,7 +13,7 @@
 
 * [Evaluation](./Evaluation.md)
   * [Example](./EvaluationExamples.md)
-* [Compilation](./Compilation.md.md)
+* [Compilation](./Compilation.md)
 * [Custom Built-ins](stub.md)
 * [Extensions](stub.md)
 
