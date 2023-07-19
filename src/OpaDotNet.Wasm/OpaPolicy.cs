@@ -1,10 +1,3 @@
 ﻿namespace OpaDotNet.Wasm;
 
-internal record OpaPolicy(Stream Policy, Stream? Data = null) : IDisposable
-{
-    public void Dispose()
-    {
-        Policy.Dispose();
-        Data?.Dispose();
-    }
-}
+internal record OpaPolicy(ReadOnlyMemory<byte> Policy, ReadOnlyMemory<byte>? Data = null);

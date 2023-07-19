@@ -265,6 +265,11 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
         _abi.SetData(s);
     }
 
+    internal void SetDataFromBytes(ReadOnlySpan<byte> utf8Json)
+    {
+        _abi.SetDataFromBytes(utf8Json);
+    }
+
     public void Reset()
     {
         _abi.Reset();

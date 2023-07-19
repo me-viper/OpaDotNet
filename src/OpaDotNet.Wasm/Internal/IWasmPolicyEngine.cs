@@ -22,11 +22,13 @@ internal interface IWasmPolicyEngine : IDisposable
 
     void SetData(ReadOnlySpan<char> dataJson);
 
+    void SetDataFromBytes(ReadOnlySpan<byte> utf8Json);
+
+    void SetData(Stream? data);
+
     nint Eval(ReadOnlySpan<char> inputJson, string? entrypoint = null);
 
     void Reset();
-
-    void SetData(Stream? data);
 
     string DumpData();
 }

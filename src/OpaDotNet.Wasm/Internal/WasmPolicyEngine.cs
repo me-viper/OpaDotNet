@@ -105,6 +105,21 @@ internal abstract class WasmPolicyEngine<TAbi> : IWasmPolicyEngine
         EvalHeapPtr = Abi.HeapPrtGet();
     }
 
+    public virtual void SetDataFromBytes(ReadOnlySpan<byte> data)
+    {
+        Abi.HeapPtrSet(BasePtr);
+
+        if (data.IsEmpty)
+            return;
+
+        var dataPtr = Abi.Malloc(data.Length);
+        Memory.WriteBytes(dataPtr, data);
+        DataPtr = Abi.JsonParse(dataPtr, data.Length);
+        Abi.Free(dataPtr);
+
+        EvalHeapPtr = Abi.HeapPrtGet();
+    }
+
     public virtual void SetData(Stream? data)
     {
         Abi.HeapPtrSet(BasePtr);

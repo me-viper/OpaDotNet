@@ -17,7 +17,7 @@ public class RegoCliCompiler : IRegoCompiler
     private readonly IOptions<RegoCliCompilerOptions> _options;
 
     private static IOptions<RegoCliCompilerOptions> Default { get; } = new OptionsWrapper<RegoCliCompilerOptions>(new());
-    
+
     /// <summary>
     /// Creates new instance of <see cref="RegoCliCompiler"/> class.
     /// </summary>

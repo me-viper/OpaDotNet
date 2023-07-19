@@ -15,20 +15,22 @@ internal static class TarGzHelper
 
         var tr = new TarReader(ms);
 
-        static Stream ReadEntry(TarEntry entry)
+        static Memory<byte> ReadEntry(TarEntry entry)
         {
             if (entry.DataStream == null)
                 throw new InvalidOperationException($"Failed to read {entry.Name}");
 
-            var result = new MemoryStream((int)entry.DataStream.Length);
-            entry.DataStream.CopyTo(result);
-            result.Seek(0, SeekOrigin.Begin);
+            var result = new byte[entry.DataStream.Length];
+            var bytesRead = entry.DataStream.Read(result);
+
+            if (bytesRead < entry.DataStream.Length)
+                throw new OpaRuntimeException($"Failed to read tar entry {entry.Name}");
 
             return result;
         }
 
-        Stream? policy = null;
-        Stream? data = null;
+        Memory<byte>? policy = null;
+        Memory<byte>? data = null;
 
         while (tr.GetNextEntry() is { } entry)
         {
@@ -42,7 +44,7 @@ internal static class TarGzHelper
         if (policy == null)
             throw new OpaRuntimeException("Bundle does not contain policy.wasm file");
 
-        return new(policy, data);
+        return new(policy.Value, data);
     }
 
     // public static async Task<OpaPolicy> ReadBundleAsync(
