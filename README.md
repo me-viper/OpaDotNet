@@ -1,5 +1,4 @@
 ﻿[![CI](https://github.com/me-viper/OpaDotNet/workflows/CI/badge.svg)](https://github.com/me-viper/OpaDotNet)
-[![NuGet](https://img.shields.io/nuget/v/OpaDotNet.Wasm.svg)](https://www.nuget.org/packages/OpaDotNet.Wasm/)
 [![Coverage Status](https://coveralls.io/repos/github/me-viper/OpaDotNet/badge.svg?branch=develop)](https://coveralls.io/github/me-viper/OpaDotNet)
 
 # Open Policy Agent (OPA) WebAssembly dotnet core SDK
@@ -18,6 +17,13 @@ For more information check out [the guide](https://andrii-kurochka.gitbook.io/op
 * Full ABI [support](https://andrii-kurochka.gitbook.io/opadotnet.wasm/overview/opa-compatibility/abi).
 * Additional OPA [built-ins](https://andrii-kurochka.gitbook.io/opadotnet.wasm/overview/opa-compatibility/builtins).
 * Compilation.
+
+## NuGet Packages
+
+|                 | Official | Preview |
+|-----------------|----------|---------|
+| OpaDotNet.Wasm  | [![NuGet](https://img.shields.io/nuget/v/OpaDotNet.Wasm.svg)](https://www.nuget.org/packages/OpaDotNet.Wasm/) | [![Nuget](https://img.shields.io/nuget/vpre/OpaDotNet.Wasm.svg)](https://www.nuget.org/packages/OpaDotNet.Wasm/)  |
+|                 |   |   |
 
 ## Getting Started
 
