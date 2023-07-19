@@ -22,7 +22,7 @@ jobs:
     - name: Calc Version
       run: dotnet gitversion /updateprojectfiles /output buildserver
     - name: Pack
-      run: dotnet pack -c Release --no-build -o ./artifacts
+      run: dotnet pack -c Release -o ./artifacts
     - name: Push Nuget Package
       run: dotnet nuget push "./artifacts/*.nupkg" -k ${NUGET_API_KEY} -s https://api.nuget.org/v3/index.json --skip-duplicate
       env:
