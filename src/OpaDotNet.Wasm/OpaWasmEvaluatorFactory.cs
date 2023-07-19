@@ -25,7 +25,7 @@ public sealed class OpaWasmEvaluatorFactory : OpaEvaluatorFactoryBase
         _policy = new(buffer);
     }
 
-    public IOpaEvaluator Create()
+    public override IOpaEvaluator Create()
     {
         return Create(_policy, _options);
     }

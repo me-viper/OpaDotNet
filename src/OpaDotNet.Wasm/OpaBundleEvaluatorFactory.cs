@@ -33,7 +33,7 @@ public sealed class OpaBundleEvaluatorFactory : OpaEvaluatorFactoryBase
         }
     }
 
-    public IOpaEvaluator Create()
+    public override IOpaEvaluator Create()
     {
         return Create(_policy, _options);
     }

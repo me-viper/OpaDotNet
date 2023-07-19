@@ -1,19 +1,24 @@
-﻿using Wasmtime;
+﻿using JetBrains.Annotations;
+
+using Wasmtime;
 
 namespace OpaDotNet.Wasm;
 
-public class OpaEvaluatorFactoryBase
+public abstract class OpaEvaluatorFactoryBase
 {
-    protected readonly ILoggerFactory LoggerFactory;
+    private readonly ILoggerFactory _loggerFactory;
 
-    protected readonly Func<IOpaImportsAbi> ImportsAbi;
+    private readonly Func<IOpaImportsAbi> _importsAbi;
 
-    private protected OpaEvaluatorFactoryBase(Func<IOpaImportsAbi>? importsAbiFactory, ILoggerFactory? loggerFactory)
+    protected OpaEvaluatorFactoryBase(Func<IOpaImportsAbi>? importsAbiFactory, ILoggerFactory? loggerFactory)
     {
-        LoggerFactory = loggerFactory ?? NullLoggerFactory.Instance;
-        ImportsAbi = importsAbiFactory ?? (static () => new DefaultOpaImportsAbi());
+        _loggerFactory = loggerFactory ?? NullLoggerFactory.Instance;
+        _importsAbi = importsAbiFactory ?? (static () => new DefaultOpaImportsAbi());
     }
 
+    [PublicAPI]
+    public abstract IOpaEvaluator Create();
+    
     private protected IOpaEvaluator Create(
         OpaPolicy policy,
         WasmPolicyEngineOptions? options = null)
@@ -33,8 +38,8 @@ public class OpaEvaluatorFactoryBase
             Store = store,
             Memory = memory,
             Module = module,
-            Imports = ImportsAbi(),
-            Logger = LoggerFactory.CreateLogger<WasmOpaEvaluator>(),
+            Imports = _importsAbi(),
+            Logger = _loggerFactory.CreateLogger<WasmOpaEvaluator>(),
             Options = options,
         };
 

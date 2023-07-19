@@ -1,8 +1,10 @@
 #nullable enable
+abstract OpaDotNet.Wasm.OpaEvaluatorFactoryBase.Create() -> OpaDotNet.Wasm.IOpaEvaluator!
 OpaDotNet.Wasm.OpaBundleEvaluatorFactory
-OpaDotNet.Wasm.OpaBundleEvaluatorFactory.Create() -> OpaDotNet.Wasm.IOpaEvaluator!
 OpaDotNet.Wasm.OpaBundleEvaluatorFactory.OpaBundleEvaluatorFactory(System.IO.Stream! bundleStream, System.Func<OpaDotNet.Wasm.IOpaImportsAbi!>? importsAbi = null, Microsoft.Extensions.Logging.ILoggerFactory? loggerFactory = null, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null) -> void
 OpaDotNet.Wasm.OpaEvaluatorFactoryBase
+OpaDotNet.Wasm.OpaEvaluatorFactoryBase.OpaEvaluatorFactoryBase(System.Func<OpaDotNet.Wasm.IOpaImportsAbi!>? importsAbiFactory, Microsoft.Extensions.Logging.ILoggerFactory? loggerFactory) -> void
 OpaDotNet.Wasm.OpaWasmEvaluatorFactory
-OpaDotNet.Wasm.OpaWasmEvaluatorFactory.Create() -> OpaDotNet.Wasm.IOpaEvaluator!
 OpaDotNet.Wasm.OpaWasmEvaluatorFactory.OpaWasmEvaluatorFactory(System.IO.Stream! policyWasm, System.Func<OpaDotNet.Wasm.IOpaImportsAbi!>? importsAbi = null, Microsoft.Extensions.Logging.ILoggerFactory? loggerFactory = null, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null) -> void
+override OpaDotNet.Wasm.OpaBundleEvaluatorFactory.Create() -> OpaDotNet.Wasm.IOpaEvaluator!
+override OpaDotNet.Wasm.OpaWasmEvaluatorFactory.Create() -> OpaDotNet.Wasm.IOpaEvaluator!
