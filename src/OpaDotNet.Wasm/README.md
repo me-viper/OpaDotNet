@@ -1,7 +1,3 @@
-﻿[![CI](https://github.com/me-viper/OpaDotNet/workflows/CI/badge.svg)](https://github.com/me-viper/OpaDotNet)
-[![NuGet](https://img.shields.io/nuget/v/OpaDotNet.Wasm.svg)](https://www.nuget.org/packages/OpaDotNet.Wasm/)
-[![Coverage Status](https://coveralls.io/repos/github/me-viper/OpaDotNet/badge.svg?branch=develop)](https://coveralls.io/github/me-viper/OpaDotNet)
-
 # Open Policy Agent (OPA) WebAssembly dotnet core SDK
 
 This is SDK for using WebAssembly (wasm) compiled [Open Policy Agent](https://www.openpolicyagent.org/) policies
@@ -128,14 +124,3 @@ var factory = new OpaEvaluatorFactory();
 
 using var engine = factory.CreateFromBundle(policyStream);
 ```
-
-## 3rd Party Libraries and Contributions
-
-* [OPA](https://www.openpolicyagent.org/) - An open source, general-purpose policy engine that unifies policy
-  enforcement across the stack.
-* [Moq](https://github.com/moq/moq4) - The most popular and friendly mocking library for .NET.
-* [xUnit.net](https://xunit.net/) - Free, open source, community-focused unit testing tool for the .NET Framework.
-* [wasmtime-dotnet](https://github.com/bytecodealliance/wasmtime-dotnet) - .NET embedding of Wasmtime.
-* [IPNetwork2](https://github.com/lduchosal/ipnetwork) - Utility classes take care of complex network, IPv4, IPv6, CIDR
-  calculation for .NET developers.
-* [BenchmarkDotNet](https://github.com/dotnet/BenchmarkDotNet) - Powerful .NET library for benchmarking.
