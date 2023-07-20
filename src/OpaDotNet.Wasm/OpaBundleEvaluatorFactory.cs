@@ -13,7 +13,7 @@ public sealed class OpaBundleEvaluatorFactory : OpaEvaluatorFactoryBase
         WasmPolicyEngineOptions? options = null) : base(importsAbi, loggerFactory)
     {
         ArgumentNullException.ThrowIfNull(bundleStream);
-        
+
         _options = options ?? WasmPolicyEngineOptions.Default;
 
         try

@@ -13,7 +13,7 @@ public sealed class OpaWasmEvaluatorFactory : OpaEvaluatorFactoryBase
         WasmPolicyEngineOptions? options = null) : base(importsAbi, loggerFactory)
     {
         ArgumentNullException.ThrowIfNull(policyWasm);
-        
+
         _options = options ?? WasmPolicyEngineOptions.Default;
 
         var buffer = new byte[policyWasm.Length];

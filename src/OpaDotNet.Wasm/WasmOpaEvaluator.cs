@@ -288,7 +288,7 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
         var result = EvalInternal<TInput, PolicyEvaluationResult<bool>[]>(input, entrypoint);
 
         if (result == null || result.Length == 0)
-            throw new OpaEvaluationException("Policy evaluator returned empty result");
+            return new PolicyEvaluationResult<bool> { Result = false };
 
         return result[0];
     }

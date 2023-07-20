@@ -8,8 +8,8 @@ public class OpaEvaluatorFactory : IOpaEvaluatorFactory
 
     public OpaEvaluatorFactory(Func<IOpaImportsAbi>? importsAbiFactory = null, ILoggerFactory? loggerFactory = null)
     {
-        _loggerFactory = loggerFactory ?? NullLoggerFactory.Instance;;
-        _importsAbi = importsAbiFactory ?? (static () => new DefaultOpaImportsAbi());;
+        _loggerFactory = loggerFactory ?? NullLoggerFactory.Instance;
+        _importsAbi = importsAbiFactory ?? (static () => new DefaultOpaImportsAbi());
     }
 
     /// <inheritdoc />

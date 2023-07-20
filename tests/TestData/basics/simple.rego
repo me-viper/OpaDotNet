@@ -6,3 +6,7 @@ hello {
     x := input.message
     x == data.world
 }
+
+empty {
+    1 == 2
+}

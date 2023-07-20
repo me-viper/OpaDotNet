@@ -18,7 +18,7 @@ public abstract class OpaEvaluatorFactoryBase
 
     [PublicAPI]
     public abstract IOpaEvaluator Create();
-    
+
     private protected IOpaEvaluator Create(
         OpaPolicy policy,
         WasmPolicyEngineOptions? options = null)

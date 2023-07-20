@@ -241,7 +241,7 @@ public class BasicsTests
 
     private record CompositeResult
     {
-        public string X { [UsedImplicitly] get; set; } = default!;
+        public string? X { [UsedImplicitly] get; set; }
         public int Y { [UsedImplicitly] get; set; }
         public bool Z { [UsedImplicitly] get; set; }
     }
@@ -262,6 +262,23 @@ public class BasicsTests
         var result = engine.Evaluate<object?, CompositeResult>(null, "example");
 
         var expected = new CompositeResult { X = "hi", Y = 1, Z = true };
+
+        Assert.NotNull(result);
+        Assert.Equal(expected, result.Result);
+    }
+
+    [Fact]
+    public async Task EmptyOutput()
+    {
+        var compiler = new RegoCliCompiler(logger: _loggerFactory.CreateLogger<RegoCliCompiler>());
+        var policy = await compiler.CompileFile(Path.Combine(BasePath, "empty_composite.rego"), new[] { "example" });
+        var factory = new OpaBundleEvaluatorFactory(policy, loggerFactory: _loggerFactory);
+
+        using var engine = factory.Create();
+
+        var result = engine.Evaluate<object?, CompositeResult>(null, "example");
+
+        var expected = new CompositeResult { X = null, Y = 0, Z = false };
 
         Assert.NotNull(result);
         Assert.Equal(expected, result.Result);
@@ -326,6 +343,21 @@ public class BasicsTests
 
         var result2 = engine.EvaluatePredicate(inp);
         Assert.Equal(expected, !result2.Result);
+    }
+
+    [Fact]
+    public async Task EmptyPredicate()
+    {
+        var compiler = new RegoCliCompiler(logger: _loggerFactory.CreateLogger<RegoCliCompiler>());
+        var policy = await compiler.CompileFile(Path.Combine(BasePath, "simple.rego"), new[] { "example/empty" });
+        var factory = new OpaBundleEvaluatorFactory(policy, loggerFactory: _loggerFactory);
+
+        using var engine = factory.Create();
+
+        var result = engine.EvaluatePredicate<object?>(null, "example/empty");
+
+        Assert.NotNull(result);
+        Assert.False(result.Result);
     }
 
     [Fact]
