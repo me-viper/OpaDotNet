@@ -1,5 +1,5 @@
 ﻿[![CI](https://github.com/me-viper/OpaDotNet/workflows/CI/badge.svg)](https://github.com/me-viper/OpaDotNet)
-[![Coverage Status](https://coveralls.io/repos/github/me-viper/OpaDotNet/badge.svg?branch=develop)](https://coveralls.io/github/me-viper/OpaDotNet)
+[![Coverage Status](https://coveralls.io/repos/github/me-viper/OpaDotNet/badge.svg)](https://coveralls.io/github/me-viper/OpaDotNet)
 
 # Open Policy Agent (OPA) WebAssembly dotnet core SDK
 
