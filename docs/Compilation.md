@@ -18,10 +18,8 @@ var policy = await compiler.CompileFile(
   new[] { "example/allow" }
   );
 
-var factory = new OpaEvaluatorFactory();
-
 // RegoCliCompiler will always produce bundle.
-using var engine = factory.CreateFromBundle(policy);
+using var engine = OpaEvaluatorFactory.CreateFromBundle(policy);
 
 ...
 ```
@@ -40,10 +38,8 @@ var policy = await compiler.CompileBundle(
   new[] { "example/allow" }
   );
 
-var factory = new OpaEvaluatorFactory();
-
 // RegoCliCompiler will always produce bundle.
-using var engine = factory.CreateFromBundle(policy);
+using var engine = OpaEvaluatorFactory.CreateFromBundle(policy);
 
 ...
 ```

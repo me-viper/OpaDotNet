@@ -43,12 +43,13 @@ public class CustomBuiltinsTests : IAsyncLifetime
             Path.Combine(BasePath, "capabilities.json")
             );
 
-        var factory = new OpaEvaluatorFactory(
+        var factory = new OpaBundleEvaluatorFactory(
+            policy,
             importsAbiFactory: () => new CustomOpaImportsAbi(_loggerFactory.CreateLogger<CustomOpaImportsAbi>()),
             loggerFactory: _loggerFactory
             );
 
-        _engine = factory.CreateFromBundle(policy);
+        _engine = factory.Create();
     }
 
     public Task DisposeAsync()

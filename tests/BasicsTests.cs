@@ -122,11 +122,11 @@ public class BasicsTests
         var compiler = new RegoCliCompiler(logger: _loggerFactory.CreateLogger<RegoCliCompiler>());
         var entrypoints = string.IsNullOrWhiteSpace(entrypoint) ? null : new[] { entrypoint };
         var policy = await compiler.CompileFile(Path.Combine(BasePath, source), entrypoints);
-        var factory = new OpaEvaluatorFactory(loggerFactory: _loggerFactory);
 
-        using var engine = factory.CreateFromBundle(
+        using var engine = OpaEvaluatorFactory.CreateFromBundle(
             policy,
-            options: new() { MaxAbiVersion = ver }
+            options: new() { MaxAbiVersion = ver },
+            loggerFactory: _loggerFactory
             );
 
         engine.SetDataFromRawJson(data);
@@ -157,10 +157,9 @@ public class BasicsTests
     [InlineData("{ \"world\": \"world\" }", "{ \"message\": \"world1\"}", false)]
     public void StringData(string? data, string input, bool expectedResult)
     {
-        var factory = new OpaEvaluatorFactory(loggerFactory: _loggerFactory);
-
-        using var engine = factory.CreateFromWasm(
-            File.OpenRead(Path.Combine(BasePath, "simple-1.2.wasm"))
+        using var engine = OpaEvaluatorFactory.CreateFromWasm(
+            File.OpenRead(Path.Combine(BasePath, "simple-1.2.wasm")),
+            loggerFactory: _loggerFactory
             );
 
         engine.SetDataFromRawJson(data);
@@ -181,14 +180,16 @@ public class BasicsTests
     [InlineData("{ \"world\": \"world\" }", "{ \"message\": \"world1\"}", false)]
     public Task StreamData(string data, string input, bool expectedResult)
     {
-        var factory = new OpaEvaluatorFactory(loggerFactory: _loggerFactory);
-
         var dataStream = new MemoryStream();
         var buffer = Encoding.UTF8.GetBytes(data);
         dataStream.Write(buffer);
         dataStream.Seek(0, SeekOrigin.Begin);
 
-        using var engine = factory.CreateFromWasm(File.OpenRead(Path.Combine(BasePath, "simple-1.2.wasm")));
+        using var engine = OpaEvaluatorFactory.CreateFromWasm(
+            File.OpenRead(Path.Combine(BasePath, "simple-1.2.wasm")),
+            loggerFactory: _loggerFactory
+            );
+
         engine.SetDataFromStream(dataStream);
 
         var resultStr = engine.EvaluateRaw(input);
@@ -210,8 +211,6 @@ public class BasicsTests
     [InlineData("{ \"message\": \"world1\"}", false)]
     public void TypedData(string input, bool expectedResult)
     {
-        var factory = new OpaEvaluatorFactory(loggerFactory: _loggerFactory);
-
         var opts = new WasmPolicyEngineOptions
         {
             SerializationOptions = new JsonSerializerOptions
@@ -221,9 +220,10 @@ public class BasicsTests
             },
         };
 
-        using var engine = factory.CreateFromWasm(
+        using var engine = OpaEvaluatorFactory.CreateFromWasm(
             File.OpenRead(Path.Combine(BasePath, "simple-1.2.wasm")),
-            opts
+            opts,
+            loggerFactory: _loggerFactory
             );
 
         engine.SetData(new Data("world"));
@@ -256,9 +256,8 @@ public class BasicsTests
 
         var compiler = new RegoCliCompiler(_options, _loggerFactory.CreateLogger<RegoCliCompiler>());
         var policy = await compiler.CompileFile(Path.Combine(BasePath, "composite.rego"), new[] { "example" });
-        var factory = new OpaEvaluatorFactory(loggerFactory: _loggerFactory);
 
-        using var engine = factory.CreateFromBundle(policy, options: opts);
+        using var engine = OpaEvaluatorFactory.CreateFromBundle(policy, options: opts, loggerFactory: _loggerFactory);
         var result = engine.Evaluate<object?, CompositeResult>(null, "example");
 
         var expected = new CompositeResult { X = "hi", Y = 1, Z = true };
@@ -299,10 +298,9 @@ public class BasicsTests
 
         Assert.NotNull(inp);
 
-        var factory = new OpaEvaluatorFactory(loggerFactory: _loggerFactory);
-
-        using var engine = factory.CreateFromWasm(
-            File.OpenRead(Path.Combine(BasePath, "simple-1.2.wasm"))
+        using var engine = OpaEvaluatorFactory.CreateFromWasm(
+            File.OpenRead(Path.Combine(BasePath, "simple-1.2.wasm")),
+            loggerFactory: _loggerFactory
             );
 
         engine.SetDataFromRawJson("{ \"world\": \"world\" }");
@@ -328,10 +326,9 @@ public class BasicsTests
 
         Assert.NotNull(inp);
 
-        var factory = new OpaEvaluatorFactory(loggerFactory: _loggerFactory);
-
-        using var engine = factory.CreateFromWasm(
-            File.OpenRead(Path.Combine(BasePath, "simple-1.2.wasm"))
+        using var engine = OpaEvaluatorFactory.CreateFromWasm(
+            File.OpenRead(Path.Combine(BasePath, "simple-1.2.wasm")),
+            loggerFactory: _loggerFactory
             );
 
         engine.SetDataFromRawJson("{ \"world\": \"world\" }");
@@ -365,10 +362,9 @@ public class BasicsTests
     {
         var data = "{\"world\":\"world\"}";
 
-        var factory = new OpaEvaluatorFactory(loggerFactory: _loggerFactory);
-
-        using var engine = (WasmOpaEvaluator)factory.CreateFromWasm(
-            File.OpenRead(Path.Combine(BasePath, "simple-1.3.wasm"))
+        using var engine = (WasmOpaEvaluator)OpaEvaluatorFactory.CreateFromWasm(
+            File.OpenRead(Path.Combine(BasePath, "simple-1.3.wasm")),
+            loggerFactory: _loggerFactory
             );
 
         engine.SetDataFromRawJson(data);

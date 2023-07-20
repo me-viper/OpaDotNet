@@ -14,22 +14,18 @@ Same `IOpaEvaluator` instance can be used to evaluate policy module multiple tim
 
 **Important**. `IOpaEvaluator` instances are **NOT** thread-safe and should not be used from different threads.
 
-```csharp
-var factory = new OpaEvaluatorFactory();
-```
-
 ### Create evaluator from OPA bundle
 
 **Important**. If you compiled bundle manually it should target WASM.
 
 ```csharp
-using var engine = factory.CreateFromBundle(File.OpenRead("bundle.tar.gz"));
+using var engine = OpaEvaluatorFactory.CreateFromBundle(File.OpenRead("bundle.tar.gz"));
 ```
 
 ### Create evaluator from compiled WASM binary
 
 ```csharp
-using var engine = factory.CreateFromWasm(File.OpenRead("policy.wasm"));
+using var engine = OpaEvaluatorFactory.CreateFromWasm(File.OpenRead("policy.wasm"));
 ```
 
 ## 2. Set optional external data

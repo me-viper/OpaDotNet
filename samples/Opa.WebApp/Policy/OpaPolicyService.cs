@@ -83,8 +83,7 @@ public sealed class OpaPolicyService : IHostedService, IOpaPolicyService
                 cancellationToken: cancellationToken
                 );
 
-            var factory = new OpaEvaluatorFactory(loggerFactory: _loggerFactory);
-            _evaluator = factory.CreateFromBundle(policy);
+            _evaluator = OpaEvaluatorFactory.CreateFromBundle(policy, loggerFactory: _loggerFactory);
         }
         catch (Exception ex)
         {

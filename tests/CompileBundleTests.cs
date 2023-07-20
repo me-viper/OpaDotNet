@@ -30,8 +30,7 @@ public class CompileBundleTests
             new[] { "test1/hello", "test2/hello" }
             );
 
-        var factory = new OpaEvaluatorFactory();
-        var evaluator = factory.CreateFromBundle(policy);
+        var evaluator = OpaEvaluatorFactory.CreateFromBundle(policy);
 
         var input1 = new { message = "world" };
         var test1Result = evaluator.EvaluatePredicate(input1, "test1/hello");
@@ -49,8 +48,7 @@ public class CompileBundleTests
     {
         var path = Path.Combine("TestData", "compile-bundle", "bundle.tar.gz");
 
-        var factory = new OpaEvaluatorFactory();
-        var evaluator = factory.CreateFromBundle(File.OpenRead(path));
+        var evaluator = OpaEvaluatorFactory.CreateFromBundle(File.OpenRead(path));
 
         var input1 = new { message = "world" };
         var test1Result = evaluator.EvaluatePredicate(input1, "test1/hello");

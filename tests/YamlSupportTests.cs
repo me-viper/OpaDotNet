@@ -43,8 +43,7 @@ public class YamlSupportTests : IAsyncLifetime
             }
             );
 
-        var factory = new OpaEvaluatorFactory();
-        _engine = factory.CreateFromBundle(policy);
+        _engine = OpaEvaluatorFactory.CreateFromBundle(policy);
     }
 
     public Task DisposeAsync()

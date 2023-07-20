@@ -1,10 +1,11 @@
 #nullable enable
-abstract OpaDotNet.Wasm.OpaEvaluatorFactoryBase.Create() -> OpaDotNet.Wasm.IOpaEvaluator!
+abstract OpaDotNet.Wasm.OpaEvaluatorFactory.Create() -> OpaDotNet.Wasm.IOpaEvaluator!
 OpaDotNet.Wasm.OpaBundleEvaluatorFactory
-OpaDotNet.Wasm.OpaBundleEvaluatorFactory.OpaBundleEvaluatorFactory(System.IO.Stream! bundleStream, System.Func<OpaDotNet.Wasm.IOpaImportsAbi!>? importsAbi = null, Microsoft.Extensions.Logging.ILoggerFactory? loggerFactory = null, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null) -> void
-OpaDotNet.Wasm.OpaEvaluatorFactoryBase
-OpaDotNet.Wasm.OpaEvaluatorFactoryBase.OpaEvaluatorFactoryBase(System.Func<OpaDotNet.Wasm.IOpaImportsAbi!>? importsAbiFactory, Microsoft.Extensions.Logging.ILoggerFactory? loggerFactory) -> void
+OpaDotNet.Wasm.OpaBundleEvaluatorFactory.OpaBundleEvaluatorFactory(System.IO.Stream! bundleStream, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null, System.Func<OpaDotNet.Wasm.IOpaImportsAbi!>? importsAbiFactory = null, Microsoft.Extensions.Logging.ILoggerFactory? loggerFactory = null) -> void
+OpaDotNet.Wasm.OpaEvaluatorFactory.OpaEvaluatorFactory(System.Func<OpaDotNet.Wasm.IOpaImportsAbi!>? importsAbiFactory, Microsoft.Extensions.Logging.ILoggerFactory? loggerFactory) -> void
 OpaDotNet.Wasm.OpaWasmEvaluatorFactory
-OpaDotNet.Wasm.OpaWasmEvaluatorFactory.OpaWasmEvaluatorFactory(System.IO.Stream! policyWasm, System.Func<OpaDotNet.Wasm.IOpaImportsAbi!>? importsAbi = null, Microsoft.Extensions.Logging.ILoggerFactory? loggerFactory = null, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null) -> void
+OpaDotNet.Wasm.OpaWasmEvaluatorFactory.OpaWasmEvaluatorFactory(System.IO.Stream! policyWasm, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null, System.Func<OpaDotNet.Wasm.IOpaImportsAbi!>? importsAbiFactory = null, Microsoft.Extensions.Logging.ILoggerFactory? loggerFactory = null) -> void
 override OpaDotNet.Wasm.OpaBundleEvaluatorFactory.Create() -> OpaDotNet.Wasm.IOpaEvaluator!
 override OpaDotNet.Wasm.OpaWasmEvaluatorFactory.Create() -> OpaDotNet.Wasm.IOpaEvaluator!
+static OpaDotNet.Wasm.OpaEvaluatorFactory.CreateFromBundle(System.IO.Stream! policyBundle, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null, System.Func<OpaDotNet.Wasm.IOpaImportsAbi!>? importsAbiFactory = null, Microsoft.Extensions.Logging.ILoggerFactory? loggerFactory = null) -> OpaDotNet.Wasm.IOpaEvaluator!
+static OpaDotNet.Wasm.OpaEvaluatorFactory.CreateFromWasm(System.IO.Stream! policyWasm, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null, System.Func<OpaDotNet.Wasm.IOpaImportsAbi!>? importsAbiFactory = null, Microsoft.Extensions.Logging.ILoggerFactory? loggerFactory = null) -> OpaDotNet.Wasm.IOpaEvaluator!

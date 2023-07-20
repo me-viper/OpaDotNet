@@ -651,7 +651,6 @@ package sdk
     {
         var compiler = new RegoCliCompiler(_options, _loggerFactory.CreateLogger<RegoCliCompiler>());
         var policy = await compiler.Compile(source, entrypoint);
-        var factory = new OpaEvaluatorFactory(() => imports ?? new TestImportsAbi(_output));
 
         var engineOpts = new WasmPolicyEngineOptions
         {
@@ -661,6 +660,7 @@ package sdk
             },
         };
 
-        return factory.CreateFromBundle(policy, engineOpts);
+        var factory = new OpaBundleEvaluatorFactory(policy, engineOpts, importsAbiFactory: () => imports ?? new TestImportsAbi(_output));
+        return factory.Create();
     }
 }

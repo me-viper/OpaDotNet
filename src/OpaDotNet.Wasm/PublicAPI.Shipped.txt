@@ -50,9 +50,6 @@ OpaDotNet.Wasm.IOpaEvaluator.SetData<T>(T? data) -> void
 OpaDotNet.Wasm.IOpaEvaluator.SetDataFromRawJson(System.ReadOnlySpan<char> dataJson) -> void
 OpaDotNet.Wasm.IOpaEvaluator.SetDataFromStream(System.IO.Stream? utf8Json) -> void
 OpaDotNet.Wasm.IOpaEvaluator.TryGetFeature<TFeature>(out TFeature! feature) -> bool
-OpaDotNet.Wasm.IOpaEvaluatorFactory
-OpaDotNet.Wasm.IOpaEvaluatorFactory.CreateFromBundle(System.IO.Stream! policyBundle, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null) -> OpaDotNet.Wasm.IOpaEvaluator!
-OpaDotNet.Wasm.IOpaEvaluatorFactory.CreateFromWasm(System.IO.Stream! policyWasm, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null) -> OpaDotNet.Wasm.IOpaEvaluator!
 OpaDotNet.Wasm.IOpaImportsAbi
 OpaDotNet.Wasm.IOpaImportsAbi.Abort(string! message) -> void
 OpaDotNet.Wasm.IOpaImportsAbi.Func(OpaDotNet.Wasm.BuiltinContext! context, OpaDotNet.Wasm.BuiltinArg! arg1, OpaDotNet.Wasm.BuiltinArg! arg2, OpaDotNet.Wasm.BuiltinArg! arg3, OpaDotNet.Wasm.BuiltinArg! arg4) -> object?
@@ -66,9 +63,6 @@ OpaDotNet.Wasm.OpaEvaluationException
 OpaDotNet.Wasm.OpaEvaluationException.OpaEvaluationException(string? message, System.Exception? innerException) -> void
 OpaDotNet.Wasm.OpaEvaluationException.OpaEvaluationException(string? message) -> void
 OpaDotNet.Wasm.OpaEvaluatorFactory
-OpaDotNet.Wasm.OpaEvaluatorFactory.CreateFromBundle(System.IO.Stream! policyBundle, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null) -> OpaDotNet.Wasm.IOpaEvaluator!
-OpaDotNet.Wasm.OpaEvaluatorFactory.CreateFromWasm(System.IO.Stream! policyWasm, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null) -> OpaDotNet.Wasm.IOpaEvaluator!
-OpaDotNet.Wasm.OpaEvaluatorFactory.OpaEvaluatorFactory(System.Func<OpaDotNet.Wasm.IOpaImportsAbi!>? importsAbiFactory = null, Microsoft.Extensions.Logging.ILoggerFactory? loggerFactory = null) -> void
 OpaDotNet.Wasm.OpaRuntimeException
 OpaDotNet.Wasm.OpaRuntimeException.OpaRuntimeException(string? message, System.Exception? innerException) -> void
 OpaDotNet.Wasm.OpaRuntimeException.OpaRuntimeException(string? message) -> void

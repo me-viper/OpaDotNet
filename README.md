@@ -42,11 +42,9 @@ To evaluate OPA policy you need to:
 ```csharp
 using using OpaDotNet.Wasm;
 
-var factory = new OpaEvaluatorFactory();
-
 const string data = "{ \"world\": \"world\" }";
 
-using var engine = factory.CreateFromWasm(
+using var engine = OpaEvaluatorFactory.CreateFromWasm(
     File.OpenRead("policy.wasm")
     );
 
@@ -130,9 +128,7 @@ var compiler = new RegoCliCompiler(options);
 var policyStream = await compiler.CompileFile("example.rego", new[] { "example/hello" });
 
 // Use compiled policy.
-var factory = new OpaEvaluatorFactory();
-
-using var engine = factory.CreateFromBundle(policyStream);
+using var engine = OpaEvaluatorFactory.CreateFromBundle(policyStream);
 ```
 
 ## 3rd Party Libraries and Contributions

@@ -35,8 +35,7 @@ public class MemoryTests : IAsyncLifetime
             new[] { "test/allow" }
             );
 
-        var factory = new OpaEvaluatorFactory(loggerFactory: _loggerFactory);
-        _engine = p => factory.CreateFromBundle(policy, options: p);
+        _engine = p => OpaEvaluatorFactory.CreateFromBundle(policy, options: p, loggerFactory: _loggerFactory);
     }
 
     public Task DisposeAsync()

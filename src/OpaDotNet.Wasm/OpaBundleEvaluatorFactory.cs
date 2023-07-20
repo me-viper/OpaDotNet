@@ -1,6 +1,6 @@
 ﻿namespace OpaDotNet.Wasm;
 
-public sealed class OpaBundleEvaluatorFactory : OpaEvaluatorFactoryBase
+public sealed class OpaBundleEvaluatorFactory : OpaEvaluatorFactory
 {
     private readonly OpaPolicy _policy;
 
@@ -8,9 +8,9 @@ public sealed class OpaBundleEvaluatorFactory : OpaEvaluatorFactoryBase
 
     public OpaBundleEvaluatorFactory(
         Stream bundleStream,
-        Func<IOpaImportsAbi>? importsAbi = null,
-        ILoggerFactory? loggerFactory = null,
-        WasmPolicyEngineOptions? options = null) : base(importsAbi, loggerFactory)
+        WasmPolicyEngineOptions? options = null,
+        Func<IOpaImportsAbi>? importsAbiFactory = null,
+        ILoggerFactory? loggerFactory = null) : base(importsAbiFactory, loggerFactory)
     {
         ArgumentNullException.ThrowIfNull(bundleStream);
 
