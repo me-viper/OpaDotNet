@@ -115,6 +115,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
                 "urlquery.decode_object" => UrlQueryDecodeObject(arg1.As<string>()),
                 "urlquery.encode_object" => UrlQueryEncodeObject(arg1.RawJson, context.JsonSerializerOptions),
                 "io.jwt.decode" => JwtDecode(arg1.As<string>()),
+                "semver.is_valid" => SemverIsValid(arg1.RawJson),
                 _ => throw new NotImplementedException(context.FunctionName),
             };
         }
@@ -159,6 +160,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
                 "io.jwt.verify_rs256" => JwtVerifyCert(arg1.As<string>(), arg2.As<string>(), "RS256"),
                 "io.jwt.verify_rs384" => JwtVerifyCert(arg1.As<string>(), arg2.As<string>(), "RS384"),
                 "io.jwt.verify_rs512" => JwtVerifyCert(arg1.As<string>(), arg2.As<string>(), "RS512"),
+                "semver.compare" => SemverCompare(arg1.As<string>(), arg2.As<string>()),
                 _ => throw new NotImplementedException(context.FunctionName),
             };
         }

@@ -9,6 +9,8 @@ using JetBrains.Annotations;
 
 using Microsoft.Extensions.Primitives;
 
+using Semver;
+
 namespace OpaDotNet.Wasm;
 
 public partial class DefaultOpaImportsAbi
@@ -192,5 +194,27 @@ public partial class DefaultOpaImportsAbi
     private static IEnumerable<string> RegexSplit(string pattern, string value)
     {
         return Regex.Split(value, pattern);
+    }
+
+    private static int? SemverCompare(string a, string b)
+    {
+        if (!SemVersion.TryParse(a, SemVersionStyles.Strict, out var va))
+            return null;
+
+        if (!SemVersion.TryParse(b, SemVersionStyles.Strict, out var vb))
+            return null;
+
+        return va.ComparePrecedenceTo(vb);
+    }
+
+    private static bool SemverIsValid(JsonNode? vsn)
+    {
+        if (vsn is not JsonValue jv)
+            return false;
+
+        if (!jv.TryGetValue<string>(out var v))
+            return false;
+
+        return SemVersion.TryParse(v, SemVersionStyles.Strict, out _);
     }
 }

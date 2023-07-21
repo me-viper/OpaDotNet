@@ -183,9 +183,9 @@ t1 := o {
     {
         var src = """
 package sdk
-t1 := o { o := uuid.rfc4122("k1") }
-t2 := o { o := uuid.rfc4122("k2") }
-t3 := o { o := uuid.rfc4122("k1") }
+t1 := uuid.rfc4122("k1")
+t2 := uuid.rfc4122("k2")
+t3 := uuid.rfc4122("k1")
 """;
         using var eval = await Build(src, "sdk");
 
@@ -208,9 +208,9 @@ t3 := o { o := uuid.rfc4122("k1") }
     {
         var src = """
 package sdk
-t1 := o { o := rand.intn("k1", 1000) }
-t2 := o { o := rand.intn("k2", 1000) }
-t3 := o { o := rand.intn("k1", 1000) }
+t1 := rand.intn("k1", 1000)
+t2 := rand.intn("k2", 1000)
+t3 := rand.intn("k1", 1000)
 """;
         using var eval = await Build(src, "sdk");
 
@@ -290,8 +290,8 @@ net.cidr_contains_matches({["1.1.2.0/24", "foo", 1], "1.1.0.0/16"}, {"x": "1.1.1
     {
         var src = """
 package sdk
-t1 := o { o := net.lookup_ip_addr("google.com") }
-t2 := o { o := net.lookup_ip_addr("bing.com1") }
+t1 := net.lookup_ip_addr("google.com")
+t2 := net.lookup_ip_addr("bing.com1")
 """;
         using var eval = await Build(src, "sdk");
 
@@ -598,6 +598,23 @@ r := opa.runtime()
         _output.WriteLine(result.r.ToString());
     }
 
+    [Theory]
+    [InlineData("""semver.is_valid("1.1.12-rc1+foo")""", "true")]
+    [InlineData("""semver.is_valid("1.1.12-rc.1+foo")""", "true")]
+    [InlineData("""semver.is_valid("v1.1.12-rc1+foo")""", "false")]
+    [InlineData("""semver.is_valid(1)""", "false")]
+    [InlineData("""semver.is_valid(["1.1.12-rc1+foo"])""", "false")]
+    [InlineData("""semver.compare("1.1.12-rc1+foo", "1.1.12-rc1+foo")""", "0")]
+    [InlineData("""is_null(semver.compare("1.1.12", "foo"))""", "true")]
+    [InlineData("""is_null(semver.compare("foo", "1.1.12"))""", "true")]
+    [InlineData("""semver.compare("1.2.12", "1.1.12")""", "1")]
+    [InlineData("""semver.compare("1.1.12", "1.2.12")""", "-1")]
+    public async Task Semver(string func, string expected)
+    {
+        var result = await RunTestCase(func, expected);
+        Assert.True(result.Assert);
+    }
+
     // ReSharper disable once ClassNeverInstantiated.Local
     private record TestCaseResult
     {
@@ -615,8 +632,8 @@ import future.keywords.if
 assert if {
     expected == actual  
 }
-expected := r { r := {{expected}} }
-actual := r { r := {{actual}} }
+expected := {{expected}}
+actual := {{actual}}
 """;
 
         _output.WriteLine(src);

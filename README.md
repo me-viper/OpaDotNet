@@ -142,3 +142,4 @@ using var engine = OpaEvaluatorFactory.CreateFromBundle(policyStream);
 * [IPNetwork2](https://github.com/lduchosal/ipnetwork) - Utility classes take care of complex network, IPv4, IPv6, CIDR
   calculation for .NET developers.
 * [BenchmarkDotNet](https://github.com/dotnet/BenchmarkDotNet) - Powerful .NET library for benchmarking.
+* [Semver](https://github.com/maxhauser/semver) - Implementation in .Net based on the v2.0.0 of the spec.
