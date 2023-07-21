@@ -26,7 +26,6 @@ if (!fi.Exists)
 var packages = ExtractPackages(fi);
 
 var compiler = new RegoCliCompiler();
-
 var policy = await compiler.CompileBundle(Path.Combine("data", "policy"), new [] { "samples/invalid_packages" });
 var evaluator = OpaEvaluatorFactory.CreateFromBundle(policy);
 
@@ -64,10 +63,4 @@ Dictionary<string, string> ExtractPackages(FileInfo projectFile)
     }
 
     return result;
-}
-
-class PolicyValidationResult
-{
-    [JsonPropertyName("invalid_packages")]
-    public Dictionary<string, string> InvalidPackages { get; set; } = default!;
 }
