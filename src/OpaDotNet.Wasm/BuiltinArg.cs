@@ -47,7 +47,7 @@ public class BuiltinArg
     public T? AsOrNull<T>(Func<T>? defaultValue = null, RegoValueFormat format = RegoValueFormat.Json)
     {
         var val = format == RegoValueFormat.Value ? Raw : RawJson;
-        
+
         return val switch
         {
             null => defaultValue != null ? defaultValue() : default,

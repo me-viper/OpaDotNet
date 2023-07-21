@@ -1,6 +1,7 @@
 ﻿# DotNet references validation
 
-This sample demonstrates simple use case when we want to ensure dotnet projects reference only "approved" nuget packages.
+This sample demonstrates simple use case when we want to ensure dotnet projects reference only "approved" nuget
+packages.
 
 ## The Sample
 

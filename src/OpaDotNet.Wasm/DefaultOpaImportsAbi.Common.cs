@@ -200,18 +200,18 @@ public partial class DefaultOpaImportsAbi
     {
         if (delimiterStart.Length != 1 || delimiterEnd.Length != 1)
             return null;
-        
+
         var pattern = new StringBuilder(template.Length);
-        
+
         var iterations = 0;
         var maxIterations = template.Length;
         var index = 0;
-        
+
         while (index < template.Length)
         {
             if (iterations++ > maxIterations)
                 return null;
-            
+
             var patEnd = -1;
 
             if (template[index] == delimiterStart[0])
@@ -219,12 +219,12 @@ public partial class DefaultOpaImportsAbi
                 index++;
                 var patStart = index;
                 var depth = 0;
-                
+
                 while (index < template.Length)
                 {
                     if (iterations++ > maxIterations)
                         return null;
-                    
+
                     if (template[index] == delimiterStart[0])
                         depth++;
                     else if (template[index] == delimiterEnd[0])
@@ -236,27 +236,26 @@ public partial class DefaultOpaImportsAbi
                             patEnd = index;
                             break;
                         }
-                        
                     }
-                    
+
                     index++;
                 }
-                
+
                 if (patStart >= patEnd)
                     return null;
-                
+
                 pattern.Append(template[patStart..patEnd]);
                 index++;
                 continue;
             }
-            
+
             pattern.Append(template[index]);
             index++;
         }
-        
+
         return Regex.IsMatch(value, pattern.ToString());
     }
-    
+
     private static int? SemverCompare(string a, string b)
     {
         if (!SemVersion.TryParse(a, SemVersionStyles.Strict, out var va))

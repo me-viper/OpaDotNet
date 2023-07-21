@@ -364,7 +364,7 @@ t2 := net.lookup_ip_addr("bing.com1")
         var result = await RunTestCase(func, expected);
         Assert.True(result.Assert);
     }
-    
+
     [Theory]
     [InlineData("""regex.template_match("urn:foo:{.*}", "urn:foo:bar:baz", "{", "}")""", "true")]
     [InlineData("""regex.template_match("urn:foo.bar.com:{.*}", "urn:foo.bar.com:bar:baz", "{", "}")""", "true")]

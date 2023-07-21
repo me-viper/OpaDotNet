@@ -8,22 +8,22 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <None Include="data\bad.csproj">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-      <None Include="data\good.csproj">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-      <None Update="data\policy\policy.rego">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-      <None Update="data\policy\data.yaml">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
+        <None Include="data\bad.csproj">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Include="data\good.csproj">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="data\policy\policy.rego">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="data\policy\data.yaml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\OpaDotNet.Wasm\OpaDotNet.Wasm.csproj" />
+        <ProjectReference Include="..\..\src\OpaDotNet.Wasm\OpaDotNet.Wasm.csproj"/>
     </ItemGroup>
 
 </Project>
