@@ -34,9 +34,9 @@ public class BuiltinArg
     /// </summary>
     public JsonNode? RawJson => _arg(RegoValueFormat.Json);
 
-    public T As<T>() where T : notnull
+    public T As<T>(RegoValueFormat format = RegoValueFormat.Json) where T : notnull
     {
-        var result = AsOrNull<T>();
+        var result = AsOrNull<T>(null, format);
 
         if (result == null)
             throw new OpaEvaluationException("Argument is null");
@@ -44,9 +44,11 @@ public class BuiltinArg
         return result;
     }
 
-    public T? AsOrNull<T>(Func<T>? defaultValue = null)
+    public T? AsOrNull<T>(Func<T>? defaultValue = null, RegoValueFormat format = RegoValueFormat.Json)
     {
-        return Raw switch
+        var val = format == RegoValueFormat.Value ? Raw : RawJson;
+        
+        return val switch
         {
             null => defaultValue != null ? defaultValue() : default,
             JsonValue jv => jv.GetValue<T>(),

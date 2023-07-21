@@ -202,6 +202,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
             return context.FunctionName switch
             {
                 "time.add_date" => AddDate(arg1.As<long>(), arg2.As<int>(), arg3.As<int>(), arg4.As<int>()),
+                "regex.template_match" => RegexTemplateMatch(arg1.As<string>(), arg2.As<string>(), arg3.As<string>(), arg4.As<string>() ),
                 _ => throw new NotImplementedException(context.FunctionName),
             };
         }

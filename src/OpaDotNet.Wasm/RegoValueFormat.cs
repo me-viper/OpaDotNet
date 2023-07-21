@@ -3,7 +3,7 @@
 /// <summary>
 /// Value format.
 /// </summary>
-internal enum RegoValueFormat
+public enum RegoValueFormat
 {
     /// <summary>
     /// JSON

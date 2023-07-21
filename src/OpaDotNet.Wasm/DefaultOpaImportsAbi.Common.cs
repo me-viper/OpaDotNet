@@ -196,6 +196,67 @@ public partial class DefaultOpaImportsAbi
         return Regex.Split(value, pattern);
     }
 
+    private static bool? RegexTemplateMatch(string template, string value, string delimiterStart, string delimiterEnd)
+    {
+        if (delimiterStart.Length != 1 || delimiterEnd.Length != 1)
+            return null;
+        
+        var pattern = new StringBuilder(template.Length);
+        
+        var iterations = 0;
+        var maxIterations = template.Length;
+        var index = 0;
+        
+        while (index < template.Length)
+        {
+            if (iterations++ > maxIterations)
+                return null;
+            
+            var patEnd = -1;
+
+            if (template[index] == delimiterStart[0])
+            {
+                index++;
+                var patStart = index;
+                var depth = 0;
+                
+                while (index < template.Length)
+                {
+                    if (iterations++ > maxIterations)
+                        return null;
+                    
+                    if (template[index] == delimiterStart[0])
+                        depth++;
+                    else if (template[index] == delimiterEnd[0])
+                    {
+                        if (depth > 0)
+                            depth--;
+                        else
+                        {
+                            patEnd = index;
+                            break;
+                        }
+                        
+                    }
+                    
+                    index++;
+                }
+                
+                if (patStart >= patEnd)
+                    return null;
+                
+                pattern.Append(template[patStart..patEnd]);
+                index++;
+                continue;
+            }
+            
+            pattern.Append(template[index]);
+            index++;
+        }
+        
+        return Regex.IsMatch(value, pattern.ToString());
+    }
+    
     private static int? SemverCompare(string a, string b)
     {
         if (!SemVersion.TryParse(a, SemVersionStyles.Strict, out var va))
