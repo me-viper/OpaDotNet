@@ -1,0 +1,5 @@
+﻿trustedPackages:
+  - name: ^Microsoft.*$
+    minVersion: "7.0.0"
+  - name: ^System.*$
+    minVersion: "7.0.0"

@@ -15,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "bench", "bench", "{B62EB72F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpaDotNet.Benchmarks", "bench\OpaDotNet.Benchmarks.csproj", "{99A9945B-BDEA-46A6-83C0-EBBAE024318F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReferencesValidationPolicy", "samples\ReferencesValidationPolicy\ReferencesValidationPolicy.csproj", "{929C6A98-1B84-41FE-A0ED-63D2CEC72F9D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,9 +38,14 @@ Global
 		{99A9945B-BDEA-46A6-83C0-EBBAE024318F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{99A9945B-BDEA-46A6-83C0-EBBAE024318F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{99A9945B-BDEA-46A6-83C0-EBBAE024318F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{929C6A98-1B84-41FE-A0ED-63D2CEC72F9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{929C6A98-1B84-41FE-A0ED-63D2CEC72F9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{929C6A98-1B84-41FE-A0ED-63D2CEC72F9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{929C6A98-1B84-41FE-A0ED-63D2CEC72F9D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{676DAA20-DB64-433D-B61B-DAA2A53C084C} = {A281747F-28C4-4E09-A1FD-C402EAD384F6}
 		{99A9945B-BDEA-46A6-83C0-EBBAE024318F} = {B62EB72F-1D20-492E-AEA8-74B7E05AF044}
+		{929C6A98-1B84-41FE-A0ED-63D2CEC72F9D} = {3266988C-B7DC-4403-9126-8592FA98FD42}
 	EndGlobalSection
 EndGlobal
