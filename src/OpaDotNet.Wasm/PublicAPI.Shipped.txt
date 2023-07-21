@@ -1,7 +1,5 @@
 #nullable enable
 OpaDotNet.Wasm.BuiltinArg
-OpaDotNet.Wasm.BuiltinArg.As<T>() -> T
-OpaDotNet.Wasm.BuiltinArg.AsOrNull<T>(System.Func<T>? defaultValue = null) -> T?
 OpaDotNet.Wasm.BuiltinArg.Raw.get -> System.Text.Json.Nodes.JsonNode?
 OpaDotNet.Wasm.BuiltinArg.RawJson.get -> System.Text.Json.Nodes.JsonNode?
 OpaDotNet.Wasm.BuiltinContext
