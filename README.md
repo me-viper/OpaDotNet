@@ -69,7 +69,7 @@ var policyResult = engine.EvaluatePredicate(inp);
 ### Check result
 
 ```csharp
-if (policyResult)
+if (policyResult.Result)
 {
     // We've been authorized.
 }
