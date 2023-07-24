@@ -45,6 +45,8 @@ public class RegoCliCompiler : IRegoCompiler
         if (entrypoints != null)
             entrypointArg = string.Join(" ", entrypoints.Select(p => $"-e {p}"));
 
+        var outputPath = _options.Value.OutputPath ?? bundleDirectory.FullName;
+        
         var capabilitiesArg = string.Empty;
         FileInfo? capsFile = null;
 
@@ -63,7 +65,7 @@ public class RegoCliCompiler : IRegoCompiler
             if (!string.IsNullOrWhiteSpace(_options.Value.CapabilitiesVersion))
             {
                 capsFile = await MergeCapabilities(
-                    bundleDirectory.FullName,
+                    outputPath,
                     fi,
                     _options.Value.CapabilitiesVersion,
                     cancellationToken
@@ -75,7 +77,6 @@ public class RegoCliCompiler : IRegoCompiler
 
         using var scope = _logger.BeginScope("Bundle {Path}", bundlePath);
 
-        var outputPath = _options.Value.OutputPath ?? bundleDirectory.FullName;
         var outputFileName = Path.Combine(outputPath, $"{Guid.NewGuid()}.tar.gz");
 
         var args = $"build -b -t wasm {entrypointArg} {capabilitiesArg} -o {outputFileName} " +
@@ -114,7 +115,6 @@ public class RegoCliCompiler : IRegoCompiler
         if (entrypoints != null)
             entrypointArg = string.Join(" ", entrypoints.Select(p => $"-e {p}"));
 
-        // opa build -t wasm -e example/hello .\simple.rego
         var args = $"build -t wasm {entrypointArg} -o {outputFileName} {_options.Value.ExtraArguments} {fi.FullName}";
 
         return await Run(fi.Directory!.FullName, fi.FullName, args, outputFileName, cancellationToken).ConfigureAwait(false);
