@@ -23,7 +23,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\src\OpaDotNet.Wasm\OpaDotNet.Wasm.csproj"/>
+        <ProjectReference Include="..\..\src\OpaDotNet.Wasm\OpaDotNet.Wasm.csproj" />
     </ItemGroup>
 
 </Project>

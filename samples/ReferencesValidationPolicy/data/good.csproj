@@ -5,8 +5,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.Some.Package" Version="7.0.0"/>
-        <PackageReference Include="System.Some.Package" Version="7.0.0"/>
+        <PackageReference Include="Microsoft.Some.Package" Version="7.0.0" />
+        <PackageReference Include="System.Some.Package" Version="7.0.0" />
     </ItemGroup>
 
 </Project>

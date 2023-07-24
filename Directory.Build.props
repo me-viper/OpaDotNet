@@ -22,9 +22,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Using Include="Microsoft.Extensions.Logging"/>
-        <Using Include="Microsoft.Extensions.Logging.Abstractions"/>
+        <Using Include="Microsoft.Extensions.Logging" />
+        <Using Include="Microsoft.Extensions.Logging.Abstractions" />
 
-        <Using Include="System.Text.Json"/>
+        <Using Include="System.Text.Json" />
     </ItemGroup>
 </Project>
