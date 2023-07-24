@@ -12,7 +12,7 @@ public class RegoCliCompilerTests
 {
     private readonly ILoggerFactory _loggerFactory;
     
-    private DirectoryInfo _outputPath;
+    private readonly DirectoryInfo _outputPath;
 
     public RegoCliCompilerTests(ITestOutputHelper output)
     {
@@ -77,7 +77,7 @@ public class RegoCliCompilerTests
             _loggerFactory.CreateLogger<RegoCliCompiler>()
             );
 
-        var policy = await compiler.CompileBundle(
+        await using var policy = await compiler.CompileBundle(
             Path.Combine("TestData", "capabilities"),
             new[] { "capabilities/f" },
             Path.Combine("TestData", "capabilities", "capabilities.json")
@@ -94,7 +94,7 @@ public class RegoCliCompilerTests
             _loggerFactory.CreateLogger<RegoCliCompiler>()
             );
 
-        var policy = await compiler.CompileBundle(
+        await using var policy = await compiler.CompileBundle(
             Path.Combine("TestData", "compile-bundle", "example"),
             new[] { "test1/hello", "test2/hello" }
             );

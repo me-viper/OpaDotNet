@@ -12,11 +12,11 @@ namespace OpaDotNet.Wasm.Compilation;
 /// </summary>
 public class RegoCliCompiler : IRegoCompiler
 {
+    private static IOptions<RegoCliCompilerOptions> Default { get; } = new OptionsWrapper<RegoCliCompilerOptions>(new());
+    
     private readonly ILogger _logger;
 
     private readonly IOptions<RegoCliCompilerOptions> _options;
-
-    private static IOptions<RegoCliCompilerOptions> Default { get; } = new OptionsWrapper<RegoCliCompilerOptions>(new());
 
     /// <summary>
     /// Creates new instance of <see cref="RegoCliCompiler"/> class.
