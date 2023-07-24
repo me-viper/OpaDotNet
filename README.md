@@ -143,3 +143,5 @@ using var engine = OpaEvaluatorFactory.CreateFromBundle(policyStream);
   calculation for .NET developers.
 * [BenchmarkDotNet](https://github.com/dotnet/BenchmarkDotNet) - Powerful .NET library for benchmarking.
 * [Semver](https://github.com/maxhauser/semver) - Implementation in .Net based on the v2.0.0 of the spec.
+* [json-everything](https://github.com/gregsdennis/json-everything) - Set of libraries that ensure that common JSON functionality has good support in the System.Text.Json space.
+* [YamlDotNet](https://github.com/aaubry/YamlDotNet) - YamlDotNet is a YAML library for netstandard and other .NET runtimes.

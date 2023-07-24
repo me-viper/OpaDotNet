@@ -10,3 +10,13 @@ public class OpaEvaluationException : OpaRuntimeException
     {
     }
 }
+
+/// <summary>
+/// Thrown when we need to abort rule evaluation and force it to return default result.
+/// </summary>
+internal class OpaEvaluationAbortedException : OpaEvaluationException
+{
+    public OpaEvaluationAbortedException(string? message) : base(message)
+    {
+    }
+}

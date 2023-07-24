@@ -7,9 +7,17 @@ using System.Web;
 
 using JetBrains.Annotations;
 
+using Json.More;
+
 using Microsoft.Extensions.Primitives;
 
 using Semver;
+
+using Yaml2JsonNode;
+
+using YamlDotNet.Core;
+using YamlDotNet.RepresentationModel;
+using YamlDotNet.Serialization;
 
 namespace OpaDotNet.Wasm;
 
@@ -276,5 +284,57 @@ public partial class DefaultOpaImportsAbi
             return false;
 
         return SemVersion.TryParse(v, SemVersionStyles.Strict, out _);
+    }
+    
+    private static bool YamlIsValid(JsonNode? node)
+    {
+        try
+        {
+            if (node is not JsonValue jv)
+                return false;
+
+            if (!jv.TryGetValue<string>(out var yaml))
+                return false;
+            
+            var deserializer = new DeserializerBuilder().Build();
+            _ = deserializer.Deserialize<object>(yaml);
+            
+            return true;
+        }
+        catch (YamlException)
+        {
+            return false;
+        }
+    }
+    
+    private static string? YamlMarshal(JsonNode? node)
+    {
+        var yaml = node?.ToYamlNode();
+        
+        if (yaml == null)
+            return null;
+        
+        var doc = new YamlDocument(yaml); 
+        var s = new YamlStream(doc);
+        var sb = new StringBuilder();
+        using var sw = new StringWriter(sb);
+        s.Save(sw);
+        
+        return sw.ToString();
+    }
+    
+    private object? YamlUnmarshal(string yamlString)
+    {
+        try
+        {
+            var deserializer = new DeserializerBuilder().Build();
+            var result = deserializer.Deserialize(new StringReader(yamlString));
+            return result?.ToJsonDocument();
+        }
+        catch (YamlException)
+        {
+            Abort("Invalid yaml");
+            return null;
+        }
     }
 }

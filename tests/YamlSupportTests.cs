@@ -43,7 +43,7 @@ public class YamlSupportTests : IAsyncLifetime
             }
             );
 
-        _engine = OpaEvaluatorFactory.CreateFromBundle(policy);
+        _engine = OpaEvaluatorFactory.CreateFromBundle(policy, importsAbiFactory: () => new TestImportsAbi(_output));
     }
 
     public Task DisposeAsync()
@@ -52,10 +52,53 @@ public class YamlSupportTests : IAsyncLifetime
         return Task.CompletedTask;
     }
 
-    [Fact(Skip = "Yaml is not supported yet")]
+    [Fact]
     public void CanParseYaml()
     {
         var result = _engine.EvaluatePredicate<object?>(null, "yaml/support/canParseYAML");
+        Assert.True(result.Result);
+    }
+
+    [Fact]
+    public void IgnoreSyntaxError()
+    {
+        var result = _engine.EvaluatePredicate<object?>(null, "yaml/support/hasSyntaxError");
+        Assert.False(result.Result);
+    }
+
+    [Fact]
+    public void IgnoreSemanticError()
+    {
+        var result = _engine.EvaluatePredicate<object?>(null, "yaml/support/hasSemanticError");
+        Assert.False(result.Result);
+    }
+
+    [Fact]
+    public void IgnoreReferenceError()
+    {
+        var result = _engine.EvaluatePredicate<object?>(null, "yaml/support/hasReferenceError");
+        Assert.False(result.Result);
+    }
+    
+    [Fact]
+    public void IgnoreWarning()
+    {
+        // This is NOT compatible with OPA native behaviour. 
+        var result = _engine.EvaluatePredicate<object?>(null, "yaml/support/hasYAMLWarning");
+        Assert.True(result.Result);
+    }
+    
+    [Fact]
+    public void Marshal()
+    {
+        var result = _engine.EvaluateRaw("""[{"foo": [1, 2, 3]}]""", "yaml/support/canMarshalYAML");
+        Assert.Equal("""[{"result":[[{"foo":["1","2","3"]}]]}]""", result);
+    }
+    
+    [Fact]
+    public void IsValid()
+    {
+        var result = _engine.EvaluatePredicate<object?>(null, "yaml/support/isValidYAML");
         Assert.True(result.Result);
     }
 }

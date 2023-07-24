@@ -306,15 +306,29 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
 
     public string EvaluateRaw(ReadOnlySpan<char> inputJson, string? entrypoint = null)
     {
-        var resultPtr = EvalInternal(inputJson, entrypoint);
-        return _memory.ReadNullTerminatedString(resultPtr);
+        try
+        {
+            var resultPtr = EvalInternal(inputJson, entrypoint);
+            return _memory.ReadNullTerminatedString(resultPtr);
+        }
+        catch (OpaEvaluationAbortedException)
+        {
+            return """[{"result":[]}]""";
+        }
     }
 
     private TOutput? EvalInternal<TInput, TOutput>(TInput input, string? entrypoint = null)
     {
-        var s = JsonSerializer.Serialize(input, _jsonOptions);
-        var jsonAdr = EvalInternal(s, entrypoint);
-        return _memory.ReadNullTerminatedJson<TOutput>(jsonAdr, _jsonOptions);
+        try
+        {
+            var s = JsonSerializer.Serialize(input, _jsonOptions);
+            var jsonAdr = EvalInternal(s, entrypoint);
+            return _memory.ReadNullTerminatedJson<TOutput>(jsonAdr, _jsonOptions);
+        }
+        catch (OpaEvaluationAbortedException)
+        {
+            return default;
+        }
     }
 
     private nint EvalInternal(ReadOnlySpan<char> inputJson, string? entrypoint = null)
@@ -325,6 +339,9 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
         }
         catch (WasmtimeException ex)
         {
+            if (ex.InnerException is OpaEvaluationAbortedException)
+                throw ex.InnerException;
+            
             _logger.LogError(ex, "Evaluation failed");
             throw new OpaEvaluationException("Evaluation failed", ex);
         }

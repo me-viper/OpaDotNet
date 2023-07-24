@@ -36,9 +36,10 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
     }
 
     [ExcludeFromCodeCoverage]
+    [DoesNotReturn]
     public virtual void Abort(string message)
     {
-        throw new OpaEvaluationException("Aborted: " + message);
+        throw new OpaEvaluationAbortedException("Aborted: " + message);
     }
 
     [ExcludeFromCodeCoverage]
@@ -116,6 +117,9 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
                 "urlquery.encode_object" => UrlQueryEncodeObject(arg1.RawJson, context.JsonSerializerOptions),
                 "io.jwt.decode" => JwtDecode(arg1.As<string>()),
                 "semver.is_valid" => SemverIsValid(arg1.RawJson),
+                "yaml.is_valid" => YamlIsValid(arg1.RawJson),
+                "yaml.marshal" => YamlMarshal(arg1.RawJson),
+                "yaml.unmarshal" => YamlUnmarshal(arg1.As<string>()),
                 _ => throw new NotImplementedException(context.FunctionName),
             };
         }

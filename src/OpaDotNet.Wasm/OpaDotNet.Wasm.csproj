@@ -26,6 +26,8 @@
     <ItemGroup>
         <PackageReference Include="IPNetwork2" />
         <PackageReference Include="JetBrains.Annotations" />
+        <PackageReference Include="JsonPatch.Net" />
+        <PackageReference Include="JsonSchema.Net" />
         <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -40,6 +42,8 @@
         <PackageReference Include="Semver" />
         <PackageReference Include="System.IdentityModel.Tokens.Jwt" />
         <PackageReference Include="Wasmtime" />
+        <PackageReference Include="Yaml2JsonNode" />
+        <PackageReference Include="YamlDotNet" />
     </ItemGroup>
 
 </Project>
