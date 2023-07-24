@@ -2,9 +2,9 @@
 
 public sealed class OpaBundleEvaluatorFactory : OpaEvaluatorFactory
 {
-    private readonly OpaPolicy _policy;
+    private readonly Func<IOpaEvaluator> _factory;
 
-    private readonly WasmPolicyEngineOptions _options;
+    private readonly Action _disposer;
 
     public OpaBundleEvaluatorFactory(
         Stream bundleStream,
@@ -14,14 +14,66 @@ public sealed class OpaBundleEvaluatorFactory : OpaEvaluatorFactory
     {
         ArgumentNullException.ThrowIfNull(bundleStream);
 
-        _options = options ?? WasmPolicyEngineOptions.Default;
+        options ??= WasmPolicyEngineOptions.Default;
+
+        (_factory, _disposer) = string.IsNullOrWhiteSpace(options.CachePath)
+            ? InMemoryFactory(bundleStream, options)
+            : StreamFactory(bundleStream, options);
+    }
+
+    private (Func<IOpaEvaluator>, Action) InMemoryFactory(Stream bundleStream, WasmPolicyEngineOptions options)
+    {
+        OpaPolicy policy;
 
         try
         {
-            _policy = TarGzHelper.ReadBundle(bundleStream);
+            policy = TarGzHelper.ReadBundle(bundleStream);
 
-            if (_policy == null)
+            if (policy == null)
                 throw new OpaRuntimeException("Failed to unpack policy bundle");
+        }
+        catch (OpaRuntimeException)
+        {
+            throw;
+        }
+        catch (Exception ex)
+        {
+            throw new OpaRuntimeException("Failed to unpack policy bundle", ex);
+        }
+
+        IOpaEvaluator Factory() => Create(policy.Policy.Span, policy.Data.Span, options);
+
+        return (Factory, () => { });
+    }
+
+    private (Func<IOpaEvaluator>, Action) StreamFactory(Stream bundleStream, WasmPolicyEngineOptions options)
+    {
+        try
+        {
+            var di = new DirectoryInfo(options.CachePath!);
+
+            if (!di.Exists)
+                throw new DirectoryNotFoundException($"Directory {di.FullName} was not found");
+
+            var path = TarGzHelper.UnpackBundle(bundleStream, di);
+
+            var policyFile = new FileInfo(Path.Combine(path.FullName, "policy.wasm"));
+
+            if (!policyFile.Exists)
+                throw new OpaRuntimeException("Bundle does not contain policy.wasm file");
+
+            var dataFile = new FileInfo(Path.Combine(path.FullName, "data.json"));
+
+            IOpaEvaluator Factory()
+            {
+                using var pfs = policyFile.OpenRead();
+                using var dfs = dataFile.Exists ? dataFile.OpenRead() : null;
+                return Create(pfs, dfs, options);
+            }
+
+            void Disposer() => path.Delete(true);
+
+            return (Factory, Disposer);
         }
         catch (OpaRuntimeException)
         {
@@ -33,8 +85,15 @@ public sealed class OpaBundleEvaluatorFactory : OpaEvaluatorFactory
         }
     }
 
+    protected override void Dispose(bool disposing)
+    {
+        _disposer();
+        base.Dispose(disposing);
+    }
+
     public override IOpaEvaluator Create()
     {
-        return Create(_policy, _options);
+        ThrowIfDisposed();
+        return _factory();
     }
 }

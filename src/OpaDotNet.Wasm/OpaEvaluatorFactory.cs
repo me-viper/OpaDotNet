@@ -1,14 +1,18 @@
-﻿using JetBrains.Annotations;
+﻿using System.Diagnostics.CodeAnalysis;
+
+using JetBrains.Annotations;
 
 using Wasmtime;
 
 namespace OpaDotNet.Wasm;
 
-public abstract class OpaEvaluatorFactory
+public abstract class OpaEvaluatorFactory : IDisposable
 {
     private readonly ILoggerFactory _loggerFactory;
 
     private readonly Func<IOpaImportsAbi> _importsAbiFactory;
+
+    private bool _disposed;
 
     protected OpaEvaluatorFactory(Func<IOpaImportsAbi>? importsAbiFactory, ILoggerFactory? loggerFactory)
     {
@@ -33,7 +37,8 @@ public abstract class OpaEvaluatorFactory
         Func<IOpaImportsAbi>? importsAbiFactory = null,
         ILoggerFactory? loggerFactory = null)
     {
-        return new OpaBundleEvaluatorFactory(policyBundle, options, importsAbiFactory, loggerFactory).Create();
+        using var result = new OpaBundleEvaluatorFactory(policyBundle, options, importsAbiFactory, loggerFactory);
+        return result.Create();
     }
 
     /// <summary>
@@ -53,23 +58,45 @@ public abstract class OpaEvaluatorFactory
         Func<IOpaImportsAbi>? importsAbiFactory = null,
         ILoggerFactory? loggerFactory = null)
     {
-        return new OpaWasmEvaluatorFactory(policyWasm, options, importsAbiFactory, loggerFactory).Create();
+        using var result = new OpaWasmEvaluatorFactory(policyWasm, options, importsAbiFactory, loggerFactory);
+        return result.Create();
     }
 
     [PublicAPI]
     public abstract IOpaEvaluator Create();
 
-    private protected IOpaEvaluator Create(
-        OpaPolicy policy,
-        WasmPolicyEngineOptions? options = null)
+    public void Dispose()
     {
-        options ??= WasmPolicyEngineOptions.Default;
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    [PublicAPI]
+    protected virtual void Dispose(bool disposing)
+    {
+        _disposed = true;
+    }
+
+    [ExcludeFromCodeCoverage]
+    protected void ThrowIfDisposed()
+    {
+        if (_disposed)
+            throw new ObjectDisposedException(GetType().ToString());
+    }
+
+    private protected IOpaEvaluator Create(
+        Stream policy,
+        Stream? data,
+        WasmPolicyEngineOptions options)
+    {
+        ArgumentNullException.ThrowIfNull(policy);
+        ArgumentNullException.ThrowIfNull(options);
 
         var engine = new Engine();
         var linker = new Linker(engine);
         var store = new Store(engine);
         var memory = new Memory(store, options.MinMemoryPages, options.MaxMemoryPages);
-        var module = Module.FromBytes(engine, "policy", policy.Policy.Span);
+        var module = Module.FromStream(engine, "policy", policy);
 
         var config = new WasmPolicyEngineConfiguration
         {
@@ -85,8 +112,41 @@ public abstract class OpaEvaluatorFactory
 
         var result = new WasmOpaEvaluator(config);
 
-        if (policy.Data != null)
-            result.SetDataFromBytes(policy.Data.Value.Span);
+        if (data != null)
+            result.SetDataFromStream(data);
+
+        return result;
+    }
+
+    private protected IOpaEvaluator Create(
+        ReadOnlySpan<byte> policy,
+        ReadOnlySpan<byte> data,
+        WasmPolicyEngineOptions options)
+    {
+        ArgumentNullException.ThrowIfNull(options);
+
+        var engine = new Engine();
+        var linker = new Linker(engine);
+        var store = new Store(engine);
+        var memory = new Memory(store, options.MinMemoryPages, options.MaxMemoryPages);
+        var module = Module.FromBytes(engine, "policy", policy);
+
+        var config = new WasmPolicyEngineConfiguration
+        {
+            Engine = engine,
+            Linker = linker,
+            Store = store,
+            Memory = memory,
+            Module = module,
+            Imports = _importsAbiFactory(),
+            Logger = _loggerFactory.CreateLogger<WasmOpaEvaluator>(),
+            Options = options,
+        };
+
+        var result = new WasmOpaEvaluator(config);
+
+        if (!data.IsEmpty)
+            result.SetDataFromBytes(data);
 
         return result;
     }

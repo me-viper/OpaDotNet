@@ -7,13 +7,15 @@ internal static class TarGzHelper
 {
     public static OpaPolicy ReadBundle(Stream archive)
     {
+        ArgumentNullException.ThrowIfNull(archive);
+
         using var gzip = new GZipStream(archive, CompressionMode.Decompress);
         using var ms = new MemoryStream();
 
         gzip.CopyTo(ms);
         ms.Seek(0, SeekOrigin.Begin);
 
-        var tr = new TarReader(ms);
+        using var tr = new TarReader(ms);
 
         static Memory<byte> ReadEntry(TarEntry entry)
         {
@@ -44,7 +46,33 @@ internal static class TarGzHelper
         if (policy == null)
             throw new OpaRuntimeException("Bundle does not contain policy.wasm file");
 
-        return new(policy.Value, data);
+        return new(policy.Value, data ?? Memory<byte>.Empty);
+    }
+
+    public static DirectoryInfo UnpackBundle(Stream archive, DirectoryInfo basePath)
+    {
+        ArgumentNullException.ThrowIfNull(archive);
+        ArgumentNullException.ThrowIfNull(basePath);
+
+        using var gzip = new GZipStream(archive, CompressionMode.Decompress);
+        using var tr = new TarReader(gzip);
+
+        var result = new DirectoryInfo(Path.Combine(basePath.FullName, Guid.NewGuid().ToString()));
+        result.Create();
+
+        while (tr.GetNextEntry() is { } entry)
+        {
+            if (entry.DataStream == null || entry.EntryType != TarEntryType.RegularFile)
+                continue;
+
+            // Do we care about other files?
+            if (entry.Name.IndexOf('\\') > 0)
+                continue;
+
+            entry.ExtractToFile(Path.Combine(result.FullName, entry.Name.Trim('/')), true);
+        }
+
+        return result;
     }
 
     // public static async Task<OpaPolicy> ReadBundleAsync(

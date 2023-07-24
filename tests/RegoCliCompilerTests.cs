@@ -166,10 +166,103 @@ public class RegoCliCompilerTests
         Assert.True(Directory.Exists(di.FullName));
 
         var files = Directory.GetFiles(di.FullName);
-        Assert.Collection(
-            files,
-            p => Assert.EndsWith("tar.gz", p, StringComparison.Ordinal),
-            p => Assert.EndsWith("json", p, StringComparison.Ordinal)
-            );
+
+        Assert.Equal(2, files.Length);
+        Assert.Contains(files, p => p.EndsWith("tar.gz"));
+        Assert.Contains(files, p => p.EndsWith("json"));
+    }
+
+    [Fact]
+    public Task StreamFileBundle()
+    {
+        var di = new DirectoryInfo("cache");
+
+        if (di.Exists)
+            di.Delete(true);
+
+        di.Create();
+
+        var path = Path.Combine("TestData", "compile-bundle", "bundle.tar.gz");
+
+        var opts = new WasmPolicyEngineOptions
+        {
+            CachePath = di.FullName,
+        };
+
+        var factory = new OpaBundleEvaluatorFactory(File.OpenRead(path), opts);
+
+        var evaluator1 = factory.Create();
+        var input1 = new { message = "world" };
+        var test1Result = evaluator1.EvaluatePredicate(input1, "test1/hello");
+
+        Assert.True(test1Result.Result);
+
+        var evaluator2 = factory.Create();
+        var input2 = new { message = "world" };
+        var test2Result = evaluator2.EvaluatePredicate(input2, "test1/hello");
+
+        Assert.True(test2Result.Result);
+
+        var cache = di.GetDirectories();
+        Assert.Single(cache);
+
+        var files = cache[0].GetFiles();
+
+        Assert.Contains(files, p => string.Equals(p.Name, "policy.wasm", StringComparison.Ordinal));
+        Assert.Contains(files, p => string.Equals(p.Name, "data.json", StringComparison.Ordinal));
+
+        factory.Dispose();
+
+        Assert.False(Directory.Exists(cache[0].FullName));
+
+        return Task.CompletedTask;
+    }
+
+    [Fact]
+    public Task StreamFileWasm()
+    {
+        var di = new DirectoryInfo("cache");
+
+        if (di.Exists)
+            di.Delete(true);
+
+        di.Create();
+
+        var policyPath = Path.Combine("TestData", "compile-bundle", "policy.wasm");
+        var dataPath = Path.Combine("TestData", "compile-bundle", "data.json");
+
+        var opts = new WasmPolicyEngineOptions
+        {
+            CachePath = di.FullName,
+        };
+
+        var factory = new OpaWasmEvaluatorFactory(File.OpenRead(policyPath), opts);
+
+        var evaluator1 = factory.Create();
+        evaluator1.SetDataFromStream(File.OpenRead(dataPath));
+        var input1 = new { message = "world" };
+        var test1Result = evaluator1.EvaluatePredicate(input1, "test1/hello");
+
+        Assert.True(test1Result.Result);
+
+        var evaluator2 = factory.Create();
+        evaluator2.SetDataFromStream(File.OpenRead(dataPath));
+        var input2 = new { message = "world" };
+        var test2Result = evaluator2.EvaluatePredicate(input2, "test1/hello");
+
+        Assert.True(test2Result.Result);
+
+        var cache = di.GetDirectories();
+        Assert.Single(cache);
+
+        var files = cache[0].GetFiles();
+
+        Assert.Contains(files, p => string.Equals(p.Name, "policy.wasm", StringComparison.Ordinal));
+
+        factory.Dispose();
+
+        Assert.False(Directory.Exists(cache[0].FullName));
+
+        return Task.CompletedTask;
     }
 }

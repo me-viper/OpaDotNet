@@ -6,13 +6,18 @@ OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.PreserveBuildArtifacts.get -> 
 OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.PreserveBuildArtifacts.set -> void
 OpaDotNet.Wasm.OpaBundleEvaluatorFactory
 OpaDotNet.Wasm.OpaBundleEvaluatorFactory.OpaBundleEvaluatorFactory(System.IO.Stream! bundleStream, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null, System.Func<OpaDotNet.Wasm.IOpaImportsAbi!>? importsAbiFactory = null, Microsoft.Extensions.Logging.ILoggerFactory? loggerFactory = null) -> void
+OpaDotNet.Wasm.OpaEvaluatorFactory.Dispose() -> void
 OpaDotNet.Wasm.OpaEvaluatorFactory.OpaEvaluatorFactory(System.Func<OpaDotNet.Wasm.IOpaImportsAbi!>? importsAbiFactory, Microsoft.Extensions.Logging.ILoggerFactory? loggerFactory) -> void
+OpaDotNet.Wasm.OpaEvaluatorFactory.ThrowIfDisposed() -> void
 OpaDotNet.Wasm.OpaWasmEvaluatorFactory
 OpaDotNet.Wasm.OpaWasmEvaluatorFactory.OpaWasmEvaluatorFactory(System.IO.Stream! policyWasm, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null, System.Func<OpaDotNet.Wasm.IOpaImportsAbi!>? importsAbiFactory = null, Microsoft.Extensions.Logging.ILoggerFactory? loggerFactory = null) -> void
 OpaDotNet.Wasm.RegoValueFormat
 OpaDotNet.Wasm.RegoValueFormat.Json = 0 -> OpaDotNet.Wasm.RegoValueFormat
 OpaDotNet.Wasm.RegoValueFormat.Value = 1 -> OpaDotNet.Wasm.RegoValueFormat
+OpaDotNet.Wasm.WasmPolicyEngineOptions.CachePath.get -> string?
+OpaDotNet.Wasm.WasmPolicyEngineOptions.CachePath.init -> void
 override OpaDotNet.Wasm.OpaBundleEvaluatorFactory.Create() -> OpaDotNet.Wasm.IOpaEvaluator!
 override OpaDotNet.Wasm.OpaWasmEvaluatorFactory.Create() -> OpaDotNet.Wasm.IOpaEvaluator!
 static OpaDotNet.Wasm.OpaEvaluatorFactory.CreateFromBundle(System.IO.Stream! policyBundle, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null, System.Func<OpaDotNet.Wasm.IOpaImportsAbi!>? importsAbiFactory = null, Microsoft.Extensions.Logging.ILoggerFactory? loggerFactory = null) -> OpaDotNet.Wasm.IOpaEvaluator!
 static OpaDotNet.Wasm.OpaEvaluatorFactory.CreateFromWasm(System.IO.Stream! policyWasm, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null, System.Func<OpaDotNet.Wasm.IOpaImportsAbi!>? importsAbiFactory = null, Microsoft.Extensions.Logging.ILoggerFactory? loggerFactory = null) -> OpaDotNet.Wasm.IOpaEvaluator!
+virtual OpaDotNet.Wasm.OpaEvaluatorFactory.Dispose(bool disposing) -> void

@@ -14,7 +14,7 @@ public class RegoCliCompilerOptions
     /// Path compiler will use to store intermediate compilation artifacts.
     /// </summary>
     /// <remarks>
-    /// Directory should exist and requires write permissions.
+    /// Directory must exist and requires write permissions.
     /// </remarks>
     public string? OutputPath { get; set; }
 

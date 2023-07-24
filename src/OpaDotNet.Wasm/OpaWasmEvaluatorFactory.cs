@@ -2,9 +2,9 @@
 
 public sealed class OpaWasmEvaluatorFactory : OpaEvaluatorFactory
 {
-    private readonly OpaPolicy _policy;
+    private readonly Func<IOpaEvaluator> _factory;
 
-    private readonly WasmPolicyEngineOptions _options;
+    private readonly Action _disposer;
 
     public OpaWasmEvaluatorFactory(
         Stream policyWasm,
@@ -14,19 +14,54 @@ public sealed class OpaWasmEvaluatorFactory : OpaEvaluatorFactory
     {
         ArgumentNullException.ThrowIfNull(policyWasm);
 
-        _options = options ?? WasmPolicyEngineOptions.Default;
+        options ??= WasmPolicyEngineOptions.Default;
 
-        var buffer = new byte[policyWasm.Length];
-        var bytesRead = policyWasm.Read(buffer);
+        if (string.IsNullOrWhiteSpace(options.CachePath))
+        {
+            var buffer = new byte[policyWasm.Length];
+            var bytesRead = policyWasm.Read(buffer);
 
-        if (bytesRead < policyWasm.Length)
-            throw new OpaRuntimeException("Failed to read wasm policy stream");
+            if (bytesRead < policyWasm.Length)
+                throw new OpaRuntimeException("Failed to read wasm policy stream");
 
-        _policy = new(buffer);
+            _factory = () => Create(buffer, Memory<byte>.Empty.Span, options);
+            _disposer = () => { };
+        }
+        else
+        {
+            var di = new DirectoryInfo(options.CachePath!);
+
+            if (!di.Exists)
+                throw new DirectoryNotFoundException($"Directory {di.FullName} was not found");
+
+            var cache = new DirectoryInfo(Path.Combine(di.FullName, Guid.NewGuid().ToString()));
+            cache.Create();
+
+            using var fs = new FileStream(Path.Combine(cache.FullName, "policy.wasm"), FileMode.CreateNew);
+            policyWasm.CopyTo(fs);
+            fs.Flush();
+
+            var policyFilePath = fs.Name;
+
+            _factory = () =>
+            {
+                using var policyFs = File.OpenRead(policyFilePath);
+                return Create(policyFs, null, options);
+            };
+
+            _disposer = () => cache.Delete(true);
+        }
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        _disposer();
+        base.Dispose(disposing);
     }
 
     public override IOpaEvaluator Create()
     {
-        return Create(_policy, _options);
+        ThrowIfDisposed();
+        return _factory();
     }
 }

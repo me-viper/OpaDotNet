@@ -11,7 +11,7 @@ public class WasmPolicyEngineOptions
 
     private readonly JsonSerializerOptions _jsonSerializationOptions = new()
     {
-        Converters = { RegoSetJsonConverterFactory.Instance }
+        Converters = { RegoSetJsonConverterFactory.Instance },
     };
 
     /// <summary>
@@ -29,6 +29,14 @@ public class WasmPolicyEngineOptions
     /// Can be useful for cases when you want evaluator to use lower ABI version than policy supports. 
     /// </summary>
     public Version? MaxAbiVersion { get; init; }
+
+    /// <summary>
+    /// Directory used to keep unpacked policies. If <c>null</c> policies will be kept in memory.
+    /// </summary>
+    /// <remarks>
+    /// Directory must exist and requires write permissions.
+    /// </remarks>
+    public string? CachePath { get; init; }
 
     /// <summary>
     /// Json serialization options.
