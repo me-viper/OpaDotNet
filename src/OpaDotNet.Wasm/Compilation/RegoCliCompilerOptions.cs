@@ -27,4 +27,9 @@ public class RegoCliCompilerOptions
     /// OPA capabilities version.
     /// </summary>
     public string? CapabilitiesVersion { get; set; }
+
+    /// <summary>
+    /// If <c>true</c> compiler will preserve intermediate compilation artifacts; otherwise they will be deleted.
+    /// </summary>
+    public bool PreserveBuildArtifacts { get; set; }
 }

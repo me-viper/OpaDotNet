@@ -13,7 +13,7 @@ namespace OpaDotNet.Wasm.Compilation;
 public class RegoCliCompiler : IRegoCompiler
 {
     private static IOptions<RegoCliCompilerOptions> Default { get; } = new OptionsWrapper<RegoCliCompilerOptions>(new());
-    
+
     private readonly ILogger _logger;
 
     private readonly IOptions<RegoCliCompilerOptions> _options;
@@ -46,7 +46,7 @@ public class RegoCliCompiler : IRegoCompiler
             entrypointArg = string.Join(" ", entrypoints.Select(p => $"-e {p}"));
 
         var outputPath = _options.Value.OutputPath ?? bundleDirectory.FullName;
-        
+
         var capabilitiesArg = string.Empty;
         FileInfo? capsFile = null;
 
@@ -88,7 +88,8 @@ public class RegoCliCompiler : IRegoCompiler
         }
         finally
         {
-            capsFile?.Delete();
+            if (!_options.Value.PreserveBuildArtifacts)
+                capsFile?.Delete();
         }
     }
 
@@ -315,7 +316,10 @@ public class RegoCliCompiler : IRegoCompiler
         }
 
         _logger.LogInformation("Compilation succeeded");
-        return new DeleteOnCloseFileStream(outputFileName, FileMode.Open);
+
+        return _options.Value.PreserveBuildArtifacts
+            ? new FileStream(outputFileName, FileMode.Open)
+            : new DeleteOnCloseFileStream(outputFileName, FileMode.Open);
     }
 
     private async Task<StringBuilder> RunProcess(

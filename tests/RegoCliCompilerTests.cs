@@ -11,15 +11,15 @@ namespace OpaDotNet.Tests;
 public class RegoCliCompilerTests
 {
     private readonly ILoggerFactory _loggerFactory;
-    
+
     private readonly DirectoryInfo _outputPath;
 
     public RegoCliCompilerTests(ITestOutputHelper output)
     {
         _loggerFactory = new LoggerFactory(new[] { new XunitLoggerProvider(output) });
-        
+
         _outputPath = new DirectoryInfo("./build");
-        
+
         if (!_outputPath.Exists)
             _outputPath.Create();
     }
@@ -85,7 +85,7 @@ public class RegoCliCompilerTests
 
         Assert.NotNull(policy);
     }
-    
+
     [Fact]
     public async Task Compile()
     {
@@ -129,5 +129,47 @@ public class RegoCliCompilerTests
 
         Assert.True(test2Result.Result);
         return Task.CompletedTask;
+    }
+
+    [Fact]
+    public async Task PreserveBuildArtifacts()
+    {
+        var di = new DirectoryInfo("buildArtifacts");
+
+        if (di.Exists)
+            di.Delete(true);
+
+        di.Create();
+
+        var opts = new RegoCliCompilerOptions
+        {
+            CapabilitiesVersion = "v0.53.1",
+            PreserveBuildArtifacts = true,
+            OutputPath = di.FullName,
+        };
+
+        var compiler = new RegoCliCompiler(
+            new OptionsWrapper<RegoCliCompilerOptions>(opts),
+            _loggerFactory.CreateLogger<RegoCliCompiler>()
+            );
+
+        var policy = await compiler.CompileBundle(
+            Path.Combine("TestData", "capabilities"),
+            new[] { "capabilities/f" },
+            Path.Combine("TestData", "capabilities", "capabilities.json")
+            );
+
+        Assert.IsType<FileStream>(policy);
+
+        await policy.DisposeAsync();
+
+        Assert.True(Directory.Exists(di.FullName));
+
+        var files = Directory.GetFiles(di.FullName);
+        Assert.Collection(
+            files,
+            p => Assert.EndsWith("tar.gz", p, StringComparison.Ordinal),
+            p => Assert.EndsWith("json", p, StringComparison.Ordinal)
+            );
     }
 }
