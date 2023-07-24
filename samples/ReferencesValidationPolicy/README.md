@@ -20,7 +20,7 @@ All good!
 Run:
 
 ```sh
-dotnet run ./data/good.csproj
+dotnet run ./data/bad.csproj
 ```
 
 Output:
