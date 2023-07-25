@@ -124,8 +124,7 @@ You can use SDK to do compilation for you.
 using OpaDotNet.Wasm;
 using OpaDotNet.Wasm.Compilation;
 
-var options = new OptionsWrapper<RegoCliCompilerOptions>(new RegoCliCompilerOptions());
-var compiler = new RegoCliCompiler(options);
+var compiler = new RegoCliCompiler();
 var policyStream = await compiler.CompileFile("example.rego", new[] { "example/hello" });
 
 // Use compiled policy.
