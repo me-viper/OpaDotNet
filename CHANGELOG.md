@@ -1,3 +1,33 @@
+# OpaDotNet.Wasm v1.2.0 (2023-07-25)
+
+### Bug Fixes
+
+* Fixes [#13](https://github.com/me-viper/OpaDotNet/issues/13). Handle empty predicate evaluation
+* Fixes [#14](https://github.com/me-viper/OpaDotNet/issues/14). Respect OutputPath when merging capabilities
+
+
+### Features
+
+* [#1](https://github.com/me-viper/OpaDotNet/issues/1). Implement missing SDKs:
+  * json.patch
+  * json.match_schema
+  * json.verify_schema
+  * regex.template_match
+  * semver.is_valid
+  * semver.compare
+  * yaml.is_valid
+  * yaml.marshal
+  * yaml.unmarshal
+* [#12](https://github.com/me-viper/OpaDotNet/issues/12). Factory implementations suitable for creating multiple evaluator instances
+* [#16](https://github.com/me-viper/OpaDotNet/issues/16). Provide option to preserve build artifacts
+
+
+### BREAKING CHANGES
+
+* DefaultOpaImportsAbi.ValueCache property is no longer available. Use DefaultOpaImportsAbi.CacheGetOrAddValue instead
+* OpaEvaluatorFactory have been redesigned (see [#12](https://github.com/me-viper/OpaDotNet/issues/12))
+
+
 # OpaDotNet.Wasm [v1.1.0](https://github.com/me-viper/OpaDotNet/compare/v1.0.0...v1.1.0) (2023-07-13)
 
 
