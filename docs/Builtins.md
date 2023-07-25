@@ -32,9 +32,11 @@ Bellow is the list of supported OPA built-in functions as for version v0.53.1 al
 
 | Function   | Status             | OpaDotNet version  |
 |------------|--------------------|--------------------|
-| [json.match_schema](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-object-jsonmatch_schema) | - | - |
-| [json.patch](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-object-jsonpatch) | - | - |
-| [json.verify_schema](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-object-jsonverify_schema) | - | - |
+| [json.match_schema](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-object-jsonmatch_schema) | :white_check_mark: | v1.2.0 (*) |
+| [json.patch](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-object-jsonpatch) | :white_check_mark: | v1.2.0 |
+| [json.verify_schema](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-object-jsonverify_schema) | :white_check_mark: | v1.2.0 |
+
+\* Due to differences in JSON Schema libraries reported schema validation errors might differ from native.
 
 ## Types
 
@@ -50,7 +52,7 @@ Bellow is the list of supported OPA built-in functions as for version v0.53.1 al
 | [regex.globs_match](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-regex-regexglobs_match) | - | - |
 | [regex.replace](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-regex-regexreplace) | :white_check_mark: | v1.1.0 |
 | [regex.split](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-regex-regexsplit) | :white_check_mark: | v1.1.0 |
-| [regex.template_match](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-regex-regextemplate_match) | - | - |
+| [regex.template_match](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-regex-regextemplate_match) | :white_check_mark: | v1.2.0 |
 
 ## Glob
 
@@ -167,8 +169,8 @@ Bellow is the list of supported OPA built-in functions as for version v0.53.1 al
 
 | Function   | Status             | OpaDotNet version  |
 |------------|--------------------|--------------------|
-| [semver.compare](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-semver-semvercompare) | - | - |
-| [semver.is_valid](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-semver-semveris_valid) | - | - |
+| [semver.compare](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-semver-semvercompare) | :white_check_mark: | v1.2.0 |
+| [semver.is_valid](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-semver-semveris_valid) | :white_check_mark: | v1.2.0 |
 
 ## Rego
 
@@ -189,3 +191,11 @@ Bellow is the list of supported OPA built-in functions as for version v0.53.1 al
 | Function   | Status             | OpaDotNet version  |
 |------------|--------------------|--------------------|
 | [trace](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tracing-tr)  | :white_check_mark: | v1.1.0 |
+
+## Yaml
+
+| Function        | Status             | OpaDotNet version  |
+|-----------------|--------------------|--------------------|
+| yaml.is_valid   | :white_check_mark: | v1.2.0 |
+| yaml.marshal    | :white_check_mark: | v1.2.0 |
+| yaml.unmarshal  | :white_check_mark: | v1.2.0 |
