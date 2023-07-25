@@ -34,6 +34,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
         _valueCache.Clear();
     }
 
+    /// <inheritdoc />
     [ExcludeFromCodeCoverage]
     [DoesNotReturn]
     public virtual void Abort(string message)
@@ -41,6 +42,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
         throw new OpaEvaluationAbortedException("Aborted: " + message);
     }
 
+    /// <inheritdoc />
     [ExcludeFromCodeCoverage]
     public virtual void PrintLn(string message)
     {
@@ -67,6 +69,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
         return false;
     }
 
+    /// <inheritdoc />
     public virtual object? Func(BuiltinContext context)
     {
         try
@@ -87,6 +90,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
         }
     }
 
+    /// <inheritdoc />
     public virtual object? Func(BuiltinContext context, BuiltinArg arg1)
     {
         try
@@ -132,6 +136,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
         }
     }
 
+    /// <inheritdoc />
     public virtual object? Func(BuiltinContext context, BuiltinArg arg1, BuiltinArg arg2)
     {
         try
@@ -179,6 +184,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
         }
     }
 
+    /// <inheritdoc />
     public virtual object? Func(BuiltinContext context, BuiltinArg arg1, BuiltinArg arg2, BuiltinArg arg3)
     {
         try
@@ -201,6 +207,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
         }
     }
 
+    /// <inheritdoc />
     public virtual object? Func(BuiltinContext context, BuiltinArg arg1, BuiltinArg arg2, BuiltinArg arg3, BuiltinArg arg4)
     {
         try
