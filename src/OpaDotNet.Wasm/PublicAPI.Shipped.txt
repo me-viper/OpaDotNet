@@ -1,5 +1,8 @@
 #nullable enable
+abstract OpaDotNet.Wasm.OpaEvaluatorFactory.Create() -> OpaDotNet.Wasm.IOpaEvaluator!
 OpaDotNet.Wasm.BuiltinArg
+OpaDotNet.Wasm.BuiltinArg.As<T>(OpaDotNet.Wasm.RegoValueFormat format = OpaDotNet.Wasm.RegoValueFormat.Json) -> T
+OpaDotNet.Wasm.BuiltinArg.AsOrNull<T>(System.Func<T>? defaultValue = null, OpaDotNet.Wasm.RegoValueFormat format = OpaDotNet.Wasm.RegoValueFormat.Json) -> T?
 OpaDotNet.Wasm.BuiltinArg.Raw.get -> System.Text.Json.Nodes.JsonNode?
 OpaDotNet.Wasm.BuiltinArg.RawJson.get -> System.Text.Json.Nodes.JsonNode?
 OpaDotNet.Wasm.BuiltinContext
@@ -22,12 +25,15 @@ OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.OpaToolPath.get -> string?
 OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.OpaToolPath.set -> void
 OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.OutputPath.get -> string?
 OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.OutputPath.set -> void
+OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.PreserveBuildArtifacts.get -> bool
+OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.PreserveBuildArtifacts.set -> void
 OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.RegoCliCompilerOptions() -> void
 OpaDotNet.Wasm.Compilation.RegoCompilationException
 OpaDotNet.Wasm.Compilation.RegoCompilationException.RegoCompilationException(string! sourceFile, string? message, System.Exception? innerException) -> void
 OpaDotNet.Wasm.Compilation.RegoCompilationException.RegoCompilationException(string! sourceFile, string? message) -> void
 OpaDotNet.Wasm.Compilation.RegoCompilationException.SourceFile.get -> string!
 OpaDotNet.Wasm.DefaultOpaImportsAbi
+OpaDotNet.Wasm.DefaultOpaImportsAbi.CacheGetOrAddValue<T>(string! key, System.Func<T>! valueFactory) -> T
 OpaDotNet.Wasm.DefaultOpaImportsAbi.DefaultOpaImportsAbi() -> void
 OpaDotNet.Wasm.ExportResolutionException
 OpaDotNet.Wasm.ExportResolutionException.AbiVersion.get -> System.Version!
@@ -56,18 +62,30 @@ OpaDotNet.Wasm.IOpaImportsAbi.Func(OpaDotNet.Wasm.BuiltinContext! context, OpaDo
 OpaDotNet.Wasm.IOpaImportsAbi.Func(OpaDotNet.Wasm.BuiltinContext! context) -> object?
 OpaDotNet.Wasm.IOpaImportsAbi.PrintLn(string! message) -> void
 OpaDotNet.Wasm.IOpaImportsAbi.Reset() -> void
+OpaDotNet.Wasm.OpaBundleEvaluatorFactory
+OpaDotNet.Wasm.OpaBundleEvaluatorFactory.OpaBundleEvaluatorFactory(System.IO.Stream! bundleStream, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null, System.Func<OpaDotNet.Wasm.IOpaImportsAbi!>? importsAbiFactory = null, Microsoft.Extensions.Logging.ILoggerFactory? loggerFactory = null) -> void
 OpaDotNet.Wasm.OpaEvaluationException
 OpaDotNet.Wasm.OpaEvaluationException.OpaEvaluationException(string? message, System.Exception? innerException) -> void
 OpaDotNet.Wasm.OpaEvaluationException.OpaEvaluationException(string? message) -> void
 OpaDotNet.Wasm.OpaEvaluatorFactory
+OpaDotNet.Wasm.OpaEvaluatorFactory.Dispose() -> void
+OpaDotNet.Wasm.OpaEvaluatorFactory.OpaEvaluatorFactory(System.Func<OpaDotNet.Wasm.IOpaImportsAbi!>? importsAbiFactory, Microsoft.Extensions.Logging.ILoggerFactory? loggerFactory) -> void
+OpaDotNet.Wasm.OpaEvaluatorFactory.ThrowIfDisposed() -> void
 OpaDotNet.Wasm.OpaRuntimeException
 OpaDotNet.Wasm.OpaRuntimeException.OpaRuntimeException(string? message, System.Exception? innerException) -> void
 OpaDotNet.Wasm.OpaRuntimeException.OpaRuntimeException(string? message) -> void
+OpaDotNet.Wasm.OpaWasmEvaluatorFactory
+OpaDotNet.Wasm.OpaWasmEvaluatorFactory.OpaWasmEvaluatorFactory(System.IO.Stream! policyWasm, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null, System.Func<OpaDotNet.Wasm.IOpaImportsAbi!>? importsAbiFactory = null, Microsoft.Extensions.Logging.ILoggerFactory? loggerFactory = null) -> void
 OpaDotNet.Wasm.PolicyEvaluationResult<T>
 OpaDotNet.Wasm.PolicyEvaluationResult<T>.PolicyEvaluationResult() -> void
 OpaDotNet.Wasm.PolicyEvaluationResult<T>.Result.get -> T
 OpaDotNet.Wasm.PolicyEvaluationResult<T>.Result.set -> void
+OpaDotNet.Wasm.RegoValueFormat
+OpaDotNet.Wasm.RegoValueFormat.Json = 0 -> OpaDotNet.Wasm.RegoValueFormat
+OpaDotNet.Wasm.RegoValueFormat.Value = 1 -> OpaDotNet.Wasm.RegoValueFormat
 OpaDotNet.Wasm.WasmPolicyEngineOptions
+OpaDotNet.Wasm.WasmPolicyEngineOptions.CachePath.get -> string?
+OpaDotNet.Wasm.WasmPolicyEngineOptions.CachePath.init -> void
 OpaDotNet.Wasm.WasmPolicyEngineOptions.MaxAbiVersion.get -> System.Version?
 OpaDotNet.Wasm.WasmPolicyEngineOptions.MaxAbiVersion.init -> void
 OpaDotNet.Wasm.WasmPolicyEngineOptions.MaxMemoryPages.get -> long?
@@ -77,6 +95,10 @@ OpaDotNet.Wasm.WasmPolicyEngineOptions.MinMemoryPages.init -> void
 OpaDotNet.Wasm.WasmPolicyEngineOptions.SerializationOptions.get -> System.Text.Json.JsonSerializerOptions!
 OpaDotNet.Wasm.WasmPolicyEngineOptions.SerializationOptions.init -> void
 OpaDotNet.Wasm.WasmPolicyEngineOptions.WasmPolicyEngineOptions() -> void
+override OpaDotNet.Wasm.OpaBundleEvaluatorFactory.Create() -> OpaDotNet.Wasm.IOpaEvaluator!
+override OpaDotNet.Wasm.OpaWasmEvaluatorFactory.Create() -> OpaDotNet.Wasm.IOpaEvaluator!
+static OpaDotNet.Wasm.OpaEvaluatorFactory.CreateFromBundle(System.IO.Stream! policyBundle, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null, System.Func<OpaDotNet.Wasm.IOpaImportsAbi!>? importsAbiFactory = null, Microsoft.Extensions.Logging.ILoggerFactory? loggerFactory = null) -> OpaDotNet.Wasm.IOpaEvaluator!
+static OpaDotNet.Wasm.OpaEvaluatorFactory.CreateFromWasm(System.IO.Stream! policyWasm, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null, System.Func<OpaDotNet.Wasm.IOpaImportsAbi!>? importsAbiFactory = null, Microsoft.Extensions.Logging.ILoggerFactory? loggerFactory = null) -> OpaDotNet.Wasm.IOpaEvaluator!
 static OpaDotNet.Wasm.WasmPolicyEngineOptions.Default.get -> OpaDotNet.Wasm.WasmPolicyEngineOptions!
 virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.Abort(string! message) -> void
 virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.Func(OpaDotNet.Wasm.BuiltinContext! context, OpaDotNet.Wasm.BuiltinArg! arg1, OpaDotNet.Wasm.BuiltinArg! arg2, OpaDotNet.Wasm.BuiltinArg! arg3, OpaDotNet.Wasm.BuiltinArg! arg4) -> object?
@@ -91,3 +113,4 @@ virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.PrintLn(string! message) -> void
 virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.Random() -> System.Random!
 virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.Reset() -> void
 virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.Trace(string! message) -> bool
+virtual OpaDotNet.Wasm.OpaEvaluatorFactory.Dispose(bool disposing) -> void
