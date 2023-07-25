@@ -120,6 +120,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
                 "yaml.is_valid" => YamlIsValid(arg1.RawJson),
                 "yaml.marshal" => YamlMarshal(arg1.RawJson),
                 "yaml.unmarshal" => YamlUnmarshal(arg1.As<string>()),
+                "json.verify_schema" => JsonVerifySchema(arg1.RawJson, out _),
                 _ => throw new NotImplementedException(context.FunctionName),
             };
         }
@@ -165,6 +166,8 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
                 "io.jwt.verify_rs384" => JwtVerifyCert(arg1.As<string>(), arg2.As<string>(), "RS384"),
                 "io.jwt.verify_rs512" => JwtVerifyCert(arg1.As<string>(), arg2.As<string>(), "RS512"),
                 "semver.compare" => SemverCompare(arg1.As<string>(), arg2.As<string>()),
+                "json.patch" => JsonPatch(arg1.RawJson, arg2.RawJson),
+                "json.match_schema" => JsonMatchSchema(arg1.RawJson, arg2.RawJson),
                 _ => throw new NotImplementedException(context.FunctionName),
             };
         }

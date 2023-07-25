@@ -116,7 +116,7 @@ public class SdkBuiltinsTests
     [InlineData("time.weekday(1687527385064073200)", "\"Friday\"")]
     public async Task Time(string func, string expected)
     {
-        var result = await RunTestCase(func, expected, new TimeImports(_output));
+        var result = await RunTestCase(func, expected, false, new TimeImports(_output));
         Assert.True(result.Assert);
     }
 
@@ -127,7 +127,7 @@ public class SdkBuiltinsTests
     [InlineData("""time.parse_duration_ns("1ns")""", "1")]
     public async Task TimeParseDurationNs(string func, string expected)
     {
-        var result = await RunTestCase(func, expected, new TimeImports(_output));
+        var result = await RunTestCase(func, expected, false, new TimeImports(_output));
         Assert.True(result.Assert);
     }
 
@@ -138,7 +138,7 @@ public class SdkBuiltinsTests
     [InlineData("""time.parse_rfc3339_ns("1937-01-01T12:00:27.87+00:20")""", "-1041337172130000000")]
     public async Task TimeParseRfc3339Ns(string func, string expected)
     {
-        var result = await RunTestCase(func, expected, new TimeImports(_output));
+        var result = await RunTestCase(func, expected, false, new TimeImports(_output));
         Assert.True(result.Assert);
     }
 
@@ -262,7 +262,7 @@ net.cidr_contains_matches({["1.1.2.0/24", "foo", 1], "1.1.0.0/16"}, {"x": "1.1.1
         )]
     public async Task NetCidrContainsMatchesObjects(string func, string expected)
     {
-        var result = await RunTestCase(func, expected, new TimeImports(_output));
+        var result = await RunTestCase(func, expected, false, new TimeImports(_output));
         Assert.True(result.Assert);
     }
 
@@ -371,11 +371,11 @@ t2 := net.lookup_ip_addr("bing.com1")
     [InlineData("""regex.template_match("urn:foo.bar.com:{.*}", "urn:foo.com:bar:baz", "{", "}")""", "false")]
     [InlineData("""regex.template_match("urn:foo.bar.com:{.*}", "foobar", "{", "}")""", "false")]
     [InlineData("""regex.template_match("urn:foo.bar.com:{.{1,2}}", "urn:foo.bar.com:aa", "{", "}")""", "true")]
-    [InlineData("""is_null(regex.template_match("urn:foo.bar.com:{.*{}", "", "{", "}"))""", "true")]
+    [InlineData("""regex.template_match("urn:foo.bar.com:{.*{}", "", "{", "}")""", "true", true)]
     [InlineData("""regex.template_match("urn:foo:<.*>", "urn:foo:bar:baz", "<", ">")""", "true")]
-    public async Task RegexTemplateMatch(string func, string expected)
+    public async Task RegexTemplateMatch(string func, string expected, bool fails = false)
     {
-        var result = await RunTestCase(func, expected);
+        var result = await RunTestCase(func, expected, fails);
         Assert.True(result.Assert);
     }
 
@@ -619,14 +619,75 @@ r := opa.runtime()
     [InlineData("""semver.is_valid(1)""", "false")]
     [InlineData("""semver.is_valid(["1.1.12-rc1+foo"])""", "false")]
     [InlineData("""semver.compare("1.1.12-rc1+foo", "1.1.12-rc1+foo")""", "0")]
-    [InlineData("""is_null(semver.compare("1.1.12", "foo"))""", "true")]
-    [InlineData("""is_null(semver.compare("foo", "1.1.12"))""", "true")]
+    [InlineData("""semver.compare("1.1.12", "foo")""", "0", true)]
+    [InlineData("""semver.compare("foo", "1.1.12")""", "0", true)]
     [InlineData("""semver.compare("1.2.12", "1.1.12")""", "1")]
     [InlineData("""semver.compare("1.1.12", "1.2.12")""", "-1")]
-    public async Task Semver(string func, string expected)
+    public async Task Semver(string func, string expected, bool fails = false)
+    {
+        var result = await RunTestCase(func, expected, fails);
+        Assert.True(result.Assert);
+    }
+
+    [Theory]
+    [InlineData("""json.patch({"a": {"foo": 1}}, [{"op": "add", "path": "/a/bar", "value": 2}])""", """{"a": {"foo": 1, "bar": 2}}""")]
+    public async Task JsonPatch(string func, string expected)
     {
         var result = await RunTestCase(func, expected);
         Assert.True(result.Assert);
+    }
+
+    [Theory]
+    [InlineData("""json.verify_schema({})""", "[true,null]")]
+    [InlineData("""json.verify_schema("{}")""", "[true,null]")]
+    [InlineData("""json.verify_schema({"a": {"foo": 1}})""", "[true,null]")]
+    [InlineData("""json.verify_schema({"properties": { "id": { "type": "UNKNOWN" } }, "required": ["id"] })""", """[false,"Could not find appropriate value for UNKNOWN in type SchemaValueType"]""")]
+    public async Task JsonVerifySchema(string func, string expected)
+    {
+        var result = await RunTestCase(func, expected);
+        Assert.True(result.Assert);
+    }
+
+    [Theory]
+    [InlineData("""json.match_schema({}, {})""", "[true,[]]")]
+    [InlineData("""json.match_schema({}, `{"a":"`)""", "[false,[]]", true)]
+    [InlineData("""json.match_schema(`{"a":"`, {})""", "[false,[]]", true)]
+    [InlineData("""json.match_schema({"id":5}, {"properties":{"id":{"type":"integer"}},"required":["id"]})""", "[true,[]]")]
+    [InlineData("""json.match_schema(`{"id":5}`, {"properties":{"id":{"type":"integer"}},"required":["id"]})""", "[true,[]]")]
+    [InlineData("""json.match_schema({"id":"test"}, {"properties":{"id":{"type":"integer"}},"required":["id"]})[0]""", "false")]
+    public async Task JsonMatchSchema(string func, string expected, bool fails = false)
+    {
+        var result = await RunTestCase(func, expected, fails);
+        Assert.True(result.Assert);
+    }
+
+
+    [Fact]
+    public async Task ErrorHandling()
+    {
+        var src = """
+package sdk
+
+import future.keywords.if
+import future.keywords.contains
+
+allow if {
+    io.jwt.verify_hs256("xxxxx", "secret")
+    [_, payload, _] := io.jwt.decode("xxxxx")
+    payload.role == "admin"
+}
+
+reason contains "invalid JWT supplied as input" if {
+    not io.jwt.decode("xxxxx")
+}
+""";
+
+        using var eval = await Build(src, "sdk", new DefaultOpaImportsAbi());
+
+        var result = eval.EvaluateRaw(null, "sdk");
+        var expected = """[{"result":{"reason":["invalid JWT supplied as input"]}}]""";
+
+        Assert.Equal(expected, result);
     }
 
     // ReSharper disable once ClassNeverInstantiated.Local
@@ -637,7 +698,7 @@ r := opa.runtime()
         public JsonNode? Actual { get; [UsedImplicitly] set; }
     }
 
-    private async Task<TestCaseResult> RunTestCase(string actual, string expected, IOpaImportsAbi? imports = null)
+    private async Task<TestCaseResult> RunTestCase(string actual, string expected, bool fails = false, IOpaImportsAbi? imports = null)
     {
         var src = $$"""
 package sdk
@@ -659,6 +720,12 @@ actual := {{actual}}
         _output.WriteLine("");
         _output.WriteLine($"Expected:\n {result.Result.Expected}");
         _output.WriteLine($"Actual:\n {result.Result.Actual}");
+
+        if (fails)
+        {
+            Assert.Null(result.Result.Actual);
+            return new() { Assert = true };
+        }
 
         return result.Result;
     }

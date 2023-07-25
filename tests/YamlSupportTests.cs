@@ -79,7 +79,7 @@ public class YamlSupportTests : IAsyncLifetime
         var result = _engine.EvaluatePredicate<object?>(null, "yaml/support/hasReferenceError");
         Assert.False(result.Result);
     }
-    
+
     [Fact]
     public void IgnoreWarning()
     {
@@ -87,14 +87,14 @@ public class YamlSupportTests : IAsyncLifetime
         var result = _engine.EvaluatePredicate<object?>(null, "yaml/support/hasYAMLWarning");
         Assert.True(result.Result);
     }
-    
+
     [Fact]
     public void Marshal()
     {
         var result = _engine.EvaluateRaw("""[{"foo": [1, 2, 3]}]""", "yaml/support/canMarshalYAML");
         Assert.Equal("""[{"result":[[{"foo":["1","2","3"]}]]}]""", result);
     }
-    
+
     [Fact]
     public void IsValid()
     {

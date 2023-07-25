@@ -2,12 +2,15 @@
 using System.Reflection;
 using System.Text;
 using System.Text.Json.Nodes;
+using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using System.Web;
 
 using JetBrains.Annotations;
 
 using Json.More;
+using Json.Patch;
+using Json.Schema;
 
 using Microsoft.Extensions.Primitives;
 
@@ -285,7 +288,7 @@ public partial class DefaultOpaImportsAbi
 
         return SemVersion.TryParse(v, SemVersionStyles.Strict, out _);
     }
-    
+
     private static bool YamlIsValid(JsonNode? node)
     {
         try
@@ -295,10 +298,10 @@ public partial class DefaultOpaImportsAbi
 
             if (!jv.TryGetValue<string>(out var yaml))
                 return false;
-            
+
             var deserializer = new DeserializerBuilder().Build();
             _ = deserializer.Deserialize<object>(yaml);
-            
+
             return true;
         }
         catch (YamlException)
@@ -306,35 +309,176 @@ public partial class DefaultOpaImportsAbi
             return false;
         }
     }
-    
+
     private static string? YamlMarshal(JsonNode? node)
     {
         var yaml = node?.ToYamlNode();
-        
+
         if (yaml == null)
             return null;
-        
-        var doc = new YamlDocument(yaml); 
+
+        var doc = new YamlDocument(yaml);
         var s = new YamlStream(doc);
         var sb = new StringBuilder();
         using var sw = new StringWriter(sb);
         s.Save(sw);
-        
+
         return sw.ToString();
     }
-    
+
     private object? YamlUnmarshal(string yamlString)
     {
         try
         {
+            if (string.IsNullOrWhiteSpace(yamlString))
+                return null;
+
             var deserializer = new DeserializerBuilder().Build();
             var result = deserializer.Deserialize(new StringReader(yamlString));
             return result?.ToJsonDocument();
         }
         catch (YamlException)
         {
-            Abort("Invalid yaml");
             return null;
         }
+    }
+
+    private static JsonSerializerOptions _patchOptions = new()
+    {
+        PropertyNameCaseInsensitive = true,
+    };
+
+    private static JsonNode? JsonPatch(JsonNode? obj, JsonNode? patches)
+    {
+        if (patches == null)
+            return obj;
+
+        var ops = patches.Deserialize<PatchOperation[]>(_patchOptions);
+
+        if (ops == null)
+            return obj;
+
+        var p = new JsonPatch(ops);
+        var result = p.Apply(obj);
+
+        return result.Result;
+    }
+
+    private static object?[] JsonVerifySchema(JsonNode? schema, out JsonSchema? result)
+    {
+        static object?[] Success() => new object?[] { true, null };
+        static object?[] Fail(string message) => new object?[] { false, message };
+
+        result = null;
+
+        if (schema == null)
+            return Success();
+
+        try
+        {
+            string? schemaString;
+
+            if (schema is JsonValue jv)
+                jv.TryGetValue(out schemaString);
+            else
+                schemaString = schema.ToJsonString();
+
+            if (string.IsNullOrWhiteSpace(schemaString))
+                return Fail("Invalid schema");
+
+            result = JsonSchema.FromText(schemaString);
+
+            return Success();
+        }
+        catch (JsonException ex)
+        {
+            return Fail(ex.Message);
+        }
+    }
+
+    private class JsonSchemaError
+    {
+        [JsonPropertyName("desc")]
+        [UsedImplicitly]
+        public string? Description { get; set; }
+
+        [JsonPropertyName("error")]
+        [UsedImplicitly]
+        public string? Error { get; set; }
+
+        [JsonPropertyName("field")]
+        [UsedImplicitly]
+        public string? Filed { get; set; }
+
+        [JsonPropertyName("type")]
+        [UsedImplicitly]
+        public string? Type { get; set; }
+    }
+
+    private static object?[]? JsonMatchSchema(JsonNode? document, JsonNode? schema)
+    {
+        JsonNode? doc;
+
+        if (document is not JsonValue jv)
+        {
+            if (document is not JsonObject)
+                return null;
+
+            doc = document;
+        }
+        else
+        {
+            if (!jv.TryGetValue<string>(out var s))
+                return null;
+
+            try
+            {
+                doc = JsonNode.Parse(s);
+            }
+            catch (JsonException)
+            {
+                return null;
+            }
+        }
+
+        if (doc == null)
+            return null;
+
+        static object?[] Success() => new object?[] { true, Array.Empty<object>() };
+        static object?[] Fail(params JsonSchemaError[] errors) => new object?[] { false, errors };
+
+        JsonVerifySchema(schema, out var sch);
+
+        if (sch == null)
+            return null;
+
+        var result = sch.Evaluate(document, new() { OutputFormat = OutputFormat.List });
+
+        if (result.IsValid)
+            return Success();
+
+        var errors = new List<JsonSchemaError>();
+
+        foreach (var detail in result.Details)
+        {
+            if (detail.IsValid)
+                continue;
+
+            var e = detail.Errors?.FirstOrDefault();
+
+            if (!detail.HasErrors || e == null)
+                continue;
+
+            var err = new JsonSchemaError
+            {
+                Filed = detail.EvaluationPath.ToString(),
+                Type = e.Value.Key,
+                Error = e.Value.Value,
+            };
+
+            errors.Add(err);
+        }
+
+        return Fail(errors.ToArray());
     }
 }

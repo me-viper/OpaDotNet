@@ -163,6 +163,9 @@ internal abstract class WasmPolicyEngine<TAbi> : IWasmPolicyEngine
 
     public virtual nint WriteValueString(ReadOnlySpan<char> data)
     {
+        if (data.IsEmpty)
+            return WriteNullValue();
+
         var dataLength = Encoding.UTF8.GetByteCount(data);
         var dataPtr = Abi.Malloc(dataLength);
         var bytesWritten = Memory.WriteString(dataPtr, data, Encoding.UTF8);
@@ -174,9 +177,22 @@ internal abstract class WasmPolicyEngine<TAbi> : IWasmPolicyEngine
 
     public nint WriteValue<T>(T? data)
     {
+        if (data == null)
+            return WriteNullValue();
+
         var s = JsonSerializer.Serialize(data, JsonOptions);
         s = RegoValueHelper.JsonToRegoValue(s);
         return WriteValueString(s);
+    }
+
+    private nint WriteNullValue()
+    {
+        var dataPtr = Abi.Malloc(4);
+        Memory.WriteInt32(dataPtr, 0);
+        var result = Abi.ValueParse(dataPtr, 4);
+        Abi.Free(dataPtr);
+
+        return result;
     }
 
     public virtual nint WriteJson<T>(T? data)

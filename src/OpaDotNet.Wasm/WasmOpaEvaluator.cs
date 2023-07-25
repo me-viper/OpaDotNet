@@ -341,7 +341,7 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
         {
             if (ex.InnerException is OpaEvaluationAbortedException)
                 throw ex.InnerException;
-            
+
             _logger.LogError(ex, "Evaluation failed");
             throw new OpaEvaluationException("Evaluation failed", ex);
         }
