@@ -29,7 +29,6 @@ OpaDotNet.Wasm.Compilation.RegoCompilationException.RegoCompilationException(str
 OpaDotNet.Wasm.Compilation.RegoCompilationException.SourceFile.get -> string!
 OpaDotNet.Wasm.DefaultOpaImportsAbi
 OpaDotNet.Wasm.DefaultOpaImportsAbi.DefaultOpaImportsAbi() -> void
-OpaDotNet.Wasm.DefaultOpaImportsAbi.ValueCache.get -> System.Collections.Concurrent.ConcurrentDictionary<string!, object!>!
 OpaDotNet.Wasm.ExportResolutionException
 OpaDotNet.Wasm.ExportResolutionException.AbiVersion.get -> System.Version!
 OpaDotNet.Wasm.ExportResolutionException.ExportResolutionException(System.Version! abiVersion, string! externalName) -> void

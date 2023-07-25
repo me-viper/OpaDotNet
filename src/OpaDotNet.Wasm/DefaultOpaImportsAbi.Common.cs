@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Text;
 using System.Text.Json.Nodes;
@@ -54,32 +55,16 @@ public partial class DefaultOpaImportsAbi
 
         return result;
     }
-
-    private int RandIntN(string key, int n)
+    
+    [ExcludeFromCodeCoverage]
+    protected virtual Random Random()
     {
-        var cacheKey = $"rand.intn.{key}";
-
-        if (ValueCache.TryGetValue(cacheKey, out var result))
-            return (int)result;
-
-        result = Random().Next(n);
-        ValueCache.TryAdd(cacheKey, result);
-
-        return (int)result;
+        return _random;
     }
 
-    private Guid NewGuid(string key)
-    {
-        var cacheKey = $"uuid.rfc4122.{key}";
+    private int RandIntN(string key, int n) => CacheGetOrAddValue($"rand.intn.{key}", () => Random().Next(n));
 
-        if (ValueCache.TryGetValue(cacheKey, out var result))
-            return (Guid)result;
-
-        result = NewGuid();
-        ValueCache.TryAdd(cacheKey, result);
-
-        return (Guid)result;
-    }
+    private Guid NewGuid(string key) => CacheGetOrAddValue($"uuid.rfc4122.{key}", NewGuid);
 
     private static string Base64UrlEncodeNoPad(string x)
     {

@@ -1,4 +1,6 @@
-﻿namespace OpaDotNet.Wasm;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace OpaDotNet.Wasm;
 
 public class OpaEvaluationException : OpaRuntimeException
 {
@@ -14,6 +16,7 @@ public class OpaEvaluationException : OpaRuntimeException
 /// <summary>
 /// Thrown when we need to abort rule evaluation and force it to return default result.
 /// </summary>
+[ExcludeFromCodeCoverage]
 internal class OpaEvaluationAbortedException : OpaEvaluationException
 {
     public OpaEvaluationAbortedException(string? message) : base(message)

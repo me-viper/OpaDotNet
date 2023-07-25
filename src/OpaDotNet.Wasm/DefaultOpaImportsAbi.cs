@@ -10,18 +10,17 @@ namespace OpaDotNet.Wasm;
 [PublicAPI]
 public partial class DefaultOpaImportsAbi : IOpaImportsAbi
 {
-    protected ConcurrentDictionary<string, object> ValueCache { get; } = new();
+    private readonly ConcurrentDictionary<string, object> _valueCache = new();
+    
+    protected T CacheGetOrAddValue<T>(string key, Func<T> valueFactory) where T : notnull
+    {
+        return (T)_valueCache.GetOrAdd(key, valueFactory());
+    }
 
     [ExcludeFromCodeCoverage]
     protected virtual DateTimeOffset Now()
     {
         return DateTimeOffset.Now;
-    }
-
-    [ExcludeFromCodeCoverage]
-    protected virtual Random Random()
-    {
-        return _random;
     }
 
     [ExcludeFromCodeCoverage]
@@ -32,7 +31,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
 
     public virtual void Reset()
     {
-        ValueCache.Clear();
+        _valueCache.Clear();
     }
 
     [ExcludeFromCodeCoverage]

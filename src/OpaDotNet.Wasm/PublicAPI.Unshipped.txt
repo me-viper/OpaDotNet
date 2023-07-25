@@ -4,6 +4,7 @@ OpaDotNet.Wasm.BuiltinArg.As<T>(OpaDotNet.Wasm.RegoValueFormat format = OpaDotNe
 OpaDotNet.Wasm.BuiltinArg.AsOrNull<T>(System.Func<T>? defaultValue = null, OpaDotNet.Wasm.RegoValueFormat format = OpaDotNet.Wasm.RegoValueFormat.Json) -> T?
 OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.PreserveBuildArtifacts.get -> bool
 OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.PreserveBuildArtifacts.set -> void
+OpaDotNet.Wasm.DefaultOpaImportsAbi.CacheGetOrAddValue<T>(string! key, System.Func<T>! valueFactory) -> T
 OpaDotNet.Wasm.OpaBundleEvaluatorFactory
 OpaDotNet.Wasm.OpaBundleEvaluatorFactory.OpaBundleEvaluatorFactory(System.IO.Stream! bundleStream, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null, System.Func<OpaDotNet.Wasm.IOpaImportsAbi!>? importsAbiFactory = null, Microsoft.Extensions.Logging.ILoggerFactory? loggerFactory = null) -> void
 OpaDotNet.Wasm.OpaEvaluatorFactory.Dispose() -> void
