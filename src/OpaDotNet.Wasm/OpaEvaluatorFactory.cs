@@ -106,11 +106,11 @@ public abstract class OpaEvaluatorFactory : IDisposable
             Memory = memory,
             Module = module,
             Imports = _importsAbiFactory(),
-            Logger = _loggerFactory.CreateLogger<WasmOpaEvaluator>(),
+            Logger = _loggerFactory.CreateLogger<OpaWasmEvaluator>(),
             Options = options,
         };
 
-        var result = new WasmOpaEvaluator(config);
+        var result = new OpaWasmEvaluator(config);
 
         if (data != null)
             result.SetDataFromStream(data);
@@ -139,11 +139,11 @@ public abstract class OpaEvaluatorFactory : IDisposable
             Memory = memory,
             Module = module,
             Imports = _importsAbiFactory(),
-            Logger = _loggerFactory.CreateLogger<WasmOpaEvaluator>(),
+            Logger = _loggerFactory.CreateLogger<OpaWasmEvaluator>(),
             Options = options,
         };
 
-        var result = new WasmOpaEvaluator(config);
+        var result = new OpaWasmEvaluator(config);
 
         if (!data.IsEmpty)
             result.SetDataFromBytes(data);

@@ -661,7 +661,6 @@ r := opa.runtime()
         Assert.True(result.Assert);
     }
 
-
     [Fact]
     public async Task ErrorHandling()
     {

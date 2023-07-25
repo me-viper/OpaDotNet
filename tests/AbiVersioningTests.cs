@@ -63,6 +63,6 @@ public class AbiVersioningTests : IAsyncLifetime
 
         engine.SetDataFromRawJson("{ \"world\": \"world\" }");
 
-        Assert.Equal(new Version(1, 2), ((WasmOpaEvaluator)engine).PolicyAbiVersion);
+        Assert.Equal(new Version(1, 2), ((OpaWasmEvaluator)engine).PolicyAbiVersion);
     }
 }

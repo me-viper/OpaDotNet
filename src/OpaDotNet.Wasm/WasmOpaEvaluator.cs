@@ -12,7 +12,7 @@ using EngineV10 = Internal.V10.EngineImpl<Internal.V10.OpaExportsAbi>;
 using EngineV12 = Internal.V12.EngineImpl<Internal.V12.OpaExportsAbi>;
 using EngineV13 = Internal.V13.EngineImpl<Internal.V13.OpaExportsAbi>;
 
-internal sealed class WasmOpaEvaluator : IOpaEvaluator
+internal sealed class OpaWasmEvaluator : IOpaEvaluator
 {
     private readonly ILogger _logger;
 
@@ -36,7 +36,7 @@ internal sealed class WasmOpaEvaluator : IOpaEvaluator
 
     public Version PolicyAbiVersion { get; }
 
-    internal WasmOpaEvaluator(WasmPolicyEngineConfiguration configuration)
+    internal OpaWasmEvaluator(WasmPolicyEngineConfiguration configuration)
     {
         ArgumentNullException.ThrowIfNull(configuration);
 

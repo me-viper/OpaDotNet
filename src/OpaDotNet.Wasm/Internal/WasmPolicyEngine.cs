@@ -175,7 +175,7 @@ internal abstract class WasmPolicyEngine<TAbi> : IWasmPolicyEngine
         return result;
     }
 
-    public nint WriteValue<T>(T? data)
+    public virtual nint WriteValue<T>(T? data)
     {
         if (data == null)
             return WriteNullValue();

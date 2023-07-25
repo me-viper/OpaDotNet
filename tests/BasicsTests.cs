@@ -362,7 +362,7 @@ public class BasicsTests
     {
         var data = "{\"world\":\"world\"}";
 
-        using var engine = (WasmOpaEvaluator)OpaEvaluatorFactory.CreateFromWasm(
+        using var engine = (OpaWasmEvaluator)OpaEvaluatorFactory.CreateFromWasm(
             File.OpenRead(Path.Combine(BasePath, "simple-1.3.wasm")),
             loggerFactory: _loggerFactory
             );
