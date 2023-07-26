@@ -24,7 +24,6 @@ For more information check out [the guide](https://andrii-kurochka.gitbook.io/op
 |-----------------|----------|---------|
 | OpaDotNet.Wasm  | [![NuGet](https://img.shields.io/nuget/v/OpaDotNet.Wasm.svg)](https://www.nuget.org/packages/OpaDotNet.Wasm/) | [![Nuget](https://img.shields.io/nuget/vpre/OpaDotNet.Wasm.svg)](https://www.nuget.org/packages/OpaDotNet.Wasm/)  |
 | [OpaDotNet.Extensions.AspNetCore](https://github.com/me-viper/OpaDotNet.Extensions/tree/main) | [![NuGet](https://img.shields.io/nuget/v/OpaDotNet.Extensions.AspNetCore.svg)](https://www.nuget.org/packages/OpaDotNet.Extensions.AspNetCore/) | [![Nuget](https://img.shields.io/nuget/vpre/OpaDotNet.Extensions.AspNetCore.svg)](https://www.nuget.org/packages/OpaDotNet.Extensions.AspNetCore/)  |
-| [OpaDotNet.Extensions.Yarp](https://github.com/me-viper/OpaDotNet.Extensions/tree/main) | [![NuGet](https://img.shields.io/nuget/v/OpaDotNet.Extensions.Yarp.svg)](https://www.nuget.org/packages/OpaDotNet.Extensions.Yarp/) | [![Nuget](https://img.shields.io/nuget/vpre/OpaDotNet.Extensions.Yarp.svg)](https://www.nuget.org/packages/OpaDotNet.Extensions.Yarp/)  |
 
 ## Getting Started
 
