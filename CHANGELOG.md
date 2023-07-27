@@ -1,3 +1,9 @@
+# OpaDotNet.Wasm v1.2.1 (2023-07-27)
+
+### Bug Fixes
+
+* Compiler should provide absolute output path to opa cli.
+
 # OpaDotNet.Wasm v1.2.0 (2023-07-25)
 
 ### Bug Fixes
