@@ -1,16 +1,17 @@
-# OpaDotNet.Wasm v1.2.1 (2023-07-27)
+# Changelog
+
+## OpaDotNet.Wasm v1.2.1 (2023-07-27)
 
 ### Bug Fixes
 
 * Compiler should provide absolute output path to opa cli.
 
-# OpaDotNet.Wasm v1.2.0 (2023-07-25)
+## OpaDotNet.Wasm v1.2.0 (2023-07-25)
 
 ### Bug Fixes
 
 * Fixes [#13](https://github.com/me-viper/OpaDotNet/issues/13). Handle empty predicate evaluation
 * Fixes [#14](https://github.com/me-viper/OpaDotNet/issues/14). Respect OutputPath when merging capabilities
-
 
 ### Features
 
@@ -27,24 +28,20 @@
 * [#12](https://github.com/me-viper/OpaDotNet/issues/12). Factory implementations suitable for creating multiple evaluator instances
 * [#16](https://github.com/me-viper/OpaDotNet/issues/16). Provide option to preserve build artifacts
 
-
 ### BREAKING CHANGES
 
 * DefaultOpaImportsAbi.ValueCache property is no longer available. Use DefaultOpaImportsAbi.CacheGetOrAddValue instead
 * OpaEvaluatorFactory have been redesigned (see [#12](https://github.com/me-viper/OpaDotNet/issues/12))
 
+## OpaDotNet.Wasm [v1.1.0](https://github.com/me-viper/OpaDotNet/compare/v1.0.0...v1.1.0) (2023-07-13)
 
-# OpaDotNet.Wasm [v1.1.0](https://github.com/me-viper/OpaDotNet/compare/v1.0.0...v1.1.0) (2023-07-13)
-
-
-## Bug Fixes
+### Bug Fixes
 
 * [#10](https://github.com/me-viper/OpaDotNet/issues/10). Allow returning null in ImportsABI.
 * Make compilation options parameter optional.
 * Resolve issue with built-ins returning rego sets.
 
-
-## Features
+### Features
 
 * [#1](https://github.com/me-viper/OpaDotNet/issues/1). Implement SDK functions:
   * rand.intn
