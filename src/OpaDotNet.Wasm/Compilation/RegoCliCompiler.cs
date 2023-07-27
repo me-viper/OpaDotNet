@@ -45,7 +45,8 @@ public class RegoCliCompiler : IRegoCompiler
         if (entrypoints != null)
             entrypointArg = string.Join(" ", entrypoints.Select(p => $"-e {p}"));
 
-        var outputPath = _options.Value.OutputPath ?? bundleDirectory.FullName;
+        var outDir = new DirectoryInfo(_options.Value.OutputPath ?? bundleDirectory.FullName);
+        var outputPath = outDir.FullName;
 
         var capabilitiesArg = string.Empty;
         FileInfo? capsFile = null;
@@ -84,7 +85,7 @@ public class RegoCliCompiler : IRegoCompiler
 
         try
         {
-            return await Run(bundleDirectory.FullName, bundleDirectory.FullName, args, outputFileName, cancellationToken).ConfigureAwait(false);
+            return await Run(bundleDirectory.FullName, args, outputFileName, cancellationToken).ConfigureAwait(false);
         }
         finally
         {
@@ -108,7 +109,8 @@ public class RegoCliCompiler : IRegoCompiler
 
         using var scope = _logger.BeginScope("File {Path}", sourceFilePath);
 
-        var outputPath = _options.Value.OutputPath ?? fi.Directory!.FullName;
+        var outDir = new DirectoryInfo(_options.Value.OutputPath ?? fi.Directory!.FullName);
+        var outputPath = outDir.FullName;
         var outputFileName = Path.Combine(outputPath, $"{Guid.NewGuid()}.tar.gz");
 
         var entrypointArg = string.Empty;
@@ -118,11 +120,11 @@ public class RegoCliCompiler : IRegoCompiler
 
         var args = $"build -t wasm {entrypointArg} -o {outputFileName} {_options.Value.ExtraArguments} {fi.FullName}";
 
-        return await Run(fi.Directory!.FullName, fi.FullName, args, outputFileName, cancellationToken).ConfigureAwait(false);
+        return await Run(fi.FullName, args, outputFileName, cancellationToken).ConfigureAwait(false);
     }
 
     private async Task<FileInfo> MergeCapabilities(
-        string basePath,
+        string outputPath,
         FileInfo file,
         string version,
         CancellationToken cancellationToken)
@@ -131,7 +133,7 @@ public class RegoCliCompiler : IRegoCompiler
             ? "opa"
             : Path.Combine(_options.Value.OpaToolPath, "opa");
 
-        var capsFileName = Path.Combine(basePath, $"{Guid.NewGuid()}.json");
+        var capsFileName = Path.Combine(outputPath, $"{Guid.NewGuid()}.json");
         var result = new FileInfo(capsFileName);
 
         var sw = new StreamWriter(result.FullName);
@@ -141,9 +143,9 @@ public class RegoCliCompiler : IRegoCompiler
         {
             FileName = fileName,
             Arguments = $"capabilities --version {version}",
-            WorkingDirectory = basePath,
+            WorkingDirectory = AppContext.BaseDirectory,
             CreateNoWindow = true,
-            RedirectStandardOutput = true
+            RedirectStandardOutput = true,
         };
 
         using var capsProcess = Process.Start(capsProcessInfo);
@@ -151,7 +153,7 @@ public class RegoCliCompiler : IRegoCompiler
         if (capsProcess == null)
         {
             throw new RegoCompilationException(
-                basePath,
+                outputPath,
                 "Failed to start compilation process"
                 );
         }
@@ -177,7 +179,7 @@ public class RegoCliCompiler : IRegoCompiler
             capsProcess.Kill(true);
 
             throw new RegoCompilationException(
-                basePath,
+                outputPath,
                 "Failed to complete compilation within specified timeout",
                 ex
                 );
@@ -186,7 +188,7 @@ public class RegoCliCompiler : IRegoCompiler
         if (capsProcess.ExitCode != 0)
         {
             throw new RegoCompilationException(
-                basePath,
+                outputPath,
                 $"Return code {capsProcess.ExitCode} didn't indicate success."
                 );
         }
@@ -231,7 +233,7 @@ public class RegoCliCompiler : IRegoCompiler
         catch (Exception ex)
         {
             throw new RegoCompilationException(
-                basePath,
+                outputPath,
                 $"Failed to parse capabilities file {file.FullName}",
                 ex
                 );
@@ -241,7 +243,6 @@ public class RegoCliCompiler : IRegoCompiler
     }
 
     private async Task<Stream> Run(
-        string basePath,
         string sourcePath,
         string args,
         string outputFileName,
@@ -257,7 +258,7 @@ public class RegoCliCompiler : IRegoCompiler
         {
             FileName = fileName,
             Arguments = "version",
-            WorkingDirectory = basePath,
+            WorkingDirectory = AppContext.BaseDirectory,
             CreateNoWindow = true,
             RedirectStandardError = true,
             RedirectStandardOutput = true,
@@ -279,7 +280,7 @@ public class RegoCliCompiler : IRegoCompiler
         {
             FileName = fileName,
             Arguments = args,
-            WorkingDirectory = basePath,
+            WorkingDirectory = AppContext.BaseDirectory,
             CreateNoWindow = true,
             RedirectStandardError = true,
             RedirectStandardOutput = true,
