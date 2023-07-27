@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Text;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Nodes;
 
 using Microsoft.Extensions.Options;
@@ -31,6 +29,10 @@ public class RegoCliCompiler : IRegoCompiler
         _logger = logger ?? NullLogger<RegoCliCompiler>.Instance;
     }
 
+    private string CliPath => string.IsNullOrWhiteSpace(_options.Value.OpaToolPath)
+        ? "opa"
+        : Path.Combine(_options.Value.OpaToolPath, "opa");
+
     /// <inheritdoc />
     public async Task<Stream> CompileBundle(
         string bundlePath,
@@ -38,17 +40,19 @@ public class RegoCliCompiler : IRegoCompiler
         string? capabilitiesFilePath = null,
         CancellationToken cancellationToken = default)
     {
+        ArgumentException.ThrowIfNullOrEmpty(bundlePath);
+
+        using var scope = _logger.BeginScope("Bundle {Path}", bundlePath);
+
+        var cli = await OpaCliWrapper.Create(CliPath, _logger, cancellationToken).ConfigureAwait(false);
+
         var bundleDirectory = new DirectoryInfo(bundlePath);
-
-        var entrypointArg = string.Empty;
-
-        if (entrypoints != null)
-            entrypointArg = string.Join(" ", entrypoints.Select(p => $"-e {p}"));
 
         var outDir = new DirectoryInfo(_options.Value.OutputPath ?? bundleDirectory.FullName);
         var outputPath = outDir.FullName;
+        var outputFileName = Path.Combine(outputPath, $"{Guid.NewGuid()}.tar.gz");
 
-        var capabilitiesArg = string.Empty;
+        string? capabilitiesFile = null;
         FileInfo? capsFile = null;
 
         if (!string.IsNullOrWhiteSpace(capabilitiesFilePath))
@@ -66,6 +70,7 @@ public class RegoCliCompiler : IRegoCompiler
             if (!string.IsNullOrWhiteSpace(_options.Value.CapabilitiesVersion))
             {
                 capsFile = await MergeCapabilities(
+                    cli,
                     outputPath,
                     fi,
                     _options.Value.CapabilitiesVersion,
@@ -73,19 +78,22 @@ public class RegoCliCompiler : IRegoCompiler
                     ).ConfigureAwait(false);
             }
 
-            capabilitiesArg = $"--capabilities {capsFile?.FullName ?? fi.FullName}";
+            capabilitiesFile = capsFile?.FullName ?? fi.FullName;
         }
 
-        using var scope = _logger.BeginScope("Bundle {Path}", bundlePath);
-
-        var outputFileName = Path.Combine(outputPath, $"{Guid.NewGuid()}.tar.gz");
-
-        var args = $"build -b -t wasm {entrypointArg} {capabilitiesArg} -o {outputFileName} " +
-            $"{_options.Value.ExtraArguments} {bundleDirectory.FullName}";
+        var args = new OpaCliBuildArgs
+        {
+            IsBundle = true,
+            SourcePath = bundleDirectory.FullName,
+            OutputFile = outputFileName,
+            Entrypoints = entrypoints?.ToHashSet(),
+            ExtraArguments = _options.Value.ExtraArguments,
+            CapabilitiesFile = capabilitiesFile,
+        };
 
         try
         {
-            return await Run(bundleDirectory.FullName, args, outputFileName, cancellationToken).ConfigureAwait(false);
+            return await Build(cli, args, cancellationToken).ConfigureAwait(false);
         }
         finally
         {
@@ -102,99 +110,41 @@ public class RegoCliCompiler : IRegoCompiler
     {
         ArgumentException.ThrowIfNullOrEmpty(sourceFilePath);
 
-        var fi = new FileInfo(sourceFilePath);
-
-        if (!fi.Exists)
-            throw new RegoCompilationException(sourceFilePath, $"Source file {sourceFilePath} not found");
-
         using var scope = _logger.BeginScope("File {Path}", sourceFilePath);
 
-        var outDir = new DirectoryInfo(_options.Value.OutputPath ?? fi.Directory!.FullName);
+        var cli = await OpaCliWrapper.Create(CliPath, _logger, cancellationToken).ConfigureAwait(false);
+
+        var sourceFile = new FileInfo(sourceFilePath);
+
+        if (!sourceFile.Exists)
+            throw new RegoCompilationException(sourceFilePath, $"Source file {sourceFilePath} not found");
+
+        var outDir = new DirectoryInfo(_options.Value.OutputPath ?? sourceFile.Directory!.FullName);
         var outputPath = outDir.FullName;
         var outputFileName = Path.Combine(outputPath, $"{Guid.NewGuid()}.tar.gz");
 
-        var entrypointArg = string.Empty;
+        var args = new OpaCliBuildArgs
+        {
+            SourcePath = sourceFile.FullName,
+            OutputFile = outputFileName,
+            Entrypoints = entrypoints?.ToHashSet(),
+            ExtraArguments = _options.Value.ExtraArguments,
+        };
 
-        if (entrypoints != null)
-            entrypointArg = string.Join(" ", entrypoints.Select(p => $"-e {p}"));
-
-        var args = $"build -t wasm {entrypointArg} -o {outputFileName} {_options.Value.ExtraArguments} {fi.FullName}";
-
-        return await Run(fi.FullName, args, outputFileName, cancellationToken).ConfigureAwait(false);
+        return await Build(cli, args, cancellationToken).ConfigureAwait(false);
     }
 
-    private async Task<FileInfo> MergeCapabilities(
+    private static async Task<FileInfo> MergeCapabilities(
+        OpaCliWrapper cli,
         string outputPath,
         FileInfo file,
         string version,
         CancellationToken cancellationToken)
     {
-        var fileName = string.IsNullOrWhiteSpace(_options.Value.OpaToolPath)
-            ? "opa"
-            : Path.Combine(_options.Value.OpaToolPath, "opa");
-
         var capsFileName = Path.Combine(outputPath, $"{Guid.NewGuid()}.json");
         var result = new FileInfo(capsFileName);
 
-        var sw = new StreamWriter(result.FullName);
-        await using var _ = sw.ConfigureAwait(false);
-
-        var capsProcessInfo = new ProcessStartInfo
-        {
-            FileName = fileName,
-            Arguments = $"capabilities --version {version}",
-            WorkingDirectory = AppContext.BaseDirectory,
-            CreateNoWindow = true,
-            RedirectStandardOutput = true,
-        };
-
-        using var capsProcess = Process.Start(capsProcessInfo);
-
-        if (capsProcess == null)
-        {
-            throw new RegoCompilationException(
-                outputPath,
-                "Failed to start compilation process"
-                );
-        }
-
-        _logger.LogInformation("Writing {Version} capabilities to {File}", version, result.FullName);
-
-        capsProcess.OutputDataReceived += (_, args) => sw.WriteLine(args.Data);
-        capsProcess.BeginOutputReadLine();
-
-        using var timeoutCancellationToken = new CancellationTokenSource(TimeSpan.FromSeconds(60));
-        using var ct = CancellationTokenSource.CreateLinkedTokenSource(
-            cancellationToken,
-            timeoutCancellationToken.Token
-            );
-
-        try
-        {
-            await capsProcess.WaitForExitAsync(ct.Token).ConfigureAwait(false);
-        }
-        catch (OperationCanceledException ex)
-        {
-            _logger.LogError(ex, "Failed to complete compilation within specified timeout");
-            capsProcess.Kill(true);
-
-            throw new RegoCompilationException(
-                outputPath,
-                "Failed to complete compilation within specified timeout",
-                ex
-                );
-        }
-
-        if (capsProcess.ExitCode != 0)
-        {
-            throw new RegoCompilationException(
-                outputPath,
-                $"Return code {capsProcess.ExitCode} didn't indicate success."
-                );
-        }
-
-        await sw.FlushAsync().ConfigureAwait(false);
-        await sw.DisposeAsync().ConfigureAwait(false);
+        await cli.Capabilities(result.FullName, version, cancellationToken).ConfigureAwait(false);
 
         if (!result.Exists)
             throw new RegoCompilationException(capsFileName, "Failed to locate capabilities file");
@@ -223,7 +173,7 @@ public class RegoCliCompiler : IRegoCompiler
                 capsBins.Add(bin);
 
             capsFs.SetLength(0);
-            await capsFs.FlushAsync(ct.Token).ConfigureAwait(false);
+            await capsFs.FlushAsync(cancellationToken).ConfigureAwait(false);
 
             var writer = new Utf8JsonWriter(capsFs);
             await using var ____ = writer.ConfigureAwait(false);
@@ -242,137 +192,26 @@ public class RegoCliCompiler : IRegoCompiler
         return result;
     }
 
-    private async Task<Stream> Run(
-        string sourcePath,
-        string args,
-        string outputFileName,
+    private async Task<Stream> Build(
+        OpaCliWrapper cli,
+        OpaCliBuildArgs args,
         CancellationToken cancellationToken)
     {
-        _logger.LogDebug("Running opa {Args}", args);
+        await cli.Build(args, cancellationToken).ConfigureAwait(false);
 
-        var fileName = string.IsNullOrWhiteSpace(_options.Value.OpaToolPath)
-            ? "opa"
-            : Path.Combine(_options.Value.OpaToolPath, "opa");
-
-        var versionProcessInfo = new ProcessStartInfo
-        {
-            FileName = fileName,
-            Arguments = "version",
-            WorkingDirectory = AppContext.BaseDirectory,
-            CreateNoWindow = true,
-            RedirectStandardError = true,
-            RedirectStandardOutput = true,
-        };
-
-        using var versionProcess = Process.Start(versionProcessInfo);
-
-        if (versionProcess == null)
+        if (!File.Exists(args.OutputFile))
         {
             throw new RegoCompilationException(
-                sourcePath,
-                "Failed to start compilation process"
-                );
-        }
-
-        _ = await RunProcess(versionProcess, sourcePath, cancellationToken).ConfigureAwait(false);
-
-        var compilationProcess = new ProcessStartInfo
-        {
-            FileName = fileName,
-            Arguments = args,
-            WorkingDirectory = AppContext.BaseDirectory,
-            CreateNoWindow = true,
-            RedirectStandardError = true,
-            RedirectStandardOutput = true,
-        };
-
-        _logger.LogInformation("Starting compilation [opa {Cli}]", compilationProcess.Arguments);
-
-        using var process = Process.Start(compilationProcess);
-
-        if (process == null)
-        {
-            throw new RegoCompilationException(
-                sourcePath,
-                "Failed to start compilation process"
-                );
-        }
-
-        var errors = await RunProcess(process, sourcePath, cancellationToken).ConfigureAwait(false);
-
-        if (process.ExitCode != 0)
-        {
-            throw new RegoCompilationException(
-                sourcePath,
-                $"Return code {process.ExitCode} didn't indicate success.\nErrors: {errors}"
-                );
-        }
-
-        if (!File.Exists(outputFileName))
-        {
-            throw new RegoCompilationException(
-                sourcePath,
-                $"Failed to locate expected output file {outputFileName}"
+                args.SourcePath,
+                $"Failed to locate expected output file {args.OutputFile}"
                 );
         }
 
         _logger.LogInformation("Compilation succeeded");
 
         return _options.Value.PreserveBuildArtifacts
-            ? new FileStream(outputFileName, FileMode.Open)
-            : new DeleteOnCloseFileStream(outputFileName, FileMode.Open);
-    }
-
-    private async Task<StringBuilder> RunProcess(
-        Process process,
-        string sourcePath,
-        CancellationToken cancellationToken)
-    {
-        var errors = new StringBuilder();
-
-        process.BeginOutputReadLine();
-        process.BeginErrorReadLine();
-
-        process.OutputDataReceived += (_, ea) =>
-        {
-            if (string.IsNullOrWhiteSpace(ea.Data))
-                return;
-
-            _logger.LogInformation("{CompilationProgressLog}", ea.Data);
-        };
-
-        process.ErrorDataReceived += (_, ea) =>
-        {
-            if (string.IsNullOrWhiteSpace(ea.Data))
-                return;
-
-            errors.AppendLine(ea.Data);
-            _logger.LogError("{CompilationErrorLog}", ea.Data ?? string.Empty);
-        };
-
-        using var timeoutCancellationToken = new CancellationTokenSource(TimeSpan.FromSeconds(60));
-        using var ct = CancellationTokenSource.CreateLinkedTokenSource(
-            cancellationToken,
-            timeoutCancellationToken.Token
-            );
-
-        try
-        {
-            await process.WaitForExitAsync(ct.Token).ConfigureAwait(false);
-        }
-        catch (OperationCanceledException ex)
-        {
-            _logger.LogError(ex, "Failed to complete compilation within specified timeout");
-            process.Kill(true);
-
-            throw new RegoCompilationException(
-                sourcePath,
-                "Failed to complete compilation within specified timeout",
-                ex
-                );
-        }
-
-        return errors;
+            ? new FileStream(args.OutputFile, FileMode.Open)
+            : new DeleteOnCloseFileStream(args.OutputFile, FileMode.Open);
     }
 
     [ExcludeFromCodeCoverage]

@@ -11,7 +11,7 @@ namespace OpaDotNet.Wasm;
 public partial class DefaultOpaImportsAbi : IOpaImportsAbi
 {
     private readonly ConcurrentDictionary<string, object> _valueCache = new();
-    
+
     protected T CacheGetOrAddValue<T>(string key, Func<T> valueFactory) where T : notnull
     {
         return (T)_valueCache.GetOrAdd(key, valueFactory());

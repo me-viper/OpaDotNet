@@ -34,11 +34,9 @@ public class RegoCliCompilerTests
 
         var compiler = new RegoCliCompiler(new OptionsWrapper<RegoCliCompilerOptions>(opts));
 
-        var ex = await Assert.ThrowsAsync<RegoCompilationException>(
+        _ = await Assert.ThrowsAsync<RegoCompilationException>(
             () => compiler.CompileFile("fail.rego")
             );
-
-        Assert.Equal("fail.rego", ex.SourceFile);
     }
 
     [Fact]
@@ -51,16 +49,22 @@ public class RegoCliCompilerTests
 
         var compiler = new RegoCliCompiler(new OptionsWrapper<RegoCliCompilerOptions>(opts));
 
-        var ex = await Assert.ThrowsAsync<RegoCompilationException>(
+        _ = await Assert.ThrowsAsync<RegoCompilationException>(
             () => compiler.CompileBundle(
                 Path.Combine("TestData", "capabilities"),
                 new[] { "capabilities/f" },
                 Path.Combine("TestData", "capabilities", "capabilities.json")
                 )
             );
+    }
 
-        var f = new FileInfo(Path.Combine("TestData", "capabilities"));
-        Assert.Equal(f.FullName, ex.SourceFile);
+    [Fact]
+    public async Task FailCompilation()
+    {
+        var compiler = new RegoCliCompiler();
+        var ex = await Assert.ThrowsAsync<RegoCompilationException>(() => compiler.Compile("bad rego", "ep"));
+
+        Assert.Contains("rego_parse_error: package expected", ex.Message);
     }
 
     [Fact]

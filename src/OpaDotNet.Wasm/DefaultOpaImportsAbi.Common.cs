@@ -55,7 +55,7 @@ public partial class DefaultOpaImportsAbi
 
         return result;
     }
-    
+
     [ExcludeFromCodeCoverage]
     protected virtual Random Random()
     {
