@@ -120,6 +120,23 @@ public class SdkBuiltinsTests
         Assert.True(result.Assert);
     }
 
+    private class TimeNowImports : TestImportsAbi
+    {
+        public TimeNowImports(ITestOutputHelper output) : base(output)
+        {
+            var now = (new DateTimeOffset(2023, 6, 5, 14, 27, 39, TimeSpan.Zero).Ticks - DateTimeOffset.UnixEpoch.Ticks) * 100;
+            CacheGetOrAddValue("time.now_ns", () => now);
+        }
+    }
+
+    [Theory]
+    [InlineData("time.now_ns()", "1685975259000000000")]
+    public async Task TimeNow(string func, string expected)
+    {
+        var result = await RunTestCase(func, expected, false, new TimeNowImports(_output));
+        Assert.True(result.Assert);
+    }
+
     [Theory]
     [InlineData("""time.parse_duration_ns("-10s")""", "-10000000000")]
     [InlineData("""time.parse_duration_ns("1µs")""", "1000")]

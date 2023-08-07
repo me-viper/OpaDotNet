@@ -31,7 +31,7 @@ public class RegoCliCompiler : IRegoCompiler
 
     private string CliPath => string.IsNullOrWhiteSpace(_options.Value.OpaToolPath)
         ? "opa"
-        : Path.Combine(_options.Value.OpaToolPath, "opa");
+        : _options.Value.OpaToolPath;
 
     /// <inheritdoc />
     public async Task<Stream> CompileBundle(
