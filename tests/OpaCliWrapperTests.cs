@@ -21,7 +21,7 @@ public class OpaCliWrapperTests
     public async Task ToolMissing()
     {
         _ = await Assert.ThrowsAsync<RegoCompilationException>(
-            () => OpaCliWrapper.Create("./opa", logger: _loggerFactory.CreateLogger<OpaCliWrapper>())
+            () => OpaCliWrapper.Create("./non-opa", logger: _loggerFactory.CreateLogger<OpaCliWrapper>())
             );
     }
 
