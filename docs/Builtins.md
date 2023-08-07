@@ -64,8 +64,8 @@ Bellow is the list of supported OPA built-in functions as for version v0.53.1 al
 
 | Function   | Status             | OpaDotNet version  |
 |------------|--------------------|--------------------|
-| [units.parse](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-units-unitsparse) | - | - |
-| [units.parse_bytes](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-units-unitsparse_bytes) | - | - |
+| [units.parse](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-units-unitsparse) | :white_check_mark: | v1.3.0 |
+| [units.parse_bytes](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-units-unitsparse_bytes) | :white_check_mark: | v1.3.0 |
 
 ## Encoding
 

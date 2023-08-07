@@ -124,6 +124,8 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
                 "yaml.marshal" => YamlMarshal(arg1.RawJson),
                 "yaml.unmarshal" => YamlUnmarshal(arg1.As<string>()),
                 "json.verify_schema" => JsonVerifySchema(arg1.RawJson, out _),
+                "units.parse" => UnitsParse(arg1.As<string>()),
+                "units.parse_bytes" => UnitsParseBytes(arg1.As<string>()),
                 _ => throw new NotImplementedException(context.FunctionName),
             };
         }

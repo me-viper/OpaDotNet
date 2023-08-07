@@ -661,6 +661,70 @@ r := opa.runtime()
         Assert.True(result.Assert);
     }
 
+    [Theory]
+    [InlineData("""units.parse_bytes("1.2")""", "1")]
+    [InlineData("""units.parse_bytes("10")""", "10")]
+    [InlineData("""units.parse_bytes("10K")""", "10000")]
+    [InlineData("""units.parse_bytes("10KB")""", "10000")]
+    [InlineData("""units.parse_bytes("10KI")""", "10240")]
+    [InlineData("""units.parse_bytes("10KIB")""", "10240")]
+    [InlineData("""units.parse_bytes("10M")""", "10000000")]
+    [InlineData("""units.parse_bytes("10MI")""", "10485760")]
+    [InlineData("""units.parse_bytes("10G")""", "10000000000")]
+    [InlineData("""units.parse_bytes("10GI")""", "10737418240")]
+    [InlineData("""units.parse_bytes("10T")""", "10000000000000")]
+    [InlineData("""units.parse_bytes("10TB")""", "10000000000000")]
+    [InlineData("""units.parse_bytes("10TI")""", "10995116277760")]
+    [InlineData("""units.parse_bytes("10TIB")""", "10995116277760")]
+    [InlineData("""units.parse_bytes("10P")""", "10000000000000000")]
+    [InlineData("""units.parse_bytes("10PI")""", "11258999068426240")]
+    [InlineData("""units.parse_bytes("10PIB")""", "11258999068426240")]
+    [InlineData("""units.parse_bytes("10E")""", "10000000000000000000")]
+
+    // Native implementation seems does rounding (result will be 11529215046068470000).
+    [InlineData("""units.parse_bytes("10EI")""", "11529215046068469760")]
+    [InlineData("""units.parse_bytes("10EIB")""", "11529215046068469760")]
+    [InlineData("""units.parse_bytes("b")""", "0", true)]
+    [InlineData("""units.parse_bytes(`1.2"ki"`)""", "1228")]
+    [InlineData("""units.parse_bytes(`-1b`)""", "0", true)]
+    public async Task UnitsParseBytes(string func, string expected, bool fails = false)
+    {
+        _output.WriteLine("Ordinal");
+        var result = await RunTestCase(func, expected, fails);
+        Assert.True(result.Assert);
+
+        _output.WriteLine("Lower case");
+        var lowerCase = await RunTestCase(func.ToLowerInvariant(), expected, fails);
+        Assert.True(lowerCase.Assert);
+    }
+
+    [Theory]
+    [InlineData("""units.parse("1.2m")""", "0.0012")]
+    [InlineData("""units.parse("1.2")""", "1.2")]
+    [InlineData("""units.parse("10")""", "10")]
+    [InlineData("""units.parse("10K")""", "10000")]
+    [InlineData("""units.parse("10KI")""", "10240")]
+    [InlineData("""units.parse("10M")""", "10000000")]
+    [InlineData("""units.parse("10MI")""", "10485760")]
+    [InlineData("""units.parse("10G")""", "10000000000")]
+    [InlineData("""units.parse("10GI")""", "10737418240")]
+    [InlineData("""units.parse("10T")""", "10000000000000")]
+    [InlineData("""units.parse("10TI")""", "10995116277760")]
+    [InlineData("""units.parse("10P")""", "10000000000000000")]
+    [InlineData("""units.parse("10PI")""", "11258999068426240")]
+    [InlineData("""units.parse("10E")""", "10000000000000000000")]
+
+    // Native implementation seems does rounding (result will be 11529215046068470000).
+    [InlineData("""units.parse("10EI")""", "11529215046068469760")]
+    [InlineData("""units.parse("b")""", "0", true)]
+    [InlineData("""units.parse(`1.2"ki"`)""", "1228.8")]
+    [InlineData("""units.parse(`-1b`)""", "0", true)]
+    public async Task UnitsParse(string func, string expected, bool fails = false)
+    {
+        var result = await RunTestCase(func, expected, fails);
+        Assert.True(result.Assert);
+    }
+
     [Fact]
     public async Task ErrorHandling()
     {

@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Reflection;
 using System.Text;
 using System.Text.Json.Nodes;
@@ -323,5 +324,131 @@ public partial class DefaultOpaImportsAbi
         {
             return null;
         }
+    }
+
+    const ulong b = 1;
+    const ulong kb = 1000 * b;
+    const ulong mb = 1000 * kb;
+    const ulong gb = 1000 * mb;
+    const ulong tb = 1000 * gb;
+    const ulong pb = 1000 * tb;
+    const ulong eb = 1000 * pb;
+
+    const ulong bi = 1u << (10 * 0);
+    const ulong ki = 1u << (10 * 1);
+    const ulong mi = 1u << (10 * 2);
+    const ulong gi = 1u << (10 * 3);
+    const ulong ti = (ulong)1u << (10 * 4);
+    const ulong pi = (ulong)1u << (10 * 5);
+    const ulong ei = (ulong)1u << (10 * 6);
+
+    private static decimal? UnitsParse(string x)
+    {
+        if (string.IsNullOrWhiteSpace(x))
+            return null;
+
+        const decimal milli = 0.001m;
+
+        var num = double.NaN;
+        var unit = string.Empty;
+
+        x = x.Replace("\"", "");
+
+        for (var i = x.Length - 1; i >= 0; i--)
+        {
+            if (char.IsLetter(x[i]))
+                continue;
+
+            if (!double.TryParse(x[.. (i + 1)], CultureInfo.InvariantCulture, out num))
+                return null;
+
+            if (i + 1 < x.Length)
+            {
+                unit = x[(i + 1) ..];
+                unit = $"{unit[0]}{unit[1..].ToLowerInvariant()}";
+            }
+
+            break;
+        }
+
+        if (double.IsNaN(num))
+            return null;
+
+        decimal? n = unit switch
+        {
+            "m" => milli,
+            "" => b,
+            "k" or "K" => kb,
+            "ki" or "Ki" => ki,
+            "M" => mb,
+            "mi" or "Mi" => mi,
+            "g" or "G" => gb,
+            "gi" or "Gi" => gi,
+            "t" or "T" => tb,
+            "ti" or "Ti" => ti,
+            "p" or "P" => pb,
+            "pi" or "Pi" => pi,
+            "e" or "E" => eb,
+            "ei" or "Ei" => ei,
+            _ => null,
+        };
+
+        if (n == null)
+            return null;
+
+        return n.Value * (decimal)num;
+    }
+
+    private static ulong? UnitsParseBytes(string x)
+    {
+        if (string.IsNullOrWhiteSpace(x))
+            return null;
+
+        var num = double.NaN;
+        var unit = string.Empty;
+
+        x = x.Replace("\"", "");
+
+        for (var i = x.Length - 1; i >= 0; i--)
+        {
+            if (char.IsLetter(x[i]))
+                continue;
+
+            if (!double.TryParse(x[.. (i + 1)], CultureInfo.InvariantCulture, out num))
+                return null;
+
+            if (i + 1 < x.Length)
+                unit = x[(i + 1) ..].ToLowerInvariant();
+
+            break;
+        }
+
+        if (double.IsNaN(num))
+            return null;
+
+        ulong? n = unit switch
+        {
+            "" => b,
+            "kb" or "k" => kb,
+            "kib" or "ki" => ki,
+            "mb" or "m" => mb,
+            "mib" or "mi" => mi,
+            "gb" or "g" => gb,
+            "gib" or "gi" => gi,
+            "tb" or "t" => tb,
+            "tib" or "ti" => ti,
+            "pb" or "p" => pb,
+            "pib" or "pi" => pi,
+            "eb" or "e" => eb,
+            "eib" or "ei" => ei,
+            _ => null,
+        };
+
+        if (n == null)
+            return null;
+
+        var result = n.Value * (decimal)num;
+
+        return decimal.ToUInt64(result);
     }
 }
