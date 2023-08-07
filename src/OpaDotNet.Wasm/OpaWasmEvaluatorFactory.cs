@@ -1,11 +1,21 @@
 ﻿namespace OpaDotNet.Wasm;
 
+/// <summary>
+/// A factory abstraction for a component that can create <see cref="IOpaEvaluator"/> instances from OPA policy WASM binary.
+/// </summary>
 public sealed class OpaWasmEvaluatorFactory : OpaEvaluatorFactory
 {
     private readonly Func<IOpaEvaluator> _factory;
 
     private readonly Action _disposer;
 
+    /// <summary>
+    /// Creates new instance of <see cref="OpaWasmEvaluatorFactory"/>.
+    /// </summary>
+    /// <param name="policyWasm">OPA policy WASM binary stream</param>
+    /// <param name="options">Evaluation engine options</param>
+    /// <param name="importsAbiFactory">Factory that produces instances of <see cref="IOpaImportsAbi"/></param>
+    /// <param name="loggerFactory">Logger factory</param>
     public OpaWasmEvaluatorFactory(
         Stream policyWasm,
         WasmPolicyEngineOptions? options = null,
@@ -53,12 +63,14 @@ public sealed class OpaWasmEvaluatorFactory : OpaEvaluatorFactory
         }
     }
 
+    /// <inheritdoc />
     protected override void Dispose(bool disposing)
     {
         _disposer();
         base.Dispose(disposing);
     }
 
+    /// <inheritdoc />
     public override IOpaEvaluator Create()
     {
         ThrowIfDisposed();

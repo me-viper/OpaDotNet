@@ -1,5 +1,8 @@
 ﻿namespace OpaDotNet.Wasm;
 
+/// <summary>
+/// Exposes OPA built-ins implementation.
+/// </summary>
 public interface IOpaImportsAbi
 {
     /// <summary>

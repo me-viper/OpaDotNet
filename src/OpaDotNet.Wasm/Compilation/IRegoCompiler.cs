@@ -2,11 +2,14 @@
 
 namespace OpaDotNet.Wasm.Compilation;
 
+/// <summary>
+/// Exposes an OPA policy compiler.
+/// </summary>
 [PublicAPI]
 public interface IRegoCompiler
 {
     /// <summary>
-    /// Compiles OPA bundle from bundle directory. 
+    /// Compiles OPA bundle from bundle directory.
     /// </summary>
     /// <param name="bundlePath">Bundle directory path</param>
     /// <param name="entrypoints">Entrypoints</param>

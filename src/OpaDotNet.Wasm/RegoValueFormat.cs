@@ -13,5 +13,5 @@ public enum RegoValueFormat
     /// <summary>
     /// Serialized Rego values.
     /// </summary>
-    Value
+    Value,
 }

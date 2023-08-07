@@ -18,10 +18,11 @@ public interface IOpaEvaluator : IDisposable
     Version AbiVersion { get; }
 
     /// <summary>
-    /// Evaluates named policy with specified input. Result interpreted as simple <c>true</c>/<c>false</c> response.   
+    /// Evaluates named policy with specified input. Result interpreted as simple <c>true</c>/<c>false</c> response.
     /// </summary>
     /// <param name="input">Policy input document</param>
     /// <param name="entrypoint">Policy decision to ask for</param>
+    /// <typeparam name="TInput">Type of the input.</typeparam>
     /// <returns>Policy evaluation result</returns>
     PolicyEvaluationResult<bool> EvaluatePredicate<TInput>(TInput input, string? entrypoint = null);
 
@@ -30,6 +31,8 @@ public interface IOpaEvaluator : IDisposable
     /// </summary>
     /// <param name="input">Policy input document</param>
     /// <param name="entrypoint">Policy decision to ask for</param>
+    /// <typeparam name="TInput">Type of the input.</typeparam>
+    /// <typeparam name="TOutput">Type of the output.</typeparam>
     /// <returns>Policy evaluation result</returns>
     PolicyEvaluationResult<TOutput> Evaluate<TInput, TOutput>(TInput input, string? entrypoint = null)
         where TOutput : notnull;
@@ -57,6 +60,7 @@ public interface IOpaEvaluator : IDisposable
     /// <summary>
     /// Sets external data.
     /// </summary>
+    /// <typeparam name="T">Type of the data.</typeparam>
     /// <param name="data">External data</param>
     void SetData<T>(T? data) where T : class;
 

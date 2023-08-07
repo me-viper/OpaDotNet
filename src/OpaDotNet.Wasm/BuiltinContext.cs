@@ -2,6 +2,9 @@ using JetBrains.Annotations;
 
 namespace OpaDotNet.Wasm;
 
+/// <summary>
+/// Built-in function execution context.
+/// </summary>
 [PublicAPI]
 public record BuiltinContext
 {

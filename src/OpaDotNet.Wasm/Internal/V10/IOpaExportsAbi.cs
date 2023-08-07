@@ -15,7 +15,7 @@ internal interface IOpaExportsAbi
     nint Builtins();
 
     /// <summary>
-    /// Allocates <see cref="size"/> bytes in the shared memory.
+    /// Allocates <paramref name="size"/> bytes in the shared memory.
     /// </summary>
     /// <param name="size">Size to be allocated in bytes</param>
     /// <returns>The starting address of allocated memory</returns>
@@ -34,7 +34,7 @@ internal interface IOpaExportsAbi
     void Free(nint ptr);
 
     /// <summary>
-    /// Parses the JSON serialized value starting at <see cref="ptr"/> of <see cref="size"/> bytes.
+    /// Parses the JSON serialized value starting at <paramref name="ptr"/> of <paramref name="size"/> bytes.
     /// The parsed value may refer to a null, boolean, number, string, array, or object value.
     /// </summary>
     /// <param name="ptr">Address of the parsed value</param>
@@ -43,7 +43,7 @@ internal interface IOpaExportsAbi
     nint JsonParse(nint ptr, int size);
 
     /// <summary>
-    /// Dumps the value referred to by <see cref="ptr"/> to a null-terminated JSON serialized string.
+    /// Dumps the value referred to by <paramref name="ptr"/> to a null-terminated JSON serialized string.
     /// Rego sets are serialized as JSON arrays. Non-string Rego object keys are serialized as strings.
     /// </summary>
     /// <param name="ptr">The address of value</param>
@@ -51,7 +51,7 @@ internal interface IOpaExportsAbi
     nint JsonDump(nint ptr);
 
     /// <summary>
-    /// Parses the JSON serialized value starting at <see cref="ptr"/> of <see cref="size"/> bytes.
+    /// Parses the JSON serialized value starting at <paramref name="ptr"/> of <paramref name="size"/> bytes.
     /// The parsed value may refer to a null, boolean, number, string, array, or object value.
     /// Rego set literals are supported.
     /// </summary>
@@ -61,7 +61,7 @@ internal interface IOpaExportsAbi
     nint ValueParse(nint ptr, int size);
 
     /// <summary>
-    /// Dumps the value referred to by <see cref="ptr"/> to a null-terminated JSON serialized string.
+    /// Dumps the value referred to by <paramref name="ptr"/> to a null-terminated JSON serialized string.
     /// Rego sets are serialized using the literal syntax and non-string Rego object keys are not serialized as strings.
     /// </summary>
     /// <param name="ptr">Address of the value</param>
@@ -74,7 +74,7 @@ internal interface IOpaExportsAbi
     /// Existing values will be updated. On success the value at <paramref name="valuePtr"/> is no longer owned by the caller,
     /// it will be freed with the base value. The path value must be freed by the caller after use by calling
     /// opa_value_free. (The original path string passed to <see cref="JsonParse"/> or <see cref="ValueParse"/>
-    /// to create the value must be freed by calling <see cref="Free"/>.) 
+    /// to create the value must be freed by calling <see cref="Free"/>.)
     /// If an error occurs the base value will remain unchanged.
     /// </summary>
     /// <param name="baseValuePtr">The address of initial value</param>

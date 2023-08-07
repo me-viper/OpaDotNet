@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <OutputType>Exe</OutputType>
-    </PropertyGroup>
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Microsoft.Some.Package" Version="7.0.0" />
-        <PackageReference Include="System.Some.Package" Version="5.0.0" />
-        <PackageReference Include="Untrusted.Package" Version="7.0.0" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Some.Package" Version="7.0.0"/>
+    <PackageReference Include="System.Some.Package" Version="5.0.0"/>
+    <PackageReference Include="Untrusted.Package" Version="7.0.0"/>
+  </ItemGroup>
 
 </Project>

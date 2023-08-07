@@ -4,6 +4,9 @@ using JetBrains.Annotations;
 
 namespace OpaDotNet.Wasm;
 
+/// <summary>
+/// Represents built-in function argument.
+/// </summary>
 [PublicAPI]
 public class BuiltinArg
 {
@@ -25,15 +28,20 @@ public class BuiltinArg
     }
 
     /// <summary>
-    /// Json with REGO sets specific patches.
+    /// JSON with REGO sets specific patches.
     /// </summary>
     public JsonNode? Raw => _arg(RegoValueFormat.Value);
 
     /// <summary>
-    /// Raw Json with REGO sets serialized as arrays.
+    /// Raw JSON with REGO sets serialized as arrays.
     /// </summary>
     public JsonNode? RawJson => _arg(RegoValueFormat.Json);
 
+    /// <summary>
+    /// Converts built-in function argument in JSON format to the specified type.
+    /// </summary>
+    /// <param name="format">Value type JSON.</param>
+    /// <typeparam name="T">Target type.</typeparam>
     public T As<T>(RegoValueFormat format = RegoValueFormat.Json) where T : notnull
     {
         var result = AsOrNull<T>(null, format);
@@ -44,6 +52,15 @@ public class BuiltinArg
         return result;
     }
 
+    /// <summary>
+    /// Converts built-in function argument in JSON format to the specified type.
+    /// </summary>
+    /// <param name="defaultValue">Value to return if built-in is null.</param>
+    /// <param name="format">
+    /// If <c>RegoValueFormat.Json</c> <see cref="RawJson"/> will be used as source for the conversion.
+    /// If <c>RegoValueFormat.Value</c> <see cref="Raw"/> will be used as source for the conversion.
+    /// </param>
+    /// <typeparam name="T">Target type.</typeparam>
     public T? AsOrNull<T>(Func<T>? defaultValue = null, RegoValueFormat format = RegoValueFormat.Json)
     {
         var val = format == RegoValueFormat.Value ? Raw : RawJson;

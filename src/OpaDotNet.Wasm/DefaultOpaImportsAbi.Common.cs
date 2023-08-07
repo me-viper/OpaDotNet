@@ -54,6 +54,10 @@ public partial class DefaultOpaImportsAbi
         return result;
     }
 
+    /// <summary>
+    /// When overriden allows replacing a pseudo-random number generator.
+    /// </summary>
+    /// <returns>A pseudo-random number generator.</returns>
     [ExcludeFromCodeCoverage]
     protected virtual Random Random()
     {

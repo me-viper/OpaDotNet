@@ -2,6 +2,9 @@
 
 namespace OpaDotNet.Wasm;
 
+/// <summary>
+/// Contains members that affect OPA policy engine configuration.
+/// </summary>
 public class WasmPolicyEngineOptions
 {
     /// <summary>
@@ -26,7 +29,7 @@ public class WasmPolicyEngineOptions
 
     /// <summary>
     /// Max ABI versions to use.
-    /// Can be useful for cases when you want evaluator to use lower ABI version than policy supports. 
+    /// Can be useful for cases when you want evaluator to use lower ABI version than policy supports.
     /// </summary>
     public Version? MaxAbiVersion { get; init; }
 
@@ -39,9 +42,9 @@ public class WasmPolicyEngineOptions
     public string? CachePath { get; init; }
 
     /// <summary>
-    /// Json serialization options.
+    /// JSON serialization options.
     /// </summary>
-    /// <exception cref="ArgumentNullException">Value is null</exception>
+    /// <exception cref="ArgumentNullException">Value is <c>null</c>.</exception>
     public JsonSerializerOptions SerializationOptions
     {
         get => _jsonSerializationOptions;

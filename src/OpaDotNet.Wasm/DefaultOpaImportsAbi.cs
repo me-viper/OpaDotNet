@@ -7,28 +7,47 @@ using JetBrains.Annotations;
 
 namespace OpaDotNet.Wasm;
 
+/// <summary>
+/// Default built-in functions implementation.
+/// </summary>
 [PublicAPI]
 public partial class DefaultOpaImportsAbi : IOpaImportsAbi
 {
     private readonly ConcurrentDictionary<string, object> _valueCache = new();
 
+    /// <summary>
+    /// Adds a key/value pair to the cache if the key does not already exist.
+    /// Returns the new value, or the existing value if the key already exists.
+    /// </summary>
+    /// <param name="key">Cached value key</param>
+    /// <param name="valueFactory">Value producer if key is not present in cache</param>
+    /// <typeparam name="T">Type of the object to store</typeparam>
     protected T CacheGetOrAddValue<T>(string key, Func<T> valueFactory) where T : notnull
     {
         return (T)_valueCache.GetOrAdd(key, valueFactory());
     }
 
+    /// <summary>
+    /// When overriden allows replacing default logic for retrieving the current local date and time.
+    /// </summary>
     [ExcludeFromCodeCoverage]
     protected virtual DateTimeOffset Now()
     {
         return DateTimeOffset.Now;
     }
 
+    /// <summary>
+    /// When overriden allows replacing GUID generator.
+    /// </summary>
     [ExcludeFromCodeCoverage]
     protected virtual Guid NewGuid()
     {
         return Guid.NewGuid();
     }
 
+    /// <summary>
+    /// Resets built-ins so it can be used for subsequent evaluations (clears all caches).
+    /// </summary>
     public virtual void Reset()
     {
         _valueCache.Clear();
@@ -48,6 +67,10 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
     {
     }
 
+    /// <summary>
+    /// Default implementation of the <c>trace</c> built-in function.
+    /// </summary>
+    /// <param name="message">Message to write.</param>
     [ExcludeFromCodeCoverage]
     protected virtual bool Trace(string message)
     {

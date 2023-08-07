@@ -11,11 +11,11 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.Extensions.Logging" />
-        <PackageReference Include="Microsoft.NET.Test.Sdk" />
-        <PackageReference Include="xunit" />
-        <PackageReference Include="xunit.runner.visualstudio" />
-        <PackageReference Include="coverlet.collector" />
+        <PackageReference Include="Microsoft.Extensions.Logging"/>
+        <PackageReference Include="Microsoft.NET.Test.Sdk"/>
+        <PackageReference Include="xunit"/>
+        <PackageReference Include="xunit.runner.visualstudio"/>
+        <PackageReference Include="coverlet.collector"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -115,7 +115,19 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\src\OpaDotNet.Wasm\OpaDotNet.Wasm.csproj" />
+        <ProjectReference Include="..\src\OpaDotNet.Wasm\OpaDotNet.Wasm.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Include="..\docs\snippets\Builtins.cs">
+            <Link>Snippets\Builtins.cs</Link>
+        </Compile>
+        <Compile Include="..\docs\snippets\QuickStart.cs">
+            <Link>Snippets\QuickStart.cs</Link>
+        </Compile>
+        <Compile Include="..\docs\snippets\Snippets.cs">
+            <Link>Snippets\Snippets.cs</Link>
+        </Compile>
     </ItemGroup>
 
 </Project>
