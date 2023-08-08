@@ -9,7 +9,7 @@ with dotnet core.
 Initial implementation was based
 on [Open Policy Agent WebAssemby NPM Module](https://github.com/open-policy-agent/npm-opa-wasm)
 
-For more information check out [the guide](https://andrii-kurochka.gitbook.io/opadotnet.wasm/).
+For more information check out [the guide](https://me-viper.github.io/OpaDotNet/).
 
 ## Key Features
 
