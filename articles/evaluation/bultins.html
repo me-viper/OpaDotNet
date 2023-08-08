@@ -1,0 +1,381 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Custom Built-in Functions | OpaDotNet </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Custom Built-in Functions | OpaDotNet ">
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/me-viper/OpaDotNet/blob/develop/docs/articles/evaluation/bultins.md/#L1">
+  </head>
+
+  <script type="module">
+    import options from './../../public/main.js'
+    import { init } from './../../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.svg" alt="OpaDotNet">
+            OpaDotNet
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="custom-built-in-functions">Custom Built-in Functions</h1>
+
+<p>OpaDotNet can be extended with custom built-in functions.</p>
+<p>OPA supports built-in functions for simple operations like string manipulation and arithmetic as well as more complex operations like JWT verification and executing HTTP requests. If you need to to extend OPA with custom built-in functions for use cases or integrations that are not supported out-of-the-box you can supply the function definitions when you prepare queries.</p>
+<p>Using custom built-in functions involves providing a declaration and implementation. The declaration tells OPA the function’s type signature and the implementation provides the callback that OPA can execute during query evaluation.</p>
+<h2 id="implementation">Implementation</h2>
+<p>Usually you will extend <code>DefaultOpaImportsAbi</code> class to add new built-in functions:</p>
+<p>In the following sample we define 5 custom functions:</p>
+<ul>
+<li><code>custom.zeroArgBuiltin</code></li>
+<li><code>custom.oneArgBuiltin</code></li>
+<li><code>custom.twoArgBuiltin</code></li>
+<li><code>custom.threeArgBuiltin</code></li>
+<li><code>custom.fourArgBuiltin</code></li>
+</ul>
+<div class="NOTE">
+<h5>Note</h5>
+<p>OPA supports custom functions with up to four arguments.</p>
+</div>
+<pre><code class="lang-csharp">
+public class CustomBuiltinsSample : DefaultOpaImportsAbi
+{
+    // Built-in with zero arguments.
+    public override object? Func(BuiltinContext context)
+    {
+        if (string.Equals(&quot;custom.zeroArgBuiltin&quot;, context.FunctionName, StringComparison.Ordinal))
+            return &quot;hello&quot;;
+
+        return base.Func(context);
+    }
+
+    // Built-in with one argument.
+    public override object? Func(BuiltinContext context, BuiltinArg arg1)
+    {
+        if (string.Equals(&quot;custom.oneArgBuiltin&quot;, context.FunctionName, StringComparison.Ordinal))
+            return $&quot;hello {arg1.AsOrNull&lt;string&gt;()}&quot;;
+
+        return base.Func(context, arg1);
+    }
+
+    // Built-in with two arguments.
+    public override object? Func(BuiltinContext context, BuiltinArg arg1, BuiltinArg arg2)
+    {
+        if (string.Equals(&quot;custom.twoArgBuiltin&quot;, context.FunctionName, StringComparison.Ordinal))
+            return $&quot;hello {arg1.AsOrNull&lt;string&gt;()} {arg2.AsOrNull&lt;string&gt;()}&quot;;
+
+        return base.Func(context, arg1, arg2);
+    }
+
+    // Built-in with three arguments.
+    public override object? Func(BuiltinContext context, BuiltinArg arg1, BuiltinArg arg2, BuiltinArg arg3)
+    {
+        if (string.Equals(&quot;custom.threeArgBuiltin&quot;, context.FunctionName, StringComparison.Ordinal))
+            return $&quot;hello {arg1.AsOrNull&lt;string&gt;()} {arg2.AsOrNull&lt;string&gt;()} {arg3.AsOrNull&lt;string&gt;()}&quot;;
+
+        return base.Func(context, arg1, arg2, arg3);
+    }
+
+    // Built-in with four arguments.
+    public override object? Func(BuiltinContext context, BuiltinArg arg1, BuiltinArg arg2, BuiltinArg arg3, BuiltinArg arg4)
+    {
+        if (string.Equals(&quot;custom.fourArgBuiltin&quot;, context.FunctionName, StringComparison.Ordinal))
+            return $&quot;hello {arg1.AsOrNull&lt;string&gt;()} {arg2.AsOrNull&lt;string&gt;()} {arg3.AsOrNull&lt;string&gt;()} {arg4.AsOrNull&lt;string&gt;()}&quot;;
+
+        return base.Func(context, arg1, arg2, arg3, arg4);
+    }
+}
+
+</code></pre><h2 id="declaration">Declaration</h2>
+<p>To make OPA aware about custom built-ins we need add <a href="https://www.openpolicyagent.org/docs/latest/deployments/#capabilities">capabilities</a> file containing the types for declarations and runtime objects passed to your implementation.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Custom built-ins are supported only for policy bundles.</p>
+</div>
+<p><code>capabilities.json</code></p>
+<pre><code class="lang-json">{
+  &quot;builtins&quot;: [
+    {
+      &quot;name&quot;: &quot;custom.zeroArgBuiltin&quot;,
+      &quot;decl&quot;: {
+        &quot;type&quot;: &quot;function&quot;,
+        &quot;args&quot;: [],
+        &quot;result&quot;: {
+          &quot;type&quot;: &quot;string&quot;
+        }
+      }
+    },
+    {
+      &quot;name&quot;: &quot;custom.oneArgBuiltin&quot;,
+      &quot;decl&quot;: {
+        &quot;type&quot;: &quot;function&quot;,
+        &quot;args&quot;: [
+          {
+            &quot;type&quot;: &quot;string&quot;
+          }
+        ],
+        &quot;result&quot;: {
+          &quot;type&quot;: &quot;string&quot;
+        }
+      }
+    },
+    {
+      &quot;name&quot;: &quot;custom.oneArgObjectBuiltin&quot;,
+      &quot;decl&quot;: {
+        &quot;type&quot;: &quot;function&quot;,
+        &quot;args&quot;: [
+          {
+            &quot;type&quot;: &quot;object&quot;
+          }
+        ],
+        &quot;result&quot;: {
+          &quot;type&quot;: &quot;string&quot;
+        }
+      }
+    },
+    {
+      &quot;name&quot;: &quot;custom.twoArgBuiltin&quot;,
+      &quot;decl&quot;: {
+        &quot;type&quot;: &quot;function&quot;,
+        &quot;args&quot;: [
+          {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          {
+            &quot;type&quot;: &quot;string&quot;
+          }
+        ],
+        &quot;result&quot;: {
+          &quot;type&quot;: &quot;string&quot;
+        }
+      }
+    },
+    {
+      &quot;name&quot;: &quot;custom.threeArgBuiltin&quot;,
+      &quot;decl&quot;: {
+        &quot;type&quot;: &quot;function&quot;,
+        &quot;args&quot;: [
+          {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          {
+            &quot;type&quot;: &quot;string&quot;
+          }
+        ],
+        &quot;result&quot;: {
+          &quot;type&quot;: &quot;string&quot;
+        }
+      }
+    },
+    {
+      &quot;name&quot;: &quot;custom.fourArgBuiltin&quot;,
+      &quot;decl&quot;: {
+        &quot;type&quot;: &quot;function&quot;,
+        &quot;args&quot;: [
+          {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          {
+            &quot;type&quot;: &quot;string&quot;
+          }
+        ],
+        &quot;result&quot;: {
+          &quot;type&quot;: &quot;string&quot;
+        }
+      }
+    }
+  ]
+}
+</code></pre><h2 id="policy">Policy</h2>
+<p><code>policy.rego</code></p>
+<pre><code class="lang-rego">package custom_builtins
+
+zero_arg = x {
+  x = custom.zeroArgBuiltin()
+}
+
+one_arg = x {
+    x = custom.oneArgBuiltin(input.args[0])
+}
+
+one_arg_object = x {
+    x = custom.oneArgObjectBuiltin(input.args[0])
+}
+
+two_arg = x {
+    x = custom.twoArgBuiltin(input.args[0], input.args[1])
+}
+
+three_arg = x {
+    x = custom.threeArgBuiltin(input.args[0], input.args[1], input.args[2])
+}
+
+four_arg = x {
+    x = custom.fourArgBuiltin(input.args[0], input.args[1], input.args[2], input.args[3])
+}
+
+four_arg_types = x {
+    x = custom.fourArgTypesBuiltin(input.args[0], input.args[1], input.args[2], input.args[3])
+}
+</code></pre><h2 id="compilation">Compilation</h2>
+<p>Place policy and capabilities files into <code>bundle</code> directory.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>If you use standalone <code>capabilities.json</code> file it will restrict the built-in functions that policies may depend (i.e. you will also need to add all functions
+your policy is using). If you just want to add your custom built-in without adding any restrictions you can specify <code>RegoCliCompilerOptions.CapabilitiesVersion</code> parameter. When this parameter is defined behind the scenes compiler will merge OPA capabilities of a specified version with your custom capabilities.</p>
+</div>
+<p>Next we need to compile policy bundle and make it aware about our custom built-ins:</p>
+<pre><code class="lang-csharp">
+var opts = new RegoCliCompilerOptions
+{
+    // Custom built-ins will be merged with capabilities v0.53.1.
+    CapabilitiesVersion = &quot;v0.53.1&quot;,
+};
+
+var compiler = new RegoCliCompiler(new OptionsWrapper&lt;RegoCliCompilerOptions&gt;(opts));
+var policy = await compiler.CompileBundle(
+    &quot;./bundle&quot;,
+    new[]
+    {
+        &quot;custom_builtins/zero_arg&quot;,
+        &quot;custom_builtins/one_arg&quot;,
+        &quot;custom_builtins/two_arg&quot;,
+        &quot;custom_builtins/three_arg&quot;,
+        &quot;custom_builtins/four_arg&quot;,
+    },
+    Path.Combine(&quot;./bundle&quot;, &quot;capabilities.json&quot;)
+    );
+
+var factory = new OpaBundleEvaluatorFactory(
+    policy,
+    importsAbiFactory: () =&gt; new CustomBuiltinsSample()
+    );
+
+var engine = factory.Create();
+
+</code></pre><h2 id="execution">Execution</h2>
+<p>Now we can evaluate policies using custom built-ins:</p>
+<pre><code class="lang-csharp">
+var resultZeroArg = engine.Evaluate&lt;object, string&gt;(new object(), &quot;custom_builtins/zero_arg&quot;);
+Console.WriteLine(resultZeroArg.Result);
+
+var resultOneArg = engine.Evaluate&lt;object, string&gt;(
+    new { args = new[] { &quot;arg0&quot; } },
+    &quot;custom_builtins/one_arg&quot;
+    );
+Console.WriteLine(resultOneArg.Result);
+
+var resultTwoArg = engine.Evaluate&lt;object, string&gt;(
+    new { args = new[] { &quot;arg0&quot;, &quot;arg1&quot; } },
+    &quot;custom_builtins/two_arg&quot;
+    );
+Console.WriteLine(resultTwoArg.Result);
+
+var resultThreeArg = engine.Evaluate&lt;object, string&gt;(
+    new { args = new[] { &quot;arg0&quot;, &quot;arg1&quot;, &quot;arg2&quot; } },
+    &quot;custom_builtins/three_arg&quot;
+    );
+Console.WriteLine(resultThreeArg.Result);
+
+var resultFourArg = engine.Evaluate&lt;object, string&gt;(
+    new { args = new[] { &quot;arg0&quot;, &quot;arg1&quot;, &quot;arg2&quot;, &quot;arg3&quot; } },
+    &quot;custom_builtins/four_arg&quot;
+    );
+Console.WriteLine(resultFourArg.Result);
+
+</code></pre>
+<p>If you executed this code you the output would be:</p>
+<pre><code class="lang-bash">hello
+hello arg0
+hello arg0 arg1
+hello arg0 arg1 arg2
+hello arg0 arg1 arg2 arg3
+</code></pre>
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/me-viper/OpaDotNet/blob/develop/docs/articles/evaluation/bultins.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

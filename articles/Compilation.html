@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Policy Compilation | OpaDotNet </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Policy Compilation | OpaDotNet ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/me-viper/OpaDotNet/blob/develop/docs/articles/Compilation.md/#L1">
+  </head>
+
+  <script type="module">
+    import options from './../public/main.js'
+    import { init } from './../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="OpaDotNet">
+            OpaDotNet
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="policy-compilation">Policy Compilation</h1>
+
+<p>To evaluate policy modules they need to be compiled into WASM.</p>
+<p>You can compile them manually with <code>opa build -t wasm ...</code> <a href="https://www.openpolicyagent.org/docs/latest/cli/#opa-build">command</a> or ask OpaDotNet do that for you.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Internally <code>RegoCliCompiler</code> uses <code>opa</code> CLI so you need to ensure it is in your <code>PATH</code> environment variable or you provided full path in <code>RegoCliCompilerOptions.OpaToolPath</code>.</p>
+</div>
+<h2 id="add-usings">Add usings</h2>
+<pre><code class="lang-csharp">
+using OpaDotNet.Wasm;
+using OpaDotNet.Wasm.Compilation;
+
+</code></pre><h2 id="compiling-single-policy-file">Compiling single policy file</h2>
+<pre><code class="lang-csharp">
+var compiler = new RegoCliCompiler();
+
+var policy = await compiler.CompileFile(
+
+    // Policy source file.
+    &quot;policy.rego&quot;,
+
+    // Entrypoints (same you would pass for -e parameter for opa build).
+    new[] { &quot;example/allow&quot; }
+    );
+
+// RegoCliCompiler will always produce bundle.
+using var engine = OpaEvaluatorFactory.CreateFromBundle(policy);
+
+</code></pre><h2 id="compiling-bundle">Compiling bundle</h2>
+<p>Create <a href="https://www.openpolicyagent.org/docs/latest/management-bundles/">bundle directory</a></p>
+<pre><code class="lang-csharp">
+var compiler = new RegoCliCompiler();
+
+var policy = await compiler.CompileBundle(
+
+    // Directory with bundle sources.
+    &quot;bundleDirectory&quot;,
+
+    // Entrypoints (same you would pass for -e parameter for opa build).
+    new[] { &quot;example/allow&quot; }
+    );
+
+// RegoCliCompiler will always produce bundle.
+using var engine = OpaEvaluatorFactory.CreateFromBundle(policy);
+
+</code></pre></article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/me-viper/OpaDotNet/blob/develop/docs/articles/Compilation.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

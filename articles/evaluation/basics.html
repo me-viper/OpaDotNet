@@ -1,0 +1,156 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Policy Evaluation | OpaDotNet </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Policy Evaluation | OpaDotNet ">
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/me-viper/OpaDotNet/blob/develop/docs/articles/evaluation/basics.md/#L1">
+  </head>
+
+  <script type="module">
+    import options from './../../public/main.js'
+    import { init } from './../../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.svg" alt="OpaDotNet">
+            OpaDotNet
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="policy-evaluation">Policy Evaluation</h1>
+
+<p>OPA policy module evaluation requires the following steps:</p>
+<ol>
+<li>Obtain compiled policy WASM binary or policy bundle.</li>
+<li>Initialize evaluator instance.</li>
+<li>Set optional external data.</li>
+<li>Evaluate policy with optional input.</li>
+</ol>
+<h2 id="obtain-compiled-policy-wasm-binary-or-policy-bundle">Obtain compiled policy WASM binary or policy bundle</h2>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>If you are using precompiled policy bundle it should target WASM and contain <code>policy.wasm</code> file.</p>
+</div>
+<h2 id="initialize-evaluator-instance">Initialize evaluator instance</h2>
+<p>There are several ways to initialize evaluator instance:</p>
+<ul>
+<li>Static methods of <a class="xref" href="../../api/OpaDotNet.Wasm.OpaEvaluatorFactory.html">OpaEvaluatorFactory</a>
+<ul>
+<li><code>CreateFromBundle</code>. Creates evaluator instance from policy bundle.</li>
+<li><code>CreateFromWasm</code>. Creates evaluator instance from policy WASM binary.</li>
+</ul>
+</li>
+<li><a class="xref" href="../../api/OpaDotNet.Wasm.OpaBundleEvaluatorFactory.html">OpaBundleEvaluatorFactory</a>. Creates evaluator instance from policy bundle.</li>
+<li><a class="xref" href="../../api/OpaDotNet.Wasm.OpaWasmEvaluatorFactory.html">OpaWasmEvaluatorFactory</a>. Creates evaluator instance from policy WASM binary.</li>
+</ul>
+<p>In general you would use:</p>
+<ul>
+<li><code>OpaEvaluatorFactory</code> if you need to create single instance of <code>IOpaEvaluator</code> (e.g. cli tools, scripts etc.)</li>
+<li><code>OpaBundleEvaluatorFactory</code> or <code>OpaWasmEvaluatorFactory</code> if you need create multiply <code>IOpaEvaluator</code> instances from the same policy bundle or WASM binary (e.g. AspNetCore applications/services).</li>
+</ul>
+<div class="CAUTION">
+<h5>Caution</h5>
+<p><code>IOpaEvaluator</code> instances are NOT thread safe.</p>
+</div>
+<p>You can customize <code>IOpaEvaluator</code> behavior by providing <a class="xref" href="../../api/OpaDotNet.Wasm.WasmPolicyEngineOptions.html">WasmPolicyEngineOptions</a>.</p>
+<h2 id="set-optional-external-data">Set optional external data</h2>
+<p>If policy does not use external data or policy bundle already contains <code>data.json</code> file you can skip this step.</p>
+<p>You can initialize external data with any of <code>IOpaEvaluator.SetData*</code> methods.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>You can call <code>IOpaEvaluator.SetData*</code> if you need external data changed between policy evaluations.</p>
+</div>
+<p>You can reset <code>IOpaEvaluator</code> instance to &quot;initial state&quot; (aka no external data) by calling <code>IOpaEvaluator.Reset</code>.</p>
+<h2 id="evaluate-policy-with-optional-input">Evaluate policy with optional input</h2>
+<p>Once <code>IOpaEvaluator</code> instance created and external data have been initialized you can issue policy query evaluations.
+You can provide optional input and optional entrypoint (<code>package</code> or <code>package/rule</code>). If entrypoint is not provided, default entrypoint is used.
+OpaDotNet provides several methods:</p>
+<ul>
+<li><code>IOpaEvaluator.EvaluatePredicate</code>. Useful when policy result is <code>true</code> or <code>false</code>.</li>
+<li><code>IOpaEvaluator.Evaluate</code>. Useful when policy returns complex object.</li>
+<li><code>IOpaEvaluator.EvaluateRaw</code>. Useful when you want control JSON serialization/deserialization manually.</li>
+</ul>
+<div class="NOTE">
+<h5>Note</h5>
+<p>You can use the same <code>IOpaEvaluator</code> instance to evaluate multiply consequent policy queries as long as it's done from the single thread.</p>
+</div>
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/me-viper/OpaDotNet/blob/develop/docs/articles/evaluation/basics.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

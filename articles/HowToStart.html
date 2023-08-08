@@ -1,0 +1,180 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Getting Started | OpaDotNet </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Getting Started | OpaDotNet ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/me-viper/OpaDotNet/blob/develop/docs/articles/HowToStart.md/#L1">
+  </head>
+
+  <script type="module">
+    import options from './../public/main.js'
+    import { init } from './../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="OpaDotNet">
+            OpaDotNet
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="getting-started">Getting Started</h1>
+
+<h2 id="install-nuget-package">Install nuget package</h2>
+<pre><code class="lang-sh">dotnet add package OpaDotNet.Wasm
+</code></pre>
+<h2 id="usage">Usage</h2>
+<p>To evaluate OPA policy you need to:</p>
+<h3 id="add-usings">Add usings</h3>
+<pre><code class="lang-csharp">
+using OpaDotNet.Wasm;
+
+</code></pre><h3 id="load-compiled-policy">Load compiled policy</h3>
+<pre><code class="lang-csharp">
+const string data = &quot;{ \&quot;world\&quot;: \&quot;world\&quot; }&quot;;
+
+using var engine = OpaEvaluatorFactory.CreateFromWasm(
+    File.OpenRead(&quot;policy.wasm&quot;)
+    );
+
+engine.SetDataFromRawJson(data);
+
+</code></pre><h3 id="evaluate-policy">Evaluate policy</h3>
+<p><code>IOpaEvaluator</code> has several APIs for policy evaluation:</p>
+<ul>
+<li><code>EvaluatePredicate</code> - Evaluates named policy with specified input. Response interpreted as simple <code>true</code>/<code>false</code> result.</li>
+<li><code>Evaluate</code> - Evaluates named policy with specified input.</li>
+<li><code>EvaluateRaw</code> - Evaluates named policy with specified raw JSON input.</li>
+</ul>
+<pre><code class="lang-csharp">
+var input = new { message = &quot;world&quot; };
+var policyResult = engine.EvaluatePredicate(input);
+
+</code></pre><h3 id="check-the-result">Check the result</h3>
+<pre><code class="lang-csharp">
+if (policyResult.Result)
+{
+    // We've been authorized.
+}
+else
+{
+    // Can't do that.
+}
+
+</code></pre><h2 id="writing-policy">Writing policy</h2>
+<p>See <a href="https://www.openpolicyagent.org/docs/latest/how-do-i-write-policies/">writing policy</a></p>
+<h3 id="compiling-policy">Compiling policy</h3>
+<p>You have several options to compile rego policy into wasm module:</p>
+<p>Consider <code>example.rego</code> file with the following policy:</p>
+<pre><code class="lang-rego">package example
+
+default hello = false
+
+hello {
+    x := input.message
+    x == data.world
+}
+</code></pre><h3 id="manually">Manually</h3>
+<p>Either use the Compile REST API or opa build CLI tool.</p>
+<p>For example, with OPA v0.20.5+:</p>
+<pre><code class="lang-sh">opa build -t wasm -e example/hello example.rego
+</code></pre>
+<p>Which is compiling the <code>example.rego</code> policy file.
+The result will be an OPA bundle with the <code>policy.wasm</code> binary included. See <a href="https://github.com/me-viper/OpaDotNet/tree/main/samples">samples</a> for a more comprehensive example.</p>
+<p>See <code>opa build --help</code> for more details.</p>
+<h3 id="with-opadotnetwasmcompilation">With OpaDotNet.Wasm.Compilation</h3>
+<p>You can use SDK to do compilation for you.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>You will need <code>opa</code> cli tool to be in your PATH or provide full path in <code>RegoCliCompilerOptions</code>.</p>
+</div>
+<pre><code class="lang-csharp">
+using OpaDotNet.Wasm;
+using OpaDotNet.Wasm.Compilation;
+
+</code></pre><pre><code class="lang-csharp">
+var compiler = new RegoCliCompiler();
+var policyStream = await compiler.CompileFile(&quot;example.rego&quot;, new[] { &quot;example/hello&quot; });
+
+// Use compiled policy.
+using var engine = OpaEvaluatorFactory.CreateFromBundle(policyStream);
+
+</code></pre></article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/me-viper/OpaDotNet/blob/develop/docs/articles/HowToStart.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

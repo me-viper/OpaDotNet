@@ -1,0 +1,412 @@
+{
+  "homepages": [],
+  "source_base_path": "/home/runner/work/OpaDotNet/OpaDotNet/docs",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Wasm.BuiltinArg.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Wasm.BuiltinArg.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Wasm.BuiltinContext.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Wasm.BuiltinContext.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Wasm.Compilation.IRegoCompiler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Wasm.Compilation.IRegoCompiler.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Wasm.Compilation.RegoCliCompiler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Wasm.Compilation.RegoCliCompiler.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Wasm.Compilation.RegoCompilationException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Wasm.Compilation.RegoCompilationException.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Wasm.Compilation.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Wasm.Compilation.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Wasm.DefaultOpaImportsAbi.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Wasm.DefaultOpaImportsAbi.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Wasm.ExportResolutionException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Wasm.ExportResolutionException.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Wasm.Features.IOpaEvaluatorFeature.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Wasm.Features.IOpaEvaluatorFeature.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Wasm.Features.IUpdateDataFeature.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Wasm.Features.IUpdateDataFeature.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Wasm.Features.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Wasm.Features.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Wasm.IOpaEvaluator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Wasm.IOpaEvaluator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Wasm.IOpaImportsAbi.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Wasm.IOpaImportsAbi.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Wasm.OpaBundleEvaluatorFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Wasm.OpaBundleEvaluatorFactory.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Wasm.OpaEvaluationException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Wasm.OpaEvaluationException.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Wasm.OpaEvaluatorFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Wasm.OpaEvaluatorFactory.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Wasm.OpaRuntimeException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Wasm.OpaRuntimeException.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Wasm.OpaWasmEvaluatorFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Wasm.OpaWasmEvaluatorFactory.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Wasm.PolicyEvaluationResult-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Wasm.PolicyEvaluationResult-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Wasm.RegoValueFormat.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Wasm.RegoValueFormat.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Wasm.WasmPolicyEngineOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Wasm.WasmPolicyEngineOptions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Wasm.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Wasm.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "api/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html"
+        },
+        ".json": {
+          "relative_path": "api/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/ABI.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/ABI.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/AspNet/Intro.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/AspNet/Intro.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/Builtins.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/Builtins.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/Compilation.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/Compilation.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/HowToStart.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/HowToStart.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/WhatIs.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/WhatIs.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/evaluation/basics.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/evaluation/basics.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/evaluation/bultins.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/evaluation/bultins.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/evaluation/bundle.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/evaluation/bundle.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/evaluation/wasm.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/evaluation/wasm.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/reference/builtins.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/reference/builtins.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "articles/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "articles/toc.html"
+        },
+        ".json": {
+          "relative_path": "articles/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Redirection",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html"
+        },
+        ".json": {
+          "relative_path": "toc.json"
+        }
+      },
+      "version": ""
+    }
+  ],
+  "version_info": {},
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}

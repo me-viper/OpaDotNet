@@ -1,0 +1,792 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Built-in Functions Implementation Status | OpaDotNet </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Built-in Functions Implementation Status | OpaDotNet ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/me-viper/OpaDotNet/blob/develop/docs/articles/Builtins.md/#L1">
+  </head>
+
+  <script type="module">
+    import options from './../public/main.js'
+    import { init } from './../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="OpaDotNet">
+            OpaDotNet
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="built-in-functions-implementation-status">Built-in Functions Implementation Status</h1>
+
+<p>Bellow is the list of supported OPA built-in functions as for version v0.53.1 along with their implementation status in OpaDotNet.Wasm.</p>
+<h2 id="strings">Strings</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Status</th>
+<th>OpaDotNet version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-strings-indexof_n">indexof_n</a></td>
+<td>✅</td>
+<td>v1.0.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-strings-sprintf">sprintf</a></td>
+<td>✅</td>
+<td>v1.1.0 (*)</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-strings-stringsany_prefix_match">strings.strings.any_prefix_match</a></td>
+<td>✅</td>
+<td>v1.0.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-strings-stringsany_suffix_match">strings.any_suffix_match</a></td>
+<td>✅</td>
+<td>v1.0.0</td>
+</tr>
+</tbody>
+</table>
+<p>* Inconsistent behavior with native implementation when argument is object.</p>
+<h2 id="time">Time</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Status</th>
+<th>OpaDotNet version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timeadd_date">time.add_date</a></td>
+<td>✅</td>
+<td>v1.0.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timeclock">time.clock</a></td>
+<td>✅</td>
+<td>v1.0.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timedate">time.date</a></td>
+<td>✅</td>
+<td>v1.0.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timediff">time.diff</a></td>
+<td>✅</td>
+<td>v1.0.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timeformat">time.format</a></td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timenow_ns">time.now_ns</a></td>
+<td>✅</td>
+<td>v1.0.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timeparse_duration_ns">time.parse_duration_ns</a></td>
+<td>✅</td>
+<td>v1.1.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timeparse_ns">time.parse_ns</a></td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timeparse_rfc3339_ns">time.parse_rfc3339_ns</a></td>
+<td>✅</td>
+<td>v1.1.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timeweekday">time.weekday</a></td>
+<td>✅</td>
+<td>v1.0.0</td>
+</tr>
+</tbody>
+</table>
+<h2 id="json">JSON</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Status</th>
+<th>OpaDotNet version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-object-jsonmatch_schema">json.match_schema</a></td>
+<td>✅</td>
+<td>v1.2.0 (*)</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-object-jsonpatch">json.patch</a></td>
+<td>✅</td>
+<td>v1.2.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-object-jsonverify_schema">json.verify_schema</a></td>
+<td>✅</td>
+<td>v1.2.0</td>
+</tr>
+</tbody>
+</table>
+<p>* Due to differences in JSON Schema libraries reported schema validation errors might differ from native.</p>
+<h2 id="types">Types</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Status</th>
+<th>OpaDotNet version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-object-objectsubset">object.subset</a></td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<h2 id="regex">Regex</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Status</th>
+<th>OpaDotNet version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-regex-regexfind_n">regex.find_n</a></td>
+<td>✅</td>
+<td>v1.1.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-regex-regexglobs_match">regex.globs_match</a></td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-regex-regexreplace">regex.replace</a></td>
+<td>✅</td>
+<td>v1.1.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-regex-regexsplit">regex.split</a></td>
+<td>✅</td>
+<td>v1.1.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-regex-regextemplate_match">regex.template_match</a></td>
+<td>✅</td>
+<td>v1.2.0</td>
+</tr>
+</tbody>
+</table>
+<h2 id="glob">Glob</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Status</th>
+<th>OpaDotNet version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-glob-globquote_meta">glob.quote_meta</a></td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<h2 id="units">Units</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Status</th>
+<th>OpaDotNet version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-units-unitsparse">units.parse</a></td>
+<td>✅</td>
+<td>v1.3.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-units-unitsparse_bytes">units.parse_bytes</a></td>
+<td>✅</td>
+<td>v1.3.0</td>
+</tr>
+</tbody>
+</table>
+<h2 id="encoding">Encoding</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Status</th>
+<th>OpaDotNet version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-encoding-base64urlencode_no_pad">base64url.encode_no_pad</a></td>
+<td>✅</td>
+<td>v1.1.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-encoding-hexdecode">hex.decode</a></td>
+<td>✅</td>
+<td>v1.1.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-encoding-hexencode">hex.encode</a></td>
+<td>✅</td>
+<td>v1.1.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-encoding-urlquerydecode">urlquery.decode</a></td>
+<td>✅</td>
+<td>v1.1.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-encoding-urlquerydecode_object">urlquery.decode_object</a></td>
+<td>✅</td>
+<td>v1.1.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-encoding-urlqueryencode">urlquery.encode</a></td>
+<td>✅</td>
+<td>v1.1.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-encoding-urlqueryencode_object">urlquery.encode_object</a></td>
+<td>✅</td>
+<td>v1.1.0</td>
+</tr>
+</tbody>
+</table>
+<h2 id="jwt">JWT</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Status</th>
+<th>OpaDotNet version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokensign-iojwtencode_sign">io.jwt.encode_sign</a></td>
+<td>✅</td>
+<td>v1.1.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokensign-iojwtencode_sign_raw">io.jwt.encode_sign_raw</a></td>
+<td>✅</td>
+<td>v1.1.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtdecode">io.jwt.decode</a></td>
+<td>✅</td>
+<td>v1.1.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtdecode_verify">io.jwt.decode_verify</a></td>
+<td>✅</td>
+<td>v1.1.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtverify_es256">io.jwt.verify_es256</a></td>
+<td>✅</td>
+<td>v1.1.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtverify_es384">io.jwt.verify_es384</a></td>
+<td>✅</td>
+<td>v1.1.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtverify_es512">io.jwt.verify_es512</a></td>
+<td>✅</td>
+<td>v1.1.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtverify_hs256">io.jwt.verify_hs256</a></td>
+<td>✅</td>
+<td>v1.1.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtverify_hs384">io.jwt.verify_hs384</a></td>
+<td>✅</td>
+<td>v1.1.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtverify_hs512">io.jwt.verify_hs512</a></td>
+<td>✅</td>
+<td>v1.1.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtverify_ps256">io.jwt.verify_ps256</a></td>
+<td>✅</td>
+<td>v1.1.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtverify_ps384">io.jwt.verify_ps384</a></td>
+<td>✅</td>
+<td>v1.1.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtverify_ps512">io.jwt.verify_ps512</a></td>
+<td>✅</td>
+<td>v1.1.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtverify_rs256">io.jwt.verify_rs256</a></td>
+<td>✅</td>
+<td>v1.1.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtverify_rs384">io.jwt.verify_rs384</a></td>
+<td>✅</td>
+<td>v1.1.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtverify_rs512">io.jwt.verify_rs512</a></td>
+<td>✅</td>
+<td>v1.1.0</td>
+</tr>
+</tbody>
+</table>
+<h2 id="cryptography">Cryptography</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Status</th>
+<th>OpaDotNet version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptohmacequal">crypto.hmac.equal</a></td>
+<td>✅</td>
+<td>v1.1.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptohmacmd5">crypto.hmac.md5</a></td>
+<td>✅</td>
+<td>v1.1.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptohmacsha1">crypto.hmac.sha1</a></td>
+<td>:white_check_mark:</td>
+<td>v1.1.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptohmacsha256">crypto.hmac.sha256</a></td>
+<td>✅</td>
+<td>v1.1.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptohmacsha512">crypto.hmac.sha512</a></td>
+<td>✅</td>
+<td>v1.1.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptomd5">crypto.md5</a></td>
+<td>✅</td>
+<td>v1.1.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptosha1">crypto.sha1</a></td>
+<td>✅</td>
+<td>v1.1.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptosha256">crypto.sha256</a></td>
+<td>✅</td>
+<td>v1.1.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptox509parse_and_verify_certificates">crypto.x509.parse_and_verify_certificates</a></td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptox509parse_certificate_request">crypto.x509.parse_certificate_request</a></td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptox509parse_certificates">crypto.x509.parse_certificates</a></td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptox509parse_keypair">crypto.x509.parse_keypair</a></td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptox509parse_rsa_private_key">crypto.x509.parse_rsa_private_key</a></td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<h2 id="graphs">Graphs</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Status</th>
+<th>OpaDotNet version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-graph-graphreachable_paths">graph.reachable_paths</a></td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<h2 id="graphql">GraphQL</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Status</th>
+<th>OpaDotNet version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-graphql-graphqlis_valid">graphql.is_valid</a></td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-graphql-graphqlparse">graphql.parse</a></td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-graphql-graphqlparse_and_verify">graphql.parse_and_verify</a></td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-graphql-graphqlparse_query">graphql.parse_query</a></td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-graphql-graphqlparse_schema">graphql.parse_schema</a></td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-graphql-graphqlschema_is_valid">graphql.schema_is_valid</a></td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<h2 id="http">HTTP</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Status</th>
+<th>OpaDotNet version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-http-httpsend">http.send</a></td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<h2 id="aws">AWS</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Status</th>
+<th>OpaDotNet version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-providersaws-providersawssign_req">providers.aws.sign_req</a></td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<h2 id="net">Net</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Status</th>
+<th>OpaDotNet version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-net-netcidr_contains_matches">net.cidr_contains_matches</a></td>
+<td>✅</td>
+<td>v1.1.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-net-netcidr_expand">net.cidr_expand</a></td>
+<td>✅</td>
+<td>v1.1.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-net-netcidr_is_valid">net.cidr_is_valid</a></td>
+<td>✅</td>
+<td>v1.1.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-net-netcidr_merge">net.cidr_merge</a></td>
+<td>✅</td>
+<td>v1.1.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-net-netlookup_ip_addr">net.lookup_ip_addr</a></td>
+<td>✅</td>
+<td>v1.1.0 (*)</td>
+</tr>
+</tbody>
+</table>
+<p>* There might be inconsistent behavior with native implementation due to different DNS resolver.</p>
+<h2 id="uuid">UUID</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Status</th>
+<th>OpaDotNet version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-uuid-uuidrfc4122">uuid.rfc4122</a></td>
+<td>✅</td>
+<td>v1.0.0</td>
+</tr>
+</tbody>
+</table>
+<h2 id="semver">SemVer</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Status</th>
+<th>OpaDotNet version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-semver-semvercompare">semver.compare</a></td>
+<td>✅</td>
+<td>v1.2.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-semver-semveris_valid">semver.is_valid</a></td>
+<td>✅</td>
+<td>v1.2.0</td>
+</tr>
+</tbody>
+</table>
+<h2 id="rego">Rego</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Status</th>
+<th>OpaDotNet version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-rego-regometadatachain">rego.metadata.chain</a></td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-rego-regometadatarule">rego.metadata.rule</a></td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-rego-regoparse_module">rego.parse_module</a></td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<h2 id="opa">OPA</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Status</th>
+<th>OpaDotNet version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-opa-oparuntime">opa.runtime</a></td>
+<td>✅</td>
+<td>v1.1.0</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tracing">Tracing</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Status</th>
+<th>OpaDotNet version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tracing-tr">trace</a></td>
+<td>✅</td>
+<td>v1.1.0</td>
+</tr>
+</tbody>
+</table>
+<h2 id="yaml">Yaml</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Status</th>
+<th>OpaDotNet version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>yaml.is_valid</td>
+<td>✅</td>
+<td>v1.2.0</td>
+</tr>
+<tr>
+<td>yaml.marshal</td>
+<td>✅</td>
+<td>v1.2.0</td>
+</tr>
+<tr>
+<td>yaml.unmarshal</td>
+<td>✅</td>
+<td>v1.2.0</td>
+</tr>
+</tbody>
+</table>
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/me-viper/OpaDotNet/blob/develop/docs/articles/Builtins.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
