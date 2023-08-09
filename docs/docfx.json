@@ -39,8 +39,8 @@
       }
     ],
     "globalMetadata": {
-      "_appTitle": "OpaDotNet",
-      "_appName": "OpaDotNet"
+      "_appTitle": "OpaDotNet.Wasm",
+      "_appName": "OpaDotNet.Wasm"
     },
     "output": "_site",
     "globalMetadataFiles": [],
