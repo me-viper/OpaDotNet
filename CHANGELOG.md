@@ -1,5 +1,14 @@
 # Changelog
 
+## OpaDotNet.Wasm v1.3.0 (2023-08-09)
+
+### Features
+
+* [#1](https://github.com/me-viper/OpaDotNet/issues/1). Implements missing SDKs:
+  * units.parse
+  * units.parse_bytes
+* [#17](https://github.com/me-viper/OpaDotNet/issues/17). Include error output in RegoCompilationException if compilation fails
+
 ## OpaDotNet.Wasm v1.2.1 (2023-07-27)
 
 ### Bug Fixes
