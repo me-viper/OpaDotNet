@@ -8,7 +8,8 @@ on:
       - develop
       - 'releases/*'
     paths:
-      - '**.cs'
+      - 'src/**'
+      - '.github/workflows/code-quality.yml'
 
 jobs:
   qodana:
