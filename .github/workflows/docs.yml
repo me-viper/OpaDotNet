@@ -3,15 +3,19 @@ name: docs
 on:
   push:
     branches: [ main, develop ]
-    #paths:
-    #  - 'docs/**'
+    paths:
+     - 'docs/**'
+     - 'src/**'
+     - '.github/workflows/docs.yml'
   pull_request:
     branches: [ main ]
     paths:
       - 'docs/**'
+      - 'src/**'
+      - '.github/workflows/docs.yml'
+  workflow_dispatch:
 
 jobs:
-
   publish-docs:
     runs-on: ubuntu-latest
     permissions:
@@ -19,6 +23,7 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
+
     - name: Dotnet Setup
       uses: actions/setup-dotnet@v3
       with:
@@ -26,11 +31,10 @@ jobs:
 
     - run: dotnet tool update -g docfx
     - run: docfx docs/docfx.json
-    - run: ls docs
-
 
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
+      if: github.ref == 'refs/heads/main'
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: docs/_site
