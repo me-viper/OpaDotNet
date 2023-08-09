@@ -1,8 +1,11 @@
-﻿namespace OpaDotNet.Wasm.Compilation;
+﻿using JetBrains.Annotations;
+
+namespace OpaDotNet.Wasm.Compilation;
 
 /// <summary>
 /// The exception that is thrown when OPA policy compilation fails.
 /// </summary>
+[PublicAPI]
 public class RegoCompilationException : Exception
 {
     /// <summary>

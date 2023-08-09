@@ -313,7 +313,7 @@ public partial class DefaultOpaImportsAbi
         return sw.ToString();
     }
 
-    private object? YamlUnmarshal(string yamlString)
+    private static object? YamlUnmarshal(string yamlString)
     {
         try
         {
@@ -330,21 +330,21 @@ public partial class DefaultOpaImportsAbi
         }
     }
 
-    const ulong b = 1;
-    const ulong kb = 1000 * b;
-    const ulong mb = 1000 * kb;
-    const ulong gb = 1000 * mb;
-    const ulong tb = 1000 * gb;
-    const ulong pb = 1000 * tb;
-    const ulong eb = 1000 * pb;
+    private const ulong B = 1;
+    private const ulong Kb = 1000 * B;
+    private const ulong Mb = 1000 * Kb;
+    private const ulong Gb = 1000 * Mb;
+    private const ulong Tb = 1000 * Gb;
+    private const ulong Pb = 1000 * Tb;
+    private const ulong Eb = 1000 * Pb;
 
-    const ulong bi = 1u << (10 * 0);
-    const ulong ki = 1u << (10 * 1);
-    const ulong mi = 1u << (10 * 2);
-    const ulong gi = 1u << (10 * 3);
-    const ulong ti = (ulong)1u << (10 * 4);
-    const ulong pi = (ulong)1u << (10 * 5);
-    const ulong ei = (ulong)1u << (10 * 6);
+    private const ulong Bi = 1u << (10 * 0);
+    private const ulong Ki = 1u << (10 * 1);
+    private const ulong Mi = 1u << (10 * 2);
+    private const ulong Gi = 1u << (10 * 3);
+    private const ulong Ti = (ulong)1u << (10 * 4);
+    private const ulong Pi = (ulong)1u << (10 * 5);
+    private const ulong Ei = (ulong)1u << (10 * 6);
 
     private static decimal? UnitsParse(string x)
     {
@@ -381,19 +381,19 @@ public partial class DefaultOpaImportsAbi
         decimal? n = unit switch
         {
             "m" => milli,
-            "" => b,
-            "k" or "K" => kb,
-            "ki" or "Ki" => ki,
-            "M" => mb,
-            "mi" or "Mi" => mi,
-            "g" or "G" => gb,
-            "gi" or "Gi" => gi,
-            "t" or "T" => tb,
-            "ti" or "Ti" => ti,
-            "p" or "P" => pb,
-            "pi" or "Pi" => pi,
-            "e" or "E" => eb,
-            "ei" or "Ei" => ei,
+            "" => B,
+            "k" or "K" => Kb,
+            "ki" or "Ki" => Ki,
+            "M" => Mb,
+            "mi" or "Mi" => Mi,
+            "g" or "G" => Gb,
+            "gi" or "Gi" => Gi,
+            "t" or "T" => Tb,
+            "ti" or "Ti" => Ti,
+            "p" or "P" => Pb,
+            "pi" or "Pi" => Pi,
+            "e" or "E" => Eb,
+            "ei" or "Ei" => Ei,
             _ => null,
         };
 
@@ -432,19 +432,19 @@ public partial class DefaultOpaImportsAbi
 
         ulong? n = unit switch
         {
-            "" => b,
-            "kb" or "k" => kb,
-            "kib" or "ki" => ki,
-            "mb" or "m" => mb,
-            "mib" or "mi" => mi,
-            "gb" or "g" => gb,
-            "gib" or "gi" => gi,
-            "tb" or "t" => tb,
-            "tib" or "ti" => ti,
-            "pb" or "p" => pb,
-            "pib" or "pi" => pi,
-            "eb" or "e" => eb,
-            "eib" or "ei" => ei,
+            "" => B,
+            "kb" or "k" => Kb,
+            "kib" or "ki" => Ki,
+            "mb" or "m" => Mb,
+            "mib" or "mi" => Mi,
+            "gb" or "g" => Gb,
+            "gib" or "gi" => Gi,
+            "tb" or "t" => Tb,
+            "tib" or "ti" => Ti,
+            "pb" or "p" => Pb,
+            "pib" or "pi" => Pi,
+            "eb" or "e" => Eb,
+            "eib" or "ei" => Ei,
             _ => null,
         };
 

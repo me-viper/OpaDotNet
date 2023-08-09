@@ -198,7 +198,6 @@ internal class OpaCliWrapper
             {
                 var idx = "WebAssembly: ".Length;
                 VersionInfo.WebAssembly = part[idx..];
-                continue;
             }
         }
     }
