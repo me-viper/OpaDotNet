@@ -27,7 +27,7 @@ public class RegoCliCompilerOptions
     public string? ExtraArguments { get; set; }
 
     /// <summary>
-    /// OPA capabilities version. If set compiler will merge capabilities
+    /// OPA capabilities version. If set, compiler will merge capabilities
     /// of specified version with any additional custom capabilities.
     /// </summary>
     public string? CapabilitiesVersion { get; set; }

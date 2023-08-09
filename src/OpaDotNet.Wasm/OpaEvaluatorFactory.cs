@@ -20,8 +20,8 @@ public abstract class OpaEvaluatorFactory : IDisposable
     /// <summary>
     /// Creates new instance of <see cref="OpaEvaluatorFactory"/>.
     /// </summary>
-    /// <param name="importsAbiFactory">Factory that produces instances of <see cref="IOpaImportsAbi"/></param>
-    /// <param name="loggerFactory">Logger factory</param>
+    /// <param name="importsAbiFactory">Factory that produces instances of <see cref="IOpaImportsAbi"/>.</param>
+    /// <param name="loggerFactory">Logger factory.</param>
     protected OpaEvaluatorFactory(Func<IOpaImportsAbi>? importsAbiFactory, ILoggerFactory? loggerFactory)
     {
         _loggerFactory = loggerFactory ?? NullLoggerFactory.Instance;
@@ -34,11 +34,11 @@ public abstract class OpaEvaluatorFactory : IDisposable
     /// <remarks>
     /// Loads policy (policy.wasm) and external data (data.json) from the bundle.
     /// </remarks>
-    /// <param name="policyBundle">Compiled policy bundle (*.tar.gz)</param>
-    /// <param name="options">Evaluator configuration</param>
-    /// <param name="importsAbiFactory">Built-ins implementation factory</param>
-    /// <param name="loggerFactory">Logger factory</param>
-    /// <returns>Evaluator instance</returns>
+    /// <param name="policyBundle">Compiled policy bundle (*.tar.gz).</param>
+    /// <param name="options">Evaluator configuration.</param>
+    /// <param name="importsAbiFactory">Built-ins implementation factory.</param>
+    /// <param name="loggerFactory">Logger factory.</param>
+    /// <returns>Evaluator instance.</returns>
     public static IOpaEvaluator CreateFromBundle(
         Stream policyBundle,
         WasmPolicyEngineOptions? options = null,
@@ -55,11 +55,11 @@ public abstract class OpaEvaluatorFactory : IDisposable
     /// <remarks>
     /// If evaluator requires external data it should be loaded manually.
     /// </remarks>
-    /// <param name="policyWasm">Compiled wasm policy file (*.wasm)</param>
-    /// <param name="options">Evaluator configuration</param>
-    /// <param name="importsAbiFactory">Built-ins implementation factory</param>
-    /// <param name="loggerFactory">Logger factory</param>
-    /// <returns>Evaluator instance</returns>
+    /// <param name="policyWasm">Compiled wasm policy file (*.wasm).</param>
+    /// <param name="options">Evaluator configuration.</param>
+    /// <param name="importsAbiFactory">Built-ins implementation factory.</param>
+    /// <param name="loggerFactory">Logger factory.</param>
+    /// <returns>Evaluator instance.</returns>
     public static IOpaEvaluator CreateFromWasm(
         Stream policyWasm,
         WasmPolicyEngineOptions? options = null,

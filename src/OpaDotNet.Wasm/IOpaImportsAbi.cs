@@ -8,13 +8,13 @@ public interface IOpaImportsAbi
     /// <summary>
     /// Called if an internal error occurs.
     /// </summary>
-    /// <param name="message">Error message</param>
+    /// <param name="message">Error message.</param>
     void Abort(string message);
 
     /// <summary>
     /// Called to emit a message from the policy evaluation.
     /// </summary>
-    /// <param name="message">Message</param>
+    /// <param name="message">Message.</param>
     void PrintLn(string message);
 
     /// <summary>
