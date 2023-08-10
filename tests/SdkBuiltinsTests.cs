@@ -287,6 +287,7 @@ public class SdkBuiltinsTests
     [InlineData("""net.cidr_merge(["192.0.128.0/24", "192.0.129.0/24"])""", """{"192.0.128.0/23"}""")]
     [InlineData("net.cidr_is_valid(\"192.168.0.0/30\")", "true")]
     [InlineData("net.cidr_is_valid(\"192.168.0.500/30\")", "false")]
+    [InlineData("""net.cidr_expand("192.168.0.0/30")""", """{"192.168.0.0", "192.168.0.1", "192.168.0.2", "192.168.0.3"}""")]
     public async Task Net(string func, string expected)
     {
         var result = await RunTestCase(func, expected);
