@@ -22,4 +22,9 @@ public record BuiltinContext
     /// JSON serialization options.
     /// </summary>
     public JsonSerializerOptions JsonSerializerOptions { get; internal init; } = default!;
+
+    /// <summary>
+    /// If <c>true</c> errors in built-in functions will be threaded as exceptions that halt policy evaluation.
+    /// </summary>
+    public bool StrictBuiltinErrors { get; internal init; }
 }

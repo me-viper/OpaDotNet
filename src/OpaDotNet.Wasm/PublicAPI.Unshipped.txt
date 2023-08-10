@@ -1,3 +1,6 @@
 #nullable enable
+OpaDotNet.Wasm.BuiltinContext.StrictBuiltinErrors.get -> bool
 OpaDotNet.Wasm.Compilation.IRegoCompiler.CompileSource(string! source, System.Collections.Generic.IEnumerable<string!>? entrypoints = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<System.IO.Stream!>!
 OpaDotNet.Wasm.Compilation.RegoCliCompiler.CompileSource(string! source, System.Collections.Generic.IEnumerable<string!>? entrypoints = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<System.IO.Stream!>!
+OpaDotNet.Wasm.WasmPolicyEngineOptions.StrictBuiltinErrors.get -> bool
+OpaDotNet.Wasm.WasmPolicyEngineOptions.StrictBuiltinErrors.init -> void

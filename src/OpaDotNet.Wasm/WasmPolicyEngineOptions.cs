@@ -42,6 +42,11 @@ public class WasmPolicyEngineOptions
     public string? CachePath { get; init; }
 
     /// <summary>
+    /// If <c>true</c> errors in built-in functions will be threaded as exceptions that halt policy evaluation.
+    /// </summary>
+    public bool StrictBuiltinErrors { get; init; }
+
+    /// <summary>
     /// JSON serialization options.
     /// </summary>
     /// <exception cref="ArgumentNullException">Value is <c>null</c>.</exception>

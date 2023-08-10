@@ -24,7 +24,9 @@ internal sealed class OpaWasmEvaluator : IOpaEvaluator
 
     private readonly Module _module;
 
-    private readonly JsonSerializerOptions _jsonOptions;
+    private readonly WasmPolicyEngineOptions _engineOptions;
+
+    private JsonSerializerOptions JsonOptions => _engineOptions.SerializationOptions;
 
     private readonly IWasmPolicyEngine _abi;
 
@@ -40,11 +42,12 @@ internal sealed class OpaWasmEvaluator : IOpaEvaluator
     {
         ArgumentNullException.ThrowIfNull(configuration);
 
+        _engineOptions = configuration.Options;
+
         _engine = configuration.Engine;
         _linker = configuration.Linker;
         _store = configuration.Store;
         _module = configuration.Module;
-        _jsonOptions = configuration.Options.SerializationOptions;
         _logger = configuration.Logger;
         _memory = configuration.Memory;
         _importsAbi = configuration.Imports;
@@ -74,7 +77,7 @@ internal sealed class OpaWasmEvaluator : IOpaEvaluator
             _abi = new EngineV10(
                 _memory,
                 instance,
-                _jsonOptions
+                JsonOptions
                 );
         }
         else if (abiVersion == new Version(1, 2))
@@ -82,7 +85,7 @@ internal sealed class OpaWasmEvaluator : IOpaEvaluator
             _abi = new EngineV12(
                 _memory,
                 instance,
-                _jsonOptions
+                JsonOptions
                 );
         }
         else if (abiVersion >= new Version(1, 3))
@@ -90,7 +93,7 @@ internal sealed class OpaWasmEvaluator : IOpaEvaluator
             _abi = new EngineV13(
                 _memory,
                 instance,
-                _jsonOptions
+                JsonOptions
                 );
         }
 
@@ -109,13 +112,9 @@ internal sealed class OpaWasmEvaluator : IOpaEvaluator
             {
                 FunctionName = funcName,
                 OpaContext = ctx,
-                JsonSerializerOptions = _jsonOptions,
+                JsonSerializerOptions = JsonOptions,
+                StrictBuiltinErrors = _engineOptions.StrictBuiltinErrors,
             };
-        }
-
-        string ValueOrJson(RegoValueFormat t, int arg)
-        {
-            return t == RegoValueFormat.Value ? ReadValueString(arg) : ReadJsonString(arg);
         }
 
         _linker.Define("env", "memory", _memory);
@@ -152,7 +151,7 @@ internal sealed class OpaWasmEvaluator : IOpaEvaluator
                 _store,
                 (int id, int ctx, int arg1) =>
                 {
-                    var a1 = new BuiltinArg(p => ValueOrJson(p, arg1), _jsonOptions);
+                    var a1 = new BuiltinArg(p => ValueOrJson(p, arg1), JsonOptions);
                     var result = imports.Func(Context(id, ctx), a1);
                     return WriteValue(result).ToInt32();
                 }
@@ -166,8 +165,8 @@ internal sealed class OpaWasmEvaluator : IOpaEvaluator
                 _store,
                 (int id, int ctx, int arg1, int arg2) =>
                 {
-                    var a1 = new BuiltinArg(p => ValueOrJson(p, arg1), _jsonOptions);
-                    var a2 = new BuiltinArg(p => ValueOrJson(p, arg2), _jsonOptions);
+                    var a1 = new BuiltinArg(p => ValueOrJson(p, arg1), JsonOptions);
+                    var a2 = new BuiltinArg(p => ValueOrJson(p, arg2), JsonOptions);
                     var result = imports.Func(Context(id, ctx), a1, a2);
                     return WriteValue(result).ToInt32();
                 }
@@ -181,9 +180,9 @@ internal sealed class OpaWasmEvaluator : IOpaEvaluator
                 _store,
                 (int id, int ctx, int arg1, int arg2, int arg3) =>
                 {
-                    var a1 = new BuiltinArg(p => ValueOrJson(p, arg1), _jsonOptions);
-                    var a2 = new BuiltinArg(p => ValueOrJson(p, arg2), _jsonOptions);
-                    var a3 = new BuiltinArg(p => ValueOrJson(p, arg3), _jsonOptions);
+                    var a1 = new BuiltinArg(p => ValueOrJson(p, arg1), JsonOptions);
+                    var a2 = new BuiltinArg(p => ValueOrJson(p, arg2), JsonOptions);
+                    var a3 = new BuiltinArg(p => ValueOrJson(p, arg3), JsonOptions);
                     var result = imports.Func(Context(id, ctx), a1, a2, a3);
                     return WriteValue(result).ToInt32();
                 }
@@ -197,15 +196,20 @@ internal sealed class OpaWasmEvaluator : IOpaEvaluator
                 _store,
                 (int id, int ctx, int arg1, int arg2, int arg3, int arg4) =>
                 {
-                    var a1 = new BuiltinArg(p => ValueOrJson(p, arg1), _jsonOptions);
-                    var a2 = new BuiltinArg(p => ValueOrJson(p, arg2), _jsonOptions);
-                    var a3 = new BuiltinArg(p => ValueOrJson(p, arg3), _jsonOptions);
-                    var a4 = new BuiltinArg(p => ValueOrJson(p, arg4), _jsonOptions);
+                    var a1 = new BuiltinArg(p => ValueOrJson(p, arg1), JsonOptions);
+                    var a2 = new BuiltinArg(p => ValueOrJson(p, arg2), JsonOptions);
+                    var a3 = new BuiltinArg(p => ValueOrJson(p, arg3), JsonOptions);
+                    var a4 = new BuiltinArg(p => ValueOrJson(p, arg4), JsonOptions);
                     var result = imports.Func(Context(id, ctx), a1, a2, a3, a4);
                     return WriteValue(result).ToInt32();
                 }
                 )
             );
+
+        string ValueOrJson(RegoValueFormat t, int arg)
+        {
+            return t == RegoValueFormat.Value ? ReadValueString(arg) : ReadJsonString(arg);
+        }
     }
 
     internal string DumpData()
@@ -261,7 +265,7 @@ internal sealed class OpaWasmEvaluator : IOpaEvaluator
         if (data == null)
             _abi.SetData(ReadOnlySpan<char>.Empty);
 
-        var s = JsonSerializer.Serialize(data, _jsonOptions);
+        var s = JsonSerializer.Serialize(data, JsonOptions);
         _abi.SetData(s);
     }
 
@@ -321,9 +325,9 @@ internal sealed class OpaWasmEvaluator : IOpaEvaluator
     {
         try
         {
-            var s = JsonSerializer.Serialize(input, _jsonOptions);
+            var s = JsonSerializer.Serialize(input, JsonOptions);
             var jsonAdr = EvalInternal(s, entrypoint);
-            return _memory.ReadNullTerminatedJson<TOutput>(jsonAdr, _jsonOptions);
+            return _memory.ReadNullTerminatedJson<TOutput>(jsonAdr, JsonOptions);
         }
         catch (OpaEvaluationAbortedException)
         {

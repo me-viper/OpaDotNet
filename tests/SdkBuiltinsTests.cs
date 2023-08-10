@@ -745,8 +745,10 @@ public class SdkBuiltinsTests
         Assert.True(result.Assert);
     }
 
-    [Fact]
-    public async Task ErrorHandling()
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task ErrorHandling(bool strictErrors)
     {
         var src = """
             package sdk
@@ -765,12 +767,16 @@ public class SdkBuiltinsTests
             }
             """;
 
-        using var eval = await Build(src, "sdk", new DefaultOpaImportsAbi());
+        using var eval = await Build(src, "sdk", new DefaultOpaImportsAbi(), new() { StrictBuiltinErrors = strictErrors });
 
-        var result = eval.EvaluateRaw(null, "sdk");
-        var expected = """[{"result":{"reason":["invalid JWT supplied as input"]}}]""";
-
-        Assert.Equal(expected, result);
+        if (strictErrors)
+            Assert.Throws<OpaEvaluationException>(() => eval.EvaluateRaw(null, "sdk"));
+        else
+        {
+            var result = eval.EvaluateRaw(null, "sdk");
+            var expected = """[{"result":{"reason":["invalid JWT supplied as input"]}}]""";
+            Assert.Equal(expected, result);
+        }
     }
 
     // ReSharper disable once ClassNeverInstantiated.Local
@@ -828,12 +834,13 @@ public class SdkBuiltinsTests
     private async Task<IOpaEvaluator> Build(
         string source,
         string entrypoint,
-        IOpaImportsAbi? imports = null)
+        IOpaImportsAbi? imports = null,
+        WasmPolicyEngineOptions? options = null)
     {
         var compiler = new RegoCliCompiler(_options, _loggerFactory.CreateLogger<RegoCliCompiler>());
         var policy = await compiler.CompileSource(source, new[] { entrypoint });
 
-        var engineOpts = new WasmPolicyEngineOptions
+        var engineOpts = options ?? new WasmPolicyEngineOptions
         {
             SerializationOptions = new JsonSerializerOptions
             {

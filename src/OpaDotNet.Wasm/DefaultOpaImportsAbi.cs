@@ -86,6 +86,9 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
     [ExcludeFromCodeCoverage]
     protected virtual bool OnError(BuiltinContext context, Exception ex)
     {
+        if (context.StrictBuiltinErrors)
+            return true;
+
         if (ex is NotImplementedException)
             return true;
 
