@@ -136,4 +136,38 @@ public partial class Snippets
 
         #endregion
     }
+
+    [Fact(Skip = "Documentation sample")]
+    public async Task CompileSource()
+    {
+        #region CompileSource
+
+        var compiler = new RegoCliCompiler();
+
+        var policySource = """
+            package example
+
+            import future.keywords.if
+
+            default allow := false
+
+            allow if {
+                data.password == input.password
+            }
+            """;
+
+        var policy = await compiler.CompileSource(
+
+            // Policy source code.
+            policySource,
+
+            // Entrypoints (same you would pass for -e parameter for opa build).
+            new[] { "example/allow" }
+            );
+
+        // RegoCliCompiler will always produce bundle.
+        using var engine = OpaEvaluatorFactory.CreateFromBundle(policy);
+
+        #endregion
+    }
 }

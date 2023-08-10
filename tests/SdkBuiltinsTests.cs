@@ -831,7 +831,7 @@ public class SdkBuiltinsTests
         IOpaImportsAbi? imports = null)
     {
         var compiler = new RegoCliCompiler(_options, _loggerFactory.CreateLogger<RegoCliCompiler>());
-        var policy = await compiler.Compile(source, entrypoint);
+        var policy = await compiler.CompileSource(source, new[] { entrypoint });
 
         var engineOpts = new WasmPolicyEngineOptions
         {

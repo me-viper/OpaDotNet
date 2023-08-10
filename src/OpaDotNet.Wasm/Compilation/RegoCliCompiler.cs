@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Text;
 using System.Text.Json.Nodes;
 
 using Microsoft.Extensions.Options;
@@ -132,6 +133,27 @@ public class RegoCliCompiler : IRegoCompiler
         };
 
         return await Build(cli, args, cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc />
+    public async Task<Stream> CompileSource(
+        string source,
+        IEnumerable<string>? entrypoints = null,
+        CancellationToken cancellationToken = default)
+    {
+        var path = _options.Value.OutputPath ?? AppContext.BaseDirectory;
+        var sourceFile = new FileInfo(Path.Combine(path, $"{Guid.NewGuid()}.rego"));
+        await File.WriteAllTextAsync(sourceFile.FullName, source, Encoding.UTF8, cancellationToken).ConfigureAwait(false);
+
+        try
+        {
+            return await CompileFile(sourceFile.FullName, entrypoints, cancellationToken).ConfigureAwait(false);
+        }
+        finally
+        {
+            if (!_options.Value.PreserveBuildArtifacts)
+                File.Delete(sourceFile.FullName);
+        }
     }
 
     private static async Task<FileInfo> MergeCapabilities(

@@ -62,7 +62,7 @@ public class RegoCliCompilerTests
     public async Task FailCompilation()
     {
         var compiler = new RegoCliCompiler();
-        var ex = await Assert.ThrowsAsync<RegoCompilationException>(() => compiler.Compile("bad rego", "ep"));
+        var ex = await Assert.ThrowsAsync<RegoCompilationException>(() => compiler.CompileSource("bad rego", new[] { "ep" }));
 
         Assert.Contains("rego_parse_error: package expected", ex.Message);
     }

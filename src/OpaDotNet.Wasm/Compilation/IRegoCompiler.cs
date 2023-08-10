@@ -35,4 +35,16 @@ public interface IRegoCompiler
         string sourceFilePath,
         IEnumerable<string>? entrypoints = null,
         CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Compiles OPA bundle from rego policy source code.
+    /// </summary>
+    /// <param name="source">Source file path.</param>
+    /// <param name="entrypoints">Which documents (entrypoints) will be queried when asking for policy decisions.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>Compiled OPA bundle stream.</returns>
+    Task<Stream> CompileSource(
+        string source,
+        IEnumerable<string>? entrypoints = null,
+        CancellationToken cancellationToken = default);
 }

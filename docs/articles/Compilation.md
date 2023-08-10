@@ -20,3 +20,7 @@ You can compile them manually with `opa build -t wasm ...` [command](https://www
 Create [bundle directory](https://www.openpolicyagent.org/docs/latest/management-bundles/)
 
 [!code-csharp[](../snippets/Snippets.cs#CompileBundle)]
+
+## Compiling policy source
+
+[!code-csharp[](../snippets/Snippets.cs#CompileSource)]
