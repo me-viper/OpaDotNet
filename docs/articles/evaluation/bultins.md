@@ -33,6 +33,8 @@ To make OPA aware of custom built-ins we need to add [capabilities](https://www.
 `capabilities.json`
 [!code-json[](../../snippets/eval/capabilities.json)]
 
+For more information on capabilities [see](../reference/capabilities.md)
+
 ## Policy
 
 `policy.rego`
@@ -41,10 +43,6 @@ To make OPA aware of custom built-ins we need to add [capabilities](https://www.
 ## Compilation
 
 Place policy and capabilities files into `bundle` directory.
-
-> [!NOTE]
-> If you use standalone `capabilities.json` file it will restrict the built-in functions that policies may depend (i.e. you will also need to add all functions
-> your policy is using). If you just want to add your custom built-in without adding any restrictions you can specify `RegoCliCompilerOptions.CapabilitiesVersion` parameter. When this parameter is defined behind the scenes compiler will merge OPA capabilities of a specified version with your custom capabilities.
 
 Next, we need to compile the policy bundle and make it aware of our custom built-ins:
 

@@ -90,6 +90,7 @@ public class RegoCliCompiler : IRegoCompiler
             Entrypoints = entrypoints?.ToHashSet(),
             ExtraArguments = _options.Value.ExtraArguments,
             CapabilitiesFile = capabilitiesFile,
+            CapabilitiesVersion = _options.Value.CapabilitiesVersion,
         };
 
         try
@@ -130,6 +131,7 @@ public class RegoCliCompiler : IRegoCompiler
             OutputFile = outputFileName,
             Entrypoints = entrypoints?.ToHashSet(),
             ExtraArguments = _options.Value.ExtraArguments,
+            CapabilitiesVersion = _options.Value.CapabilitiesVersion,
         };
 
         return await Build(cli, args, cancellationToken).ConfigureAwait(false);

@@ -68,6 +68,50 @@ public class RegoCliCompilerTests
     }
 
     [Fact]
+    public async Task SetCapabilitiesBundle()
+    {
+        var opts = new RegoCliCompilerOptions
+        {
+            CapabilitiesVersion = "v0.53.1",
+            OutputPath = _outputPath.FullName,
+        };
+
+        var compiler = new RegoCliCompiler(
+            new OptionsWrapper<RegoCliCompilerOptions>(opts),
+            _loggerFactory.CreateLogger<RegoCliCompiler>()
+            );
+
+        await using var policy = await compiler.CompileBundle(
+            Path.Combine("TestData", "compile-bundle", "example"),
+            new[] { "test1/hello", "test2/hello" }
+            );
+
+        Assert.NotNull(policy);
+    }
+
+    [Fact]
+    public async Task SetCapabilitiesSource()
+    {
+        var opts = new RegoCliCompilerOptions
+        {
+            CapabilitiesVersion = "v0.53.1",
+            OutputPath = _outputPath.FullName,
+        };
+
+        var compiler = new RegoCliCompiler(
+            new OptionsWrapper<RegoCliCompilerOptions>(opts),
+            _loggerFactory.CreateLogger<RegoCliCompiler>()
+            );
+
+        await using var policy = await compiler.CompileSource(
+            TestHelpers.SimplePolicySource,
+            TestHelpers.SimplePolicyEntrypoints
+            );
+
+        Assert.NotNull(policy);
+    }
+
+    [Fact]
     public async Task MergeCapabilities()
     {
         var opts = new RegoCliCompilerOptions

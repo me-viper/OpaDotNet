@@ -14,6 +14,8 @@ internal class OpaCliBuildArgs
 
     public string? CapabilitiesFile { get; init; }
 
+    public string? CapabilitiesVersion { get; init; }
+
     public HashSet<string>? Entrypoints { get; init; }
 
     public string? ExtraArguments { get; init; }
@@ -30,6 +32,11 @@ internal class OpaCliBuildArgs
 
         if (!string.IsNullOrWhiteSpace(CapabilitiesFile))
             result.Append($" --capabilities {CapabilitiesFile}");
+        else
+        {
+            if (!string.IsNullOrWhiteSpace(CapabilitiesVersion))
+                result.Append($" --capabilities {CapabilitiesVersion}");
+        }
 
         result.Append($" -o {OutputFile}");
 

@@ -27,3 +27,5 @@ items:
 - name: Reference
 - name: Advanced Built-ins
   href: reference/builtins.md
+- name: Capabilities
+  href: reference/capabilities.md

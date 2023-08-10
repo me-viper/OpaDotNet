@@ -1,10 +1,17 @@
 ﻿using OpaDotNet.Wasm;
-using OpaDotNet.Wasm.Compilation;
 
 namespace OpaDotNet.Tests.Common;
 
-internal static class EvaluatorExtensions
+internal static class TestHelpers
 {
+    public const string SimplePolicySource = """
+        package example
+        import future.keywords.if
+        default allow := false
+        """;
+
+    public static readonly string[] SimplePolicyEntrypoints = { "example/allow" };
+
     public static TResult EvaluateValue<TResult>(
         this IOpaEvaluator eval,
         TResult value,
