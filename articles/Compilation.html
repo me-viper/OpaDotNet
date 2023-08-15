@@ -118,6 +118,34 @@ var policy = await compiler.CompileBundle(
 // RegoCliCompiler will always produce bundle.
 using var engine = OpaEvaluatorFactory.CreateFromBundle(policy);
 
+</code></pre><h2 id="compiling-policy-source">Compiling policy source</h2>
+<pre><code class="lang-csharp">
+var compiler = new RegoCliCompiler();
+
+var policySource = &quot;&quot;&quot;
+    package example
+
+    import future.keywords.if
+
+    default allow := false
+
+    allow if {
+        data.password == input.password
+    }
+    &quot;&quot;&quot;;
+
+var policy = await compiler.CompileSource(
+
+    // Policy source code.
+    policySource,
+
+    // Entrypoints (same you would pass for -e parameter for opa build).
+    new[] { &quot;example/allow&quot; }
+    );
+
+// RegoCliCompiler will always produce bundle.
+using var engine = OpaEvaluatorFactory.CreateFromBundle(policy);
+
 </code></pre></article>
 
         <div class="contribution d-print-none">

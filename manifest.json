@@ -367,6 +367,16 @@
       "version": ""
     },
     {
+      "type": "Conceptual",
+      "source_relative_path": "articles/reference/capabilities.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/reference/capabilities.html"
+        }
+      },
+      "version": ""
+    },
+    {
       "type": "Toc",
       "source_relative_path": "articles/toc.yml",
       "output": {

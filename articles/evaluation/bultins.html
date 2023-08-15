@@ -75,11 +75,11 @@
 <h1 id="custom-built-in-functions">Custom Built-in Functions</h1>
 
 <p>OpaDotNet can be extended with custom built-in functions.</p>
-<p>OPA supports built-in functions for simple operations like string manipulation and arithmetic as well as more complex operations like JWT verification and executing HTTP requests. If you need to to extend OPA with custom built-in functions for use cases or integrations that are not supported out-of-the-box you can supply the function definitions when you prepare queries.</p>
+<p>OPA supports built-in functions for simple operations like string manipulation and arithmetic as well as more complex operations like JWT verification and executing HTTP requests. If you need to extend OPA with custom built-in functions for use cases or integrations that are not supported out-of-the-box you can supply the function definitions when you prepare queries.</p>
 <p>Using custom built-in functions involves providing a declaration and implementation. The declaration tells OPA the function’s type signature and the implementation provides the callback that OPA can execute during query evaluation.</p>
 <h2 id="implementation">Implementation</h2>
-<p>Usually you will extend <code>DefaultOpaImportsAbi</code> class to add new built-in functions:</p>
-<p>In the following sample we define 5 custom functions:</p>
+<p>Usually, you will extend <code>DefaultOpaImportsAbi</code> class to add new built-in functions:</p>
+<p>In the following sample, we define 5 custom functions:</p>
 <ul>
 <li><code>custom.zeroArgBuiltin</code></li>
 <li><code>custom.oneArgBuiltin</code></li>
@@ -141,7 +141,7 @@ public class CustomBuiltinsSample : DefaultOpaImportsAbi
 }
 
 </code></pre><h2 id="declaration">Declaration</h2>
-<p>To make OPA aware about custom built-ins we need add <a href="https://www.openpolicyagent.org/docs/latest/deployments/#capabilities">capabilities</a> file containing the types for declarations and runtime objects passed to your implementation.</p>
+<p>To make OPA aware of custom built-ins we need to add <a href="https://www.openpolicyagent.org/docs/latest/deployments/#capabilities">capabilities</a>](<a href="https://www.openpolicyagent.org/docs/latest/deployments/#capabilities">https://www.openpolicyagent.org/docs/latest/deployments/#capabilities</a>) file containing the types for declarations and runtime objects passed to your implementation.</p>
 <div class="IMPORTANT">
 <h5>Important</h5>
 <p>Custom built-ins are supported only for policy bundles.</p>
@@ -249,7 +249,9 @@ public class CustomBuiltinsSample : DefaultOpaImportsAbi
     }
   ]
 }
-</code></pre><h2 id="policy">Policy</h2>
+</code></pre>
+<p>For more information on capabilities <a href="../reference/capabilities.html">see</a></p>
+<h2 id="policy">Policy</h2>
 <p><code>policy.rego</code></p>
 <pre><code class="lang-rego">package custom_builtins
 
@@ -282,12 +284,7 @@ four_arg_types = x {
 }
 </code></pre><h2 id="compilation">Compilation</h2>
 <p>Place policy and capabilities files into <code>bundle</code> directory.</p>
-<div class="NOTE">
-<h5>Note</h5>
-<p>If you use standalone <code>capabilities.json</code> file it will restrict the built-in functions that policies may depend (i.e. you will also need to add all functions
-your policy is using). If you just want to add your custom built-in without adding any restrictions you can specify <code>RegoCliCompilerOptions.CapabilitiesVersion</code> parameter. When this parameter is defined behind the scenes compiler will merge OPA capabilities of a specified version with your custom capabilities.</p>
-</div>
-<p>Next we need to compile policy bundle and make it aware about our custom built-ins:</p>
+<p>Next, we need to compile the policy bundle and make it aware of our custom built-ins:</p>
 <pre><code class="lang-csharp">
 var opts = new RegoCliCompilerOptions
 {
@@ -347,7 +344,7 @@ var resultFourArg = engine.Evaluate&lt;object, string&gt;(
 Console.WriteLine(resultFourArg.Result);
 
 </code></pre>
-<p>If you executed this code you the output would be:</p>
+<p>If you executed this code the output would be:</p>
 <pre><code class="lang-bash">hello
 hello arg0
 hello arg0 arg1

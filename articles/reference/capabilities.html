@@ -1,0 +1,153 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Policy Capabilities | OpaDotNet.Wasm </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Policy Capabilities | OpaDotNet.Wasm ">
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/me-viper/OpaDotNet/blob/main/docs/articles/reference/capabilities.md/#L1">
+  </head>
+
+  <script type="module">
+    import options from './../../public/main.js'
+    import { init } from './../../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.svg" alt="OpaDotNet.Wasm">
+            OpaDotNet.Wasm
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="policy-capabilities">Policy Capabilities</h1>
+
+<p>The capabilities define the built-in functions and other language features that policies may depend on.</p>
+<p>OpaDotNet allows you to define OPA capabilities during compilation in three ways:</p>
+<h2 id="capabilitiesversion-option">CapabilitiesVersion option</h2>
+<p>Defines <a href="https://www.openpolicyagent.org/docs/latest/cli/#capabilities">capabilities</a> used to validate policies against a specific version of OPA.</p>
+<p>For example:</p>
+<pre><code class="lang-csharp">var opts = new RegoCliCompilerOptions
+{
+    CapabilitiesVersion = &quot;v0.22.0&quot;
+};
+
+var compiler = new RegoCliCompiler(new OptionsWrapper&lt;RegoCliCompilerOptions&gt;(opts));
+</code></pre>
+<p>Is equivalent to the following command:</p>
+<pre><code class="lang-bash">opa build -t wasm ./ --capabilities v0.22.0
+</code></pre>
+<h2 id="custom-capabilities-file">Custom capabilities file</h2>
+<p>Defines <a href="https://www.openpolicyagent.org/docs/latest/cli/#capabilities">capabilities</a> file used to validate policies against.</p>
+<pre><code class="lang-csharp">var compiler = new RegoCliCompiler();
+
+await using var policy = await compiler.CompileBundle(
+  &quot;./policy-bundle&quot;,
+  &quot;example&quot;,
+  &quot;mycaps.json&quot;
+  );
+</code></pre>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Capabilities file applicable only to policy bundles.</p>
+</div>
+<p>Is equivalent to the following command:</p>
+<pre><code class="lang-bash">opa build -t wasm ./policy-bundle -e example --capabilities mycaps.json
+</code></pre>
+<h2 id="merged-capabilities">Merged capabilities</h2>
+<p>If you want to add capabilities (for example, custom built-in functions) atop of standard capabilities you can use both options described above:</p>
+<pre><code class="lang-csharp">var opts = new RegoCliCompilerOptions
+{
+    CapabilitiesVersion = &quot;v0.53.1&quot;
+};
+
+var compiler = new RegoCliCompiler(new OptionsWrapper&lt;RegoCliCompilerOptions&gt;(opts));
+
+await using var policy = await compiler.CompileBundle(
+  &quot;./policy-bundle&quot;,
+  &quot;example&quot;,
+  &quot;mycaps.json&quot;
+  );
+</code></pre>
+<p>In this case OpaDotNet will merge <code>v0.53.1</code> capabilities with capabilities defined in <code>mycaps.json</code> file.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Merged capabilities applicable only to policy bundles.</p>
+</div>
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/me-viper/OpaDotNet/blob/main/docs/articles/reference/capabilities.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

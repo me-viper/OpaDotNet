@@ -116,6 +116,19 @@ references:
   isSpec: "True"
   fullName: OpaDotNet.Wasm.BuiltinContext.OpaContext
   nameWithType: BuiltinContext.OpaContext
+- uid: OpaDotNet.Wasm.BuiltinContext.StrictBuiltinErrors
+  name: StrictBuiltinErrors
+  href: api/OpaDotNet.Wasm.BuiltinContext.html#OpaDotNet_Wasm_BuiltinContext_StrictBuiltinErrors
+  commentId: P:OpaDotNet.Wasm.BuiltinContext.StrictBuiltinErrors
+  fullName: OpaDotNet.Wasm.BuiltinContext.StrictBuiltinErrors
+  nameWithType: BuiltinContext.StrictBuiltinErrors
+- uid: OpaDotNet.Wasm.BuiltinContext.StrictBuiltinErrors*
+  name: StrictBuiltinErrors
+  href: api/OpaDotNet.Wasm.BuiltinContext.html#OpaDotNet_Wasm_BuiltinContext_StrictBuiltinErrors_
+  commentId: Overload:OpaDotNet.Wasm.BuiltinContext.StrictBuiltinErrors
+  isSpec: "True"
+  fullName: OpaDotNet.Wasm.BuiltinContext.StrictBuiltinErrors
+  nameWithType: BuiltinContext.StrictBuiltinErrors
 - uid: OpaDotNet.Wasm.Compilation
   name: OpaDotNet.Wasm.Compilation
   href: api/OpaDotNet.Wasm.Compilation.html
@@ -160,6 +173,22 @@ references:
   isSpec: "True"
   fullName: OpaDotNet.Wasm.Compilation.IRegoCompiler.CompileFile
   nameWithType: IRegoCompiler.CompileFile
+- uid: OpaDotNet.Wasm.Compilation.IRegoCompiler.CompileSource(System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  name: CompileSource(string, IEnumerable<string>?, CancellationToken)
+  href: api/OpaDotNet.Wasm.Compilation.IRegoCompiler.html#OpaDotNet_Wasm_Compilation_IRegoCompiler_CompileSource_System_String_System_Collections_Generic_IEnumerable_System_String__System_Threading_CancellationToken_
+  commentId: M:OpaDotNet.Wasm.Compilation.IRegoCompiler.CompileSource(System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  name.vb: CompileSource(String, IEnumerable(Of String), CancellationToken)
+  fullName: OpaDotNet.Wasm.Compilation.IRegoCompiler.CompileSource(string, System.Collections.Generic.IEnumerable<string>?, System.Threading.CancellationToken)
+  fullName.vb: OpaDotNet.Wasm.Compilation.IRegoCompiler.CompileSource(String, System.Collections.Generic.IEnumerable(Of String), System.Threading.CancellationToken)
+  nameWithType: IRegoCompiler.CompileSource(string, IEnumerable<string>?, CancellationToken)
+  nameWithType.vb: IRegoCompiler.CompileSource(String, IEnumerable(Of String), CancellationToken)
+- uid: OpaDotNet.Wasm.Compilation.IRegoCompiler.CompileSource*
+  name: CompileSource
+  href: api/OpaDotNet.Wasm.Compilation.IRegoCompiler.html#OpaDotNet_Wasm_Compilation_IRegoCompiler_CompileSource_
+  commentId: Overload:OpaDotNet.Wasm.Compilation.IRegoCompiler.CompileSource
+  isSpec: "True"
+  fullName: OpaDotNet.Wasm.Compilation.IRegoCompiler.CompileSource
+  nameWithType: IRegoCompiler.CompileSource
 - uid: OpaDotNet.Wasm.Compilation.RegoCliCompiler
   name: RegoCliCompiler
   href: api/OpaDotNet.Wasm.Compilation.RegoCliCompiler.html
@@ -217,6 +246,22 @@ references:
   isSpec: "True"
   fullName: OpaDotNet.Wasm.Compilation.RegoCliCompiler.CompileFile
   nameWithType: RegoCliCompiler.CompileFile
+- uid: OpaDotNet.Wasm.Compilation.RegoCliCompiler.CompileSource(System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  name: CompileSource(string, IEnumerable<string>?, CancellationToken)
+  href: api/OpaDotNet.Wasm.Compilation.RegoCliCompiler.html#OpaDotNet_Wasm_Compilation_RegoCliCompiler_CompileSource_System_String_System_Collections_Generic_IEnumerable_System_String__System_Threading_CancellationToken_
+  commentId: M:OpaDotNet.Wasm.Compilation.RegoCliCompiler.CompileSource(System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  name.vb: CompileSource(String, IEnumerable(Of String), CancellationToken)
+  fullName: OpaDotNet.Wasm.Compilation.RegoCliCompiler.CompileSource(string, System.Collections.Generic.IEnumerable<string>?, System.Threading.CancellationToken)
+  fullName.vb: OpaDotNet.Wasm.Compilation.RegoCliCompiler.CompileSource(String, System.Collections.Generic.IEnumerable(Of String), System.Threading.CancellationToken)
+  nameWithType: RegoCliCompiler.CompileSource(string, IEnumerable<string>?, CancellationToken)
+  nameWithType.vb: RegoCliCompiler.CompileSource(String, IEnumerable(Of String), CancellationToken)
+- uid: OpaDotNet.Wasm.Compilation.RegoCliCompiler.CompileSource*
+  name: CompileSource
+  href: api/OpaDotNet.Wasm.Compilation.RegoCliCompiler.html#OpaDotNet_Wasm_Compilation_RegoCliCompiler_CompileSource_
+  commentId: Overload:OpaDotNet.Wasm.Compilation.RegoCliCompiler.CompileSource
+  isSpec: "True"
+  fullName: OpaDotNet.Wasm.Compilation.RegoCliCompiler.CompileSource
+  nameWithType: RegoCliCompiler.CompileSource
 - uid: OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions
   name: RegoCliCompilerOptions
   href: api/OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.html
@@ -1249,3 +1294,16 @@ references:
   isSpec: "True"
   fullName: OpaDotNet.Wasm.WasmPolicyEngineOptions.SerializationOptions
   nameWithType: WasmPolicyEngineOptions.SerializationOptions
+- uid: OpaDotNet.Wasm.WasmPolicyEngineOptions.StrictBuiltinErrors
+  name: StrictBuiltinErrors
+  href: api/OpaDotNet.Wasm.WasmPolicyEngineOptions.html#OpaDotNet_Wasm_WasmPolicyEngineOptions_StrictBuiltinErrors
+  commentId: P:OpaDotNet.Wasm.WasmPolicyEngineOptions.StrictBuiltinErrors
+  fullName: OpaDotNet.Wasm.WasmPolicyEngineOptions.StrictBuiltinErrors
+  nameWithType: WasmPolicyEngineOptions.StrictBuiltinErrors
+- uid: OpaDotNet.Wasm.WasmPolicyEngineOptions.StrictBuiltinErrors*
+  name: StrictBuiltinErrors
+  href: api/OpaDotNet.Wasm.WasmPolicyEngineOptions.html#OpaDotNet_Wasm_WasmPolicyEngineOptions_StrictBuiltinErrors_
+  commentId: Overload:OpaDotNet.Wasm.WasmPolicyEngineOptions.StrictBuiltinErrors
+  isSpec: "True"
+  fullName: OpaDotNet.Wasm.WasmPolicyEngineOptions.StrictBuiltinErrors
+  nameWithType: WasmPolicyEngineOptions.StrictBuiltinErrors
