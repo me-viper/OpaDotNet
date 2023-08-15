@@ -9,12 +9,15 @@ OpaDotNet.Wasm.BuiltinContext
 OpaDotNet.Wasm.BuiltinContext.FunctionName.get -> string!
 OpaDotNet.Wasm.BuiltinContext.JsonSerializerOptions.get -> System.Text.Json.JsonSerializerOptions!
 OpaDotNet.Wasm.BuiltinContext.OpaContext.get -> int
+OpaDotNet.Wasm.BuiltinContext.StrictBuiltinErrors.get -> bool
 OpaDotNet.Wasm.Compilation.IRegoCompiler
 OpaDotNet.Wasm.Compilation.IRegoCompiler.CompileBundle(string! bundlePath, System.Collections.Generic.IEnumerable<string!>? entrypoints = null, string? capabilitiesFilePath = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<System.IO.Stream!>!
 OpaDotNet.Wasm.Compilation.IRegoCompiler.CompileFile(string! sourceFilePath, System.Collections.Generic.IEnumerable<string!>? entrypoints = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<System.IO.Stream!>!
+OpaDotNet.Wasm.Compilation.IRegoCompiler.CompileSource(string! source, System.Collections.Generic.IEnumerable<string!>? entrypoints = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<System.IO.Stream!>!
 OpaDotNet.Wasm.Compilation.RegoCliCompiler
 OpaDotNet.Wasm.Compilation.RegoCliCompiler.CompileBundle(string! bundlePath, System.Collections.Generic.IEnumerable<string!>? entrypoints = null, string? capabilitiesFilePath = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<System.IO.Stream!>!
 OpaDotNet.Wasm.Compilation.RegoCliCompiler.CompileFile(string! sourceFilePath, System.Collections.Generic.IEnumerable<string!>? entrypoints = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<System.IO.Stream!>!
+OpaDotNet.Wasm.Compilation.RegoCliCompiler.CompileSource(string! source, System.Collections.Generic.IEnumerable<string!>? entrypoints = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<System.IO.Stream!>!
 OpaDotNet.Wasm.Compilation.RegoCliCompiler.RegoCliCompiler(Microsoft.Extensions.Options.IOptions<OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions!>? options = null, Microsoft.Extensions.Logging.ILogger<OpaDotNet.Wasm.Compilation.RegoCliCompiler!>? logger = null) -> void
 OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions
 OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.CapabilitiesVersion.get -> string?
@@ -94,6 +97,8 @@ OpaDotNet.Wasm.WasmPolicyEngineOptions.MinMemoryPages.get -> long
 OpaDotNet.Wasm.WasmPolicyEngineOptions.MinMemoryPages.init -> void
 OpaDotNet.Wasm.WasmPolicyEngineOptions.SerializationOptions.get -> System.Text.Json.JsonSerializerOptions!
 OpaDotNet.Wasm.WasmPolicyEngineOptions.SerializationOptions.init -> void
+OpaDotNet.Wasm.WasmPolicyEngineOptions.StrictBuiltinErrors.get -> bool
+OpaDotNet.Wasm.WasmPolicyEngineOptions.StrictBuiltinErrors.init -> void
 OpaDotNet.Wasm.WasmPolicyEngineOptions.WasmPolicyEngineOptions() -> void
 override OpaDotNet.Wasm.OpaBundleEvaluatorFactory.Create() -> OpaDotNet.Wasm.IOpaEvaluator!
 override OpaDotNet.Wasm.OpaWasmEvaluatorFactory.Create() -> OpaDotNet.Wasm.IOpaEvaluator!

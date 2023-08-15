@@ -1,5 +1,16 @@
 # Changelog
 
+## OpaDotNet.Wasm v1.4.0 (2023-08-15)
+
+### Bug Fixes
+
+* `CapabilitiesVersion` option should not be ignored if there is no custom capabilities file
+
+### Features
+
+* Close [#18](https://github.com/me-viper/OpaDotNet/issues/18). Add parameter to treat bult-in function call errors as exceptions
+* Close [#20](https://github.com/me-viper/OpaDotNet/issues/20). Support compilation from source string
+
 ## OpaDotNet.Wasm v1.3.0 (2023-08-09)
 
 ### Features
