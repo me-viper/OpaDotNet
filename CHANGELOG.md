@@ -1,5 +1,15 @@
 # Changelog
 
+## OpaDotNet.Wasm v2.0.0 (2023-08-17)
+
+### Features
+
+* Migrate to the new compilation infrastructure ([1e3815a](https://github.com/me-viper/OpaDotNet/commit/1e3815aa10d592a0d17c7cb74fd0375993e20973))
+
+### BREAKING CHANGES
+
+* Compilation logic have been moved from OpaDotNet.Wasm to OpaDotNet.Compilation.Cli assembly
+
 ## OpaDotNet.Wasm v1.4.0 (2023-08-15)
 
 ### Bug Fixes
@@ -8,7 +18,7 @@
 
 ### Features
 
-* Close [#18](https://github.com/me-viper/OpaDotNet/issues/18). Add parameter to treat bult-in function call errors as exceptions
+* Close [#18](https://github.com/me-viper/OpaDotNet/issues/18). Add parameter to treat built-in function call errors as exceptions
 * Close [#20](https://github.com/me-viper/OpaDotNet/issues/20). Support compilation from source string
 
 ## OpaDotNet.Wasm v1.3.0 (2023-08-09)
