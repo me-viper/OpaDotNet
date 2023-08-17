@@ -16,7 +16,8 @@ For more information check out [the guide](https://me-viper.github.io/OpaDotNet/
 * Fast in-process OPA policies evaluation.
 * Full ABI [support](https://andrii-kurochka.gitbook.io/opadotnet.wasm/overview/opa-compatibility/abi).
 * Additional OPA [built-ins](https://andrii-kurochka.gitbook.io/opadotnet.wasm/overview/opa-compatibility/builtins).
-* Compilation.
+* [Compilation](https://github.com/me-viper/OpaDotNet.Compilation).
+* AspDotNet Core [integration](https://github.com/me-viper/OpaDotNet.Extensions).
 
 ## NuGet Packages
 
