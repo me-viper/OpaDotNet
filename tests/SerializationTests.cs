@@ -1,35 +1,22 @@
-﻿using Microsoft.Extensions.Options;
-
-using OpaDotNet.Tests.Common;
+﻿using OpaDotNet.Tests.Common;
 using OpaDotNet.Wasm;
-using OpaDotNet.Wasm.Compilation;
 using OpaDotNet.Wasm.Rego;
 
 using Xunit.Abstractions;
 
 namespace OpaDotNet.Tests;
 
-public class SerializationTests : IAsyncLifetime
+public class SerializationTests : OpaTestBase, IAsyncLifetime
 {
     private IOpaEvaluator _engine = default!;
 
-    private readonly ILoggerFactory _loggerFactory;
-
-    public SerializationTests(ITestOutputHelper output)
+    public SerializationTests(ITestOutputHelper output) : base(output)
     {
-        _loggerFactory = new LoggerFactory(new[] { new XunitLoggerProvider(output) });
     }
 
     public async Task InitializeAsync()
     {
-        var opts = new RegoCliCompilerOptions();
-
-        var compiler = new RegoCliCompiler(
-            new OptionsWrapper<RegoCliCompilerOptions>(opts),
-            _loggerFactory.CreateLogger<RegoCliCompiler>()
-            );
-
-        var policy = await compiler.CompileBundle(
+        var policy = await CompileBundle(
             Path.Combine("TestData", "serialization"),
             new[]
             {

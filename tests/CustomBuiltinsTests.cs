@@ -1,33 +1,25 @@
 ﻿using System.Globalization;
 
-using Microsoft.Extensions.Options;
-
 using OpaDotNet.Tests.Common;
 using OpaDotNet.Wasm;
-using OpaDotNet.Wasm.Compilation;
 
 using Xunit.Abstractions;
 
 namespace OpaDotNet.Tests;
 
-public class CustomBuiltinsTests : IAsyncLifetime
+public class CustomBuiltinsTests : OpaTestBase, IAsyncLifetime
 {
     private IOpaEvaluator _engine = default!;
 
-    private readonly ILoggerFactory _loggerFactory;
-
     private string BasePath { get; } = Path.Combine("TestData", "custom-builtins");
 
-    public CustomBuiltinsTests(ITestOutputHelper output)
+    public CustomBuiltinsTests(ITestOutputHelper output) : base(output)
     {
-        _loggerFactory = new LoggerFactory(new[] { new XunitLoggerProvider(output) });
     }
 
     public async Task InitializeAsync()
     {
-        var options = new OptionsWrapper<RegoCliCompilerOptions>(new());
-        var compiler = new RegoCliCompiler(options, _loggerFactory.CreateLogger<RegoCliCompiler>());
-        var policy = await compiler.CompileBundle(
+        var policy = await CompileBundle(
             BasePath,
             new[]
             {
@@ -45,8 +37,8 @@ public class CustomBuiltinsTests : IAsyncLifetime
 
         var factory = new OpaBundleEvaluatorFactory(
             policy,
-            importsAbiFactory: () => new CustomOpaImportsAbi(_loggerFactory.CreateLogger<CustomOpaImportsAbi>()),
-            loggerFactory: _loggerFactory
+            importsAbiFactory: () => new CustomOpaImportsAbi(LoggerFactory.CreateLogger<CustomOpaImportsAbi>()),
+            loggerFactory: LoggerFactory
             );
 
         _engine = factory.Create();

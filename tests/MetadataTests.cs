@@ -1,34 +1,25 @@
 ﻿using JetBrains.Annotations;
 
-using Microsoft.Extensions.Options;
-
 using OpaDotNet.Tests.Common;
 using OpaDotNet.Wasm;
-using OpaDotNet.Wasm.Compilation;
 
 using Xunit.Abstractions;
 
 namespace OpaDotNet.Tests;
 
-public class MetadataTests : IAsyncLifetime
+public class MetadataTests : OpaTestBase, IAsyncLifetime
 {
     private IOpaEvaluator _engine = default!;
 
-    private readonly ILoggerFactory _loggerFactory;
-
-    private readonly OptionsWrapper<RegoCliCompilerOptions> _options = new(new());
-
     private string BasePath { get; } = Path.Combine("TestData", "metadata");
 
-    public MetadataTests(ITestOutputHelper output)
+    public MetadataTests(ITestOutputHelper output) : base(output)
     {
-        _loggerFactory = new LoggerFactory(new[] { new XunitLoggerProvider(output) });
     }
 
     public async Task InitializeAsync()
     {
-        var compiler = new RegoCliCompiler(_options, _loggerFactory.CreateLogger<RegoCliCompiler>());
-        var policy = await compiler.CompileBundle(
+        var policy = await CompileBundle(
             BasePath,
             new[] { "example" }
             );
@@ -41,7 +32,7 @@ public class MetadataTests : IAsyncLifetime
             },
         };
 
-        _engine = OpaEvaluatorFactory.CreateFromBundle(policy, opts, loggerFactory: _loggerFactory);
+        _engine = OpaEvaluatorFactory.CreateFromBundle(policy, opts, loggerFactory: LoggerFactory);
     }
 
     public Task DisposeAsync()

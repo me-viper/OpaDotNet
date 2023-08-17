@@ -3,17 +3,14 @@ using System.Text.Json.Serialization;
 
 using JetBrains.Annotations;
 
-using Microsoft.Extensions.Options;
-
 using OpaDotNet.Tests.Common;
 using OpaDotNet.Wasm;
-using OpaDotNet.Wasm.Compilation;
 
 using Xunit.Abstractions;
 
 namespace OpaDotNet.Tests;
 
-public class BasicsTests
+public class BasicsTests : OpaTestBase
 {
     private record PolicyResult
     {
@@ -21,18 +18,10 @@ public class BasicsTests
         public bool Result { get; [UsedImplicitly] set; }
     }
 
-    private readonly ITestOutputHelper _output;
-
-    private readonly ILoggerFactory _loggerFactory;
-
     private string BasePath { get; } = Path.Combine("TestData", "basics");
 
-    private readonly OptionsWrapper<RegoCliCompilerOptions> _options = new(new());
-
-    public BasicsTests(ITestOutputHelper output)
+    public BasicsTests(ITestOutputHelper output) : base(output)
     {
-        _output = output;
-        _loggerFactory = new LoggerFactory(new[] { new XunitLoggerProvider(output) });
     }
 
     public static IEnumerable<object?[]> BasicTestCases()
@@ -119,14 +108,13 @@ public class BasicsTests
     {
         var ver = string.IsNullOrWhiteSpace(abiVersion) ? null : Version.Parse(abiVersion);
 
-        var compiler = new RegoCliCompiler(logger: _loggerFactory.CreateLogger<RegoCliCompiler>());
         var entrypoints = string.IsNullOrWhiteSpace(entrypoint) ? null : new[] { entrypoint };
-        var policy = await compiler.CompileFile(Path.Combine(BasePath, source), entrypoints);
+        var policy = await CompileFile(Path.Combine(BasePath, source), entrypoints);
 
         using var engine = OpaEvaluatorFactory.CreateFromBundle(
             policy,
             options: new() { MaxAbiVersion = ver },
-            loggerFactory: _loggerFactory
+            loggerFactory: LoggerFactory
             );
 
         engine.SetDataFromRawJson(data);
@@ -134,7 +122,7 @@ public class BasicsTests
         var result1Str = engine.EvaluateRaw(input, entrypoint);
         Assert.NotEmpty(result1Str);
 
-        _output.WriteLine(result1Str);
+        Output.WriteLine(result1Str);
 
         var result1 = JsonSerializer.Deserialize<PolicyResult[]>(result1Str);
 
@@ -144,7 +132,7 @@ public class BasicsTests
         var result2Str = engine.EvaluateRaw(input);
         Assert.NotEmpty(result2Str);
 
-        _output.WriteLine(result2Str);
+        Output.WriteLine(result2Str);
 
         var result2 = JsonSerializer.Deserialize<PolicyResult[]>(result2Str);
 
@@ -159,7 +147,7 @@ public class BasicsTests
     {
         using var engine = OpaEvaluatorFactory.CreateFromWasm(
             File.OpenRead(Path.Combine(BasePath, "simple-1.2.wasm")),
-            loggerFactory: _loggerFactory
+            loggerFactory: LoggerFactory
             );
 
         engine.SetDataFromRawJson(data);
@@ -170,7 +158,7 @@ public class BasicsTests
         Assert.NotNull(result);
         Assert.Collection(result, p => Assert.Equal(expectedResult, p.Result));
 
-        _output.WriteLine(resultStr);
+        Output.WriteLine(resultStr);
 
         Assert.NotEmpty(resultStr);
     }
@@ -187,7 +175,7 @@ public class BasicsTests
 
         using var engine = OpaEvaluatorFactory.CreateFromWasm(
             File.OpenRead(Path.Combine(BasePath, "simple-1.2.wasm")),
-            loggerFactory: _loggerFactory
+            loggerFactory: LoggerFactory
             );
 
         engine.SetDataFromStream(dataStream);
@@ -198,7 +186,7 @@ public class BasicsTests
         Assert.NotNull(result);
         Assert.Collection(result, p => Assert.Equal(expectedResult, p.Result));
 
-        _output.WriteLine(resultStr);
+        Output.WriteLine(resultStr);
 
         Assert.NotEmpty(resultStr);
         return Task.CompletedTask;
@@ -223,7 +211,7 @@ public class BasicsTests
         using var engine = OpaEvaluatorFactory.CreateFromWasm(
             File.OpenRead(Path.Combine(BasePath, "simple-1.2.wasm")),
             opts,
-            loggerFactory: _loggerFactory
+            loggerFactory: LoggerFactory
             );
 
         engine.SetData(new Data("world"));
@@ -234,7 +222,7 @@ public class BasicsTests
         Assert.NotNull(result);
         Assert.Collection(result, p => Assert.Equal(expectedResult, p.Result));
 
-        _output.WriteLine(resultStr);
+        Output.WriteLine(resultStr);
 
         Assert.NotEmpty(resultStr);
     }
@@ -254,10 +242,9 @@ public class BasicsTests
             SerializationOptions = new() { PropertyNameCaseInsensitive = true }
         };
 
-        var compiler = new RegoCliCompiler(_options, _loggerFactory.CreateLogger<RegoCliCompiler>());
-        var policy = await compiler.CompileFile(Path.Combine(BasePath, "composite.rego"), new[] { "example" });
+        var policy = await CompileFile(Path.Combine(BasePath, "composite.rego"), new[] { "example" });
 
-        using var engine = OpaEvaluatorFactory.CreateFromBundle(policy, options: opts, loggerFactory: _loggerFactory);
+        using var engine = OpaEvaluatorFactory.CreateFromBundle(policy, options: opts, loggerFactory: LoggerFactory);
         var result = engine.Evaluate<object?, CompositeResult>(null, "example");
 
         var expected = new CompositeResult { X = "hi", Y = 1, Z = true };
@@ -269,9 +256,8 @@ public class BasicsTests
     [Fact]
     public async Task EmptyOutput()
     {
-        var compiler = new RegoCliCompiler(logger: _loggerFactory.CreateLogger<RegoCliCompiler>());
-        var policy = await compiler.CompileFile(Path.Combine(BasePath, "empty_composite.rego"), new[] { "example" });
-        var factory = new OpaBundleEvaluatorFactory(policy, loggerFactory: _loggerFactory);
+        var policy = await CompileFile(Path.Combine(BasePath, "empty_composite.rego"), new[] { "example" });
+        var factory = new OpaBundleEvaluatorFactory(policy, loggerFactory: LoggerFactory);
 
         using var engine = factory.Create();
 
@@ -300,7 +286,7 @@ public class BasicsTests
 
         using var engine = OpaEvaluatorFactory.CreateFromWasm(
             File.OpenRead(Path.Combine(BasePath, "simple-1.2.wasm")),
-            loggerFactory: _loggerFactory
+            loggerFactory: LoggerFactory
             );
 
         engine.SetDataFromRawJson("{ \"world\": \"world\" }");
@@ -328,7 +314,7 @@ public class BasicsTests
 
         using var engine = OpaEvaluatorFactory.CreateFromWasm(
             File.OpenRead(Path.Combine(BasePath, "simple-1.2.wasm")),
-            loggerFactory: _loggerFactory
+            loggerFactory: LoggerFactory
             );
 
         engine.SetDataFromRawJson("{ \"world\": \"world\" }");
@@ -345,9 +331,8 @@ public class BasicsTests
     [Fact]
     public async Task EmptyPredicate()
     {
-        var compiler = new RegoCliCompiler(logger: _loggerFactory.CreateLogger<RegoCliCompiler>());
-        var policy = await compiler.CompileFile(Path.Combine(BasePath, "simple.rego"), new[] { "example/empty" });
-        var factory = new OpaBundleEvaluatorFactory(policy, loggerFactory: _loggerFactory);
+        var policy = await CompileFile(Path.Combine(BasePath, "simple.rego"), new[] { "example/empty" });
+        var factory = new OpaBundleEvaluatorFactory(policy, loggerFactory: LoggerFactory);
 
         using var engine = factory.Create();
 
@@ -364,7 +349,7 @@ public class BasicsTests
 
         using var engine = (OpaWasmEvaluator)OpaEvaluatorFactory.CreateFromWasm(
             File.OpenRead(Path.Combine(BasePath, "simple-1.3.wasm")),
-            loggerFactory: _loggerFactory
+            loggerFactory: LoggerFactory
             );
 
         engine.SetDataFromRawJson(data);

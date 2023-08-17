@@ -1,29 +1,21 @@
 ﻿using OpaDotNet.Tests.Common;
 using OpaDotNet.Wasm;
-using OpaDotNet.Wasm.Compilation;
 
 using Xunit.Abstractions;
 
 namespace OpaDotNet.Tests;
 
-public class EvaluatorFactoryTests : IAsyncLifetime
+public class EvaluatorFactoryTests : OpaTestBase, IAsyncLifetime
 {
-    private readonly ILoggerFactory _loggerFactory;
-
     private Stream _policyBundle = default!;
 
-    public EvaluatorFactoryTests(ITestOutputHelper output)
+    public EvaluatorFactoryTests(ITestOutputHelper output) : base(output)
     {
-        _loggerFactory = new LoggerFactory(new[] { new XunitLoggerProvider(output) });
     }
 
     public async Task InitializeAsync()
     {
-        var compiler = new RegoCliCompiler(
-            logger: _loggerFactory.CreateLogger<RegoCliCompiler>()
-            );
-
-        _policyBundle = await compiler.CompileBundle(
+        _policyBundle = await CompileBundle(
             Path.Combine("TestData", "compile-bundle", "example"),
             new[] { "test1/hello", "test2/hello" }
             );
@@ -34,7 +26,7 @@ public class EvaluatorFactoryTests : IAsyncLifetime
     {
         var factory = new OpaBundleEvaluatorFactory(
             _policyBundle,
-            loggerFactory: _loggerFactory
+            loggerFactory: LoggerFactory
             );
 
         Task RunTest()
@@ -62,7 +54,7 @@ public class EvaluatorFactoryTests : IAsyncLifetime
         var path = Path.Combine("TestData", "compile-bundle", "policy.wasm");
         var factory = new OpaWasmEvaluatorFactory(
             File.OpenRead(path),
-            loggerFactory: _loggerFactory
+            loggerFactory: LoggerFactory
             );
 
         using var dataStream = File.OpenText(Path.Combine("TestData", "compile-bundle", "data.json"));

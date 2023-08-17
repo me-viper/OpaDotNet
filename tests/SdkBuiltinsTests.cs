@@ -3,11 +3,8 @@ using System.Text.Json.Nodes;
 
 using JetBrains.Annotations;
 
-using Microsoft.Extensions.Options;
-
 using OpaDotNet.Tests.Common;
 using OpaDotNet.Wasm;
-using OpaDotNet.Wasm.Compilation;
 
 using Xunit.Abstractions;
 
@@ -15,19 +12,10 @@ using Xunit.Abstractions;
 
 namespace OpaDotNet.Tests;
 
-public class SdkBuiltinsTests
+public class SdkBuiltinsTests : OpaTestBase
 {
-    private readonly ILoggerFactory _loggerFactory;
-
-    private readonly ITestOutputHelper _output;
-
-    private readonly OptionsWrapper<RegoCliCompilerOptions> _options =
-        new(new());
-
-    public SdkBuiltinsTests(ITestOutputHelper output)
+    public SdkBuiltinsTests(ITestOutputHelper output) : base(output)
     {
-        _output = output;
-        _loggerFactory = new LoggerFactory(new[] { new XunitLoggerProvider(output) });
     }
 
     [Theory]
@@ -116,7 +104,7 @@ public class SdkBuiltinsTests
     [InlineData("time.weekday(1687527385064073200)", "\"Friday\"")]
     public async Task Time(string func, string expected)
     {
-        var result = await RunTestCase(func, expected, false, new TimeImports(_output));
+        var result = await RunTestCase(func, expected, false, new TimeImports(Output));
         Assert.True(result.Assert);
     }
 
@@ -133,7 +121,7 @@ public class SdkBuiltinsTests
     [InlineData("time.now_ns()", "1685975259000000000")]
     public async Task TimeNow(string func, string expected)
     {
-        var result = await RunTestCase(func, expected, false, new TimeNowImports(_output));
+        var result = await RunTestCase(func, expected, false, new TimeNowImports(Output));
         Assert.True(result.Assert);
     }
 
@@ -144,7 +132,7 @@ public class SdkBuiltinsTests
     [InlineData("""time.parse_duration_ns("1ns")""", "1")]
     public async Task TimeParseDurationNs(string func, string expected)
     {
-        var result = await RunTestCase(func, expected, false, new TimeImports(_output));
+        var result = await RunTestCase(func, expected, false, new TimeImports(Output));
         Assert.True(result.Assert);
     }
 
@@ -155,7 +143,7 @@ public class SdkBuiltinsTests
     [InlineData("""time.parse_rfc3339_ns("1937-01-01T12:00:27.87+00:20")""", "-1041337172130000000")]
     public async Task TimeParseRfc3339Ns(string func, string expected)
     {
-        var result = await RunTestCase(func, expected, false, new TimeImports(_output));
+        var result = await RunTestCase(func, expected, false, new TimeImports(Output));
         Assert.True(result.Assert);
     }
 
@@ -279,7 +267,7 @@ public class SdkBuiltinsTests
         )]
     public async Task NetCidrContainsMatchesObjects(string func, string expected)
     {
-        var result = await RunTestCase(func, expected, false, new TimeImports(_output));
+        var result = await RunTestCase(func, expected, false, new TimeImports(Output));
         Assert.True(result.Assert);
     }
 
@@ -627,7 +615,7 @@ public class SdkBuiltinsTests
             );
 
         Assert.NotNull(result.r);
-        _output.WriteLine(result.r.ToString());
+        Output.WriteLine(result.r.ToString());
     }
 
     [Theory]
@@ -708,11 +696,11 @@ public class SdkBuiltinsTests
     [InlineData("""units.parse_bytes(`-1b`)""", "0", true)]
     public async Task UnitsParseBytes(string func, string expected, bool fails = false)
     {
-        _output.WriteLine("Ordinal");
+        Output.WriteLine("Ordinal");
         var result = await RunTestCase(func, expected, fails);
         Assert.True(result.Assert);
 
-        _output.WriteLine("Lower case");
+        Output.WriteLine("Lower case");
         var lowerCase = await RunTestCase(func.ToLowerInvariant(), expected, fails);
         Assert.True(lowerCase.Assert);
     }
@@ -801,15 +789,15 @@ public class SdkBuiltinsTests
             actual := {{actual}}
             """;
 
-        _output.WriteLine(src);
-        _output.WriteLine("");
+        Output.WriteLine(src);
+        Output.WriteLine("");
 
         using var eval = await Build(src, "sdk", imports);
         var result = eval.Evaluate<object?, TestCaseResult>(null);
 
-        _output.WriteLine("");
-        _output.WriteLine($"Expected:\n {result.Result.Expected}");
-        _output.WriteLine($"Actual:\n {result.Result.Actual}");
+        Output.WriteLine("");
+        Output.WriteLine($"Expected:\n {result.Result.Expected}");
+        Output.WriteLine($"Actual:\n {result.Result.Actual}");
 
         if (fails)
         {
@@ -838,8 +826,7 @@ public class SdkBuiltinsTests
         IOpaImportsAbi? imports = null,
         WasmPolicyEngineOptions? options = null)
     {
-        var compiler = new RegoCliCompiler(_options, _loggerFactory.CreateLogger<RegoCliCompiler>());
-        var policy = await compiler.CompileSource(source, new[] { entrypoint });
+        var policy = await CompileSource(source, new[] { entrypoint });
 
         var engineOpts = options ?? new WasmPolicyEngineOptions
         {
@@ -849,7 +836,7 @@ public class SdkBuiltinsTests
             },
         };
 
-        var factory = new OpaBundleEvaluatorFactory(policy, engineOpts, importsAbiFactory: () => imports ?? new TestImportsAbi(_output));
+        var factory = new OpaBundleEvaluatorFactory(policy, engineOpts, importsAbiFactory: () => imports ?? new TestImportsAbi(Output));
         return factory.Create();
     }
 }

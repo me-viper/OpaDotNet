@@ -1,31 +1,23 @@
-﻿using Microsoft.Extensions.Options;
-
-using OpaDotNet.Tests.Common;
+﻿using OpaDotNet.Tests.Common;
 using OpaDotNet.Wasm;
-using OpaDotNet.Wasm.Compilation;
 
 using Xunit.Abstractions;
 
 namespace OpaDotNet.Tests;
 
-public class MultiplyEntrypointsTests : IAsyncLifetime
+public class MultiplyEntrypointsTests : OpaTestBase, IAsyncLifetime
 {
     private IOpaEvaluator _engine = default!;
 
-    private readonly ILoggerFactory _loggerFactory;
-
     private string BasePath { get; } = Path.Combine("TestData", "multiple-entrypoints");
 
-    public MultiplyEntrypointsTests(ITestOutputHelper output)
+    public MultiplyEntrypointsTests(ITestOutputHelper output) : base(output)
     {
-        _loggerFactory = new LoggerFactory(new[] { new XunitLoggerProvider(output) });
     }
 
     public async Task InitializeAsync()
     {
-        var options = new OptionsWrapper<RegoCliCompilerOptions>(new());
-        var compiler = new RegoCliCompiler(options, _loggerFactory.CreateLogger<RegoCliCompiler>());
-        var policy = await compiler.CompileBundle(
+        var policy = await CompileBundle(
             BasePath,
             new[]
             {
@@ -35,7 +27,7 @@ public class MultiplyEntrypointsTests : IAsyncLifetime
             }
             );
 
-        _engine = OpaEvaluatorFactory.CreateFromBundle(policy, loggerFactory: _loggerFactory);
+        _engine = OpaEvaluatorFactory.CreateFromBundle(policy, loggerFactory: LoggerFactory);
     }
 
     public Task DisposeAsync()

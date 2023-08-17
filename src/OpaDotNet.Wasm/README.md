@@ -98,22 +98,45 @@ opa build -t wasm -e example/hello example.rego
 ```
 
 Which is compiling the `example.rego` policy file.
-The result will be an OPA bundle with the `policy.wasm` binary included. See [./samples](./samples) for a more
+The result will be an OPA bundle with the `policy.wasm` binary included.
 comprehensive example.
 
 See `opa build --help` for more details.
 
-### With OpaDotNet.Wasm.Compilation
+### With OpaDotNet.Compilation
 
 You can use SDK to do compilation for you.
 
+#### OpaDotNet.Compilation.Cli
+
 **Important**. You will need `opa` cli tool to be in your PATH or provide full path in `RegoCliCompilerOptions`.
+
+```bash
+dotnet add package OpaDotNet.Compilation.Cli
+```
 
 ```csharp
 using OpaDotNet.Wasm;
-using OpaDotNet.Wasm.Compilation;
+using OpaDotNet.Compilation.Cli;
 
 var compiler = new RegoCliCompiler();
+var policyStream = await compiler.CompileFile("example.rego", new[] { "example/hello" });
+
+// Use compiled policy.
+using var engine = OpaEvaluatorFactory.CreateFromBundle(policyStream);
+```
+
+#### OpaDotNet.Compilation.Interop
+
+```bash
+dotnet add package OpaDotNet.Compilation.Interop
+```
+
+```csharp
+using OpaDotNet.Wasm;
+using OpaDotNet.Compilation.Interop;
+
+var compiler = new RegoInteropCompiler();
 var policyStream = await compiler.CompileFile("example.rego", new[] { "example/hello" });
 
 // Use compiled policy.

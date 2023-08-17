@@ -1,32 +1,23 @@
-﻿using Microsoft.Extensions.Options;
-
-using OpaDotNet.Tests.Common;
+﻿using OpaDotNet.Tests.Common;
 using OpaDotNet.Wasm;
-using OpaDotNet.Wasm.Compilation;
 
 using Xunit.Abstractions;
 
 namespace OpaDotNet.Tests;
 
-public class StringifiedSupportTests : IAsyncLifetime
+public class StringifiedSupportTests : OpaTestBase, IAsyncLifetime
 {
     private IOpaEvaluator _engine = default!;
 
-    private readonly ILoggerFactory _loggerFactory;
-
-    private readonly OptionsWrapper<RegoCliCompilerOptions> _options = new(new());
-
     private string BasePath { get; } = Path.Combine("TestData", "stringified-support");
 
-    public StringifiedSupportTests(ITestOutputHelper output)
+    public StringifiedSupportTests(ITestOutputHelper output) : base(output)
     {
-        _loggerFactory = new LoggerFactory(new[] { new XunitLoggerProvider(output) });
     }
 
     public async Task InitializeAsync()
     {
-        var compiler = new RegoCliCompiler(_options, _loggerFactory.CreateLogger<RegoCliCompiler>());
-        var policy = await compiler.CompileBundle(
+        var policy = await CompileBundle(
             BasePath,
             new[]
             {
@@ -37,7 +28,7 @@ public class StringifiedSupportTests : IAsyncLifetime
             }
             );
 
-        _engine = OpaEvaluatorFactory.CreateFromBundle(policy, loggerFactory: _loggerFactory);
+        _engine = OpaEvaluatorFactory.CreateFromBundle(policy, loggerFactory: LoggerFactory);
     }
 
     public Task DisposeAsync()

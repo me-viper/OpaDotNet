@@ -1,8 +1,8 @@
 ﻿using System.Xml.Linq;
 using System.Xml.XPath;
 
+using OpaDotNet.Compilation.Cli;
 using OpaDotNet.Wasm;
-using OpaDotNet.Wasm.Compilation;
 
 if (args.Length != 1)
 {

@@ -26,4 +26,8 @@
     <ProjectReference Include="..\..\src\OpaDotNet.Wasm\OpaDotNet.Wasm.csproj"/>
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="OpaDotNet.Compilation.Cli" Version="1.1.0"/>
+  </ItemGroup>
+
 </Project>

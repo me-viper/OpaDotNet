@@ -9,7 +9,7 @@ using OpaDotNet.Wasm;
 #region CompilationUsings
 
 using OpaDotNet.Wasm;
-using OpaDotNet.Wasm.Compilation;
+using OpaDotNet.Compilation.Cli;
 
 #endregion
 

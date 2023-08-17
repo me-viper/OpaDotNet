@@ -1,35 +1,23 @@
-﻿using Microsoft.Extensions.Options;
-
-using OpaDotNet.Tests.Common;
+﻿using OpaDotNet.Tests.Common;
 using OpaDotNet.Wasm;
-using OpaDotNet.Wasm.Compilation;
 
 using Xunit.Abstractions;
 
 namespace OpaDotNet.Tests;
 
-public class YamlSupportTests : IAsyncLifetime
+public class YamlSupportTests : OpaTestBase, IAsyncLifetime
 {
     private IOpaEvaluator _engine = default!;
 
-    private readonly ITestOutputHelper _output;
-
-    private readonly ILoggerFactory _loggerFactory;
-
     private string BasePath { get; } = Path.Combine("TestData", "yaml");
 
-    private readonly OptionsWrapper<RegoCliCompilerOptions> _options = new(new());
-
-    public YamlSupportTests(ITestOutputHelper output)
+    public YamlSupportTests(ITestOutputHelper output) : base(output)
     {
-        _output = output;
-        _loggerFactory = new LoggerFactory(new[] { new XunitLoggerProvider(output) });
     }
 
     public async Task InitializeAsync()
     {
-        var compiler = new RegoCliCompiler(_options);
-        var policy = await compiler.CompileFile(
+        var policy = await CompileFile(
             Path.Combine(BasePath, "yaml.rego"),
             new[]
             {
@@ -43,7 +31,7 @@ public class YamlSupportTests : IAsyncLifetime
             }
             );
 
-        _engine = OpaEvaluatorFactory.CreateFromBundle(policy, importsAbiFactory: () => new TestImportsAbi(_output));
+        _engine = OpaEvaluatorFactory.CreateFromBundle(policy, importsAbiFactory: () => new TestImportsAbi(Output));
     }
 
     public Task DisposeAsync()
@@ -83,7 +71,7 @@ public class YamlSupportTests : IAsyncLifetime
     [Fact]
     public void IgnoreWarning()
     {
-        // This is NOT compatible with OPA native behaviour. 
+        // This is NOT compatible with OPA native behaviour.
         var result = _engine.EvaluatePredicate<object?>(null, "yaml/support/hasYAMLWarning");
         Assert.True(result.Result);
     }

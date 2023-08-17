@@ -1,8 +1,5 @@
-﻿using Microsoft.Extensions.Options;
-
-using OpaDotNet.Tests.Common;
+﻿using OpaDotNet.Tests.Common;
 using OpaDotNet.Wasm;
-using OpaDotNet.Wasm.Compilation;
 
 using Wasmtime;
 
@@ -10,32 +7,24 @@ using Xunit.Abstractions;
 
 namespace OpaDotNet.Tests;
 
-public class MemoryTests : IAsyncLifetime
+public class MemoryTests : OpaTestBase, IAsyncLifetime
 {
     private Func<WasmPolicyEngineOptions, IOpaEvaluator> _engine = default!;
 
-    private readonly ILoggerFactory _loggerFactory;
-
-    private readonly ITestOutputHelper _output;
-
     private string BasePath { get; } = Path.Combine("TestData", "memory");
 
-    public MemoryTests(ITestOutputHelper output)
+    public MemoryTests(ITestOutputHelper output) : base(output)
     {
-        _loggerFactory = new LoggerFactory(new[] { new XunitLoggerProvider(output) });
-        _output = output;
     }
 
     public async Task InitializeAsync()
     {
-        var options = new OptionsWrapper<RegoCliCompilerOptions>(new());
-        var compiler = new RegoCliCompiler(options, _loggerFactory.CreateLogger<RegoCliCompiler>());
-        var policy = await compiler.CompileBundle(
+        var policy = await CompileBundle(
             BasePath,
             new[] { "test/allow" }
             );
 
-        _engine = p => OpaEvaluatorFactory.CreateFromBundle(policy, options: p, loggerFactory: _loggerFactory);
+        _engine = p => OpaEvaluatorFactory.CreateFromBundle(policy, options: p, loggerFactory: LoggerFactory);
     }
 
     public Task DisposeAsync()
@@ -83,7 +72,7 @@ public class MemoryTests : IAsyncLifetime
 
         for (var i = 0; i < 100; i++)
         {
-            _output.WriteLine($"Iteration {i}");
+            Output.WriteLine($"Iteration {i}");
             var r = engine.EvaluatePredicate(input);
             Assert.False(r.Result);
         }

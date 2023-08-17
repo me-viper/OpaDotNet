@@ -23,7 +23,10 @@ For more information check out [the guide](https://me-viper.github.io/OpaDotNet/
 |                 | Official | Preview |
 |-----------------|----------|---------|
 | OpaDotNet.Wasm  | [![NuGet](https://img.shields.io/nuget/v/OpaDotNet.Wasm.svg)](https://www.nuget.org/packages/OpaDotNet.Wasm/) | [![Nuget](https://img.shields.io/nuget/vpre/OpaDotNet.Wasm.svg)](https://www.nuget.org/packages/OpaDotNet.Wasm/)  |
-| [OpaDotNet.Extensions.AspNetCore](https://github.com/me-viper/OpaDotNet.Extensions/tree/main) | [![NuGet](https://img.shields.io/nuget/v/OpaDotNet.Extensions.AspNetCore.svg)](https://www.nuget.org/packages/OpaDotNet.Extensions.AspNetCore/) | [![Nuget](https://img.shields.io/nuget/vpre/OpaDotNet.Extensions.AspNetCore.svg)](https://www.nuget.org/packages/OpaDotNet.Extensions.AspNetCore/)  |
+| [OpaDotNet.Extensions.AspNetCore](https://github.com/me-viper/OpaDotNet.Extensions) | [![NuGet](https://img.shields.io/nuget/v/OpaDotNet.Extensions.AspNetCore.svg)](https://www.nuget.org/packages/OpaDotNet.Extensions.AspNetCore/) | [![Nuget](https://img.shields.io/nuget/vpre/OpaDotNet.Extensions.AspNetCore.svg)](https://www.nuget.org/packages/OpaDotNet.Extensions.AspNetCore/)  |
+| [OpaDotNet.Compilation.Cli](https://github.com/me-viper/OpaDotNet.Compilation)             | [![NuGet](https://img.shields.io/nuget/v/OpaDotNet.Compilation.Cli.svg)](https://www.nuget.org/packages/OpaDotNet.Compilation.Cli/) | - |
+| [OpaDotNet.Compilation.Interop](https://github.com/me-viper/OpaDotNet.Compilation)         | [![NuGet](https://img.shields.io/nuget/v/OpaDotNet.Compilation.Interop.svg)](https://www.nuget.org/packages/OpaDotNet.Compilation.Interop/) | - |
+
 
 ## Getting Started
 
@@ -113,17 +116,41 @@ comprehensive example.
 
 See `opa build --help` for more details.
 
-### With OpaDotNet.Wasm.Compilation
+### With OpaDotNet.Compilation
 
 You can use SDK to do compilation for you.
 
-**Important**. You will need `opa` cli tool to be in your PATH or provide full path in `RegoCliCompilerOptions`.
+#### OpaDotNet.Compilation.Cli
+
+> [!IMPORTANT]
+> You will need `opa` cli tool to be in your PATH or provide full path in `RegoCliCompilerOptions`.
+
+```bash
+dotnet add package OpaDotNet.Compilation.Cli
+```
 
 ```csharp
 using OpaDotNet.Wasm;
-using OpaDotNet.Wasm.Compilation;
+using OpaDotNet.Compilation.Cli;
 
 var compiler = new RegoCliCompiler();
+var policyStream = await compiler.CompileFile("example.rego", new[] { "example/hello" });
+
+// Use compiled policy.
+using var engine = OpaEvaluatorFactory.CreateFromBundle(policyStream);
+```
+
+#### OpaDotNet.Compilation.Interop
+
+```bash
+dotnet add package OpaDotNet.Compilation.Interop
+```
+
+```csharp
+using OpaDotNet.Wasm;
+using OpaDotNet.Compilation.Interop;
+
+var compiler = new RegoInteropCompiler();
 var policyStream = await compiler.CompileFile("example.rego", new[] { "example/hello" });
 
 // Use compiled policy.
