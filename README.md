@@ -118,7 +118,7 @@ See `opa build --help` for more details.
 
 ### With OpaDotNet.Compilation
 
-You can use SDK to do compilation for you.
+You can use SDK to do compilation for you. For more information see [OpaDotNet.Compilation](https://github.com/me-viper/OpaDotNet.Compilation).
 
 #### OpaDotNet.Compilation.Cli
 
