@@ -3,6 +3,8 @@ items:
   href: WhatIs.md
 - name: Quick Start
   href: HowToStart.md
+- name: Migration
+  href: migration.md
 
 - name: OPA Compatibility
 - name: ABI
@@ -22,7 +24,9 @@ items:
 
 - name: Compilation
 - name: Basics
-  href: Compilation.md
+  href: compilation/compilation.md
+- name: Cli Compiler
+  href: compilation/cli.md
 
 - name: Reference
 - name: Advanced Built-ins

@@ -10,7 +10,7 @@ Create policy file `policy.rego` with the following contents:
 
 ## 2. Compile policy module
 
-In this example we will compile policy manually, see [Compilation](../Compilation.md) section for more details.
+In this example we will compile policy manually, see [Compilation](~/articles/compilation/compilation.md) section for more details.
 
 ```sh
 opa build -t wasm -e example/allow policy.rego

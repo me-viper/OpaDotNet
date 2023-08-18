@@ -28,7 +28,6 @@ For more information check out [the guide](https://me-viper.github.io/OpaDotNet/
 | [OpaDotNet.Compilation.Cli](https://github.com/me-viper/OpaDotNet.Compilation)             | [![NuGet](https://img.shields.io/nuget/v/OpaDotNet.Compilation.Cli.svg)](https://www.nuget.org/packages/OpaDotNet.Compilation.Cli/) | - |
 | [OpaDotNet.Compilation.Interop](https://github.com/me-viper/OpaDotNet.Compilation)         | [![NuGet](https://img.shields.io/nuget/v/OpaDotNet.Compilation.Interop.svg)](https://www.nuget.org/packages/OpaDotNet.Compilation.Interop/) | - |
 
-
 ## Getting Started
 
 ### Install nuget package
