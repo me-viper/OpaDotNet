@@ -17,7 +17,7 @@ Create data file `quickstart/data.json` with the following contents:
 In this example we will compile policy bundle manually, see [Compilation](~/articles/compilation/compilation.md) section for more details.
 
 ```sh
-opa build -t wasm -b -e example/allow ./quickstart
+opa build -t wasm -b -e example/hello ./quickstart
 ```
 
 `opa` CLI will produce `bundle.tar.gz` file.

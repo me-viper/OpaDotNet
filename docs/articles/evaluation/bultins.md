@@ -33,7 +33,7 @@ To make OPA aware of custom built-ins we need to add [capabilities](https://www.
 `capabilities.json`
 [!code-json[](~/snippets/builtins/capabilities.json)]
 
-For more information on capabilities [see](../reference/capabilities.md)
+For more information on capabilities [see](~/articles/reference/capabilities.md)
 
 ## Policy
 
