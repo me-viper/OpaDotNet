@@ -3,10 +3,11 @@
     {
       "src": [
         {
-          "files": [
-            "OpaDotNet.Wasm/*.csproj"
-          ],
-          "src": "../src"
+          // "files": [
+          //   "Snippets.csproj"
+          // ],
+          "files": ["**/bin/Debug/**/OpaDotNet*.dll"],
+          "src": "snippets"
         }
       ],
       "dest": "api",

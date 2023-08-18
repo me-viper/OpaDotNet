@@ -1,0 +1,11 @@
+<Project>
+  <!-- <Target Name="CopyReferenceFiles" BeforeTargets="PrepareForPublish"> -->
+  <Target Name="AfterBuild">
+      <ItemGroup>
+        <ReferenceFiles Include="%(Reference.RelativeDir)%(Reference.Filename).xml" Condition="$([MSBuild]::ValueOrDefault('%(Reference.Filename)', '').StartsWith('OpaDotNet'))" />
+      </ItemGroup>
+
+      <Message Text="Copying referenced xml doc files to $(OutputPath)" Importance="High" />
+      <Copy SourceFiles="@(ReferenceFiles)" DestinationFolder="$(OutputPath)" Condition="Exists('%(RootDir)%(Directory)%(Filename)%(Extension)')" />
+  </Target>
+</Project>
