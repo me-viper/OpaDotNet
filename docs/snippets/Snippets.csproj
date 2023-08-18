@@ -11,7 +11,7 @@
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0"/>
         <PackageReference Include="OpaDotNet.Compilation.Cli" Version="1.1.1"/>
         <PackageReference Include="OpaDotNet.Compilation.Interop" Version="1.1.1"/>
-        <PackageReference Include="OpaDotNet.Extensions.AspNetCore" Version="1.0.5" />
+        <PackageReference Include="OpaDotNet.Extensions.AspNetCore" Version="1.0.5"/>
         <PackageReference Include="xunit" Version="2.4.2"/>
         <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -24,28 +24,28 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\OpaDotNet.Wasm\OpaDotNet.Wasm.csproj" />
+        <ProjectReference Include="..\..\src\OpaDotNet.Wasm\OpaDotNet.Wasm.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="data\policy.wasm">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-      <None Update="quickstart\example.rego">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-      <None Update="data\bundle.tar.gz">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-      <None Update="quickstart\data.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-      <None Update="builtins\capabilities.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-      <None Update="builtins\custom-builtins-policy.rego">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
+        <None Update="data\policy.wasm">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="quickstart\example.rego">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="data\bundle.tar.gz">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="quickstart\data.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="builtins\capabilities.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="builtins\custom-builtins-policy.rego">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
 </Project>

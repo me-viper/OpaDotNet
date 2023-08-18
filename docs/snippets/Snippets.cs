@@ -1,6 +1,6 @@
 ﻿// ReSharper disable RedundantUsingDirective
 
-#pragma  warning disable CS0105
+#pragma warning disable CS0105
 
 #region Usings
 
