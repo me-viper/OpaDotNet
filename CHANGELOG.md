@@ -1,6 +1,6 @@
 # Changelog
 
-## OpaDotNet.Wasm v2.0.0 (2023-08-17)
+## OpaDotNet.Wasm v2.0.0 (2023-08-18)
 
 ### Features
 
