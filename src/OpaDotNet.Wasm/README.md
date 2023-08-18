@@ -13,7 +13,8 @@ For more information check out [the guide](https://me-viper.github.io/OpaDotNet/
 * Fast in-process OPA policies evaluation.
 * Full ABI [support](https://andrii-kurochka.gitbook.io/opadotnet.wasm/overview/opa-compatibility/abi).
 * Additional OPA [built-ins](https://andrii-kurochka.gitbook.io/opadotnet.wasm/overview/opa-compatibility/builtins).
-* Compilation.
+* [Compilation](https://github.com/me-viper/OpaDotNet.Compilation).
+* AspDotNet Core [integration](https://github.com/me-viper/OpaDotNet.Extensions).
 
 ## Getting Started
 
@@ -98,18 +99,16 @@ opa build -t wasm -e example/hello example.rego
 ```
 
 Which is compiling the `example.rego` policy file.
-The result will be an OPA bundle with the `policy.wasm` binary included.
+The result will be an OPA bundle with the `policy.wasm` binary included. See [./samples](./samples) for a more
 comprehensive example.
 
 See `opa build --help` for more details.
 
 ### With OpaDotNet.Compilation
 
-You can use SDK to do compilation for you.
+You can use SDK to do compilation for you. For more information see [OpaDotNet.Compilation](https://github.com/me-viper/OpaDotNet.Compilation).
 
 #### OpaDotNet.Compilation.Cli
-
-**Important**. You will need `opa` cli tool to be in your PATH or provide full path in `RegoCliCompilerOptions`.
 
 ```bash
 dotnet add package OpaDotNet.Compilation.Cli
