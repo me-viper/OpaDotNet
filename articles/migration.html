@@ -2,25 +2,25 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>WASM binary | OpaDotNet.Wasm </title>
+      <title>Migration guide | OpaDotNet.Wasm </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="WASM binary | OpaDotNet.Wasm ">
+      <meta name="title" content="Migration guide | OpaDotNet.Wasm ">
       
-      <link rel="icon" href="../../favicon.ico">
-      <link rel="stylesheet" href="../../public/docfx.min.css">
-      <link rel="stylesheet" href="../../public/main.css">
-      <meta name="docfx:navrel" content="../../toc.html">
-      <meta name="docfx:tocrel" content="../toc.html">
-      
-      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
       
       
-      <meta name="docfx:docurl" content="https://github.com/me-viper/OpaDotNet/blob/main/docs/articles/evaluation/wasm.md/#L1">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/me-viper/OpaDotNet/blob/main/docs/articles/migration.md/#L1">
   </head>
 
   <script type="module">
-    import options from './../../public/main.js'
-    import { init } from './../../public/docfx.min.js'
+    import options from './../public/main.js'
+    import { init } from './../public/docfx.min.js'
     init(options)
   </script>
 
@@ -34,8 +34,8 @@
     <header class="bg-body border-bottom">
       <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
         <div class="container-xxl flex-nowrap">
-          <a class="navbar-brand" href="../../index.html">
-            <img id="logo" class="svg" src="../../logo.svg" alt="OpaDotNet.Wasm">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="OpaDotNet.Wasm">
             OpaDotNet.Wasm
           </a>
           <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
@@ -72,68 +72,27 @@
         </div>
 
         <article data-uid="">
-<h1 id="wasm-binary">WASM binary</h1>
+<h1 id="migration-guide">Migration guide</h1>
 
-<p>In this sample <code>OpaDotNet</code> will use policy compiled as WASM binary.</p>
-<h2 id="1-create-policy">1. Create policy</h2>
-<p>Create policy file <code>quickstart/policy.rego</code> with the following contents:</p>
-<pre><code class="lang-rego">package example
-
-default hello = false
-
-hello {
-    x := input.message
-    x == data.world
-}
-</code></pre><h2 id="2-compile-policy-module">2. Compile policy module</h2>
-<p>In this example we will compile policy manually, see <a href="../compilation/compilation.html">Compilation</a> section for more details.</p>
-<pre><code class="lang-sh">opa build -t wasm -e example/hello quickstart/example.rego
+<h2 id="from-v1x-to-2x">From v1.x to 2.x</h2>
+<p>In <code>2.x</code> release compilation related logic have been moved out <code>OpaDotNet.Wasm</code> into separate assembly <code>OpaDotNet.Compilation.Cli</code>.
+If you were using types from <code>OpaDotNet.Wasm.Compilation</code> namespace you will need to do the following changes:</p>
+<pre><code class="lang-bash">dotnet add package OpaDotNet.Compilation.Cli
 </code></pre>
-<p><code>opa</code> CLI will produce <code>bundle.tar.gz</code> file.</p>
-<p>Extract <code>policy.wasm</code> from bundle <code>bundle.tar.gz</code>:</p>
-<pre><code class="lang-sh">tar -zxvf bundle.tar.gz /policy.wasm
+<pre><code class="lang-diff">-using OpaDotNet.Wasm.Compilation
++using OpaDotNet.Compilation.Cli;
+
+var compiler = new RegoCliCompiler();
+var policyStream = await compiler.CompileFile(&quot;example.rego&quot;, new[] { &quot;example/hello&quot; });
+
+// Use compiled policy.
+using var engine = OpaEvaluatorFactory.CreateFromBundle(policyStream);
 </code></pre>
-<h2 id="3-add-usings">3. Add usings</h2>
-<pre><code class="lang-csharp">
-using OpaDotNet.Wasm;
-
-</code></pre><h2 id="4-the-code">4. The code</h2>
-<pre><code class="lang-csharp">
-// Create evaluator from compiled policy module.
-using var engine = OpaEvaluatorFactory.CreateFromWasm(File.OpenRead(&quot;data/policy.wasm&quot;));
-
-// Set external data.
-var data = &quot;&quot;&quot;{ &quot;world&quot;: &quot;world&quot; }&quot;&quot;&quot;;
-engine.SetDataFromRawJson(data);
-
-// Evaluate. Policy query will return false.
-var deny = engine.EvaluatePredicate(new { message = &quot;hi&quot; });
-
-if (deny.Result)
-{
-    // Should not get here.
-}
-else
-{
-    // Wrong password.
-}
-
-// Evaluate. Policy query will return true.
-var approve = engine.EvaluatePredicate(new { message = &quot;world&quot; });
-
-if (approve.Result)
-{
-    // Correct password.
-}
-else
-{
-    // Should not get here.
-}
-
-</code></pre></article>
+<p>You might also want to check out new <a href="https://github.com/me-viper/OpaDotNet.Compilation/tree/main/src/OpaDotNet.Compilation.Interop">alternative</a> to the Cli compiler.</p>
+</article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/me-viper/OpaDotNet/blob/main/docs/articles/evaluation/wasm.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/me-viper/OpaDotNet/blob/main/docs/articles/migration.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

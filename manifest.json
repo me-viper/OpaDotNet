@@ -5,6 +5,256 @@
   "files": [
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Compilation.Abstractions.IRegoCompiler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Compilation.Abstractions.IRegoCompiler.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Compilation.Abstractions.RegoCompilationException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Compilation.Abstractions.RegoCompilationException.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Compilation.Abstractions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Compilation.Abstractions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Compilation.Cli.RegoCliCompiler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Compilation.Cli.RegoCliCompiler.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Compilation.Cli.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Compilation.Cli.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Compilation.Interop.RegoInteropCompiler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Compilation.Interop.RegoInteropCompiler.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Compilation.Interop.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Compilation.Interop.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Extensions.AspNetCore.IOpaEvaluatorFactoryProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Extensions.AspNetCore.IOpaEvaluatorFactoryProvider.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Extensions.AspNetCore.IOpaPolicyCompiler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Extensions.AspNetCore.IOpaPolicyCompiler.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Extensions.AspNetCore.IOpaPolicyService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Extensions.AspNetCore.IOpaPolicyService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Extensions.AspNetCore.OpaEvaluatorPoolProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Extensions.AspNetCore.OpaEvaluatorPoolProvider.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Extensions.AspNetCore.OpaPolicyAuthorizeAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Extensions.AspNetCore.OpaPolicyAuthorizeAttribute.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Extensions.AspNetCore.OpaPolicyCompilationService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Extensions.AspNetCore.OpaPolicyCompilationService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Extensions.AspNetCore.OpaPolicyWatchingCompilationService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Extensions.AspNetCore.OpaPolicyWatchingCompilationService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Extensions.AspNetCore.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Extensions.AspNetCore.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/OpaDotNet.Wasm.BuiltinArg.yml",
       "output": {
         ".html": {
@@ -19,56 +269,6 @@
       "output": {
         ".html": {
           "relative_path": "api/OpaDotNet.Wasm.BuiltinContext.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/OpaDotNet.Wasm.Compilation.IRegoCompiler.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpaDotNet.Wasm.Compilation.IRegoCompiler.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/OpaDotNet.Wasm.Compilation.RegoCliCompiler.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpaDotNet.Wasm.Compilation.RegoCliCompiler.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/OpaDotNet.Wasm.Compilation.RegoCompilationException.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpaDotNet.Wasm.Compilation.RegoCompilationException.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/OpaDotNet.Wasm.Compilation.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpaDotNet.Wasm.Compilation.html"
         }
       },
       "version": ""
@@ -288,16 +488,6 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "articles/Compilation.md",
-      "output": {
-        ".html": {
-          "relative_path": "articles/Compilation.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
       "source_relative_path": "articles/HowToStart.md",
       "output": {
         ".html": {
@@ -312,6 +502,36 @@
       "output": {
         ".html": {
           "relative_path": "articles/WhatIs.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/compilation/cli.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/compilation/cli.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/compilation/compilation.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/compilation/compilation.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/compilation/interop.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/compilation/interop.html"
         }
       },
       "version": ""
@@ -358,6 +578,16 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "articles/migration.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/migration.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "articles/reference/builtins.md",
       "output": {
         ".html": {
@@ -377,6 +607,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
       "type": "Toc",
       "source_relative_path": "articles/toc.yml",
       "output": {

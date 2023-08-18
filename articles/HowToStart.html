@@ -88,7 +88,7 @@ using OpaDotNet.Wasm;
 const string data = &quot;{ \&quot;world\&quot;: \&quot;world\&quot; }&quot;;
 
 using var engine = OpaEvaluatorFactory.CreateFromWasm(
-    File.OpenRead(&quot;policy.wasm&quot;)
+    File.OpenRead(&quot;data/policy.wasm&quot;)
     );
 
 engine.SetDataFromRawJson(data);
@@ -115,7 +115,9 @@ else
     // Can't do that.
 }
 
-</code></pre><h2 id="writing-policy">Writing policy</h2>
+</code></pre>
+<p>More samples <a href="https://github.com/me-viper/OpaDotNet/tree/main/samples">here</a></p>
+<h2 id="writing-policy">Writing policy</h2>
 <p>See <a href="https://www.openpolicyagent.org/docs/latest/how-do-i-write-policies/">writing policy</a></p>
 <h3 id="compiling-policy">Compiling policy</h3>
 <p>You have several options to compile rego policy into wasm module:</p>
@@ -144,11 +146,11 @@ The result will be an OPA bundle with the <code>policy.wasm</code> binary includ
 </div>
 <pre><code class="lang-csharp">
 using OpaDotNet.Wasm;
-using OpaDotNet.Wasm.Compilation;
+using OpaDotNet.Compilation.Cli;
 
 </code></pre><pre><code class="lang-csharp">
 var compiler = new RegoCliCompiler();
-var policyStream = await compiler.CompileFile(&quot;example.rego&quot;, new[] { &quot;example/hello&quot; });
+var policyStream = await compiler.CompileFile(&quot;quickstart/example.rego&quot;, new[] { &quot;example/hello&quot; });
 
 // Use compiled policy.
 using var engine = OpaEvaluatorFactory.CreateFromBundle(policyStream);

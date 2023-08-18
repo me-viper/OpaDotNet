@@ -2,9 +2,11 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Policy Compilation | OpaDotNet.Wasm </title>
+      <title>Namespace OpaDotNet.Compilation.Cli
+ | OpaDotNet.Wasm </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Policy Compilation | OpaDotNet.Wasm ">
+      <meta name="title" content="Namespace OpaDotNet.Compilation.Cli
+ | OpaDotNet.Wasm ">
       
       <link rel="icon" href="../favicon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
@@ -15,7 +17,7 @@
       
       
       
-      <meta name="docfx:docurl" content="https://github.com/me-viper/OpaDotNet/blob/main/docs/articles/Compilation.md/#L1">
+      
   </head>
 
   <script type="module">
@@ -30,7 +32,7 @@
   </script>
 
 
-  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
     <header class="bg-body border-bottom">
       <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
         <div class="container-xxl flex-nowrap">
@@ -71,88 +73,34 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="">
-<h1 id="policy-compilation">Policy Compilation</h1>
+        <article data-uid="OpaDotNet.Compilation.Cli">
 
-<p>To evaluate policy modules they need to be compiled into WASM.</p>
-<p>You can compile them manually with <code>opa build -t wasm ...</code> <a href="https://www.openpolicyagent.org/docs/latest/cli/#opa-build">command</a> or ask OpaDotNet do that for you.</p>
-<div class="IMPORTANT">
-<h5>Important</h5>
-<p>Internally <code>RegoCliCompiler</code> uses <code>opa</code> CLI so you need to ensure it is in your <code>PATH</code> environment variable or you provided full path in <code>RegoCliCompilerOptions.OpaToolPath</code>.</p>
-</div>
-<h2 id="add-usings">Add usings</h2>
-<pre><code class="lang-csharp">
-using OpaDotNet.Wasm;
-using OpaDotNet.Wasm.Compilation;
+  <h1 id="OpaDotNet_Compilation_Cli" data-uid="OpaDotNet.Compilation.Cli" class="text-break">Namespace OpaDotNet.Compilation.Cli
+</h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="markdown level0 remarks"></div>
 
-</code></pre><h2 id="compiling-single-policy-file">Compiling single policy file</h2>
-<pre><code class="lang-csharp">
-var compiler = new RegoCliCompiler();
+    <h3 id="classes">
+Classes
+</h3>
+    <dl class="jumplist">
+      <dt><a class="xref" href="OpaDotNet.Compilation.Cli.RegoCliCompiler.html">RegoCliCompiler</a></dt>
+      <dd><p>Compiles OPA bundle with opa cli tool.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.html">RegoCliCompilerOptions</a></dt>
+      <dd><p>Contains members that affect compiler behaviour.</p>
+</dd>
+    </dl>
 
-var policy = await compiler.CompileFile(
 
-    // Policy source file.
-    &quot;policy.rego&quot;,
-
-    // Entrypoints (same you would pass for -e parameter for opa build).
-    new[] { &quot;example/allow&quot; }
-    );
-
-// RegoCliCompiler will always produce bundle.
-using var engine = OpaEvaluatorFactory.CreateFromBundle(policy);
-
-</code></pre><h2 id="compiling-bundle">Compiling bundle</h2>
-<p>Create <a href="https://www.openpolicyagent.org/docs/latest/management-bundles/">bundle directory</a></p>
-<pre><code class="lang-csharp">
-var compiler = new RegoCliCompiler();
-
-var policy = await compiler.CompileBundle(
-
-    // Directory with bundle sources.
-    &quot;bundleDirectory&quot;,
-
-    // Entrypoints (same you would pass for -e parameter for opa build).
-    new[] { &quot;example/allow&quot; }
-    );
-
-// RegoCliCompiler will always produce bundle.
-using var engine = OpaEvaluatorFactory.CreateFromBundle(policy);
-
-</code></pre><h2 id="compiling-policy-source">Compiling policy source</h2>
-<pre><code class="lang-csharp">
-var compiler = new RegoCliCompiler();
-
-var policySource = &quot;&quot;&quot;
-    package example
-
-    import future.keywords.if
-
-    default allow := false
-
-    allow if {
-        data.password == input.password
-    }
-    &quot;&quot;&quot;;
-
-var policy = await compiler.CompileSource(
-
-    // Policy source code.
-    policySource,
-
-    // Entrypoints (same you would pass for -e parameter for opa build).
-    new[] { &quot;example/allow&quot; }
-    );
-
-// RegoCliCompiler will always produce bundle.
-using var engine = OpaEvaluatorFactory.CreateFromBundle(policy);
-
-</code></pre></article>
+</article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/me-viper/OpaDotNet/blob/main/docs/articles/Compilation.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
-        <div class="next-article d-print-none border-top" id="nextArticle"></div>
         
       </div>
 

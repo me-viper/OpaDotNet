@@ -1,6 +1,1429 @@
 ### YamlMime:XRefMap
 sorted: true
 references:
+- uid: OpaDotNet.Compilation.Abstractions
+  name: OpaDotNet.Compilation.Abstractions
+  href: api/OpaDotNet.Compilation.Abstractions.html
+  commentId: N:OpaDotNet.Compilation.Abstractions
+  fullName: OpaDotNet.Compilation.Abstractions
+  nameWithType: OpaDotNet.Compilation.Abstractions
+- uid: OpaDotNet.Compilation.Abstractions.IRegoCompiler
+  name: IRegoCompiler
+  href: api/OpaDotNet.Compilation.Abstractions.IRegoCompiler.html
+  commentId: T:OpaDotNet.Compilation.Abstractions.IRegoCompiler
+  fullName: OpaDotNet.Compilation.Abstractions.IRegoCompiler
+  nameWithType: IRegoCompiler
+- uid: OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileBundle(System.String,System.Collections.Generic.IEnumerable{System.String},System.String,System.Threading.CancellationToken)
+  name: CompileBundle(string, IEnumerable<string>?, string?, CancellationToken)
+  href: api/OpaDotNet.Compilation.Abstractions.IRegoCompiler.html#OpaDotNet_Compilation_Abstractions_IRegoCompiler_CompileBundle_System_String_System_Collections_Generic_IEnumerable_System_String__System_String_System_Threading_CancellationToken_
+  commentId: M:OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileBundle(System.String,System.Collections.Generic.IEnumerable{System.String},System.String,System.Threading.CancellationToken)
+  name.vb: CompileBundle(String, IEnumerable(Of String), String, CancellationToken)
+  fullName: OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileBundle(string, System.Collections.Generic.IEnumerable<string>?, string?, System.Threading.CancellationToken)
+  fullName.vb: OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileBundle(String, System.Collections.Generic.IEnumerable(Of String), String, System.Threading.CancellationToken)
+  nameWithType: IRegoCompiler.CompileBundle(string, IEnumerable<string>?, string?, CancellationToken)
+  nameWithType.vb: IRegoCompiler.CompileBundle(String, IEnumerable(Of String), String, CancellationToken)
+- uid: OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileBundle*
+  name: CompileBundle
+  href: api/OpaDotNet.Compilation.Abstractions.IRegoCompiler.html#OpaDotNet_Compilation_Abstractions_IRegoCompiler_CompileBundle_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileBundle
+  fullName: OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileBundle
+  nameWithType: IRegoCompiler.CompileBundle
+- uid: OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileFile(System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  name: CompileFile(string, IEnumerable<string>?, CancellationToken)
+  href: api/OpaDotNet.Compilation.Abstractions.IRegoCompiler.html#OpaDotNet_Compilation_Abstractions_IRegoCompiler_CompileFile_System_String_System_Collections_Generic_IEnumerable_System_String__System_Threading_CancellationToken_
+  commentId: M:OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileFile(System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  name.vb: CompileFile(String, IEnumerable(Of String), CancellationToken)
+  fullName: OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileFile(string, System.Collections.Generic.IEnumerable<string>?, System.Threading.CancellationToken)
+  fullName.vb: OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileFile(String, System.Collections.Generic.IEnumerable(Of String), System.Threading.CancellationToken)
+  nameWithType: IRegoCompiler.CompileFile(string, IEnumerable<string>?, CancellationToken)
+  nameWithType.vb: IRegoCompiler.CompileFile(String, IEnumerable(Of String), CancellationToken)
+- uid: OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileFile*
+  name: CompileFile
+  href: api/OpaDotNet.Compilation.Abstractions.IRegoCompiler.html#OpaDotNet_Compilation_Abstractions_IRegoCompiler_CompileFile_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileFile
+  fullName: OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileFile
+  nameWithType: IRegoCompiler.CompileFile
+- uid: OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileSource(System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  name: CompileSource(string, IEnumerable<string>?, CancellationToken)
+  href: api/OpaDotNet.Compilation.Abstractions.IRegoCompiler.html#OpaDotNet_Compilation_Abstractions_IRegoCompiler_CompileSource_System_String_System_Collections_Generic_IEnumerable_System_String__System_Threading_CancellationToken_
+  commentId: M:OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileSource(System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  name.vb: CompileSource(String, IEnumerable(Of String), CancellationToken)
+  fullName: OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileSource(string, System.Collections.Generic.IEnumerable<string>?, System.Threading.CancellationToken)
+  fullName.vb: OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileSource(String, System.Collections.Generic.IEnumerable(Of String), System.Threading.CancellationToken)
+  nameWithType: IRegoCompiler.CompileSource(string, IEnumerable<string>?, CancellationToken)
+  nameWithType.vb: IRegoCompiler.CompileSource(String, IEnumerable(Of String), CancellationToken)
+- uid: OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileSource*
+  name: CompileSource
+  href: api/OpaDotNet.Compilation.Abstractions.IRegoCompiler.html#OpaDotNet_Compilation_Abstractions_IRegoCompiler_CompileSource_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileSource
+  fullName: OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileSource
+  nameWithType: IRegoCompiler.CompileSource
+- uid: OpaDotNet.Compilation.Abstractions.IRegoCompiler.Version(System.Threading.CancellationToken)
+  name: Version(CancellationToken)
+  href: api/OpaDotNet.Compilation.Abstractions.IRegoCompiler.html#OpaDotNet_Compilation_Abstractions_IRegoCompiler_Version_System_Threading_CancellationToken_
+  commentId: M:OpaDotNet.Compilation.Abstractions.IRegoCompiler.Version(System.Threading.CancellationToken)
+  fullName: OpaDotNet.Compilation.Abstractions.IRegoCompiler.Version(System.Threading.CancellationToken)
+  nameWithType: IRegoCompiler.Version(CancellationToken)
+- uid: OpaDotNet.Compilation.Abstractions.IRegoCompiler.Version*
+  name: Version
+  href: api/OpaDotNet.Compilation.Abstractions.IRegoCompiler.html#OpaDotNet_Compilation_Abstractions_IRegoCompiler_Version_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.IRegoCompiler.Version
+  fullName: OpaDotNet.Compilation.Abstractions.IRegoCompiler.Version
+  nameWithType: IRegoCompiler.Version
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilationException
+  name: RegoCompilationException
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilationException.html
+  commentId: T:OpaDotNet.Compilation.Abstractions.RegoCompilationException
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilationException
+  nameWithType: RegoCompilationException
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilationException.#ctor(System.String)
+  name: RegoCompilationException(string?)
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilationException.html#OpaDotNet_Compilation_Abstractions_RegoCompilationException__ctor_System_String_
+  commentId: M:OpaDotNet.Compilation.Abstractions.RegoCompilationException.#ctor(System.String)
+  name.vb: New(String)
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilationException.RegoCompilationException(string?)
+  fullName.vb: OpaDotNet.Compilation.Abstractions.RegoCompilationException.New(String)
+  nameWithType: RegoCompilationException.RegoCompilationException(string?)
+  nameWithType.vb: RegoCompilationException.New(String)
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilationException.#ctor(System.String,System.String)
+  name: RegoCompilationException(string, string?)
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilationException.html#OpaDotNet_Compilation_Abstractions_RegoCompilationException__ctor_System_String_System_String_
+  commentId: M:OpaDotNet.Compilation.Abstractions.RegoCompilationException.#ctor(System.String,System.String)
+  name.vb: New(String, String)
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilationException.RegoCompilationException(string, string?)
+  fullName.vb: OpaDotNet.Compilation.Abstractions.RegoCompilationException.New(String, String)
+  nameWithType: RegoCompilationException.RegoCompilationException(string, string?)
+  nameWithType.vb: RegoCompilationException.New(String, String)
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilationException.#ctor(System.String,System.String,System.Exception)
+  name: RegoCompilationException(string, string?, Exception?)
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilationException.html#OpaDotNet_Compilation_Abstractions_RegoCompilationException__ctor_System_String_System_String_System_Exception_
+  commentId: M:OpaDotNet.Compilation.Abstractions.RegoCompilationException.#ctor(System.String,System.String,System.Exception)
+  name.vb: New(String, String, Exception)
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilationException.RegoCompilationException(string, string?, System.Exception?)
+  fullName.vb: OpaDotNet.Compilation.Abstractions.RegoCompilationException.New(String, String, System.Exception)
+  nameWithType: RegoCompilationException.RegoCompilationException(string, string?, Exception?)
+  nameWithType.vb: RegoCompilationException.New(String, String, Exception)
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilationException.#ctor*
+  name: RegoCompilationException
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilationException.html#OpaDotNet_Compilation_Abstractions_RegoCompilationException__ctor_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.RegoCompilationException.#ctor
+  name.vb: New
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilationException.RegoCompilationException
+  fullName.vb: OpaDotNet.Compilation.Abstractions.RegoCompilationException.New
+  nameWithType: RegoCompilationException.RegoCompilationException
+  nameWithType.vb: RegoCompilationException.New
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilationException.SourceFile
+  name: SourceFile
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilationException.html#OpaDotNet_Compilation_Abstractions_RegoCompilationException_SourceFile
+  commentId: P:OpaDotNet.Compilation.Abstractions.RegoCompilationException.SourceFile
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilationException.SourceFile
+  nameWithType: RegoCompilationException.SourceFile
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilationException.SourceFile*
+  name: SourceFile
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilationException.html#OpaDotNet_Compilation_Abstractions_RegoCompilationException_SourceFile_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.RegoCompilationException.SourceFile
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilationException.SourceFile
+  nameWithType: RegoCompilationException.SourceFile
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerOptions
+  name: RegoCompilerOptions
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.html
+  commentId: T:OpaDotNet.Compilation.Abstractions.RegoCompilerOptions
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerOptions
+  nameWithType: RegoCompilerOptions
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.#ctor
+  name: RegoCompilerOptions()
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.html#OpaDotNet_Compilation_Abstractions_RegoCompilerOptions__ctor
+  commentId: M:OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.#ctor
+  name.vb: New()
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.RegoCompilerOptions()
+  fullName.vb: OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.New()
+  nameWithType: RegoCompilerOptions.RegoCompilerOptions()
+  nameWithType.vb: RegoCompilerOptions.New()
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.#ctor*
+  name: RegoCompilerOptions
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.html#OpaDotNet_Compilation_Abstractions_RegoCompilerOptions__ctor_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.#ctor
+  name.vb: New
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.RegoCompilerOptions
+  fullName.vb: OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.New
+  nameWithType: RegoCompilerOptions.RegoCompilerOptions
+  nameWithType.vb: RegoCompilerOptions.New
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.CapabilitiesVersion
+  name: CapabilitiesVersion
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.html#OpaDotNet_Compilation_Abstractions_RegoCompilerOptions_CapabilitiesVersion
+  commentId: P:OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.CapabilitiesVersion
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.CapabilitiesVersion
+  nameWithType: RegoCompilerOptions.CapabilitiesVersion
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.CapabilitiesVersion*
+  name: CapabilitiesVersion
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.html#OpaDotNet_Compilation_Abstractions_RegoCompilerOptions_CapabilitiesVersion_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.CapabilitiesVersion
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.CapabilitiesVersion
+  nameWithType: RegoCompilerOptions.CapabilitiesVersion
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.Debug
+  name: Debug
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.html#OpaDotNet_Compilation_Abstractions_RegoCompilerOptions_Debug
+  commentId: P:OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.Debug
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.Debug
+  nameWithType: RegoCompilerOptions.Debug
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.Debug*
+  name: Debug
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.html#OpaDotNet_Compilation_Abstractions_RegoCompilerOptions_Debug_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.Debug
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.Debug
+  nameWithType: RegoCompilerOptions.Debug
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.OutputPath
+  name: OutputPath
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.html#OpaDotNet_Compilation_Abstractions_RegoCompilerOptions_OutputPath
+  commentId: P:OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.OutputPath
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.OutputPath
+  nameWithType: RegoCompilerOptions.OutputPath
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.OutputPath*
+  name: OutputPath
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.html#OpaDotNet_Compilation_Abstractions_RegoCompilerOptions_OutputPath_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.OutputPath
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.OutputPath
+  nameWithType: RegoCompilerOptions.OutputPath
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.PreserveBuildArtifacts
+  name: PreserveBuildArtifacts
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.html#OpaDotNet_Compilation_Abstractions_RegoCompilerOptions_PreserveBuildArtifacts
+  commentId: P:OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.PreserveBuildArtifacts
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.PreserveBuildArtifacts
+  nameWithType: RegoCompilerOptions.PreserveBuildArtifacts
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.PreserveBuildArtifacts*
+  name: PreserveBuildArtifacts
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.html#OpaDotNet_Compilation_Abstractions_RegoCompilerOptions_PreserveBuildArtifacts_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.PreserveBuildArtifacts
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.PreserveBuildArtifacts
+  nameWithType: RegoCompilerOptions.PreserveBuildArtifacts
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion
+  name: RegoCompilerVersion
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.html
+  commentId: T:OpaDotNet.Compilation.Abstractions.RegoCompilerVersion
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion
+  nameWithType: RegoCompilerVersion
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.#ctor
+  name: RegoCompilerVersion()
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.html#OpaDotNet_Compilation_Abstractions_RegoCompilerVersion__ctor
+  commentId: M:OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.#ctor
+  name.vb: New()
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.RegoCompilerVersion()
+  fullName.vb: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.New()
+  nameWithType: RegoCompilerVersion.RegoCompilerVersion()
+  nameWithType.vb: RegoCompilerVersion.New()
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.#ctor(OpaDotNet.Compilation.Abstractions.RegoCompilerVersion)
+  name: RegoCompilerVersion(RegoCompilerVersion)
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.html#OpaDotNet_Compilation_Abstractions_RegoCompilerVersion__ctor_OpaDotNet_Compilation_Abstractions_RegoCompilerVersion_
+  commentId: M:OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.#ctor(OpaDotNet.Compilation.Abstractions.RegoCompilerVersion)
+  name.vb: New(RegoCompilerVersion)
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.RegoCompilerVersion(OpaDotNet.Compilation.Abstractions.RegoCompilerVersion)
+  fullName.vb: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.New(OpaDotNet.Compilation.Abstractions.RegoCompilerVersion)
+  nameWithType: RegoCompilerVersion.RegoCompilerVersion(RegoCompilerVersion)
+  nameWithType.vb: RegoCompilerVersion.New(RegoCompilerVersion)
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.#ctor*
+  name: RegoCompilerVersion
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.html#OpaDotNet_Compilation_Abstractions_RegoCompilerVersion__ctor_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.#ctor
+  name.vb: New
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.RegoCompilerVersion
+  fullName.vb: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.New
+  nameWithType: RegoCompilerVersion.RegoCompilerVersion
+  nameWithType.vb: RegoCompilerVersion.New
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.Commit
+  name: Commit
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.html#OpaDotNet_Compilation_Abstractions_RegoCompilerVersion_Commit
+  commentId: P:OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.Commit
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.Commit
+  nameWithType: RegoCompilerVersion.Commit
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.Commit*
+  name: Commit
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.html#OpaDotNet_Compilation_Abstractions_RegoCompilerVersion_Commit_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.Commit
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.Commit
+  nameWithType: RegoCompilerVersion.Commit
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.EqualityContract
+  name: EqualityContract
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.html#OpaDotNet_Compilation_Abstractions_RegoCompilerVersion_EqualityContract
+  commentId: P:OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.EqualityContract
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.EqualityContract
+  nameWithType: RegoCompilerVersion.EqualityContract
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.EqualityContract*
+  name: EqualityContract
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.html#OpaDotNet_Compilation_Abstractions_RegoCompilerVersion_EqualityContract_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.EqualityContract
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.EqualityContract
+  nameWithType: RegoCompilerVersion.EqualityContract
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.Equals(OpaDotNet.Compilation.Abstractions.RegoCompilerVersion)
+  name: Equals(RegoCompilerVersion?)
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.html#OpaDotNet_Compilation_Abstractions_RegoCompilerVersion_Equals_OpaDotNet_Compilation_Abstractions_RegoCompilerVersion_
+  commentId: M:OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.Equals(OpaDotNet.Compilation.Abstractions.RegoCompilerVersion)
+  name.vb: Equals(RegoCompilerVersion)
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.Equals(OpaDotNet.Compilation.Abstractions.RegoCompilerVersion?)
+  fullName.vb: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.Equals(OpaDotNet.Compilation.Abstractions.RegoCompilerVersion)
+  nameWithType: RegoCompilerVersion.Equals(RegoCompilerVersion?)
+  nameWithType.vb: RegoCompilerVersion.Equals(RegoCompilerVersion)
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.Equals(System.Object)
+  name: Equals(object?)
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.html#OpaDotNet_Compilation_Abstractions_RegoCompilerVersion_Equals_System_Object_
+  commentId: M:OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.Equals(System.Object)
+  name.vb: Equals(Object)
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.Equals(object?)
+  fullName.vb: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.Equals(Object)
+  nameWithType: RegoCompilerVersion.Equals(object?)
+  nameWithType.vb: RegoCompilerVersion.Equals(Object)
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.Equals*
+  name: Equals
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.html#OpaDotNet_Compilation_Abstractions_RegoCompilerVersion_Equals_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.Equals
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.Equals
+  nameWithType: RegoCompilerVersion.Equals
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.GetHashCode
+  name: GetHashCode()
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.html#OpaDotNet_Compilation_Abstractions_RegoCompilerVersion_GetHashCode
+  commentId: M:OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.GetHashCode
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.GetHashCode()
+  nameWithType: RegoCompilerVersion.GetHashCode()
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.GetHashCode*
+  name: GetHashCode
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.html#OpaDotNet_Compilation_Abstractions_RegoCompilerVersion_GetHashCode_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.GetHashCode
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.GetHashCode
+  nameWithType: RegoCompilerVersion.GetHashCode
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.GoVersion
+  name: GoVersion
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.html#OpaDotNet_Compilation_Abstractions_RegoCompilerVersion_GoVersion
+  commentId: P:OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.GoVersion
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.GoVersion
+  nameWithType: RegoCompilerVersion.GoVersion
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.GoVersion*
+  name: GoVersion
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.html#OpaDotNet_Compilation_Abstractions_RegoCompilerVersion_GoVersion_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.GoVersion
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.GoVersion
+  nameWithType: RegoCompilerVersion.GoVersion
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.Platform
+  name: Platform
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.html#OpaDotNet_Compilation_Abstractions_RegoCompilerVersion_Platform
+  commentId: P:OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.Platform
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.Platform
+  nameWithType: RegoCompilerVersion.Platform
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.Platform*
+  name: Platform
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.html#OpaDotNet_Compilation_Abstractions_RegoCompilerVersion_Platform_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.Platform
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.Platform
+  nameWithType: RegoCompilerVersion.Platform
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.PrintMembers(System.Text.StringBuilder)
+  name: PrintMembers(StringBuilder)
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.html#OpaDotNet_Compilation_Abstractions_RegoCompilerVersion_PrintMembers_System_Text_StringBuilder_
+  commentId: M:OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.PrintMembers(System.Text.StringBuilder)
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.PrintMembers(System.Text.StringBuilder)
+  nameWithType: RegoCompilerVersion.PrintMembers(StringBuilder)
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.PrintMembers*
+  name: PrintMembers
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.html#OpaDotNet_Compilation_Abstractions_RegoCompilerVersion_PrintMembers_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.PrintMembers
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.PrintMembers
+  nameWithType: RegoCompilerVersion.PrintMembers
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.ToString
+  name: ToString()
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.html#OpaDotNet_Compilation_Abstractions_RegoCompilerVersion_ToString
+  commentId: M:OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.ToString
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.ToString()
+  nameWithType: RegoCompilerVersion.ToString()
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.ToString*
+  name: ToString
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.html#OpaDotNet_Compilation_Abstractions_RegoCompilerVersion_ToString_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.ToString
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.ToString
+  nameWithType: RegoCompilerVersion.ToString
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.Version
+  name: Version
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.html#OpaDotNet_Compilation_Abstractions_RegoCompilerVersion_Version
+  commentId: P:OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.Version
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.Version
+  nameWithType: RegoCompilerVersion.Version
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.Version*
+  name: Version
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.html#OpaDotNet_Compilation_Abstractions_RegoCompilerVersion_Version_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.Version
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.Version
+  nameWithType: RegoCompilerVersion.Version
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.op_Equality(OpaDotNet.Compilation.Abstractions.RegoCompilerVersion,OpaDotNet.Compilation.Abstractions.RegoCompilerVersion)
+  name: operator ==(RegoCompilerVersion?, RegoCompilerVersion?)
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.html#OpaDotNet_Compilation_Abstractions_RegoCompilerVersion_op_Equality_OpaDotNet_Compilation_Abstractions_RegoCompilerVersion_OpaDotNet_Compilation_Abstractions_RegoCompilerVersion_
+  commentId: M:OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.op_Equality(OpaDotNet.Compilation.Abstractions.RegoCompilerVersion,OpaDotNet.Compilation.Abstractions.RegoCompilerVersion)
+  name.vb: =(RegoCompilerVersion, RegoCompilerVersion)
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.operator ==(OpaDotNet.Compilation.Abstractions.RegoCompilerVersion?, OpaDotNet.Compilation.Abstractions.RegoCompilerVersion?)
+  fullName.vb: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.=(OpaDotNet.Compilation.Abstractions.RegoCompilerVersion, OpaDotNet.Compilation.Abstractions.RegoCompilerVersion)
+  nameWithType: RegoCompilerVersion.operator ==(RegoCompilerVersion?, RegoCompilerVersion?)
+  nameWithType.vb: RegoCompilerVersion.=(RegoCompilerVersion, RegoCompilerVersion)
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.op_Equality*
+  name: operator ==
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.html#OpaDotNet_Compilation_Abstractions_RegoCompilerVersion_op_Equality_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.op_Equality
+  name.vb: =
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.operator ==
+  fullName.vb: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.=
+  nameWithType: RegoCompilerVersion.operator ==
+  nameWithType.vb: RegoCompilerVersion.=
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.op_Inequality(OpaDotNet.Compilation.Abstractions.RegoCompilerVersion,OpaDotNet.Compilation.Abstractions.RegoCompilerVersion)
+  name: operator !=(RegoCompilerVersion?, RegoCompilerVersion?)
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.html#OpaDotNet_Compilation_Abstractions_RegoCompilerVersion_op_Inequality_OpaDotNet_Compilation_Abstractions_RegoCompilerVersion_OpaDotNet_Compilation_Abstractions_RegoCompilerVersion_
+  commentId: M:OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.op_Inequality(OpaDotNet.Compilation.Abstractions.RegoCompilerVersion,OpaDotNet.Compilation.Abstractions.RegoCompilerVersion)
+  name.vb: <>(RegoCompilerVersion, RegoCompilerVersion)
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.operator !=(OpaDotNet.Compilation.Abstractions.RegoCompilerVersion?, OpaDotNet.Compilation.Abstractions.RegoCompilerVersion?)
+  fullName.vb: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.<>(OpaDotNet.Compilation.Abstractions.RegoCompilerVersion, OpaDotNet.Compilation.Abstractions.RegoCompilerVersion)
+  nameWithType: RegoCompilerVersion.operator !=(RegoCompilerVersion?, RegoCompilerVersion?)
+  nameWithType.vb: RegoCompilerVersion.<>(RegoCompilerVersion, RegoCompilerVersion)
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.op_Inequality*
+  name: operator !=
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.html#OpaDotNet_Compilation_Abstractions_RegoCompilerVersion_op_Inequality_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.op_Inequality
+  name.vb: <>
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.operator !=
+  fullName.vb: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.<>
+  nameWithType: RegoCompilerVersion.operator !=
+  nameWithType.vb: RegoCompilerVersion.<>
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.{Clone}$
+  name: <Clone>$()
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.html#OpaDotNet_Compilation_Abstractions_RegoCompilerVersion__Clone__
+  commentId: M:OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.{Clone}$
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.<Clone>$()
+  nameWithType: RegoCompilerVersion.<Clone>$()
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.{Clone}$*
+  name: <Clone>$
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.html#OpaDotNet_Compilation_Abstractions_RegoCompilerVersion__Clone___
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.{Clone}$
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.<Clone>$
+  nameWithType: RegoCompilerVersion.<Clone>$
+- uid: OpaDotNet.Compilation.Cli
+  name: OpaDotNet.Compilation.Cli
+  href: api/OpaDotNet.Compilation.Cli.html
+  commentId: N:OpaDotNet.Compilation.Cli
+  fullName: OpaDotNet.Compilation.Cli
+  nameWithType: OpaDotNet.Compilation.Cli
+- uid: OpaDotNet.Compilation.Cli.RegoCliCompiler
+  name: RegoCliCompiler
+  href: api/OpaDotNet.Compilation.Cli.RegoCliCompiler.html
+  commentId: T:OpaDotNet.Compilation.Cli.RegoCliCompiler
+  fullName: OpaDotNet.Compilation.Cli.RegoCliCompiler
+  nameWithType: RegoCliCompiler
+- uid: OpaDotNet.Compilation.Cli.RegoCliCompiler.#ctor(Microsoft.Extensions.Options.IOptions{OpaDotNet.Compilation.Cli.RegoCliCompilerOptions},Microsoft.Extensions.Logging.ILogger{OpaDotNet.Compilation.Cli.RegoCliCompiler})
+  name: RegoCliCompiler(IOptions<RegoCliCompilerOptions>?, ILogger<RegoCliCompiler>?)
+  href: api/OpaDotNet.Compilation.Cli.RegoCliCompiler.html#OpaDotNet_Compilation_Cli_RegoCliCompiler__ctor_Microsoft_Extensions_Options_IOptions_OpaDotNet_Compilation_Cli_RegoCliCompilerOptions__Microsoft_Extensions_Logging_ILogger_OpaDotNet_Compilation_Cli_RegoCliCompiler__
+  commentId: M:OpaDotNet.Compilation.Cli.RegoCliCompiler.#ctor(Microsoft.Extensions.Options.IOptions{OpaDotNet.Compilation.Cli.RegoCliCompilerOptions},Microsoft.Extensions.Logging.ILogger{OpaDotNet.Compilation.Cli.RegoCliCompiler})
+  name.vb: New(IOptions(Of RegoCliCompilerOptions), ILogger(Of RegoCliCompiler))
+  fullName: OpaDotNet.Compilation.Cli.RegoCliCompiler.RegoCliCompiler(Microsoft.Extensions.Options.IOptions<OpaDotNet.Compilation.Cli.RegoCliCompilerOptions>?, Microsoft.Extensions.Logging.ILogger<OpaDotNet.Compilation.Cli.RegoCliCompiler>?)
+  fullName.vb: OpaDotNet.Compilation.Cli.RegoCliCompiler.New(Microsoft.Extensions.Options.IOptions(Of OpaDotNet.Compilation.Cli.RegoCliCompilerOptions), Microsoft.Extensions.Logging.ILogger(Of OpaDotNet.Compilation.Cli.RegoCliCompiler))
+  nameWithType: RegoCliCompiler.RegoCliCompiler(IOptions<RegoCliCompilerOptions>?, ILogger<RegoCliCompiler>?)
+  nameWithType.vb: RegoCliCompiler.New(IOptions(Of RegoCliCompilerOptions), ILogger(Of RegoCliCompiler))
+- uid: OpaDotNet.Compilation.Cli.RegoCliCompiler.#ctor*
+  name: RegoCliCompiler
+  href: api/OpaDotNet.Compilation.Cli.RegoCliCompiler.html#OpaDotNet_Compilation_Cli_RegoCliCompiler__ctor_
+  commentId: Overload:OpaDotNet.Compilation.Cli.RegoCliCompiler.#ctor
+  name.vb: New
+  fullName: OpaDotNet.Compilation.Cli.RegoCliCompiler.RegoCliCompiler
+  fullName.vb: OpaDotNet.Compilation.Cli.RegoCliCompiler.New
+  nameWithType: RegoCliCompiler.RegoCliCompiler
+  nameWithType.vb: RegoCliCompiler.New
+- uid: OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileBundle(System.String,System.Collections.Generic.IEnumerable{System.String},System.String,System.Threading.CancellationToken)
+  name: CompileBundle(string, IEnumerable<string>?, string?, CancellationToken)
+  href: api/OpaDotNet.Compilation.Cli.RegoCliCompiler.html#OpaDotNet_Compilation_Cli_RegoCliCompiler_CompileBundle_System_String_System_Collections_Generic_IEnumerable_System_String__System_String_System_Threading_CancellationToken_
+  commentId: M:OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileBundle(System.String,System.Collections.Generic.IEnumerable{System.String},System.String,System.Threading.CancellationToken)
+  name.vb: CompileBundle(String, IEnumerable(Of String), String, CancellationToken)
+  fullName: OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileBundle(string, System.Collections.Generic.IEnumerable<string>?, string?, System.Threading.CancellationToken)
+  fullName.vb: OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileBundle(String, System.Collections.Generic.IEnumerable(Of String), String, System.Threading.CancellationToken)
+  nameWithType: RegoCliCompiler.CompileBundle(string, IEnumerable<string>?, string?, CancellationToken)
+  nameWithType.vb: RegoCliCompiler.CompileBundle(String, IEnumerable(Of String), String, CancellationToken)
+- uid: OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileBundle*
+  name: CompileBundle
+  href: api/OpaDotNet.Compilation.Cli.RegoCliCompiler.html#OpaDotNet_Compilation_Cli_RegoCliCompiler_CompileBundle_
+  commentId: Overload:OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileBundle
+  fullName: OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileBundle
+  nameWithType: RegoCliCompiler.CompileBundle
+- uid: OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileFile(System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  name: CompileFile(string, IEnumerable<string>?, CancellationToken)
+  href: api/OpaDotNet.Compilation.Cli.RegoCliCompiler.html#OpaDotNet_Compilation_Cli_RegoCliCompiler_CompileFile_System_String_System_Collections_Generic_IEnumerable_System_String__System_Threading_CancellationToken_
+  commentId: M:OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileFile(System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  name.vb: CompileFile(String, IEnumerable(Of String), CancellationToken)
+  fullName: OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileFile(string, System.Collections.Generic.IEnumerable<string>?, System.Threading.CancellationToken)
+  fullName.vb: OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileFile(String, System.Collections.Generic.IEnumerable(Of String), System.Threading.CancellationToken)
+  nameWithType: RegoCliCompiler.CompileFile(string, IEnumerable<string>?, CancellationToken)
+  nameWithType.vb: RegoCliCompiler.CompileFile(String, IEnumerable(Of String), CancellationToken)
+- uid: OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileFile*
+  name: CompileFile
+  href: api/OpaDotNet.Compilation.Cli.RegoCliCompiler.html#OpaDotNet_Compilation_Cli_RegoCliCompiler_CompileFile_
+  commentId: Overload:OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileFile
+  fullName: OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileFile
+  nameWithType: RegoCliCompiler.CompileFile
+- uid: OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileSource(System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  name: CompileSource(string, IEnumerable<string>?, CancellationToken)
+  href: api/OpaDotNet.Compilation.Cli.RegoCliCompiler.html#OpaDotNet_Compilation_Cli_RegoCliCompiler_CompileSource_System_String_System_Collections_Generic_IEnumerable_System_String__System_Threading_CancellationToken_
+  commentId: M:OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileSource(System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  name.vb: CompileSource(String, IEnumerable(Of String), CancellationToken)
+  fullName: OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileSource(string, System.Collections.Generic.IEnumerable<string>?, System.Threading.CancellationToken)
+  fullName.vb: OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileSource(String, System.Collections.Generic.IEnumerable(Of String), System.Threading.CancellationToken)
+  nameWithType: RegoCliCompiler.CompileSource(string, IEnumerable<string>?, CancellationToken)
+  nameWithType.vb: RegoCliCompiler.CompileSource(String, IEnumerable(Of String), CancellationToken)
+- uid: OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileSource*
+  name: CompileSource
+  href: api/OpaDotNet.Compilation.Cli.RegoCliCompiler.html#OpaDotNet_Compilation_Cli_RegoCliCompiler_CompileSource_
+  commentId: Overload:OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileSource
+  fullName: OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileSource
+  nameWithType: RegoCliCompiler.CompileSource
+- uid: OpaDotNet.Compilation.Cli.RegoCliCompiler.Version(System.Threading.CancellationToken)
+  name: Version(CancellationToken)
+  href: api/OpaDotNet.Compilation.Cli.RegoCliCompiler.html#OpaDotNet_Compilation_Cli_RegoCliCompiler_Version_System_Threading_CancellationToken_
+  commentId: M:OpaDotNet.Compilation.Cli.RegoCliCompiler.Version(System.Threading.CancellationToken)
+  fullName: OpaDotNet.Compilation.Cli.RegoCliCompiler.Version(System.Threading.CancellationToken)
+  nameWithType: RegoCliCompiler.Version(CancellationToken)
+- uid: OpaDotNet.Compilation.Cli.RegoCliCompiler.Version*
+  name: Version
+  href: api/OpaDotNet.Compilation.Cli.RegoCliCompiler.html#OpaDotNet_Compilation_Cli_RegoCliCompiler_Version_
+  commentId: Overload:OpaDotNet.Compilation.Cli.RegoCliCompiler.Version
+  fullName: OpaDotNet.Compilation.Cli.RegoCliCompiler.Version
+  nameWithType: RegoCliCompiler.Version
+- uid: OpaDotNet.Compilation.Cli.RegoCliCompilerOptions
+  name: RegoCliCompilerOptions
+  href: api/OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.html
+  commentId: T:OpaDotNet.Compilation.Cli.RegoCliCompilerOptions
+  fullName: OpaDotNet.Compilation.Cli.RegoCliCompilerOptions
+  nameWithType: RegoCliCompilerOptions
+- uid: OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.#ctor
+  name: RegoCliCompilerOptions()
+  href: api/OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.html#OpaDotNet_Compilation_Cli_RegoCliCompilerOptions__ctor
+  commentId: M:OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.#ctor
+  name.vb: New()
+  fullName: OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.RegoCliCompilerOptions()
+  fullName.vb: OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.New()
+  nameWithType: RegoCliCompilerOptions.RegoCliCompilerOptions()
+  nameWithType.vb: RegoCliCompilerOptions.New()
+- uid: OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.#ctor*
+  name: RegoCliCompilerOptions
+  href: api/OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.html#OpaDotNet_Compilation_Cli_RegoCliCompilerOptions__ctor_
+  commentId: Overload:OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.#ctor
+  name.vb: New
+  fullName: OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.RegoCliCompilerOptions
+  fullName.vb: OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.New
+  nameWithType: RegoCliCompilerOptions.RegoCliCompilerOptions
+  nameWithType.vb: RegoCliCompilerOptions.New
+- uid: OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.ExtraArguments
+  name: ExtraArguments
+  href: api/OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.html#OpaDotNet_Compilation_Cli_RegoCliCompilerOptions_ExtraArguments
+  commentId: P:OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.ExtraArguments
+  fullName: OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.ExtraArguments
+  nameWithType: RegoCliCompilerOptions.ExtraArguments
+- uid: OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.ExtraArguments*
+  name: ExtraArguments
+  href: api/OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.html#OpaDotNet_Compilation_Cli_RegoCliCompilerOptions_ExtraArguments_
+  commentId: Overload:OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.ExtraArguments
+  fullName: OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.ExtraArguments
+  nameWithType: RegoCliCompilerOptions.ExtraArguments
+- uid: OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.OpaToolPath
+  name: OpaToolPath
+  href: api/OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.html#OpaDotNet_Compilation_Cli_RegoCliCompilerOptions_OpaToolPath
+  commentId: P:OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.OpaToolPath
+  fullName: OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.OpaToolPath
+  nameWithType: RegoCliCompilerOptions.OpaToolPath
+- uid: OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.OpaToolPath*
+  name: OpaToolPath
+  href: api/OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.html#OpaDotNet_Compilation_Cli_RegoCliCompilerOptions_OpaToolPath_
+  commentId: Overload:OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.OpaToolPath
+  fullName: OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.OpaToolPath
+  nameWithType: RegoCliCompilerOptions.OpaToolPath
+- uid: OpaDotNet.Compilation.Interop
+  name: OpaDotNet.Compilation.Interop
+  href: api/OpaDotNet.Compilation.Interop.html
+  commentId: N:OpaDotNet.Compilation.Interop
+  fullName: OpaDotNet.Compilation.Interop
+  nameWithType: OpaDotNet.Compilation.Interop
+- uid: OpaDotNet.Compilation.Interop.RegoInteropCompiler
+  name: RegoInteropCompiler
+  href: api/OpaDotNet.Compilation.Interop.RegoInteropCompiler.html
+  commentId: T:OpaDotNet.Compilation.Interop.RegoInteropCompiler
+  fullName: OpaDotNet.Compilation.Interop.RegoInteropCompiler
+  nameWithType: RegoInteropCompiler
+- uid: OpaDotNet.Compilation.Interop.RegoInteropCompiler.#ctor(Microsoft.Extensions.Options.IOptions{OpaDotNet.Compilation.Abstractions.RegoCompilerOptions},Microsoft.Extensions.Logging.ILogger{OpaDotNet.Compilation.Interop.RegoInteropCompiler})
+  name: RegoInteropCompiler(IOptions<RegoCompilerOptions>?, ILogger<RegoInteropCompiler>?)
+  href: api/OpaDotNet.Compilation.Interop.RegoInteropCompiler.html#OpaDotNet_Compilation_Interop_RegoInteropCompiler__ctor_Microsoft_Extensions_Options_IOptions_OpaDotNet_Compilation_Abstractions_RegoCompilerOptions__Microsoft_Extensions_Logging_ILogger_OpaDotNet_Compilation_Interop_RegoInteropCompiler__
+  commentId: M:OpaDotNet.Compilation.Interop.RegoInteropCompiler.#ctor(Microsoft.Extensions.Options.IOptions{OpaDotNet.Compilation.Abstractions.RegoCompilerOptions},Microsoft.Extensions.Logging.ILogger{OpaDotNet.Compilation.Interop.RegoInteropCompiler})
+  name.vb: New(IOptions(Of RegoCompilerOptions), ILogger(Of RegoInteropCompiler))
+  fullName: OpaDotNet.Compilation.Interop.RegoInteropCompiler.RegoInteropCompiler(Microsoft.Extensions.Options.IOptions<OpaDotNet.Compilation.Abstractions.RegoCompilerOptions>?, Microsoft.Extensions.Logging.ILogger<OpaDotNet.Compilation.Interop.RegoInteropCompiler>?)
+  fullName.vb: OpaDotNet.Compilation.Interop.RegoInteropCompiler.New(Microsoft.Extensions.Options.IOptions(Of OpaDotNet.Compilation.Abstractions.RegoCompilerOptions), Microsoft.Extensions.Logging.ILogger(Of OpaDotNet.Compilation.Interop.RegoInteropCompiler))
+  nameWithType: RegoInteropCompiler.RegoInteropCompiler(IOptions<RegoCompilerOptions>?, ILogger<RegoInteropCompiler>?)
+  nameWithType.vb: RegoInteropCompiler.New(IOptions(Of RegoCompilerOptions), ILogger(Of RegoInteropCompiler))
+- uid: OpaDotNet.Compilation.Interop.RegoInteropCompiler.#ctor*
+  name: RegoInteropCompiler
+  href: api/OpaDotNet.Compilation.Interop.RegoInteropCompiler.html#OpaDotNet_Compilation_Interop_RegoInteropCompiler__ctor_
+  commentId: Overload:OpaDotNet.Compilation.Interop.RegoInteropCompiler.#ctor
+  name.vb: New
+  fullName: OpaDotNet.Compilation.Interop.RegoInteropCompiler.RegoInteropCompiler
+  fullName.vb: OpaDotNet.Compilation.Interop.RegoInteropCompiler.New
+  nameWithType: RegoInteropCompiler.RegoInteropCompiler
+  nameWithType.vb: RegoInteropCompiler.New
+- uid: OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileBundle(System.String,System.Collections.Generic.IEnumerable{System.String},System.String,System.Threading.CancellationToken)
+  name: CompileBundle(string, IEnumerable<string>?, string?, CancellationToken)
+  href: api/OpaDotNet.Compilation.Interop.RegoInteropCompiler.html#OpaDotNet_Compilation_Interop_RegoInteropCompiler_CompileBundle_System_String_System_Collections_Generic_IEnumerable_System_String__System_String_System_Threading_CancellationToken_
+  commentId: M:OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileBundle(System.String,System.Collections.Generic.IEnumerable{System.String},System.String,System.Threading.CancellationToken)
+  name.vb: CompileBundle(String, IEnumerable(Of String), String, CancellationToken)
+  fullName: OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileBundle(string, System.Collections.Generic.IEnumerable<string>?, string?, System.Threading.CancellationToken)
+  fullName.vb: OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileBundle(String, System.Collections.Generic.IEnumerable(Of String), String, System.Threading.CancellationToken)
+  nameWithType: RegoInteropCompiler.CompileBundle(string, IEnumerable<string>?, string?, CancellationToken)
+  nameWithType.vb: RegoInteropCompiler.CompileBundle(String, IEnumerable(Of String), String, CancellationToken)
+- uid: OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileBundle*
+  name: CompileBundle
+  href: api/OpaDotNet.Compilation.Interop.RegoInteropCompiler.html#OpaDotNet_Compilation_Interop_RegoInteropCompiler_CompileBundle_
+  commentId: Overload:OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileBundle
+  fullName: OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileBundle
+  nameWithType: RegoInteropCompiler.CompileBundle
+- uid: OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileFile(System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  name: CompileFile(string, IEnumerable<string>?, CancellationToken)
+  href: api/OpaDotNet.Compilation.Interop.RegoInteropCompiler.html#OpaDotNet_Compilation_Interop_RegoInteropCompiler_CompileFile_System_String_System_Collections_Generic_IEnumerable_System_String__System_Threading_CancellationToken_
+  commentId: M:OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileFile(System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  name.vb: CompileFile(String, IEnumerable(Of String), CancellationToken)
+  fullName: OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileFile(string, System.Collections.Generic.IEnumerable<string>?, System.Threading.CancellationToken)
+  fullName.vb: OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileFile(String, System.Collections.Generic.IEnumerable(Of String), System.Threading.CancellationToken)
+  nameWithType: RegoInteropCompiler.CompileFile(string, IEnumerable<string>?, CancellationToken)
+  nameWithType.vb: RegoInteropCompiler.CompileFile(String, IEnumerable(Of String), CancellationToken)
+- uid: OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileFile*
+  name: CompileFile
+  href: api/OpaDotNet.Compilation.Interop.RegoInteropCompiler.html#OpaDotNet_Compilation_Interop_RegoInteropCompiler_CompileFile_
+  commentId: Overload:OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileFile
+  fullName: OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileFile
+  nameWithType: RegoInteropCompiler.CompileFile
+- uid: OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileSource(System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  name: CompileSource(string, IEnumerable<string>?, CancellationToken)
+  href: api/OpaDotNet.Compilation.Interop.RegoInteropCompiler.html#OpaDotNet_Compilation_Interop_RegoInteropCompiler_CompileSource_System_String_System_Collections_Generic_IEnumerable_System_String__System_Threading_CancellationToken_
+  commentId: M:OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileSource(System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  name.vb: CompileSource(String, IEnumerable(Of String), CancellationToken)
+  fullName: OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileSource(string, System.Collections.Generic.IEnumerable<string>?, System.Threading.CancellationToken)
+  fullName.vb: OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileSource(String, System.Collections.Generic.IEnumerable(Of String), System.Threading.CancellationToken)
+  nameWithType: RegoInteropCompiler.CompileSource(string, IEnumerable<string>?, CancellationToken)
+  nameWithType.vb: RegoInteropCompiler.CompileSource(String, IEnumerable(Of String), CancellationToken)
+- uid: OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileSource*
+  name: CompileSource
+  href: api/OpaDotNet.Compilation.Interop.RegoInteropCompiler.html#OpaDotNet_Compilation_Interop_RegoInteropCompiler_CompileSource_
+  commentId: Overload:OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileSource
+  fullName: OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileSource
+  nameWithType: RegoInteropCompiler.CompileSource
+- uid: OpaDotNet.Compilation.Interop.RegoInteropCompiler.Version(System.Threading.CancellationToken)
+  name: Version(CancellationToken)
+  href: api/OpaDotNet.Compilation.Interop.RegoInteropCompiler.html#OpaDotNet_Compilation_Interop_RegoInteropCompiler_Version_System_Threading_CancellationToken_
+  commentId: M:OpaDotNet.Compilation.Interop.RegoInteropCompiler.Version(System.Threading.CancellationToken)
+  fullName: OpaDotNet.Compilation.Interop.RegoInteropCompiler.Version(System.Threading.CancellationToken)
+  nameWithType: RegoInteropCompiler.Version(CancellationToken)
+- uid: OpaDotNet.Compilation.Interop.RegoInteropCompiler.Version*
+  name: Version
+  href: api/OpaDotNet.Compilation.Interop.RegoInteropCompiler.html#OpaDotNet_Compilation_Interop_RegoInteropCompiler_Version_
+  commentId: Overload:OpaDotNet.Compilation.Interop.RegoInteropCompiler.Version
+  fullName: OpaDotNet.Compilation.Interop.RegoInteropCompiler.Version
+  nameWithType: RegoInteropCompiler.Version
+- uid: OpaDotNet.Extensions.AspNetCore
+  name: OpaDotNet.Extensions.AspNetCore
+  href: api/OpaDotNet.Extensions.AspNetCore.html
+  commentId: N:OpaDotNet.Extensions.AspNetCore
+  fullName: OpaDotNet.Extensions.AspNetCore
+  nameWithType: OpaDotNet.Extensions.AspNetCore
+- uid: OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder
+  name: IOpaAuthorizationBuilder
+  href: api/OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder.html
+  commentId: T:OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder
+  fullName: OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder
+  nameWithType: IOpaAuthorizationBuilder
+- uid: OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder.Services
+  name: Services
+  href: api/OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder.html#OpaDotNet_Extensions_AspNetCore_IOpaAuthorizationBuilder_Services
+  commentId: P:OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder.Services
+  fullName: OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder.Services
+  nameWithType: IOpaAuthorizationBuilder.Services
+- uid: OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder.Services*
+  name: Services
+  href: api/OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder.html#OpaDotNet_Extensions_AspNetCore_IOpaAuthorizationBuilder_Services_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder.Services
+  fullName: OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder.Services
+  nameWithType: IOpaAuthorizationBuilder.Services
+- uid: OpaDotNet.Extensions.AspNetCore.IOpaEvaluatorFactoryProvider
+  name: IOpaEvaluatorFactoryProvider
+  href: api/OpaDotNet.Extensions.AspNetCore.IOpaEvaluatorFactoryProvider.html
+  commentId: T:OpaDotNet.Extensions.AspNetCore.IOpaEvaluatorFactoryProvider
+  fullName: OpaDotNet.Extensions.AspNetCore.IOpaEvaluatorFactoryProvider
+  nameWithType: IOpaEvaluatorFactoryProvider
+- uid: OpaDotNet.Extensions.AspNetCore.IOpaEvaluatorFactoryProvider.Factory
+  name: Factory
+  href: api/OpaDotNet.Extensions.AspNetCore.IOpaEvaluatorFactoryProvider.html#OpaDotNet_Extensions_AspNetCore_IOpaEvaluatorFactoryProvider_Factory
+  commentId: P:OpaDotNet.Extensions.AspNetCore.IOpaEvaluatorFactoryProvider.Factory
+  fullName: OpaDotNet.Extensions.AspNetCore.IOpaEvaluatorFactoryProvider.Factory
+  nameWithType: IOpaEvaluatorFactoryProvider.Factory
+- uid: OpaDotNet.Extensions.AspNetCore.IOpaEvaluatorFactoryProvider.Factory*
+  name: Factory
+  href: api/OpaDotNet.Extensions.AspNetCore.IOpaEvaluatorFactoryProvider.html#OpaDotNet_Extensions_AspNetCore_IOpaEvaluatorFactoryProvider_Factory_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.IOpaEvaluatorFactoryProvider.Factory
+  fullName: OpaDotNet.Extensions.AspNetCore.IOpaEvaluatorFactoryProvider.Factory
+  nameWithType: IOpaEvaluatorFactoryProvider.Factory
+- uid: OpaDotNet.Extensions.AspNetCore.IOpaEvaluatorFactoryProvider.OnPolicyUpdated
+  name: OnPolicyUpdated()
+  href: api/OpaDotNet.Extensions.AspNetCore.IOpaEvaluatorFactoryProvider.html#OpaDotNet_Extensions_AspNetCore_IOpaEvaluatorFactoryProvider_OnPolicyUpdated
+  commentId: M:OpaDotNet.Extensions.AspNetCore.IOpaEvaluatorFactoryProvider.OnPolicyUpdated
+  fullName: OpaDotNet.Extensions.AspNetCore.IOpaEvaluatorFactoryProvider.OnPolicyUpdated()
+  nameWithType: IOpaEvaluatorFactoryProvider.OnPolicyUpdated()
+- uid: OpaDotNet.Extensions.AspNetCore.IOpaEvaluatorFactoryProvider.OnPolicyUpdated*
+  name: OnPolicyUpdated
+  href: api/OpaDotNet.Extensions.AspNetCore.IOpaEvaluatorFactoryProvider.html#OpaDotNet_Extensions_AspNetCore_IOpaEvaluatorFactoryProvider_OnPolicyUpdated_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.IOpaEvaluatorFactoryProvider.OnPolicyUpdated
+  fullName: OpaDotNet.Extensions.AspNetCore.IOpaEvaluatorFactoryProvider.OnPolicyUpdated
+  nameWithType: IOpaEvaluatorFactoryProvider.OnPolicyUpdated
+- uid: OpaDotNet.Extensions.AspNetCore.IOpaPolicyCompiler
+  name: IOpaPolicyCompiler
+  href: api/OpaDotNet.Extensions.AspNetCore.IOpaPolicyCompiler.html
+  commentId: T:OpaDotNet.Extensions.AspNetCore.IOpaPolicyCompiler
+  fullName: OpaDotNet.Extensions.AspNetCore.IOpaPolicyCompiler
+  nameWithType: IOpaPolicyCompiler
+- uid: OpaDotNet.Extensions.AspNetCore.IOpaPolicyCompiler.CompileBundle(System.Boolean,System.Threading.CancellationToken)
+  name: CompileBundle(bool, CancellationToken)
+  href: api/OpaDotNet.Extensions.AspNetCore.IOpaPolicyCompiler.html#OpaDotNet_Extensions_AspNetCore_IOpaPolicyCompiler_CompileBundle_System_Boolean_System_Threading_CancellationToken_
+  commentId: M:OpaDotNet.Extensions.AspNetCore.IOpaPolicyCompiler.CompileBundle(System.Boolean,System.Threading.CancellationToken)
+  name.vb: CompileBundle(Boolean, CancellationToken)
+  fullName: OpaDotNet.Extensions.AspNetCore.IOpaPolicyCompiler.CompileBundle(bool, System.Threading.CancellationToken)
+  fullName.vb: OpaDotNet.Extensions.AspNetCore.IOpaPolicyCompiler.CompileBundle(Boolean, System.Threading.CancellationToken)
+  nameWithType: IOpaPolicyCompiler.CompileBundle(bool, CancellationToken)
+  nameWithType.vb: IOpaPolicyCompiler.CompileBundle(Boolean, CancellationToken)
+- uid: OpaDotNet.Extensions.AspNetCore.IOpaPolicyCompiler.CompileBundle*
+  name: CompileBundle
+  href: api/OpaDotNet.Extensions.AspNetCore.IOpaPolicyCompiler.html#OpaDotNet_Extensions_AspNetCore_IOpaPolicyCompiler_CompileBundle_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.IOpaPolicyCompiler.CompileBundle
+  fullName: OpaDotNet.Extensions.AspNetCore.IOpaPolicyCompiler.CompileBundle
+  nameWithType: IOpaPolicyCompiler.CompileBundle
+- uid: OpaDotNet.Extensions.AspNetCore.IOpaPolicyService
+  name: IOpaPolicyService
+  href: api/OpaDotNet.Extensions.AspNetCore.IOpaPolicyService.html
+  commentId: T:OpaDotNet.Extensions.AspNetCore.IOpaPolicyService
+  fullName: OpaDotNet.Extensions.AspNetCore.IOpaPolicyService
+  nameWithType: IOpaPolicyService
+- uid: OpaDotNet.Extensions.AspNetCore.IOpaPolicyService.Evaluate*
+  name: Evaluate
+  href: api/OpaDotNet.Extensions.AspNetCore.IOpaPolicyService.html#OpaDotNet_Extensions_AspNetCore_IOpaPolicyService_Evaluate_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.IOpaPolicyService.Evaluate
+  fullName: OpaDotNet.Extensions.AspNetCore.IOpaPolicyService.Evaluate
+  nameWithType: IOpaPolicyService.Evaluate
+- uid: OpaDotNet.Extensions.AspNetCore.IOpaPolicyService.EvaluatePredicate*
+  name: EvaluatePredicate
+  href: api/OpaDotNet.Extensions.AspNetCore.IOpaPolicyService.html#OpaDotNet_Extensions_AspNetCore_IOpaPolicyService_EvaluatePredicate_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.IOpaPolicyService.EvaluatePredicate
+  fullName: OpaDotNet.Extensions.AspNetCore.IOpaPolicyService.EvaluatePredicate
+  nameWithType: IOpaPolicyService.EvaluatePredicate
+- uid: OpaDotNet.Extensions.AspNetCore.IOpaPolicyService.EvaluatePredicate``1(``0,System.String)
+  name: EvaluatePredicate<TInput>(TInput, string)
+  href: api/OpaDotNet.Extensions.AspNetCore.IOpaPolicyService.html#OpaDotNet_Extensions_AspNetCore_IOpaPolicyService_EvaluatePredicate__1___0_System_String_
+  commentId: M:OpaDotNet.Extensions.AspNetCore.IOpaPolicyService.EvaluatePredicate``1(``0,System.String)
+  name.vb: EvaluatePredicate(Of TInput)(TInput, String)
+  fullName: OpaDotNet.Extensions.AspNetCore.IOpaPolicyService.EvaluatePredicate<TInput>(TInput, string)
+  fullName.vb: OpaDotNet.Extensions.AspNetCore.IOpaPolicyService.EvaluatePredicate(Of TInput)(TInput, String)
+  nameWithType: IOpaPolicyService.EvaluatePredicate<TInput>(TInput, string)
+  nameWithType.vb: IOpaPolicyService.EvaluatePredicate(Of TInput)(TInput, String)
+- uid: OpaDotNet.Extensions.AspNetCore.IOpaPolicyService.EvaluateRaw(System.ReadOnlySpan{System.Char},System.String)
+  name: EvaluateRaw(ReadOnlySpan<char>, string)
+  href: api/OpaDotNet.Extensions.AspNetCore.IOpaPolicyService.html#OpaDotNet_Extensions_AspNetCore_IOpaPolicyService_EvaluateRaw_System_ReadOnlySpan_System_Char__System_String_
+  commentId: M:OpaDotNet.Extensions.AspNetCore.IOpaPolicyService.EvaluateRaw(System.ReadOnlySpan{System.Char},System.String)
+  name.vb: EvaluateRaw(ReadOnlySpan(Of Char), String)
+  fullName: OpaDotNet.Extensions.AspNetCore.IOpaPolicyService.EvaluateRaw(System.ReadOnlySpan<char>, string)
+  fullName.vb: OpaDotNet.Extensions.AspNetCore.IOpaPolicyService.EvaluateRaw(System.ReadOnlySpan(Of Char), String)
+  nameWithType: IOpaPolicyService.EvaluateRaw(ReadOnlySpan<char>, string)
+  nameWithType.vb: IOpaPolicyService.EvaluateRaw(ReadOnlySpan(Of Char), String)
+- uid: OpaDotNet.Extensions.AspNetCore.IOpaPolicyService.EvaluateRaw*
+  name: EvaluateRaw
+  href: api/OpaDotNet.Extensions.AspNetCore.IOpaPolicyService.html#OpaDotNet_Extensions_AspNetCore_IOpaPolicyService_EvaluateRaw_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.IOpaPolicyService.EvaluateRaw
+  fullName: OpaDotNet.Extensions.AspNetCore.IOpaPolicyService.EvaluateRaw
+  nameWithType: IOpaPolicyService.EvaluateRaw
+- uid: OpaDotNet.Extensions.AspNetCore.IOpaPolicyService.Evaluate``2(``0,System.String)
+  name: Evaluate<TInput, TOutput>(TInput, string)
+  href: api/OpaDotNet.Extensions.AspNetCore.IOpaPolicyService.html#OpaDotNet_Extensions_AspNetCore_IOpaPolicyService_Evaluate__2___0_System_String_
+  commentId: M:OpaDotNet.Extensions.AspNetCore.IOpaPolicyService.Evaluate``2(``0,System.String)
+  name.vb: Evaluate(Of TInput, TOutput)(TInput, String)
+  fullName: OpaDotNet.Extensions.AspNetCore.IOpaPolicyService.Evaluate<TInput, TOutput>(TInput, string)
+  fullName.vb: OpaDotNet.Extensions.AspNetCore.IOpaPolicyService.Evaluate(Of TInput, TOutput)(TInput, String)
+  nameWithType: IOpaPolicyService.Evaluate<TInput, TOutput>(TInput, string)
+  nameWithType.vb: IOpaPolicyService.Evaluate(Of TInput, TOutput)(TInput, String)
+- uid: OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions
+  name: OpaAuthorizationOptions
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.html
+  commentId: T:OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions
+  nameWithType: OpaAuthorizationOptions
+- uid: OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.#ctor
+  name: OpaAuthorizationOptions()
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.html#OpaDotNet_Extensions_AspNetCore_OpaAuthorizationOptions__ctor
+  commentId: M:OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.#ctor
+  name.vb: New()
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.OpaAuthorizationOptions()
+  fullName.vb: OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.New()
+  nameWithType: OpaAuthorizationOptions.OpaAuthorizationOptions()
+  nameWithType.vb: OpaAuthorizationOptions.New()
+- uid: OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.#ctor*
+  name: OpaAuthorizationOptions
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.html#OpaDotNet_Extensions_AspNetCore_OpaAuthorizationOptions__ctor_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.#ctor
+  name.vb: New
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.OpaAuthorizationOptions
+  fullName.vb: OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.New
+  nameWithType: OpaAuthorizationOptions.OpaAuthorizationOptions
+  nameWithType.vb: OpaAuthorizationOptions.New
+- uid: OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.AllowedHeaders
+  name: AllowedHeaders
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.html#OpaDotNet_Extensions_AspNetCore_OpaAuthorizationOptions_AllowedHeaders
+  commentId: P:OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.AllowedHeaders
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.AllowedHeaders
+  nameWithType: OpaAuthorizationOptions.AllowedHeaders
+- uid: OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.AllowedHeaders*
+  name: AllowedHeaders
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.html#OpaDotNet_Extensions_AspNetCore_OpaAuthorizationOptions_AllowedHeaders_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.AllowedHeaders
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.AllowedHeaders
+  nameWithType: OpaAuthorizationOptions.AllowedHeaders
+- uid: OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.EngineOptions
+  name: EngineOptions
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.html#OpaDotNet_Extensions_AspNetCore_OpaAuthorizationOptions_EngineOptions
+  commentId: P:OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.EngineOptions
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.EngineOptions
+  nameWithType: OpaAuthorizationOptions.EngineOptions
+- uid: OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.EngineOptions*
+  name: EngineOptions
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.html#OpaDotNet_Extensions_AspNetCore_OpaAuthorizationOptions_EngineOptions_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.EngineOptions
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.EngineOptions
+  nameWithType: OpaAuthorizationOptions.EngineOptions
+- uid: OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.Entrypoints
+  name: Entrypoints
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.html#OpaDotNet_Extensions_AspNetCore_OpaAuthorizationOptions_Entrypoints
+  commentId: P:OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.Entrypoints
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.Entrypoints
+  nameWithType: OpaAuthorizationOptions.Entrypoints
+- uid: OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.Entrypoints*
+  name: Entrypoints
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.html#OpaDotNet_Extensions_AspNetCore_OpaAuthorizationOptions_Entrypoints_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.Entrypoints
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.Entrypoints
+  nameWithType: OpaAuthorizationOptions.Entrypoints
+- uid: OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.IncludeClaimsInHttpRequest
+  name: IncludeClaimsInHttpRequest
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.html#OpaDotNet_Extensions_AspNetCore_OpaAuthorizationOptions_IncludeClaimsInHttpRequest
+  commentId: P:OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.IncludeClaimsInHttpRequest
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.IncludeClaimsInHttpRequest
+  nameWithType: OpaAuthorizationOptions.IncludeClaimsInHttpRequest
+- uid: OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.IncludeClaimsInHttpRequest*
+  name: IncludeClaimsInHttpRequest
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.html#OpaDotNet_Extensions_AspNetCore_OpaAuthorizationOptions_IncludeClaimsInHttpRequest_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.IncludeClaimsInHttpRequest
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.IncludeClaimsInHttpRequest
+  nameWithType: OpaAuthorizationOptions.IncludeClaimsInHttpRequest
+- uid: OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.MaximumEvaluatorsRetained
+  name: MaximumEvaluatorsRetained
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.html#OpaDotNet_Extensions_AspNetCore_OpaAuthorizationOptions_MaximumEvaluatorsRetained
+  commentId: P:OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.MaximumEvaluatorsRetained
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.MaximumEvaluatorsRetained
+  nameWithType: OpaAuthorizationOptions.MaximumEvaluatorsRetained
+- uid: OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.MaximumEvaluatorsRetained*
+  name: MaximumEvaluatorsRetained
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.html#OpaDotNet_Extensions_AspNetCore_OpaAuthorizationOptions_MaximumEvaluatorsRetained_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.MaximumEvaluatorsRetained
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.MaximumEvaluatorsRetained
+  nameWithType: OpaAuthorizationOptions.MaximumEvaluatorsRetained
+- uid: OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.MonitoringInterval
+  name: MonitoringInterval
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.html#OpaDotNet_Extensions_AspNetCore_OpaAuthorizationOptions_MonitoringInterval
+  commentId: P:OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.MonitoringInterval
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.MonitoringInterval
+  nameWithType: OpaAuthorizationOptions.MonitoringInterval
+- uid: OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.MonitoringInterval*
+  name: MonitoringInterval
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.html#OpaDotNet_Extensions_AspNetCore_OpaAuthorizationOptions_MonitoringInterval_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.MonitoringInterval
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.MonitoringInterval
+  nameWithType: OpaAuthorizationOptions.MonitoringInterval
+- uid: OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.PolicyBundlePath
+  name: PolicyBundlePath
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.html#OpaDotNet_Extensions_AspNetCore_OpaAuthorizationOptions_PolicyBundlePath
+  commentId: P:OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.PolicyBundlePath
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.PolicyBundlePath
+  nameWithType: OpaAuthorizationOptions.PolicyBundlePath
+- uid: OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.PolicyBundlePath*
+  name: PolicyBundlePath
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.html#OpaDotNet_Extensions_AspNetCore_OpaAuthorizationOptions_PolicyBundlePath_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.PolicyBundlePath
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.PolicyBundlePath
+  nameWithType: OpaAuthorizationOptions.PolicyBundlePath
+- uid: OpaDotNet.Extensions.AspNetCore.OpaEvaluatorPoolProvider
+  name: OpaEvaluatorPoolProvider
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaEvaluatorPoolProvider.html
+  commentId: T:OpaDotNet.Extensions.AspNetCore.OpaEvaluatorPoolProvider
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaEvaluatorPoolProvider
+  nameWithType: OpaEvaluatorPoolProvider
+- uid: OpaDotNet.Extensions.AspNetCore.OpaEvaluatorPoolProvider.#ctor
+  name: OpaEvaluatorPoolProvider()
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaEvaluatorPoolProvider.html#OpaDotNet_Extensions_AspNetCore_OpaEvaluatorPoolProvider__ctor
+  commentId: M:OpaDotNet.Extensions.AspNetCore.OpaEvaluatorPoolProvider.#ctor
+  name.vb: New()
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaEvaluatorPoolProvider.OpaEvaluatorPoolProvider()
+  fullName.vb: OpaDotNet.Extensions.AspNetCore.OpaEvaluatorPoolProvider.New()
+  nameWithType: OpaEvaluatorPoolProvider.OpaEvaluatorPoolProvider()
+  nameWithType.vb: OpaEvaluatorPoolProvider.New()
+- uid: OpaDotNet.Extensions.AspNetCore.OpaEvaluatorPoolProvider.#ctor*
+  name: OpaEvaluatorPoolProvider
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaEvaluatorPoolProvider.html#OpaDotNet_Extensions_AspNetCore_OpaEvaluatorPoolProvider__ctor_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.OpaEvaluatorPoolProvider.#ctor
+  name.vb: New
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaEvaluatorPoolProvider.OpaEvaluatorPoolProvider
+  fullName.vb: OpaDotNet.Extensions.AspNetCore.OpaEvaluatorPoolProvider.New
+  nameWithType: OpaEvaluatorPoolProvider.OpaEvaluatorPoolProvider
+  nameWithType.vb: OpaEvaluatorPoolProvider.New
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyAuthorizeAttribute
+  name: OpaPolicyAuthorizeAttribute
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyAuthorizeAttribute.html
+  commentId: T:OpaDotNet.Extensions.AspNetCore.OpaPolicyAuthorizeAttribute
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyAuthorizeAttribute
+  nameWithType: OpaPolicyAuthorizeAttribute
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyAuthorizeAttribute.#ctor(System.String,System.String)
+  name: OpaPolicyAuthorizeAttribute(string, string?)
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyAuthorizeAttribute.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyAuthorizeAttribute__ctor_System_String_System_String_
+  commentId: M:OpaDotNet.Extensions.AspNetCore.OpaPolicyAuthorizeAttribute.#ctor(System.String,System.String)
+  name.vb: New(String, String)
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyAuthorizeAttribute.OpaPolicyAuthorizeAttribute(string, string?)
+  fullName.vb: OpaDotNet.Extensions.AspNetCore.OpaPolicyAuthorizeAttribute.New(String, String)
+  nameWithType: OpaPolicyAuthorizeAttribute.OpaPolicyAuthorizeAttribute(string, string?)
+  nameWithType.vb: OpaPolicyAuthorizeAttribute.New(String, String)
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyAuthorizeAttribute.#ctor*
+  name: OpaPolicyAuthorizeAttribute
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyAuthorizeAttribute.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyAuthorizeAttribute__ctor_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.OpaPolicyAuthorizeAttribute.#ctor
+  name.vb: New
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyAuthorizeAttribute.OpaPolicyAuthorizeAttribute
+  fullName.vb: OpaDotNet.Extensions.AspNetCore.OpaPolicyAuthorizeAttribute.New
+  nameWithType: OpaPolicyAuthorizeAttribute.OpaPolicyAuthorizeAttribute
+  nameWithType.vb: OpaPolicyAuthorizeAttribute.New
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyCompilationService
+  name: OpaPolicyCompilationService
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyCompilationService.html
+  commentId: T:OpaDotNet.Extensions.AspNetCore.OpaPolicyCompilationService
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyCompilationService
+  nameWithType: OpaPolicyCompilationService
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyCompilationService.#ctor(OpaDotNet.Extensions.AspNetCore.IOpaPolicyCompiler)
+  name: OpaPolicyCompilationService(IOpaPolicyCompiler)
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyCompilationService.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyCompilationService__ctor_OpaDotNet_Extensions_AspNetCore_IOpaPolicyCompiler_
+  commentId: M:OpaDotNet.Extensions.AspNetCore.OpaPolicyCompilationService.#ctor(OpaDotNet.Extensions.AspNetCore.IOpaPolicyCompiler)
+  name.vb: New(IOpaPolicyCompiler)
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyCompilationService.OpaPolicyCompilationService(OpaDotNet.Extensions.AspNetCore.IOpaPolicyCompiler)
+  fullName.vb: OpaDotNet.Extensions.AspNetCore.OpaPolicyCompilationService.New(OpaDotNet.Extensions.AspNetCore.IOpaPolicyCompiler)
+  nameWithType: OpaPolicyCompilationService.OpaPolicyCompilationService(IOpaPolicyCompiler)
+  nameWithType.vb: OpaPolicyCompilationService.New(IOpaPolicyCompiler)
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyCompilationService.#ctor*
+  name: OpaPolicyCompilationService
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyCompilationService.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyCompilationService__ctor_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.OpaPolicyCompilationService.#ctor
+  name.vb: New
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyCompilationService.OpaPolicyCompilationService
+  fullName.vb: OpaDotNet.Extensions.AspNetCore.OpaPolicyCompilationService.New
+  nameWithType: OpaPolicyCompilationService.OpaPolicyCompilationService
+  nameWithType.vb: OpaPolicyCompilationService.New
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyCompilationService.Compiler
+  name: Compiler
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyCompilationService.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyCompilationService_Compiler
+  commentId: P:OpaDotNet.Extensions.AspNetCore.OpaPolicyCompilationService.Compiler
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyCompilationService.Compiler
+  nameWithType: OpaPolicyCompilationService.Compiler
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyCompilationService.Compiler*
+  name: Compiler
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyCompilationService.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyCompilationService_Compiler_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.OpaPolicyCompilationService.Compiler
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyCompilationService.Compiler
+  nameWithType: OpaPolicyCompilationService.Compiler
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyCompilationService.StartAsync(System.Threading.CancellationToken)
+  name: StartAsync(CancellationToken)
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyCompilationService.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyCompilationService_StartAsync_System_Threading_CancellationToken_
+  commentId: M:OpaDotNet.Extensions.AspNetCore.OpaPolicyCompilationService.StartAsync(System.Threading.CancellationToken)
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyCompilationService.StartAsync(System.Threading.CancellationToken)
+  nameWithType: OpaPolicyCompilationService.StartAsync(CancellationToken)
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyCompilationService.StartAsync*
+  name: StartAsync
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyCompilationService.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyCompilationService_StartAsync_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.OpaPolicyCompilationService.StartAsync
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyCompilationService.StartAsync
+  nameWithType: OpaPolicyCompilationService.StartAsync
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyCompilationService.StopAsync(System.Threading.CancellationToken)
+  name: StopAsync(CancellationToken)
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyCompilationService.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyCompilationService_StopAsync_System_Threading_CancellationToken_
+  commentId: M:OpaDotNet.Extensions.AspNetCore.OpaPolicyCompilationService.StopAsync(System.Threading.CancellationToken)
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyCompilationService.StopAsync(System.Threading.CancellationToken)
+  nameWithType: OpaPolicyCompilationService.StopAsync(CancellationToken)
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyCompilationService.StopAsync*
+  name: StopAsync
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyCompilationService.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyCompilationService_StopAsync_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.OpaPolicyCompilationService.StopAsync
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyCompilationService.StopAsync
+  nameWithType: OpaPolicyCompilationService.StopAsync
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler
+  name: OpaPolicyHandler
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler.html
+  commentId: T:OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler
+  nameWithType: OpaPolicyHandler
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler.#ctor(OpaDotNet.Extensions.AspNetCore.IOpaPolicyService,Microsoft.Extensions.Options.IOptions{OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions},Microsoft.Extensions.Logging.ILogger{OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler})
+  name: OpaPolicyHandler(IOpaPolicyService, IOptions<OpaAuthorizationOptions>, ILogger<OpaPolicyHandler>)
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyHandler__ctor_OpaDotNet_Extensions_AspNetCore_IOpaPolicyService_Microsoft_Extensions_Options_IOptions_OpaDotNet_Extensions_AspNetCore_OpaAuthorizationOptions__Microsoft_Extensions_Logging_ILogger_OpaDotNet_Extensions_AspNetCore_OpaPolicyHandler__
+  commentId: M:OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler.#ctor(OpaDotNet.Extensions.AspNetCore.IOpaPolicyService,Microsoft.Extensions.Options.IOptions{OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions},Microsoft.Extensions.Logging.ILogger{OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler})
+  name.vb: New(IOpaPolicyService, IOptions(Of OpaAuthorizationOptions), ILogger(Of OpaPolicyHandler))
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler.OpaPolicyHandler(OpaDotNet.Extensions.AspNetCore.IOpaPolicyService, Microsoft.Extensions.Options.IOptions<OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions>, Microsoft.Extensions.Logging.ILogger<OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler>)
+  fullName.vb: OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler.New(OpaDotNet.Extensions.AspNetCore.IOpaPolicyService, Microsoft.Extensions.Options.IOptions(Of OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions), Microsoft.Extensions.Logging.ILogger(Of OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler))
+  nameWithType: OpaPolicyHandler.OpaPolicyHandler(IOpaPolicyService, IOptions<OpaAuthorizationOptions>, ILogger<OpaPolicyHandler>)
+  nameWithType.vb: OpaPolicyHandler.New(IOpaPolicyService, IOptions(Of OpaAuthorizationOptions), ILogger(Of OpaPolicyHandler))
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler.#ctor*
+  name: OpaPolicyHandler
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyHandler__ctor_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler.#ctor
+  name.vb: New
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler.OpaPolicyHandler
+  fullName.vb: OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler.New
+  nameWithType: OpaPolicyHandler.OpaPolicyHandler
+  nameWithType.vb: OpaPolicyHandler.New
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler.HandleRequirementAsync(Microsoft.AspNetCore.Authorization.AuthorizationHandlerContext,OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement)
+  name: HandleRequirementAsync(AuthorizationHandlerContext, OpaPolicyRequirement)
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyHandler_HandleRequirementAsync_Microsoft_AspNetCore_Authorization_AuthorizationHandlerContext_OpaDotNet_Extensions_AspNetCore_OpaPolicyRequirement_
+  commentId: M:OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler.HandleRequirementAsync(Microsoft.AspNetCore.Authorization.AuthorizationHandlerContext,OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement)
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler.HandleRequirementAsync(Microsoft.AspNetCore.Authorization.AuthorizationHandlerContext, OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement)
+  nameWithType: OpaPolicyHandler.HandleRequirementAsync(AuthorizationHandlerContext, OpaPolicyRequirement)
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler.HandleRequirementAsync*
+  name: HandleRequirementAsync
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyHandler_HandleRequirementAsync_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler.HandleRequirementAsync
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler.HandleRequirementAsync
+  nameWithType: OpaPolicyHandler.HandleRequirementAsync
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler`1
+  name: OpaPolicyHandler<TResource>
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler-1.html
+  commentId: T:OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler`1
+  name.vb: OpaPolicyHandler(Of TResource)
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler<TResource>
+  fullName.vb: OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler(Of TResource)
+  nameWithType: OpaPolicyHandler<TResource>
+  nameWithType.vb: OpaPolicyHandler(Of TResource)
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler`1.#ctor(OpaDotNet.Extensions.AspNetCore.IOpaPolicyService,Microsoft.Extensions.Logging.ILogger{OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler{`0}})
+  name: OpaPolicyHandler(IOpaPolicyService, ILogger<OpaPolicyHandler<TResource>>)
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler-1.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyHandler_1__ctor_OpaDotNet_Extensions_AspNetCore_IOpaPolicyService_Microsoft_Extensions_Logging_ILogger_OpaDotNet_Extensions_AspNetCore_OpaPolicyHandler__0___
+  commentId: M:OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler`1.#ctor(OpaDotNet.Extensions.AspNetCore.IOpaPolicyService,Microsoft.Extensions.Logging.ILogger{OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler{`0}})
+  name.vb: New(IOpaPolicyService, ILogger(Of OpaPolicyHandler(Of TResource)))
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler<TResource>.OpaPolicyHandler(OpaDotNet.Extensions.AspNetCore.IOpaPolicyService, Microsoft.Extensions.Logging.ILogger<OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler<TResource>>)
+  fullName.vb: OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler(Of TResource).New(OpaDotNet.Extensions.AspNetCore.IOpaPolicyService, Microsoft.Extensions.Logging.ILogger(Of OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler(Of TResource)))
+  nameWithType: OpaPolicyHandler<TResource>.OpaPolicyHandler(IOpaPolicyService, ILogger<OpaPolicyHandler<TResource>>)
+  nameWithType.vb: OpaPolicyHandler(Of TResource).New(IOpaPolicyService, ILogger(Of OpaPolicyHandler(Of TResource)))
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler`1.#ctor*
+  name: OpaPolicyHandler
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler-1.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyHandler_1__ctor_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler`1.#ctor
+  name.vb: New
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler<TResource>.OpaPolicyHandler
+  fullName.vb: OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler(Of TResource).New
+  nameWithType: OpaPolicyHandler<TResource>.OpaPolicyHandler
+  nameWithType.vb: OpaPolicyHandler(Of TResource).New
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler`1.HandleRequirementAsync(Microsoft.AspNetCore.Authorization.AuthorizationHandlerContext,OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement,`0)
+  name: HandleRequirementAsync(AuthorizationHandlerContext, OpaPolicyRequirement, TResource)
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler-1.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyHandler_1_HandleRequirementAsync_Microsoft_AspNetCore_Authorization_AuthorizationHandlerContext_OpaDotNet_Extensions_AspNetCore_OpaPolicyRequirement__0_
+  commentId: M:OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler`1.HandleRequirementAsync(Microsoft.AspNetCore.Authorization.AuthorizationHandlerContext,OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement,`0)
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler<TResource>.HandleRequirementAsync(Microsoft.AspNetCore.Authorization.AuthorizationHandlerContext, OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement, TResource)
+  fullName.vb: OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler(Of TResource).HandleRequirementAsync(Microsoft.AspNetCore.Authorization.AuthorizationHandlerContext, OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement, TResource)
+  nameWithType: OpaPolicyHandler<TResource>.HandleRequirementAsync(AuthorizationHandlerContext, OpaPolicyRequirement, TResource)
+  nameWithType.vb: OpaPolicyHandler(Of TResource).HandleRequirementAsync(AuthorizationHandlerContext, OpaPolicyRequirement, TResource)
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler`1.HandleRequirementAsync*
+  name: HandleRequirementAsync
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler-1.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyHandler_1_HandleRequirementAsync_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler`1.HandleRequirementAsync
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler<TResource>.HandleRequirementAsync
+  fullName.vb: OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler(Of TResource).HandleRequirementAsync
+  nameWithType: OpaPolicyHandler<TResource>.HandleRequirementAsync
+  nameWithType.vb: OpaPolicyHandler(Of TResource).HandleRequirementAsync
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider
+  name: OpaPolicyProvider
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.html
+  commentId: T:OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider
+  nameWithType: OpaPolicyProvider
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.#ctor(Microsoft.Extensions.Options.IOptions{Microsoft.AspNetCore.Authorization.AuthorizationOptions})
+  name: OpaPolicyProvider(IOptions<AuthorizationOptions>)
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyProvider__ctor_Microsoft_Extensions_Options_IOptions_Microsoft_AspNetCore_Authorization_AuthorizationOptions__
+  commentId: M:OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.#ctor(Microsoft.Extensions.Options.IOptions{Microsoft.AspNetCore.Authorization.AuthorizationOptions})
+  name.vb: New(IOptions(Of AuthorizationOptions))
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.OpaPolicyProvider(Microsoft.Extensions.Options.IOptions<Microsoft.AspNetCore.Authorization.AuthorizationOptions>)
+  fullName.vb: OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.New(Microsoft.Extensions.Options.IOptions(Of Microsoft.AspNetCore.Authorization.AuthorizationOptions))
+  nameWithType: OpaPolicyProvider.OpaPolicyProvider(IOptions<AuthorizationOptions>)
+  nameWithType.vb: OpaPolicyProvider.New(IOptions(Of AuthorizationOptions))
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.#ctor*
+  name: OpaPolicyProvider
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyProvider__ctor_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.#ctor
+  name.vb: New
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.OpaPolicyProvider
+  fullName.vb: OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.New
+  nameWithType: OpaPolicyProvider.OpaPolicyProvider
+  nameWithType.vb: OpaPolicyProvider.New
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.GetDefaultPolicyAsync
+  name: GetDefaultPolicyAsync()
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyProvider_GetDefaultPolicyAsync
+  commentId: M:OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.GetDefaultPolicyAsync
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.GetDefaultPolicyAsync()
+  nameWithType: OpaPolicyProvider.GetDefaultPolicyAsync()
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.GetDefaultPolicyAsync*
+  name: GetDefaultPolicyAsync
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyProvider_GetDefaultPolicyAsync_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.GetDefaultPolicyAsync
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.GetDefaultPolicyAsync
+  nameWithType: OpaPolicyProvider.GetDefaultPolicyAsync
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.GetFallbackPolicyAsync
+  name: GetFallbackPolicyAsync()
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyProvider_GetFallbackPolicyAsync
+  commentId: M:OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.GetFallbackPolicyAsync
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.GetFallbackPolicyAsync()
+  nameWithType: OpaPolicyProvider.GetFallbackPolicyAsync()
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.GetFallbackPolicyAsync*
+  name: GetFallbackPolicyAsync
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyProvider_GetFallbackPolicyAsync_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.GetFallbackPolicyAsync
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.GetFallbackPolicyAsync
+  nameWithType: OpaPolicyProvider.GetFallbackPolicyAsync
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.GetPolicyAsync(System.String)
+  name: GetPolicyAsync(string)
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyProvider_GetPolicyAsync_System_String_
+  commentId: M:OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.GetPolicyAsync(System.String)
+  name.vb: GetPolicyAsync(String)
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.GetPolicyAsync(string)
+  fullName.vb: OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.GetPolicyAsync(String)
+  nameWithType: OpaPolicyProvider.GetPolicyAsync(string)
+  nameWithType.vb: OpaPolicyProvider.GetPolicyAsync(String)
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.GetPolicyAsync*
+  name: GetPolicyAsync
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyProvider_GetPolicyAsync_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.GetPolicyAsync
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.GetPolicyAsync
+  nameWithType: OpaPolicyProvider.GetPolicyAsync
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement
+  name: OpaPolicyRequirement
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.html
+  commentId: T:OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement
+  nameWithType: OpaPolicyRequirement
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.#ctor(OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement)
+  name: OpaPolicyRequirement(OpaPolicyRequirement)
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyRequirement__ctor_OpaDotNet_Extensions_AspNetCore_OpaPolicyRequirement_
+  commentId: M:OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.#ctor(OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement)
+  name.vb: New(OpaPolicyRequirement)
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.OpaPolicyRequirement(OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement)
+  fullName.vb: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.New(OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement)
+  nameWithType: OpaPolicyRequirement.OpaPolicyRequirement(OpaPolicyRequirement)
+  nameWithType.vb: OpaPolicyRequirement.New(OpaPolicyRequirement)
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.#ctor(System.String)
+  name: OpaPolicyRequirement(string)
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyRequirement__ctor_System_String_
+  commentId: M:OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.#ctor(System.String)
+  name.vb: New(String)
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.OpaPolicyRequirement(string)
+  fullName.vb: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.New(String)
+  nameWithType: OpaPolicyRequirement.OpaPolicyRequirement(string)
+  nameWithType.vb: OpaPolicyRequirement.New(String)
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.#ctor*
+  name: OpaPolicyRequirement
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyRequirement__ctor_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.#ctor
+  name.vb: New
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.OpaPolicyRequirement
+  fullName.vb: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.New
+  nameWithType: OpaPolicyRequirement.OpaPolicyRequirement
+  nameWithType.vb: OpaPolicyRequirement.New
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.Entrypoint
+  name: Entrypoint
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyRequirement_Entrypoint
+  commentId: P:OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.Entrypoint
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.Entrypoint
+  nameWithType: OpaPolicyRequirement.Entrypoint
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.Entrypoint*
+  name: Entrypoint
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyRequirement_Entrypoint_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.Entrypoint
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.Entrypoint
+  nameWithType: OpaPolicyRequirement.Entrypoint
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.EqualityContract
+  name: EqualityContract
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyRequirement_EqualityContract
+  commentId: P:OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.EqualityContract
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.EqualityContract
+  nameWithType: OpaPolicyRequirement.EqualityContract
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.EqualityContract*
+  name: EqualityContract
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyRequirement_EqualityContract_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.EqualityContract
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.EqualityContract
+  nameWithType: OpaPolicyRequirement.EqualityContract
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.Equals(OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement)
+  name: Equals(OpaPolicyRequirement?)
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyRequirement_Equals_OpaDotNet_Extensions_AspNetCore_OpaPolicyRequirement_
+  commentId: M:OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.Equals(OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement)
+  name.vb: Equals(OpaPolicyRequirement)
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.Equals(OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement?)
+  fullName.vb: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.Equals(OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement)
+  nameWithType: OpaPolicyRequirement.Equals(OpaPolicyRequirement?)
+  nameWithType.vb: OpaPolicyRequirement.Equals(OpaPolicyRequirement)
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.Equals(System.Object)
+  name: Equals(object?)
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyRequirement_Equals_System_Object_
+  commentId: M:OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.Equals(System.Object)
+  name.vb: Equals(Object)
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.Equals(object?)
+  fullName.vb: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.Equals(Object)
+  nameWithType: OpaPolicyRequirement.Equals(object?)
+  nameWithType.vb: OpaPolicyRequirement.Equals(Object)
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.Equals*
+  name: Equals
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyRequirement_Equals_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.Equals
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.Equals
+  nameWithType: OpaPolicyRequirement.Equals
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.GetHashCode
+  name: GetHashCode()
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyRequirement_GetHashCode
+  commentId: M:OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.GetHashCode
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.GetHashCode()
+  nameWithType: OpaPolicyRequirement.GetHashCode()
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.GetHashCode*
+  name: GetHashCode
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyRequirement_GetHashCode_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.GetHashCode
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.GetHashCode
+  nameWithType: OpaPolicyRequirement.GetHashCode
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.PrintMembers(System.Text.StringBuilder)
+  name: PrintMembers(StringBuilder)
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyRequirement_PrintMembers_System_Text_StringBuilder_
+  commentId: M:OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.PrintMembers(System.Text.StringBuilder)
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.PrintMembers(System.Text.StringBuilder)
+  nameWithType: OpaPolicyRequirement.PrintMembers(StringBuilder)
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.PrintMembers*
+  name: PrintMembers
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyRequirement_PrintMembers_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.PrintMembers
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.PrintMembers
+  nameWithType: OpaPolicyRequirement.PrintMembers
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.ToString
+  name: ToString()
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyRequirement_ToString
+  commentId: M:OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.ToString
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.ToString()
+  nameWithType: OpaPolicyRequirement.ToString()
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.ToString*
+  name: ToString
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyRequirement_ToString_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.ToString
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.ToString
+  nameWithType: OpaPolicyRequirement.ToString
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.op_Equality(OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement,OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement)
+  name: operator ==(OpaPolicyRequirement?, OpaPolicyRequirement?)
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyRequirement_op_Equality_OpaDotNet_Extensions_AspNetCore_OpaPolicyRequirement_OpaDotNet_Extensions_AspNetCore_OpaPolicyRequirement_
+  commentId: M:OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.op_Equality(OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement,OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement)
+  name.vb: =(OpaPolicyRequirement, OpaPolicyRequirement)
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.operator ==(OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement?, OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement?)
+  fullName.vb: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.=(OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement, OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement)
+  nameWithType: OpaPolicyRequirement.operator ==(OpaPolicyRequirement?, OpaPolicyRequirement?)
+  nameWithType.vb: OpaPolicyRequirement.=(OpaPolicyRequirement, OpaPolicyRequirement)
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.op_Equality*
+  name: operator ==
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyRequirement_op_Equality_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.op_Equality
+  name.vb: =
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.operator ==
+  fullName.vb: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.=
+  nameWithType: OpaPolicyRequirement.operator ==
+  nameWithType.vb: OpaPolicyRequirement.=
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.op_Inequality(OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement,OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement)
+  name: operator !=(OpaPolicyRequirement?, OpaPolicyRequirement?)
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyRequirement_op_Inequality_OpaDotNet_Extensions_AspNetCore_OpaPolicyRequirement_OpaDotNet_Extensions_AspNetCore_OpaPolicyRequirement_
+  commentId: M:OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.op_Inequality(OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement,OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement)
+  name.vb: <>(OpaPolicyRequirement, OpaPolicyRequirement)
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.operator !=(OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement?, OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement?)
+  fullName.vb: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.<>(OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement, OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement)
+  nameWithType: OpaPolicyRequirement.operator !=(OpaPolicyRequirement?, OpaPolicyRequirement?)
+  nameWithType.vb: OpaPolicyRequirement.<>(OpaPolicyRequirement, OpaPolicyRequirement)
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.op_Inequality*
+  name: operator !=
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyRequirement_op_Inequality_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.op_Inequality
+  name.vb: <>
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.operator !=
+  fullName.vb: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.<>
+  nameWithType: OpaPolicyRequirement.operator !=
+  nameWithType.vb: OpaPolicyRequirement.<>
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.{Clone}$
+  name: <Clone>$()
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyRequirement__Clone__
+  commentId: M:OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.{Clone}$
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.<Clone>$()
+  nameWithType: OpaPolicyRequirement.<Clone>$()
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.{Clone}$*
+  name: <Clone>$
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyRequirement__Clone___
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.{Clone}$
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.<Clone>$
+  nameWithType: OpaPolicyRequirement.<Clone>$
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyWatchingCompilationService
+  name: OpaPolicyWatchingCompilationService
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyWatchingCompilationService.html
+  commentId: T:OpaDotNet.Extensions.AspNetCore.OpaPolicyWatchingCompilationService
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyWatchingCompilationService
+  nameWithType: OpaPolicyWatchingCompilationService
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyWatchingCompilationService.#ctor(OpaDotNet.Extensions.AspNetCore.IOpaPolicyCompiler,Microsoft.Extensions.Options.IOptions{OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions},Microsoft.Extensions.Logging.ILogger{OpaDotNet.Extensions.AspNetCore.OpaPolicyWatchingCompilationService})
+  name: OpaPolicyWatchingCompilationService(IOpaPolicyCompiler, IOptions<OpaAuthorizationOptions>, ILogger<OpaPolicyWatchingCompilationService>)
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyWatchingCompilationService.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyWatchingCompilationService__ctor_OpaDotNet_Extensions_AspNetCore_IOpaPolicyCompiler_Microsoft_Extensions_Options_IOptions_OpaDotNet_Extensions_AspNetCore_OpaAuthorizationOptions__Microsoft_Extensions_Logging_ILogger_OpaDotNet_Extensions_AspNetCore_OpaPolicyWatchingCompilationService__
+  commentId: M:OpaDotNet.Extensions.AspNetCore.OpaPolicyWatchingCompilationService.#ctor(OpaDotNet.Extensions.AspNetCore.IOpaPolicyCompiler,Microsoft.Extensions.Options.IOptions{OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions},Microsoft.Extensions.Logging.ILogger{OpaDotNet.Extensions.AspNetCore.OpaPolicyWatchingCompilationService})
+  name.vb: New(IOpaPolicyCompiler, IOptions(Of OpaAuthorizationOptions), ILogger(Of OpaPolicyWatchingCompilationService))
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyWatchingCompilationService.OpaPolicyWatchingCompilationService(OpaDotNet.Extensions.AspNetCore.IOpaPolicyCompiler, Microsoft.Extensions.Options.IOptions<OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions>, Microsoft.Extensions.Logging.ILogger<OpaDotNet.Extensions.AspNetCore.OpaPolicyWatchingCompilationService>)
+  fullName.vb: OpaDotNet.Extensions.AspNetCore.OpaPolicyWatchingCompilationService.New(OpaDotNet.Extensions.AspNetCore.IOpaPolicyCompiler, Microsoft.Extensions.Options.IOptions(Of OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions), Microsoft.Extensions.Logging.ILogger(Of OpaDotNet.Extensions.AspNetCore.OpaPolicyWatchingCompilationService))
+  nameWithType: OpaPolicyWatchingCompilationService.OpaPolicyWatchingCompilationService(IOpaPolicyCompiler, IOptions<OpaAuthorizationOptions>, ILogger<OpaPolicyWatchingCompilationService>)
+  nameWithType.vb: OpaPolicyWatchingCompilationService.New(IOpaPolicyCompiler, IOptions(Of OpaAuthorizationOptions), ILogger(Of OpaPolicyWatchingCompilationService))
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyWatchingCompilationService.#ctor*
+  name: OpaPolicyWatchingCompilationService
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyWatchingCompilationService.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyWatchingCompilationService__ctor_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.OpaPolicyWatchingCompilationService.#ctor
+  name.vb: New
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyWatchingCompilationService.OpaPolicyWatchingCompilationService
+  fullName.vb: OpaDotNet.Extensions.AspNetCore.OpaPolicyWatchingCompilationService.New
+  nameWithType: OpaPolicyWatchingCompilationService.OpaPolicyWatchingCompilationService
+  nameWithType.vb: OpaPolicyWatchingCompilationService.New
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyWatchingCompilationService.Dispose
+  name: Dispose()
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyWatchingCompilationService.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyWatchingCompilationService_Dispose
+  commentId: M:OpaDotNet.Extensions.AspNetCore.OpaPolicyWatchingCompilationService.Dispose
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyWatchingCompilationService.Dispose()
+  nameWithType: OpaPolicyWatchingCompilationService.Dispose()
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyWatchingCompilationService.Dispose*
+  name: Dispose
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyWatchingCompilationService.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyWatchingCompilationService_Dispose_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.OpaPolicyWatchingCompilationService.Dispose
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyWatchingCompilationService.Dispose
+  nameWithType: OpaPolicyWatchingCompilationService.Dispose
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyWatchingCompilationService.StartAsync(System.Threading.CancellationToken)
+  name: StartAsync(CancellationToken)
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyWatchingCompilationService.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyWatchingCompilationService_StartAsync_System_Threading_CancellationToken_
+  commentId: M:OpaDotNet.Extensions.AspNetCore.OpaPolicyWatchingCompilationService.StartAsync(System.Threading.CancellationToken)
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyWatchingCompilationService.StartAsync(System.Threading.CancellationToken)
+  nameWithType: OpaPolicyWatchingCompilationService.StartAsync(CancellationToken)
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyWatchingCompilationService.StartAsync*
+  name: StartAsync
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyWatchingCompilationService.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyWatchingCompilationService_StartAsync_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.OpaPolicyWatchingCompilationService.StartAsync
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyWatchingCompilationService.StartAsync
+  nameWithType: OpaPolicyWatchingCompilationService.StartAsync
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyWatchingCompilationService.StopAsync(System.Threading.CancellationToken)
+  name: StopAsync(CancellationToken)
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyWatchingCompilationService.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyWatchingCompilationService_StopAsync_System_Threading_CancellationToken_
+  commentId: M:OpaDotNet.Extensions.AspNetCore.OpaPolicyWatchingCompilationService.StopAsync(System.Threading.CancellationToken)
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyWatchingCompilationService.StopAsync(System.Threading.CancellationToken)
+  nameWithType: OpaPolicyWatchingCompilationService.StopAsync(CancellationToken)
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyWatchingCompilationService.StopAsync*
+  name: StopAsync
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyWatchingCompilationService.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyWatchingCompilationService_StopAsync_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.OpaPolicyWatchingCompilationService.StopAsync
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyWatchingCompilationService.StopAsync
+  nameWithType: OpaPolicyWatchingCompilationService.StopAsync
+- uid: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions
+  name: ServiceCollectionExtensions
+  href: api/OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.html
+  commentId: T:OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions
+  fullName: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions
+  nameWithType: ServiceCollectionExtensions
+- uid: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddCompiler*
+  name: AddCompiler
+  href: api/OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.html#OpaDotNet_Extensions_AspNetCore_ServiceCollectionExtensions_AddCompiler_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddCompiler
+  fullName: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddCompiler
+  nameWithType: ServiceCollectionExtensions.AddCompiler
+- uid: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddCompiler``1(OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder,System.Func{System.IServiceProvider,``0},System.Action{OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions})
+  name: AddCompiler<T>(IOpaAuthorizationBuilder, Func<IServiceProvider, T>?, Action<RegoCliCompilerOptions>?)
+  href: api/OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.html#OpaDotNet_Extensions_AspNetCore_ServiceCollectionExtensions_AddCompiler__1_OpaDotNet_Extensions_AspNetCore_IOpaAuthorizationBuilder_System_Func_System_IServiceProvider___0__System_Action_OpaDotNet_Wasm_Compilation_RegoCliCompilerOptions__
+  commentId: M:OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddCompiler``1(OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder,System.Func{System.IServiceProvider,``0},System.Action{OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions})
+  name.vb: AddCompiler(Of T)(IOpaAuthorizationBuilder, Func(Of IServiceProvider, T), Action(Of RegoCliCompilerOptions))
+  fullName: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddCompiler<T>(OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder, System.Func<System.IServiceProvider, T>?, System.Action<OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions>?)
+  fullName.vb: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddCompiler(Of T)(OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder, System.Func(Of System.IServiceProvider, T), System.Action(Of OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions))
+  nameWithType: ServiceCollectionExtensions.AddCompiler<T>(IOpaAuthorizationBuilder, Func<IServiceProvider, T>?, Action<RegoCliCompilerOptions>?)
+  nameWithType.vb: ServiceCollectionExtensions.AddCompiler(Of T)(IOpaAuthorizationBuilder, Func(Of IServiceProvider, T), Action(Of RegoCliCompilerOptions))
+- uid: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddConfiguration(OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder,System.Action{OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions})
+  name: AddConfiguration(IOpaAuthorizationBuilder, Action<OpaAuthorizationOptions>)
+  href: api/OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.html#OpaDotNet_Extensions_AspNetCore_ServiceCollectionExtensions_AddConfiguration_OpaDotNet_Extensions_AspNetCore_IOpaAuthorizationBuilder_System_Action_OpaDotNet_Extensions_AspNetCore_OpaAuthorizationOptions__
+  commentId: M:OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddConfiguration(OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder,System.Action{OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions})
+  name.vb: AddConfiguration(IOpaAuthorizationBuilder, Action(Of OpaAuthorizationOptions))
+  fullName: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddConfiguration(OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder, System.Action<OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions>)
+  fullName.vb: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddConfiguration(OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder, System.Action(Of OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions))
+  nameWithType: ServiceCollectionExtensions.AddConfiguration(IOpaAuthorizationBuilder, Action<OpaAuthorizationOptions>)
+  nameWithType.vb: ServiceCollectionExtensions.AddConfiguration(IOpaAuthorizationBuilder, Action(Of OpaAuthorizationOptions))
+- uid: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddConfiguration*
+  name: AddConfiguration
+  href: api/OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.html#OpaDotNet_Extensions_AspNetCore_ServiceCollectionExtensions_AddConfiguration_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddConfiguration
+  fullName: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddConfiguration
+  nameWithType: ServiceCollectionExtensions.AddConfiguration
+- uid: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddDefaultCompiler(OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder,System.Action{OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions})
+  name: AddDefaultCompiler(IOpaAuthorizationBuilder, Action<RegoCliCompilerOptions>?)
+  href: api/OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.html#OpaDotNet_Extensions_AspNetCore_ServiceCollectionExtensions_AddDefaultCompiler_OpaDotNet_Extensions_AspNetCore_IOpaAuthorizationBuilder_System_Action_OpaDotNet_Wasm_Compilation_RegoCliCompilerOptions__
+  commentId: M:OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddDefaultCompiler(OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder,System.Action{OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions})
+  name.vb: AddDefaultCompiler(IOpaAuthorizationBuilder, Action(Of RegoCliCompilerOptions))
+  fullName: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddDefaultCompiler(OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder, System.Action<OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions>?)
+  fullName.vb: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddDefaultCompiler(OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder, System.Action(Of OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions))
+  nameWithType: ServiceCollectionExtensions.AddDefaultCompiler(IOpaAuthorizationBuilder, Action<RegoCliCompilerOptions>?)
+  nameWithType.vb: ServiceCollectionExtensions.AddDefaultCompiler(IOpaAuthorizationBuilder, Action(Of RegoCliCompilerOptions))
+- uid: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddDefaultCompiler*
+  name: AddDefaultCompiler
+  href: api/OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.html#OpaDotNet_Extensions_AspNetCore_ServiceCollectionExtensions_AddDefaultCompiler_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddDefaultCompiler
+  fullName: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddDefaultCompiler
+  nameWithType: ServiceCollectionExtensions.AddDefaultCompiler
+- uid: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddEvaluatorFactory*
+  name: AddEvaluatorFactory
+  href: api/OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.html#OpaDotNet_Extensions_AspNetCore_ServiceCollectionExtensions_AddEvaluatorFactory_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddEvaluatorFactory
+  fullName: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddEvaluatorFactory
+  nameWithType: ServiceCollectionExtensions.AddEvaluatorFactory
+- uid: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddEvaluatorFactory``1(OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder,System.Func{System.IServiceProvider,``0})
+  name: AddEvaluatorFactory<T>(IOpaAuthorizationBuilder, Func<IServiceProvider, T>)
+  href: api/OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.html#OpaDotNet_Extensions_AspNetCore_ServiceCollectionExtensions_AddEvaluatorFactory__1_OpaDotNet_Extensions_AspNetCore_IOpaAuthorizationBuilder_System_Func_System_IServiceProvider___0__
+  commentId: M:OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddEvaluatorFactory``1(OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder,System.Func{System.IServiceProvider,``0})
+  name.vb: AddEvaluatorFactory(Of T)(IOpaAuthorizationBuilder, Func(Of IServiceProvider, T))
+  fullName: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddEvaluatorFactory<T>(OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder, System.Func<System.IServiceProvider, T>)
+  fullName.vb: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddEvaluatorFactory(Of T)(OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder, System.Func(Of System.IServiceProvider, T))
+  nameWithType: ServiceCollectionExtensions.AddEvaluatorFactory<T>(IOpaAuthorizationBuilder, Func<IServiceProvider, T>)
+  nameWithType.vb: ServiceCollectionExtensions.AddEvaluatorFactory(Of T)(IOpaAuthorizationBuilder, Func(Of IServiceProvider, T))
+- uid: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddJsonOptions(OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder,System.Action{System.Text.Json.JsonSerializerOptions})
+  name: AddJsonOptions(IOpaAuthorizationBuilder, Action<JsonSerializerOptions>)
+  href: api/OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.html#OpaDotNet_Extensions_AspNetCore_ServiceCollectionExtensions_AddJsonOptions_OpaDotNet_Extensions_AspNetCore_IOpaAuthorizationBuilder_System_Action_System_Text_Json_JsonSerializerOptions__
+  commentId: M:OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddJsonOptions(OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder,System.Action{System.Text.Json.JsonSerializerOptions})
+  name.vb: AddJsonOptions(IOpaAuthorizationBuilder, Action(Of JsonSerializerOptions))
+  fullName: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddJsonOptions(OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder, System.Action<System.Text.Json.JsonSerializerOptions>)
+  fullName.vb: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddJsonOptions(OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder, System.Action(Of System.Text.Json.JsonSerializerOptions))
+  nameWithType: ServiceCollectionExtensions.AddJsonOptions(IOpaAuthorizationBuilder, Action<JsonSerializerOptions>)
+  nameWithType.vb: ServiceCollectionExtensions.AddJsonOptions(IOpaAuthorizationBuilder, Action(Of JsonSerializerOptions))
+- uid: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddJsonOptions*
+  name: AddJsonOptions
+  href: api/OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.html#OpaDotNet_Extensions_AspNetCore_ServiceCollectionExtensions_AddJsonOptions_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddJsonOptions
+  fullName: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddJsonOptions
+  nameWithType: ServiceCollectionExtensions.AddJsonOptions
+- uid: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddOpaAuthorization(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder})
+  name: AddOpaAuthorization(IServiceCollection, Action<IOpaAuthorizationBuilder>)
+  href: api/OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.html#OpaDotNet_Extensions_AspNetCore_ServiceCollectionExtensions_AddOpaAuthorization_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Action_OpaDotNet_Extensions_AspNetCore_IOpaAuthorizationBuilder__
+  commentId: M:OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddOpaAuthorization(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder})
+  name.vb: AddOpaAuthorization(IServiceCollection, Action(Of IOpaAuthorizationBuilder))
+  fullName: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddOpaAuthorization(Microsoft.Extensions.DependencyInjection.IServiceCollection, System.Action<OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder>)
+  fullName.vb: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddOpaAuthorization(Microsoft.Extensions.DependencyInjection.IServiceCollection, System.Action(Of OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder))
+  nameWithType: ServiceCollectionExtensions.AddOpaAuthorization(IServiceCollection, Action<IOpaAuthorizationBuilder>)
+  nameWithType.vb: ServiceCollectionExtensions.AddOpaAuthorization(IServiceCollection, Action(Of IOpaAuthorizationBuilder))
+- uid: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddOpaAuthorization*
+  name: AddOpaAuthorization
+  href: api/OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.html#OpaDotNet_Extensions_AspNetCore_ServiceCollectionExtensions_AddOpaAuthorization_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddOpaAuthorization
+  fullName: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddOpaAuthorization
+  nameWithType: ServiceCollectionExtensions.AddOpaAuthorization
 - uid: OpaDotNet.Wasm
   name: OpaDotNet.Wasm
   href: api/OpaDotNet.Wasm.html
@@ -17,14 +1440,12 @@ references:
   name: As
   href: api/OpaDotNet.Wasm.BuiltinArg.html#OpaDotNet_Wasm_BuiltinArg_As_
   commentId: Overload:OpaDotNet.Wasm.BuiltinArg.As
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.BuiltinArg.As
   nameWithType: BuiltinArg.As
 - uid: OpaDotNet.Wasm.BuiltinArg.AsOrNull*
   name: AsOrNull
   href: api/OpaDotNet.Wasm.BuiltinArg.html#OpaDotNet_Wasm_BuiltinArg_AsOrNull_
   commentId: Overload:OpaDotNet.Wasm.BuiltinArg.AsOrNull
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.BuiltinArg.AsOrNull
   nameWithType: BuiltinArg.AsOrNull
 - uid: OpaDotNet.Wasm.BuiltinArg.AsOrNull``1(System.Func{``0},OpaDotNet.Wasm.RegoValueFormat)
@@ -55,7 +1476,6 @@ references:
   name: Raw
   href: api/OpaDotNet.Wasm.BuiltinArg.html#OpaDotNet_Wasm_BuiltinArg_Raw_
   commentId: Overload:OpaDotNet.Wasm.BuiltinArg.Raw
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.BuiltinArg.Raw
   nameWithType: BuiltinArg.Raw
 - uid: OpaDotNet.Wasm.BuiltinArg.RawJson
@@ -68,7 +1488,6 @@ references:
   name: RawJson
   href: api/OpaDotNet.Wasm.BuiltinArg.html#OpaDotNet_Wasm_BuiltinArg_RawJson_
   commentId: Overload:OpaDotNet.Wasm.BuiltinArg.RawJson
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.BuiltinArg.RawJson
   nameWithType: BuiltinArg.RawJson
 - uid: OpaDotNet.Wasm.BuiltinContext
@@ -77,6 +1496,69 @@ references:
   commentId: T:OpaDotNet.Wasm.BuiltinContext
   fullName: OpaDotNet.Wasm.BuiltinContext
   nameWithType: BuiltinContext
+- uid: OpaDotNet.Wasm.BuiltinContext.#ctor
+  name: BuiltinContext()
+  href: api/OpaDotNet.Wasm.BuiltinContext.html#OpaDotNet_Wasm_BuiltinContext__ctor
+  commentId: M:OpaDotNet.Wasm.BuiltinContext.#ctor
+  name.vb: New()
+  fullName: OpaDotNet.Wasm.BuiltinContext.BuiltinContext()
+  fullName.vb: OpaDotNet.Wasm.BuiltinContext.New()
+  nameWithType: BuiltinContext.BuiltinContext()
+  nameWithType.vb: BuiltinContext.New()
+- uid: OpaDotNet.Wasm.BuiltinContext.#ctor(OpaDotNet.Wasm.BuiltinContext)
+  name: BuiltinContext(BuiltinContext)
+  href: api/OpaDotNet.Wasm.BuiltinContext.html#OpaDotNet_Wasm_BuiltinContext__ctor_OpaDotNet_Wasm_BuiltinContext_
+  commentId: M:OpaDotNet.Wasm.BuiltinContext.#ctor(OpaDotNet.Wasm.BuiltinContext)
+  name.vb: New(BuiltinContext)
+  fullName: OpaDotNet.Wasm.BuiltinContext.BuiltinContext(OpaDotNet.Wasm.BuiltinContext)
+  fullName.vb: OpaDotNet.Wasm.BuiltinContext.New(OpaDotNet.Wasm.BuiltinContext)
+  nameWithType: BuiltinContext.BuiltinContext(BuiltinContext)
+  nameWithType.vb: BuiltinContext.New(BuiltinContext)
+- uid: OpaDotNet.Wasm.BuiltinContext.#ctor*
+  name: BuiltinContext
+  href: api/OpaDotNet.Wasm.BuiltinContext.html#OpaDotNet_Wasm_BuiltinContext__ctor_
+  commentId: Overload:OpaDotNet.Wasm.BuiltinContext.#ctor
+  name.vb: New
+  fullName: OpaDotNet.Wasm.BuiltinContext.BuiltinContext
+  fullName.vb: OpaDotNet.Wasm.BuiltinContext.New
+  nameWithType: BuiltinContext.BuiltinContext
+  nameWithType.vb: BuiltinContext.New
+- uid: OpaDotNet.Wasm.BuiltinContext.EqualityContract
+  name: EqualityContract
+  href: api/OpaDotNet.Wasm.BuiltinContext.html#OpaDotNet_Wasm_BuiltinContext_EqualityContract
+  commentId: P:OpaDotNet.Wasm.BuiltinContext.EqualityContract
+  fullName: OpaDotNet.Wasm.BuiltinContext.EqualityContract
+  nameWithType: BuiltinContext.EqualityContract
+- uid: OpaDotNet.Wasm.BuiltinContext.EqualityContract*
+  name: EqualityContract
+  href: api/OpaDotNet.Wasm.BuiltinContext.html#OpaDotNet_Wasm_BuiltinContext_EqualityContract_
+  commentId: Overload:OpaDotNet.Wasm.BuiltinContext.EqualityContract
+  fullName: OpaDotNet.Wasm.BuiltinContext.EqualityContract
+  nameWithType: BuiltinContext.EqualityContract
+- uid: OpaDotNet.Wasm.BuiltinContext.Equals(OpaDotNet.Wasm.BuiltinContext)
+  name: Equals(BuiltinContext?)
+  href: api/OpaDotNet.Wasm.BuiltinContext.html#OpaDotNet_Wasm_BuiltinContext_Equals_OpaDotNet_Wasm_BuiltinContext_
+  commentId: M:OpaDotNet.Wasm.BuiltinContext.Equals(OpaDotNet.Wasm.BuiltinContext)
+  name.vb: Equals(BuiltinContext)
+  fullName: OpaDotNet.Wasm.BuiltinContext.Equals(OpaDotNet.Wasm.BuiltinContext?)
+  fullName.vb: OpaDotNet.Wasm.BuiltinContext.Equals(OpaDotNet.Wasm.BuiltinContext)
+  nameWithType: BuiltinContext.Equals(BuiltinContext?)
+  nameWithType.vb: BuiltinContext.Equals(BuiltinContext)
+- uid: OpaDotNet.Wasm.BuiltinContext.Equals(System.Object)
+  name: Equals(object?)
+  href: api/OpaDotNet.Wasm.BuiltinContext.html#OpaDotNet_Wasm_BuiltinContext_Equals_System_Object_
+  commentId: M:OpaDotNet.Wasm.BuiltinContext.Equals(System.Object)
+  name.vb: Equals(Object)
+  fullName: OpaDotNet.Wasm.BuiltinContext.Equals(object?)
+  fullName.vb: OpaDotNet.Wasm.BuiltinContext.Equals(Object)
+  nameWithType: BuiltinContext.Equals(object?)
+  nameWithType.vb: BuiltinContext.Equals(Object)
+- uid: OpaDotNet.Wasm.BuiltinContext.Equals*
+  name: Equals
+  href: api/OpaDotNet.Wasm.BuiltinContext.html#OpaDotNet_Wasm_BuiltinContext_Equals_
+  commentId: Overload:OpaDotNet.Wasm.BuiltinContext.Equals
+  fullName: OpaDotNet.Wasm.BuiltinContext.Equals
+  nameWithType: BuiltinContext.Equals
 - uid: OpaDotNet.Wasm.BuiltinContext.FunctionName
   name: FunctionName
   href: api/OpaDotNet.Wasm.BuiltinContext.html#OpaDotNet_Wasm_BuiltinContext_FunctionName
@@ -87,9 +1569,20 @@ references:
   name: FunctionName
   href: api/OpaDotNet.Wasm.BuiltinContext.html#OpaDotNet_Wasm_BuiltinContext_FunctionName_
   commentId: Overload:OpaDotNet.Wasm.BuiltinContext.FunctionName
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.BuiltinContext.FunctionName
   nameWithType: BuiltinContext.FunctionName
+- uid: OpaDotNet.Wasm.BuiltinContext.GetHashCode
+  name: GetHashCode()
+  href: api/OpaDotNet.Wasm.BuiltinContext.html#OpaDotNet_Wasm_BuiltinContext_GetHashCode
+  commentId: M:OpaDotNet.Wasm.BuiltinContext.GetHashCode
+  fullName: OpaDotNet.Wasm.BuiltinContext.GetHashCode()
+  nameWithType: BuiltinContext.GetHashCode()
+- uid: OpaDotNet.Wasm.BuiltinContext.GetHashCode*
+  name: GetHashCode
+  href: api/OpaDotNet.Wasm.BuiltinContext.html#OpaDotNet_Wasm_BuiltinContext_GetHashCode_
+  commentId: Overload:OpaDotNet.Wasm.BuiltinContext.GetHashCode
+  fullName: OpaDotNet.Wasm.BuiltinContext.GetHashCode
+  nameWithType: BuiltinContext.GetHashCode
 - uid: OpaDotNet.Wasm.BuiltinContext.JsonSerializerOptions
   name: JsonSerializerOptions
   href: api/OpaDotNet.Wasm.BuiltinContext.html#OpaDotNet_Wasm_BuiltinContext_JsonSerializerOptions
@@ -100,7 +1593,6 @@ references:
   name: JsonSerializerOptions
   href: api/OpaDotNet.Wasm.BuiltinContext.html#OpaDotNet_Wasm_BuiltinContext_JsonSerializerOptions_
   commentId: Overload:OpaDotNet.Wasm.BuiltinContext.JsonSerializerOptions
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.BuiltinContext.JsonSerializerOptions
   nameWithType: BuiltinContext.JsonSerializerOptions
 - uid: OpaDotNet.Wasm.BuiltinContext.OpaContext
@@ -113,9 +1605,20 @@ references:
   name: OpaContext
   href: api/OpaDotNet.Wasm.BuiltinContext.html#OpaDotNet_Wasm_BuiltinContext_OpaContext_
   commentId: Overload:OpaDotNet.Wasm.BuiltinContext.OpaContext
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.BuiltinContext.OpaContext
   nameWithType: BuiltinContext.OpaContext
+- uid: OpaDotNet.Wasm.BuiltinContext.PrintMembers(System.Text.StringBuilder)
+  name: PrintMembers(StringBuilder)
+  href: api/OpaDotNet.Wasm.BuiltinContext.html#OpaDotNet_Wasm_BuiltinContext_PrintMembers_System_Text_StringBuilder_
+  commentId: M:OpaDotNet.Wasm.BuiltinContext.PrintMembers(System.Text.StringBuilder)
+  fullName: OpaDotNet.Wasm.BuiltinContext.PrintMembers(System.Text.StringBuilder)
+  nameWithType: BuiltinContext.PrintMembers(StringBuilder)
+- uid: OpaDotNet.Wasm.BuiltinContext.PrintMembers*
+  name: PrintMembers
+  href: api/OpaDotNet.Wasm.BuiltinContext.html#OpaDotNet_Wasm_BuiltinContext_PrintMembers_
+  commentId: Overload:OpaDotNet.Wasm.BuiltinContext.PrintMembers
+  fullName: OpaDotNet.Wasm.BuiltinContext.PrintMembers
+  nameWithType: BuiltinContext.PrintMembers
 - uid: OpaDotNet.Wasm.BuiltinContext.StrictBuiltinErrors
   name: StrictBuiltinErrors
   href: api/OpaDotNet.Wasm.BuiltinContext.html#OpaDotNet_Wasm_BuiltinContext_StrictBuiltinErrors
@@ -126,266 +1629,92 @@ references:
   name: StrictBuiltinErrors
   href: api/OpaDotNet.Wasm.BuiltinContext.html#OpaDotNet_Wasm_BuiltinContext_StrictBuiltinErrors_
   commentId: Overload:OpaDotNet.Wasm.BuiltinContext.StrictBuiltinErrors
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.BuiltinContext.StrictBuiltinErrors
   nameWithType: BuiltinContext.StrictBuiltinErrors
-- uid: OpaDotNet.Wasm.Compilation
-  name: OpaDotNet.Wasm.Compilation
-  href: api/OpaDotNet.Wasm.Compilation.html
-  commentId: N:OpaDotNet.Wasm.Compilation
-  fullName: OpaDotNet.Wasm.Compilation
-  nameWithType: OpaDotNet.Wasm.Compilation
-- uid: OpaDotNet.Wasm.Compilation.IRegoCompiler
-  name: IRegoCompiler
-  href: api/OpaDotNet.Wasm.Compilation.IRegoCompiler.html
-  commentId: T:OpaDotNet.Wasm.Compilation.IRegoCompiler
-  fullName: OpaDotNet.Wasm.Compilation.IRegoCompiler
-  nameWithType: IRegoCompiler
-- uid: OpaDotNet.Wasm.Compilation.IRegoCompiler.CompileBundle(System.String,System.Collections.Generic.IEnumerable{System.String},System.String,System.Threading.CancellationToken)
-  name: CompileBundle(string, IEnumerable<string>?, string?, CancellationToken)
-  href: api/OpaDotNet.Wasm.Compilation.IRegoCompiler.html#OpaDotNet_Wasm_Compilation_IRegoCompiler_CompileBundle_System_String_System_Collections_Generic_IEnumerable_System_String__System_String_System_Threading_CancellationToken_
-  commentId: M:OpaDotNet.Wasm.Compilation.IRegoCompiler.CompileBundle(System.String,System.Collections.Generic.IEnumerable{System.String},System.String,System.Threading.CancellationToken)
-  name.vb: CompileBundle(String, IEnumerable(Of String), String, CancellationToken)
-  fullName: OpaDotNet.Wasm.Compilation.IRegoCompiler.CompileBundle(string, System.Collections.Generic.IEnumerable<string>?, string?, System.Threading.CancellationToken)
-  fullName.vb: OpaDotNet.Wasm.Compilation.IRegoCompiler.CompileBundle(String, System.Collections.Generic.IEnumerable(Of String), String, System.Threading.CancellationToken)
-  nameWithType: IRegoCompiler.CompileBundle(string, IEnumerable<string>?, string?, CancellationToken)
-  nameWithType.vb: IRegoCompiler.CompileBundle(String, IEnumerable(Of String), String, CancellationToken)
-- uid: OpaDotNet.Wasm.Compilation.IRegoCompiler.CompileBundle*
-  name: CompileBundle
-  href: api/OpaDotNet.Wasm.Compilation.IRegoCompiler.html#OpaDotNet_Wasm_Compilation_IRegoCompiler_CompileBundle_
-  commentId: Overload:OpaDotNet.Wasm.Compilation.IRegoCompiler.CompileBundle
-  isSpec: "True"
-  fullName: OpaDotNet.Wasm.Compilation.IRegoCompiler.CompileBundle
-  nameWithType: IRegoCompiler.CompileBundle
-- uid: OpaDotNet.Wasm.Compilation.IRegoCompiler.CompileFile(System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
-  name: CompileFile(string, IEnumerable<string>?, CancellationToken)
-  href: api/OpaDotNet.Wasm.Compilation.IRegoCompiler.html#OpaDotNet_Wasm_Compilation_IRegoCompiler_CompileFile_System_String_System_Collections_Generic_IEnumerable_System_String__System_Threading_CancellationToken_
-  commentId: M:OpaDotNet.Wasm.Compilation.IRegoCompiler.CompileFile(System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
-  name.vb: CompileFile(String, IEnumerable(Of String), CancellationToken)
-  fullName: OpaDotNet.Wasm.Compilation.IRegoCompiler.CompileFile(string, System.Collections.Generic.IEnumerable<string>?, System.Threading.CancellationToken)
-  fullName.vb: OpaDotNet.Wasm.Compilation.IRegoCompiler.CompileFile(String, System.Collections.Generic.IEnumerable(Of String), System.Threading.CancellationToken)
-  nameWithType: IRegoCompiler.CompileFile(string, IEnumerable<string>?, CancellationToken)
-  nameWithType.vb: IRegoCompiler.CompileFile(String, IEnumerable(Of String), CancellationToken)
-- uid: OpaDotNet.Wasm.Compilation.IRegoCompiler.CompileFile*
-  name: CompileFile
-  href: api/OpaDotNet.Wasm.Compilation.IRegoCompiler.html#OpaDotNet_Wasm_Compilation_IRegoCompiler_CompileFile_
-  commentId: Overload:OpaDotNet.Wasm.Compilation.IRegoCompiler.CompileFile
-  isSpec: "True"
-  fullName: OpaDotNet.Wasm.Compilation.IRegoCompiler.CompileFile
-  nameWithType: IRegoCompiler.CompileFile
-- uid: OpaDotNet.Wasm.Compilation.IRegoCompiler.CompileSource(System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
-  name: CompileSource(string, IEnumerable<string>?, CancellationToken)
-  href: api/OpaDotNet.Wasm.Compilation.IRegoCompiler.html#OpaDotNet_Wasm_Compilation_IRegoCompiler_CompileSource_System_String_System_Collections_Generic_IEnumerable_System_String__System_Threading_CancellationToken_
-  commentId: M:OpaDotNet.Wasm.Compilation.IRegoCompiler.CompileSource(System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
-  name.vb: CompileSource(String, IEnumerable(Of String), CancellationToken)
-  fullName: OpaDotNet.Wasm.Compilation.IRegoCompiler.CompileSource(string, System.Collections.Generic.IEnumerable<string>?, System.Threading.CancellationToken)
-  fullName.vb: OpaDotNet.Wasm.Compilation.IRegoCompiler.CompileSource(String, System.Collections.Generic.IEnumerable(Of String), System.Threading.CancellationToken)
-  nameWithType: IRegoCompiler.CompileSource(string, IEnumerable<string>?, CancellationToken)
-  nameWithType.vb: IRegoCompiler.CompileSource(String, IEnumerable(Of String), CancellationToken)
-- uid: OpaDotNet.Wasm.Compilation.IRegoCompiler.CompileSource*
-  name: CompileSource
-  href: api/OpaDotNet.Wasm.Compilation.IRegoCompiler.html#OpaDotNet_Wasm_Compilation_IRegoCompiler_CompileSource_
-  commentId: Overload:OpaDotNet.Wasm.Compilation.IRegoCompiler.CompileSource
-  isSpec: "True"
-  fullName: OpaDotNet.Wasm.Compilation.IRegoCompiler.CompileSource
-  nameWithType: IRegoCompiler.CompileSource
-- uid: OpaDotNet.Wasm.Compilation.RegoCliCompiler
-  name: RegoCliCompiler
-  href: api/OpaDotNet.Wasm.Compilation.RegoCliCompiler.html
-  commentId: T:OpaDotNet.Wasm.Compilation.RegoCliCompiler
-  fullName: OpaDotNet.Wasm.Compilation.RegoCliCompiler
-  nameWithType: RegoCliCompiler
-- uid: OpaDotNet.Wasm.Compilation.RegoCliCompiler.#ctor(Microsoft.Extensions.Options.IOptions{OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions},Microsoft.Extensions.Logging.ILogger{OpaDotNet.Wasm.Compilation.RegoCliCompiler})
-  name: RegoCliCompiler(IOptions<RegoCliCompilerOptions>?, ILogger<RegoCliCompiler>?)
-  href: api/OpaDotNet.Wasm.Compilation.RegoCliCompiler.html#OpaDotNet_Wasm_Compilation_RegoCliCompiler__ctor_Microsoft_Extensions_Options_IOptions_OpaDotNet_Wasm_Compilation_RegoCliCompilerOptions__Microsoft_Extensions_Logging_ILogger_OpaDotNet_Wasm_Compilation_RegoCliCompiler__
-  commentId: M:OpaDotNet.Wasm.Compilation.RegoCliCompiler.#ctor(Microsoft.Extensions.Options.IOptions{OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions},Microsoft.Extensions.Logging.ILogger{OpaDotNet.Wasm.Compilation.RegoCliCompiler})
-  name.vb: New(IOptions(Of RegoCliCompilerOptions), ILogger(Of RegoCliCompiler))
-  fullName: OpaDotNet.Wasm.Compilation.RegoCliCompiler.RegoCliCompiler(Microsoft.Extensions.Options.IOptions<OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions>?, Microsoft.Extensions.Logging.ILogger<OpaDotNet.Wasm.Compilation.RegoCliCompiler>?)
-  fullName.vb: OpaDotNet.Wasm.Compilation.RegoCliCompiler.New(Microsoft.Extensions.Options.IOptions(Of OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions), Microsoft.Extensions.Logging.ILogger(Of OpaDotNet.Wasm.Compilation.RegoCliCompiler))
-  nameWithType: RegoCliCompiler.RegoCliCompiler(IOptions<RegoCliCompilerOptions>?, ILogger<RegoCliCompiler>?)
-  nameWithType.vb: RegoCliCompiler.New(IOptions(Of RegoCliCompilerOptions), ILogger(Of RegoCliCompiler))
-- uid: OpaDotNet.Wasm.Compilation.RegoCliCompiler.#ctor*
-  name: RegoCliCompiler
-  href: api/OpaDotNet.Wasm.Compilation.RegoCliCompiler.html#OpaDotNet_Wasm_Compilation_RegoCliCompiler__ctor_
-  commentId: Overload:OpaDotNet.Wasm.Compilation.RegoCliCompiler.#ctor
-  isSpec: "True"
-  name.vb: New
-  fullName: OpaDotNet.Wasm.Compilation.RegoCliCompiler.RegoCliCompiler
-  fullName.vb: OpaDotNet.Wasm.Compilation.RegoCliCompiler.New
-  nameWithType: RegoCliCompiler.RegoCliCompiler
-  nameWithType.vb: RegoCliCompiler.New
-- uid: OpaDotNet.Wasm.Compilation.RegoCliCompiler.CompileBundle(System.String,System.Collections.Generic.IEnumerable{System.String},System.String,System.Threading.CancellationToken)
-  name: CompileBundle(string, IEnumerable<string>?, string?, CancellationToken)
-  href: api/OpaDotNet.Wasm.Compilation.RegoCliCompiler.html#OpaDotNet_Wasm_Compilation_RegoCliCompiler_CompileBundle_System_String_System_Collections_Generic_IEnumerable_System_String__System_String_System_Threading_CancellationToken_
-  commentId: M:OpaDotNet.Wasm.Compilation.RegoCliCompiler.CompileBundle(System.String,System.Collections.Generic.IEnumerable{System.String},System.String,System.Threading.CancellationToken)
-  name.vb: CompileBundle(String, IEnumerable(Of String), String, CancellationToken)
-  fullName: OpaDotNet.Wasm.Compilation.RegoCliCompiler.CompileBundle(string, System.Collections.Generic.IEnumerable<string>?, string?, System.Threading.CancellationToken)
-  fullName.vb: OpaDotNet.Wasm.Compilation.RegoCliCompiler.CompileBundle(String, System.Collections.Generic.IEnumerable(Of String), String, System.Threading.CancellationToken)
-  nameWithType: RegoCliCompiler.CompileBundle(string, IEnumerable<string>?, string?, CancellationToken)
-  nameWithType.vb: RegoCliCompiler.CompileBundle(String, IEnumerable(Of String), String, CancellationToken)
-- uid: OpaDotNet.Wasm.Compilation.RegoCliCompiler.CompileBundle*
-  name: CompileBundle
-  href: api/OpaDotNet.Wasm.Compilation.RegoCliCompiler.html#OpaDotNet_Wasm_Compilation_RegoCliCompiler_CompileBundle_
-  commentId: Overload:OpaDotNet.Wasm.Compilation.RegoCliCompiler.CompileBundle
-  isSpec: "True"
-  fullName: OpaDotNet.Wasm.Compilation.RegoCliCompiler.CompileBundle
-  nameWithType: RegoCliCompiler.CompileBundle
-- uid: OpaDotNet.Wasm.Compilation.RegoCliCompiler.CompileFile(System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
-  name: CompileFile(string, IEnumerable<string>?, CancellationToken)
-  href: api/OpaDotNet.Wasm.Compilation.RegoCliCompiler.html#OpaDotNet_Wasm_Compilation_RegoCliCompiler_CompileFile_System_String_System_Collections_Generic_IEnumerable_System_String__System_Threading_CancellationToken_
-  commentId: M:OpaDotNet.Wasm.Compilation.RegoCliCompiler.CompileFile(System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
-  name.vb: CompileFile(String, IEnumerable(Of String), CancellationToken)
-  fullName: OpaDotNet.Wasm.Compilation.RegoCliCompiler.CompileFile(string, System.Collections.Generic.IEnumerable<string>?, System.Threading.CancellationToken)
-  fullName.vb: OpaDotNet.Wasm.Compilation.RegoCliCompiler.CompileFile(String, System.Collections.Generic.IEnumerable(Of String), System.Threading.CancellationToken)
-  nameWithType: RegoCliCompiler.CompileFile(string, IEnumerable<string>?, CancellationToken)
-  nameWithType.vb: RegoCliCompiler.CompileFile(String, IEnumerable(Of String), CancellationToken)
-- uid: OpaDotNet.Wasm.Compilation.RegoCliCompiler.CompileFile*
-  name: CompileFile
-  href: api/OpaDotNet.Wasm.Compilation.RegoCliCompiler.html#OpaDotNet_Wasm_Compilation_RegoCliCompiler_CompileFile_
-  commentId: Overload:OpaDotNet.Wasm.Compilation.RegoCliCompiler.CompileFile
-  isSpec: "True"
-  fullName: OpaDotNet.Wasm.Compilation.RegoCliCompiler.CompileFile
-  nameWithType: RegoCliCompiler.CompileFile
-- uid: OpaDotNet.Wasm.Compilation.RegoCliCompiler.CompileSource(System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
-  name: CompileSource(string, IEnumerable<string>?, CancellationToken)
-  href: api/OpaDotNet.Wasm.Compilation.RegoCliCompiler.html#OpaDotNet_Wasm_Compilation_RegoCliCompiler_CompileSource_System_String_System_Collections_Generic_IEnumerable_System_String__System_Threading_CancellationToken_
-  commentId: M:OpaDotNet.Wasm.Compilation.RegoCliCompiler.CompileSource(System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
-  name.vb: CompileSource(String, IEnumerable(Of String), CancellationToken)
-  fullName: OpaDotNet.Wasm.Compilation.RegoCliCompiler.CompileSource(string, System.Collections.Generic.IEnumerable<string>?, System.Threading.CancellationToken)
-  fullName.vb: OpaDotNet.Wasm.Compilation.RegoCliCompiler.CompileSource(String, System.Collections.Generic.IEnumerable(Of String), System.Threading.CancellationToken)
-  nameWithType: RegoCliCompiler.CompileSource(string, IEnumerable<string>?, CancellationToken)
-  nameWithType.vb: RegoCliCompiler.CompileSource(String, IEnumerable(Of String), CancellationToken)
-- uid: OpaDotNet.Wasm.Compilation.RegoCliCompiler.CompileSource*
-  name: CompileSource
-  href: api/OpaDotNet.Wasm.Compilation.RegoCliCompiler.html#OpaDotNet_Wasm_Compilation_RegoCliCompiler_CompileSource_
-  commentId: Overload:OpaDotNet.Wasm.Compilation.RegoCliCompiler.CompileSource
-  isSpec: "True"
-  fullName: OpaDotNet.Wasm.Compilation.RegoCliCompiler.CompileSource
-  nameWithType: RegoCliCompiler.CompileSource
-- uid: OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions
-  name: RegoCliCompilerOptions
-  href: api/OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.html
-  commentId: T:OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions
-  fullName: OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions
-  nameWithType: RegoCliCompilerOptions
-- uid: OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.CapabilitiesVersion
-  name: CapabilitiesVersion
-  href: api/OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.html#OpaDotNet_Wasm_Compilation_RegoCliCompilerOptions_CapabilitiesVersion
-  commentId: P:OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.CapabilitiesVersion
-  fullName: OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.CapabilitiesVersion
-  nameWithType: RegoCliCompilerOptions.CapabilitiesVersion
-- uid: OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.CapabilitiesVersion*
-  name: CapabilitiesVersion
-  href: api/OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.html#OpaDotNet_Wasm_Compilation_RegoCliCompilerOptions_CapabilitiesVersion_
-  commentId: Overload:OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.CapabilitiesVersion
-  isSpec: "True"
-  fullName: OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.CapabilitiesVersion
-  nameWithType: RegoCliCompilerOptions.CapabilitiesVersion
-- uid: OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.ExtraArguments
-  name: ExtraArguments
-  href: api/OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.html#OpaDotNet_Wasm_Compilation_RegoCliCompilerOptions_ExtraArguments
-  commentId: P:OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.ExtraArguments
-  fullName: OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.ExtraArguments
-  nameWithType: RegoCliCompilerOptions.ExtraArguments
-- uid: OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.ExtraArguments*
-  name: ExtraArguments
-  href: api/OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.html#OpaDotNet_Wasm_Compilation_RegoCliCompilerOptions_ExtraArguments_
-  commentId: Overload:OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.ExtraArguments
-  isSpec: "True"
-  fullName: OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.ExtraArguments
-  nameWithType: RegoCliCompilerOptions.ExtraArguments
-- uid: OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.OpaToolPath
-  name: OpaToolPath
-  href: api/OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.html#OpaDotNet_Wasm_Compilation_RegoCliCompilerOptions_OpaToolPath
-  commentId: P:OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.OpaToolPath
-  fullName: OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.OpaToolPath
-  nameWithType: RegoCliCompilerOptions.OpaToolPath
-- uid: OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.OpaToolPath*
-  name: OpaToolPath
-  href: api/OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.html#OpaDotNet_Wasm_Compilation_RegoCliCompilerOptions_OpaToolPath_
-  commentId: Overload:OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.OpaToolPath
-  isSpec: "True"
-  fullName: OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.OpaToolPath
-  nameWithType: RegoCliCompilerOptions.OpaToolPath
-- uid: OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.OutputPath
-  name: OutputPath
-  href: api/OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.html#OpaDotNet_Wasm_Compilation_RegoCliCompilerOptions_OutputPath
-  commentId: P:OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.OutputPath
-  fullName: OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.OutputPath
-  nameWithType: RegoCliCompilerOptions.OutputPath
-- uid: OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.OutputPath*
-  name: OutputPath
-  href: api/OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.html#OpaDotNet_Wasm_Compilation_RegoCliCompilerOptions_OutputPath_
-  commentId: Overload:OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.OutputPath
-  isSpec: "True"
-  fullName: OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.OutputPath
-  nameWithType: RegoCliCompilerOptions.OutputPath
-- uid: OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.PreserveBuildArtifacts
-  name: PreserveBuildArtifacts
-  href: api/OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.html#OpaDotNet_Wasm_Compilation_RegoCliCompilerOptions_PreserveBuildArtifacts
-  commentId: P:OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.PreserveBuildArtifacts
-  fullName: OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.PreserveBuildArtifacts
-  nameWithType: RegoCliCompilerOptions.PreserveBuildArtifacts
-- uid: OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.PreserveBuildArtifacts*
-  name: PreserveBuildArtifacts
-  href: api/OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.html#OpaDotNet_Wasm_Compilation_RegoCliCompilerOptions_PreserveBuildArtifacts_
-  commentId: Overload:OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.PreserveBuildArtifacts
-  isSpec: "True"
-  fullName: OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions.PreserveBuildArtifacts
-  nameWithType: RegoCliCompilerOptions.PreserveBuildArtifacts
-- uid: OpaDotNet.Wasm.Compilation.RegoCompilationException
-  name: RegoCompilationException
-  href: api/OpaDotNet.Wasm.Compilation.RegoCompilationException.html
-  commentId: T:OpaDotNet.Wasm.Compilation.RegoCompilationException
-  fullName: OpaDotNet.Wasm.Compilation.RegoCompilationException
-  nameWithType: RegoCompilationException
-- uid: OpaDotNet.Wasm.Compilation.RegoCompilationException.#ctor(System.String,System.String)
-  name: RegoCompilationException(string, string?)
-  href: api/OpaDotNet.Wasm.Compilation.RegoCompilationException.html#OpaDotNet_Wasm_Compilation_RegoCompilationException__ctor_System_String_System_String_
-  commentId: M:OpaDotNet.Wasm.Compilation.RegoCompilationException.#ctor(System.String,System.String)
-  name.vb: New(String, String)
-  fullName: OpaDotNet.Wasm.Compilation.RegoCompilationException.RegoCompilationException(string, string?)
-  fullName.vb: OpaDotNet.Wasm.Compilation.RegoCompilationException.New(String, String)
-  nameWithType: RegoCompilationException.RegoCompilationException(string, string?)
-  nameWithType.vb: RegoCompilationException.New(String, String)
-- uid: OpaDotNet.Wasm.Compilation.RegoCompilationException.#ctor(System.String,System.String,System.Exception)
-  name: RegoCompilationException(string, string?, Exception?)
-  href: api/OpaDotNet.Wasm.Compilation.RegoCompilationException.html#OpaDotNet_Wasm_Compilation_RegoCompilationException__ctor_System_String_System_String_System_Exception_
-  commentId: M:OpaDotNet.Wasm.Compilation.RegoCompilationException.#ctor(System.String,System.String,System.Exception)
-  name.vb: New(String, String, Exception)
-  fullName: OpaDotNet.Wasm.Compilation.RegoCompilationException.RegoCompilationException(string, string?, System.Exception?)
-  fullName.vb: OpaDotNet.Wasm.Compilation.RegoCompilationException.New(String, String, System.Exception)
-  nameWithType: RegoCompilationException.RegoCompilationException(string, string?, Exception?)
-  nameWithType.vb: RegoCompilationException.New(String, String, Exception)
-- uid: OpaDotNet.Wasm.Compilation.RegoCompilationException.#ctor*
-  name: RegoCompilationException
-  href: api/OpaDotNet.Wasm.Compilation.RegoCompilationException.html#OpaDotNet_Wasm_Compilation_RegoCompilationException__ctor_
-  commentId: Overload:OpaDotNet.Wasm.Compilation.RegoCompilationException.#ctor
-  isSpec: "True"
-  name.vb: New
-  fullName: OpaDotNet.Wasm.Compilation.RegoCompilationException.RegoCompilationException
-  fullName.vb: OpaDotNet.Wasm.Compilation.RegoCompilationException.New
-  nameWithType: RegoCompilationException.RegoCompilationException
-  nameWithType.vb: RegoCompilationException.New
-- uid: OpaDotNet.Wasm.Compilation.RegoCompilationException.SourceFile
-  name: SourceFile
-  href: api/OpaDotNet.Wasm.Compilation.RegoCompilationException.html#OpaDotNet_Wasm_Compilation_RegoCompilationException_SourceFile
-  commentId: P:OpaDotNet.Wasm.Compilation.RegoCompilationException.SourceFile
-  fullName: OpaDotNet.Wasm.Compilation.RegoCompilationException.SourceFile
-  nameWithType: RegoCompilationException.SourceFile
-- uid: OpaDotNet.Wasm.Compilation.RegoCompilationException.SourceFile*
-  name: SourceFile
-  href: api/OpaDotNet.Wasm.Compilation.RegoCompilationException.html#OpaDotNet_Wasm_Compilation_RegoCompilationException_SourceFile_
-  commentId: Overload:OpaDotNet.Wasm.Compilation.RegoCompilationException.SourceFile
-  isSpec: "True"
-  fullName: OpaDotNet.Wasm.Compilation.RegoCompilationException.SourceFile
-  nameWithType: RegoCompilationException.SourceFile
+- uid: OpaDotNet.Wasm.BuiltinContext.ToString
+  name: ToString()
+  href: api/OpaDotNet.Wasm.BuiltinContext.html#OpaDotNet_Wasm_BuiltinContext_ToString
+  commentId: M:OpaDotNet.Wasm.BuiltinContext.ToString
+  fullName: OpaDotNet.Wasm.BuiltinContext.ToString()
+  nameWithType: BuiltinContext.ToString()
+- uid: OpaDotNet.Wasm.BuiltinContext.ToString*
+  name: ToString
+  href: api/OpaDotNet.Wasm.BuiltinContext.html#OpaDotNet_Wasm_BuiltinContext_ToString_
+  commentId: Overload:OpaDotNet.Wasm.BuiltinContext.ToString
+  fullName: OpaDotNet.Wasm.BuiltinContext.ToString
+  nameWithType: BuiltinContext.ToString
+- uid: OpaDotNet.Wasm.BuiltinContext.op_Equality(OpaDotNet.Wasm.BuiltinContext,OpaDotNet.Wasm.BuiltinContext)
+  name: operator ==(BuiltinContext?, BuiltinContext?)
+  href: api/OpaDotNet.Wasm.BuiltinContext.html#OpaDotNet_Wasm_BuiltinContext_op_Equality_OpaDotNet_Wasm_BuiltinContext_OpaDotNet_Wasm_BuiltinContext_
+  commentId: M:OpaDotNet.Wasm.BuiltinContext.op_Equality(OpaDotNet.Wasm.BuiltinContext,OpaDotNet.Wasm.BuiltinContext)
+  name.vb: =(BuiltinContext, BuiltinContext)
+  fullName: OpaDotNet.Wasm.BuiltinContext.operator ==(OpaDotNet.Wasm.BuiltinContext?, OpaDotNet.Wasm.BuiltinContext?)
+  fullName.vb: OpaDotNet.Wasm.BuiltinContext.=(OpaDotNet.Wasm.BuiltinContext, OpaDotNet.Wasm.BuiltinContext)
+  nameWithType: BuiltinContext.operator ==(BuiltinContext?, BuiltinContext?)
+  nameWithType.vb: BuiltinContext.=(BuiltinContext, BuiltinContext)
+- uid: OpaDotNet.Wasm.BuiltinContext.op_Equality*
+  name: operator ==
+  href: api/OpaDotNet.Wasm.BuiltinContext.html#OpaDotNet_Wasm_BuiltinContext_op_Equality_
+  commentId: Overload:OpaDotNet.Wasm.BuiltinContext.op_Equality
+  name.vb: =
+  fullName: OpaDotNet.Wasm.BuiltinContext.operator ==
+  fullName.vb: OpaDotNet.Wasm.BuiltinContext.=
+  nameWithType: BuiltinContext.operator ==
+  nameWithType.vb: BuiltinContext.=
+- uid: OpaDotNet.Wasm.BuiltinContext.op_Inequality(OpaDotNet.Wasm.BuiltinContext,OpaDotNet.Wasm.BuiltinContext)
+  name: operator !=(BuiltinContext?, BuiltinContext?)
+  href: api/OpaDotNet.Wasm.BuiltinContext.html#OpaDotNet_Wasm_BuiltinContext_op_Inequality_OpaDotNet_Wasm_BuiltinContext_OpaDotNet_Wasm_BuiltinContext_
+  commentId: M:OpaDotNet.Wasm.BuiltinContext.op_Inequality(OpaDotNet.Wasm.BuiltinContext,OpaDotNet.Wasm.BuiltinContext)
+  name.vb: <>(BuiltinContext, BuiltinContext)
+  fullName: OpaDotNet.Wasm.BuiltinContext.operator !=(OpaDotNet.Wasm.BuiltinContext?, OpaDotNet.Wasm.BuiltinContext?)
+  fullName.vb: OpaDotNet.Wasm.BuiltinContext.<>(OpaDotNet.Wasm.BuiltinContext, OpaDotNet.Wasm.BuiltinContext)
+  nameWithType: BuiltinContext.operator !=(BuiltinContext?, BuiltinContext?)
+  nameWithType.vb: BuiltinContext.<>(BuiltinContext, BuiltinContext)
+- uid: OpaDotNet.Wasm.BuiltinContext.op_Inequality*
+  name: operator !=
+  href: api/OpaDotNet.Wasm.BuiltinContext.html#OpaDotNet_Wasm_BuiltinContext_op_Inequality_
+  commentId: Overload:OpaDotNet.Wasm.BuiltinContext.op_Inequality
+  name.vb: <>
+  fullName: OpaDotNet.Wasm.BuiltinContext.operator !=
+  fullName.vb: OpaDotNet.Wasm.BuiltinContext.<>
+  nameWithType: BuiltinContext.operator !=
+  nameWithType.vb: BuiltinContext.<>
+- uid: OpaDotNet.Wasm.BuiltinContext.{Clone}$
+  name: <Clone>$()
+  href: api/OpaDotNet.Wasm.BuiltinContext.html#OpaDotNet_Wasm_BuiltinContext__Clone__
+  commentId: M:OpaDotNet.Wasm.BuiltinContext.{Clone}$
+  fullName: OpaDotNet.Wasm.BuiltinContext.<Clone>$()
+  nameWithType: BuiltinContext.<Clone>$()
+- uid: OpaDotNet.Wasm.BuiltinContext.{Clone}$*
+  name: <Clone>$
+  href: api/OpaDotNet.Wasm.BuiltinContext.html#OpaDotNet_Wasm_BuiltinContext__Clone___
+  commentId: Overload:OpaDotNet.Wasm.BuiltinContext.{Clone}$
+  fullName: OpaDotNet.Wasm.BuiltinContext.<Clone>$
+  nameWithType: BuiltinContext.<Clone>$
 - uid: OpaDotNet.Wasm.DefaultOpaImportsAbi
   name: DefaultOpaImportsAbi
   href: api/OpaDotNet.Wasm.DefaultOpaImportsAbi.html
   commentId: T:OpaDotNet.Wasm.DefaultOpaImportsAbi
   fullName: OpaDotNet.Wasm.DefaultOpaImportsAbi
   nameWithType: DefaultOpaImportsAbi
+- uid: OpaDotNet.Wasm.DefaultOpaImportsAbi.#ctor
+  name: DefaultOpaImportsAbi()
+  href: api/OpaDotNet.Wasm.DefaultOpaImportsAbi.html#OpaDotNet_Wasm_DefaultOpaImportsAbi__ctor
+  commentId: M:OpaDotNet.Wasm.DefaultOpaImportsAbi.#ctor
+  name.vb: New()
+  fullName: OpaDotNet.Wasm.DefaultOpaImportsAbi.DefaultOpaImportsAbi()
+  fullName.vb: OpaDotNet.Wasm.DefaultOpaImportsAbi.New()
+  nameWithType: DefaultOpaImportsAbi.DefaultOpaImportsAbi()
+  nameWithType.vb: DefaultOpaImportsAbi.New()
+- uid: OpaDotNet.Wasm.DefaultOpaImportsAbi.#ctor*
+  name: DefaultOpaImportsAbi
+  href: api/OpaDotNet.Wasm.DefaultOpaImportsAbi.html#OpaDotNet_Wasm_DefaultOpaImportsAbi__ctor_
+  commentId: Overload:OpaDotNet.Wasm.DefaultOpaImportsAbi.#ctor
+  name.vb: New
+  fullName: OpaDotNet.Wasm.DefaultOpaImportsAbi.DefaultOpaImportsAbi
+  fullName.vb: OpaDotNet.Wasm.DefaultOpaImportsAbi.New
+  nameWithType: DefaultOpaImportsAbi.DefaultOpaImportsAbi
+  nameWithType.vb: DefaultOpaImportsAbi.New
 - uid: OpaDotNet.Wasm.DefaultOpaImportsAbi.Abort(System.String)
   name: Abort(string)
   href: api/OpaDotNet.Wasm.DefaultOpaImportsAbi.html#OpaDotNet_Wasm_DefaultOpaImportsAbi_Abort_System_String_
@@ -399,14 +1728,12 @@ references:
   name: Abort
   href: api/OpaDotNet.Wasm.DefaultOpaImportsAbi.html#OpaDotNet_Wasm_DefaultOpaImportsAbi_Abort_
   commentId: Overload:OpaDotNet.Wasm.DefaultOpaImportsAbi.Abort
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.DefaultOpaImportsAbi.Abort
   nameWithType: DefaultOpaImportsAbi.Abort
 - uid: OpaDotNet.Wasm.DefaultOpaImportsAbi.CacheGetOrAddValue*
   name: CacheGetOrAddValue
   href: api/OpaDotNet.Wasm.DefaultOpaImportsAbi.html#OpaDotNet_Wasm_DefaultOpaImportsAbi_CacheGetOrAddValue_
   commentId: Overload:OpaDotNet.Wasm.DefaultOpaImportsAbi.CacheGetOrAddValue
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.DefaultOpaImportsAbi.CacheGetOrAddValue
   nameWithType: DefaultOpaImportsAbi.CacheGetOrAddValue
 - uid: OpaDotNet.Wasm.DefaultOpaImportsAbi.CacheGetOrAddValue``1(System.String,System.Func{``0})
@@ -452,7 +1779,6 @@ references:
   name: Func
   href: api/OpaDotNet.Wasm.DefaultOpaImportsAbi.html#OpaDotNet_Wasm_DefaultOpaImportsAbi_Func_
   commentId: Overload:OpaDotNet.Wasm.DefaultOpaImportsAbi.Func
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.DefaultOpaImportsAbi.Func
   nameWithType: DefaultOpaImportsAbi.Func
 - uid: OpaDotNet.Wasm.DefaultOpaImportsAbi.NewGuid
@@ -465,7 +1791,6 @@ references:
   name: NewGuid
   href: api/OpaDotNet.Wasm.DefaultOpaImportsAbi.html#OpaDotNet_Wasm_DefaultOpaImportsAbi_NewGuid_
   commentId: Overload:OpaDotNet.Wasm.DefaultOpaImportsAbi.NewGuid
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.DefaultOpaImportsAbi.NewGuid
   nameWithType: DefaultOpaImportsAbi.NewGuid
 - uid: OpaDotNet.Wasm.DefaultOpaImportsAbi.Now
@@ -478,7 +1803,6 @@ references:
   name: Now
   href: api/OpaDotNet.Wasm.DefaultOpaImportsAbi.html#OpaDotNet_Wasm_DefaultOpaImportsAbi_Now_
   commentId: Overload:OpaDotNet.Wasm.DefaultOpaImportsAbi.Now
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.DefaultOpaImportsAbi.Now
   nameWithType: DefaultOpaImportsAbi.Now
 - uid: OpaDotNet.Wasm.DefaultOpaImportsAbi.OnError(OpaDotNet.Wasm.BuiltinContext,System.Exception)
@@ -491,7 +1815,6 @@ references:
   name: OnError
   href: api/OpaDotNet.Wasm.DefaultOpaImportsAbi.html#OpaDotNet_Wasm_DefaultOpaImportsAbi_OnError_
   commentId: Overload:OpaDotNet.Wasm.DefaultOpaImportsAbi.OnError
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.DefaultOpaImportsAbi.OnError
   nameWithType: DefaultOpaImportsAbi.OnError
 - uid: OpaDotNet.Wasm.DefaultOpaImportsAbi.PrintLn(System.String)
@@ -507,7 +1830,6 @@ references:
   name: PrintLn
   href: api/OpaDotNet.Wasm.DefaultOpaImportsAbi.html#OpaDotNet_Wasm_DefaultOpaImportsAbi_PrintLn_
   commentId: Overload:OpaDotNet.Wasm.DefaultOpaImportsAbi.PrintLn
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.DefaultOpaImportsAbi.PrintLn
   nameWithType: DefaultOpaImportsAbi.PrintLn
 - uid: OpaDotNet.Wasm.DefaultOpaImportsAbi.Random
@@ -520,7 +1842,6 @@ references:
   name: Random
   href: api/OpaDotNet.Wasm.DefaultOpaImportsAbi.html#OpaDotNet_Wasm_DefaultOpaImportsAbi_Random_
   commentId: Overload:OpaDotNet.Wasm.DefaultOpaImportsAbi.Random
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.DefaultOpaImportsAbi.Random
   nameWithType: DefaultOpaImportsAbi.Random
 - uid: OpaDotNet.Wasm.DefaultOpaImportsAbi.Reset
@@ -533,7 +1854,6 @@ references:
   name: Reset
   href: api/OpaDotNet.Wasm.DefaultOpaImportsAbi.html#OpaDotNet_Wasm_DefaultOpaImportsAbi_Reset_
   commentId: Overload:OpaDotNet.Wasm.DefaultOpaImportsAbi.Reset
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.DefaultOpaImportsAbi.Reset
   nameWithType: DefaultOpaImportsAbi.Reset
 - uid: OpaDotNet.Wasm.DefaultOpaImportsAbi.Trace(System.String)
@@ -549,7 +1869,6 @@ references:
   name: Trace
   href: api/OpaDotNet.Wasm.DefaultOpaImportsAbi.html#OpaDotNet_Wasm_DefaultOpaImportsAbi_Trace_
   commentId: Overload:OpaDotNet.Wasm.DefaultOpaImportsAbi.Trace
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.DefaultOpaImportsAbi.Trace
   nameWithType: DefaultOpaImportsAbi.Trace
 - uid: OpaDotNet.Wasm.ExportResolutionException
@@ -571,7 +1890,6 @@ references:
   name: ExportResolutionException
   href: api/OpaDotNet.Wasm.ExportResolutionException.html#OpaDotNet_Wasm_ExportResolutionException__ctor_
   commentId: Overload:OpaDotNet.Wasm.ExportResolutionException.#ctor
-  isSpec: "True"
   name.vb: New
   fullName: OpaDotNet.Wasm.ExportResolutionException.ExportResolutionException
   fullName.vb: OpaDotNet.Wasm.ExportResolutionException.New
@@ -587,7 +1905,6 @@ references:
   name: AbiVersion
   href: api/OpaDotNet.Wasm.ExportResolutionException.html#OpaDotNet_Wasm_ExportResolutionException_AbiVersion_
   commentId: Overload:OpaDotNet.Wasm.ExportResolutionException.AbiVersion
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.ExportResolutionException.AbiVersion
   nameWithType: ExportResolutionException.AbiVersion
 - uid: OpaDotNet.Wasm.ExportResolutionException.ExternalName
@@ -600,7 +1917,6 @@ references:
   name: ExternalName
   href: api/OpaDotNet.Wasm.ExportResolutionException.html#OpaDotNet_Wasm_ExportResolutionException_ExternalName_
   commentId: Overload:OpaDotNet.Wasm.ExportResolutionException.ExternalName
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.ExportResolutionException.ExternalName
   nameWithType: ExportResolutionException.ExternalName
 - uid: OpaDotNet.Wasm.Features
@@ -634,7 +1950,6 @@ references:
   name: RemoveDataPath
   href: api/OpaDotNet.Wasm.Features.IUpdateDataFeature.html#OpaDotNet_Wasm_Features_IUpdateDataFeature_RemoveDataPath_
   commentId: Overload:OpaDotNet.Wasm.Features.IUpdateDataFeature.RemoveDataPath
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.Features.IUpdateDataFeature.RemoveDataPath
   nameWithType: IUpdateDataFeature.RemoveDataPath
 - uid: OpaDotNet.Wasm.Features.IUpdateDataFeature.UpdateDataPath(System.ReadOnlySpan{System.Char},System.Collections.Generic.IEnumerable{System.String})
@@ -650,7 +1965,6 @@ references:
   name: UpdateDataPath
   href: api/OpaDotNet.Wasm.Features.IUpdateDataFeature.html#OpaDotNet_Wasm_Features_IUpdateDataFeature_UpdateDataPath_
   commentId: Overload:OpaDotNet.Wasm.Features.IUpdateDataFeature.UpdateDataPath
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.Features.IUpdateDataFeature.UpdateDataPath
   nameWithType: IUpdateDataFeature.UpdateDataPath
 - uid: OpaDotNet.Wasm.IOpaEvaluator
@@ -669,21 +1983,18 @@ references:
   name: AbiVersion
   href: api/OpaDotNet.Wasm.IOpaEvaluator.html#OpaDotNet_Wasm_IOpaEvaluator_AbiVersion_
   commentId: Overload:OpaDotNet.Wasm.IOpaEvaluator.AbiVersion
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.IOpaEvaluator.AbiVersion
   nameWithType: IOpaEvaluator.AbiVersion
 - uid: OpaDotNet.Wasm.IOpaEvaluator.Evaluate*
   name: Evaluate
   href: api/OpaDotNet.Wasm.IOpaEvaluator.html#OpaDotNet_Wasm_IOpaEvaluator_Evaluate_
   commentId: Overload:OpaDotNet.Wasm.IOpaEvaluator.Evaluate
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.IOpaEvaluator.Evaluate
   nameWithType: IOpaEvaluator.Evaluate
 - uid: OpaDotNet.Wasm.IOpaEvaluator.EvaluatePredicate*
   name: EvaluatePredicate
   href: api/OpaDotNet.Wasm.IOpaEvaluator.html#OpaDotNet_Wasm_IOpaEvaluator_EvaluatePredicate_
   commentId: Overload:OpaDotNet.Wasm.IOpaEvaluator.EvaluatePredicate
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.IOpaEvaluator.EvaluatePredicate
   nameWithType: IOpaEvaluator.EvaluatePredicate
 - uid: OpaDotNet.Wasm.IOpaEvaluator.EvaluatePredicate``1(``0,System.String)
@@ -708,7 +2019,6 @@ references:
   name: EvaluateRaw
   href: api/OpaDotNet.Wasm.IOpaEvaluator.html#OpaDotNet_Wasm_IOpaEvaluator_EvaluateRaw_
   commentId: Overload:OpaDotNet.Wasm.IOpaEvaluator.EvaluateRaw
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.IOpaEvaluator.EvaluateRaw
   nameWithType: IOpaEvaluator.EvaluateRaw
 - uid: OpaDotNet.Wasm.IOpaEvaluator.Evaluate``2(``0,System.String)
@@ -730,14 +2040,12 @@ references:
   name: Reset
   href: api/OpaDotNet.Wasm.IOpaEvaluator.html#OpaDotNet_Wasm_IOpaEvaluator_Reset_
   commentId: Overload:OpaDotNet.Wasm.IOpaEvaluator.Reset
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.IOpaEvaluator.Reset
   nameWithType: IOpaEvaluator.Reset
 - uid: OpaDotNet.Wasm.IOpaEvaluator.SetData*
   name: SetData
   href: api/OpaDotNet.Wasm.IOpaEvaluator.html#OpaDotNet_Wasm_IOpaEvaluator_SetData_
   commentId: Overload:OpaDotNet.Wasm.IOpaEvaluator.SetData
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.IOpaEvaluator.SetData
   nameWithType: IOpaEvaluator.SetData
 - uid: OpaDotNet.Wasm.IOpaEvaluator.SetDataFromRawJson(System.ReadOnlySpan{System.Char})
@@ -753,7 +2061,6 @@ references:
   name: SetDataFromRawJson
   href: api/OpaDotNet.Wasm.IOpaEvaluator.html#OpaDotNet_Wasm_IOpaEvaluator_SetDataFromRawJson_
   commentId: Overload:OpaDotNet.Wasm.IOpaEvaluator.SetDataFromRawJson
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.IOpaEvaluator.SetDataFromRawJson
   nameWithType: IOpaEvaluator.SetDataFromRawJson
 - uid: OpaDotNet.Wasm.IOpaEvaluator.SetDataFromStream(System.IO.Stream)
@@ -769,7 +2076,6 @@ references:
   name: SetDataFromStream
   href: api/OpaDotNet.Wasm.IOpaEvaluator.html#OpaDotNet_Wasm_IOpaEvaluator_SetDataFromStream_
   commentId: Overload:OpaDotNet.Wasm.IOpaEvaluator.SetDataFromStream
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.IOpaEvaluator.SetDataFromStream
   nameWithType: IOpaEvaluator.SetDataFromStream
 - uid: OpaDotNet.Wasm.IOpaEvaluator.SetData``1(``0)
@@ -785,7 +2091,6 @@ references:
   name: TryGetFeature
   href: api/OpaDotNet.Wasm.IOpaEvaluator.html#OpaDotNet_Wasm_IOpaEvaluator_TryGetFeature_
   commentId: Overload:OpaDotNet.Wasm.IOpaEvaluator.TryGetFeature
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.IOpaEvaluator.TryGetFeature
   nameWithType: IOpaEvaluator.TryGetFeature
 - uid: OpaDotNet.Wasm.IOpaEvaluator.TryGetFeature``1(``0@)
@@ -816,7 +2121,6 @@ references:
   name: Abort
   href: api/OpaDotNet.Wasm.IOpaImportsAbi.html#OpaDotNet_Wasm_IOpaImportsAbi_Abort_
   commentId: Overload:OpaDotNet.Wasm.IOpaImportsAbi.Abort
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.IOpaImportsAbi.Abort
   nameWithType: IOpaImportsAbi.Abort
 - uid: OpaDotNet.Wasm.IOpaImportsAbi.Func(OpaDotNet.Wasm.BuiltinContext)
@@ -853,7 +2157,6 @@ references:
   name: Func
   href: api/OpaDotNet.Wasm.IOpaImportsAbi.html#OpaDotNet_Wasm_IOpaImportsAbi_Func_
   commentId: Overload:OpaDotNet.Wasm.IOpaImportsAbi.Func
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.IOpaImportsAbi.Func
   nameWithType: IOpaImportsAbi.Func
 - uid: OpaDotNet.Wasm.IOpaImportsAbi.PrintLn(System.String)
@@ -869,7 +2172,6 @@ references:
   name: PrintLn
   href: api/OpaDotNet.Wasm.IOpaImportsAbi.html#OpaDotNet_Wasm_IOpaImportsAbi_PrintLn_
   commentId: Overload:OpaDotNet.Wasm.IOpaImportsAbi.PrintLn
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.IOpaImportsAbi.PrintLn
   nameWithType: IOpaImportsAbi.PrintLn
 - uid: OpaDotNet.Wasm.IOpaImportsAbi.Reset
@@ -882,7 +2184,6 @@ references:
   name: Reset
   href: api/OpaDotNet.Wasm.IOpaImportsAbi.html#OpaDotNet_Wasm_IOpaImportsAbi_Reset_
   commentId: Overload:OpaDotNet.Wasm.IOpaImportsAbi.Reset
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.IOpaImportsAbi.Reset
   nameWithType: IOpaImportsAbi.Reset
 - uid: OpaDotNet.Wasm.OpaBundleEvaluatorFactory
@@ -904,7 +2205,6 @@ references:
   name: OpaBundleEvaluatorFactory
   href: api/OpaDotNet.Wasm.OpaBundleEvaluatorFactory.html#OpaDotNet_Wasm_OpaBundleEvaluatorFactory__ctor_
   commentId: Overload:OpaDotNet.Wasm.OpaBundleEvaluatorFactory.#ctor
-  isSpec: "True"
   name.vb: New
   fullName: OpaDotNet.Wasm.OpaBundleEvaluatorFactory.OpaBundleEvaluatorFactory
   fullName.vb: OpaDotNet.Wasm.OpaBundleEvaluatorFactory.New
@@ -920,7 +2220,6 @@ references:
   name: Create
   href: api/OpaDotNet.Wasm.OpaBundleEvaluatorFactory.html#OpaDotNet_Wasm_OpaBundleEvaluatorFactory_Create_
   commentId: Overload:OpaDotNet.Wasm.OpaBundleEvaluatorFactory.Create
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.OpaBundleEvaluatorFactory.Create
   nameWithType: OpaBundleEvaluatorFactory.Create
 - uid: OpaDotNet.Wasm.OpaBundleEvaluatorFactory.Dispose(System.Boolean)
@@ -936,7 +2235,6 @@ references:
   name: Dispose
   href: api/OpaDotNet.Wasm.OpaBundleEvaluatorFactory.html#OpaDotNet_Wasm_OpaBundleEvaluatorFactory_Dispose_
   commentId: Overload:OpaDotNet.Wasm.OpaBundleEvaluatorFactory.Dispose
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.OpaBundleEvaluatorFactory.Dispose
   nameWithType: OpaBundleEvaluatorFactory.Dispose
 - uid: OpaDotNet.Wasm.OpaEvaluationException
@@ -967,7 +2265,6 @@ references:
   name: OpaEvaluationException
   href: api/OpaDotNet.Wasm.OpaEvaluationException.html#OpaDotNet_Wasm_OpaEvaluationException__ctor_
   commentId: Overload:OpaDotNet.Wasm.OpaEvaluationException.#ctor
-  isSpec: "True"
   name.vb: New
   fullName: OpaDotNet.Wasm.OpaEvaluationException.OpaEvaluationException
   fullName.vb: OpaDotNet.Wasm.OpaEvaluationException.New
@@ -992,7 +2289,6 @@ references:
   name: OpaEvaluatorFactory
   href: api/OpaDotNet.Wasm.OpaEvaluatorFactory.html#OpaDotNet_Wasm_OpaEvaluatorFactory__ctor_
   commentId: Overload:OpaDotNet.Wasm.OpaEvaluatorFactory.#ctor
-  isSpec: "True"
   name.vb: New
   fullName: OpaDotNet.Wasm.OpaEvaluatorFactory.OpaEvaluatorFactory
   fullName.vb: OpaDotNet.Wasm.OpaEvaluatorFactory.New
@@ -1008,7 +2304,6 @@ references:
   name: Create
   href: api/OpaDotNet.Wasm.OpaEvaluatorFactory.html#OpaDotNet_Wasm_OpaEvaluatorFactory_Create_
   commentId: Overload:OpaDotNet.Wasm.OpaEvaluatorFactory.Create
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.OpaEvaluatorFactory.Create
   nameWithType: OpaEvaluatorFactory.Create
 - uid: OpaDotNet.Wasm.OpaEvaluatorFactory.CreateFromBundle(System.IO.Stream,OpaDotNet.Wasm.WasmPolicyEngineOptions,System.Func{OpaDotNet.Wasm.IOpaImportsAbi},Microsoft.Extensions.Logging.ILoggerFactory)
@@ -1024,7 +2319,6 @@ references:
   name: CreateFromBundle
   href: api/OpaDotNet.Wasm.OpaEvaluatorFactory.html#OpaDotNet_Wasm_OpaEvaluatorFactory_CreateFromBundle_
   commentId: Overload:OpaDotNet.Wasm.OpaEvaluatorFactory.CreateFromBundle
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.OpaEvaluatorFactory.CreateFromBundle
   nameWithType: OpaEvaluatorFactory.CreateFromBundle
 - uid: OpaDotNet.Wasm.OpaEvaluatorFactory.CreateFromWasm(System.IO.Stream,OpaDotNet.Wasm.WasmPolicyEngineOptions,System.Func{OpaDotNet.Wasm.IOpaImportsAbi},Microsoft.Extensions.Logging.ILoggerFactory)
@@ -1040,7 +2334,6 @@ references:
   name: CreateFromWasm
   href: api/OpaDotNet.Wasm.OpaEvaluatorFactory.html#OpaDotNet_Wasm_OpaEvaluatorFactory_CreateFromWasm_
   commentId: Overload:OpaDotNet.Wasm.OpaEvaluatorFactory.CreateFromWasm
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.OpaEvaluatorFactory.CreateFromWasm
   nameWithType: OpaEvaluatorFactory.CreateFromWasm
 - uid: OpaDotNet.Wasm.OpaEvaluatorFactory.Dispose
@@ -1062,7 +2355,6 @@ references:
   name: Dispose
   href: api/OpaDotNet.Wasm.OpaEvaluatorFactory.html#OpaDotNet_Wasm_OpaEvaluatorFactory_Dispose_
   commentId: Overload:OpaDotNet.Wasm.OpaEvaluatorFactory.Dispose
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.OpaEvaluatorFactory.Dispose
   nameWithType: OpaEvaluatorFactory.Dispose
 - uid: OpaDotNet.Wasm.OpaEvaluatorFactory.ThrowIfDisposed
@@ -1075,7 +2367,6 @@ references:
   name: ThrowIfDisposed
   href: api/OpaDotNet.Wasm.OpaEvaluatorFactory.html#OpaDotNet_Wasm_OpaEvaluatorFactory_ThrowIfDisposed_
   commentId: Overload:OpaDotNet.Wasm.OpaEvaluatorFactory.ThrowIfDisposed
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.OpaEvaluatorFactory.ThrowIfDisposed
   nameWithType: OpaEvaluatorFactory.ThrowIfDisposed
 - uid: OpaDotNet.Wasm.OpaRuntimeException
@@ -1106,7 +2397,6 @@ references:
   name: OpaRuntimeException
   href: api/OpaDotNet.Wasm.OpaRuntimeException.html#OpaDotNet_Wasm_OpaRuntimeException__ctor_
   commentId: Overload:OpaDotNet.Wasm.OpaRuntimeException.#ctor
-  isSpec: "True"
   name.vb: New
   fullName: OpaDotNet.Wasm.OpaRuntimeException.OpaRuntimeException
   fullName.vb: OpaDotNet.Wasm.OpaRuntimeException.New
@@ -1131,7 +2421,6 @@ references:
   name: OpaWasmEvaluatorFactory
   href: api/OpaDotNet.Wasm.OpaWasmEvaluatorFactory.html#OpaDotNet_Wasm_OpaWasmEvaluatorFactory__ctor_
   commentId: Overload:OpaDotNet.Wasm.OpaWasmEvaluatorFactory.#ctor
-  isSpec: "True"
   name.vb: New
   fullName: OpaDotNet.Wasm.OpaWasmEvaluatorFactory.OpaWasmEvaluatorFactory
   fullName.vb: OpaDotNet.Wasm.OpaWasmEvaluatorFactory.New
@@ -1147,7 +2436,6 @@ references:
   name: Create
   href: api/OpaDotNet.Wasm.OpaWasmEvaluatorFactory.html#OpaDotNet_Wasm_OpaWasmEvaluatorFactory_Create_
   commentId: Overload:OpaDotNet.Wasm.OpaWasmEvaluatorFactory.Create
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.OpaWasmEvaluatorFactory.Create
   nameWithType: OpaWasmEvaluatorFactory.Create
 - uid: OpaDotNet.Wasm.OpaWasmEvaluatorFactory.Dispose(System.Boolean)
@@ -1163,7 +2451,6 @@ references:
   name: Dispose
   href: api/OpaDotNet.Wasm.OpaWasmEvaluatorFactory.html#OpaDotNet_Wasm_OpaWasmEvaluatorFactory_Dispose_
   commentId: Overload:OpaDotNet.Wasm.OpaWasmEvaluatorFactory.Dispose
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.OpaWasmEvaluatorFactory.Dispose
   nameWithType: OpaWasmEvaluatorFactory.Dispose
 - uid: OpaDotNet.Wasm.PolicyEvaluationResult`1
@@ -1175,6 +2462,24 @@ references:
   fullName.vb: OpaDotNet.Wasm.PolicyEvaluationResult(Of T)
   nameWithType: PolicyEvaluationResult<T>
   nameWithType.vb: PolicyEvaluationResult(Of T)
+- uid: OpaDotNet.Wasm.PolicyEvaluationResult`1.#ctor
+  name: PolicyEvaluationResult()
+  href: api/OpaDotNet.Wasm.PolicyEvaluationResult-1.html#OpaDotNet_Wasm_PolicyEvaluationResult_1__ctor
+  commentId: M:OpaDotNet.Wasm.PolicyEvaluationResult`1.#ctor
+  name.vb: New()
+  fullName: OpaDotNet.Wasm.PolicyEvaluationResult<T>.PolicyEvaluationResult()
+  fullName.vb: OpaDotNet.Wasm.PolicyEvaluationResult(Of T).New()
+  nameWithType: PolicyEvaluationResult<T>.PolicyEvaluationResult()
+  nameWithType.vb: PolicyEvaluationResult(Of T).New()
+- uid: OpaDotNet.Wasm.PolicyEvaluationResult`1.#ctor*
+  name: PolicyEvaluationResult
+  href: api/OpaDotNet.Wasm.PolicyEvaluationResult-1.html#OpaDotNet_Wasm_PolicyEvaluationResult_1__ctor_
+  commentId: Overload:OpaDotNet.Wasm.PolicyEvaluationResult`1.#ctor
+  name.vb: New
+  fullName: OpaDotNet.Wasm.PolicyEvaluationResult<T>.PolicyEvaluationResult
+  fullName.vb: OpaDotNet.Wasm.PolicyEvaluationResult(Of T).New
+  nameWithType: PolicyEvaluationResult<T>.PolicyEvaluationResult
+  nameWithType.vb: PolicyEvaluationResult(Of T).New
 - uid: OpaDotNet.Wasm.PolicyEvaluationResult`1.Result
   name: Result
   href: api/OpaDotNet.Wasm.PolicyEvaluationResult-1.html#OpaDotNet_Wasm_PolicyEvaluationResult_1_Result
@@ -1187,7 +2492,6 @@ references:
   name: Result
   href: api/OpaDotNet.Wasm.PolicyEvaluationResult-1.html#OpaDotNet_Wasm_PolicyEvaluationResult_1_Result_
   commentId: Overload:OpaDotNet.Wasm.PolicyEvaluationResult`1.Result
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.PolicyEvaluationResult<T>.Result
   fullName.vb: OpaDotNet.Wasm.PolicyEvaluationResult(Of T).Result
   nameWithType: PolicyEvaluationResult<T>.Result
@@ -1216,6 +2520,24 @@ references:
   commentId: T:OpaDotNet.Wasm.WasmPolicyEngineOptions
   fullName: OpaDotNet.Wasm.WasmPolicyEngineOptions
   nameWithType: WasmPolicyEngineOptions
+- uid: OpaDotNet.Wasm.WasmPolicyEngineOptions.#ctor
+  name: WasmPolicyEngineOptions()
+  href: api/OpaDotNet.Wasm.WasmPolicyEngineOptions.html#OpaDotNet_Wasm_WasmPolicyEngineOptions__ctor
+  commentId: M:OpaDotNet.Wasm.WasmPolicyEngineOptions.#ctor
+  name.vb: New()
+  fullName: OpaDotNet.Wasm.WasmPolicyEngineOptions.WasmPolicyEngineOptions()
+  fullName.vb: OpaDotNet.Wasm.WasmPolicyEngineOptions.New()
+  nameWithType: WasmPolicyEngineOptions.WasmPolicyEngineOptions()
+  nameWithType.vb: WasmPolicyEngineOptions.New()
+- uid: OpaDotNet.Wasm.WasmPolicyEngineOptions.#ctor*
+  name: WasmPolicyEngineOptions
+  href: api/OpaDotNet.Wasm.WasmPolicyEngineOptions.html#OpaDotNet_Wasm_WasmPolicyEngineOptions__ctor_
+  commentId: Overload:OpaDotNet.Wasm.WasmPolicyEngineOptions.#ctor
+  name.vb: New
+  fullName: OpaDotNet.Wasm.WasmPolicyEngineOptions.WasmPolicyEngineOptions
+  fullName.vb: OpaDotNet.Wasm.WasmPolicyEngineOptions.New
+  nameWithType: WasmPolicyEngineOptions.WasmPolicyEngineOptions
+  nameWithType.vb: WasmPolicyEngineOptions.New
 - uid: OpaDotNet.Wasm.WasmPolicyEngineOptions.CachePath
   name: CachePath
   href: api/OpaDotNet.Wasm.WasmPolicyEngineOptions.html#OpaDotNet_Wasm_WasmPolicyEngineOptions_CachePath
@@ -1226,7 +2548,6 @@ references:
   name: CachePath
   href: api/OpaDotNet.Wasm.WasmPolicyEngineOptions.html#OpaDotNet_Wasm_WasmPolicyEngineOptions_CachePath_
   commentId: Overload:OpaDotNet.Wasm.WasmPolicyEngineOptions.CachePath
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.WasmPolicyEngineOptions.CachePath
   nameWithType: WasmPolicyEngineOptions.CachePath
 - uid: OpaDotNet.Wasm.WasmPolicyEngineOptions.Default
@@ -1239,7 +2560,6 @@ references:
   name: Default
   href: api/OpaDotNet.Wasm.WasmPolicyEngineOptions.html#OpaDotNet_Wasm_WasmPolicyEngineOptions_Default_
   commentId: Overload:OpaDotNet.Wasm.WasmPolicyEngineOptions.Default
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.WasmPolicyEngineOptions.Default
   nameWithType: WasmPolicyEngineOptions.Default
 - uid: OpaDotNet.Wasm.WasmPolicyEngineOptions.MaxAbiVersion
@@ -1252,7 +2572,6 @@ references:
   name: MaxAbiVersion
   href: api/OpaDotNet.Wasm.WasmPolicyEngineOptions.html#OpaDotNet_Wasm_WasmPolicyEngineOptions_MaxAbiVersion_
   commentId: Overload:OpaDotNet.Wasm.WasmPolicyEngineOptions.MaxAbiVersion
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.WasmPolicyEngineOptions.MaxAbiVersion
   nameWithType: WasmPolicyEngineOptions.MaxAbiVersion
 - uid: OpaDotNet.Wasm.WasmPolicyEngineOptions.MaxMemoryPages
@@ -1265,7 +2584,6 @@ references:
   name: MaxMemoryPages
   href: api/OpaDotNet.Wasm.WasmPolicyEngineOptions.html#OpaDotNet_Wasm_WasmPolicyEngineOptions_MaxMemoryPages_
   commentId: Overload:OpaDotNet.Wasm.WasmPolicyEngineOptions.MaxMemoryPages
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.WasmPolicyEngineOptions.MaxMemoryPages
   nameWithType: WasmPolicyEngineOptions.MaxMemoryPages
 - uid: OpaDotNet.Wasm.WasmPolicyEngineOptions.MinMemoryPages
@@ -1278,7 +2596,6 @@ references:
   name: MinMemoryPages
   href: api/OpaDotNet.Wasm.WasmPolicyEngineOptions.html#OpaDotNet_Wasm_WasmPolicyEngineOptions_MinMemoryPages_
   commentId: Overload:OpaDotNet.Wasm.WasmPolicyEngineOptions.MinMemoryPages
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.WasmPolicyEngineOptions.MinMemoryPages
   nameWithType: WasmPolicyEngineOptions.MinMemoryPages
 - uid: OpaDotNet.Wasm.WasmPolicyEngineOptions.SerializationOptions
@@ -1291,7 +2608,6 @@ references:
   name: SerializationOptions
   href: api/OpaDotNet.Wasm.WasmPolicyEngineOptions.html#OpaDotNet_Wasm_WasmPolicyEngineOptions_SerializationOptions_
   commentId: Overload:OpaDotNet.Wasm.WasmPolicyEngineOptions.SerializationOptions
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.WasmPolicyEngineOptions.SerializationOptions
   nameWithType: WasmPolicyEngineOptions.SerializationOptions
 - uid: OpaDotNet.Wasm.WasmPolicyEngineOptions.StrictBuiltinErrors
@@ -1304,6 +2620,5 @@ references:
   name: StrictBuiltinErrors
   href: api/OpaDotNet.Wasm.WasmPolicyEngineOptions.html#OpaDotNet_Wasm_WasmPolicyEngineOptions_StrictBuiltinErrors_
   commentId: Overload:OpaDotNet.Wasm.WasmPolicyEngineOptions.StrictBuiltinErrors
-  isSpec: "True"
   fullName: OpaDotNet.Wasm.WasmPolicyEngineOptions.StrictBuiltinErrors
   nameWithType: WasmPolicyEngineOptions.StrictBuiltinErrors

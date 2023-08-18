@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>WASM binary | OpaDotNet.Wasm </title>
+      <title>OpaDotNet SDK Interop Compiler | OpaDotNet.Wasm </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="WASM binary | OpaDotNet.Wasm ">
+      <meta name="title" content="OpaDotNet SDK Interop Compiler | OpaDotNet.Wasm ">
       
       <link rel="icon" href="../../favicon.ico">
       <link rel="stylesheet" href="../../public/docfx.min.css">
@@ -15,7 +15,7 @@
       
       
       
-      <meta name="docfx:docurl" content="https://github.com/me-viper/OpaDotNet/blob/main/docs/articles/evaluation/wasm.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/me-viper/OpaDotNet/blob/main/docs/articles/compilation/interop.md/#L1">
   </head>
 
   <script type="module">
@@ -72,68 +72,82 @@
         </div>
 
         <article data-uid="">
-<h1 id="wasm-binary">WASM binary</h1>
+<h1 id="opadotnet-sdk-interop-compiler">OpaDotNet SDK Interop Compiler</h1>
 
-<p>In this sample <code>OpaDotNet</code> will use policy compiled as WASM binary.</p>
-<h2 id="1-create-policy">1. Create policy</h2>
-<p>Create policy file <code>quickstart/policy.rego</code> with the following contents:</p>
-<pre><code class="lang-rego">package example
-
-default hello = false
-
-hello {
-    x := input.message
-    x == data.world
-}
-</code></pre><h2 id="2-compile-policy-module">2. Compile policy module</h2>
-<p>In this example we will compile policy manually, see <a href="../compilation/compilation.html">Compilation</a> section for more details.</p>
-<pre><code class="lang-sh">opa build -t wasm -e example/hello quickstart/example.rego
-</code></pre>
-<p><code>opa</code> CLI will produce <code>bundle.tar.gz</code> file.</p>
-<p>Extract <code>policy.wasm</code> from bundle <code>bundle.tar.gz</code>:</p>
-<pre><code class="lang-sh">tar -zxvf bundle.tar.gz /policy.wasm
-</code></pre>
-<h2 id="3-add-usings">3. Add usings</h2>
+<p>Interop compiler is a wrapper over OPA SDK.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p><code>RegoInteropCompiler</code> supports only <code>linux-x64</code> and <code>windows-x64</code> platforms.</p>
+</div>
+<h2 id="add-usings">Add usings</h2>
 <pre><code class="lang-csharp">
 using OpaDotNet.Wasm;
+using OpaDotNet.Compilation.Interop;
 
-</code></pre><h2 id="4-the-code">4. The code</h2>
+</code></pre><h2 id="compiling-single-policy-file">Compiling single policy file</h2>
 <pre><code class="lang-csharp">
-// Create evaluator from compiled policy module.
-using var engine = OpaEvaluatorFactory.CreateFromWasm(File.OpenRead(&quot;data/policy.wasm&quot;));
+var compiler = new RegoInteropCompiler();
 
-// Set external data.
-var data = &quot;&quot;&quot;{ &quot;world&quot;: &quot;world&quot; }&quot;&quot;&quot;;
-engine.SetDataFromRawJson(data);
+var policy = await compiler.CompileFile(
 
-// Evaluate. Policy query will return false.
-var deny = engine.EvaluatePredicate(new { message = &quot;hi&quot; });
+    // Policy source file.
+    &quot;quickstart/example.rego&quot;,
 
-if (deny.Result)
-{
-    // Should not get here.
-}
-else
-{
-    // Wrong password.
-}
+    // Entrypoints (same you would pass for -e parameter for opa build).
+    new[] { &quot;example/hello&quot; }
+    );
 
-// Evaluate. Policy query will return true.
-var approve = engine.EvaluatePredicate(new { message = &quot;world&quot; });
+// RegoCliCompiler will always produce bundle.
+using var engine = OpaEvaluatorFactory.CreateFromBundle(policy);
 
-if (approve.Result)
-{
-    // Correct password.
-}
-else
-{
-    // Should not get here.
-}
+</code></pre><h2 id="compiling-bundle">Compiling bundle</h2>
+<p>Create <a href="https://www.openpolicyagent.org/docs/latest/management-bundles/">bundle directory</a></p>
+<pre><code class="lang-csharp">
+var compiler = new RegoInteropCompiler();
+
+var policy = await compiler.CompileBundle(
+
+    // Directory with bundle sources.
+    &quot;quickstart/&quot;,
+
+    // Entrypoints (same you would pass for -e parameter for opa build).
+    new[] { &quot;example/hello&quot; }
+    );
+
+// RegoCliCompiler will always produce bundle.
+using var engine = OpaEvaluatorFactory.CreateFromBundle(policy);
+
+</code></pre><h2 id="compiling-policy-source">Compiling policy source</h2>
+<pre><code class="lang-csharp">
+var compiler = new RegoInteropCompiler();
+
+var policySource = &quot;&quot;&quot;
+    package example
+
+    default hello = false
+
+    hello {
+        x := input.message
+        x == data.world
+    }
+    &quot;&quot;&quot;;
+
+var policy = await compiler.CompileSource(
+
+    // Policy source code.
+    policySource,
+
+    // Entrypoints (same you would pass for -e parameter for opa build).
+    new[] { &quot;example/hello&quot; }
+    );
+
+// RegoCliCompiler will always produce bundle.
+using var engine = OpaEvaluatorFactory.CreateFromBundle(policy);
 
 </code></pre></article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/me-viper/OpaDotNet/blob/main/docs/articles/evaluation/wasm.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/me-viper/OpaDotNet/blob/main/docs/articles/compilation/interop.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

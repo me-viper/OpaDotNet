@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>WASM binary | OpaDotNet.Wasm </title>
+      <title>Policy Compilation | OpaDotNet.Wasm </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="WASM binary | OpaDotNet.Wasm ">
+      <meta name="title" content="Policy Compilation | OpaDotNet.Wasm ">
       
       <link rel="icon" href="../../favicon.ico">
       <link rel="stylesheet" href="../../public/docfx.min.css">
@@ -15,7 +15,7 @@
       
       
       
-      <meta name="docfx:docurl" content="https://github.com/me-viper/OpaDotNet/blob/main/docs/articles/evaluation/wasm.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/me-viper/OpaDotNet/blob/main/docs/articles/compilation/compilation.md/#L1">
   </head>
 
   <script type="module">
@@ -72,68 +72,22 @@
         </div>
 
         <article data-uid="">
-<h1 id="wasm-binary">WASM binary</h1>
+<h1 id="policy-compilation">Policy Compilation</h1>
 
-<p>In this sample <code>OpaDotNet</code> will use policy compiled as WASM binary.</p>
-<h2 id="1-create-policy">1. Create policy</h2>
-<p>Create policy file <code>quickstart/policy.rego</code> with the following contents:</p>
-<pre><code class="lang-rego">package example
-
-default hello = false
-
-hello {
-    x := input.message
-    x == data.world
-}
-</code></pre><h2 id="2-compile-policy-module">2. Compile policy module</h2>
-<p>In this example we will compile policy manually, see <a href="../compilation/compilation.html">Compilation</a> section for more details.</p>
-<pre><code class="lang-sh">opa build -t wasm -e example/hello quickstart/example.rego
-</code></pre>
-<p><code>opa</code> CLI will produce <code>bundle.tar.gz</code> file.</p>
-<p>Extract <code>policy.wasm</code> from bundle <code>bundle.tar.gz</code>:</p>
-<pre><code class="lang-sh">tar -zxvf bundle.tar.gz /policy.wasm
-</code></pre>
-<h2 id="3-add-usings">3. Add usings</h2>
-<pre><code class="lang-csharp">
-using OpaDotNet.Wasm;
-
-</code></pre><h2 id="4-the-code">4. The code</h2>
-<pre><code class="lang-csharp">
-// Create evaluator from compiled policy module.
-using var engine = OpaEvaluatorFactory.CreateFromWasm(File.OpenRead(&quot;data/policy.wasm&quot;));
-
-// Set external data.
-var data = &quot;&quot;&quot;{ &quot;world&quot;: &quot;world&quot; }&quot;&quot;&quot;;
-engine.SetDataFromRawJson(data);
-
-// Evaluate. Policy query will return false.
-var deny = engine.EvaluatePredicate(new { message = &quot;hi&quot; });
-
-if (deny.Result)
-{
-    // Should not get here.
-}
-else
-{
-    // Wrong password.
-}
-
-// Evaluate. Policy query will return true.
-var approve = engine.EvaluatePredicate(new { message = &quot;world&quot; });
-
-if (approve.Result)
-{
-    // Correct password.
-}
-else
-{
-    // Should not get here.
-}
-
-</code></pre></article>
+<p>To evaluate policy modules they need to be compiled into WASM.</p>
+<p>You can compile them manually with <code>opa build -t wasm ...</code> <a href="https://www.openpolicyagent.org/docs/latest/cli/#opa-build">command</a> or ask OpaDotNet do that for you.</p>
+<p>OpaDotNet provides two options for policy compilation:</p>
+<ul>
+<li><a href="https://github.com/me-viper/OpaDotNet.Compilation/tree/main/src/OpaDotNet.Compilation.Cli"><code>OpaDotNet.Compilation.Cli</code></a> - wrapper over <code>opa</code> CLI <a href="https://www.openpolicyagent.org/docs/latest/cli">tool</a>.</li>
+<li><a href="https://github.com/me-viper/OpaDotNet.Compilation/tree/main/src/OpaDotNet.Compilation.Interop"><code>OpaDotNet.Compilation.Interop</code></a> - wrapper over OPA SDK.</li>
+</ul>
+<p>Which one you should be using?</p>
+<p>Use <code>OpaDotNet.Compilation.Cli</code> if you have <code>opa</code> CLI tool available or you need functionality besides compilation (running tests, syntax checking etc.). Suitable for web applications and/or applications running in Docker containers. See <a href="https://github.com/me-viper/OpaDotNet.Compilation/blob/main/src/OpaDotNet.Compilation.Cli/README.md">README</a> for more details.</p>
+<p>Use <code>OpaDotNet.Compilation.Interop</code> if you need compilation only and want to avoid having external dependencies. Suitable for libraries, console application etc. See <a href="https://github.com/me-viper/OpaDotNet.Compilation/blob/main/src/OpaDotNet.Compilation.Interop/README.md">README</a> for more details.</p>
+</article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/me-viper/OpaDotNet/blob/main/docs/articles/evaluation/wasm.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/me-viper/OpaDotNet/blob/main/docs/articles/compilation/compilation.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

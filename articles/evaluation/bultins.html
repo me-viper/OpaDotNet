@@ -263,10 +263,6 @@ one_arg = x {
     x = custom.oneArgBuiltin(input.args[0])
 }
 
-one_arg_object = x {
-    x = custom.oneArgObjectBuiltin(input.args[0])
-}
-
 two_arg = x {
     x = custom.twoArgBuiltin(input.args[0], input.args[1])
 }
@@ -278,23 +274,19 @@ three_arg = x {
 four_arg = x {
     x = custom.fourArgBuiltin(input.args[0], input.args[1], input.args[2], input.args[3])
 }
-
-four_arg_types = x {
-    x = custom.fourArgTypesBuiltin(input.args[0], input.args[1], input.args[2], input.args[3])
-}
 </code></pre><h2 id="compilation">Compilation</h2>
 <p>Place policy and capabilities files into <code>bundle</code> directory.</p>
 <p>Next, we need to compile the policy bundle and make it aware of our custom built-ins:</p>
 <pre><code class="lang-csharp">
-var opts = new RegoCliCompilerOptions
+var opts = new RegoCompilerOptions
 {
     // Custom built-ins will be merged with capabilities v0.53.1.
     CapabilitiesVersion = &quot;v0.53.1&quot;,
 };
 
-var compiler = new RegoCliCompiler(new OptionsWrapper&lt;RegoCliCompilerOptions&gt;(opts));
+var compiler = new RegoInteropCompiler(new OptionsWrapper&lt;RegoCompilerOptions&gt;(opts));
 var policy = await compiler.CompileBundle(
-    &quot;./bundle&quot;,
+    &quot;builtins&quot;,
     new[]
     {
         &quot;custom_builtins/zero_arg&quot;,
@@ -303,7 +295,7 @@ var policy = await compiler.CompileBundle(
         &quot;custom_builtins/three_arg&quot;,
         &quot;custom_builtins/four_arg&quot;,
     },
-    Path.Combine(&quot;./bundle&quot;, &quot;capabilities.json&quot;)
+    Path.Combine(&quot;builtins&quot;, &quot;capabilities.json&quot;)
     );
 
 var factory = new OpaBundleEvaluatorFactory(

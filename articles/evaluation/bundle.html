@@ -76,24 +76,23 @@
 
 <p>In this sample <code>OpaDotNet</code> will use policy compiled as OPA policy bundle.</p>
 <h2 id="1-create-policy-and-data-files">1. Create policy and data files</h2>
-<p>Create policy file <code>policy.rego</code> with the following contents:</p>
+<p>Create policy file <code>quickstart/policy.rego</code> with the following contents:</p>
 <pre><code class="lang-rego">package example
 
-import future.keywords.if
+default hello = false
 
-default allow := false
-
-allow if {
-    data.password == input.password
+hello {
+    x := input.message
+    x == data.world
 }
 </code></pre>
-<p>Create data file <code>data.json</code> with the following contents:</p>
+<p>Create data file <code>quickstart/data.json</code> with the following contents:</p>
 <pre><code class="lang-json">{
-  &quot;password&quot;: &quot;pwd&quot;
+  &quot;world&quot;: &quot;world&quot;
 }
 </code></pre><h2 id="2-compile-policy-bundle">2. Compile policy bundle</h2>
-<p>In this example we will compile policy bundle manually, see <a href="../Compilation.html">Compilation</a> section for more details.</p>
-<pre><code class="lang-sh">opa build -t wasm -b -e example/allow ./
+<p>In this example we will compile policy bundle manually, see <a href="../compilation/compilation.html">Compilation</a> section for more details.</p>
+<pre><code class="lang-sh">opa build -t wasm -b -e example/hello ./quickstart
 </code></pre>
 <p><code>opa</code> CLI will produce <code>bundle.tar.gz</code> file.</p>
 <h2 id="3-add-usings">3. Add usings</h2>
@@ -103,12 +102,12 @@ using OpaDotNet.Wasm;
 </code></pre><h2 id="4-the-code">4. The code</h2>
 <pre><code class="lang-csharp">
 // Create evaluator from compiled policy module.
-using var engine = OpaEvaluatorFactory.CreateFromBundle(File.OpenRead(&quot;bundle.tar.gz&quot;));
+using var engine = OpaEvaluatorFactory.CreateFromBundle(File.OpenRead(&quot;data/bundle.tar.gz&quot;));
 
 // External data is in the bundle already.
 
 // Evaluate. Policy query will return false.
-var deny = engine.EvaluatePredicate(new { password = &quot;wrong!&quot; });
+var deny = engine.EvaluatePredicate(new { message = &quot;hi&quot; });
 
 if (deny.Result)
 {
@@ -120,7 +119,7 @@ else
 }
 
 // Evaluate. Policy query will return true.
-var approve = engine.EvaluatePredicate(new { password = &quot;pwd&quot; });
+var approve = engine.EvaluatePredicate(new { message = &quot;world&quot; });
 
 if (approve.Result)
 {
