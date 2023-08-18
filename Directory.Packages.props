@@ -1,10 +1,10 @@
 <Project>
   <ItemGroup>
     <PackageVersion Include="coverlet.msbuild" Version="6.0.0" />
-    <PackageVersion Include="IPNetwork2" Version="2.6.593" />
+    <PackageVersion Include="IPNetwork2" Version="2.6.605" />
     <PackageVersion Include="JetBrains.Annotations" Version="2022.3.1" />
     <PackageVersion Include="JsonPatch.Net" Version="2.1.0" />
-    <PackageVersion Include="JsonSchema.Net" Version="4.1.8" />
+    <PackageVersion Include="JsonSchema.Net" Version="5.1.3" />
     <PackageVersion Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="3.3.4" />
     <PackageVersion Include="Microsoft.Extensions.Logging" Version="7.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.1" />
@@ -13,21 +13,21 @@
     <PackageVersion Include="Microsoft.Toolkit.HighPerformance" Version="7.1.2" />
     <PackageVersion Include="Moq" Version="4.18.4" />
     <PackageVersion Include="OpaDotNet.Compilation.Cli" Version="1.1.3" />
-    <PackageVersion Include="OpaDotNet.Compilation.Interop" Version="1.1.3" />
+    <PackageVersion Include="OpaDotNet.Compilation.Interop" Version="1.1.1" />
     <PackageVersion Include="Semver" Version="2.3.0" />
-    <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="6.31.0" />
-    <PackageVersion Include="Wasmtime" Version="9.0.2" />
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
-    <PackageVersion Include="xunit" Version="2.4.2" />
-    <PackageVersion Include="xunit.runner.visualstudio" Version="2.4.5">
+    <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="6.32.1" />
+    <PackageVersion Include="Wasmtime" Version="11.0.1" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.7.1" />
+    <PackageVersion Include="xunit" Version="2.5.0" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="2.5.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageVersion>
-    <PackageVersion Include="coverlet.collector" Version="3.2.0">
+    <PackageVersion Include="coverlet.collector" Version="6.0.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageVersion>
-    <PackageVersion Include="Yaml2JsonNode" Version="1.2.3" />
-    <PackageVersion Include="YamlDotNet" Version="13.1.1" />
+    <PackageVersion Include="Yaml2JsonNode" Version="1.2.4" />
+    <PackageVersion Include="YamlDotNet" Version="13.2.0" />
   </ItemGroup>
 </Project>
