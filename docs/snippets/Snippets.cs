@@ -24,9 +24,9 @@ using OpaDotNet.Compilation.Interop;
 
 #pragma warning restore CS0105
 
-namespace OpaDotNet.Tests.Snippets;
+namespace Snippets;
 
-public partial class Snippets
+public partial class DocSamples
 {
     [Fact]
     public void EvalWasm()

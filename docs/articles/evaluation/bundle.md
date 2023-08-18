@@ -4,11 +4,11 @@ In this sample `OpaDotNet` will use policy compiled as OPA policy bundle.
 
 ## 1. Create policy and data files
 
-Create policy file `policy.rego` with the following contents:
+Create policy file `quickstart/policy.rego` with the following contents:
 
 [!code-rego[](~/snippets/quickstart/example.rego)]
 
-Create data file `data.json` with the following contents:
+Create data file `quickstart/data.json` with the following contents:
 
 [!code-json[](~/snippets/quickstart/data.json)]
 
@@ -17,7 +17,7 @@ Create data file `data.json` with the following contents:
 In this example we will compile policy bundle manually, see [Compilation](~/articles/compilation/compilation.md) section for more details.
 
 ```sh
-opa build -t wasm -b -e example/allow ./
+opa build -t wasm -b -e example/allow ./quickstart
 ```
 
 `opa` CLI will produce `bundle.tar.gz` file.

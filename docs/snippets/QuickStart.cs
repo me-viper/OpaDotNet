@@ -17,10 +17,10 @@ using OpaDotNet.Compilation.Cli;
 
 #pragma warning restore CS0105
 
-namespace OpaDotNet.Tests.Snippets;
+namespace Snippets;
 
 [Trait("Snippet", "true")]
-public partial class Snippets
+public partial class DocSamples
 {
     [Fact]
     public void QuickStartEval()

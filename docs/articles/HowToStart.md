@@ -12,11 +12,11 @@ To evaluate OPA policy you need to:
 
 ### Add usings
 
-[!code-csharp[](../snippets/QuickStart.cs#Usings)]
+[!code-csharp[](~/snippets/QuickStart.cs#Usings)]
 
 ### Load compiled policy
 
-[!code-csharp[](../snippets/QuickStart.cs#QuickStartLoad)]
+[!code-csharp[](~/snippets/QuickStart.cs#QuickStartLoad)]
 
 ### Evaluate policy
 
@@ -26,11 +26,13 @@ To evaluate OPA policy you need to:
 * `Evaluate` - Evaluates named policy with specified input.
 * `EvaluateRaw` - Evaluates named policy with specified raw JSON input.
 
-[!code-csharp[](../snippets/QuickStart.cs#QuickStartEval)]
+[!code-csharp[](~/snippets/QuickStart.cs#QuickStartEval)]
 
 ### Check the result
 
-[!code-csharp[](../snippets/QuickStart.cs#QuickStartCheck)]
+[!code-csharp[](~/snippets/QuickStart.cs#QuickStartCheck)]
+
+More samples [here](https://github.com/me-viper/OpaDotNet/tree/main/samples)
 
 ## Writing policy
 
@@ -42,7 +44,7 @@ You have several options to compile rego policy into wasm module:
 
 Consider `example.rego` file with the following policy:
 
-[!code-rego[](../snippets/quickstart/example.rego)]
+[!code-rego[](~/snippets/quickstart/example.rego)]
 
 ### Manually
 
@@ -66,6 +68,6 @@ You can use SDK to do compilation for you.
 > [!IMPORTANT]
 > You will need `opa` cli tool to be in your PATH or provide full path in `RegoCliCompilerOptions`.
 
-[!code-csharp[](../snippets/QuickStart.cs#CompilationUsings)]
+[!code-csharp[](~/snippets/QuickStart.cs#CompilationUsings)]
 
-[!code-csharp[](../snippets/QuickStart.cs#QuickStartCompilation)]
+[!code-csharp[](~/snippets/QuickStart.cs#QuickStartCompilation)]

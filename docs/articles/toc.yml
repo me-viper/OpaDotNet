@@ -35,3 +35,5 @@ items:
   href: reference/builtins.md
 - name: Capabilities
   href: reference/capabilities.md
+- name: AspNetCore
+  href: aspnet/intro.md
