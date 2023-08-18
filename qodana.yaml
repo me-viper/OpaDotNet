@@ -7,4 +7,5 @@ exclude:
       - tests
       - samples
       - bench
+      - doc
   - name: ArrangeTrailingCommaInMultilineLists
