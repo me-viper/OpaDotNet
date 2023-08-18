@@ -120,16 +120,4 @@
     <ProjectReference Include="..\src\OpaDotNet.Wasm\OpaDotNet.Wasm.csproj"/>
   </ItemGroup>
 
-  <ItemGroup>
-    <Compile Include="..\docs\snippets\Builtins.cs">
-      <Link>Snippets\Builtins.cs</Link>
-    </Compile>
-    <Compile Include="..\docs\snippets\QuickStart.cs">
-      <Link>Snippets\QuickStart.cs</Link>
-    </Compile>
-    <Compile Include="..\docs\snippets\Snippets.cs">
-      <Link>Snippets\Snippets.cs</Link>
-    </Compile>
-  </ItemGroup>
-
 </Project>
