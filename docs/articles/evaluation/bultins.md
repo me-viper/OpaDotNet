@@ -21,7 +21,7 @@ In the following sample, we define 5 custom functions:
 > [!NOTE]
 > OPA supports custom functions with up to four arguments.
 
-[!code-csharp[](../../snippets/Builtins.cs#CustomBuiltinsImpl)]
+[!code-csharp[](~/snippets/Builtins.cs#CustomBuiltinsImpl)]
 
 ## Declaration
 
@@ -31,14 +31,14 @@ To make OPA aware of custom built-ins we need to add [capabilities](https://www.
 > Custom built-ins are supported only for policy bundles.
 
 `capabilities.json`
-[!code-json[](../../snippets/eval/capabilities.json)]
+[!code-json[](~/snippets/builtins/capabilities.json)]
 
 For more information on capabilities [see](../reference/capabilities.md)
 
 ## Policy
 
 `policy.rego`
-[!code-rego[](../../snippets/eval/custom-builtins-policy.rego)]
+[!code-rego[](~/snippets/builtins/custom-builtins-policy.rego)]
 
 ## Compilation
 
@@ -46,13 +46,13 @@ Place policy and capabilities files into `bundle` directory.
 
 Next, we need to compile the policy bundle and make it aware of our custom built-ins:
 
-[!code-csharp[](../../snippets/Builtins.cs#CustomBuiltinsCompile)]
+[!code-csharp[](~/snippets/Builtins.cs#CustomBuiltinsCompile)]
 
 ## Execution
 
 Now we can evaluate policies using custom built-ins:
 
-[!code-csharp[](../../snippets/Builtins.cs#CustomBuiltinsEval)]
+[!code-csharp[](~/snippets/Builtins.cs#CustomBuiltinsEval)]
 
 If you executed this code the output would be:
 

@@ -1,5 +1,7 @@
 // ReSharper disable RedundantUsingDirective
 
+#pragma warning disable CS0105
+
 #region Usings
 
 using OpaDotNet.Wasm;
@@ -13,11 +15,14 @@ using OpaDotNet.Compilation.Cli;
 
 #endregion
 
+#pragma warning restore CS0105
+
 namespace OpaDotNet.Tests.Snippets;
 
+[Trait("Snippet", "true")]
 public partial class Snippets
 {
-    [Fact(Skip = "Documentation sample")]
+    [Fact]
     public void QuickStartEval()
     {
         #region QuickStartLoad
@@ -25,7 +30,7 @@ public partial class Snippets
         const string data = "{ \"world\": \"world\" }";
 
         using var engine = OpaEvaluatorFactory.CreateFromWasm(
-            File.OpenRead("policy.wasm")
+            File.OpenRead("data/policy.wasm")
             );
 
         engine.SetDataFromRawJson(data);
@@ -51,19 +56,28 @@ public partial class Snippets
         }
 
         #endregion
+
+        Assert.True(policyResult.Result);
     }
 
-    [Fact(Skip = "Documentation sample")]
-    public async Task QuickStartCompile()
+    [Fact]
+    public async Task QuickStartCompileCli()
     {
         #region QuickStartCompilation
 
         var compiler = new RegoCliCompiler();
-        var policyStream = await compiler.CompileFile("example.rego", new[] { "example/hello" });
+        var policyStream = await compiler.CompileFile("quickstart/example.rego", new[] { "example/hello" });
 
         // Use compiled policy.
         using var engine = OpaEvaluatorFactory.CreateFromBundle(policyStream);
 
         #endregion
+
+        const string data = "{ \"world\": \"world\" }";
+        engine.SetDataFromRawJson(data);
+
+        var result = engine.EvaluatePredicate(new { message = "world" });
+
+        Assert.True(result.Result);
     }
 }

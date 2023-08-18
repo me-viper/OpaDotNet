@@ -27,6 +27,8 @@ items:
   href: compilation/compilation.md
 - name: Cli Compiler
   href: compilation/cli.md
+- name: SDK Interop Compiler
+  href: compilation/interop.md
 
 - name: Reference
 - name: Advanced Built-ins

@@ -6,14 +6,14 @@ In this sample `OpaDotNet` will use policy compiled as WASM binary.
 
 Create policy file `policy.rego` with the following contents:
 
-[!code-rego[](../../snippets/eval/eval.rego)]
+[!code-rego[](~/snippets/quickstart/example.rego)]
 
 ## 2. Compile policy module
 
 In this example we will compile policy manually, see [Compilation](~/articles/compilation/compilation.md) section for more details.
 
 ```sh
-opa build -t wasm -e example/allow policy.rego
+opa build -t wasm -e example/hello example.rego
 ```
 
 `opa` CLI will produce `bundle.tar.gz` file.

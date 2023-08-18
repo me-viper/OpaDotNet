@@ -1,36 +1,47 @@
 ﻿// ReSharper disable RedundantUsingDirective
 
+#pragma  warning disable CS0105
+
 #region Usings
 
 using OpaDotNet.Wasm;
 
 #endregion
 
-#region CompilationUsings
+#region CompilationCliUsings
 
 using OpaDotNet.Wasm;
 using OpaDotNet.Compilation.Cli;
 
 #endregion
 
+#region CompilationInteropUsings
+
+using OpaDotNet.Wasm;
+using OpaDotNet.Compilation.Interop;
+
+#endregion
+
+#pragma warning restore CS0105
+
 namespace OpaDotNet.Tests.Snippets;
 
 public partial class Snippets
 {
-    [Fact(Skip = "Documentation sample")]
+    [Fact]
     public void EvalWasm()
     {
         #region EvalWasm
 
         // Create evaluator from compiled policy module.
-        using var engine = OpaEvaluatorFactory.CreateFromWasm(File.OpenRead("policy.wasm"));
+        using var engine = OpaEvaluatorFactory.CreateFromWasm(File.OpenRead("data/policy.wasm"));
 
         // Set external data.
-        var data = "{\"password\":\"pwd\"}";
+        var data = """{ "world": "world" }""";
         engine.SetDataFromRawJson(data);
 
         // Evaluate. Policy query will return false.
-        var deny = engine.EvaluatePredicate(new { password = "wrong!" });
+        var deny = engine.EvaluatePredicate(new { message = "hi" });
 
         if (deny.Result)
         {
@@ -42,7 +53,7 @@ public partial class Snippets
         }
 
         // Evaluate. Policy query will return true.
-        var approve = engine.EvaluatePredicate(new { password = "pwd" });
+        var approve = engine.EvaluatePredicate(new { message = "world" });
 
         if (approve.Result)
         {
@@ -54,20 +65,23 @@ public partial class Snippets
         }
 
         #endregion
+
+        Assert.False(deny.Result);
+        Assert.True(approve.Result);
     }
 
-    [Fact(Skip = "Documentation sample")]
-    public void EvalSource()
+    [Fact]
+    public void EvalBundle()
     {
         #region EvalBundle
 
         // Create evaluator from compiled policy module.
-        using var engine = OpaEvaluatorFactory.CreateFromBundle(File.OpenRead("bundle.tar.gz"));
+        using var engine = OpaEvaluatorFactory.CreateFromBundle(File.OpenRead("data/bundle.tar.gz"));
 
         // External data is in the bundle already.
 
         // Evaluate. Policy query will return false.
-        var deny = engine.EvaluatePredicate(new { password = "wrong!" });
+        var deny = engine.EvaluatePredicate(new { message = "hi" });
 
         if (deny.Result)
         {
@@ -79,7 +93,7 @@ public partial class Snippets
         }
 
         // Evaluate. Policy query will return true.
-        var approve = engine.EvaluatePredicate(new { password = "pwd" });
+        var approve = engine.EvaluatePredicate(new { message = "world" });
 
         if (approve.Result)
         {
@@ -91,68 +105,78 @@ public partial class Snippets
         }
 
         #endregion
+
+        Assert.False(deny.Result);
+        Assert.True(approve.Result);
     }
 
-    [Fact(Skip = "Documentation sample")]
-    public async Task CompileFile()
+    [Fact]
+    public async Task CompileFileCli()
     {
-        #region CompileFile
+        #region CompileFileCli
 
         var compiler = new RegoCliCompiler();
 
         var policy = await compiler.CompileFile(
 
             // Policy source file.
-            "policy.rego",
+            "quickstart/example.rego",
 
             // Entrypoints (same you would pass for -e parameter for opa build).
-            new[] { "example/allow" }
+            new[] { "example/hello" }
             );
 
         // RegoCliCompiler will always produce bundle.
         using var engine = OpaEvaluatorFactory.CreateFromBundle(policy);
 
         #endregion
+
+        engine.SetDataFromRawJson("""{ "world": "world" }""");
+
+        var result = engine.EvaluatePredicate(new { message = "world" });
+        Assert.True(result.Result);
     }
 
-    [Fact(Skip = "Documentation sample")]
-    public async Task CompileBundle()
+    [Fact]
+    public async Task CompileBundleCli()
     {
-        #region CompileBundle
+        #region CompileBundleCli
 
         var compiler = new RegoCliCompiler();
 
         var policy = await compiler.CompileBundle(
 
             // Directory with bundle sources.
-            "bundleDirectory",
+            "quickstart/",
 
             // Entrypoints (same you would pass for -e parameter for opa build).
-            new[] { "example/allow" }
+            new[] { "example/hello" }
             );
 
         // RegoCliCompiler will always produce bundle.
         using var engine = OpaEvaluatorFactory.CreateFromBundle(policy);
 
         #endregion
+
+        var result = engine.EvaluatePredicate(new { message = "world" });
+        Assert.True(result.Result);
     }
 
-    [Fact(Skip = "Documentation sample")]
-    public async Task CompileSource()
+    [Fact]
+    public async Task CompileSourceCli()
     {
-        #region CompileSource
+        #region CompileSourceCli
 
         var compiler = new RegoCliCompiler();
 
         var policySource = """
             package example
 
-            import future.keywords.if
+            default hello = false
 
-            default allow := false
-
-            allow if {
-                data.password == input.password
+            hello {
+                x := input.message
+                x == data.world
             }
             """;
 
@@ -162,12 +186,107 @@ public partial class Snippets
             policySource,
 
             // Entrypoints (same you would pass for -e parameter for opa build).
-            new[] { "example/allow" }
+            new[] { "example/hello" }
             );
 
         // RegoCliCompiler will always produce bundle.
         using var engine = OpaEvaluatorFactory.CreateFromBundle(policy);
 
         #endregion
+
+        engine.SetDataFromRawJson("""{ "world": "world" }""");
+
+        var result = engine.EvaluatePredicate(new { message = "world" });
+        Assert.True(result.Result);
+    }
+
+    [Fact]
+    public async Task CompileFileInterop()
+    {
+        #region CompileFileInterop
+
+        var compiler = new RegoInteropCompiler();
+
+        var policy = await compiler.CompileFile(
+
+            // Policy source file.
+            "quickstart/example.rego",
+
+            // Entrypoints (same you would pass for -e parameter for opa build).
+            new[] { "example/hello" }
+            );
+
+        // RegoCliCompiler will always produce bundle.
+        using var engine = OpaEvaluatorFactory.CreateFromBundle(policy);
+
+        #endregion
+
+        engine.SetDataFromRawJson("""{ "world": "world" }""");
+
+        var result = engine.EvaluatePredicate(new { message = "world" });
+        Assert.True(result.Result);
+    }
+
+    [Fact]
+    public async Task CompileBundleInterop()
+    {
+        #region CompileBundleInterop
+
+        var compiler = new RegoInteropCompiler();
+
+        var policy = await compiler.CompileBundle(
+
+            // Directory with bundle sources.
+            "quickstart/",
+
+            // Entrypoints (same you would pass for -e parameter for opa build).
+            new[] { "example/hello" }
+            );
+
+        // RegoCliCompiler will always produce bundle.
+        using var engine = OpaEvaluatorFactory.CreateFromBundle(policy);
+
+        #endregion
+
+        var result = engine.EvaluatePredicate(new { message = "world" });
+        Assert.True(result.Result);
+    }
+
+    [Fact]
+    public async Task CompileSourceInterop()
+    {
+        #region CompileSourceInterop
+
+        var compiler = new RegoInteropCompiler();
+
+        var policySource = """
+            package example
+
+            default hello = false
+
+            hello {
+                x := input.message
+                x == data.world
+            }
+            """;
+
+        var policy = await compiler.CompileSource(
+
+            // Policy source code.
+            policySource,
+
+            // Entrypoints (same you would pass for -e parameter for opa build).
+            new[] { "example/hello" }
+            );
+
+        // RegoCliCompiler will always produce bundle.
+        using var engine = OpaEvaluatorFactory.CreateFromBundle(policy);
+
+        #endregion
+
+        engine.SetDataFromRawJson("""{ "world": "world" }""");
+
+        var result = engine.EvaluatePredicate(new { message = "world" });
+        Assert.True(result.Result);
     }
 }

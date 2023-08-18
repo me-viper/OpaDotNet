@@ -6,11 +6,11 @@ In this sample `OpaDotNet` will use policy compiled as OPA policy bundle.
 
 Create policy file `policy.rego` with the following contents:
 
-[!code-rego[](~/snippets/eval/eval.rego)]
+[!code-rego[](~/snippets/quickstart/example.rego)]
 
 Create data file `data.json` with the following contents:
 
-[!code-json[](~/snippets/eval/data.json)]
+[!code-json[](~/snippets/quickstart/data.json)]
 
 ## 2. Compile policy bundle
 

@@ -1,6 +1,8 @@
 // ReSharper disable RedundantUsingDirective
 // ReSharper disable Xunit.XunitTestWithConsoleOutput
 
+#pragma warning disable CS0105
+
 using Microsoft.Extensions.Options;
 
 #region Usings
@@ -12,9 +14,12 @@ using OpaDotNet.Wasm;
 #region CompilationUsings
 
 using OpaDotNet.Wasm;
-using OpaDotNet.Compilation.Cli;
+using OpaDotNet.Compilation.Abstractions;
+using OpaDotNet.Compilation.Interop;
 
 #endregion
+
+#pragma warning restore CS0105
 
 namespace OpaDotNet.Tests.Snippets;
 
@@ -72,20 +77,20 @@ public partial class Snippets
 
     #endregion
 
-    [Fact(Skip = "Documentation sample")]
+    [Fact]
     public async Task CustomBuiltins()
     {
         #region CustomBuiltinsCompile
 
-        var opts = new RegoCliCompilerOptions
+        var opts = new RegoCompilerOptions
         {
             // Custom built-ins will be merged with capabilities v0.53.1.
             CapabilitiesVersion = "v0.53.1",
         };
 
-        var compiler = new RegoCliCompiler(new OptionsWrapper<RegoCliCompilerOptions>(opts));
+        var compiler = new RegoInteropCompiler(new OptionsWrapper<RegoCompilerOptions>(opts));
         var policy = await compiler.CompileBundle(
-            "./bundle",
+            "builtins",
             new[]
             {
                 "custom_builtins/zero_arg",
@@ -94,7 +99,7 @@ public partial class Snippets
                 "custom_builtins/three_arg",
                 "custom_builtins/four_arg",
             },
-            Path.Combine("./bundle", "capabilities.json")
+            Path.Combine("builtins", "capabilities.json")
             );
 
         var factory = new OpaBundleEvaluatorFactory(
@@ -136,5 +141,11 @@ public partial class Snippets
         Console.WriteLine(resultFourArg.Result);
 
         #endregion
+
+        Assert.Equal("hello", resultZeroArg.Result);
+        Assert.Equal("hello arg0", resultOneArg.Result);
+        Assert.Equal("hello arg0 arg1", resultTwoArg.Result);
+        Assert.Equal("hello arg0 arg1 arg2", resultThreeArg.Result);
+        Assert.Equal("hello arg0 arg1 arg2 arg3", resultFourArg.Result);
     }
 }
