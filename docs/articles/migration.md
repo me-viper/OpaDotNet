@@ -20,4 +20,4 @@ var policyStream = await compiler.CompileFile("example.rego", new[] { "example/h
 using var engine = OpaEvaluatorFactory.CreateFromBundle(policyStream);
 ```
 
-You might also want to check out new [alternative](https://github.com/me-viper/OpaDotNet.Compilation/tree/main/src/OpaDotNet.Compilation.Interop) to be Cli compiler.
+You might also want to check out new [alternative](https://github.com/me-viper/OpaDotNet.Compilation/tree/main/src/OpaDotNet.Compilation.Interop) to the Cli compiler.
