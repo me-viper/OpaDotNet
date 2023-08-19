@@ -138,24 +138,37 @@ hello {
 <p>Which is compiling the <code>example.rego</code> policy file.
 The result will be an OPA bundle with the <code>policy.wasm</code> binary included. See <a href="https://github.com/me-viper/OpaDotNet/tree/main/samples">samples</a> for a more comprehensive example.</p>
 <p>See <code>opa build --help</code> for more details.</p>
-<h3 id="with-opadotnetwasmcompilation">With OpaDotNet.Wasm.Compilation</h3>
-<p>You can use SDK to do compilation for you.</p>
+<h3 id="with-opadotnetcompilation">With OpaDotNet.Compilation</h3>
+<p>You can use SDK to do compilation for you. For more information see <a href="https://github.com/me-viper/OpaDotNet.Compilation">OpaDotNet.Compilation</a>.</p>
+<h4 id="opadotnetcompilationcli">OpaDotNet.Compilation.Cli</h4>
 <div class="IMPORTANT">
 <h5>Important</h5>
 <p>You will need <code>opa</code> cli tool to be in your PATH or provide full path in <code>RegoCliCompilerOptions</code>.</p>
 </div>
-<pre><code class="lang-csharp">
-using OpaDotNet.Wasm;
+<pre><code class="lang-bash">dotnet add package OpaDotNet.Compilation.Cli
+</code></pre>
+<pre><code class="lang-csharp">using OpaDotNet.Wasm;
 using OpaDotNet.Compilation.Cli;
 
-</code></pre><pre><code class="lang-csharp">
 var compiler = new RegoCliCompiler();
-var policyStream = await compiler.CompileFile(&quot;quickstart/example.rego&quot;, new[] { &quot;example/hello&quot; });
+var policyStream = await compiler.CompileFile(&quot;example.rego&quot;, new[] { &quot;example/hello&quot; });
 
 // Use compiled policy.
 using var engine = OpaEvaluatorFactory.CreateFromBundle(policyStream);
+</code></pre>
+<h4 id="opadotnetcompilationinterop">OpaDotNet.Compilation.Interop</h4>
+<pre><code class="lang-bash">dotnet add package OpaDotNet.Compilation.Interop
+</code></pre>
+<pre><code class="lang-csharp">using OpaDotNet.Wasm;
+using OpaDotNet.Compilation.Interop;
 
-</code></pre></article>
+var compiler = new RegoInteropCompiler();
+var policyStream = await compiler.CompileFile(&quot;example.rego&quot;, new[] { &quot;example/hello&quot; });
+
+// Use compiled policy.
+using var engine = OpaEvaluatorFactory.CreateFromBundle(policyStream);
+</code></pre>
+</article>
 
         <div class="contribution d-print-none">
           <a href="https://github.com/me-viper/OpaDotNet/blob/main/docs/articles/HowToStart.md/#L1" class="edit-link">Edit this page</a>
