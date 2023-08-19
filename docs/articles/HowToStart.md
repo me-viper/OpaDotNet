@@ -61,13 +61,43 @@ The result will be an OPA bundle with the `policy.wasm` binary included. See [sa
 
 See `opa build --help` for more details.
 
-### With OpaDotNet.Wasm.Compilation
+### With OpaDotNet.Compilation
 
-You can use SDK to do compilation for you.
+You can use SDK to do compilation for you. For more information see [OpaDotNet.Compilation](https://github.com/me-viper/OpaDotNet.Compilation).
+
+#### OpaDotNet.Compilation.Cli
 
 > [!IMPORTANT]
 > You will need `opa` cli tool to be in your PATH or provide full path in `RegoCliCompilerOptions`.
 
-[!code-csharp[](~/snippets/QuickStart.cs#CompilationUsings)]
+```bash
+dotnet add package OpaDotNet.Compilation.Cli
+```
 
-[!code-csharp[](~/snippets/QuickStart.cs#QuickStartCompilation)]
+```csharp
+using OpaDotNet.Wasm;
+using OpaDotNet.Compilation.Cli;
+
+var compiler = new RegoCliCompiler();
+var policyStream = await compiler.CompileFile("example.rego", new[] { "example/hello" });
+
+// Use compiled policy.
+using var engine = OpaEvaluatorFactory.CreateFromBundle(policyStream);
+```
+
+#### OpaDotNet.Compilation.Interop
+
+```bash
+dotnet add package OpaDotNet.Compilation.Interop
+```
+
+```csharp
+using OpaDotNet.Wasm;
+using OpaDotNet.Compilation.Interop;
+
+var compiler = new RegoInteropCompiler();
+var policyStream = await compiler.CompileFile("example.rego", new[] { "example/hello" });
+
+// Use compiled policy.
+using var engine = OpaEvaluatorFactory.CreateFromBundle(policyStream);
+```

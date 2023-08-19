@@ -36,4 +36,4 @@ items:
 - name: Capabilities
   href: reference/capabilities.md
 - name: AspNetCore
-  href: AspNet/intro.md
+  href: AspNet/Intro.md
