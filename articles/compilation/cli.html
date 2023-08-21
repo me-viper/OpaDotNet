@@ -74,10 +74,14 @@
         <article data-uid="">
 <h1 id="opadotnet-cli-compiler">OpaDotNet Cli Compiler</h1>
 
-<p>Cli compiler is simple wrapper over <code>opa</code> CLI, b</p>
+<p>Cli compiler is simple wrapper over <code>opa</code> CLI tool.</p>
 <div class="IMPORTANT">
 <h5>Important</h5>
-<p>Internally <code>RegoCliCompiler</code> uses <code>opa</code> CLI so you need to ensure it is in your <code>PATH</code> environment variable or you provided full path in <code>RegoCliCompilerOptions.OpaToolPath</code>.</p>
+<p>Internally <code>RegoCliCompiler</code> uses <code>opa</code> CLI so you need to ensure it is in your <code>PATH</code> environment variable or you provided full path in <a class="xref" href="../../api/OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.html#OpaDotNet_Compilation_Cli_RegoCliCompilerOptions_OpaToolPath">RegoCliCompilerOptions.OpaToolPath</a>.</p>
+</div>
+<div class="NOTE">
+<h5>Note</h5>
+<p><code>RegoCliCompiler</code> requires write access to the file system to store intermediate artifacts and outputs. By default it will use parent directory if source is file (<code>/data/policy.rego =&gt; /data</code>) or bundle directory if source is bundle (<code>/data/policy</code> =&gt; <code>/data/policy</code>). You can override artifacts directory with <a class="xref" href="../../api/OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.html#OpaDotNet_Compilation_Abstractions_RegoCompilerOptions_OutputPath">RegoCompilerOptions.OutputPath</a> property.</p>
 </div>
 <h2 id="add-usings">Add usings</h2>
 <pre><code class="lang-csharp">
