@@ -2,6 +2,9 @@
 
 #pragma warning disable CS0105
 
+
+using OpaDotNet.Compilation.Abstractions;
+
 #region Usings
 
 using OpaDotNet.Wasm;
@@ -167,7 +170,7 @@ public partial class DocSamples
     {
         #region CompileSourceCli
 
-        var compiler = new RegoCliCompiler();
+        IRegoCompiler compiler = new RegoCliCompiler();
 
         var policySource = """
             package example
@@ -257,7 +260,7 @@ public partial class DocSamples
     {
         #region CompileSourceInterop
 
-        var compiler = new RegoInteropCompiler();
+        IRegoCompiler compiler = new RegoInteropCompiler();
 
         var policySource = """
             package example

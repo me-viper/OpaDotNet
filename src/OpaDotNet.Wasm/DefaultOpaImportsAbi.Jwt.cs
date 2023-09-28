@@ -211,8 +211,11 @@ public partial class DefaultOpaImportsAbi
 
     private static string JwtEncodeSignRaw(string headers, string payload, string key)
     {
-        var jwtPayload = JsonExtensions.DeserializeJwtPayload(payload);
-        var baseHeader = JsonExtensions.DeserializeJwtHeader(headers);
+        var jwtPayload = JwtPayload.Deserialize(payload);
+
+        // System.IdentityModel.Tokens.Jwt 7.0+ removed deserialization helper method we've
+        // been using and didn't provide alternative. So for now using the only one ugly solution available.
+        var baseHeader = JwtHeader.Base64UrlDeserialize(Base64UrlEncoder.Encode(headers));
 
         var jwk = new JsonWebKey(key);
         var alg = baseHeader.Alg ?? jwk.Alg;
