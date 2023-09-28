@@ -1,5 +1,11 @@
 # Changelog
 
+## OpaDotNet.Wasm v2.1.0 (2023-98-28)
+
+### Features
+
+* Update dependencies ([c4d591b](https://github.com/me-viper/OpaDotNet/commit/c4d591bab62f83c3efa8be1833e6d9afbda2e130))
+
 ## OpaDotNet.Wasm v2.0.0 (2023-08-18)
 
 ### Features
