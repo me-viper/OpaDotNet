@@ -7,6 +7,288 @@ references:
   commentId: N:OpaDotNet.Compilation.Abstractions
   fullName: OpaDotNet.Compilation.Abstractions
   nameWithType: OpaDotNet.Compilation.Abstractions
+- uid: OpaDotNet.Compilation.Abstractions.BundleManifest
+  name: BundleManifest
+  href: api/OpaDotNet.Compilation.Abstractions.BundleManifest.html
+  commentId: T:OpaDotNet.Compilation.Abstractions.BundleManifest
+  fullName: OpaDotNet.Compilation.Abstractions.BundleManifest
+  nameWithType: BundleManifest
+- uid: OpaDotNet.Compilation.Abstractions.BundleManifest.#ctor
+  name: BundleManifest()
+  href: api/OpaDotNet.Compilation.Abstractions.BundleManifest.html#OpaDotNet_Compilation_Abstractions_BundleManifest__ctor
+  commentId: M:OpaDotNet.Compilation.Abstractions.BundleManifest.#ctor
+  name.vb: New()
+  fullName: OpaDotNet.Compilation.Abstractions.BundleManifest.BundleManifest()
+  fullName.vb: OpaDotNet.Compilation.Abstractions.BundleManifest.New()
+  nameWithType: BundleManifest.BundleManifest()
+  nameWithType.vb: BundleManifest.New()
+- uid: OpaDotNet.Compilation.Abstractions.BundleManifest.#ctor(OpaDotNet.Compilation.Abstractions.BundleManifest)
+  name: BundleManifest(BundleManifest)
+  href: api/OpaDotNet.Compilation.Abstractions.BundleManifest.html#OpaDotNet_Compilation_Abstractions_BundleManifest__ctor_OpaDotNet_Compilation_Abstractions_BundleManifest_
+  commentId: M:OpaDotNet.Compilation.Abstractions.BundleManifest.#ctor(OpaDotNet.Compilation.Abstractions.BundleManifest)
+  name.vb: New(BundleManifest)
+  fullName: OpaDotNet.Compilation.Abstractions.BundleManifest.BundleManifest(OpaDotNet.Compilation.Abstractions.BundleManifest)
+  fullName.vb: OpaDotNet.Compilation.Abstractions.BundleManifest.New(OpaDotNet.Compilation.Abstractions.BundleManifest)
+  nameWithType: BundleManifest.BundleManifest(BundleManifest)
+  nameWithType.vb: BundleManifest.New(BundleManifest)
+- uid: OpaDotNet.Compilation.Abstractions.BundleManifest.#ctor*
+  name: BundleManifest
+  href: api/OpaDotNet.Compilation.Abstractions.BundleManifest.html#OpaDotNet_Compilation_Abstractions_BundleManifest__ctor_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.BundleManifest.#ctor
+  name.vb: New
+  fullName: OpaDotNet.Compilation.Abstractions.BundleManifest.BundleManifest
+  fullName.vb: OpaDotNet.Compilation.Abstractions.BundleManifest.New
+  nameWithType: BundleManifest.BundleManifest
+  nameWithType.vb: BundleManifest.New
+- uid: OpaDotNet.Compilation.Abstractions.BundleManifest.EqualityContract
+  name: EqualityContract
+  href: api/OpaDotNet.Compilation.Abstractions.BundleManifest.html#OpaDotNet_Compilation_Abstractions_BundleManifest_EqualityContract
+  commentId: P:OpaDotNet.Compilation.Abstractions.BundleManifest.EqualityContract
+  fullName: OpaDotNet.Compilation.Abstractions.BundleManifest.EqualityContract
+  nameWithType: BundleManifest.EqualityContract
+- uid: OpaDotNet.Compilation.Abstractions.BundleManifest.EqualityContract*
+  name: EqualityContract
+  href: api/OpaDotNet.Compilation.Abstractions.BundleManifest.html#OpaDotNet_Compilation_Abstractions_BundleManifest_EqualityContract_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.BundleManifest.EqualityContract
+  fullName: OpaDotNet.Compilation.Abstractions.BundleManifest.EqualityContract
+  nameWithType: BundleManifest.EqualityContract
+- uid: OpaDotNet.Compilation.Abstractions.BundleManifest.Equals(OpaDotNet.Compilation.Abstractions.BundleManifest)
+  name: Equals(BundleManifest?)
+  href: api/OpaDotNet.Compilation.Abstractions.BundleManifest.html#OpaDotNet_Compilation_Abstractions_BundleManifest_Equals_OpaDotNet_Compilation_Abstractions_BundleManifest_
+  commentId: M:OpaDotNet.Compilation.Abstractions.BundleManifest.Equals(OpaDotNet.Compilation.Abstractions.BundleManifest)
+  name.vb: Equals(BundleManifest)
+  fullName: OpaDotNet.Compilation.Abstractions.BundleManifest.Equals(OpaDotNet.Compilation.Abstractions.BundleManifest?)
+  fullName.vb: OpaDotNet.Compilation.Abstractions.BundleManifest.Equals(OpaDotNet.Compilation.Abstractions.BundleManifest)
+  nameWithType: BundleManifest.Equals(BundleManifest?)
+  nameWithType.vb: BundleManifest.Equals(BundleManifest)
+- uid: OpaDotNet.Compilation.Abstractions.BundleManifest.Equals(System.Object)
+  name: Equals(object?)
+  href: api/OpaDotNet.Compilation.Abstractions.BundleManifest.html#OpaDotNet_Compilation_Abstractions_BundleManifest_Equals_System_Object_
+  commentId: M:OpaDotNet.Compilation.Abstractions.BundleManifest.Equals(System.Object)
+  name.vb: Equals(Object)
+  fullName: OpaDotNet.Compilation.Abstractions.BundleManifest.Equals(object?)
+  fullName.vb: OpaDotNet.Compilation.Abstractions.BundleManifest.Equals(Object)
+  nameWithType: BundleManifest.Equals(object?)
+  nameWithType.vb: BundleManifest.Equals(Object)
+- uid: OpaDotNet.Compilation.Abstractions.BundleManifest.Equals*
+  name: Equals
+  href: api/OpaDotNet.Compilation.Abstractions.BundleManifest.html#OpaDotNet_Compilation_Abstractions_BundleManifest_Equals_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.BundleManifest.Equals
+  fullName: OpaDotNet.Compilation.Abstractions.BundleManifest.Equals
+  nameWithType: BundleManifest.Equals
+- uid: OpaDotNet.Compilation.Abstractions.BundleManifest.GetHashCode
+  name: GetHashCode()
+  href: api/OpaDotNet.Compilation.Abstractions.BundleManifest.html#OpaDotNet_Compilation_Abstractions_BundleManifest_GetHashCode
+  commentId: M:OpaDotNet.Compilation.Abstractions.BundleManifest.GetHashCode
+  fullName: OpaDotNet.Compilation.Abstractions.BundleManifest.GetHashCode()
+  nameWithType: BundleManifest.GetHashCode()
+- uid: OpaDotNet.Compilation.Abstractions.BundleManifest.GetHashCode*
+  name: GetHashCode
+  href: api/OpaDotNet.Compilation.Abstractions.BundleManifest.html#OpaDotNet_Compilation_Abstractions_BundleManifest_GetHashCode_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.BundleManifest.GetHashCode
+  fullName: OpaDotNet.Compilation.Abstractions.BundleManifest.GetHashCode
+  nameWithType: BundleManifest.GetHashCode
+- uid: OpaDotNet.Compilation.Abstractions.BundleManifest.Metadata
+  name: Metadata
+  href: api/OpaDotNet.Compilation.Abstractions.BundleManifest.html#OpaDotNet_Compilation_Abstractions_BundleManifest_Metadata
+  commentId: P:OpaDotNet.Compilation.Abstractions.BundleManifest.Metadata
+  fullName: OpaDotNet.Compilation.Abstractions.BundleManifest.Metadata
+  nameWithType: BundleManifest.Metadata
+- uid: OpaDotNet.Compilation.Abstractions.BundleManifest.Metadata*
+  name: Metadata
+  href: api/OpaDotNet.Compilation.Abstractions.BundleManifest.html#OpaDotNet_Compilation_Abstractions_BundleManifest_Metadata_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.BundleManifest.Metadata
+  fullName: OpaDotNet.Compilation.Abstractions.BundleManifest.Metadata
+  nameWithType: BundleManifest.Metadata
+- uid: OpaDotNet.Compilation.Abstractions.BundleManifest.PrintMembers(System.Text.StringBuilder)
+  name: PrintMembers(StringBuilder)
+  href: api/OpaDotNet.Compilation.Abstractions.BundleManifest.html#OpaDotNet_Compilation_Abstractions_BundleManifest_PrintMembers_System_Text_StringBuilder_
+  commentId: M:OpaDotNet.Compilation.Abstractions.BundleManifest.PrintMembers(System.Text.StringBuilder)
+  fullName: OpaDotNet.Compilation.Abstractions.BundleManifest.PrintMembers(System.Text.StringBuilder)
+  nameWithType: BundleManifest.PrintMembers(StringBuilder)
+- uid: OpaDotNet.Compilation.Abstractions.BundleManifest.PrintMembers*
+  name: PrintMembers
+  href: api/OpaDotNet.Compilation.Abstractions.BundleManifest.html#OpaDotNet_Compilation_Abstractions_BundleManifest_PrintMembers_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.BundleManifest.PrintMembers
+  fullName: OpaDotNet.Compilation.Abstractions.BundleManifest.PrintMembers
+  nameWithType: BundleManifest.PrintMembers
+- uid: OpaDotNet.Compilation.Abstractions.BundleManifest.Revision
+  name: Revision
+  href: api/OpaDotNet.Compilation.Abstractions.BundleManifest.html#OpaDotNet_Compilation_Abstractions_BundleManifest_Revision
+  commentId: P:OpaDotNet.Compilation.Abstractions.BundleManifest.Revision
+  fullName: OpaDotNet.Compilation.Abstractions.BundleManifest.Revision
+  nameWithType: BundleManifest.Revision
+- uid: OpaDotNet.Compilation.Abstractions.BundleManifest.Revision*
+  name: Revision
+  href: api/OpaDotNet.Compilation.Abstractions.BundleManifest.html#OpaDotNet_Compilation_Abstractions_BundleManifest_Revision_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.BundleManifest.Revision
+  fullName: OpaDotNet.Compilation.Abstractions.BundleManifest.Revision
+  nameWithType: BundleManifest.Revision
+- uid: OpaDotNet.Compilation.Abstractions.BundleManifest.Roots
+  name: Roots
+  href: api/OpaDotNet.Compilation.Abstractions.BundleManifest.html#OpaDotNet_Compilation_Abstractions_BundleManifest_Roots
+  commentId: P:OpaDotNet.Compilation.Abstractions.BundleManifest.Roots
+  fullName: OpaDotNet.Compilation.Abstractions.BundleManifest.Roots
+  nameWithType: BundleManifest.Roots
+- uid: OpaDotNet.Compilation.Abstractions.BundleManifest.Roots*
+  name: Roots
+  href: api/OpaDotNet.Compilation.Abstractions.BundleManifest.html#OpaDotNet_Compilation_Abstractions_BundleManifest_Roots_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.BundleManifest.Roots
+  fullName: OpaDotNet.Compilation.Abstractions.BundleManifest.Roots
+  nameWithType: BundleManifest.Roots
+- uid: OpaDotNet.Compilation.Abstractions.BundleManifest.ToString
+  name: ToString()
+  href: api/OpaDotNet.Compilation.Abstractions.BundleManifest.html#OpaDotNet_Compilation_Abstractions_BundleManifest_ToString
+  commentId: M:OpaDotNet.Compilation.Abstractions.BundleManifest.ToString
+  fullName: OpaDotNet.Compilation.Abstractions.BundleManifest.ToString()
+  nameWithType: BundleManifest.ToString()
+- uid: OpaDotNet.Compilation.Abstractions.BundleManifest.ToString*
+  name: ToString
+  href: api/OpaDotNet.Compilation.Abstractions.BundleManifest.html#OpaDotNet_Compilation_Abstractions_BundleManifest_ToString_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.BundleManifest.ToString
+  fullName: OpaDotNet.Compilation.Abstractions.BundleManifest.ToString
+  nameWithType: BundleManifest.ToString
+- uid: OpaDotNet.Compilation.Abstractions.BundleManifest.Wasm
+  name: Wasm
+  href: api/OpaDotNet.Compilation.Abstractions.BundleManifest.html#OpaDotNet_Compilation_Abstractions_BundleManifest_Wasm
+  commentId: P:OpaDotNet.Compilation.Abstractions.BundleManifest.Wasm
+  fullName: OpaDotNet.Compilation.Abstractions.BundleManifest.Wasm
+  nameWithType: BundleManifest.Wasm
+- uid: OpaDotNet.Compilation.Abstractions.BundleManifest.Wasm*
+  name: Wasm
+  href: api/OpaDotNet.Compilation.Abstractions.BundleManifest.html#OpaDotNet_Compilation_Abstractions_BundleManifest_Wasm_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.BundleManifest.Wasm
+  fullName: OpaDotNet.Compilation.Abstractions.BundleManifest.Wasm
+  nameWithType: BundleManifest.Wasm
+- uid: OpaDotNet.Compilation.Abstractions.BundleManifest.op_Equality(OpaDotNet.Compilation.Abstractions.BundleManifest,OpaDotNet.Compilation.Abstractions.BundleManifest)
+  name: operator ==(BundleManifest?, BundleManifest?)
+  href: api/OpaDotNet.Compilation.Abstractions.BundleManifest.html#OpaDotNet_Compilation_Abstractions_BundleManifest_op_Equality_OpaDotNet_Compilation_Abstractions_BundleManifest_OpaDotNet_Compilation_Abstractions_BundleManifest_
+  commentId: M:OpaDotNet.Compilation.Abstractions.BundleManifest.op_Equality(OpaDotNet.Compilation.Abstractions.BundleManifest,OpaDotNet.Compilation.Abstractions.BundleManifest)
+  name.vb: =(BundleManifest, BundleManifest)
+  fullName: OpaDotNet.Compilation.Abstractions.BundleManifest.operator ==(OpaDotNet.Compilation.Abstractions.BundleManifest?, OpaDotNet.Compilation.Abstractions.BundleManifest?)
+  fullName.vb: OpaDotNet.Compilation.Abstractions.BundleManifest.=(OpaDotNet.Compilation.Abstractions.BundleManifest, OpaDotNet.Compilation.Abstractions.BundleManifest)
+  nameWithType: BundleManifest.operator ==(BundleManifest?, BundleManifest?)
+  nameWithType.vb: BundleManifest.=(BundleManifest, BundleManifest)
+- uid: OpaDotNet.Compilation.Abstractions.BundleManifest.op_Equality*
+  name: operator ==
+  href: api/OpaDotNet.Compilation.Abstractions.BundleManifest.html#OpaDotNet_Compilation_Abstractions_BundleManifest_op_Equality_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.BundleManifest.op_Equality
+  name.vb: =
+  fullName: OpaDotNet.Compilation.Abstractions.BundleManifest.operator ==
+  fullName.vb: OpaDotNet.Compilation.Abstractions.BundleManifest.=
+  nameWithType: BundleManifest.operator ==
+  nameWithType.vb: BundleManifest.=
+- uid: OpaDotNet.Compilation.Abstractions.BundleManifest.op_Inequality(OpaDotNet.Compilation.Abstractions.BundleManifest,OpaDotNet.Compilation.Abstractions.BundleManifest)
+  name: operator !=(BundleManifest?, BundleManifest?)
+  href: api/OpaDotNet.Compilation.Abstractions.BundleManifest.html#OpaDotNet_Compilation_Abstractions_BundleManifest_op_Inequality_OpaDotNet_Compilation_Abstractions_BundleManifest_OpaDotNet_Compilation_Abstractions_BundleManifest_
+  commentId: M:OpaDotNet.Compilation.Abstractions.BundleManifest.op_Inequality(OpaDotNet.Compilation.Abstractions.BundleManifest,OpaDotNet.Compilation.Abstractions.BundleManifest)
+  name.vb: <>(BundleManifest, BundleManifest)
+  fullName: OpaDotNet.Compilation.Abstractions.BundleManifest.operator !=(OpaDotNet.Compilation.Abstractions.BundleManifest?, OpaDotNet.Compilation.Abstractions.BundleManifest?)
+  fullName.vb: OpaDotNet.Compilation.Abstractions.BundleManifest.<>(OpaDotNet.Compilation.Abstractions.BundleManifest, OpaDotNet.Compilation.Abstractions.BundleManifest)
+  nameWithType: BundleManifest.operator !=(BundleManifest?, BundleManifest?)
+  nameWithType.vb: BundleManifest.<>(BundleManifest, BundleManifest)
+- uid: OpaDotNet.Compilation.Abstractions.BundleManifest.op_Inequality*
+  name: operator !=
+  href: api/OpaDotNet.Compilation.Abstractions.BundleManifest.html#OpaDotNet_Compilation_Abstractions_BundleManifest_op_Inequality_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.BundleManifest.op_Inequality
+  name.vb: <>
+  fullName: OpaDotNet.Compilation.Abstractions.BundleManifest.operator !=
+  fullName.vb: OpaDotNet.Compilation.Abstractions.BundleManifest.<>
+  nameWithType: BundleManifest.operator !=
+  nameWithType.vb: BundleManifest.<>
+- uid: OpaDotNet.Compilation.Abstractions.BundleManifest.{Clone}$
+  name: <Clone>$()
+  href: api/OpaDotNet.Compilation.Abstractions.BundleManifest.html#OpaDotNet_Compilation_Abstractions_BundleManifest__Clone__
+  commentId: M:OpaDotNet.Compilation.Abstractions.BundleManifest.{Clone}$
+  fullName: OpaDotNet.Compilation.Abstractions.BundleManifest.<Clone>$()
+  nameWithType: BundleManifest.<Clone>$()
+- uid: OpaDotNet.Compilation.Abstractions.BundleManifest.{Clone}$*
+  name: <Clone>$
+  href: api/OpaDotNet.Compilation.Abstractions.BundleManifest.html#OpaDotNet_Compilation_Abstractions_BundleManifest__Clone___
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.BundleManifest.{Clone}$
+  fullName: OpaDotNet.Compilation.Abstractions.BundleManifest.<Clone>$
+  nameWithType: BundleManifest.<Clone>$
+- uid: OpaDotNet.Compilation.Abstractions.BundleWriter
+  name: BundleWriter
+  href: api/OpaDotNet.Compilation.Abstractions.BundleWriter.html
+  commentId: T:OpaDotNet.Compilation.Abstractions.BundleWriter
+  fullName: OpaDotNet.Compilation.Abstractions.BundleWriter
+  nameWithType: BundleWriter
+- uid: OpaDotNet.Compilation.Abstractions.BundleWriter.#ctor(System.IO.Stream,OpaDotNet.Compilation.Abstractions.BundleManifest)
+  name: BundleWriter(Stream, BundleManifest?)
+  href: api/OpaDotNet.Compilation.Abstractions.BundleWriter.html#OpaDotNet_Compilation_Abstractions_BundleWriter__ctor_System_IO_Stream_OpaDotNet_Compilation_Abstractions_BundleManifest_
+  commentId: M:OpaDotNet.Compilation.Abstractions.BundleWriter.#ctor(System.IO.Stream,OpaDotNet.Compilation.Abstractions.BundleManifest)
+  name.vb: New(Stream, BundleManifest)
+  fullName: OpaDotNet.Compilation.Abstractions.BundleWriter.BundleWriter(System.IO.Stream, OpaDotNet.Compilation.Abstractions.BundleManifest?)
+  fullName.vb: OpaDotNet.Compilation.Abstractions.BundleWriter.New(System.IO.Stream, OpaDotNet.Compilation.Abstractions.BundleManifest)
+  nameWithType: BundleWriter.BundleWriter(Stream, BundleManifest?)
+  nameWithType.vb: BundleWriter.New(Stream, BundleManifest)
+- uid: OpaDotNet.Compilation.Abstractions.BundleWriter.#ctor*
+  name: BundleWriter
+  href: api/OpaDotNet.Compilation.Abstractions.BundleWriter.html#OpaDotNet_Compilation_Abstractions_BundleWriter__ctor_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.BundleWriter.#ctor
+  name.vb: New
+  fullName: OpaDotNet.Compilation.Abstractions.BundleWriter.BundleWriter
+  fullName.vb: OpaDotNet.Compilation.Abstractions.BundleWriter.New
+  nameWithType: BundleWriter.BundleWriter
+  nameWithType.vb: BundleWriter.New
+- uid: OpaDotNet.Compilation.Abstractions.BundleWriter.Dispose
+  name: Dispose()
+  href: api/OpaDotNet.Compilation.Abstractions.BundleWriter.html#OpaDotNet_Compilation_Abstractions_BundleWriter_Dispose
+  commentId: M:OpaDotNet.Compilation.Abstractions.BundleWriter.Dispose
+  fullName: OpaDotNet.Compilation.Abstractions.BundleWriter.Dispose()
+  nameWithType: BundleWriter.Dispose()
+- uid: OpaDotNet.Compilation.Abstractions.BundleWriter.Dispose*
+  name: Dispose
+  href: api/OpaDotNet.Compilation.Abstractions.BundleWriter.html#OpaDotNet_Compilation_Abstractions_BundleWriter_Dispose_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.BundleWriter.Dispose
+  fullName: OpaDotNet.Compilation.Abstractions.BundleWriter.Dispose
+  nameWithType: BundleWriter.Dispose
+- uid: OpaDotNet.Compilation.Abstractions.BundleWriter.DisposeAsync
+  name: DisposeAsync()
+  href: api/OpaDotNet.Compilation.Abstractions.BundleWriter.html#OpaDotNet_Compilation_Abstractions_BundleWriter_DisposeAsync
+  commentId: M:OpaDotNet.Compilation.Abstractions.BundleWriter.DisposeAsync
+  fullName: OpaDotNet.Compilation.Abstractions.BundleWriter.DisposeAsync()
+  nameWithType: BundleWriter.DisposeAsync()
+- uid: OpaDotNet.Compilation.Abstractions.BundleWriter.DisposeAsync*
+  name: DisposeAsync
+  href: api/OpaDotNet.Compilation.Abstractions.BundleWriter.html#OpaDotNet_Compilation_Abstractions_BundleWriter_DisposeAsync_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.BundleWriter.DisposeAsync
+  fullName: OpaDotNet.Compilation.Abstractions.BundleWriter.DisposeAsync
+  nameWithType: BundleWriter.DisposeAsync
+- uid: OpaDotNet.Compilation.Abstractions.BundleWriter.WriteEntry(System.IO.Stream,System.String)
+  name: WriteEntry(Stream, string)
+  href: api/OpaDotNet.Compilation.Abstractions.BundleWriter.html#OpaDotNet_Compilation_Abstractions_BundleWriter_WriteEntry_System_IO_Stream_System_String_
+  commentId: M:OpaDotNet.Compilation.Abstractions.BundleWriter.WriteEntry(System.IO.Stream,System.String)
+  name.vb: WriteEntry(Stream, String)
+  fullName: OpaDotNet.Compilation.Abstractions.BundleWriter.WriteEntry(System.IO.Stream, string)
+  fullName.vb: OpaDotNet.Compilation.Abstractions.BundleWriter.WriteEntry(System.IO.Stream, String)
+  nameWithType: BundleWriter.WriteEntry(Stream, string)
+  nameWithType.vb: BundleWriter.WriteEntry(Stream, String)
+- uid: OpaDotNet.Compilation.Abstractions.BundleWriter.WriteEntry(System.ReadOnlySpan{System.Byte},System.String)
+  name: WriteEntry(ReadOnlySpan<byte>, string)
+  href: api/OpaDotNet.Compilation.Abstractions.BundleWriter.html#OpaDotNet_Compilation_Abstractions_BundleWriter_WriteEntry_System_ReadOnlySpan_System_Byte__System_String_
+  commentId: M:OpaDotNet.Compilation.Abstractions.BundleWriter.WriteEntry(System.ReadOnlySpan{System.Byte},System.String)
+  name.vb: WriteEntry(ReadOnlySpan(Of Byte), String)
+  fullName: OpaDotNet.Compilation.Abstractions.BundleWriter.WriteEntry(System.ReadOnlySpan<byte>, string)
+  fullName.vb: OpaDotNet.Compilation.Abstractions.BundleWriter.WriteEntry(System.ReadOnlySpan(Of Byte), String)
+  nameWithType: BundleWriter.WriteEntry(ReadOnlySpan<byte>, string)
+  nameWithType.vb: BundleWriter.WriteEntry(ReadOnlySpan(Of Byte), String)
+- uid: OpaDotNet.Compilation.Abstractions.BundleWriter.WriteEntry(System.ReadOnlySpan{System.Char},System.String)
+  name: WriteEntry(ReadOnlySpan<char>, string)
+  href: api/OpaDotNet.Compilation.Abstractions.BundleWriter.html#OpaDotNet_Compilation_Abstractions_BundleWriter_WriteEntry_System_ReadOnlySpan_System_Char__System_String_
+  commentId: M:OpaDotNet.Compilation.Abstractions.BundleWriter.WriteEntry(System.ReadOnlySpan{System.Char},System.String)
+  name.vb: WriteEntry(ReadOnlySpan(Of Char), String)
+  fullName: OpaDotNet.Compilation.Abstractions.BundleWriter.WriteEntry(System.ReadOnlySpan<char>, string)
+  fullName.vb: OpaDotNet.Compilation.Abstractions.BundleWriter.WriteEntry(System.ReadOnlySpan(Of Char), String)
+  nameWithType: BundleWriter.WriteEntry(ReadOnlySpan<char>, string)
+  nameWithType.vb: BundleWriter.WriteEntry(ReadOnlySpan(Of Char), String)
+- uid: OpaDotNet.Compilation.Abstractions.BundleWriter.WriteEntry*
+  name: WriteEntry
+  href: api/OpaDotNet.Compilation.Abstractions.BundleWriter.html#OpaDotNet_Compilation_Abstractions_BundleWriter_WriteEntry_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.BundleWriter.WriteEntry
+  fullName: OpaDotNet.Compilation.Abstractions.BundleWriter.WriteEntry
+  nameWithType: BundleWriter.WriteEntry
 - uid: OpaDotNet.Compilation.Abstractions.IRegoCompiler
   name: IRegoCompiler
   href: api/OpaDotNet.Compilation.Abstractions.IRegoCompiler.html
@@ -58,6 +340,21 @@ references:
   commentId: Overload:OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileSource
   fullName: OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileSource
   nameWithType: IRegoCompiler.CompileSource
+- uid: OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileStream(System.IO.Stream,System.Collections.Generic.IEnumerable{System.String},System.IO.Stream,System.Threading.CancellationToken)
+  name: CompileStream(Stream, IEnumerable<string>?, Stream?, CancellationToken)
+  href: api/OpaDotNet.Compilation.Abstractions.IRegoCompiler.html#OpaDotNet_Compilation_Abstractions_IRegoCompiler_CompileStream_System_IO_Stream_System_Collections_Generic_IEnumerable_System_String__System_IO_Stream_System_Threading_CancellationToken_
+  commentId: M:OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileStream(System.IO.Stream,System.Collections.Generic.IEnumerable{System.String},System.IO.Stream,System.Threading.CancellationToken)
+  name.vb: CompileStream(Stream, IEnumerable(Of String), Stream, CancellationToken)
+  fullName: OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileStream(System.IO.Stream, System.Collections.Generic.IEnumerable<string>?, System.IO.Stream?, System.Threading.CancellationToken)
+  fullName.vb: OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileStream(System.IO.Stream, System.Collections.Generic.IEnumerable(Of String), System.IO.Stream, System.Threading.CancellationToken)
+  nameWithType: IRegoCompiler.CompileStream(Stream, IEnumerable<string>?, Stream?, CancellationToken)
+  nameWithType.vb: IRegoCompiler.CompileStream(Stream, IEnumerable(Of String), Stream, CancellationToken)
+- uid: OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileStream*
+  name: CompileStream
+  href: api/OpaDotNet.Compilation.Abstractions.IRegoCompiler.html#OpaDotNet_Compilation_Abstractions_IRegoCompiler_CompileStream_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileStream
+  fullName: OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileStream
+  nameWithType: IRegoCompiler.CompileStream
 - uid: OpaDotNet.Compilation.Abstractions.IRegoCompiler.Version(System.Threading.CancellationToken)
   name: Version(CancellationToken)
   href: api/OpaDotNet.Compilation.Abstractions.IRegoCompiler.html#OpaDotNet_Compilation_Abstractions_IRegoCompiler_Version_System_Threading_CancellationToken_
@@ -196,6 +493,18 @@ references:
   commentId: Overload:OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.PreserveBuildArtifacts
   fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.PreserveBuildArtifacts
   nameWithType: RegoCompilerOptions.PreserveBuildArtifacts
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.PruneUnused
+  name: PruneUnused
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.html#OpaDotNet_Compilation_Abstractions_RegoCompilerOptions_PruneUnused
+  commentId: P:OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.PruneUnused
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.PruneUnused
+  nameWithType: RegoCompilerOptions.PruneUnused
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.PruneUnused*
+  name: PruneUnused
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.html#OpaDotNet_Compilation_Abstractions_RegoCompilerOptions_PruneUnused_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.PruneUnused
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.PruneUnused
+  nameWithType: RegoCompilerOptions.PruneUnused
 - uid: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion
   name: RegoCompilerVersion
   href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.html
@@ -397,6 +706,198 @@ references:
   commentId: Overload:OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.{Clone}$
   fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.<Clone>$
   nameWithType: RegoCompilerVersion.<Clone>$
+- uid: OpaDotNet.Compilation.Abstractions.WasmMetadata
+  name: WasmMetadata
+  href: api/OpaDotNet.Compilation.Abstractions.WasmMetadata.html
+  commentId: T:OpaDotNet.Compilation.Abstractions.WasmMetadata
+  fullName: OpaDotNet.Compilation.Abstractions.WasmMetadata
+  nameWithType: WasmMetadata
+- uid: OpaDotNet.Compilation.Abstractions.WasmMetadata.#ctor(OpaDotNet.Compilation.Abstractions.WasmMetadata)
+  name: WasmMetadata(WasmMetadata)
+  href: api/OpaDotNet.Compilation.Abstractions.WasmMetadata.html#OpaDotNet_Compilation_Abstractions_WasmMetadata__ctor_OpaDotNet_Compilation_Abstractions_WasmMetadata_
+  commentId: M:OpaDotNet.Compilation.Abstractions.WasmMetadata.#ctor(OpaDotNet.Compilation.Abstractions.WasmMetadata)
+  name.vb: New(WasmMetadata)
+  fullName: OpaDotNet.Compilation.Abstractions.WasmMetadata.WasmMetadata(OpaDotNet.Compilation.Abstractions.WasmMetadata)
+  fullName.vb: OpaDotNet.Compilation.Abstractions.WasmMetadata.New(OpaDotNet.Compilation.Abstractions.WasmMetadata)
+  nameWithType: WasmMetadata.WasmMetadata(WasmMetadata)
+  nameWithType.vb: WasmMetadata.New(WasmMetadata)
+- uid: OpaDotNet.Compilation.Abstractions.WasmMetadata.#ctor(System.String,System.String)
+  name: WasmMetadata(string, string)
+  href: api/OpaDotNet.Compilation.Abstractions.WasmMetadata.html#OpaDotNet_Compilation_Abstractions_WasmMetadata__ctor_System_String_System_String_
+  commentId: M:OpaDotNet.Compilation.Abstractions.WasmMetadata.#ctor(System.String,System.String)
+  name.vb: New(String, String)
+  fullName: OpaDotNet.Compilation.Abstractions.WasmMetadata.WasmMetadata(string, string)
+  fullName.vb: OpaDotNet.Compilation.Abstractions.WasmMetadata.New(String, String)
+  nameWithType: WasmMetadata.WasmMetadata(string, string)
+  nameWithType.vb: WasmMetadata.New(String, String)
+- uid: OpaDotNet.Compilation.Abstractions.WasmMetadata.#ctor*
+  name: WasmMetadata
+  href: api/OpaDotNet.Compilation.Abstractions.WasmMetadata.html#OpaDotNet_Compilation_Abstractions_WasmMetadata__ctor_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.WasmMetadata.#ctor
+  name.vb: New
+  fullName: OpaDotNet.Compilation.Abstractions.WasmMetadata.WasmMetadata
+  fullName.vb: OpaDotNet.Compilation.Abstractions.WasmMetadata.New
+  nameWithType: WasmMetadata.WasmMetadata
+  nameWithType.vb: WasmMetadata.New
+- uid: OpaDotNet.Compilation.Abstractions.WasmMetadata.Deconstruct(System.String@,System.String@)
+  name: Deconstruct(out string, out string)
+  href: api/OpaDotNet.Compilation.Abstractions.WasmMetadata.html#OpaDotNet_Compilation_Abstractions_WasmMetadata_Deconstruct_System_String__System_String__
+  commentId: M:OpaDotNet.Compilation.Abstractions.WasmMetadata.Deconstruct(System.String@,System.String@)
+  name.vb: Deconstruct(String, String)
+  fullName: OpaDotNet.Compilation.Abstractions.WasmMetadata.Deconstruct(out string, out string)
+  fullName.vb: OpaDotNet.Compilation.Abstractions.WasmMetadata.Deconstruct(String, String)
+  nameWithType: WasmMetadata.Deconstruct(out string, out string)
+  nameWithType.vb: WasmMetadata.Deconstruct(String, String)
+- uid: OpaDotNet.Compilation.Abstractions.WasmMetadata.Deconstruct*
+  name: Deconstruct
+  href: api/OpaDotNet.Compilation.Abstractions.WasmMetadata.html#OpaDotNet_Compilation_Abstractions_WasmMetadata_Deconstruct_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.WasmMetadata.Deconstruct
+  fullName: OpaDotNet.Compilation.Abstractions.WasmMetadata.Deconstruct
+  nameWithType: WasmMetadata.Deconstruct
+- uid: OpaDotNet.Compilation.Abstractions.WasmMetadata.Entrypoint
+  name: Entrypoint
+  href: api/OpaDotNet.Compilation.Abstractions.WasmMetadata.html#OpaDotNet_Compilation_Abstractions_WasmMetadata_Entrypoint
+  commentId: P:OpaDotNet.Compilation.Abstractions.WasmMetadata.Entrypoint
+  fullName: OpaDotNet.Compilation.Abstractions.WasmMetadata.Entrypoint
+  nameWithType: WasmMetadata.Entrypoint
+- uid: OpaDotNet.Compilation.Abstractions.WasmMetadata.Entrypoint*
+  name: Entrypoint
+  href: api/OpaDotNet.Compilation.Abstractions.WasmMetadata.html#OpaDotNet_Compilation_Abstractions_WasmMetadata_Entrypoint_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.WasmMetadata.Entrypoint
+  fullName: OpaDotNet.Compilation.Abstractions.WasmMetadata.Entrypoint
+  nameWithType: WasmMetadata.Entrypoint
+- uid: OpaDotNet.Compilation.Abstractions.WasmMetadata.EqualityContract
+  name: EqualityContract
+  href: api/OpaDotNet.Compilation.Abstractions.WasmMetadata.html#OpaDotNet_Compilation_Abstractions_WasmMetadata_EqualityContract
+  commentId: P:OpaDotNet.Compilation.Abstractions.WasmMetadata.EqualityContract
+  fullName: OpaDotNet.Compilation.Abstractions.WasmMetadata.EqualityContract
+  nameWithType: WasmMetadata.EqualityContract
+- uid: OpaDotNet.Compilation.Abstractions.WasmMetadata.EqualityContract*
+  name: EqualityContract
+  href: api/OpaDotNet.Compilation.Abstractions.WasmMetadata.html#OpaDotNet_Compilation_Abstractions_WasmMetadata_EqualityContract_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.WasmMetadata.EqualityContract
+  fullName: OpaDotNet.Compilation.Abstractions.WasmMetadata.EqualityContract
+  nameWithType: WasmMetadata.EqualityContract
+- uid: OpaDotNet.Compilation.Abstractions.WasmMetadata.Equals(OpaDotNet.Compilation.Abstractions.WasmMetadata)
+  name: Equals(WasmMetadata?)
+  href: api/OpaDotNet.Compilation.Abstractions.WasmMetadata.html#OpaDotNet_Compilation_Abstractions_WasmMetadata_Equals_OpaDotNet_Compilation_Abstractions_WasmMetadata_
+  commentId: M:OpaDotNet.Compilation.Abstractions.WasmMetadata.Equals(OpaDotNet.Compilation.Abstractions.WasmMetadata)
+  name.vb: Equals(WasmMetadata)
+  fullName: OpaDotNet.Compilation.Abstractions.WasmMetadata.Equals(OpaDotNet.Compilation.Abstractions.WasmMetadata?)
+  fullName.vb: OpaDotNet.Compilation.Abstractions.WasmMetadata.Equals(OpaDotNet.Compilation.Abstractions.WasmMetadata)
+  nameWithType: WasmMetadata.Equals(WasmMetadata?)
+  nameWithType.vb: WasmMetadata.Equals(WasmMetadata)
+- uid: OpaDotNet.Compilation.Abstractions.WasmMetadata.Equals(System.Object)
+  name: Equals(object?)
+  href: api/OpaDotNet.Compilation.Abstractions.WasmMetadata.html#OpaDotNet_Compilation_Abstractions_WasmMetadata_Equals_System_Object_
+  commentId: M:OpaDotNet.Compilation.Abstractions.WasmMetadata.Equals(System.Object)
+  name.vb: Equals(Object)
+  fullName: OpaDotNet.Compilation.Abstractions.WasmMetadata.Equals(object?)
+  fullName.vb: OpaDotNet.Compilation.Abstractions.WasmMetadata.Equals(Object)
+  nameWithType: WasmMetadata.Equals(object?)
+  nameWithType.vb: WasmMetadata.Equals(Object)
+- uid: OpaDotNet.Compilation.Abstractions.WasmMetadata.Equals*
+  name: Equals
+  href: api/OpaDotNet.Compilation.Abstractions.WasmMetadata.html#OpaDotNet_Compilation_Abstractions_WasmMetadata_Equals_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.WasmMetadata.Equals
+  fullName: OpaDotNet.Compilation.Abstractions.WasmMetadata.Equals
+  nameWithType: WasmMetadata.Equals
+- uid: OpaDotNet.Compilation.Abstractions.WasmMetadata.GetHashCode
+  name: GetHashCode()
+  href: api/OpaDotNet.Compilation.Abstractions.WasmMetadata.html#OpaDotNet_Compilation_Abstractions_WasmMetadata_GetHashCode
+  commentId: M:OpaDotNet.Compilation.Abstractions.WasmMetadata.GetHashCode
+  fullName: OpaDotNet.Compilation.Abstractions.WasmMetadata.GetHashCode()
+  nameWithType: WasmMetadata.GetHashCode()
+- uid: OpaDotNet.Compilation.Abstractions.WasmMetadata.GetHashCode*
+  name: GetHashCode
+  href: api/OpaDotNet.Compilation.Abstractions.WasmMetadata.html#OpaDotNet_Compilation_Abstractions_WasmMetadata_GetHashCode_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.WasmMetadata.GetHashCode
+  fullName: OpaDotNet.Compilation.Abstractions.WasmMetadata.GetHashCode
+  nameWithType: WasmMetadata.GetHashCode
+- uid: OpaDotNet.Compilation.Abstractions.WasmMetadata.Module
+  name: Module
+  href: api/OpaDotNet.Compilation.Abstractions.WasmMetadata.html#OpaDotNet_Compilation_Abstractions_WasmMetadata_Module
+  commentId: P:OpaDotNet.Compilation.Abstractions.WasmMetadata.Module
+  fullName: OpaDotNet.Compilation.Abstractions.WasmMetadata.Module
+  nameWithType: WasmMetadata.Module
+- uid: OpaDotNet.Compilation.Abstractions.WasmMetadata.Module*
+  name: Module
+  href: api/OpaDotNet.Compilation.Abstractions.WasmMetadata.html#OpaDotNet_Compilation_Abstractions_WasmMetadata_Module_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.WasmMetadata.Module
+  fullName: OpaDotNet.Compilation.Abstractions.WasmMetadata.Module
+  nameWithType: WasmMetadata.Module
+- uid: OpaDotNet.Compilation.Abstractions.WasmMetadata.PrintMembers(System.Text.StringBuilder)
+  name: PrintMembers(StringBuilder)
+  href: api/OpaDotNet.Compilation.Abstractions.WasmMetadata.html#OpaDotNet_Compilation_Abstractions_WasmMetadata_PrintMembers_System_Text_StringBuilder_
+  commentId: M:OpaDotNet.Compilation.Abstractions.WasmMetadata.PrintMembers(System.Text.StringBuilder)
+  fullName: OpaDotNet.Compilation.Abstractions.WasmMetadata.PrintMembers(System.Text.StringBuilder)
+  nameWithType: WasmMetadata.PrintMembers(StringBuilder)
+- uid: OpaDotNet.Compilation.Abstractions.WasmMetadata.PrintMembers*
+  name: PrintMembers
+  href: api/OpaDotNet.Compilation.Abstractions.WasmMetadata.html#OpaDotNet_Compilation_Abstractions_WasmMetadata_PrintMembers_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.WasmMetadata.PrintMembers
+  fullName: OpaDotNet.Compilation.Abstractions.WasmMetadata.PrintMembers
+  nameWithType: WasmMetadata.PrintMembers
+- uid: OpaDotNet.Compilation.Abstractions.WasmMetadata.ToString
+  name: ToString()
+  href: api/OpaDotNet.Compilation.Abstractions.WasmMetadata.html#OpaDotNet_Compilation_Abstractions_WasmMetadata_ToString
+  commentId: M:OpaDotNet.Compilation.Abstractions.WasmMetadata.ToString
+  fullName: OpaDotNet.Compilation.Abstractions.WasmMetadata.ToString()
+  nameWithType: WasmMetadata.ToString()
+- uid: OpaDotNet.Compilation.Abstractions.WasmMetadata.ToString*
+  name: ToString
+  href: api/OpaDotNet.Compilation.Abstractions.WasmMetadata.html#OpaDotNet_Compilation_Abstractions_WasmMetadata_ToString_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.WasmMetadata.ToString
+  fullName: OpaDotNet.Compilation.Abstractions.WasmMetadata.ToString
+  nameWithType: WasmMetadata.ToString
+- uid: OpaDotNet.Compilation.Abstractions.WasmMetadata.op_Equality(OpaDotNet.Compilation.Abstractions.WasmMetadata,OpaDotNet.Compilation.Abstractions.WasmMetadata)
+  name: operator ==(WasmMetadata?, WasmMetadata?)
+  href: api/OpaDotNet.Compilation.Abstractions.WasmMetadata.html#OpaDotNet_Compilation_Abstractions_WasmMetadata_op_Equality_OpaDotNet_Compilation_Abstractions_WasmMetadata_OpaDotNet_Compilation_Abstractions_WasmMetadata_
+  commentId: M:OpaDotNet.Compilation.Abstractions.WasmMetadata.op_Equality(OpaDotNet.Compilation.Abstractions.WasmMetadata,OpaDotNet.Compilation.Abstractions.WasmMetadata)
+  name.vb: =(WasmMetadata, WasmMetadata)
+  fullName: OpaDotNet.Compilation.Abstractions.WasmMetadata.operator ==(OpaDotNet.Compilation.Abstractions.WasmMetadata?, OpaDotNet.Compilation.Abstractions.WasmMetadata?)
+  fullName.vb: OpaDotNet.Compilation.Abstractions.WasmMetadata.=(OpaDotNet.Compilation.Abstractions.WasmMetadata, OpaDotNet.Compilation.Abstractions.WasmMetadata)
+  nameWithType: WasmMetadata.operator ==(WasmMetadata?, WasmMetadata?)
+  nameWithType.vb: WasmMetadata.=(WasmMetadata, WasmMetadata)
+- uid: OpaDotNet.Compilation.Abstractions.WasmMetadata.op_Equality*
+  name: operator ==
+  href: api/OpaDotNet.Compilation.Abstractions.WasmMetadata.html#OpaDotNet_Compilation_Abstractions_WasmMetadata_op_Equality_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.WasmMetadata.op_Equality
+  name.vb: =
+  fullName: OpaDotNet.Compilation.Abstractions.WasmMetadata.operator ==
+  fullName.vb: OpaDotNet.Compilation.Abstractions.WasmMetadata.=
+  nameWithType: WasmMetadata.operator ==
+  nameWithType.vb: WasmMetadata.=
+- uid: OpaDotNet.Compilation.Abstractions.WasmMetadata.op_Inequality(OpaDotNet.Compilation.Abstractions.WasmMetadata,OpaDotNet.Compilation.Abstractions.WasmMetadata)
+  name: operator !=(WasmMetadata?, WasmMetadata?)
+  href: api/OpaDotNet.Compilation.Abstractions.WasmMetadata.html#OpaDotNet_Compilation_Abstractions_WasmMetadata_op_Inequality_OpaDotNet_Compilation_Abstractions_WasmMetadata_OpaDotNet_Compilation_Abstractions_WasmMetadata_
+  commentId: M:OpaDotNet.Compilation.Abstractions.WasmMetadata.op_Inequality(OpaDotNet.Compilation.Abstractions.WasmMetadata,OpaDotNet.Compilation.Abstractions.WasmMetadata)
+  name.vb: <>(WasmMetadata, WasmMetadata)
+  fullName: OpaDotNet.Compilation.Abstractions.WasmMetadata.operator !=(OpaDotNet.Compilation.Abstractions.WasmMetadata?, OpaDotNet.Compilation.Abstractions.WasmMetadata?)
+  fullName.vb: OpaDotNet.Compilation.Abstractions.WasmMetadata.<>(OpaDotNet.Compilation.Abstractions.WasmMetadata, OpaDotNet.Compilation.Abstractions.WasmMetadata)
+  nameWithType: WasmMetadata.operator !=(WasmMetadata?, WasmMetadata?)
+  nameWithType.vb: WasmMetadata.<>(WasmMetadata, WasmMetadata)
+- uid: OpaDotNet.Compilation.Abstractions.WasmMetadata.op_Inequality*
+  name: operator !=
+  href: api/OpaDotNet.Compilation.Abstractions.WasmMetadata.html#OpaDotNet_Compilation_Abstractions_WasmMetadata_op_Inequality_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.WasmMetadata.op_Inequality
+  name.vb: <>
+  fullName: OpaDotNet.Compilation.Abstractions.WasmMetadata.operator !=
+  fullName.vb: OpaDotNet.Compilation.Abstractions.WasmMetadata.<>
+  nameWithType: WasmMetadata.operator !=
+  nameWithType.vb: WasmMetadata.<>
+- uid: OpaDotNet.Compilation.Abstractions.WasmMetadata.{Clone}$
+  name: <Clone>$()
+  href: api/OpaDotNet.Compilation.Abstractions.WasmMetadata.html#OpaDotNet_Compilation_Abstractions_WasmMetadata__Clone__
+  commentId: M:OpaDotNet.Compilation.Abstractions.WasmMetadata.{Clone}$
+  fullName: OpaDotNet.Compilation.Abstractions.WasmMetadata.<Clone>$()
+  nameWithType: WasmMetadata.<Clone>$()
+- uid: OpaDotNet.Compilation.Abstractions.WasmMetadata.{Clone}$*
+  name: <Clone>$
+  href: api/OpaDotNet.Compilation.Abstractions.WasmMetadata.html#OpaDotNet_Compilation_Abstractions_WasmMetadata__Clone___
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.WasmMetadata.{Clone}$
+  fullName: OpaDotNet.Compilation.Abstractions.WasmMetadata.<Clone>$
+  nameWithType: WasmMetadata.<Clone>$
 - uid: OpaDotNet.Compilation.Cli
   name: OpaDotNet.Compilation.Cli
   href: api/OpaDotNet.Compilation.Cli.html
@@ -457,21 +958,21 @@ references:
   commentId: Overload:OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileFile
   fullName: OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileFile
   nameWithType: RegoCliCompiler.CompileFile
-- uid: OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileSource(System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
-  name: CompileSource(string, IEnumerable<string>?, CancellationToken)
-  href: api/OpaDotNet.Compilation.Cli.RegoCliCompiler.html#OpaDotNet_Compilation_Cli_RegoCliCompiler_CompileSource_System_String_System_Collections_Generic_IEnumerable_System_String__System_Threading_CancellationToken_
-  commentId: M:OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileSource(System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
-  name.vb: CompileSource(String, IEnumerable(Of String), CancellationToken)
-  fullName: OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileSource(string, System.Collections.Generic.IEnumerable<string>?, System.Threading.CancellationToken)
-  fullName.vb: OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileSource(String, System.Collections.Generic.IEnumerable(Of String), System.Threading.CancellationToken)
-  nameWithType: RegoCliCompiler.CompileSource(string, IEnumerable<string>?, CancellationToken)
-  nameWithType.vb: RegoCliCompiler.CompileSource(String, IEnumerable(Of String), CancellationToken)
-- uid: OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileSource*
-  name: CompileSource
-  href: api/OpaDotNet.Compilation.Cli.RegoCliCompiler.html#OpaDotNet_Compilation_Cli_RegoCliCompiler_CompileSource_
-  commentId: Overload:OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileSource
-  fullName: OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileSource
-  nameWithType: RegoCliCompiler.CompileSource
+- uid: OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileStream(System.IO.Stream,System.Collections.Generic.IEnumerable{System.String},System.IO.Stream,System.Threading.CancellationToken)
+  name: CompileStream(Stream, IEnumerable<string>?, Stream?, CancellationToken)
+  href: api/OpaDotNet.Compilation.Cli.RegoCliCompiler.html#OpaDotNet_Compilation_Cli_RegoCliCompiler_CompileStream_System_IO_Stream_System_Collections_Generic_IEnumerable_System_String__System_IO_Stream_System_Threading_CancellationToken_
+  commentId: M:OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileStream(System.IO.Stream,System.Collections.Generic.IEnumerable{System.String},System.IO.Stream,System.Threading.CancellationToken)
+  name.vb: CompileStream(Stream, IEnumerable(Of String), Stream, CancellationToken)
+  fullName: OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileStream(System.IO.Stream, System.Collections.Generic.IEnumerable<string>?, System.IO.Stream?, System.Threading.CancellationToken)
+  fullName.vb: OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileStream(System.IO.Stream, System.Collections.Generic.IEnumerable(Of String), System.IO.Stream, System.Threading.CancellationToken)
+  nameWithType: RegoCliCompiler.CompileStream(Stream, IEnumerable<string>?, Stream?, CancellationToken)
+  nameWithType.vb: RegoCliCompiler.CompileStream(Stream, IEnumerable(Of String), Stream, CancellationToken)
+- uid: OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileStream*
+  name: CompileStream
+  href: api/OpaDotNet.Compilation.Cli.RegoCliCompiler.html#OpaDotNet_Compilation_Cli_RegoCliCompiler_CompileStream_
+  commentId: Overload:OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileStream
+  fullName: OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileStream
+  nameWithType: RegoCliCompiler.CompileStream
 - uid: OpaDotNet.Compilation.Cli.RegoCliCompiler.Version(System.Threading.CancellationToken)
   name: Version(CancellationToken)
   href: api/OpaDotNet.Compilation.Cli.RegoCliCompiler.html#OpaDotNet_Compilation_Cli_RegoCliCompiler_Version_System_Threading_CancellationToken_
@@ -592,21 +1093,21 @@ references:
   commentId: Overload:OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileFile
   fullName: OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileFile
   nameWithType: RegoInteropCompiler.CompileFile
-- uid: OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileSource(System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
-  name: CompileSource(string, IEnumerable<string>?, CancellationToken)
-  href: api/OpaDotNet.Compilation.Interop.RegoInteropCompiler.html#OpaDotNet_Compilation_Interop_RegoInteropCompiler_CompileSource_System_String_System_Collections_Generic_IEnumerable_System_String__System_Threading_CancellationToken_
-  commentId: M:OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileSource(System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
-  name.vb: CompileSource(String, IEnumerable(Of String), CancellationToken)
-  fullName: OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileSource(string, System.Collections.Generic.IEnumerable<string>?, System.Threading.CancellationToken)
-  fullName.vb: OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileSource(String, System.Collections.Generic.IEnumerable(Of String), System.Threading.CancellationToken)
-  nameWithType: RegoInteropCompiler.CompileSource(string, IEnumerable<string>?, CancellationToken)
-  nameWithType.vb: RegoInteropCompiler.CompileSource(String, IEnumerable(Of String), CancellationToken)
-- uid: OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileSource*
-  name: CompileSource
-  href: api/OpaDotNet.Compilation.Interop.RegoInteropCompiler.html#OpaDotNet_Compilation_Interop_RegoInteropCompiler_CompileSource_
-  commentId: Overload:OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileSource
-  fullName: OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileSource
-  nameWithType: RegoInteropCompiler.CompileSource
+- uid: OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileStream(System.IO.Stream,System.Collections.Generic.IEnumerable{System.String},System.IO.Stream,System.Threading.CancellationToken)
+  name: CompileStream(Stream, IEnumerable<string>?, Stream?, CancellationToken)
+  href: api/OpaDotNet.Compilation.Interop.RegoInteropCompiler.html#OpaDotNet_Compilation_Interop_RegoInteropCompiler_CompileStream_System_IO_Stream_System_Collections_Generic_IEnumerable_System_String__System_IO_Stream_System_Threading_CancellationToken_
+  commentId: M:OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileStream(System.IO.Stream,System.Collections.Generic.IEnumerable{System.String},System.IO.Stream,System.Threading.CancellationToken)
+  name.vb: CompileStream(Stream, IEnumerable(Of String), Stream, CancellationToken)
+  fullName: OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileStream(System.IO.Stream, System.Collections.Generic.IEnumerable<string>?, System.IO.Stream?, System.Threading.CancellationToken)
+  fullName.vb: OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileStream(System.IO.Stream, System.Collections.Generic.IEnumerable(Of String), System.IO.Stream, System.Threading.CancellationToken)
+  nameWithType: RegoInteropCompiler.CompileStream(Stream, IEnumerable<string>?, Stream?, CancellationToken)
+  nameWithType.vb: RegoInteropCompiler.CompileStream(Stream, IEnumerable(Of String), Stream, CancellationToken)
+- uid: OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileStream*
+  name: CompileStream
+  href: api/OpaDotNet.Compilation.Interop.RegoInteropCompiler.html#OpaDotNet_Compilation_Interop_RegoInteropCompiler_CompileStream_
+  commentId: Overload:OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileStream
+  fullName: OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileStream
+  nameWithType: RegoInteropCompiler.CompileStream
 - uid: OpaDotNet.Compilation.Interop.RegoInteropCompiler.Version(System.Threading.CancellationToken)
   name: Version(CancellationToken)
   href: api/OpaDotNet.Compilation.Interop.RegoInteropCompiler.html#OpaDotNet_Compilation_Interop_RegoInteropCompiler_Version_System_Threading_CancellationToken_
@@ -1340,15 +1841,15 @@ references:
   commentId: Overload:OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddCompiler
   fullName: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddCompiler
   nameWithType: ServiceCollectionExtensions.AddCompiler
-- uid: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddCompiler``1(OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder,System.Func{System.IServiceProvider,``0},System.Action{OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions})
-  name: AddCompiler<T>(IOpaAuthorizationBuilder, Func<IServiceProvider, T>?, Action<RegoCliCompilerOptions>?)
-  href: api/OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.html#OpaDotNet_Extensions_AspNetCore_ServiceCollectionExtensions_AddCompiler__1_OpaDotNet_Extensions_AspNetCore_IOpaAuthorizationBuilder_System_Func_System_IServiceProvider___0__System_Action_OpaDotNet_Wasm_Compilation_RegoCliCompilerOptions__
-  commentId: M:OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddCompiler``1(OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder,System.Func{System.IServiceProvider,``0},System.Action{OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions})
-  name.vb: AddCompiler(Of T)(IOpaAuthorizationBuilder, Func(Of IServiceProvider, T), Action(Of RegoCliCompilerOptions))
-  fullName: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddCompiler<T>(OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder, System.Func<System.IServiceProvider, T>?, System.Action<OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions>?)
-  fullName.vb: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddCompiler(Of T)(OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder, System.Func(Of System.IServiceProvider, T), System.Action(Of OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions))
-  nameWithType: ServiceCollectionExtensions.AddCompiler<T>(IOpaAuthorizationBuilder, Func<IServiceProvider, T>?, Action<RegoCliCompilerOptions>?)
-  nameWithType.vb: ServiceCollectionExtensions.AddCompiler(Of T)(IOpaAuthorizationBuilder, Func(Of IServiceProvider, T), Action(Of RegoCliCompilerOptions))
+- uid: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddCompiler``1(OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder,System.Func{System.IServiceProvider,``0})
+  name: AddCompiler<T>(IOpaAuthorizationBuilder, Func<IServiceProvider, T>?)
+  href: api/OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.html#OpaDotNet_Extensions_AspNetCore_ServiceCollectionExtensions_AddCompiler__1_OpaDotNet_Extensions_AspNetCore_IOpaAuthorizationBuilder_System_Func_System_IServiceProvider___0__
+  commentId: M:OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddCompiler``1(OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder,System.Func{System.IServiceProvider,``0})
+  name.vb: AddCompiler(Of T)(IOpaAuthorizationBuilder, Func(Of IServiceProvider, T))
+  fullName: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddCompiler<T>(OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder, System.Func<System.IServiceProvider, T>?)
+  fullName.vb: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddCompiler(Of T)(OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder, System.Func(Of System.IServiceProvider, T))
+  nameWithType: ServiceCollectionExtensions.AddCompiler<T>(IOpaAuthorizationBuilder, Func<IServiceProvider, T>?)
+  nameWithType.vb: ServiceCollectionExtensions.AddCompiler(Of T)(IOpaAuthorizationBuilder, Func(Of IServiceProvider, T))
 - uid: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddConfiguration(OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder,System.Action{OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions})
   name: AddConfiguration(IOpaAuthorizationBuilder, Action<OpaAuthorizationOptions>)
   href: api/OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.html#OpaDotNet_Extensions_AspNetCore_ServiceCollectionExtensions_AddConfiguration_OpaDotNet_Extensions_AspNetCore_IOpaAuthorizationBuilder_System_Action_OpaDotNet_Extensions_AspNetCore_OpaAuthorizationOptions__
@@ -1364,15 +1865,12 @@ references:
   commentId: Overload:OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddConfiguration
   fullName: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddConfiguration
   nameWithType: ServiceCollectionExtensions.AddConfiguration
-- uid: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddDefaultCompiler(OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder,System.Action{OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions})
-  name: AddDefaultCompiler(IOpaAuthorizationBuilder, Action<RegoCliCompilerOptions>?)
-  href: api/OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.html#OpaDotNet_Extensions_AspNetCore_ServiceCollectionExtensions_AddDefaultCompiler_OpaDotNet_Extensions_AspNetCore_IOpaAuthorizationBuilder_System_Action_OpaDotNet_Wasm_Compilation_RegoCliCompilerOptions__
-  commentId: M:OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddDefaultCompiler(OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder,System.Action{OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions})
-  name.vb: AddDefaultCompiler(IOpaAuthorizationBuilder, Action(Of RegoCliCompilerOptions))
-  fullName: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddDefaultCompiler(OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder, System.Action<OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions>?)
-  fullName.vb: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddDefaultCompiler(OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder, System.Action(Of OpaDotNet.Wasm.Compilation.RegoCliCompilerOptions))
-  nameWithType: ServiceCollectionExtensions.AddDefaultCompiler(IOpaAuthorizationBuilder, Action<RegoCliCompilerOptions>?)
-  nameWithType.vb: ServiceCollectionExtensions.AddDefaultCompiler(IOpaAuthorizationBuilder, Action(Of RegoCliCompilerOptions))
+- uid: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddDefaultCompiler(OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder)
+  name: AddDefaultCompiler(IOpaAuthorizationBuilder)
+  href: api/OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.html#OpaDotNet_Extensions_AspNetCore_ServiceCollectionExtensions_AddDefaultCompiler_OpaDotNet_Extensions_AspNetCore_IOpaAuthorizationBuilder_
+  commentId: M:OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddDefaultCompiler(OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder)
+  fullName: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddDefaultCompiler(OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder)
+  nameWithType: ServiceCollectionExtensions.AddDefaultCompiler(IOpaAuthorizationBuilder)
 - uid: OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddDefaultCompiler*
   name: AddDefaultCompiler
   href: api/OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.html#OpaDotNet_Extensions_AspNetCore_ServiceCollectionExtensions_AddDefaultCompiler_

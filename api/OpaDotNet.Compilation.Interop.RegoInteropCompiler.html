@@ -18,6 +18,17 @@
       
       
       
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
   </head>
 
   <script type="module">
@@ -207,7 +218,7 @@
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>bundlePath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>Bundle directory path.</p>
+    <dd><p>Bundle directory or bundle archive path.</p>
 </dd>
     <dt><code>entrypoints</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
     <dd><p>Which documents (entrypoints) will be queried when asking for policy decisions.</p>
@@ -282,28 +293,31 @@
 
 
 
-  <a id="OpaDotNet_Compilation_Interop_RegoInteropCompiler_CompileSource_" data-uid="OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileSource*"></a>
+  <a id="OpaDotNet_Compilation_Interop_RegoInteropCompiler_CompileStream_" data-uid="OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileStream*"></a>
 
-  <h3 id="OpaDotNet_Compilation_Interop_RegoInteropCompiler_CompileSource_System_String_System_Collections_Generic_IEnumerable_System_String__System_Threading_CancellationToken_" data-uid="OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileSource(System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
-  CompileSource(string, IEnumerable&lt;string&gt;?, CancellationToken)
+  <h3 id="OpaDotNet_Compilation_Interop_RegoInteropCompiler_CompileStream_System_IO_Stream_System_Collections_Generic_IEnumerable_System_String__System_IO_Stream_System_Threading_CancellationToken_" data-uid="OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileStream(System.IO.Stream,System.Collections.Generic.IEnumerable{System.String},System.IO.Stream,System.Threading.CancellationToken)">
+  CompileStream(Stream, IEnumerable&lt;string&gt;?, Stream?, CancellationToken)
   
   </h3>
 
-  <div class="markdown level1 summary"><p>Compiles OPA bundle from rego policy source code.</p>
+  <div class="markdown level1 summary"><p>Compiles OPA bundle from rego bundle stream.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;Stream&gt; CompileSource(string source, IEnumerable&lt;string&gt;? entrypoints = null, CancellationToken cancellationToken = default)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;Stream&gt; CompileStream(Stream bundle, IEnumerable&lt;string&gt;? entrypoints = null, Stream? capabilitiesJson = null, CancellationToken cancellationToken = default)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>source</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>Source file path.</p>
+    <dt><code>bundle</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a></dt>
+    <dd><p>Rego bundle stream.</p>
 </dd>
     <dt><code>entrypoints</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
     <dd><p>Which documents (entrypoints) will be queried when asking for policy decisions.</p>
+</dd>
+    <dt><code>capabilitiesJson</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a></dt>
+    <dd><p>Capabilities json that defines the built-in functions and other language features that policies may depend on.</p>
 </dd>
     <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
     <dd><p>Cancellation token.</p>
