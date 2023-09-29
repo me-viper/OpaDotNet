@@ -2315,6 +2315,21 @@ references:
   commentId: Overload:OpaDotNet.Wasm.DefaultOpaImportsAbi.OnError
   fullName: OpaDotNet.Wasm.DefaultOpaImportsAbi.OnError
   nameWithType: DefaultOpaImportsAbi.OnError
+- uid: OpaDotNet.Wasm.DefaultOpaImportsAbi.Print(System.Collections.Generic.IEnumerable{System.String})
+  name: Print(IEnumerable<string>)
+  href: api/OpaDotNet.Wasm.DefaultOpaImportsAbi.html#OpaDotNet_Wasm_DefaultOpaImportsAbi_Print_System_Collections_Generic_IEnumerable_System_String__
+  commentId: M:OpaDotNet.Wasm.DefaultOpaImportsAbi.Print(System.Collections.Generic.IEnumerable{System.String})
+  name.vb: Print(IEnumerable(Of String))
+  fullName: OpaDotNet.Wasm.DefaultOpaImportsAbi.Print(System.Collections.Generic.IEnumerable<string>)
+  fullName.vb: OpaDotNet.Wasm.DefaultOpaImportsAbi.Print(System.Collections.Generic.IEnumerable(Of String))
+  nameWithType: DefaultOpaImportsAbi.Print(IEnumerable<string>)
+  nameWithType.vb: DefaultOpaImportsAbi.Print(IEnumerable(Of String))
+- uid: OpaDotNet.Wasm.DefaultOpaImportsAbi.Print*
+  name: Print
+  href: api/OpaDotNet.Wasm.DefaultOpaImportsAbi.html#OpaDotNet_Wasm_DefaultOpaImportsAbi_Print_
+  commentId: Overload:OpaDotNet.Wasm.DefaultOpaImportsAbi.Print
+  fullName: OpaDotNet.Wasm.DefaultOpaImportsAbi.Print
+  nameWithType: DefaultOpaImportsAbi.Print
 - uid: OpaDotNet.Wasm.DefaultOpaImportsAbi.PrintLn(System.String)
   name: PrintLn(string)
   href: api/OpaDotNet.Wasm.DefaultOpaImportsAbi.html#OpaDotNet_Wasm_DefaultOpaImportsAbi_PrintLn_System_String_
@@ -2657,6 +2672,21 @@ references:
   commentId: Overload:OpaDotNet.Wasm.IOpaImportsAbi.Func
   fullName: OpaDotNet.Wasm.IOpaImportsAbi.Func
   nameWithType: IOpaImportsAbi.Func
+- uid: OpaDotNet.Wasm.IOpaImportsAbi.Print(System.Collections.Generic.IEnumerable{System.String})
+  name: Print(IEnumerable<string>)
+  href: api/OpaDotNet.Wasm.IOpaImportsAbi.html#OpaDotNet_Wasm_IOpaImportsAbi_Print_System_Collections_Generic_IEnumerable_System_String__
+  commentId: M:OpaDotNet.Wasm.IOpaImportsAbi.Print(System.Collections.Generic.IEnumerable{System.String})
+  name.vb: Print(IEnumerable(Of String))
+  fullName: OpaDotNet.Wasm.IOpaImportsAbi.Print(System.Collections.Generic.IEnumerable<string>)
+  fullName.vb: OpaDotNet.Wasm.IOpaImportsAbi.Print(System.Collections.Generic.IEnumerable(Of String))
+  nameWithType: IOpaImportsAbi.Print(IEnumerable<string>)
+  nameWithType.vb: IOpaImportsAbi.Print(IEnumerable(Of String))
+- uid: OpaDotNet.Wasm.IOpaImportsAbi.Print*
+  name: Print
+  href: api/OpaDotNet.Wasm.IOpaImportsAbi.html#OpaDotNet_Wasm_IOpaImportsAbi_Print_
+  commentId: Overload:OpaDotNet.Wasm.IOpaImportsAbi.Print
+  fullName: OpaDotNet.Wasm.IOpaImportsAbi.Print
+  nameWithType: IOpaImportsAbi.Print
 - uid: OpaDotNet.Wasm.IOpaImportsAbi.PrintLn(System.String)
   name: PrintLn(string)
   href: api/OpaDotNet.Wasm.IOpaImportsAbi.html#OpaDotNet_Wasm_IOpaImportsAbi_PrintLn_System_String_
