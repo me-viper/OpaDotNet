@@ -1,5 +1,11 @@
 # Changelog
 
+## OpaDotNet.Wasm v2.1.1 (2023-09-29)
+
+### Features
+
+* [#11](https://github.com/me-viper/OpaDotNet/issues/11). Implement print() ([274fcfb](https://github.com/me-viper/OpaDotNet/commit/274fcfb0ed3c0c481ab37e547045b5b44e927bf1))
+
 ## OpaDotNet.Wasm v2.1.0 (2023-98-28)
 
 ### Features
