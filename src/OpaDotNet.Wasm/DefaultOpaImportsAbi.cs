@@ -1,5 +1,6 @@
 ﻿using System.Collections.Concurrent;
 using System.Diagnostics.CodeAnalysis;
+using System.Text.Json.Nodes;
 
 using JetBrains.Annotations;
 
@@ -66,6 +67,45 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
     public virtual void PrintLn(string message)
     {
     }
+
+    private object? Print(JsonArray args)
+    {
+        var strArgs = new List<string>();
+
+        foreach (var arg in args)
+        {
+            if (arg is JsonArray ja)
+            {
+                if (ja.Count == 0)
+                    continue;
+
+                if (ja.Count != 1)
+                    strArgs.Add(ja.ToJsonString());
+                else
+                {
+                    var s = ja[0]?.ToJsonString();
+
+                    if (s != null)
+                        strArgs.Add(s);
+                }
+
+                continue;
+            }
+
+            var json = arg?.ToJsonString();
+
+            if (json != null)
+                strArgs.Add(json);
+        }
+
+        Print(strArgs);
+
+        return null;
+    }
+
+    /// <inheritdoc />
+    public virtual void Print(IEnumerable<string> args)
+    {}
 
     /// <summary>
     /// Default implementation of the <c>trace</c> built-in function.
@@ -152,6 +192,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
                 "json.verify_schema" => JsonVerifySchema(arg1.RawJson, out _),
                 "units.parse" => UnitsParse(arg1.As<string>()),
                 "units.parse_bytes" => UnitsParseBytes(arg1.As<string>()),
+                "internal.print" => Print(arg1.As<JsonArray>()),
                 _ => throw new NotImplementedException(context.FunctionName),
             };
         }

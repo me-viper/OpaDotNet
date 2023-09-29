@@ -38,6 +38,7 @@ OpaDotNet.Wasm.IOpaImportsAbi.Func(OpaDotNet.Wasm.BuiltinContext! context, OpaDo
 OpaDotNet.Wasm.IOpaImportsAbi.Func(OpaDotNet.Wasm.BuiltinContext! context, OpaDotNet.Wasm.BuiltinArg! arg1, OpaDotNet.Wasm.BuiltinArg! arg2) -> object?
 OpaDotNet.Wasm.IOpaImportsAbi.Func(OpaDotNet.Wasm.BuiltinContext! context, OpaDotNet.Wasm.BuiltinArg! arg1) -> object?
 OpaDotNet.Wasm.IOpaImportsAbi.Func(OpaDotNet.Wasm.BuiltinContext! context) -> object?
+OpaDotNet.Wasm.IOpaImportsAbi.Print(System.Collections.Generic.IEnumerable<string!>! args) -> void
 OpaDotNet.Wasm.IOpaImportsAbi.PrintLn(string! message) -> void
 OpaDotNet.Wasm.IOpaImportsAbi.Reset() -> void
 OpaDotNet.Wasm.OpaBundleEvaluatorFactory
@@ -89,6 +90,7 @@ virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.Func(OpaDotNet.Wasm.BuiltinContext! 
 virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.NewGuid() -> System.Guid
 virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.Now() -> System.DateTimeOffset
 virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.OnError(OpaDotNet.Wasm.BuiltinContext! context, System.Exception! ex) -> bool
+virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.Print(System.Collections.Generic.IEnumerable<string!>! args) -> void
 virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.PrintLn(string! message) -> void
 virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.Random() -> System.Random!
 virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.Reset() -> void

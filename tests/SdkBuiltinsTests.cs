@@ -156,11 +156,42 @@ public class SdkBuiltinsTests : OpaTestBase
             throw new Exception("Boom!");
         }
 
+        public override void Print(IEnumerable<string> args)
+        {
+            var str = args as string[] ?? args.ToArray();
+            Output.AppendJoin(", ", str);
+            base.Print(str);
+        }
+
         protected override bool Trace(string message)
         {
             Output.Append(message);
             return base.Trace(message);
         }
+    }
+
+    [Theory]
+    [InlineData("\"hi\"", "\"hi\"")]
+    [InlineData("\"hi\", 1", "\"hi\", 1")]
+    [InlineData("""{"a": 1, "b": "aaa"}""", """{"b":"aaa","a":1}""")]
+    [InlineData("""[1,2,3]""", """[1,2,3]""")]
+    public async Task Print(string args, string expected)
+    {
+        var src = $$"""
+            package sdk
+
+            t1 := o {
+                print({{args}})
+                o := true
+            }
+            """;
+        var import = new DebugImports();
+        using var eval = await Build(src, "sdk", import);
+
+        var result = eval.EvaluateValue(new { t1 = false }, "sdk");
+
+        Assert.True(result.t1);
+        Assert.Equal(expected, import.Output.ToString());
     }
 
     [Fact]

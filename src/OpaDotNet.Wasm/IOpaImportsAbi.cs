@@ -18,6 +18,12 @@ public interface IOpaImportsAbi
     void PrintLn(string message);
 
     /// <summary>
+    /// Called to emit a message from <c>print</c> statement.
+    /// </summary>
+    /// <param name="args"></param>
+    void Print(IEnumerable<string> args);
+
+    /// <summary>
     /// Called to dispatch the built-in function.
     /// </summary>
     /// <param name="context">Call context.</param>
