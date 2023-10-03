@@ -2,6 +2,12 @@
 
 Bellow is the list of supported OPA built-in functions as for version v0.53.1 along with their implementation status in OpaDotNet.Wasm.
 
+## Numbers
+
+| Function   | Status             | OpaDotNet version  |
+|------------|--------------------|--------------------|
+| [numbers.range_step](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-numbers-numbersrange_step) | :white_check_mark: | v2.2.0 |
+
 ## Strings
 
 | Function   | Status             | OpaDotNet version  |
@@ -163,6 +169,7 @@ Bellow is the list of supported OPA built-in functions as for version v0.53.1 al
 
 | Function   | Status             | OpaDotNet version  |
 |------------|--------------------|--------------------|
+| [uuid.parse](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-uuid-uuidparse) | - | - |
 | [uuid.rfc4122](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-uuid-uuidrfc4122) | :white_check_mark: | v1.0.0 |
 
 ## SemVer
