@@ -105,7 +105,8 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
 
     /// <inheritdoc />
     public virtual void Print(IEnumerable<string> args)
-    {}
+    {
+    }
 
     /// <summary>
     /// Default implementation of the <c>trace</c> built-in function.

@@ -71,7 +71,7 @@ public class SerializationTests : OpaTestBase, IAsyncLifetime
     [Fact]
     public void CharEncoding()
     {
-        var result = _engine.EvaluatePredicate(new { s = "?a=1&b=x"}, "serialization/charEncoding");
+        var result = _engine.EvaluatePredicate(new { s = "?a=1&b=x" }, "serialization/charEncoding");
         Assert.True(result.Result);
     }
 
