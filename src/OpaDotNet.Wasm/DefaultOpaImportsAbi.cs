@@ -68,7 +68,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
     {
     }
 
-    private object? Print(JsonArray args)
+    private object? Print(JsonArray args, JsonSerializerOptions options)
     {
         var strArgs = new List<string>();
 
@@ -80,10 +80,10 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
                     continue;
 
                 if (ja.Count != 1)
-                    strArgs.Add(ja.ToJsonString());
+                    strArgs.Add(ja.ToJsonString(options));
                 else
                 {
-                    var s = ja[0]?.ToJsonString();
+                    var s = ja[0]?.ToJsonString(options);
 
                     if (s != null)
                         strArgs.Add(s);
@@ -92,7 +92,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
                 continue;
             }
 
-            var json = arg?.ToJsonString();
+            var json = arg?.ToJsonString(options);
 
             if (json != null)
                 strArgs.Add(json);
@@ -192,7 +192,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
                 "json.verify_schema" => JsonVerifySchema(arg1.RawJson, out _),
                 "units.parse" => UnitsParse(arg1.As<string>()),
                 "units.parse_bytes" => UnitsParseBytes(arg1.As<string>()),
-                "internal.print" => Print(arg1.As<JsonArray>()),
+                "internal.print" => Print(arg1.As<JsonArray>(), context.JsonSerializerOptions),
                 _ => throw new NotImplementedException(context.FunctionName),
             };
         }
