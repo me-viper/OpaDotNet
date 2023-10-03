@@ -150,7 +150,7 @@ public partial class DefaultOpaImportsAbi
 
             if (precision < 0 && fmt is 'f' or 'F')
             {
-                // It seems rego takes precision 6 by default. 
+                // It seems rego takes precision 6 by default.
                 precision = 6;
             }
 
@@ -172,5 +172,22 @@ public partial class DefaultOpaImportsAbi
     private static bool AnySuffixMatch(IEnumerable<string> search, IEnumerable<string> baseStr)
     {
         return search.Any(p => baseStr.Any(p.EndsWith));
+    }
+
+    private static readonly IReadOnlySet<char> GlobChars = new HashSet<char>(new[] { '*', '?', '\\', '[', ']', '{', '}' });
+
+    private static string GlobQuoteMeta(string pattern)
+    {
+        var sb = new StringBuilder();
+
+        foreach (var ch in pattern)
+        {
+            if (GlobChars.Contains(ch))
+                sb.Append('\\');
+
+            sb.Append(ch);
+        }
+
+        return sb.ToString();
     }
 }

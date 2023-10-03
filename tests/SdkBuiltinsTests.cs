@@ -811,6 +811,17 @@ public class SdkBuiltinsTests : OpaTestBase
         Assert.True(result.Assert);
     }
 
+    [Theory]
+    [InlineData("""glob.quote_meta(`[foo*]`)""", @"`\[foo\*\]`")]
+    [InlineData("""glob.quote_meta(`{foo*}`)""", @"`\{foo\*\}`")]
+    [InlineData("""glob.quote_meta(`*?\[]{}`)""", @"`\*\?\\\[\]\{\}`")]
+    [InlineData("""glob.quote_meta(`some text and *?\[]{}`)""", @"`some text and \*\?\\\[\]\{\}`")]
+    public async Task GlobQuoteMeta(string func, string expected, bool fails = false)
+    {
+        var result = await RunTestCase(func, expected, fails);
+        Assert.True(result.Assert);
+    }
+
     // ReSharper disable once ClassNeverInstantiated.Local
     private record TestCaseResult
     {

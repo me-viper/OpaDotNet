@@ -64,7 +64,7 @@ Bellow is the list of supported OPA built-in functions as for version v0.53.1 al
 
 | Function   | Status             | OpaDotNet version  |
 |------------|--------------------|--------------------|
-| [glob.quote_meta](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-glob-globquote_meta) | - | - |
+| [glob.quote_meta](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-glob-globquote_meta) | :white_check_mark: | v2.2.0 |
 
 ## Units
 
