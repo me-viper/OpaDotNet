@@ -264,6 +264,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
                 "regex.replace" => RegexReplace(arg1.As<string>(), arg2.As<string>(), arg3.As<string>()),
                 "io.jwt.encode_sign" => JwtEncodeSign(arg1.RawJson, arg2.RawJson, arg3.RawJson),
                 "io.jwt.encode_sign_raw" => JwtEncodeSignRaw(arg1.As<string>(), arg2.As<string>(), arg3.As<string>()),
+                "numbers.range_step" => NumbersRangeStep(arg1.As<int>(), arg2.As<int>(), arg3.As<int>()),
                 _ => throw new NotImplementedException(context.FunctionName),
             };
         }

@@ -455,4 +455,28 @@ public partial class DefaultOpaImportsAbi
 
         return decimal.ToUInt64(result);
     }
+
+    private static int[]? NumbersRangeStep(int a, int b, int step)
+    {
+        if (step < 1)
+            return null;
+
+        if (a == b)
+            return new[] { a };
+
+        var result = new List<int>();
+
+        if (a < b)
+        {
+            for (var i = a; i <= b; i += step)
+                result.Add(i);
+        }
+        else
+        {
+            for (var i = a; i >= b; i -= step)
+                result.Add(i);
+        }
+
+        return result.ToArray();
+    }
 }

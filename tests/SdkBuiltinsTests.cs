@@ -799,6 +799,18 @@ public class SdkBuiltinsTests : OpaTestBase
         }
     }
 
+    [Theory]
+    [InlineData("""numbers.range_step(1, 3, 1)""", "[1,2,3]")]
+    [InlineData("""numbers.range_step(3, 1, 1)""", "[3,2,1]")]
+    [InlineData("""numbers.range_step(1, 6, 2)""", "[1,3,5]")]
+    [InlineData("""numbers.range_step(1, 1, 2)""", "[1]")]
+    [InlineData("""numbers.range_step(1, 1, -2)""", "[]", true)]
+    public async Task NumbersRangeStep(string func, string expected, bool fails = false)
+    {
+        var result = await RunTestCase(func, expected, fails);
+        Assert.True(result.Assert);
+    }
+
     // ReSharper disable once ClassNeverInstantiated.Local
     private record TestCaseResult
     {
