@@ -12,6 +12,7 @@ public class SerializationTests : OpaTestBase, IAsyncLifetime
 
     public SerializationTests(ITestOutputHelper output) : base(output)
     {
+        Options = new() { CapabilitiesVersion = "v0.54.0" };
     }
 
     public async Task InitializeAsync()
@@ -24,11 +25,13 @@ public class SerializationTests : OpaTestBase, IAsyncLifetime
                 "serialization/isSet",
                 "serialization/retArray",
                 "serialization/retSet",
+                "serialization/charEncoding",
             },
             Path.Combine("TestData", "serialization", "capabilities.json")
             );
 
-        _engine = OpaEvaluatorFactory.CreateFromBundle(policy, importsAbiFactory: () => new SerializationImports());
+        var logger = LoggerFactory.CreateLogger<SerializationImports>();
+        _engine = OpaEvaluatorFactory.CreateFromBundle(policy, importsAbiFactory: () => new SerializationImports(logger));
     }
 
     public Task DisposeAsync()
@@ -65,8 +68,27 @@ public class SerializationTests : OpaTestBase, IAsyncLifetime
         Assert.True(result.Result);
     }
 
+    [Fact]
+    public void CharEncoding()
+    {
+        var result = _engine.EvaluatePredicate(new { s = "?a=1&b=x"}, "serialization/charEncoding");
+        Assert.True(result.Result);
+    }
+
     private class SerializationImports : DefaultOpaImportsAbi
     {
+        private readonly ILogger _logger;
+
+        public SerializationImports(ILogger<SerializationImports> logger)
+        {
+            _logger = logger;
+        }
+
+        public override void Print(IEnumerable<string> args)
+        {
+            _logger.LogDebug("{Message}", string.Join(';', args));
+        }
+
         public override object? Func(BuiltinContext context)
         {
             if (string.Equals(context.FunctionName, "custom.set", StringComparison.Ordinal))

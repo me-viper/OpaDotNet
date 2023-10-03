@@ -199,14 +199,13 @@ public class BasicsTests : OpaTestBase
     [InlineData("{ \"message\": \"world1\"}", false)]
     public void TypedData(string input, bool expectedResult)
     {
-        var opts = new WasmPolicyEngineOptions
-        {
-            SerializationOptions = new JsonSerializerOptions
+        var opts = WasmPolicyEngineOptions.DefaultWithJsonOptions(
+            p =>
             {
-                PropertyNameCaseInsensitive = true,
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            },
-        };
+                p.PropertyNameCaseInsensitive = true;
+                p.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+            }
+            );
 
         using var engine = OpaEvaluatorFactory.CreateFromWasm(
             File.OpenRead(Path.Combine(BasePath, "simple-1.2.wasm")),

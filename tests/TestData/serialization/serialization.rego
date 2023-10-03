@@ -19,3 +19,8 @@ retArray {
     r := custom.array()
     is_array(r)
 }
+
+charEncoding {
+    print(input.s)
+    input.s == "?a=1&b=x"
+}

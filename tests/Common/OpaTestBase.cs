@@ -14,7 +14,7 @@ public class OpaTestBase
 
     protected ILoggerFactory LoggerFactory { get; }
 
-    protected RegoCompilerOptions? Options { get; set; }
+    protected RegoCompilerOptions? Options { get; init; }
 
     private IOptions<RegoCompilerOptions>? GetOptions() => Options == null
         ? null

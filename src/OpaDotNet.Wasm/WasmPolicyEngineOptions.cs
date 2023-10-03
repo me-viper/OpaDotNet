@@ -1,4 +1,6 @@
-﻿using OpaDotNet.Wasm.Rego;
+﻿using System.Text.Encodings.Web;
+
+using OpaDotNet.Wasm.Rego;
 
 namespace OpaDotNet.Wasm;
 
@@ -12,9 +14,23 @@ public class WasmPolicyEngineOptions
     /// </summary>
     public static WasmPolicyEngineOptions Default { get; } = new();
 
+    /// <summary>
+    /// Creates default engine options.
+    /// </summary>
+    /// <param name="options">JSON serialization options.</param>
+    /// <returns>Engine options.</returns>
+    public static WasmPolicyEngineOptions DefaultWithJsonOptions(Action<JsonSerializerOptions> options)
+    {
+        ArgumentNullException.ThrowIfNull(options);
+        var result = new WasmPolicyEngineOptions();
+        options(result.SerializationOptions);
+        return result;
+    }
+
     private readonly JsonSerializerOptions _jsonSerializationOptions = new()
     {
         Converters = { RegoSetJsonConverterFactory.Instance },
+        Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
     };
 
     /// <summary>
