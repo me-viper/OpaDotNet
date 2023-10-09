@@ -47,23 +47,24 @@ public class OpaTestBase
         return await Interop().CompileBundle(path, entrypoints, caps);
     }
 
+    protected async Task<Stream> CompileBundle(string path, string[]? entrypoints, Stream caps)
+    {
+        var cp = new CompilationParameters
+        {
+            Entrypoints = entrypoints?.ToHashSet(),
+            CapabilitiesStream = caps,
+        };
+
+        return await Interop().Compile(path, cp, CancellationToken.None);
+    }
+
     protected async Task<Stream> CompileFile(string path, string[]? entrypoints = null)
     {
-        var compiler = new RegoInteropCompiler(
-            GetOptions(),
-            logger: LoggerFactory.CreateLogger<RegoInteropCompiler>()
-            );
-
         return await Interop().CompileFile(path, entrypoints);
     }
 
     protected async Task<Stream> CompileSource(string path, string[]? entrypoints = null)
     {
-        var compiler = new RegoInteropCompiler(
-            GetOptions(),
-            logger: LoggerFactory.CreateLogger<RegoInteropCompiler>()
-            );
-
         return await Interop().CompileSource(path, entrypoints);
     }
 }

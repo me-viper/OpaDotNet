@@ -1,6 +1,7 @@
 ﻿using System.Xml.Linq;
 using System.Xml.XPath;
 
+using OpaDotNet.Compilation.Abstractions;
 using OpaDotNet.Compilation.Cli;
 using OpaDotNet.Wasm;
 

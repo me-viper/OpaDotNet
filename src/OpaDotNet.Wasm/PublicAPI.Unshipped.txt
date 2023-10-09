@@ -1,2 +1,1 @@
 #nullable enable
-static OpaDotNet.Wasm.WasmPolicyEngineOptions.DefaultWithJsonOptions(System.Action<System.Text.Json.JsonSerializerOptions!>! options) -> OpaDotNet.Wasm.WasmPolicyEngineOptions!

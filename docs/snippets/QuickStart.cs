@@ -2,6 +2,7 @@
 
 #pragma warning disable CS0105
 
+
 #region Usings
 
 using OpaDotNet.Wasm;
@@ -11,6 +12,7 @@ using OpaDotNet.Wasm;
 #region CompilationUsings
 
 using OpaDotNet.Wasm;
+using OpaDotNet.Compilation.Abstractions;
 using OpaDotNet.Compilation.Cli;
 
 #endregion

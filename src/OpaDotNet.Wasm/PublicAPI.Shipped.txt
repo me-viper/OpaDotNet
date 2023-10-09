@@ -21,6 +21,8 @@ OpaDotNet.Wasm.Features.IOpaEvaluatorFeature
 OpaDotNet.Wasm.Features.IUpdateDataFeature
 OpaDotNet.Wasm.Features.IUpdateDataFeature.RemoveDataPath(System.Collections.Generic.IEnumerable<string!>! path) -> void
 OpaDotNet.Wasm.Features.IUpdateDataFeature.UpdateDataPath(System.ReadOnlySpan<char> dataJson, System.Collections.Generic.IEnumerable<string!>! path) -> void
+OpaDotNet.Wasm.ICapabilitiesProvider
+OpaDotNet.Wasm.ICapabilitiesProvider.GetCapabilities() -> System.IO.Stream!
 OpaDotNet.Wasm.IOpaEvaluator
 OpaDotNet.Wasm.IOpaEvaluator.AbiVersion.get -> System.Version!
 OpaDotNet.Wasm.IOpaEvaluator.Evaluate<TInput, TOutput>(TInput input, string? entrypoint = null) -> OpaDotNet.Wasm.PolicyEvaluationResult<TOutput>!
@@ -81,6 +83,7 @@ override OpaDotNet.Wasm.OpaWasmEvaluatorFactory.Create() -> OpaDotNet.Wasm.IOpaE
 static OpaDotNet.Wasm.OpaEvaluatorFactory.CreateFromBundle(System.IO.Stream! policyBundle, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null, System.Func<OpaDotNet.Wasm.IOpaImportsAbi!>? importsAbiFactory = null, Microsoft.Extensions.Logging.ILoggerFactory? loggerFactory = null) -> OpaDotNet.Wasm.IOpaEvaluator!
 static OpaDotNet.Wasm.OpaEvaluatorFactory.CreateFromWasm(System.IO.Stream! policyWasm, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null, System.Func<OpaDotNet.Wasm.IOpaImportsAbi!>? importsAbiFactory = null, Microsoft.Extensions.Logging.ILoggerFactory? loggerFactory = null) -> OpaDotNet.Wasm.IOpaEvaluator!
 static OpaDotNet.Wasm.WasmPolicyEngineOptions.Default.get -> OpaDotNet.Wasm.WasmPolicyEngineOptions!
+static OpaDotNet.Wasm.WasmPolicyEngineOptions.DefaultWithJsonOptions(System.Action<System.Text.Json.JsonSerializerOptions!>! options) -> OpaDotNet.Wasm.WasmPolicyEngineOptions!
 virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.Abort(string! message) -> void
 virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.Func(OpaDotNet.Wasm.BuiltinContext! context, OpaDotNet.Wasm.BuiltinArg! arg1, OpaDotNet.Wasm.BuiltinArg! arg2, OpaDotNet.Wasm.BuiltinArg! arg3, OpaDotNet.Wasm.BuiltinArg! arg4) -> object?
 virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.Func(OpaDotNet.Wasm.BuiltinContext! context, OpaDotNet.Wasm.BuiltinArg! arg1, OpaDotNet.Wasm.BuiltinArg! arg2, OpaDotNet.Wasm.BuiltinArg! arg3) -> object?
