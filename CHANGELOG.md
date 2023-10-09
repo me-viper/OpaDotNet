@@ -1,5 +1,19 @@
 # Changelog
 
+## OpaDotNet.Wasm v2.2.0 (2023-10-09)
+
+### Bug Fixes
+
+* print() does not respect json serialization options ([a47356f](https://github.com/me-viper/OpaDotNet/commit/a47356f76df68a6f36cdd8a54ff3b74def809bf8))
+
+### Features
+
+* [#1](https://github.com/me-viper/OpaDotNet/issues/1). Implement missing builtins ([8412dba](https://github.com/me-viper/OpaDotNet/commit/8412dba2f572a469e55b208519b7eecfa658b6ad))
+  * glob.quote_meta
+* [#21](https://github.com/me-viper/OpaDotNet/issues/21). Implement new buildins ([8ee6944](https://github.com/me-viper/OpaDotNet/commit/8ee6944dca0bb139f2db1a60fc2a7f95e2a7b286))
+  * numbers.range_step
+* Close [#22](https://github.com/me-viper/OpaDotNet/issues/22). Use JavaScriptEncoder.UnsafeRelaxedJsonEscaping by default ([aa9b962](https://github.com/me-viper/OpaDotNet/commit/aa9b962e04d67555763962fa85b4609f8852fe1f))
+
 ## OpaDotNet.Wasm v2.1.1 (2023-09-29)
 
 ### Features
