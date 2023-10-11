@@ -209,6 +209,42 @@ ms.Seek(0, SeekOrigin.Begin);
 
 
 
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="OpaDotNet_Compilation_Abstractions_BundleWriter_IsEmpty_" data-uid="OpaDotNet.Compilation.Abstractions.BundleWriter.IsEmpty*"></a>
+
+  <h3 id="OpaDotNet_Compilation_Abstractions_BundleWriter_IsEmpty" data-uid="OpaDotNet.Compilation.Abstractions.BundleWriter.IsEmpty">
+  IsEmpty
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p><code>true</code> if BundleWriter has no entries written; otherwise <code>false</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsEmpty { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <h2 class="section" id="methods">Methods
 </h2>
 
@@ -258,6 +294,92 @@ ms.Seek(0, SeekOrigin.Begin);
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask">ValueTask</a></dt>
     <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="OpaDotNet_Compilation_Abstractions_BundleWriter_FromDirectory_" data-uid="OpaDotNet.Compilation.Abstractions.BundleWriter.FromDirectory*"></a>
+
+  <h3 id="OpaDotNet_Compilation_Abstractions_BundleWriter_FromDirectory_System_IO_Stream_System_String_System_Collections_Generic_IReadOnlySet_System_String__" data-uid="OpaDotNet.Compilation.Abstractions.BundleWriter.FromDirectory(System.IO.Stream,System.String,System.Collections.Generic.IReadOnlySet{System.String})">
+  FromDirectory(Stream, string, IReadOnlySet&lt;string&gt;?)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates new instance of <a class="xref" href="OpaDotNet.Compilation.Abstractions.BundleWriter.html">BundleWriter</a> and populates it with files in <code class="paramref">path</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static BundleWriter FromDirectory(Stream stream, string path, IReadOnlySet&lt;string&gt;? exclusions)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>stream</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a></dt>
+    <dd><p>Stream to write bundle to.</p>
+</dd>
+    <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Path containing bundle source files.</p>
+</dd>
+    <dt><code>exclusions</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlyset-1">IReadOnlySet</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dd><p>File name patterns for files the BundleWriter should exclude from the results.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="OpaDotNet.Compilation.Abstractions.BundleWriter.html">BundleWriter</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="OpaDotNet_Compilation_Abstractions_BundleWriter_MergeCapabilities_" data-uid="OpaDotNet.Compilation.Abstractions.BundleWriter.MergeCapabilities*"></a>
+
+  <h3 id="OpaDotNet_Compilation_Abstractions_BundleWriter_MergeCapabilities_System_IO_Stream_System_IO_Stream_" data-uid="OpaDotNet.Compilation.Abstractions.BundleWriter.MergeCapabilities(System.IO.Stream,System.IO.Stream)">
+  MergeCapabilities(Stream, Stream)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Merges two capabilities.json streams.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Stream MergeCapabilities(Stream caps1, Stream caps2)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>caps1</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a></dt>
+    <dd><p>First capabilities.json stream.</p>
+</dd>
+    <dt><code>caps2</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a></dt>
+    <dd><p>Second capabilities.json stream.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a></dt>
+    <dd><p>Merged capabilities.json stream.</p>
+</dd>
   </dl>
 
 

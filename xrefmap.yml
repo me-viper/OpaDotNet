@@ -256,6 +256,45 @@ references:
   commentId: Overload:OpaDotNet.Compilation.Abstractions.BundleWriter.DisposeAsync
   fullName: OpaDotNet.Compilation.Abstractions.BundleWriter.DisposeAsync
   nameWithType: BundleWriter.DisposeAsync
+- uid: OpaDotNet.Compilation.Abstractions.BundleWriter.FromDirectory(System.IO.Stream,System.String,System.Collections.Generic.IReadOnlySet{System.String})
+  name: FromDirectory(Stream, string, IReadOnlySet<string>?)
+  href: api/OpaDotNet.Compilation.Abstractions.BundleWriter.html#OpaDotNet_Compilation_Abstractions_BundleWriter_FromDirectory_System_IO_Stream_System_String_System_Collections_Generic_IReadOnlySet_System_String__
+  commentId: M:OpaDotNet.Compilation.Abstractions.BundleWriter.FromDirectory(System.IO.Stream,System.String,System.Collections.Generic.IReadOnlySet{System.String})
+  name.vb: FromDirectory(Stream, String, IReadOnlySet(Of String))
+  fullName: OpaDotNet.Compilation.Abstractions.BundleWriter.FromDirectory(System.IO.Stream, string, System.Collections.Generic.IReadOnlySet<string>?)
+  fullName.vb: OpaDotNet.Compilation.Abstractions.BundleWriter.FromDirectory(System.IO.Stream, String, System.Collections.Generic.IReadOnlySet(Of String))
+  nameWithType: BundleWriter.FromDirectory(Stream, string, IReadOnlySet<string>?)
+  nameWithType.vb: BundleWriter.FromDirectory(Stream, String, IReadOnlySet(Of String))
+- uid: OpaDotNet.Compilation.Abstractions.BundleWriter.FromDirectory*
+  name: FromDirectory
+  href: api/OpaDotNet.Compilation.Abstractions.BundleWriter.html#OpaDotNet_Compilation_Abstractions_BundleWriter_FromDirectory_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.BundleWriter.FromDirectory
+  fullName: OpaDotNet.Compilation.Abstractions.BundleWriter.FromDirectory
+  nameWithType: BundleWriter.FromDirectory
+- uid: OpaDotNet.Compilation.Abstractions.BundleWriter.IsEmpty
+  name: IsEmpty
+  href: api/OpaDotNet.Compilation.Abstractions.BundleWriter.html#OpaDotNet_Compilation_Abstractions_BundleWriter_IsEmpty
+  commentId: P:OpaDotNet.Compilation.Abstractions.BundleWriter.IsEmpty
+  fullName: OpaDotNet.Compilation.Abstractions.BundleWriter.IsEmpty
+  nameWithType: BundleWriter.IsEmpty
+- uid: OpaDotNet.Compilation.Abstractions.BundleWriter.IsEmpty*
+  name: IsEmpty
+  href: api/OpaDotNet.Compilation.Abstractions.BundleWriter.html#OpaDotNet_Compilation_Abstractions_BundleWriter_IsEmpty_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.BundleWriter.IsEmpty
+  fullName: OpaDotNet.Compilation.Abstractions.BundleWriter.IsEmpty
+  nameWithType: BundleWriter.IsEmpty
+- uid: OpaDotNet.Compilation.Abstractions.BundleWriter.MergeCapabilities(System.IO.Stream,System.IO.Stream)
+  name: MergeCapabilities(Stream, Stream)
+  href: api/OpaDotNet.Compilation.Abstractions.BundleWriter.html#OpaDotNet_Compilation_Abstractions_BundleWriter_MergeCapabilities_System_IO_Stream_System_IO_Stream_
+  commentId: M:OpaDotNet.Compilation.Abstractions.BundleWriter.MergeCapabilities(System.IO.Stream,System.IO.Stream)
+  fullName: OpaDotNet.Compilation.Abstractions.BundleWriter.MergeCapabilities(System.IO.Stream, System.IO.Stream)
+  nameWithType: BundleWriter.MergeCapabilities(Stream, Stream)
+- uid: OpaDotNet.Compilation.Abstractions.BundleWriter.MergeCapabilities*
+  name: MergeCapabilities
+  href: api/OpaDotNet.Compilation.Abstractions.BundleWriter.html#OpaDotNet_Compilation_Abstractions_BundleWriter_MergeCapabilities_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.BundleWriter.MergeCapabilities
+  fullName: OpaDotNet.Compilation.Abstractions.BundleWriter.MergeCapabilities
+  nameWithType: BundleWriter.MergeCapabilities
 - uid: OpaDotNet.Compilation.Abstractions.BundleWriter.WriteEntry(System.IO.Stream,System.String)
   name: WriteEntry(Stream, string)
   href: api/OpaDotNet.Compilation.Abstractions.BundleWriter.html#OpaDotNet_Compilation_Abstractions_BundleWriter_WriteEntry_System_IO_Stream_System_String_
@@ -289,72 +328,234 @@ references:
   commentId: Overload:OpaDotNet.Compilation.Abstractions.BundleWriter.WriteEntry
   fullName: OpaDotNet.Compilation.Abstractions.BundleWriter.WriteEntry
   nameWithType: BundleWriter.WriteEntry
+- uid: OpaDotNet.Compilation.Abstractions.CompilationParameters
+  name: CompilationParameters
+  href: api/OpaDotNet.Compilation.Abstractions.CompilationParameters.html
+  commentId: T:OpaDotNet.Compilation.Abstractions.CompilationParameters
+  fullName: OpaDotNet.Compilation.Abstractions.CompilationParameters
+  nameWithType: CompilationParameters
+- uid: OpaDotNet.Compilation.Abstractions.CompilationParameters.#ctor
+  name: CompilationParameters()
+  href: api/OpaDotNet.Compilation.Abstractions.CompilationParameters.html#OpaDotNet_Compilation_Abstractions_CompilationParameters__ctor
+  commentId: M:OpaDotNet.Compilation.Abstractions.CompilationParameters.#ctor
+  name.vb: New()
+  fullName: OpaDotNet.Compilation.Abstractions.CompilationParameters.CompilationParameters()
+  fullName.vb: OpaDotNet.Compilation.Abstractions.CompilationParameters.New()
+  nameWithType: CompilationParameters.CompilationParameters()
+  nameWithType.vb: CompilationParameters.New()
+- uid: OpaDotNet.Compilation.Abstractions.CompilationParameters.#ctor(OpaDotNet.Compilation.Abstractions.CompilationParameters)
+  name: CompilationParameters(CompilationParameters)
+  href: api/OpaDotNet.Compilation.Abstractions.CompilationParameters.html#OpaDotNet_Compilation_Abstractions_CompilationParameters__ctor_OpaDotNet_Compilation_Abstractions_CompilationParameters_
+  commentId: M:OpaDotNet.Compilation.Abstractions.CompilationParameters.#ctor(OpaDotNet.Compilation.Abstractions.CompilationParameters)
+  name.vb: New(CompilationParameters)
+  fullName: OpaDotNet.Compilation.Abstractions.CompilationParameters.CompilationParameters(OpaDotNet.Compilation.Abstractions.CompilationParameters)
+  fullName.vb: OpaDotNet.Compilation.Abstractions.CompilationParameters.New(OpaDotNet.Compilation.Abstractions.CompilationParameters)
+  nameWithType: CompilationParameters.CompilationParameters(CompilationParameters)
+  nameWithType.vb: CompilationParameters.New(CompilationParameters)
+- uid: OpaDotNet.Compilation.Abstractions.CompilationParameters.#ctor*
+  name: CompilationParameters
+  href: api/OpaDotNet.Compilation.Abstractions.CompilationParameters.html#OpaDotNet_Compilation_Abstractions_CompilationParameters__ctor_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.CompilationParameters.#ctor
+  name.vb: New
+  fullName: OpaDotNet.Compilation.Abstractions.CompilationParameters.CompilationParameters
+  fullName.vb: OpaDotNet.Compilation.Abstractions.CompilationParameters.New
+  nameWithType: CompilationParameters.CompilationParameters
+  nameWithType.vb: CompilationParameters.New
+- uid: OpaDotNet.Compilation.Abstractions.CompilationParameters.CapabilitiesFilePath
+  name: CapabilitiesFilePath
+  href: api/OpaDotNet.Compilation.Abstractions.CompilationParameters.html#OpaDotNet_Compilation_Abstractions_CompilationParameters_CapabilitiesFilePath
+  commentId: P:OpaDotNet.Compilation.Abstractions.CompilationParameters.CapabilitiesFilePath
+  fullName: OpaDotNet.Compilation.Abstractions.CompilationParameters.CapabilitiesFilePath
+  nameWithType: CompilationParameters.CapabilitiesFilePath
+- uid: OpaDotNet.Compilation.Abstractions.CompilationParameters.CapabilitiesFilePath*
+  name: CapabilitiesFilePath
+  href: api/OpaDotNet.Compilation.Abstractions.CompilationParameters.html#OpaDotNet_Compilation_Abstractions_CompilationParameters_CapabilitiesFilePath_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.CompilationParameters.CapabilitiesFilePath
+  fullName: OpaDotNet.Compilation.Abstractions.CompilationParameters.CapabilitiesFilePath
+  nameWithType: CompilationParameters.CapabilitiesFilePath
+- uid: OpaDotNet.Compilation.Abstractions.CompilationParameters.CapabilitiesStream
+  name: CapabilitiesStream
+  href: api/OpaDotNet.Compilation.Abstractions.CompilationParameters.html#OpaDotNet_Compilation_Abstractions_CompilationParameters_CapabilitiesStream
+  commentId: P:OpaDotNet.Compilation.Abstractions.CompilationParameters.CapabilitiesStream
+  fullName: OpaDotNet.Compilation.Abstractions.CompilationParameters.CapabilitiesStream
+  nameWithType: CompilationParameters.CapabilitiesStream
+- uid: OpaDotNet.Compilation.Abstractions.CompilationParameters.CapabilitiesStream*
+  name: CapabilitiesStream
+  href: api/OpaDotNet.Compilation.Abstractions.CompilationParameters.html#OpaDotNet_Compilation_Abstractions_CompilationParameters_CapabilitiesStream_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.CompilationParameters.CapabilitiesStream
+  fullName: OpaDotNet.Compilation.Abstractions.CompilationParameters.CapabilitiesStream
+  nameWithType: CompilationParameters.CapabilitiesStream
+- uid: OpaDotNet.Compilation.Abstractions.CompilationParameters.Entrypoints
+  name: Entrypoints
+  href: api/OpaDotNet.Compilation.Abstractions.CompilationParameters.html#OpaDotNet_Compilation_Abstractions_CompilationParameters_Entrypoints
+  commentId: P:OpaDotNet.Compilation.Abstractions.CompilationParameters.Entrypoints
+  fullName: OpaDotNet.Compilation.Abstractions.CompilationParameters.Entrypoints
+  nameWithType: CompilationParameters.Entrypoints
+- uid: OpaDotNet.Compilation.Abstractions.CompilationParameters.Entrypoints*
+  name: Entrypoints
+  href: api/OpaDotNet.Compilation.Abstractions.CompilationParameters.html#OpaDotNet_Compilation_Abstractions_CompilationParameters_Entrypoints_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.CompilationParameters.Entrypoints
+  fullName: OpaDotNet.Compilation.Abstractions.CompilationParameters.Entrypoints
+  nameWithType: CompilationParameters.Entrypoints
+- uid: OpaDotNet.Compilation.Abstractions.CompilationParameters.EqualityContract
+  name: EqualityContract
+  href: api/OpaDotNet.Compilation.Abstractions.CompilationParameters.html#OpaDotNet_Compilation_Abstractions_CompilationParameters_EqualityContract
+  commentId: P:OpaDotNet.Compilation.Abstractions.CompilationParameters.EqualityContract
+  fullName: OpaDotNet.Compilation.Abstractions.CompilationParameters.EqualityContract
+  nameWithType: CompilationParameters.EqualityContract
+- uid: OpaDotNet.Compilation.Abstractions.CompilationParameters.EqualityContract*
+  name: EqualityContract
+  href: api/OpaDotNet.Compilation.Abstractions.CompilationParameters.html#OpaDotNet_Compilation_Abstractions_CompilationParameters_EqualityContract_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.CompilationParameters.EqualityContract
+  fullName: OpaDotNet.Compilation.Abstractions.CompilationParameters.EqualityContract
+  nameWithType: CompilationParameters.EqualityContract
+- uid: OpaDotNet.Compilation.Abstractions.CompilationParameters.Equals(OpaDotNet.Compilation.Abstractions.CompilationParameters)
+  name: Equals(CompilationParameters?)
+  href: api/OpaDotNet.Compilation.Abstractions.CompilationParameters.html#OpaDotNet_Compilation_Abstractions_CompilationParameters_Equals_OpaDotNet_Compilation_Abstractions_CompilationParameters_
+  commentId: M:OpaDotNet.Compilation.Abstractions.CompilationParameters.Equals(OpaDotNet.Compilation.Abstractions.CompilationParameters)
+  name.vb: Equals(CompilationParameters)
+  fullName: OpaDotNet.Compilation.Abstractions.CompilationParameters.Equals(OpaDotNet.Compilation.Abstractions.CompilationParameters?)
+  fullName.vb: OpaDotNet.Compilation.Abstractions.CompilationParameters.Equals(OpaDotNet.Compilation.Abstractions.CompilationParameters)
+  nameWithType: CompilationParameters.Equals(CompilationParameters?)
+  nameWithType.vb: CompilationParameters.Equals(CompilationParameters)
+- uid: OpaDotNet.Compilation.Abstractions.CompilationParameters.Equals(System.Object)
+  name: Equals(object?)
+  href: api/OpaDotNet.Compilation.Abstractions.CompilationParameters.html#OpaDotNet_Compilation_Abstractions_CompilationParameters_Equals_System_Object_
+  commentId: M:OpaDotNet.Compilation.Abstractions.CompilationParameters.Equals(System.Object)
+  name.vb: Equals(Object)
+  fullName: OpaDotNet.Compilation.Abstractions.CompilationParameters.Equals(object?)
+  fullName.vb: OpaDotNet.Compilation.Abstractions.CompilationParameters.Equals(Object)
+  nameWithType: CompilationParameters.Equals(object?)
+  nameWithType.vb: CompilationParameters.Equals(Object)
+- uid: OpaDotNet.Compilation.Abstractions.CompilationParameters.Equals*
+  name: Equals
+  href: api/OpaDotNet.Compilation.Abstractions.CompilationParameters.html#OpaDotNet_Compilation_Abstractions_CompilationParameters_Equals_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.CompilationParameters.Equals
+  fullName: OpaDotNet.Compilation.Abstractions.CompilationParameters.Equals
+  nameWithType: CompilationParameters.Equals
+- uid: OpaDotNet.Compilation.Abstractions.CompilationParameters.GetHashCode
+  name: GetHashCode()
+  href: api/OpaDotNet.Compilation.Abstractions.CompilationParameters.html#OpaDotNet_Compilation_Abstractions_CompilationParameters_GetHashCode
+  commentId: M:OpaDotNet.Compilation.Abstractions.CompilationParameters.GetHashCode
+  fullName: OpaDotNet.Compilation.Abstractions.CompilationParameters.GetHashCode()
+  nameWithType: CompilationParameters.GetHashCode()
+- uid: OpaDotNet.Compilation.Abstractions.CompilationParameters.GetHashCode*
+  name: GetHashCode
+  href: api/OpaDotNet.Compilation.Abstractions.CompilationParameters.html#OpaDotNet_Compilation_Abstractions_CompilationParameters_GetHashCode_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.CompilationParameters.GetHashCode
+  fullName: OpaDotNet.Compilation.Abstractions.CompilationParameters.GetHashCode
+  nameWithType: CompilationParameters.GetHashCode
+- uid: OpaDotNet.Compilation.Abstractions.CompilationParameters.IsBundle
+  name: IsBundle
+  href: api/OpaDotNet.Compilation.Abstractions.CompilationParameters.html#OpaDotNet_Compilation_Abstractions_CompilationParameters_IsBundle
+  commentId: P:OpaDotNet.Compilation.Abstractions.CompilationParameters.IsBundle
+  fullName: OpaDotNet.Compilation.Abstractions.CompilationParameters.IsBundle
+  nameWithType: CompilationParameters.IsBundle
+- uid: OpaDotNet.Compilation.Abstractions.CompilationParameters.IsBundle*
+  name: IsBundle
+  href: api/OpaDotNet.Compilation.Abstractions.CompilationParameters.html#OpaDotNet_Compilation_Abstractions_CompilationParameters_IsBundle_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.CompilationParameters.IsBundle
+  fullName: OpaDotNet.Compilation.Abstractions.CompilationParameters.IsBundle
+  nameWithType: CompilationParameters.IsBundle
+- uid: OpaDotNet.Compilation.Abstractions.CompilationParameters.PrintMembers(System.Text.StringBuilder)
+  name: PrintMembers(StringBuilder)
+  href: api/OpaDotNet.Compilation.Abstractions.CompilationParameters.html#OpaDotNet_Compilation_Abstractions_CompilationParameters_PrintMembers_System_Text_StringBuilder_
+  commentId: M:OpaDotNet.Compilation.Abstractions.CompilationParameters.PrintMembers(System.Text.StringBuilder)
+  fullName: OpaDotNet.Compilation.Abstractions.CompilationParameters.PrintMembers(System.Text.StringBuilder)
+  nameWithType: CompilationParameters.PrintMembers(StringBuilder)
+- uid: OpaDotNet.Compilation.Abstractions.CompilationParameters.PrintMembers*
+  name: PrintMembers
+  href: api/OpaDotNet.Compilation.Abstractions.CompilationParameters.html#OpaDotNet_Compilation_Abstractions_CompilationParameters_PrintMembers_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.CompilationParameters.PrintMembers
+  fullName: OpaDotNet.Compilation.Abstractions.CompilationParameters.PrintMembers
+  nameWithType: CompilationParameters.PrintMembers
+- uid: OpaDotNet.Compilation.Abstractions.CompilationParameters.ToString
+  name: ToString()
+  href: api/OpaDotNet.Compilation.Abstractions.CompilationParameters.html#OpaDotNet_Compilation_Abstractions_CompilationParameters_ToString
+  commentId: M:OpaDotNet.Compilation.Abstractions.CompilationParameters.ToString
+  fullName: OpaDotNet.Compilation.Abstractions.CompilationParameters.ToString()
+  nameWithType: CompilationParameters.ToString()
+- uid: OpaDotNet.Compilation.Abstractions.CompilationParameters.ToString*
+  name: ToString
+  href: api/OpaDotNet.Compilation.Abstractions.CompilationParameters.html#OpaDotNet_Compilation_Abstractions_CompilationParameters_ToString_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.CompilationParameters.ToString
+  fullName: OpaDotNet.Compilation.Abstractions.CompilationParameters.ToString
+  nameWithType: CompilationParameters.ToString
+- uid: OpaDotNet.Compilation.Abstractions.CompilationParameters.op_Equality(OpaDotNet.Compilation.Abstractions.CompilationParameters,OpaDotNet.Compilation.Abstractions.CompilationParameters)
+  name: operator ==(CompilationParameters?, CompilationParameters?)
+  href: api/OpaDotNet.Compilation.Abstractions.CompilationParameters.html#OpaDotNet_Compilation_Abstractions_CompilationParameters_op_Equality_OpaDotNet_Compilation_Abstractions_CompilationParameters_OpaDotNet_Compilation_Abstractions_CompilationParameters_
+  commentId: M:OpaDotNet.Compilation.Abstractions.CompilationParameters.op_Equality(OpaDotNet.Compilation.Abstractions.CompilationParameters,OpaDotNet.Compilation.Abstractions.CompilationParameters)
+  name.vb: =(CompilationParameters, CompilationParameters)
+  fullName: OpaDotNet.Compilation.Abstractions.CompilationParameters.operator ==(OpaDotNet.Compilation.Abstractions.CompilationParameters?, OpaDotNet.Compilation.Abstractions.CompilationParameters?)
+  fullName.vb: OpaDotNet.Compilation.Abstractions.CompilationParameters.=(OpaDotNet.Compilation.Abstractions.CompilationParameters, OpaDotNet.Compilation.Abstractions.CompilationParameters)
+  nameWithType: CompilationParameters.operator ==(CompilationParameters?, CompilationParameters?)
+  nameWithType.vb: CompilationParameters.=(CompilationParameters, CompilationParameters)
+- uid: OpaDotNet.Compilation.Abstractions.CompilationParameters.op_Equality*
+  name: operator ==
+  href: api/OpaDotNet.Compilation.Abstractions.CompilationParameters.html#OpaDotNet_Compilation_Abstractions_CompilationParameters_op_Equality_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.CompilationParameters.op_Equality
+  name.vb: =
+  fullName: OpaDotNet.Compilation.Abstractions.CompilationParameters.operator ==
+  fullName.vb: OpaDotNet.Compilation.Abstractions.CompilationParameters.=
+  nameWithType: CompilationParameters.operator ==
+  nameWithType.vb: CompilationParameters.=
+- uid: OpaDotNet.Compilation.Abstractions.CompilationParameters.op_Inequality(OpaDotNet.Compilation.Abstractions.CompilationParameters,OpaDotNet.Compilation.Abstractions.CompilationParameters)
+  name: operator !=(CompilationParameters?, CompilationParameters?)
+  href: api/OpaDotNet.Compilation.Abstractions.CompilationParameters.html#OpaDotNet_Compilation_Abstractions_CompilationParameters_op_Inequality_OpaDotNet_Compilation_Abstractions_CompilationParameters_OpaDotNet_Compilation_Abstractions_CompilationParameters_
+  commentId: M:OpaDotNet.Compilation.Abstractions.CompilationParameters.op_Inequality(OpaDotNet.Compilation.Abstractions.CompilationParameters,OpaDotNet.Compilation.Abstractions.CompilationParameters)
+  name.vb: <>(CompilationParameters, CompilationParameters)
+  fullName: OpaDotNet.Compilation.Abstractions.CompilationParameters.operator !=(OpaDotNet.Compilation.Abstractions.CompilationParameters?, OpaDotNet.Compilation.Abstractions.CompilationParameters?)
+  fullName.vb: OpaDotNet.Compilation.Abstractions.CompilationParameters.<>(OpaDotNet.Compilation.Abstractions.CompilationParameters, OpaDotNet.Compilation.Abstractions.CompilationParameters)
+  nameWithType: CompilationParameters.operator !=(CompilationParameters?, CompilationParameters?)
+  nameWithType.vb: CompilationParameters.<>(CompilationParameters, CompilationParameters)
+- uid: OpaDotNet.Compilation.Abstractions.CompilationParameters.op_Inequality*
+  name: operator !=
+  href: api/OpaDotNet.Compilation.Abstractions.CompilationParameters.html#OpaDotNet_Compilation_Abstractions_CompilationParameters_op_Inequality_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.CompilationParameters.op_Inequality
+  name.vb: <>
+  fullName: OpaDotNet.Compilation.Abstractions.CompilationParameters.operator !=
+  fullName.vb: OpaDotNet.Compilation.Abstractions.CompilationParameters.<>
+  nameWithType: CompilationParameters.operator !=
+  nameWithType.vb: CompilationParameters.<>
+- uid: OpaDotNet.Compilation.Abstractions.CompilationParameters.{Clone}$
+  name: <Clone>$()
+  href: api/OpaDotNet.Compilation.Abstractions.CompilationParameters.html#OpaDotNet_Compilation_Abstractions_CompilationParameters__Clone__
+  commentId: M:OpaDotNet.Compilation.Abstractions.CompilationParameters.{Clone}$
+  fullName: OpaDotNet.Compilation.Abstractions.CompilationParameters.<Clone>$()
+  nameWithType: CompilationParameters.<Clone>$()
+- uid: OpaDotNet.Compilation.Abstractions.CompilationParameters.{Clone}$*
+  name: <Clone>$
+  href: api/OpaDotNet.Compilation.Abstractions.CompilationParameters.html#OpaDotNet_Compilation_Abstractions_CompilationParameters__Clone___
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.CompilationParameters.{Clone}$
+  fullName: OpaDotNet.Compilation.Abstractions.CompilationParameters.<Clone>$
+  nameWithType: CompilationParameters.<Clone>$
 - uid: OpaDotNet.Compilation.Abstractions.IRegoCompiler
   name: IRegoCompiler
   href: api/OpaDotNet.Compilation.Abstractions.IRegoCompiler.html
   commentId: T:OpaDotNet.Compilation.Abstractions.IRegoCompiler
   fullName: OpaDotNet.Compilation.Abstractions.IRegoCompiler
   nameWithType: IRegoCompiler
-- uid: OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileBundle(System.String,System.Collections.Generic.IEnumerable{System.String},System.String,System.Threading.CancellationToken)
-  name: CompileBundle(string, IEnumerable<string>?, string?, CancellationToken)
-  href: api/OpaDotNet.Compilation.Abstractions.IRegoCompiler.html#OpaDotNet_Compilation_Abstractions_IRegoCompiler_CompileBundle_System_String_System_Collections_Generic_IEnumerable_System_String__System_String_System_Threading_CancellationToken_
-  commentId: M:OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileBundle(System.String,System.Collections.Generic.IEnumerable{System.String},System.String,System.Threading.CancellationToken)
-  name.vb: CompileBundle(String, IEnumerable(Of String), String, CancellationToken)
-  fullName: OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileBundle(string, System.Collections.Generic.IEnumerable<string>?, string?, System.Threading.CancellationToken)
-  fullName.vb: OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileBundle(String, System.Collections.Generic.IEnumerable(Of String), String, System.Threading.CancellationToken)
-  nameWithType: IRegoCompiler.CompileBundle(string, IEnumerable<string>?, string?, CancellationToken)
-  nameWithType.vb: IRegoCompiler.CompileBundle(String, IEnumerable(Of String), String, CancellationToken)
-- uid: OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileBundle*
-  name: CompileBundle
-  href: api/OpaDotNet.Compilation.Abstractions.IRegoCompiler.html#OpaDotNet_Compilation_Abstractions_IRegoCompiler_CompileBundle_
-  commentId: Overload:OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileBundle
-  fullName: OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileBundle
-  nameWithType: IRegoCompiler.CompileBundle
-- uid: OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileFile(System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
-  name: CompileFile(string, IEnumerable<string>?, CancellationToken)
-  href: api/OpaDotNet.Compilation.Abstractions.IRegoCompiler.html#OpaDotNet_Compilation_Abstractions_IRegoCompiler_CompileFile_System_String_System_Collections_Generic_IEnumerable_System_String__System_Threading_CancellationToken_
-  commentId: M:OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileFile(System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
-  name.vb: CompileFile(String, IEnumerable(Of String), CancellationToken)
-  fullName: OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileFile(string, System.Collections.Generic.IEnumerable<string>?, System.Threading.CancellationToken)
-  fullName.vb: OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileFile(String, System.Collections.Generic.IEnumerable(Of String), System.Threading.CancellationToken)
-  nameWithType: IRegoCompiler.CompileFile(string, IEnumerable<string>?, CancellationToken)
-  nameWithType.vb: IRegoCompiler.CompileFile(String, IEnumerable(Of String), CancellationToken)
-- uid: OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileFile*
-  name: CompileFile
-  href: api/OpaDotNet.Compilation.Abstractions.IRegoCompiler.html#OpaDotNet_Compilation_Abstractions_IRegoCompiler_CompileFile_
-  commentId: Overload:OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileFile
-  fullName: OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileFile
-  nameWithType: IRegoCompiler.CompileFile
-- uid: OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileSource(System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
-  name: CompileSource(string, IEnumerable<string>?, CancellationToken)
-  href: api/OpaDotNet.Compilation.Abstractions.IRegoCompiler.html#OpaDotNet_Compilation_Abstractions_IRegoCompiler_CompileSource_System_String_System_Collections_Generic_IEnumerable_System_String__System_Threading_CancellationToken_
-  commentId: M:OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileSource(System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
-  name.vb: CompileSource(String, IEnumerable(Of String), CancellationToken)
-  fullName: OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileSource(string, System.Collections.Generic.IEnumerable<string>?, System.Threading.CancellationToken)
-  fullName.vb: OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileSource(String, System.Collections.Generic.IEnumerable(Of String), System.Threading.CancellationToken)
-  nameWithType: IRegoCompiler.CompileSource(string, IEnumerable<string>?, CancellationToken)
-  nameWithType.vb: IRegoCompiler.CompileSource(String, IEnumerable(Of String), CancellationToken)
-- uid: OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileSource*
-  name: CompileSource
-  href: api/OpaDotNet.Compilation.Abstractions.IRegoCompiler.html#OpaDotNet_Compilation_Abstractions_IRegoCompiler_CompileSource_
-  commentId: Overload:OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileSource
-  fullName: OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileSource
-  nameWithType: IRegoCompiler.CompileSource
-- uid: OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileStream(System.IO.Stream,System.Collections.Generic.IEnumerable{System.String},System.IO.Stream,System.Threading.CancellationToken)
-  name: CompileStream(Stream, IEnumerable<string>?, Stream?, CancellationToken)
-  href: api/OpaDotNet.Compilation.Abstractions.IRegoCompiler.html#OpaDotNet_Compilation_Abstractions_IRegoCompiler_CompileStream_System_IO_Stream_System_Collections_Generic_IEnumerable_System_String__System_IO_Stream_System_Threading_CancellationToken_
-  commentId: M:OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileStream(System.IO.Stream,System.Collections.Generic.IEnumerable{System.String},System.IO.Stream,System.Threading.CancellationToken)
-  name.vb: CompileStream(Stream, IEnumerable(Of String), Stream, CancellationToken)
-  fullName: OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileStream(System.IO.Stream, System.Collections.Generic.IEnumerable<string>?, System.IO.Stream?, System.Threading.CancellationToken)
-  fullName.vb: OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileStream(System.IO.Stream, System.Collections.Generic.IEnumerable(Of String), System.IO.Stream, System.Threading.CancellationToken)
-  nameWithType: IRegoCompiler.CompileStream(Stream, IEnumerable<string>?, Stream?, CancellationToken)
-  nameWithType.vb: IRegoCompiler.CompileStream(Stream, IEnumerable(Of String), Stream, CancellationToken)
-- uid: OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileStream*
-  name: CompileStream
-  href: api/OpaDotNet.Compilation.Abstractions.IRegoCompiler.html#OpaDotNet_Compilation_Abstractions_IRegoCompiler_CompileStream_
-  commentId: Overload:OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileStream
-  fullName: OpaDotNet.Compilation.Abstractions.IRegoCompiler.CompileStream
-  nameWithType: IRegoCompiler.CompileStream
+- uid: OpaDotNet.Compilation.Abstractions.IRegoCompiler.Compile(System.IO.Stream,OpaDotNet.Compilation.Abstractions.CompilationParameters,System.Threading.CancellationToken)
+  name: Compile(Stream, CompilationParameters, CancellationToken)
+  href: api/OpaDotNet.Compilation.Abstractions.IRegoCompiler.html#OpaDotNet_Compilation_Abstractions_IRegoCompiler_Compile_System_IO_Stream_OpaDotNet_Compilation_Abstractions_CompilationParameters_System_Threading_CancellationToken_
+  commentId: M:OpaDotNet.Compilation.Abstractions.IRegoCompiler.Compile(System.IO.Stream,OpaDotNet.Compilation.Abstractions.CompilationParameters,System.Threading.CancellationToken)
+  fullName: OpaDotNet.Compilation.Abstractions.IRegoCompiler.Compile(System.IO.Stream, OpaDotNet.Compilation.Abstractions.CompilationParameters, System.Threading.CancellationToken)
+  nameWithType: IRegoCompiler.Compile(Stream, CompilationParameters, CancellationToken)
+- uid: OpaDotNet.Compilation.Abstractions.IRegoCompiler.Compile(System.String,OpaDotNet.Compilation.Abstractions.CompilationParameters,System.Threading.CancellationToken)
+  name: Compile(string, CompilationParameters, CancellationToken)
+  href: api/OpaDotNet.Compilation.Abstractions.IRegoCompiler.html#OpaDotNet_Compilation_Abstractions_IRegoCompiler_Compile_System_String_OpaDotNet_Compilation_Abstractions_CompilationParameters_System_Threading_CancellationToken_
+  commentId: M:OpaDotNet.Compilation.Abstractions.IRegoCompiler.Compile(System.String,OpaDotNet.Compilation.Abstractions.CompilationParameters,System.Threading.CancellationToken)
+  name.vb: Compile(String, CompilationParameters, CancellationToken)
+  fullName: OpaDotNet.Compilation.Abstractions.IRegoCompiler.Compile(string, OpaDotNet.Compilation.Abstractions.CompilationParameters, System.Threading.CancellationToken)
+  fullName.vb: OpaDotNet.Compilation.Abstractions.IRegoCompiler.Compile(String, OpaDotNet.Compilation.Abstractions.CompilationParameters, System.Threading.CancellationToken)
+  nameWithType: IRegoCompiler.Compile(string, CompilationParameters, CancellationToken)
+  nameWithType.vb: IRegoCompiler.Compile(String, CompilationParameters, CancellationToken)
+- uid: OpaDotNet.Compilation.Abstractions.IRegoCompiler.Compile*
+  name: Compile
+  href: api/OpaDotNet.Compilation.Abstractions.IRegoCompiler.html#OpaDotNet_Compilation_Abstractions_IRegoCompiler_Compile_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.IRegoCompiler.Compile
+  fullName: OpaDotNet.Compilation.Abstractions.IRegoCompiler.Compile
+  nameWithType: IRegoCompiler.Compile
 - uid: OpaDotNet.Compilation.Abstractions.IRegoCompiler.Version(System.Threading.CancellationToken)
   name: Version(CancellationToken)
   href: api/OpaDotNet.Compilation.Abstractions.IRegoCompiler.html#OpaDotNet_Compilation_Abstractions_IRegoCompiler_Version_System_Threading_CancellationToken_
@@ -421,6 +622,72 @@ references:
   commentId: Overload:OpaDotNet.Compilation.Abstractions.RegoCompilationException.SourceFile
   fullName: OpaDotNet.Compilation.Abstractions.RegoCompilationException.SourceFile
   nameWithType: RegoCompilationException.SourceFile
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions
+  name: RegoCompilerExtensions
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.html
+  commentId: T:OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions
+  nameWithType: RegoCompilerExtensions
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileBundle(OpaDotNet.Compilation.Abstractions.IRegoCompiler,System.String,System.Collections.Generic.IEnumerable{System.String},System.String,System.Threading.CancellationToken)
+  name: CompileBundle(IRegoCompiler, string, IEnumerable<string>?, string?, CancellationToken)
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.html#OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileBundle_OpaDotNet_Compilation_Abstractions_IRegoCompiler_System_String_System_Collections_Generic_IEnumerable_System_String__System_String_System_Threading_CancellationToken_
+  commentId: M:OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileBundle(OpaDotNet.Compilation.Abstractions.IRegoCompiler,System.String,System.Collections.Generic.IEnumerable{System.String},System.String,System.Threading.CancellationToken)
+  name.vb: CompileBundle(IRegoCompiler, String, IEnumerable(Of String), String, CancellationToken)
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileBundle(OpaDotNet.Compilation.Abstractions.IRegoCompiler, string, System.Collections.Generic.IEnumerable<string>?, string?, System.Threading.CancellationToken)
+  fullName.vb: OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileBundle(OpaDotNet.Compilation.Abstractions.IRegoCompiler, String, System.Collections.Generic.IEnumerable(Of String), String, System.Threading.CancellationToken)
+  nameWithType: RegoCompilerExtensions.CompileBundle(IRegoCompiler, string, IEnumerable<string>?, string?, CancellationToken)
+  nameWithType.vb: RegoCompilerExtensions.CompileBundle(IRegoCompiler, String, IEnumerable(Of String), String, CancellationToken)
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileBundle*
+  name: CompileBundle
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.html#OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileBundle_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileBundle
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileBundle
+  nameWithType: RegoCompilerExtensions.CompileBundle
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileFile(OpaDotNet.Compilation.Abstractions.IRegoCompiler,System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  name: CompileFile(IRegoCompiler, string, IEnumerable<string>?, CancellationToken)
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.html#OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileFile_OpaDotNet_Compilation_Abstractions_IRegoCompiler_System_String_System_Collections_Generic_IEnumerable_System_String__System_Threading_CancellationToken_
+  commentId: M:OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileFile(OpaDotNet.Compilation.Abstractions.IRegoCompiler,System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  name.vb: CompileFile(IRegoCompiler, String, IEnumerable(Of String), CancellationToken)
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileFile(OpaDotNet.Compilation.Abstractions.IRegoCompiler, string, System.Collections.Generic.IEnumerable<string>?, System.Threading.CancellationToken)
+  fullName.vb: OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileFile(OpaDotNet.Compilation.Abstractions.IRegoCompiler, String, System.Collections.Generic.IEnumerable(Of String), System.Threading.CancellationToken)
+  nameWithType: RegoCompilerExtensions.CompileFile(IRegoCompiler, string, IEnumerable<string>?, CancellationToken)
+  nameWithType.vb: RegoCompilerExtensions.CompileFile(IRegoCompiler, String, IEnumerable(Of String), CancellationToken)
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileFile*
+  name: CompileFile
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.html#OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileFile_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileFile
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileFile
+  nameWithType: RegoCompilerExtensions.CompileFile
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileSource(OpaDotNet.Compilation.Abstractions.IRegoCompiler,System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  name: CompileSource(IRegoCompiler, string, IEnumerable<string>?, CancellationToken)
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.html#OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileSource_OpaDotNet_Compilation_Abstractions_IRegoCompiler_System_String_System_Collections_Generic_IEnumerable_System_String__System_Threading_CancellationToken_
+  commentId: M:OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileSource(OpaDotNet.Compilation.Abstractions.IRegoCompiler,System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  name.vb: CompileSource(IRegoCompiler, String, IEnumerable(Of String), CancellationToken)
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileSource(OpaDotNet.Compilation.Abstractions.IRegoCompiler, string, System.Collections.Generic.IEnumerable<string>?, System.Threading.CancellationToken)
+  fullName.vb: OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileSource(OpaDotNet.Compilation.Abstractions.IRegoCompiler, String, System.Collections.Generic.IEnumerable(Of String), System.Threading.CancellationToken)
+  nameWithType: RegoCompilerExtensions.CompileSource(IRegoCompiler, string, IEnumerable<string>?, CancellationToken)
+  nameWithType.vb: RegoCompilerExtensions.CompileSource(IRegoCompiler, String, IEnumerable(Of String), CancellationToken)
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileSource*
+  name: CompileSource
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.html#OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileSource_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileSource
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileSource
+  nameWithType: RegoCompilerExtensions.CompileSource
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileStream(OpaDotNet.Compilation.Abstractions.IRegoCompiler,System.IO.Stream,System.Collections.Generic.IEnumerable{System.String},System.IO.Stream,System.Threading.CancellationToken)
+  name: CompileStream(IRegoCompiler, Stream, IEnumerable<string>?, Stream?, CancellationToken)
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.html#OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileStream_OpaDotNet_Compilation_Abstractions_IRegoCompiler_System_IO_Stream_System_Collections_Generic_IEnumerable_System_String__System_IO_Stream_System_Threading_CancellationToken_
+  commentId: M:OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileStream(OpaDotNet.Compilation.Abstractions.IRegoCompiler,System.IO.Stream,System.Collections.Generic.IEnumerable{System.String},System.IO.Stream,System.Threading.CancellationToken)
+  name.vb: CompileStream(IRegoCompiler, Stream, IEnumerable(Of String), Stream, CancellationToken)
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileStream(OpaDotNet.Compilation.Abstractions.IRegoCompiler, System.IO.Stream, System.Collections.Generic.IEnumerable<string>?, System.IO.Stream?, System.Threading.CancellationToken)
+  fullName.vb: OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileStream(OpaDotNet.Compilation.Abstractions.IRegoCompiler, System.IO.Stream, System.Collections.Generic.IEnumerable(Of String), System.IO.Stream, System.Threading.CancellationToken)
+  nameWithType: RegoCompilerExtensions.CompileStream(IRegoCompiler, Stream, IEnumerable<string>?, Stream?, CancellationToken)
+  nameWithType.vb: RegoCompilerExtensions.CompileStream(IRegoCompiler, Stream, IEnumerable(Of String), Stream, CancellationToken)
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileStream*
+  name: CompileStream
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.html#OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileStream_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileStream
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileStream
+  nameWithType: RegoCompilerExtensions.CompileStream
 - uid: OpaDotNet.Compilation.Abstractions.RegoCompilerOptions
   name: RegoCompilerOptions
   href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.html
@@ -469,6 +736,18 @@ references:
   commentId: Overload:OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.Debug
   fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.Debug
   nameWithType: RegoCompilerOptions.Debug
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.Ignore
+  name: Ignore
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.html#OpaDotNet_Compilation_Abstractions_RegoCompilerOptions_Ignore
+  commentId: P:OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.Ignore
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.Ignore
+  nameWithType: RegoCompilerOptions.Ignore
+- uid: OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.Ignore*
+  name: Ignore
+  href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.html#OpaDotNet_Compilation_Abstractions_RegoCompilerOptions_Ignore_
+  commentId: Overload:OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.Ignore
+  fullName: OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.Ignore
+  nameWithType: RegoCompilerOptions.Ignore
 - uid: OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.OutputPath
   name: OutputPath
   href: api/OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.html#OpaDotNet_Compilation_Abstractions_RegoCompilerOptions_OutputPath
@@ -928,51 +1207,27 @@ references:
   fullName.vb: OpaDotNet.Compilation.Cli.RegoCliCompiler.New
   nameWithType: RegoCliCompiler.RegoCliCompiler
   nameWithType.vb: RegoCliCompiler.New
-- uid: OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileBundle(System.String,System.Collections.Generic.IEnumerable{System.String},System.String,System.Threading.CancellationToken)
-  name: CompileBundle(string, IEnumerable<string>?, string?, CancellationToken)
-  href: api/OpaDotNet.Compilation.Cli.RegoCliCompiler.html#OpaDotNet_Compilation_Cli_RegoCliCompiler_CompileBundle_System_String_System_Collections_Generic_IEnumerable_System_String__System_String_System_Threading_CancellationToken_
-  commentId: M:OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileBundle(System.String,System.Collections.Generic.IEnumerable{System.String},System.String,System.Threading.CancellationToken)
-  name.vb: CompileBundle(String, IEnumerable(Of String), String, CancellationToken)
-  fullName: OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileBundle(string, System.Collections.Generic.IEnumerable<string>?, string?, System.Threading.CancellationToken)
-  fullName.vb: OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileBundle(String, System.Collections.Generic.IEnumerable(Of String), String, System.Threading.CancellationToken)
-  nameWithType: RegoCliCompiler.CompileBundle(string, IEnumerable<string>?, string?, CancellationToken)
-  nameWithType.vb: RegoCliCompiler.CompileBundle(String, IEnumerable(Of String), String, CancellationToken)
-- uid: OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileBundle*
-  name: CompileBundle
-  href: api/OpaDotNet.Compilation.Cli.RegoCliCompiler.html#OpaDotNet_Compilation_Cli_RegoCliCompiler_CompileBundle_
-  commentId: Overload:OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileBundle
-  fullName: OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileBundle
-  nameWithType: RegoCliCompiler.CompileBundle
-- uid: OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileFile(System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
-  name: CompileFile(string, IEnumerable<string>?, CancellationToken)
-  href: api/OpaDotNet.Compilation.Cli.RegoCliCompiler.html#OpaDotNet_Compilation_Cli_RegoCliCompiler_CompileFile_System_String_System_Collections_Generic_IEnumerable_System_String__System_Threading_CancellationToken_
-  commentId: M:OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileFile(System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
-  name.vb: CompileFile(String, IEnumerable(Of String), CancellationToken)
-  fullName: OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileFile(string, System.Collections.Generic.IEnumerable<string>?, System.Threading.CancellationToken)
-  fullName.vb: OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileFile(String, System.Collections.Generic.IEnumerable(Of String), System.Threading.CancellationToken)
-  nameWithType: RegoCliCompiler.CompileFile(string, IEnumerable<string>?, CancellationToken)
-  nameWithType.vb: RegoCliCompiler.CompileFile(String, IEnumerable(Of String), CancellationToken)
-- uid: OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileFile*
-  name: CompileFile
-  href: api/OpaDotNet.Compilation.Cli.RegoCliCompiler.html#OpaDotNet_Compilation_Cli_RegoCliCompiler_CompileFile_
-  commentId: Overload:OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileFile
-  fullName: OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileFile
-  nameWithType: RegoCliCompiler.CompileFile
-- uid: OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileStream(System.IO.Stream,System.Collections.Generic.IEnumerable{System.String},System.IO.Stream,System.Threading.CancellationToken)
-  name: CompileStream(Stream, IEnumerable<string>?, Stream?, CancellationToken)
-  href: api/OpaDotNet.Compilation.Cli.RegoCliCompiler.html#OpaDotNet_Compilation_Cli_RegoCliCompiler_CompileStream_System_IO_Stream_System_Collections_Generic_IEnumerable_System_String__System_IO_Stream_System_Threading_CancellationToken_
-  commentId: M:OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileStream(System.IO.Stream,System.Collections.Generic.IEnumerable{System.String},System.IO.Stream,System.Threading.CancellationToken)
-  name.vb: CompileStream(Stream, IEnumerable(Of String), Stream, CancellationToken)
-  fullName: OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileStream(System.IO.Stream, System.Collections.Generic.IEnumerable<string>?, System.IO.Stream?, System.Threading.CancellationToken)
-  fullName.vb: OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileStream(System.IO.Stream, System.Collections.Generic.IEnumerable(Of String), System.IO.Stream, System.Threading.CancellationToken)
-  nameWithType: RegoCliCompiler.CompileStream(Stream, IEnumerable<string>?, Stream?, CancellationToken)
-  nameWithType.vb: RegoCliCompiler.CompileStream(Stream, IEnumerable(Of String), Stream, CancellationToken)
-- uid: OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileStream*
-  name: CompileStream
-  href: api/OpaDotNet.Compilation.Cli.RegoCliCompiler.html#OpaDotNet_Compilation_Cli_RegoCliCompiler_CompileStream_
-  commentId: Overload:OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileStream
-  fullName: OpaDotNet.Compilation.Cli.RegoCliCompiler.CompileStream
-  nameWithType: RegoCliCompiler.CompileStream
+- uid: OpaDotNet.Compilation.Cli.RegoCliCompiler.Compile(System.IO.Stream,OpaDotNet.Compilation.Abstractions.CompilationParameters,System.Threading.CancellationToken)
+  name: Compile(Stream, CompilationParameters, CancellationToken)
+  href: api/OpaDotNet.Compilation.Cli.RegoCliCompiler.html#OpaDotNet_Compilation_Cli_RegoCliCompiler_Compile_System_IO_Stream_OpaDotNet_Compilation_Abstractions_CompilationParameters_System_Threading_CancellationToken_
+  commentId: M:OpaDotNet.Compilation.Cli.RegoCliCompiler.Compile(System.IO.Stream,OpaDotNet.Compilation.Abstractions.CompilationParameters,System.Threading.CancellationToken)
+  fullName: OpaDotNet.Compilation.Cli.RegoCliCompiler.Compile(System.IO.Stream, OpaDotNet.Compilation.Abstractions.CompilationParameters, System.Threading.CancellationToken)
+  nameWithType: RegoCliCompiler.Compile(Stream, CompilationParameters, CancellationToken)
+- uid: OpaDotNet.Compilation.Cli.RegoCliCompiler.Compile(System.String,OpaDotNet.Compilation.Abstractions.CompilationParameters,System.Threading.CancellationToken)
+  name: Compile(string, CompilationParameters, CancellationToken)
+  href: api/OpaDotNet.Compilation.Cli.RegoCliCompiler.html#OpaDotNet_Compilation_Cli_RegoCliCompiler_Compile_System_String_OpaDotNet_Compilation_Abstractions_CompilationParameters_System_Threading_CancellationToken_
+  commentId: M:OpaDotNet.Compilation.Cli.RegoCliCompiler.Compile(System.String,OpaDotNet.Compilation.Abstractions.CompilationParameters,System.Threading.CancellationToken)
+  name.vb: Compile(String, CompilationParameters, CancellationToken)
+  fullName: OpaDotNet.Compilation.Cli.RegoCliCompiler.Compile(string, OpaDotNet.Compilation.Abstractions.CompilationParameters, System.Threading.CancellationToken)
+  fullName.vb: OpaDotNet.Compilation.Cli.RegoCliCompiler.Compile(String, OpaDotNet.Compilation.Abstractions.CompilationParameters, System.Threading.CancellationToken)
+  nameWithType: RegoCliCompiler.Compile(string, CompilationParameters, CancellationToken)
+  nameWithType.vb: RegoCliCompiler.Compile(String, CompilationParameters, CancellationToken)
+- uid: OpaDotNet.Compilation.Cli.RegoCliCompiler.Compile*
+  name: Compile
+  href: api/OpaDotNet.Compilation.Cli.RegoCliCompiler.html#OpaDotNet_Compilation_Cli_RegoCliCompiler_Compile_
+  commentId: Overload:OpaDotNet.Compilation.Cli.RegoCliCompiler.Compile
+  fullName: OpaDotNet.Compilation.Cli.RegoCliCompiler.Compile
+  nameWithType: RegoCliCompiler.Compile
 - uid: OpaDotNet.Compilation.Cli.RegoCliCompiler.Version(System.Threading.CancellationToken)
   name: Version(CancellationToken)
   href: api/OpaDotNet.Compilation.Cli.RegoCliCompiler.html#OpaDotNet_Compilation_Cli_RegoCliCompiler_Version_System_Threading_CancellationToken_
@@ -1063,51 +1318,27 @@ references:
   fullName.vb: OpaDotNet.Compilation.Interop.RegoInteropCompiler.New
   nameWithType: RegoInteropCompiler.RegoInteropCompiler
   nameWithType.vb: RegoInteropCompiler.New
-- uid: OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileBundle(System.String,System.Collections.Generic.IEnumerable{System.String},System.String,System.Threading.CancellationToken)
-  name: CompileBundle(string, IEnumerable<string>?, string?, CancellationToken)
-  href: api/OpaDotNet.Compilation.Interop.RegoInteropCompiler.html#OpaDotNet_Compilation_Interop_RegoInteropCompiler_CompileBundle_System_String_System_Collections_Generic_IEnumerable_System_String__System_String_System_Threading_CancellationToken_
-  commentId: M:OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileBundle(System.String,System.Collections.Generic.IEnumerable{System.String},System.String,System.Threading.CancellationToken)
-  name.vb: CompileBundle(String, IEnumerable(Of String), String, CancellationToken)
-  fullName: OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileBundle(string, System.Collections.Generic.IEnumerable<string>?, string?, System.Threading.CancellationToken)
-  fullName.vb: OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileBundle(String, System.Collections.Generic.IEnumerable(Of String), String, System.Threading.CancellationToken)
-  nameWithType: RegoInteropCompiler.CompileBundle(string, IEnumerable<string>?, string?, CancellationToken)
-  nameWithType.vb: RegoInteropCompiler.CompileBundle(String, IEnumerable(Of String), String, CancellationToken)
-- uid: OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileBundle*
-  name: CompileBundle
-  href: api/OpaDotNet.Compilation.Interop.RegoInteropCompiler.html#OpaDotNet_Compilation_Interop_RegoInteropCompiler_CompileBundle_
-  commentId: Overload:OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileBundle
-  fullName: OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileBundle
-  nameWithType: RegoInteropCompiler.CompileBundle
-- uid: OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileFile(System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
-  name: CompileFile(string, IEnumerable<string>?, CancellationToken)
-  href: api/OpaDotNet.Compilation.Interop.RegoInteropCompiler.html#OpaDotNet_Compilation_Interop_RegoInteropCompiler_CompileFile_System_String_System_Collections_Generic_IEnumerable_System_String__System_Threading_CancellationToken_
-  commentId: M:OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileFile(System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
-  name.vb: CompileFile(String, IEnumerable(Of String), CancellationToken)
-  fullName: OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileFile(string, System.Collections.Generic.IEnumerable<string>?, System.Threading.CancellationToken)
-  fullName.vb: OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileFile(String, System.Collections.Generic.IEnumerable(Of String), System.Threading.CancellationToken)
-  nameWithType: RegoInteropCompiler.CompileFile(string, IEnumerable<string>?, CancellationToken)
-  nameWithType.vb: RegoInteropCompiler.CompileFile(String, IEnumerable(Of String), CancellationToken)
-- uid: OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileFile*
-  name: CompileFile
-  href: api/OpaDotNet.Compilation.Interop.RegoInteropCompiler.html#OpaDotNet_Compilation_Interop_RegoInteropCompiler_CompileFile_
-  commentId: Overload:OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileFile
-  fullName: OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileFile
-  nameWithType: RegoInteropCompiler.CompileFile
-- uid: OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileStream(System.IO.Stream,System.Collections.Generic.IEnumerable{System.String},System.IO.Stream,System.Threading.CancellationToken)
-  name: CompileStream(Stream, IEnumerable<string>?, Stream?, CancellationToken)
-  href: api/OpaDotNet.Compilation.Interop.RegoInteropCompiler.html#OpaDotNet_Compilation_Interop_RegoInteropCompiler_CompileStream_System_IO_Stream_System_Collections_Generic_IEnumerable_System_String__System_IO_Stream_System_Threading_CancellationToken_
-  commentId: M:OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileStream(System.IO.Stream,System.Collections.Generic.IEnumerable{System.String},System.IO.Stream,System.Threading.CancellationToken)
-  name.vb: CompileStream(Stream, IEnumerable(Of String), Stream, CancellationToken)
-  fullName: OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileStream(System.IO.Stream, System.Collections.Generic.IEnumerable<string>?, System.IO.Stream?, System.Threading.CancellationToken)
-  fullName.vb: OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileStream(System.IO.Stream, System.Collections.Generic.IEnumerable(Of String), System.IO.Stream, System.Threading.CancellationToken)
-  nameWithType: RegoInteropCompiler.CompileStream(Stream, IEnumerable<string>?, Stream?, CancellationToken)
-  nameWithType.vb: RegoInteropCompiler.CompileStream(Stream, IEnumerable(Of String), Stream, CancellationToken)
-- uid: OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileStream*
-  name: CompileStream
-  href: api/OpaDotNet.Compilation.Interop.RegoInteropCompiler.html#OpaDotNet_Compilation_Interop_RegoInteropCompiler_CompileStream_
-  commentId: Overload:OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileStream
-  fullName: OpaDotNet.Compilation.Interop.RegoInteropCompiler.CompileStream
-  nameWithType: RegoInteropCompiler.CompileStream
+- uid: OpaDotNet.Compilation.Interop.RegoInteropCompiler.Compile(System.IO.Stream,OpaDotNet.Compilation.Abstractions.CompilationParameters,System.Threading.CancellationToken)
+  name: Compile(Stream, CompilationParameters, CancellationToken)
+  href: api/OpaDotNet.Compilation.Interop.RegoInteropCompiler.html#OpaDotNet_Compilation_Interop_RegoInteropCompiler_Compile_System_IO_Stream_OpaDotNet_Compilation_Abstractions_CompilationParameters_System_Threading_CancellationToken_
+  commentId: M:OpaDotNet.Compilation.Interop.RegoInteropCompiler.Compile(System.IO.Stream,OpaDotNet.Compilation.Abstractions.CompilationParameters,System.Threading.CancellationToken)
+  fullName: OpaDotNet.Compilation.Interop.RegoInteropCompiler.Compile(System.IO.Stream, OpaDotNet.Compilation.Abstractions.CompilationParameters, System.Threading.CancellationToken)
+  nameWithType: RegoInteropCompiler.Compile(Stream, CompilationParameters, CancellationToken)
+- uid: OpaDotNet.Compilation.Interop.RegoInteropCompiler.Compile(System.String,OpaDotNet.Compilation.Abstractions.CompilationParameters,System.Threading.CancellationToken)
+  name: Compile(string, CompilationParameters, CancellationToken)
+  href: api/OpaDotNet.Compilation.Interop.RegoInteropCompiler.html#OpaDotNet_Compilation_Interop_RegoInteropCompiler_Compile_System_String_OpaDotNet_Compilation_Abstractions_CompilationParameters_System_Threading_CancellationToken_
+  commentId: M:OpaDotNet.Compilation.Interop.RegoInteropCompiler.Compile(System.String,OpaDotNet.Compilation.Abstractions.CompilationParameters,System.Threading.CancellationToken)
+  name.vb: Compile(String, CompilationParameters, CancellationToken)
+  fullName: OpaDotNet.Compilation.Interop.RegoInteropCompiler.Compile(string, OpaDotNet.Compilation.Abstractions.CompilationParameters, System.Threading.CancellationToken)
+  fullName.vb: OpaDotNet.Compilation.Interop.RegoInteropCompiler.Compile(String, OpaDotNet.Compilation.Abstractions.CompilationParameters, System.Threading.CancellationToken)
+  nameWithType: RegoInteropCompiler.Compile(string, CompilationParameters, CancellationToken)
+  nameWithType.vb: RegoInteropCompiler.Compile(String, CompilationParameters, CancellationToken)
+- uid: OpaDotNet.Compilation.Interop.RegoInteropCompiler.Compile*
+  name: Compile
+  href: api/OpaDotNet.Compilation.Interop.RegoInteropCompiler.html#OpaDotNet_Compilation_Interop_RegoInteropCompiler_Compile_
+  commentId: Overload:OpaDotNet.Compilation.Interop.RegoInteropCompiler.Compile
+  fullName: OpaDotNet.Compilation.Interop.RegoInteropCompiler.Compile
+  nameWithType: RegoInteropCompiler.Compile
 - uid: OpaDotNet.Compilation.Interop.RegoInteropCompiler.Version(System.Threading.CancellationToken)
   name: Version(CancellationToken)
   href: api/OpaDotNet.Compilation.Interop.RegoInteropCompiler.html#OpaDotNet_Compilation_Interop_RegoInteropCompiler_Version_System_Threading_CancellationToken_
@@ -2480,6 +2711,24 @@ references:
   commentId: Overload:OpaDotNet.Wasm.Features.IUpdateDataFeature.UpdateDataPath
   fullName: OpaDotNet.Wasm.Features.IUpdateDataFeature.UpdateDataPath
   nameWithType: IUpdateDataFeature.UpdateDataPath
+- uid: OpaDotNet.Wasm.ICapabilitiesProvider
+  name: ICapabilitiesProvider
+  href: api/OpaDotNet.Wasm.ICapabilitiesProvider.html
+  commentId: T:OpaDotNet.Wasm.ICapabilitiesProvider
+  fullName: OpaDotNet.Wasm.ICapabilitiesProvider
+  nameWithType: ICapabilitiesProvider
+- uid: OpaDotNet.Wasm.ICapabilitiesProvider.GetCapabilities
+  name: GetCapabilities()
+  href: api/OpaDotNet.Wasm.ICapabilitiesProvider.html#OpaDotNet_Wasm_ICapabilitiesProvider_GetCapabilities
+  commentId: M:OpaDotNet.Wasm.ICapabilitiesProvider.GetCapabilities
+  fullName: OpaDotNet.Wasm.ICapabilitiesProvider.GetCapabilities()
+  nameWithType: ICapabilitiesProvider.GetCapabilities()
+- uid: OpaDotNet.Wasm.ICapabilitiesProvider.GetCapabilities*
+  name: GetCapabilities
+  href: api/OpaDotNet.Wasm.ICapabilitiesProvider.html#OpaDotNet_Wasm_ICapabilitiesProvider_GetCapabilities_
+  commentId: Overload:OpaDotNet.Wasm.ICapabilitiesProvider.GetCapabilities
+  fullName: OpaDotNet.Wasm.ICapabilitiesProvider.GetCapabilities
+  nameWithType: ICapabilitiesProvider.GetCapabilities
 - uid: OpaDotNet.Wasm.IOpaEvaluator
   name: IOpaEvaluator
   href: api/OpaDotNet.Wasm.IOpaEvaluator.html
@@ -3090,6 +3339,21 @@ references:
   commentId: Overload:OpaDotNet.Wasm.WasmPolicyEngineOptions.Default
   fullName: OpaDotNet.Wasm.WasmPolicyEngineOptions.Default
   nameWithType: WasmPolicyEngineOptions.Default
+- uid: OpaDotNet.Wasm.WasmPolicyEngineOptions.DefaultWithJsonOptions(System.Action{System.Text.Json.JsonSerializerOptions})
+  name: DefaultWithJsonOptions(Action<JsonSerializerOptions>)
+  href: api/OpaDotNet.Wasm.WasmPolicyEngineOptions.html#OpaDotNet_Wasm_WasmPolicyEngineOptions_DefaultWithJsonOptions_System_Action_System_Text_Json_JsonSerializerOptions__
+  commentId: M:OpaDotNet.Wasm.WasmPolicyEngineOptions.DefaultWithJsonOptions(System.Action{System.Text.Json.JsonSerializerOptions})
+  name.vb: DefaultWithJsonOptions(Action(Of JsonSerializerOptions))
+  fullName: OpaDotNet.Wasm.WasmPolicyEngineOptions.DefaultWithJsonOptions(System.Action<System.Text.Json.JsonSerializerOptions>)
+  fullName.vb: OpaDotNet.Wasm.WasmPolicyEngineOptions.DefaultWithJsonOptions(System.Action(Of System.Text.Json.JsonSerializerOptions))
+  nameWithType: WasmPolicyEngineOptions.DefaultWithJsonOptions(Action<JsonSerializerOptions>)
+  nameWithType.vb: WasmPolicyEngineOptions.DefaultWithJsonOptions(Action(Of JsonSerializerOptions))
+- uid: OpaDotNet.Wasm.WasmPolicyEngineOptions.DefaultWithJsonOptions*
+  name: DefaultWithJsonOptions
+  href: api/OpaDotNet.Wasm.WasmPolicyEngineOptions.html#OpaDotNet_Wasm_WasmPolicyEngineOptions_DefaultWithJsonOptions_
+  commentId: Overload:OpaDotNet.Wasm.WasmPolicyEngineOptions.DefaultWithJsonOptions
+  fullName: OpaDotNet.Wasm.WasmPolicyEngineOptions.DefaultWithJsonOptions
+  nameWithType: WasmPolicyEngineOptions.DefaultWithJsonOptions
 - uid: OpaDotNet.Wasm.WasmPolicyEngineOptions.MaxAbiVersion
   name: MaxAbiVersion
   href: api/OpaDotNet.Wasm.WasmPolicyEngineOptions.html#OpaDotNet_Wasm_WasmPolicyEngineOptions_MaxAbiVersion

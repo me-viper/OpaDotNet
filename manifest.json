@@ -1,5 +1,4 @@
 {
-  "homepages": [],
   "source_base_path": "/home/runner/work/OpaDotNet/OpaDotNet/docs",
   "xrefmap": "xrefmap.yml",
   "files": [
@@ -25,6 +24,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Compilation.Abstractions.CompilationParameters.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Compilation.Abstractions.CompilationParameters.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/OpaDotNet.Compilation.Abstractions.IRegoCompiler.yml",
       "output": {
         ".html": {
@@ -39,6 +48,16 @@
       "output": {
         ".html": {
           "relative_path": "api/OpaDotNet.Compilation.Abstractions.RegoCompilationException.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.html"
         }
       },
       "version": ""
@@ -349,6 +368,16 @@
       "output": {
         ".html": {
           "relative_path": "api/OpaDotNet.Wasm.Features.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Wasm.ICapabilitiesProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Wasm.ICapabilitiesProvider.html"
         }
       },
       "version": ""
@@ -683,7 +712,6 @@
       "version": ""
     }
   ],
-  "version_info": {},
   "groups": [
     {
       "xrefmap": "xrefmap.yml"
