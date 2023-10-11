@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="OpaDotNet.Compilation.Cli" Version="1.4.0" />
+    <PackageReference Include="OpaDotNet.Compilation.Cli" Version="1.4.1" />
   </ItemGroup>
 
 </Project>

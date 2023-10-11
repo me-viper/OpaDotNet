@@ -150,7 +150,7 @@ public partial class DocSamples
         var policy = await compiler.CompileBundle(
 
             // Directory with bundle sources.
-            "quickstart/",
+            "quickstart",
 
             // Entrypoints (same you would pass for -e parameter for opa build).
             new[] { "example/hello" }
