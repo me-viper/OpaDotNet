@@ -1,7 +1,7 @@
 <Project>
 
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFrameworks>net7.0;net8.0</TargetFrameworks>
         <LangVersion>latest</LangVersion>
         <NoWarn>$(NoWarn)</NoWarn>
         <IsPackable>false</IsPackable>
@@ -10,6 +10,7 @@
         <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
         <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
         <Features>strict</Features>
+        <ArtifactsPath>$(MSBuildThisFileDirectory)artifacts</ArtifactsPath>
         <Authors>Andrii Kurochka</Authors>
     </PropertyGroup>
 

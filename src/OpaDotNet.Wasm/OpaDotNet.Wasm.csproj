@@ -26,7 +26,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="IPNetwork2"/>
+    <PackageReference Include="IPNetwork2">
+      <Aliases>Ipn</Aliases>
+    </PackageReference>
     <PackageReference Include="JetBrains.Annotations"/>
     <PackageReference Include="JsonPatch.Net"/>
     <PackageReference Include="JsonSchema.Net"/>

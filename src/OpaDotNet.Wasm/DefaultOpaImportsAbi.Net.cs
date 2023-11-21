@@ -1,15 +1,18 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Net;
+﻿extern alias Ipn;
+
+using System.Diagnostics.CodeAnalysis;
 using System.Net.Sockets;
 using System.Text.Json.Nodes;
 
 using OpaDotNet.Wasm.Rego;
 
+using System.Net;
+
 namespace OpaDotNet.Wasm;
 
 public partial class DefaultOpaImportsAbi
 {
-    private record CidrOrIp(IPNetwork Net, JsonNode Key)
+    private record CidrOrIp(Ipn::System.Net.IPNetwork Net, JsonNode Key)
     {
         private static CidrOrIp Parse(JsonNode? node, JsonSerializerOptions options, object? key = null)
         {
@@ -140,13 +143,13 @@ public partial class DefaultOpaImportsAbi
 
     private static bool CidrIsValid(string cidr)
     {
-        return IPNetwork.TryParse(cidr, out _);
+        return Ipn::System.Net.IPNetwork.TryParse(cidr, out _);
     }
 
     private static RegoSet<string> CidrMerge(string[] addresses)
     {
         var nets = addresses.Select(ParseNetwork).ToArray();
-        var result = IPNetwork.Supernet(nets).Select(p => p.ToString()).ToArray();
+        var result = Ipn::System.Net.IPNetwork.Supernet(nets).Select(p => p.ToString()).ToArray();
         return new RegoSet<string>(result);
     }
 
@@ -178,7 +181,7 @@ public partial class DefaultOpaImportsAbi
         return result.ToArray();
     }
 
-    private static IPNetwork ParseNetwork(string cidrOrIp)
+    private static Ipn::System.Net.IPNetwork ParseNetwork(string cidrOrIp)
     {
         if (TryParseNetwork(cidrOrIp, out var result))
             return result;
@@ -186,16 +189,16 @@ public partial class DefaultOpaImportsAbi
         throw new FormatException($"Invalid IP/CIDR format '{cidrOrIp}'");
     }
 
-    private static bool TryParseNetwork(string cidrOrIp, [MaybeNullWhen(false)] out IPNetwork result)
+    private static bool TryParseNetwork(string cidrOrIp, [MaybeNullWhen(false)] out Ipn::System.Net.IPNetwork result)
     {
         result = null;
 
         if (IPAddress.TryParse(cidrOrIp, out var ip))
         {
-            result = new IPNetwork(ip, 32);
+            result = new Ipn::System.Net.IPNetwork(ip, 32);
             return true;
         }
 
-        return IPNetwork.TryParse(cidrOrIp, out result);
+        return Ipn::System.Net.IPNetwork.TryParse(cidrOrIp, out result);
     }
 }

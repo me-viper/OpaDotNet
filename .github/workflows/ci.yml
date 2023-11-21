@@ -18,19 +18,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
       with:
         fetch-depth: 0
     - name: Setup .NET
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 7.0.x
+        dotnet-version: |
+          7.0.x
+          8.0.x
+
     - name: Restore Tools
       run: dotnet tool restore
+
     - name: Calc Version
       run: dotnet gitversion /updateprojectfiles /output buildserver
+
     - name: Build
       run: dotnet build -c Release
+
     - name: Download OPA CLI
       run: |
         echo "Downloading OPA ${OPA_CLI_VERSION}"
@@ -38,10 +44,11 @@ jobs:
         chmod 755 /usr/local/bin/opa
       env:
         OPA_CLI_VERSION: ${{ vars.OPA_CLI_VERSION }}
+
     - name: Test
       run: dotnet test /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
     - name: Coveralls
       uses: coverallsapp/github-action@v2
       with:
-        file: ./tests/TestResults/coverage.info
+        file: ./tests/TestResults/coverage.net7.0.info ./tests/TestResults/coverage.net8.0.info
         format: lcov
