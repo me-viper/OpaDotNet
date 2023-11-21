@@ -1,5 +1,11 @@
 # Changelog
 
+## OpaDotNet.Wasm v2.3.0 (2023-11-21)
+
+### Features
+
+* [#23]. Support net8.0 ([9b7f79b](https://github.com/me-viper/OpaDotNet/commit/9b7f79bcfc51113691f9f753ad477cd58c692a89))
+
 ## OpaDotNet.Wasm v2.2.0 (2023-10-09)
 
 ### Bug Fixes
