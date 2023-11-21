@@ -9,8 +9,8 @@
       <link rel="icon" href="../favicon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
       <link rel="stylesheet" href="../public/main.css">
-      <meta name="docfx:navrel" content="../toc.html">
-      <meta name="docfx:tocrel" content="toc.html">
+      <meta name="docfx:navrel" content="../toc.json">
+      <meta name="docfx:tocrel" content="toc.json">
       
       
       
@@ -27,13 +27,10 @@
       <meta name="loc:themeAuto" content="Auto">
       <meta name="loc:changeTheme" content="Change theme">
       <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
   </head>
 
-  <script type="module">
-    import options from './../public/main.js'
-    import { init } from './../public/docfx.min.js'
-    init(options)
-  </script>
+  <script type="module" src="./../public/docfx.min.js"></script>
 
   <script>
     const theme = localStorage.getItem('theme') || 'auto'
@@ -100,6 +97,7 @@ var policyStream = await compiler.CompileFile(&quot;example.rego&quot;, new[] { 
 using var engine = OpaEvaluatorFactory.CreateFromBundle(policyStream);
 </code></pre>
 <p>You might also want to check out new <a href="https://github.com/me-viper/OpaDotNet.Compilation/tree/main/src/OpaDotNet.Compilation.Interop">alternative</a> to the Cli compiler.</p>
+
 </article>
 
         <div class="contribution d-print-none">
@@ -107,7 +105,7 @@ using var engine = OpaEvaluatorFactory.CreateFromBundle(policyStream);
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>
-        
+
       </div>
 
       <div class="affix">
@@ -116,7 +114,7 @@ using var engine = OpaEvaluatorFactory.CreateFromBundle(policyStream);
     </main>
 
 
-    <footer class="border-top">
+    <footer class="border-top text-secondary">
       <div class="container-xxl">
         <div class="flex-fill">
           <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
