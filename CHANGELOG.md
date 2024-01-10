@@ -1,5 +1,15 @@
 # Changelog
 
+## OpaDotNet.Wasm v2.4.0 (2024-01-10)
+
+### Bug Fixes
+
+* Close [#24](https://github.com/me-viper/OpaDotNet/issues/24). Fix strings.sprintf function to use JsonSerializerOptions ([e69d916](https://github.com/me-viper/OpaDotNet/commit/e69d916f25d6070a83732e46924eb77f432ea1f5))
+
+### Features
+
+* Update dependencies ([9158856](https://github.com/me-viper/OpaDotNet/commit/9158856d2de0415d68ecb37953307fa1d87d94c2))
+
 ## OpaDotNet.Wasm v2.3.0 (2023-11-21)
 
 ### Features
