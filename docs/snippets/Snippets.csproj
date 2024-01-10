@@ -9,11 +9,11 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
-    <PackageReference Include="OpaDotNet.Compilation.Cli" Version="1.5.0" />
-    <PackageReference Include="OpaDotNet.Compilation.Interop" Version="1.5.0" />
-    <PackageReference Include="OpaDotNet.Extensions.AspNetCore" Version="2.0.0" />
-    <PackageReference Include="xunit" Version="2.6.2" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.4">
+    <PackageReference Include="OpaDotNet.Compilation.Cli" Version="1.6.0" />
+    <PackageReference Include="OpaDotNet.Compilation.Interop" Version="1.6.0" />
+    <PackageReference Include="OpaDotNet.Extensions.AspNetCore" Version="2.1.0" />
+    <PackageReference Include="xunit" Version="2.6.5" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.6">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\OpaDotNet.Wasm\OpaDotNet.Wasm.csproj"/>
+    <ProjectReference Include="..\..\src\OpaDotNet.Wasm\OpaDotNet.Wasm.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -4,24 +4,24 @@
     <PackageVersion Include="IPNetwork2" Version="2.6.618" />
     <PackageVersion Include="JetBrains.Annotations" Version="2023.3.0" />
     <PackageVersion Include="JsonPatch.Net" Version="2.1.0" />
-    <PackageVersion Include="JsonSchema.Net" Version="5.4.0" />
+    <PackageVersion Include="JsonSchema.Net" Version="5.5.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="3.3.4" />
     <PackageVersion Include="Microsoft.Extensions.Logging" Version="8.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0" />
-    <PackageVersion Include="Microsoft.Extensions.Options" Version="8.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Options" Version="8.0.1" />
     <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="8.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageVersion>
     <PackageVersion Include="Microsoft.Toolkit.HighPerformance" Version="7.1.2" />
     <PackageVersion Include="Moq" Version="4.18.4" />
-    <PackageVersion Include="OpaDotNet.Compilation.Cli" Version="1.5.0" />
-    <PackageVersion Include="OpaDotNet.Compilation.Interop" Version="1.5.0" />
+    <PackageVersion Include="OpaDotNet.Compilation.Cli" Version="1.6.0" />
+    <PackageVersion Include="OpaDotNet.Compilation.Interop" Version="1.6.0" />
     <PackageVersion Include="Semver" Version="2.3.0" />
-    <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="7.0.3" />
-    <PackageVersion Include="Wasmtime" Version="14.0.0" />
+    <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="7.1.2" />
+    <PackageVersion Include="Wasmtime" Version="16.0.0" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
-    <PackageVersion Include="xunit" Version="2.6.2" />
+    <PackageVersion Include="xunit" Version="2.6.5" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="2.5.4">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
