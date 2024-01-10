@@ -22,13 +22,13 @@ public partial class DefaultOpaImportsAbi
         return result.ToArray();
     }
 
-    private static object? FormatString(JsonNode? node)
+    private static object? FormatString(JsonNode? node, JsonSerializerOptions options)
     {
         if (node == null)
             return null;
 
         if (node is JsonValue jv)
-            return jv.ToJsonString().Trim('"');
+            return jv.ToJsonString(options).Trim('"');
 
         if (node is JsonArray ja)
         {
@@ -40,7 +40,7 @@ public partial class DefaultOpaImportsAbi
                 var setStr = new List<string?>(setAr.Count);
 
                 foreach (var el in setAr)
-                    setStr.Add(el?.ToJsonString());
+                    setStr.Add(el?.ToJsonString(options));
 
                 return $"{{{string.Join(", ", setStr)}}}";
             }
@@ -48,36 +48,36 @@ public partial class DefaultOpaImportsAbi
             var arStr = new List<string?>(ja.Count);
 
             foreach (var el in ja)
-                arStr.Add(el?.ToJsonString());
+                arStr.Add(el?.ToJsonString(options));
 
             return $"[{string.Join(", ", arStr)}]";
         }
 
         if (node is JsonObject jo)
-            return jo.ToJsonString();
+            return jo.ToJsonString(options);
 
         return null;
     }
 
-    private static IReadOnlyDictionary<char, Func<JsonNode?, (object?, char)>> _formats =
-        new Dictionary<char, Func<JsonNode?, (object?, char)>>
+    private static IReadOnlyDictionary<char, Func<JsonNode?, JsonSerializerOptions, (object?, char)>> _formats =
+        new Dictionary<char, Func<JsonNode?, JsonSerializerOptions, (object?, char)>>
         {
-            { 's', p => (FormatString(p), 's') },
-            { 'd', p => (p?.GetValue<int>(), 'd') },
-            { 'b', p => (Convert.ToString(p!.GetValue<int>(), 2), 's') },
-            { 'o', p => (Convert.ToString(p!.GetValue<int>(), 8), 's') },
-            { 'x', p => (p!.GetValue<int>(), 'x') },
-            { 'X', p => (p!.GetValue<int>(), 'X') },
-            { 't', p => (p!.GetValue<bool>(), 's') },
-            { 'e', p => (p!.GetValue<decimal>(), 'e') },
-            { 'E', p => (p!.GetValue<decimal>(), 'E') },
-            { 'f', p => (p!.GetValue<decimal>(), 'f') },
-            { 'F', p => (p!.GetValue<decimal>(), 'F') },
-            { 'g', p => (p!.GetValue<decimal>(), 'g') },
-            { 'G', p => (p!.GetValue<decimal>(), 'G') },
+            { 's', (p, o) => (FormatString(p, o), 's') },
+            { 'd', (p, _) => (p?.GetValue<int>(), 'd') },
+            { 'b', (p, _) => (p == null ? string.Empty : Convert.ToString(p.GetValue<int>(), 2), 's') },
+            { 'o', (p, _) => (p == null ? string.Empty : Convert.ToString(p.GetValue<int>(), 8), 's') },
+            { 'x', (p, _) => (p?.GetValue<int>(), 'x') },
+            { 'X', (p, _) => (p?.GetValue<int>(), 'X') },
+            { 't', (p, _) => (p?.GetValue<bool>(), 's') },
+            { 'e', (p, _) => (p?.GetValue<decimal>(), 'e') },
+            { 'E', (p, _) => (p?.GetValue<decimal>(), 'E') },
+            { 'f', (p, _) => (p?.GetValue<decimal>(), 'f') },
+            { 'F', (p, _) => (p?.GetValue<decimal>(), 'F') },
+            { 'g', (p, _) => (p?.GetValue<decimal>(), 'g') },
+            { 'G', (p, _) => (p?.GetValue<decimal>(), 'G') },
         };
 
-    private static string? Sprintf(string format, JsonNode? values)
+    private static string? Sprintf(string format, JsonNode? values, JsonSerializerOptions options)
     {
         if (values is not JsonArray ja)
             return null;
@@ -146,7 +146,7 @@ public partial class DefaultOpaImportsAbi
             if (!_formats.TryGetValue(format[i], out var val))
                 throw new FormatException($"Unknown format {format[i]}");
 
-            var (value, fmt) = val(ja[valueIndex]);
+            var (value, fmt) = val(ja[valueIndex], options);
 
             if (precision < 0 && fmt is 'f' or 'F')
             {

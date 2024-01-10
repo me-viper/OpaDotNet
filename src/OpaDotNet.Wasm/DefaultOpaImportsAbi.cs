@@ -184,13 +184,13 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
                 "urlquery.encode" => UrlQueryEncode(arg1.As<string>()),
                 "urlquery.decode" => UrlQueryDecode(arg1.As<string>()),
                 "urlquery.decode_object" => UrlQueryDecodeObject(arg1.As<string>()),
-                "urlquery.encode_object" => UrlQueryEncodeObject(arg1.RawJson, context.JsonSerializerOptions),
+                "urlquery.encode_object" => UrlQueryEncodeObject(arg1.RawJson),
                 "io.jwt.decode" => JwtDecode(arg1.As<string>()),
                 "semver.is_valid" => SemverIsValid(arg1.RawJson),
                 "yaml.is_valid" => YamlIsValid(arg1.RawJson),
                 "yaml.marshal" => YamlMarshal(arg1.RawJson),
                 "yaml.unmarshal" => YamlUnmarshal(arg1.As<string>()),
-                "json.verify_schema" => JsonVerifySchema(arg1.RawJson, out _),
+                "json.verify_schema" => JsonVerifySchema(arg1.RawJson, context.JsonSerializerOptions, out _),
                 "units.parse" => UnitsParse(arg1.As<string>()),
                 "units.parse_bytes" => UnitsParseBytes(arg1.As<string>()),
                 "internal.print" => Print(arg1.As<JsonArray>(), context.JsonSerializerOptions),
@@ -215,7 +215,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
             return context.FunctionName switch
             {
                 "indexof_n" => IndexOfN(arg1.As<string>(), arg2.As<string>()),
-                "sprintf" => Sprintf(arg1.As<string>(), arg2.Raw),
+                "sprintf" => Sprintf(arg1.As<string>(), arg2.Raw, context.JsonSerializerOptions),
                 "rand.intn" => RandIntN(arg1.As<string>(), arg2.As<int>()),
                 "strings.any_prefix_match" => AnyPrefixMatch(arg1.As<string[]>(), arg2.As<string[]>()),
                 "strings.any_suffix_match" => AnySuffixMatch(arg1.As<string[]>(), arg2.As<string[]>()),
@@ -242,7 +242,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
                 "io.jwt.verify_rs512" => JwtVerifyCert(arg1.As<string>(), arg2.As<string>(), "RS512"),
                 "semver.compare" => SemverCompare(arg1.As<string>(), arg2.As<string>()),
                 "json.patch" => JsonPatch(arg1.RawJson, arg2.RawJson),
-                "json.match_schema" => JsonMatchSchema(arg1.RawJson, arg2.RawJson),
+                "json.match_schema" => JsonMatchSchema(arg1.RawJson, arg2.RawJson, context.JsonSerializerOptions),
                 _ => throw new NotImplementedException(context.FunctionName),
             };
         }

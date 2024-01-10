@@ -31,7 +31,7 @@ public partial class DefaultOpaImportsAbi
         return result.Result;
     }
 
-    private static object?[] JsonVerifySchema(JsonNode? schema, out JsonSchema? result)
+    private static object?[] JsonVerifySchema(JsonNode? schema, JsonSerializerOptions options, out JsonSchema? result)
     {
         static object?[] Success() => new object?[] { true, null };
         static object?[] Fail(string message) => new object?[] { false, message };
@@ -48,7 +48,7 @@ public partial class DefaultOpaImportsAbi
             if (schema is JsonValue jv)
                 jv.TryGetValue(out schemaString);
             else
-                schemaString = schema.ToJsonString();
+                schemaString = schema.ToJsonString(options);
 
             if (string.IsNullOrWhiteSpace(schemaString))
                 return Fail("Invalid schema");
@@ -82,7 +82,7 @@ public partial class DefaultOpaImportsAbi
         public string? Type { get; set; }
     }
 
-    private static object?[]? JsonMatchSchema(JsonNode? document, JsonNode? schema)
+    private static object?[]? JsonMatchSchema(JsonNode? document, JsonNode? schema, JsonSerializerOptions options)
     {
         JsonNode? doc;
 
@@ -114,7 +114,7 @@ public partial class DefaultOpaImportsAbi
         static object?[] Success() => new object?[] { true, Array.Empty<object>() };
         static object?[] Fail(params JsonSchemaError[] errors) => new object?[] { false, errors };
 
-        JsonVerifySchema(schema, out var sch);
+        JsonVerifySchema(schema, options, out var sch);
 
         if (sch == null)
             return null;

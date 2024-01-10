@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using System.Text.Encodings.Web;
 using System.Text.Json.Nodes;
 
 using JetBrains.Annotations;
@@ -62,6 +63,24 @@ public class SdkBuiltinsTests : OpaTestBase
         var result = await RunTestCase(func, expected);
         Assert.True(result.Assert);
     }
+
+    [Theory]
+    [InlineData("""sprintf("%s", ["hi&bye"])""", "\"hi&bye\"")]
+    public async Task SprintfJsonEncoding(string func, string expected)
+    {
+        var opts = new WasmPolicyEngineOptions
+        {
+            SerializationOptions = new()
+            {
+                PropertyNameCaseInsensitive = true,
+                Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+            }
+        };
+
+        var result = await RunTestCase(func, expected, options: opts);
+        Assert.True(result.Assert);
+    }
+
 
     [Theory]
     [InlineData("strings.any_prefix_match([\"aaa\", \"bbb\", \"ccc\"], [\"bb\"])", "true")]
@@ -830,7 +849,12 @@ public class SdkBuiltinsTests : OpaTestBase
         public JsonNode? Actual { get; [UsedImplicitly] set; }
     }
 
-    private async Task<TestCaseResult> RunTestCase(string actual, string expected, bool fails = false, IOpaImportsAbi? imports = null)
+    private async Task<TestCaseResult> RunTestCase(
+        string actual,
+        string expected,
+        bool fails = false,
+        IOpaImportsAbi? imports = null,
+        WasmPolicyEngineOptions? options = null)
     {
         var src = $$"""
             package sdk
@@ -846,7 +870,7 @@ public class SdkBuiltinsTests : OpaTestBase
         Output.WriteLine(src);
         Output.WriteLine("");
 
-        using var eval = await Build(src, "sdk", imports);
+        using var eval = await Build(src, "sdk", imports, options);
         var result = eval.Evaluate<object?, TestCaseResult>(null);
 
         Output.WriteLine("");

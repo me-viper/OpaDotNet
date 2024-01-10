@@ -147,7 +147,7 @@ public partial class DefaultOpaImportsAbi
         return HttpUtility.UrlEncode(x);
     }
 
-    private static string? UrlQueryEncodeObject(JsonNode? obj, JsonSerializerOptions options)
+    private static string? UrlQueryEncodeObject(JsonNode? obj)
     {
         var result = new List<string>();
 
