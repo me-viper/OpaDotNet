@@ -109,7 +109,14 @@ public partial class DefaultOpaImportsAbi
             else
             {
                 var jwks = new JsonWebKeySet(constraints.Cert);
-                result.IssuerSigningKeys = jwks.Keys;
+
+                if (jwks.Keys.Count > 0)
+                    result.IssuerSigningKeys = jwks.Keys;
+                else
+                {
+                    var k = new JsonWebKey(constraints.Cert);
+                    result.IssuerSigningKey = k;
+                }
             }
         }
 
@@ -119,7 +126,7 @@ public partial class DefaultOpaImportsAbi
         result.LifetimeValidator = (before, expires, _, _) =>
         {
             var now = Now();
-            return now.Date >= (before ?? now.Date) && now.Date <= (expires ?? now.Date);
+            return now.DateTime >= (before ?? now.DateTime) && now.DateTime <= (expires ?? now.DateTime);
         };
 
         if (constraints.Time != null)
@@ -128,9 +135,10 @@ public partial class DefaultOpaImportsAbi
 
             result.LifetimeValidator = (before, expires, _, _) =>
             {
-                var ticks = (constraints.Time.Value / 100) + DateTimeOffset.UnixEpoch.Ticks;
-                var now = new DateTimeOffset(ticks, TimeSpan.Zero);
-                return now.Date >= (before ?? now.Date) && now.Date <= expires;
+                var beforeNs = before?.ToUniversalTime().Subtract(DateTimeOffset.UnixEpoch.DateTime).TotalNanoseconds;
+                var expiresNs = expires?.ToUniversalTime().Subtract(DateTimeOffset.UnixEpoch.DateTime).TotalNanoseconds;
+                var timeNs = (double)constraints.Time;
+                return (beforeNs == null || timeNs >= beforeNs) && (expiresNs == null || timeNs <= expiresNs);
             };
         }
 

@@ -514,10 +514,53 @@ public class SdkBuiltinsTests : OpaTestBase
         $$"""io.jwt.decode_verify("{{JwtVerifyTimeToken}}", {"time": 1689055447000000000, "secret": "{{JwtVerifyTimeSecret}}"})""",
         """[true,{"alg":"HS512","typ":"JWT"},{"iss": "xxx", "exp": 1689141847, "nbf": 1688969047}]"""
         )]
+    [InlineData(
+        $$"""io.jwt.decode_verify("{{JwtVerifyTimeToken}}", {"time": 1688969047000000001, "secret": "{{JwtVerifyTimeSecret}}"})""",
+        """[true,{"alg":"HS512","typ":"JWT"},{"iss": "xxx", "exp": 1689141847, "nbf": 1688969047}]"""
+        )]
+    [InlineData(
+        $$"""io.jwt.decode_verify("{{JwtVerifyTimeToken}}", {"time": 1689141846999999999, "secret": "{{JwtVerifyTimeSecret}}"})""",
+        """[true,{"alg":"HS512","typ":"JWT"},{"iss": "xxx", "exp": 1689141847, "nbf": 1688969047}]"""
+        )]
     public async Task JwtVerifyTime(string func, string expected)
     {
         var result = await RunTestCase(func, expected);
         Assert.True(result.Assert);
+    }
+
+    [Fact]
+    public async Task JwtNoTime()
+    {
+        var src = """
+            package sdk
+
+            s := {
+                "kty": "oct",
+                "k": "AyM1SysPpbyDfgZld3umj1qzKObwVMkoqQ-EstJQLr_T-1qS0gZH75aKtMN3Yj0iPS4hcgUuTwjAzZr1Z9CAow",
+            }
+
+            t := io.jwt.encode_sign(
+                {
+                    "typ": "JWT",
+                    "alg": "HS256",
+                },
+                {
+                    "iss": "joe",
+                },
+                s,
+            )
+
+            x := io.jwt.decode_verify(t, {"time": 1300819379000000000, "cert": json.marshal(s)})
+            r := x[0]
+            """;
+        using var eval = await Build(src, "sdk");
+
+        var result = eval.EvaluateValue(
+            new { r = false, },
+            "sdk"
+            );
+
+        Assert.True(result.r);
     }
 
     [Fact]
