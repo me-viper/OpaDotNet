@@ -47,7 +47,7 @@ public partial class DefaultOpaImportsAbi
         return new object[] { token.Header, token.Payload, Convert.ToHexString(sig).ToLowerInvariant() };
     }
 
-    private static object[] JwtDecodeVerify(string jwt, JwtConstraints? constraints)
+    private object[] JwtDecodeVerify(string jwt, JwtConstraints? constraints)
     {
         var emptyObj = new object();
 
@@ -65,7 +65,7 @@ public partial class DefaultOpaImportsAbi
         return new object[] { true, token.Header, token.Payload };
     }
 
-    private static TokenValidationParameters? MakeTokenValidationParameters(JwtConstraints constraints)
+    private TokenValidationParameters? MakeTokenValidationParameters(JwtConstraints constraints)
     {
         var result = new TokenValidationParameters
         {
@@ -118,7 +118,7 @@ public partial class DefaultOpaImportsAbi
 
         result.LifetimeValidator = (before, expires, _, _) =>
         {
-            var now = DateTimeOffset.UtcNow;
+            var now = Now();
             return now.Date >= (before ?? now.Date) && now.Date <= (expires ?? now.Date);
         };
 
@@ -178,7 +178,7 @@ public partial class DefaultOpaImportsAbi
         }
     }
 
-    private static bool JwtVerifyHs(string jwt, string secret, string alg)
+    private bool JwtVerifyHs(string jwt, string secret, string alg)
     {
         var tvp = MakeTokenValidationParameters(new() { Secret = secret, Alg = alg, SignatureOnly = true });
 
@@ -188,7 +188,7 @@ public partial class DefaultOpaImportsAbi
         return ValidateToken(jwt, tvp) != null;
     }
 
-    private static bool JwtVerifyCert(string jwt, string cert, string alg)
+    private bool JwtVerifyCert(string jwt, string cert, string alg)
     {
         var tvp = MakeTokenValidationParameters(new() { Cert = cert, Alg = alg, SignatureOnly = true });
 

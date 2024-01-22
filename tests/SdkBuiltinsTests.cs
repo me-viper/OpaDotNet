@@ -144,6 +144,14 @@ public class SdkBuiltinsTests : OpaTestBase
         Assert.True(result.Assert);
     }
 
+    [Fact]
+    public async Task TimeNowIsUtc()
+    {
+        var nowUtc = DateTimeOffset.UtcNow;
+        var result = await RunTestCase("time.clock(time.now_ns())[0]", nowUtc.Hour.ToString());
+        Assert.True(result.Assert);
+    }
+
     [Theory]
     [InlineData("""time.parse_duration_ns("-10s")""", "-10000000000")]
     [InlineData("""time.parse_duration_ns("1µs")""", "1000")]

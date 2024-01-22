@@ -29,12 +29,12 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
     }
 
     /// <summary>
-    /// When overriden allows replacing default logic for retrieving the current local date and time.
+    /// When overriden allows replacing default logic for retrieving the current UTC date and time.
     /// </summary>
     [ExcludeFromCodeCoverage]
     protected virtual DateTimeOffset Now()
     {
-        return DateTimeOffset.Now;
+        return DateTimeOffset.UtcNow;
     }
 
     /// <summary>
