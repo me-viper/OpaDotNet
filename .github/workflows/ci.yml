@@ -2,10 +2,12 @@ name: CI
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ main, release/v* ]
     paths-ignore:
       - 'docs/**'
       - '**.md'
+  workflow_dispatch:
+    branches: [ main, release/v* ]
   pull_request:
     branches: [ main ]
     paths-ignore:

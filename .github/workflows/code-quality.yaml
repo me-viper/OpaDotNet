@@ -5,8 +5,7 @@ on:
   push:
     branches:
       - main
-      - develop
-      - 'releases/*'
+      - 'releases/v*'
     paths:
       - 'src/**'
       - '.github/workflows/code-quality.yml'
