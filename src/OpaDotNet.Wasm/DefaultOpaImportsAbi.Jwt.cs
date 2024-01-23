@@ -174,16 +174,8 @@ public partial class DefaultOpaImportsAbi
 #endif
 
         var handler = new JwtSecurityTokenHandler();
-
-        try
-        {
-            handler.ValidateToken(jwt, parameters, out SecurityToken token);
-            return token;
-        }
-        catch (SecurityTokenValidationException)
-        {
-            return null;
-        }
+        handler.ValidateToken(jwt, parameters, out SecurityToken token);
+        return token;
     }
 
     private bool JwtVerifyHs(string jwt, string secret, string alg)
