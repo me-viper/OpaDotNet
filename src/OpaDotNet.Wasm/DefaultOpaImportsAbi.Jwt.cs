@@ -123,16 +123,11 @@ public partial class DefaultOpaImportsAbi
         if (constraints.SignatureOnly)
             return result;
 
-        result.LifetimeValidator = (before, expires, _, _) =>
-        {
-            var now = Now();
-            return now.DateTime >= (before ?? now.DateTime) && now.DateTime <= (expires ?? now.DateTime);
-        };
+        result.ValidateLifetime = true;
+        //result.LifetimeValidator
 
         if (constraints.Time != null)
         {
-            result.RequireExpirationTime = true;
-
             result.LifetimeValidator = (before, expires, _, _) =>
             {
                 var beforeNs = before?.ToUniversalTime().Subtract(DateTimeOffset.UnixEpoch.DateTime).TotalNanoseconds;

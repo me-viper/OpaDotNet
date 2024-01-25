@@ -528,10 +528,12 @@ public class SdkBuiltinsTests : OpaTestBase
         Assert.True(result.Assert);
     }
 
-    [Fact]
-    public async Task JwtNoTime()
+    [Theory]
+    [InlineData("""io.jwt.decode_verify(t, {"time": 1300819379000000000, "cert": json.marshal(s)})""")]
+    [InlineData("""io.jwt.decode_verify(t, {"cert": json.marshal(s)})""")]
+    public async Task JwtNoExp(string check)
     {
-        var src = """
+        var src = $$"""
             package sdk
 
             s := {
@@ -539,28 +541,44 @@ public class SdkBuiltinsTests : OpaTestBase
                 "k": "AyM1SysPpbyDfgZld3umj1qzKObwVMkoqQ-EstJQLr_T-1qS0gZH75aKtMN3Yj0iPS4hcgUuTwjAzZr1Z9CAow",
             }
 
-            t := io.jwt.encode_sign(
-                {
-                    "typ": "JWT",
-                    "alg": "HS256",
-                },
-                {
-                    "iss": "joe",
-                },
-                s,
-            )
+            t := io.jwt.encode_sign({ "typ": "JWT", "alg": "HS256" }, { "iss": "joe" }, s)
 
-            x := io.jwt.decode_verify(t, {"time": 1300819379000000000, "cert": json.marshal(s)})
+            x := {{check}}
             r := x[0]
             """;
+
         using var eval = await Build(src, "sdk");
 
-        var result = eval.EvaluateValue(
-            new { r = false, },
-            "sdk"
-            );
+        var result = eval.EvaluateValue(new { r = false }, "sdk" );
 
         Assert.True(result.r);
+    }
+
+    [Theory]
+    [InlineData("""io.jwt.decode_verify(t, {"time": 1516239022000000000, "cert": json.marshal(s)})""", false)]
+    [InlineData("""io.jwt.decode_verify(t, {"cert": json.marshal(s)})""", false)]
+    public async Task JwtFailExp(string check, bool valid)
+    {
+        var src = $$"""
+            package sdk
+
+            s := {
+                "kty": "oct",
+                "k": "AyM1SysPpbyDfgZld3umj1qzKObwVMkoqQ-EstJQLr_T-1qS0gZH75aKtMN3Yj0iPS4hcgUuTwjAzZr1Z9CAow",
+            }
+
+            t := io.jwt.encode_sign({ "typ": "JWT", "alg": "HS256" }, { "iss": "joe", "exp": 1300819379 }, s)
+
+            x := {{check}}
+
+            r := x[0]
+            """;
+
+        using var eval = await Build(src, "sdk");
+
+        var result = eval.EvaluateValue(new { r = false }, "sdk" );
+
+        Assert.Equal(valid, result.r);
     }
 
     [Fact]
