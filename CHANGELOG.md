@@ -1,10 +1,18 @@
 # Changelog
 
+# OpaDotNet.Wasm v2.4.1 (2024-01-26)
+
+### Bug Fixes
+
+* [#26](https://github.com/me-viper/OpaDotNet/issues/26). time.now_ns() should return time in UTC ([2eb1190](https://github.com/me-viper/OpaDotNet/commit/2eb1190d3d5fede52e795e1dbcae44ca89cce831))
+* [#27](https://github.com/me-viper/OpaDotNet/issues/27), [#28](https://github.com/me-viper/OpaDotNet/issues/28). Fix token validation. ([3833e2d](https://github.com/me-viper/OpaDotNet/commit/3833e2dd1096069c09d1a0d683ac725ac3150a5b))
+* Fallback to default lifetime validation if time constraint is not set ([ac6210d](https://github.com/me-viper/OpaDotNet/commit/ac6210d6785f7963e13ad7ddb8ea4188d2d6968e))
+
 ## OpaDotNet.Wasm v2.4.0 (2024-01-10)
 
 ### Bug Fixes
 
-* Close [#24](https://github.com/me-viper/OpaDotNet/issues/24). Fix strings.sprintf function to use JsonSerializerOptions ([e69d916](https://github.com/me-viper/OpaDotNet/commit/e69d916f25d6070a83732e46924eb77f432ea1f5))
+* [#24](https://github.com/me-viper/OpaDotNet/issues/24). Fix strings.sprintf function to use JsonSerializerOptions ([e69d916](https://github.com/me-viper/OpaDotNet/commit/e69d916f25d6070a83732e46924eb77f432ea1f5))
 
 ### Features
 
