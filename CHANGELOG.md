@@ -1,6 +1,6 @@
 # Changelog
 
-# OpaDotNet.Wasm v2.4.1 (2024-01-26)
+## OpaDotNet.Wasm v2.4.1 (2024-01-26)
 
 ### Bug Fixes
 
