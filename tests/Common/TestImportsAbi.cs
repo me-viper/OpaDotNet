@@ -4,23 +4,29 @@ using Xunit.Abstractions;
 
 namespace OpaDotNet.Tests.Common;
 
-internal class TestImportsAbi : DefaultOpaImportsAbi
+internal class TestImportsAbi(ITestOutputHelper output) : DefaultOpaImportsAbi
 {
-    private readonly ITestOutputHelper _output;
-
-    public TestImportsAbi(ITestOutputHelper output)
+    public override void PrintLn(string message)
     {
-        _output = output;
+        throw new Exception("Boom!");
+    }
+
+    public override void Print(IEnumerable<string> args)
+    {
+        var str = args as string[] ?? args.ToArray();
+        var o = string.Join(", ", str);
+        output.WriteLine(o);
+        base.Print(str);
     }
 
     protected override bool Trace(string message)
     {
-        _output.WriteLine(message);
+        output.WriteLine(message);
         return base.Trace(message);
     }
 
     protected override bool OnError(BuiltinContext context, Exception ex)
     {
-        return true;
+        return context.StrictBuiltinErrors;
     }
 }

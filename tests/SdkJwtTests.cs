@@ -112,7 +112,7 @@ public class SdkJwtTests(ITestOutputHelper output) : SdkTestBase(output)
 
         using var eval = await Build(src, "sdk");
 
-        var result = eval.EvaluateValue(new { r = false }, "sdk" );
+        var result = eval.EvaluateValue(new { r = false }, "sdk");
 
         Assert.True(result.r);
     }
@@ -139,7 +139,7 @@ public class SdkJwtTests(ITestOutputHelper output) : SdkTestBase(output)
 
         using var eval = await Build(src, "sdk");
 
-        var result = eval.EvaluateValue(new { r = false }, "sdk" );
+        var result = eval.EvaluateValue(new { r = false }, "sdk");
 
         Assert.Equal(valid, result.r);
     }

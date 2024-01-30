@@ -1,5 +1,6 @@
 ﻿using System.Text;
 
+using OpaDotNet.Wasm.Internal.V10;
 using OpaDotNet.Wasm.Rego;
 
 using Wasmtime;
@@ -7,7 +8,7 @@ using Wasmtime;
 namespace OpaDotNet.Wasm.Internal;
 
 internal abstract class WasmPolicyEngine<TAbi> : IWasmPolicyEngine
-    where TAbi : V10.IOpaExportsAbi, IAbiInitializer<TAbi>
+    where TAbi : IOpaExportsAbi, IAbiInitializer<TAbi>
 {
     private JsonSerializerOptions JsonOptions { get; }
 

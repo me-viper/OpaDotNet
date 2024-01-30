@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Nodes;
+﻿using System.Text.Encodings.Web;
+using System.Text.Json.Nodes;
 
 using JetBrains.Annotations;
 
@@ -10,6 +11,13 @@ namespace OpaDotNet.Tests.Common;
 
 public class SdkTestBase(ITestOutputHelper output) : OpaTestBase(output)
 {
+    protected JsonSerializerOptions DefaultJsonOptions = new()
+    {
+        PropertyNameCaseInsensitive = true,
+        Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+        WriteIndented = true,
+    };
+
     protected record TestCaseResult
     {
         public bool Assert { get; [UsedImplicitly] set; }
@@ -58,13 +66,24 @@ public class SdkTestBase(ITestOutputHelper output) : OpaTestBase(output)
 
     protected async Task<T> BuildAndEvaluate<T>(
         string statement,
-        T value) where T : notnull
+        T value,
+        bool strictErrors = false) where T : notnull
     {
         var src = $"""
             package sdk
             {statement}
             """;
-        using var eval = await Build(src, "sdk");
+
+        Output.WriteLine(src);
+        Output.WriteLine("");
+
+        var opts = new WasmPolicyEngineOptions
+        {
+            SerializationOptions = DefaultJsonOptions,
+            StrictBuiltinErrors = strictErrors,
+        };
+
+        using var eval = await Build(src, "sdk", options: opts);
         return eval.EvaluateValue(value, "sdk");
     }
 
@@ -76,15 +95,14 @@ public class SdkTestBase(ITestOutputHelper output) : OpaTestBase(output)
     {
         var policy = await CompileSource(source, new[] { entrypoint });
 
-        var engineOpts = options ?? new WasmPolicyEngineOptions
-        {
-            SerializationOptions = new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true,
-            },
-        };
+        var engineOpts = options ?? new WasmPolicyEngineOptions { SerializationOptions = DefaultJsonOptions };
 
-        var factory = new OpaBundleEvaluatorFactory(policy, engineOpts, importsAbiFactory: () => imports ?? new TestImportsAbi(Output));
+        var factory = new OpaBundleEvaluatorFactory(
+            policy,
+            engineOpts,
+            importsAbiFactory: () => imports ?? new TestImportsAbi(Output)
+            );
+
         return factory.Create();
     }
 }

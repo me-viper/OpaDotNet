@@ -124,7 +124,6 @@ public partial class DefaultOpaImportsAbi
             return result;
 
         result.ValidateLifetime = true;
-        //result.LifetimeValidator
 
         if (constraints.Time != null)
         {
