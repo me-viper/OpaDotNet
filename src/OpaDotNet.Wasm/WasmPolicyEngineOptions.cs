@@ -71,8 +71,13 @@ public class WasmPolicyEngineOptions
         get => _jsonSerializationOptions;
         init
         {
-            _jsonSerializationOptions = value ?? throw new ArgumentNullException(nameof(value));
-            _jsonSerializationOptions.Converters.Add(RegoSetJsonConverterFactory.Instance);
+            if (value == null)
+                throw new ArgumentNullException(nameof(value));
+
+            _jsonSerializationOptions = new(value)
+            {
+                Converters = { RegoSetJsonConverterFactory.Instance },
+            };
         }
     }
 }

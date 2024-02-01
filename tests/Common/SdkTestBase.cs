@@ -14,8 +14,7 @@ public class SdkTestBase(ITestOutputHelper output) : OpaTestBase(output)
     protected JsonSerializerOptions DefaultJsonOptions = new()
     {
         PropertyNameCaseInsensitive = true,
-        Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
-        WriteIndented = true,
+        Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
     };
 
     protected record TestCaseResult
