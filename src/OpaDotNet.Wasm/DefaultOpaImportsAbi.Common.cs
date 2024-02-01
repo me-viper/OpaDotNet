@@ -13,6 +13,8 @@ using Json.More;
 
 using Microsoft.Extensions.Primitives;
 
+using OpaDotNet.Wasm.Rego;
+
 using Semver;
 
 using Yaml2JsonNode;
@@ -478,5 +480,108 @@ public partial class DefaultOpaImportsAbi
         }
 
         return result.ToArray();
+    }
+
+    private static bool ObjectSubset(JsonNode? super, JsonNode? sub, bool throwIfIncompatible = true)
+    {
+        if (super == null && sub == null)
+            return true;
+
+        if (super == null || sub == null)
+            return false;
+
+        if (super is JsonValue supVal && sub is JsonValue subVal)
+            return supVal.IsEquivalentTo(subVal);
+
+        if (super is JsonObject supObj && sub is JsonObject subObj)
+            return ObjectSubsetInner(supObj, subObj);
+
+        if (super is JsonArray supArr && sub is JsonArray subArr)
+        {
+            if (subArr.TryGetRegoSetArray(out var subSet))
+            {
+                if (supArr.TryGetRegoSetArray(out var supSet))
+                    return ObjectSubsetSet(supSet, subSet);
+
+                return ObjectSubsetSet(supArr, subSet);
+            }
+
+            if (!super.IsRegoSet())
+                return ObjectSubsetArray(supArr, subArr);
+        }
+
+        if (throwIfIncompatible)
+            throw new InvalidOperationException("Both arguments object.subset must be of the same type or array and set");
+
+        return false;
+    }
+
+    private static bool ObjectSubsetInner(JsonObject? super, JsonObject? sub)
+    {
+        if (super == null)
+            return false;
+
+        if (sub == null)
+            return true;
+
+        if (super.IsEquivalentTo(sub))
+            return true;
+
+        var result = false;
+
+        foreach (var k in sub)
+        {
+            if (!super.TryGetPropertyValue(k.Key, out var supNode))
+                return false;
+
+            result = ObjectSubset(supNode, k.Value, false);
+
+            if (!result)
+                return false;
+        }
+
+        return result;
+    }
+
+    private static bool ObjectSubsetArray(JsonArray? super, JsonArray? sub)
+    {
+        if (super == null && sub == null)
+            return true;
+
+        if (super == null || sub == null)
+            return false;
+
+        if (sub.Count > super.Count)
+            return false;
+
+        var subCursor = 0;
+
+        for (var i = 0; i < super.Count; i++)
+        {
+            for (var j = i; j < super.Count; j++)
+            {
+                if (j + sub.Count - subCursor > super.Count)
+                    return false;
+
+                if (!super[j].IsEquivalentTo(sub[subCursor]))
+                {
+                    subCursor = 0;
+                    break;
+                }
+
+                subCursor++;
+
+                if (subCursor >= sub.Count)
+                    return true;
+            }
+        }
+
+        return false;
+    }
+
+    private static bool ObjectSubsetSet(JsonArray super, JsonArray sub)
+    {
+        var hs = new HashSet<JsonNode?>(sub, JsonNodeEqualityComparer.Instance);
+        return hs.IsSubsetOf(super);
     }
 }

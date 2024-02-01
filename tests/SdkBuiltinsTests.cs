@@ -489,6 +489,24 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
     }
 
     [Theory]
+    [InlineData("""object.subset({"a": "b", "c": {"x": {10, 15, 20, 25}, "y": "z"}}, {"c": {"x": {10, 15, 20}}})""", "true")]
+    [InlineData("""object.subset({"a": "b", "c": {"x": [10, 15, 20, 25]}, "y": "z"}, {"c": {"x": [10, 15, 20]}})""", "true")]
+    [InlineData("""object.subset({"a": "b", "c": {"x": {10, 15, 20, 25}}, "y": "z"}, {"c": {"x": {10, 15, 20, 35}}})""", "false")]
+    [InlineData("""object.subset({10, 15, 20, 25}, {25, 15, 10})""", "true")]
+    [InlineData("""object.subset([10, 15, 20, 25], [10, 15])""", "true")]
+    [InlineData("""object.subset([10, 15, 20, 25], {15, 10})""", "true")]
+    [InlineData("""object.subset([{"a": 1}, {"b": "a"}], [{"b": "a"}])""", "true")]
+    [InlineData("""object.subset([{"a": 1}, {"b": "a"}], {{"b": "a"}})""", "true")]
+    [InlineData("""object.subset([1, 2, 1, 2, 3], [2, 3])""", "true")]
+    [InlineData("""object.subset([1, 2, 1, 2, 3], [2, 3, 1])""", "false")]
+    [InlineData("""object.subset({10, 15, 20, 25}, [15, 10])""", "false", true)]
+    public async Task ObjectSubset(string func, string expected, bool fails = false)
+    {
+        var result = await RunTestCase(func, expected, fails);
+        Assert.True(result.Assert);
+    }
+
+    [Theory]
     [InlineData("""units.parse_bytes("1.2")""", "1")]
     [InlineData("""units.parse_bytes("10")""", "10")]
     [InlineData("""units.parse_bytes("10.0")""", "10")]

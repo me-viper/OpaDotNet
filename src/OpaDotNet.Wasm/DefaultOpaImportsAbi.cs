@@ -246,6 +246,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
                 "io.jwt.verify_rs256" => JwtVerifyCert(arg1.As<string>(), arg2.As<string>(), "RS256"),
                 "io.jwt.verify_rs384" => JwtVerifyCert(arg1.As<string>(), arg2.As<string>(), "RS384"),
                 "io.jwt.verify_rs512" => JwtVerifyCert(arg1.As<string>(), arg2.As<string>(), "RS512"),
+                "object.subset" => ObjectSubset(arg1.Raw, arg2.Raw),
                 "semver.compare" => SemverCompare(arg1.As<string>(), arg2.As<string>()),
                 "json.patch" => JsonPatch(arg1.RawJson, arg2.RawJson),
                 "json.match_schema" => JsonMatchSchema(arg1.RawJson, arg2.RawJson, context.JsonSerializerOptions),
