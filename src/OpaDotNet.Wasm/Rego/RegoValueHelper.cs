@@ -63,6 +63,23 @@ internal static partial class RegoValueHelper
         return true;
     }
 
+    public static bool TryGetRegoSet(
+        this JsonArray ar,
+        [MaybeNullWhen(false)] out RegoSet<JsonNode> set,
+        JsonSerializerOptions? options = default)
+    {
+        ArgumentNullException.ThrowIfNull(ar);
+
+        set = null;
+
+        if (!ar.IsRegoSet())
+            return false;
+
+        set = new RegoSet<JsonNode>(ar[0]!["__rego_set"]!.AsArray()!);
+
+        return true;
+    }
+
     public static bool TryGetRegoSet<T>(
         this JsonArray ar,
         [MaybeNullWhen(false)] out RegoSet<T> set,

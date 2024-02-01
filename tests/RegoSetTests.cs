@@ -122,4 +122,26 @@ public class RegoSetTests
             }
             );
     }
+
+    [Fact]
+    public void DeserializeAsJsonNodes()
+    {
+        var s = "{1, 2, 3}";
+        var json = RegoValueHelper.JsonFromRegoValue(s);
+        var jsonArray = JsonNode.Parse(json)?.AsArray();
+
+        Assert.NotNull(jsonArray);
+
+        var result = jsonArray.TryGetRegoSet(out var set);
+
+        Assert.True(result);
+        Assert.NotNull(set);
+
+        Assert.Collection(
+            set.Set,
+            p => Assert.Equal(1, p.GetValue<int>()),
+            p => Assert.Equal(2, p.GetValue<int>()),
+            p => Assert.Equal(3, p.GetValue<int>())
+            );
+    }
 }
