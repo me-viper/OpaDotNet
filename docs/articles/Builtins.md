@@ -16,6 +16,7 @@ Bellow is the list of supported OPA built-in functions as for version v0.53.1 al
 | [sprintf](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-strings-sprintf)    | :white_check_mark: | v1.1.0 (*) |
 | [strings.strings.any_prefix_match](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-strings-stringsany_prefix_match)    | :white_check_mark: | v1.0.0 |
 | [strings.any_suffix_match](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-strings-stringsany_suffix_match)    | :white_check_mark: | v1.0.0 |
+| [strings.render_template](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-strings-stringsrender_template)    | - | - |
 
 \* Inconsistent behavior with native implementation when argument is object.
 
@@ -48,7 +49,7 @@ Bellow is the list of supported OPA built-in functions as for version v0.53.1 al
 
 | Function   | Status             | OpaDotNet version  |
 |------------|--------------------|--------------------|
-| [object.subset](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-object-objectsubset) | - | - |
+| [object.subset](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-object-objectsubset) | :white_check_mark: | v2.5.0 |
 
 ## Regex
 
@@ -118,11 +119,13 @@ Bellow is the list of supported OPA built-in functions as for version v0.53.1 al
 | [crypto.md5](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptomd5) | :white_check_mark: | v1.1.0 |
 | [crypto.sha1](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptosha1) | :white_check_mark: | v1.1.0 |
 | [crypto.sha256](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptosha256) | :white_check_mark: | v1.1.0 |
-| [crypto.x509.parse_and_verify_certificates](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptox509parse_and_verify_certificates) | - | - |
-| [crypto.x509.parse_certificate_request](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptox509parse_certificate_request) | - | - |
-| [crypto.x509.parse_certificates](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptox509parse_certificates) | - | - |
-| [crypto.x509.parse_keypair](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptox509parse_keypair) | - | - |
-| [crypto.x509.parse_rsa_private_key](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptox509parse_rsa_private_key) | - | - |
+| [crypto.x509.parse_and_verify_certificates](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptox509parse_and_verify_certificates) | :white_check_mark: | v2.5.0 (*) |
+| [crypto.x509.parse_certificate_request](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptox509parse_certificate_request) | :white_check_mark: | v2.5.0 (*) |
+| [crypto.x509.parse_certificates](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptox509parse_certificates) | :white_check_mark: | v2.5.0 (*) |
+| [crypto.x509.parse_keypair](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptox509parse_keypair) | :white_check_mark: | v2.5.0 (*) |
+| [crypto.x509.parse_rsa_private_key](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptox509parse_rsa_private_key) | :white_check_mark: | v2.5.0 (*) |
+
+\* Due to differences in libraries output might differ from native.
 
 ## Graphs
 
@@ -169,7 +172,7 @@ Bellow is the list of supported OPA built-in functions as for version v0.53.1 al
 
 | Function   | Status             | OpaDotNet version  |
 |------------|--------------------|--------------------|
-| [uuid.parse](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-uuid-uuidparse) | - | - |
+| [uuid.parse](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-uuid-uuidparse) | :white_check_mark: | v2.5.0 |
 | [uuid.rfc4122](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-uuid-uuidrfc4122) | :white_check_mark: | v1.0.0 |
 
 ## SemVer
