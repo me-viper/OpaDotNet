@@ -171,6 +171,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
                 "time.parse_rfc3339_ns" => ParseRfc3339Ns(arg1.As<string>()),
                 "time.parse_duration_ns" => ParseDurationNs(arg1.As<string>()),
                 "uuid.rfc4122" => NewGuid(arg1.As<string>()),
+                "uuid.parse" => UuidParse(arg1.As<string>()),
                 "net.cidr_expand" => CidrExpand(arg1.As<string>()),
                 "net.cidr_is_valid" => CidrIsValid(arg1.As<string>()),
                 "net.cidr_merge" => CidrMerge(arg1.As<string[]>()),

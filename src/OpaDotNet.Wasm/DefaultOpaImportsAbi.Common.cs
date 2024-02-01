@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Reflection;
 using System.Text;
 using System.Text.Json.Nodes;
+using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using System.Web;
 
@@ -69,6 +70,43 @@ public partial class DefaultOpaImportsAbi
     private int RandIntN(string key, int n) => CacheGetOrAddValue($"rand.intn.{key}", () => Random().Next(n));
 
     private Guid NewGuid(string key) => CacheGetOrAddValue($"uuid.rfc4122.{key}", NewGuid);
+
+    internal record UuidParseResult(
+        [property: JsonPropertyName("variant")]
+        string Variant,
+        [property: JsonPropertyName("version")]
+        int Version
+        );
+
+    private UuidParseResult? UuidParse(ReadOnlySpan<char> uuid)
+    {
+        var index = 0;
+
+        if (uuid.StartsWith("urn:uuid:"))
+            index = "urn:uuid:".Length;
+
+        if (!Guid.TryParse(uuid[index..], out var guid))
+            return null;
+
+        Span<byte> bytes = stackalloc byte[16];
+
+        if (!guid.TryWriteBytes(bytes))
+            return null;
+
+        var ver = bytes[7] >> 4;
+        string? type;
+
+        if ((bytes[8] & 0xc0) == 0x80)
+            type = "RFC4122";
+        else if ((bytes[8] & 0xe0) == 0xc0)
+            type = "Microsoft";
+        else if ((bytes[8] & 0xe0) == 0xe0)
+            type = "Future";
+        else
+            type = "Reserved";
+
+        return new(type, ver);
+    }
 
     private static string Base64UrlEncodeNoPad(string x)
     {

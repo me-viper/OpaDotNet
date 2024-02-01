@@ -260,6 +260,19 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
         Assert.NotEqual(result.t1, result.t2);
     }
 
+    [Theory]
+    [InlineData("""uuid.parse("f47ac10b-58cc-4372-c567-0e02b2c3d479")""", """{"variant":"Microsoft","version":4}""")]
+    [InlineData("""uuid.parse("f47ac10b-58cc-4372-b567-0e02b2c3d479")""", """{"variant":"RFC4122","version":4}""")]
+    [InlineData("""uuid.parse("f47ac10b-58cc-4372-e567-0e02b2c3d479")""", """{"variant":"Future","version":4}""")]
+    [InlineData("""uuid.parse("f47ac10b-58cc-7372-8567-0e02b2c3d479")""", """{"variant":"RFC4122","version":7}""")]
+    [InlineData("""uuid.parse("f47ac10b-58cc-b372-8567-0e02b2c3d479")""", """{"variant":"RFC4122","version":11}""")]
+    [InlineData("""uuid.parse("urn:uuid:f47ac10b-58cc-b372-8567-0e02b2c3d479")""", """{"variant":"RFC4122","version":11}""")]
+    public async Task UuidParse(string func, string expected, bool fails = false)
+    {
+        var result = await RunTestCase(func, expected, fails);
+        Assert.True(result.Assert);
+    }
+
     [Fact]
     public async Task RandIntN()
     {
