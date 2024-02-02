@@ -1,50 +1,50 @@
 ﻿using System.Globalization;
 
+using OpaDotNet.Wasm.GoCompat;
+
 namespace OpaDotNet.Wasm;
 
 public partial class DefaultOpaImportsAbi
 {
     private long NowNs() => CacheGetOrAddValue(
         "time.now_ns",
-        () => (Now().Ticks - DateTimeOffset.UnixEpoch.Ticks) * 100
+        () => Now().ToEpochNs()
         );
 
     private static int[] Date(long ns)
     {
-        var result = DateTimeOffset.UnixEpoch.AddTicks(ns / 100);
-        return new[] { result.Year, result.Month, result.Day };
+        var result = DateTimeExtensions.FromEpochNs(ns);
+        return [result.Year, result.Month, result.Day];
     }
 
     private static int[] Clock(long ns)
     {
-        var result = DateTimeOffset.UnixEpoch.AddTicks(ns / 100);
-        return new[] { result.Hour, result.Minute, result.Second };
+        var result = DateTimeExtensions.FromEpochNs(ns);
+        return [result.Hour, result.Minute, result.Second];
     }
 
     private static int[] Diff(long ns1, long ns2)
     {
-        var diffTicks = (ns1 - ns2) / 100;
-        var d = new DateTimeOffset(diffTicks, TimeSpan.Zero);
+        var d = DateTimeExtensions.FromNs(ns1 - ns2);
 
-        return new[]
-        {
+        return
+        [
             d.Year - 1,
             d.Month - 1,
             d.Day - 1,
             d.Hour,
             d.Minute,
             d.Second,
-        };
+        ];
     }
 
     private static long AddDate(long ns, int years, int months, int days)
     {
-        var result = DateTimeOffset.UnixEpoch
-            .AddTicks(ns / 100)
+        return DateTimeExtensions.FromEpochNs(ns)
             .AddYears(years)
             .AddMonths(months)
-            .AddDays(days);
-        return (result.Ticks - DateTimeOffset.UnixEpoch.Ticks) * 100;
+            .AddDays(days)
+            .ToEpochNs();
     }
 
     private static string Weekday(long ns)
@@ -61,13 +61,13 @@ public partial class DefaultOpaImportsAbi
         if (duration[^2..] == "ms")
         {
             time = double.Parse(duration[..^2], CultureInfo.InvariantCulture);
-            return TimeSpan.FromSeconds(time).Ticks * 100;
+            return (long)TimeSpan.FromSeconds(time).TotalNanoseconds;
         }
 
         if (duration[^2..] == "us" || duration[^2..] == "µs")
         {
             time = double.Parse(duration[..^2], CultureInfo.InvariantCulture);
-            return TimeSpan.FromMicroseconds(time).Ticks * 100;
+            return (long)TimeSpan.FromMicroseconds(time).TotalNanoseconds;
         }
 
         if (duration[^2..] == "ns")
@@ -79,19 +79,19 @@ public partial class DefaultOpaImportsAbi
         if (duration[^1] == 'h')
         {
             time = double.Parse(duration[..^1], CultureInfo.InvariantCulture);
-            return TimeSpan.FromHours(time).Ticks * 100;
+            return (long)TimeSpan.FromHours(time).TotalNanoseconds;
         }
 
         if (duration[^1] == 'm')
         {
             time = double.Parse(duration[..^1], CultureInfo.InvariantCulture);
-            return TimeSpan.FromMinutes(time).Ticks * 100;
+            return (long)TimeSpan.FromMinutes(time).TotalNanoseconds;
         }
 
         if (duration[^1] == 's')
         {
             time = double.Parse(duration[..^1], CultureInfo.InvariantCulture);
-            return TimeSpan.FromSeconds(time).Ticks * 100;
+            return (long)TimeSpan.FromSeconds(time).TotalNanoseconds;
         }
 
         return null;
@@ -127,6 +127,6 @@ public partial class DefaultOpaImportsAbi
             return null;
         }
 
-        return (result.Ticks - DateTimeOffset.UnixEpoch.Ticks) * 100;
+        return (long)(result - DateTimeOffset.UnixEpoch).TotalNanoseconds;
     }
 }
