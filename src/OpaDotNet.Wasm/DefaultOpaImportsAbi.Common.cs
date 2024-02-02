@@ -622,4 +622,45 @@ public partial class DefaultOpaImportsAbi
         var hs = new HashSet<JsonNode?>(sub, JsonNodeEqualityComparer.Instance);
         return hs.IsSubsetOf(super);
     }
+
+    private RegoSet<string>? GraphReachable(JsonNode? graph, JsonNode? initial)
+    {
+        if (graph is not JsonObject graphObj)
+            return null;
+
+        if (initial is not JsonArray initialArr)
+            return null;
+
+        var edges = new Queue<string>();
+        var reached = new HashSet<string>();
+
+        AddEdges(initialArr);
+
+        while (edges.Count > 0)
+        {
+            var node = edges.Dequeue();
+
+            if (graphObj.TryGetPropertyValue(node, out var edge))
+            {
+                if (edge is JsonArray edgeArr)
+                    AddEdges(edgeArr);
+            }
+
+            reached.Add(node);
+        }
+
+        return new RegoSet<string>(reached);
+
+        void AddEdges(JsonArray ar)
+        {
+            foreach (var e in ar.Select(p => p?.GetValue<string>()))
+            {
+                if (e == null)
+                    continue;
+
+                if (!reached.Contains(e))
+                    edges.Enqueue(e);
+            }
+        }
+    }
 }

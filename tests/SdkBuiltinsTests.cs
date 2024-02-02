@@ -642,4 +642,23 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
         var result = await RunTestCase(func, expected, fails);
         Assert.True(result.Assert);
     }
+
+    private const string Graph1 = """
+        {
+            "root": [ "lvl1" ],
+            "lvl1": [ "lvl2", "lvl3" ],
+            "lvl2": [ "lvl4" ],
+            "lvl3": [],
+            "lvl4": [],
+        }
+        """;
+
+    [Theory]
+    [InlineData($"graph.reachable({Graph1}, {{ \"root\" }})", """{ "root", "lvl1", "lvl2", "lvl3", "lvl4" }""")]
+    [InlineData($"graph.reachable({Graph1}, {{ \"lvl2\" }})", """{ "lvl2", "lvl4" }""")]
+    public async Task GraphReachable(string func, string expected)
+    {
+        var result = await RunTestCase(func, expected);
+        Assert.True(result.Assert);
+    }
 }
