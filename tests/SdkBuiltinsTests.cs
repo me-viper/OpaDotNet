@@ -643,7 +643,7 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
         Assert.True(result.Assert);
     }
 
-    private const string Graph1 = """
+    private const string GraphSimple = """
         {
             "root": [ "lvl1" ],
             "lvl1": [ "lvl2", "lvl3" ],
@@ -653,10 +653,37 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
         }
         """;
 
+    private const string GraphNoEdge = """
+        {
+            "root": [ "lvl1" ],
+            "lvl1": [ "lvl2", "lvl3" ],
+            "lvl2": [ "lvl4", "na" ],
+            "lvl3": [],
+            "lvl4": [],
+        }
+        """;
+
+    private const string GraphMixed = """
+        {
+            "root": { "lvl1" },
+            "lvl1": { "lvl2", "lvl3" },
+            "lvl2": [ "lvl4" ],
+            "lvl3": [],
+            "lvl4": [],
+        }
+        """;
+
     [Theory]
-    [InlineData($"graph.reachable({Graph1}, {{ \"root\" }})", """{ "root", "lvl1", "lvl2", "lvl3", "lvl4" }""")]
-    [InlineData($"graph.reachable({Graph1}, {{ \"lvl2\" }})", """{ "lvl2", "lvl4" }""")]
-    public async Task GraphReachable(string func, string expected)
+    [InlineData(
+        $"graph.reachable_paths({GraphSimple}, {{ \"root\" }})",
+        """{ [ "root", "lvl1", "lvl2", "lvl4" ], [ "root", "lvl1", "lvl3" ] }""")]
+    [InlineData(
+        $"graph.reachable_paths({GraphMixed}, {{ \"root\" }})",
+        """{ [ "root", "lvl1", "lvl2", "lvl4" ], [ "root", "lvl1", "lvl3" ] }""")]
+    [InlineData(
+        $"graph.reachable_paths({GraphNoEdge}, {{ \"root\" }})",
+        """{ [ "root", "lvl1", "lvl2", "lvl4" ], [ "root", "lvl1", "lvl3" ], [ "root", "lvl1", "lvl2" ] }""")]
+    public async Task GraphReachablePaths(string func, string expected)
     {
         var result = await RunTestCase(func, expected);
         Assert.True(result.Assert);

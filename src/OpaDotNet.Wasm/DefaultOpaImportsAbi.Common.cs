@@ -623,7 +623,7 @@ public partial class DefaultOpaImportsAbi
         return hs.IsSubsetOf(super);
     }
 
-    private RegoSet<string>? GraphReachable(JsonNode? graph, JsonNode? initial)
+    private RegoSet<List<string>>? GraphReachablePaths(JsonNode? graph, JsonNode? initial)
     {
         if (graph is not JsonObject graphObj)
             return null;
@@ -631,35 +631,78 @@ public partial class DefaultOpaImportsAbi
         if (initial is not JsonArray initialArr)
             return null;
 
-        var edges = new Queue<string>();
-        var reached = new HashSet<string>();
+        var initialNodes = GetArrayEdges(initialArr);
+        var result = new List<List<string>>();
 
-        AddEdges(initialArr);
-
-        while (edges.Count > 0)
+        foreach (var node in initialNodes)
         {
-            var node = edges.Dequeue();
+            var edges = GetEdges(graphObj, node);
 
-            if (graphObj.TryGetPropertyValue(node, out var edge))
+            if (edges == null)
+                continue;
+
+            if (edges.Count == 0)
+                result.Add([node]);
+            else
             {
-                if (edge is JsonArray edgeArr)
-                    AddEdges(edgeArr);
+                foreach (var e in edges)
+                    Path(graphObj, e, [node], [], result);
             }
-
-            reached.Add(node);
         }
 
-        return new RegoSet<string>(reached);
+        return new RegoSet<List<string>>(result);
 
-        void AddEdges(JsonArray ar)
+        static List<string> GetArrayEdges(JsonArray ar) => ar.Select(p => p?.GetValue<string>()).Where(p => p != null).ToList()!;
+
+        static List<string>? GetEdges(JsonObject g, string root)
         {
-            foreach (var e in ar.Select(p => p?.GetValue<string>()))
-            {
-                if (e == null)
-                    continue;
+            if (g.TryGetPropertyValue(root, out var e) && e is JsonArray edges)
+                return GetArrayEdges(edges);
 
-                if (!reached.Contains(e))
-                    edges.Enqueue(e);
+            return null;
+        }
+
+        static void Path(
+            JsonObject graph,
+            string root,
+            List<string> path,
+            List<string> reached,
+            List<List<string>> result)
+        {
+            var paths = new List<string>();
+
+            var edges = GetEdges(graph, root);
+
+            if (edges == null)
+            {
+                paths.AddRange(path);
+                result.Add(paths);
+            }
+            else
+            {
+                path.Add(root);
+
+                if (edges.Count == 0)
+                {
+                    paths.AddRange(path);
+                    result.Add(paths);
+                }
+                else
+                {
+                    foreach (var edge in edges)
+                    {
+                        if (reached.Contains(edge))
+                        {
+                            paths.AddRange(path);
+                            result.Add(paths);
+                        }
+                        else
+                        {
+                            reached.Add(root);
+                            Path(graph, edge, [..path], reached, result);
+                        }
+                    }
+                }
             }
         }
     }
