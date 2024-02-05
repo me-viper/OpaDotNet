@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Text.Json.Nodes;
 
 using OpaDotNet.Wasm.GoCompat;
 
@@ -97,36 +98,85 @@ public partial class DefaultOpaImportsAbi
         return null;
     }
 
-    private static string[] Rfc3339Formats { get; } =
-    {
-        "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffffK",
-        "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'ffffffK",
-        "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffK",
-        "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'ffffK",
-        "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffK",
-        "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'ffK",
-        "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fK",
-        "yyyy'-'MM'-'dd'T'HH':'mm':'ssK",
-
-        // Fall back patterns
-        "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffffK",
-        DateTimeFormatInfo.InvariantInfo.UniversalSortableDateTimePattern,
-        DateTimeFormatInfo.InvariantInfo.SortableDateTimePattern,
-    };
-
     private static long? ParseRfc3339Ns(string s)
     {
-        if (!DateTimeOffset.TryParseExact(
-            s,
-            Rfc3339Formats,
-            CultureInfo.InvariantCulture,
-            DateTimeStyles.AdjustToUniversal,
-            out var result
-            ))
-        {
+        var result = DateTimeExtensions.ParseRfc3339(s);
+        return result?.ToEpochNs();
+    }
+
+    private static readonly IReadOnlyDictionary<string, string> TimeFormats = new Dictionary<string, string>
+    {
+        { "ANSIC", DateTimeExtensions.Ansic },
+        { "UnixDate", DateTimeExtensions.UnixDate },
+        { "RubyDate", DateTimeExtensions.RubyDate },
+        { "RFC822", DateTimeExtensions.Rfc822 },
+        { "RFC822Z", DateTimeExtensions.Rfc822Z },
+        { "RFC850", DateTimeExtensions.Rfc850 },
+        { "RFC1123", DateTimeExtensions.Rfc1123 },
+        { "RFC1123Z", DateTimeExtensions.Rfc1123Z },
+        { "RFC3339", DateTimeExtensions.Rfc3339 },
+        { "RFC3339Nano", DateTimeExtensions.Rfc3339Nano },
+    };
+
+    private static string? TimeFormat(JsonNode? x)
+    {
+        if (x == null)
             return null;
+
+        long ns;
+        var format = DateTimeExtensions.Rfc3339Nano;
+        DateTimeOffset date;
+
+        if (x is JsonValue jv)
+        {
+            if (!jv.TryGetValue(out ns))
+                return null;
+
+            date = DateTimeExtensions.FromEpochNs(ns);
+            return date.Format(format);
         }
 
-        return (long)(result - DateTimeOffset.UnixEpoch).TotalNanoseconds;
+        if (x is not JsonArray ja || ja.Count < 2)
+            return null;
+
+        ns = ja[0]!.GetValue<long>();
+        var timeZone = ja[1]!.GetValue<string>();
+
+        if (ja.Count == 3)
+            format = ja[2]!.GetValue<string>();
+
+        if (TimeFormats.TryGetValue(format, out var f))
+            format = f;
+
+        TimeZoneInfo? tz;
+
+        if (string.IsNullOrEmpty(timeZone))
+            tz = TimeZoneInfo.Utc;
+        else if (string.Equals(timeZone, "Local", StringComparison.Ordinal))
+            tz = TimeZoneInfo.Local;
+        else
+        {
+#if NET8_0_OR_GREATER
+            if (!TimeZoneInfo.TryFindSystemTimeZoneById(timeZone, out tz))
+                return null;
+#else
+            tz = TimeZoneInfo.FindSystemTimeZoneById(timeZone);
+#endif
+        }
+
+        date = DateTimeExtensions.FromEpochNs(ns, tz);
+
+        return date.Format(format, tz);
+    }
+
+    private static long? TimeParseNs(string layout, string value)
+    {
+        if (TimeFormats.TryGetValue(layout, out var f))
+            layout = f;
+
+        if (!DateTimeExtensions.TryParse(value, layout, out var result))
+            return null;
+
+        return result.ToEpochNs();
     }
 }

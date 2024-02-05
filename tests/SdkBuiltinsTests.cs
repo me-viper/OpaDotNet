@@ -121,6 +121,39 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
         Assert.True(result.Assert);
     }
 
+    [Theory]
+    [InlineData("time.format(1707133074028819500)", "\"2024-02-05T11:37:54.0288195Z\"")]
+    [InlineData("""time.format([1707133074028819500, "America/New_York"])""", "\"2024-02-05T06:37:54.0288195-05:00\"")]
+    [InlineData("""time.format([1707133074028819500, "EST", "RFC822"])""", "\"05 Feb 24 06:37 EST\"")]
+    [InlineData("""time.format([1707133074028819500, "UTC", "06 01 02"])""", "\"24 02 05\"")]
+    [InlineData("""time.format([1707133074028819500, "", "06 01 02"])""", "\"24 02 05\"")]
+    public async Task TimeFormat(string func, string expected)
+    {
+        var result = await RunTestCase(func, expected, false, new TimeImports(Output));
+        Assert.True(result.Assert);
+    }
+
+    [Fact]
+    public async Task TimeFormatLocalTimeZone()
+    {
+        var localTz = TimeZoneInfo.Local;
+        var func = """time.format([1707133074028819500, "Local", "-07"])""";
+        var sign = localTz.BaseUtcOffset.Hours > 0 ? "+" : "-";
+        var expected = $"\"{sign}{localTz.BaseUtcOffset.Hours:00}\"";
+
+        var result = await RunTestCase(func, expected, false, new TimeImports(Output));
+        Assert.True(result.Assert);
+    }
+
+    [Theory]
+    [InlineData("""time.parse_ns("Mon Jan _2 15:04:05.000000 2006", "Thu Feb  4 21:00:57,123450 2010")""", "1265317257123450000")]
+    [InlineData("""time.parse_ns("RFC3339", "2010-02-04T21:00:57.12345Z")""", "1265317257123450000")]
+    public async Task TimeParse(string func, string expected)
+    {
+        var result = await RunTestCase(func, expected, false, new TimeImports(Output));
+        Assert.True(result.Assert);
+    }
+
     private class TimeNowImports : TestImportsAbi
     {
         public TimeNowImports(ITestOutputHelper output) : base(output)
@@ -676,13 +709,16 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
     [Theory]
     [InlineData(
         $"graph.reachable_paths({GraphSimple}, {{ \"root\" }})",
-        """{ [ "root", "lvl1", "lvl2", "lvl4" ], [ "root", "lvl1", "lvl3" ] }""")]
+        """{ [ "root", "lvl1", "lvl2", "lvl4" ], [ "root", "lvl1", "lvl3" ] }"""
+        )]
     [InlineData(
         $"graph.reachable_paths({GraphMixed}, {{ \"root\" }})",
-        """{ [ "root", "lvl1", "lvl2", "lvl4" ], [ "root", "lvl1", "lvl3" ] }""")]
+        """{ [ "root", "lvl1", "lvl2", "lvl4" ], [ "root", "lvl1", "lvl3" ] }"""
+        )]
     [InlineData(
         $"graph.reachable_paths({GraphNoEdge}, {{ \"root\" }})",
-        """{ [ "root", "lvl1", "lvl2", "lvl4" ], [ "root", "lvl1", "lvl3" ], [ "root", "lvl1", "lvl2" ] }""")]
+        """{ [ "root", "lvl1", "lvl2", "lvl4" ], [ "root", "lvl1", "lvl3" ], [ "root", "lvl1", "lvl2" ] }"""
+        )]
     public async Task GraphReachablePaths(string func, string expected)
     {
         var result = await RunTestCase(func, expected);
