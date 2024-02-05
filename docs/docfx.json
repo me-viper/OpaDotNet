@@ -6,7 +6,7 @@
           // "files": [
           //   "Snippets.csproj"
           // ],
-          "files": ["**/bin/Debug/**/OpaDotNet*.dll"],
+          "files": ["**/debug_net8.0/**/OpaDotNet*.dll"],
           "src": "snippets"
         }
       ],
