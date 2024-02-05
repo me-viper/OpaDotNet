@@ -98,14 +98,14 @@
 <h2 id="initialize-evaluator-instance">Initialize evaluator instance</h2>
 <p>There are several ways to initialize evaluator instance:</p>
 <ul>
-<li>Static methods of <a href="xref:OpaDotNet.Wasm.OpaEvaluatorFactory">OpaEvaluatorFactory</a>
+<li>Static methods of <a class="xref" href="../../api/OpaDotNet.Wasm.OpaEvaluatorFactory.html">OpaEvaluatorFactory</a>
 <ul>
 <li><code>CreateFromBundle</code>. Creates evaluator instance from policy bundle.</li>
 <li><code>CreateFromWasm</code>. Creates evaluator instance from policy WASM binary.</li>
 </ul>
 </li>
-<li><a href="xref:OpaDotNet.Wasm.OpaBundleEvaluatorFactory">OpaBundleEvaluatorFactory</a>. Creates evaluator instance from policy bundle.</li>
-<li><a href="xref:OpaDotNet.Wasm.OpaWasmEvaluatorFactory">OpaWasmEvaluatorFactory</a>. Creates evaluator instance from policy WASM binary.</li>
+<li><a class="xref" href="../../api/OpaDotNet.Wasm.OpaBundleEvaluatorFactory.html">OpaBundleEvaluatorFactory</a>. Creates evaluator instance from policy bundle.</li>
+<li><a class="xref" href="../../api/OpaDotNet.Wasm.OpaWasmEvaluatorFactory.html">OpaWasmEvaluatorFactory</a>. Creates evaluator instance from policy WASM binary.</li>
 </ul>
 <p>In general you would use:</p>
 <ul>
@@ -116,7 +116,7 @@
 <h5>Caution</h5>
 <p><code>IOpaEvaluator</code> instances are NOT thread safe.</p>
 </div>
-<p>You can customize <code>IOpaEvaluator</code> behavior by providing <a href="xref:OpaDotNet.Wasm.WasmPolicyEngineOptions">WasmPolicyEngineOptions</a>.</p>
+<p>You can customize <code>IOpaEvaluator</code> behavior by providing <a class="xref" href="../../api/OpaDotNet.Wasm.WasmPolicyEngineOptions.html">WasmPolicyEngineOptions</a>.</p>
 <h2 id="set-optional-external-data">Set optional external data</h2>
 <p>If policy does not use external data or policy bundle already contains <code>data.json</code> file you can skip this step.</p>
 <p>You can initialize external data with any of <code>IOpaEvaluator.SetData*</code> methods.</p>

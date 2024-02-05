@@ -1,0 +1,521 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class BundleWriter | OpaDotNet.Wasm </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class BundleWriter | OpaDotNet.Wasm ">
+      
+      <meta name="description" content="Implements writing files into OPA policy bundle.">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+  </head>
+
+  <script type="module" src="./../public/docfx.min.js"></script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="OpaDotNet.Wasm">
+            OpaDotNet.Wasm
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="OpaDotNet.Compilation.Abstractions.BundleWriter">
+
+
+
+  <h1 id="OpaDotNet_Compilation_Abstractions_BundleWriter" data-uid="OpaDotNet.Compilation.Abstractions.BundleWriter" class="text-break">
+Class BundleWriter  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="OpaDotNet.html">OpaDotNet</a>.<a class="xref" href="OpaDotNet.Compilation.html">Compilation</a>.<a class="xref" href="OpaDotNet.Compilation.Abstractions.html">Abstractions</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>OpaDotNet.Compilation.Abstractions.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Implements writing files into OPA policy bundle.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class BundleWriter : IDisposable, IAsyncDisposable</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">BundleWriter</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iasyncdisposable">IAsyncDisposable</a></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+  </dd></dl>
+
+
+
+  <h2 id="OpaDotNet_Compilation_Abstractions_BundleWriter_examples">Examples</h2>
+  <pre><code class="lang-csharp">using var ms = new MemoryStream();
+
+using (var writer = new BundleWriter(ms))
+{
+    writer.WriteEntry("package test", "policy.rego");
+}
+
+// Now bundle have been constructed.
+ms.Seek(0, SeekOrigin.Begin);
+...</code></pre>
+
+
+  <h2 id="OpaDotNet_Compilation_Abstractions_BundleWriter_remarks">Remarks</h2>
+  <div class="markdown level0 remarks"><p>You need to dispose <a class="xref" href="OpaDotNet.Compilation.Abstractions.BundleWriter.html">BundleWriter</a> instance before you can use resulting bundle.</p>
+</div>
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="OpaDotNet_Compilation_Abstractions_BundleWriter__ctor_" data-uid="OpaDotNet.Compilation.Abstractions.BundleWriter.#ctor*"></a>
+
+  <h3 id="OpaDotNet_Compilation_Abstractions_BundleWriter__ctor_System_IO_Stream_OpaDotNet_Compilation_Abstractions_BundleManifest_" data-uid="OpaDotNet.Compilation.Abstractions.BundleWriter.#ctor(System.IO.Stream,OpaDotNet.Compilation.Abstractions.BundleManifest)">
+  BundleWriter(Stream, BundleManifest?)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates new instance of <a class="xref" href="OpaDotNet.Compilation.Abstractions.BundleWriter.html">BundleWriter</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BundleWriter(Stream stream, BundleManifest? manifest = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>stream</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a></dt>
+    <dd><p>Stream to write bundle to.</p>
+</dd>
+    <dt><code>manifest</code> <a class="xref" href="OpaDotNet.Compilation.Abstractions.BundleManifest.html">BundleManifest</a></dt>
+    <dd><p>Policy bundle manifest.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="OpaDotNet_Compilation_Abstractions_BundleWriter_IsEmpty_" data-uid="OpaDotNet.Compilation.Abstractions.BundleWriter.IsEmpty*"></a>
+
+  <h3 id="OpaDotNet_Compilation_Abstractions_BundleWriter_IsEmpty" data-uid="OpaDotNet.Compilation.Abstractions.BundleWriter.IsEmpty">
+  IsEmpty
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p><code>true</code> if BundleWriter has no entries written; otherwise <code>false</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsEmpty { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="OpaDotNet_Compilation_Abstractions_BundleWriter_Dispose_" data-uid="OpaDotNet.Compilation.Abstractions.BundleWriter.Dispose*"></a>
+
+  <h3 id="OpaDotNet_Compilation_Abstractions_BundleWriter_Dispose" data-uid="OpaDotNet.Compilation.Abstractions.BundleWriter.Dispose">
+  Dispose()
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="OpaDotNet_Compilation_Abstractions_BundleWriter_DisposeAsync_" data-uid="OpaDotNet.Compilation.Abstractions.BundleWriter.DisposeAsync*"></a>
+
+  <h3 id="OpaDotNet_Compilation_Abstractions_BundleWriter_DisposeAsync" data-uid="OpaDotNet.Compilation.Abstractions.BundleWriter.DisposeAsync">
+  DisposeAsync()
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ValueTask DisposeAsync()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask">ValueTask</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="OpaDotNet_Compilation_Abstractions_BundleWriter_FromDirectory_" data-uid="OpaDotNet.Compilation.Abstractions.BundleWriter.FromDirectory*"></a>
+
+  <h3 id="OpaDotNet_Compilation_Abstractions_BundleWriter_FromDirectory_System_IO_Stream_System_String_System_Collections_Generic_IReadOnlySet_System_String__" data-uid="OpaDotNet.Compilation.Abstractions.BundleWriter.FromDirectory(System.IO.Stream,System.String,System.Collections.Generic.IReadOnlySet{System.String})">
+  FromDirectory(Stream, string, IReadOnlySet&lt;string&gt;?)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates new instance of <a class="xref" href="OpaDotNet.Compilation.Abstractions.BundleWriter.html">BundleWriter</a> and populates it with files in <code class="paramref">path</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static BundleWriter FromDirectory(Stream stream, string path, IReadOnlySet&lt;string&gt;? exclusions)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>stream</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a></dt>
+    <dd><p>Stream to write bundle to.</p>
+</dd>
+    <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Path containing bundle source files.</p>
+</dd>
+    <dt><code>exclusions</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlyset-1">IReadOnlySet</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dd><p>File name patterns for files the BundleWriter should exclude from the results.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="OpaDotNet.Compilation.Abstractions.BundleWriter.html">BundleWriter</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="OpaDotNet_Compilation_Abstractions_BundleWriter_MergeCapabilities_" data-uid="OpaDotNet.Compilation.Abstractions.BundleWriter.MergeCapabilities*"></a>
+
+  <h3 id="OpaDotNet_Compilation_Abstractions_BundleWriter_MergeCapabilities_System_IO_Stream_System_IO_Stream_" data-uid="OpaDotNet.Compilation.Abstractions.BundleWriter.MergeCapabilities(System.IO.Stream,System.IO.Stream)">
+  MergeCapabilities(Stream, Stream)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Merges two capabilities.json streams.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Stream MergeCapabilities(Stream caps1, Stream caps2)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>caps1</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a></dt>
+    <dd><p>First capabilities.json stream.</p>
+</dd>
+    <dt><code>caps2</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a></dt>
+    <dd><p>Second capabilities.json stream.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a></dt>
+    <dd><p>Merged capabilities.json stream.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="OpaDotNet_Compilation_Abstractions_BundleWriter_WriteEntry_" data-uid="OpaDotNet.Compilation.Abstractions.BundleWriter.WriteEntry*"></a>
+
+  <h3 id="OpaDotNet_Compilation_Abstractions_BundleWriter_WriteEntry_System_IO_Stream_System_String_" data-uid="OpaDotNet.Compilation.Abstractions.BundleWriter.WriteEntry(System.IO.Stream,System.String)">
+  WriteEntry(Stream, string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Writes stream content into bundle.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void WriteEntry(Stream stream, string path)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>stream</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a></dt>
+    <dd><p>String content.</p>
+</dd>
+    <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Relative file path inside bundle.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="OpaDotNet_Compilation_Abstractions_BundleWriter_WriteEntry_" data-uid="OpaDotNet.Compilation.Abstractions.BundleWriter.WriteEntry*"></a>
+
+  <h3 id="OpaDotNet_Compilation_Abstractions_BundleWriter_WriteEntry_System_ReadOnlySpan_System_Byte__System_String_" data-uid="OpaDotNet.Compilation.Abstractions.BundleWriter.WriteEntry(System.ReadOnlySpan{System.Byte},System.String)">
+  WriteEntry(ReadOnlySpan&lt;byte&gt;, string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Writes bytes content into bundle.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void WriteEntry(ReadOnlySpan&lt;byte&gt; bytes, string path)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>bytes</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.readonlyspan-1">ReadOnlySpan</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>&gt;</dt>
+    <dd><p>String content.</p>
+</dd>
+    <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Relative file path inside bundle.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="OpaDotNet_Compilation_Abstractions_BundleWriter_WriteEntry_" data-uid="OpaDotNet.Compilation.Abstractions.BundleWriter.WriteEntry*"></a>
+
+  <h3 id="OpaDotNet_Compilation_Abstractions_BundleWriter_WriteEntry_System_ReadOnlySpan_System_Char__System_String_" data-uid="OpaDotNet.Compilation.Abstractions.BundleWriter.WriteEntry(System.ReadOnlySpan{System.Char},System.String)">
+  WriteEntry(ReadOnlySpan&lt;char&gt;, string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Writes string content into bundle.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void WriteEntry(ReadOnlySpan&lt;char&gt; str, string path)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>str</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.readonlyspan-1">ReadOnlySpan</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.char">char</a>&gt;</dt>
+    <dd><p>String content.</p>
+</dd>
+    <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Relative file path inside bundle.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

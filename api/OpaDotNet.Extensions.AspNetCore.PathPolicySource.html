@@ -1,0 +1,461 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class PathPolicySource | OpaDotNet.Wasm </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class PathPolicySource | OpaDotNet.Wasm ">
+      
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+  </head>
+
+  <script type="module" src="./../public/docfx.min.js"></script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="OpaDotNet.Wasm">
+            OpaDotNet.Wasm
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="OpaDotNet.Extensions.AspNetCore.PathPolicySource">
+
+
+
+  <h1 id="OpaDotNet_Extensions_AspNetCore_PathPolicySource" data-uid="OpaDotNet.Extensions.AspNetCore.PathPolicySource" class="text-break">
+Class PathPolicySource  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="OpaDotNet.html">OpaDotNet</a>.<a class="xref" href="OpaDotNet.Extensions.html">Extensions</a>.<a class="xref" href="OpaDotNet.Extensions.AspNetCore.html">AspNetCore</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>OpaDotNet.Extensions.AspNetCore.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"></div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class PathPolicySource : OpaPolicySource, IOpaPolicySource, IDisposable, IHostedService</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><a class="xref" href="OpaDotNet.Extensions.AspNetCore.OpaPolicySource.html">OpaPolicySource</a></div>
+      <div><span class="xref">PathPolicySource</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="OpaDotNet.Extensions.AspNetCore.IOpaPolicySource.html">IOpaPolicySource</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.hosting.ihostedservice">IHostedService</a></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist derived">
+    <dt>Derived</dt>
+    <dd>
+      <div><a class="xref" href="OpaDotNet.Extensions.AspNetCore.CompiledBundlePolicySource.html">CompiledBundlePolicySource</a></div>
+      <div><a class="xref" href="OpaDotNet.Extensions.AspNetCore.FileSystemPolicySource.html">FileSystemPolicySource</a></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="OpaDotNet.Extensions.AspNetCore.OpaPolicySource.html#OpaDotNet_Extensions_AspNetCore_OpaPolicySource_CreateEvaluator">OpaPolicySource.CreateEvaluator()</a>
+    </div>
+    <div>
+      <a class="xref" href="OpaDotNet.Extensions.AspNetCore.OpaPolicySource.html#OpaDotNet_Extensions_AspNetCore_OpaPolicySource_OnPolicyUpdated">OpaPolicySource.OnPolicyUpdated()</a>
+    </div>
+    <div>
+      <a class="xref" href="OpaDotNet.Extensions.AspNetCore.OpaPolicySource.html#OpaDotNet_Extensions_AspNetCore_OpaPolicySource_CompileBundleFromSource_System_Boolean_System_Threading_CancellationToken_">OpaPolicySource.CompileBundleFromSource(bool, CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="OpaDotNet.Extensions.AspNetCore.OpaPolicySource.html#OpaDotNet_Extensions_AspNetCore_OpaPolicySource_CompileBundle_System_Boolean_System_Threading_CancellationToken_">OpaPolicySource.CompileBundle(bool, CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="OpaDotNet.Extensions.AspNetCore.OpaPolicySource.html#OpaDotNet_Extensions_AspNetCore_OpaPolicySource_Dispose">OpaPolicySource.Dispose()</a>
+    </div>
+    <div>
+      <a class="xref" href="OpaDotNet.Extensions.AspNetCore.OpaPolicySource.html#OpaDotNet_Extensions_AspNetCore_OpaPolicySource_Logger">OpaPolicySource.Logger</a>
+    </div>
+    <div>
+      <a class="xref" href="OpaDotNet.Extensions.AspNetCore.OpaPolicySource.html#OpaDotNet_Extensions_AspNetCore_OpaPolicySource_Compiler">OpaPolicySource.Compiler</a>
+    </div>
+    <div>
+      <a class="xref" href="OpaDotNet.Extensions.AspNetCore.OpaPolicySource.html#OpaDotNet_Extensions_AspNetCore_OpaPolicySource_LoggerFactory">OpaPolicySource.LoggerFactory</a>
+    </div>
+    <div>
+      <a class="xref" href="OpaDotNet.Extensions.AspNetCore.OpaPolicySource.html#OpaDotNet_Extensions_AspNetCore_OpaPolicySource_Options">OpaPolicySource.Options</a>
+    </div>
+    <div>
+      <a class="xref" href="OpaDotNet.Extensions.AspNetCore.OpaPolicySource.html#OpaDotNet_Extensions_AspNetCore_OpaPolicySource_ImportsAbiFactory">OpaPolicySource.ImportsAbiFactory</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="OpaDotNet_Extensions_AspNetCore_PathPolicySource__ctor_" data-uid="OpaDotNet.Extensions.AspNetCore.PathPolicySource.#ctor*"></a>
+
+  <h3 id="OpaDotNet_Extensions_AspNetCore_PathPolicySource__ctor_OpaDotNet_Compilation_Abstractions_IRegoCompiler_Microsoft_Extensions_Options_IOptions_OpaDotNet_Extensions_AspNetCore_OpaAuthorizationOptions__OpaDotNet_Extensions_AspNetCore_IOpaImportsAbiFactory_Microsoft_Extensions_Logging_ILoggerFactory_" data-uid="OpaDotNet.Extensions.AspNetCore.PathPolicySource.#ctor(OpaDotNet.Compilation.Abstractions.IRegoCompiler,Microsoft.Extensions.Options.IOptions{OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions},OpaDotNet.Extensions.AspNetCore.IOpaImportsAbiFactory,Microsoft.Extensions.Logging.ILoggerFactory)">
+  PathPolicySource(IRegoCompiler, IOptions&lt;OpaAuthorizationOptions&gt;, IOpaImportsAbiFactory, ILoggerFactory)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected PathPolicySource(IRegoCompiler compiler, IOptions&lt;OpaAuthorizationOptions&gt; options, IOpaImportsAbiFactory importsAbiFactory, ILoggerFactory loggerFactory)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>compiler</code> <a class="xref" href="OpaDotNet.Compilation.Abstractions.IRegoCompiler.html">IRegoCompiler</a></dt>
+    <dd></dd>
+    <dt><code>options</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1">IOptions</a>&lt;<a class="xref" href="OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.html">OpaAuthorizationOptions</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>importsAbiFactory</code> <a class="xref" href="OpaDotNet.Extensions.AspNetCore.IOpaImportsAbiFactory.html">IOpaImportsAbiFactory</a></dt>
+    <dd></dd>
+    <dt><code>loggerFactory</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.iloggerfactory">ILoggerFactory</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="OpaDotNet_Extensions_AspNetCore_PathPolicySource_MonitoringEnabled_" data-uid="OpaDotNet.Extensions.AspNetCore.PathPolicySource.MonitoringEnabled*"></a>
+
+  <h3 id="OpaDotNet_Extensions_AspNetCore_PathPolicySource_MonitoringEnabled" data-uid="OpaDotNet.Extensions.AspNetCore.PathPolicySource.MonitoringEnabled">
+  MonitoringEnabled
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool MonitoringEnabled { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="OpaDotNet_Extensions_AspNetCore_PathPolicySource_NeedsRecompilation_" data-uid="OpaDotNet.Extensions.AspNetCore.PathPolicySource.NeedsRecompilation*"></a>
+
+  <h3 id="OpaDotNet_Extensions_AspNetCore_PathPolicySource_NeedsRecompilation" data-uid="OpaDotNet.Extensions.AspNetCore.PathPolicySource.NeedsRecompilation">
+  NeedsRecompilation
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool NeedsRecompilation { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="OpaDotNet_Extensions_AspNetCore_PathPolicySource_PolicyWatcher_" data-uid="OpaDotNet.Extensions.AspNetCore.PathPolicySource.PolicyWatcher*"></a>
+
+  <h3 id="OpaDotNet_Extensions_AspNetCore_PathPolicySource_PolicyWatcher" data-uid="OpaDotNet.Extensions.AspNetCore.PathPolicySource.PolicyWatcher">
+  PolicyWatcher
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected IDisposable? PolicyWatcher { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="OpaDotNet_Extensions_AspNetCore_PathPolicySource_Dispose_" data-uid="OpaDotNet.Extensions.AspNetCore.PathPolicySource.Dispose*"></a>
+
+  <h3 id="OpaDotNet_Extensions_AspNetCore_PathPolicySource_Dispose_System_Boolean_" data-uid="OpaDotNet.Extensions.AspNetCore.PathPolicySource.Dispose(System.Boolean)">
+  Dispose(bool)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void Dispose(bool disposing)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>disposing</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="OpaDotNet_Extensions_AspNetCore_PathPolicySource_StartAsync_" data-uid="OpaDotNet.Extensions.AspNetCore.PathPolicySource.StartAsync*"></a>
+
+  <h3 id="OpaDotNet_Extensions_AspNetCore_PathPolicySource_StartAsync_System_Threading_CancellationToken_" data-uid="OpaDotNet.Extensions.AspNetCore.PathPolicySource.StartAsync(System.Threading.CancellationToken)">
+  StartAsync(CancellationToken)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Task StartAsync(CancellationToken cancellationToken)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="OpaDotNet_Extensions_AspNetCore_PathPolicySource_StopAsync_" data-uid="OpaDotNet.Extensions.AspNetCore.PathPolicySource.StopAsync*"></a>
+
+  <h3 id="OpaDotNet_Extensions_AspNetCore_PathPolicySource_StopAsync_System_Threading_CancellationToken_" data-uid="OpaDotNet.Extensions.AspNetCore.PathPolicySource.StopAsync(System.Threading.CancellationToken)">
+  StopAsync(CancellationToken)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Task StopAsync(CancellationToken cancellationToken)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
