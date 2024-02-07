@@ -342,7 +342,7 @@ internal static class DateTimeExtensions
                 var parse = s[parseIndex..zoneIndex];
 
                 if (!parse.StartsWith("GMT"))
-                    timeZone = TimeZoneInfo.FindSystemTimeZoneById(parse.ToString()).BaseUtcOffset;
+                    timeZone = TimeZoneInfoExtensions.FindSystemTimeZoneByIdOrAbbr(parse.ToString()).BaseUtcOffset;
                 else
                 {
                     var gmt = parse[3..];

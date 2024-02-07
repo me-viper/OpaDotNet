@@ -59,7 +59,7 @@ public class DateTimeExtensionsTests(ITestOutputHelper output)
 
     private static DateTimeOffset TheDate { get; } = TimeZoneInfo.ConvertTime(
         DateTimeExtensions.FromEpochNs(1233810057012345600),
-        TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time")
+        TimeZoneInfoExtensions.FindSystemTimeZoneByIdOrAbbr("Pacific Standard Time")
         );
 
     [Fact]
@@ -75,7 +75,7 @@ public class DateTimeExtensionsTests(ITestOutputHelper output)
     [Fact]
     public void Rfc339Nano()
     {
-        var tz = TimeZoneInfo.FindSystemTimeZoneById("America/New_York");
+        var tz = TimeZoneInfoExtensions.FindSystemTimeZoneByIdOrAbbr("America/New_York");
         var date = DateTimeExtensions.FromEpochNs(1707133074028819500, tz);
         var f = DateTimeExtensions.GetFormatString(date, DateTimeExtensions.Rfc3339Nano, tz);
 
@@ -86,7 +86,7 @@ public class DateTimeExtensionsTests(ITestOutputHelper output)
     [Fact]
     public void Rfc822()
     {
-        var tz = TimeZoneInfo.FindSystemTimeZoneById("EST");
+        var tz = TimeZoneInfoExtensions.FindSystemTimeZoneByIdOrAbbr("EST");
         var date = DateTimeExtensions.FromEpochNs(1707133074028819500, tz);
         var f = DateTimeExtensions.GetFormatString(date, DateTimeExtensions.Rfc822, tz);
 
@@ -107,7 +107,7 @@ public class DateTimeExtensionsTests(ITestOutputHelper output)
     [Fact]
     public void Rfc3339Est()
     {
-        var tz = TimeZoneInfo.FindSystemTimeZoneById("EST");
+        var tz = TimeZoneInfoExtensions.FindSystemTimeZoneByIdOrAbbr("EST");
         var date = new DateTimeOffset(1994, 9, 17, 20, 4, 26, 0, tz.BaseUtcOffset);
         var f = DateTimeExtensions.GetFormatString(date, DateTimeExtensions.Rfc3339);
 
@@ -130,7 +130,7 @@ public class DateTimeExtensionsTests(ITestOutputHelper output)
     public void Format(FormatTestCase tc)
     {
         var date = TheDate;
-        var f = DateTimeExtensions.GetFormatString(date, tc.Format, TimeZoneInfo.FindSystemTimeZoneById("PST"));
+        var f = DateTimeExtensions.GetFormatString(date, tc.Format, TimeZoneInfoExtensions.FindSystemTimeZoneByIdOrAbbr("PST"));
 
         output.WriteLine(f);
         Assert.Equal(tc.Expected, date.ToString(f, CultureInfo.InvariantCulture));
@@ -181,92 +181,92 @@ public class DateTimeExtensionsTests(ITestOutputHelper output)
                         "UnixDate",
                         DateTimeExtensions.UnixDate,
                         "Thu Feb  4 21:00:57 PST 2010",
-                        new(2010, 2, 4, 21, 0, 57, 0, TimeZoneInfo.FindSystemTimeZoneById("PST").BaseUtcOffset)
+                        new(2010, 2, 4, 21, 0, 57, 0, TimeZoneInfoExtensions.FindSystemTimeZoneByIdOrAbbr("PST").BaseUtcOffset)
                         ),
                     new(
                         "UnixDate F",
                         DateTimeExtensions.UnixDate,
                         "Thu Feb  4 21:00:57.012 PST 2010",
-                        new(2010, 2, 4, 21, 0, 57, 12, TimeZoneInfo.FindSystemTimeZoneById("PST").BaseUtcOffset)
+                        new(2010, 2, 4, 21, 0, 57, 12, TimeZoneInfoExtensions.FindSystemTimeZoneByIdOrAbbr("PST").BaseUtcOffset)
                         ),
                     new(
                         "RFC3339",
                         DateTimeExtensions.Rfc3339,
                         "2010-02-04T21:00:57-08:00",
-                        new(2010, 2, 4, 21, 0, 57, 0, TimeZoneInfo.FindSystemTimeZoneById("PST").BaseUtcOffset)
+                        new(2010, 2, 4, 21, 0, 57, 0, TimeZoneInfoExtensions.FindSystemTimeZoneByIdOrAbbr("PST").BaseUtcOffset)
                         ),
                     new(
                         "RFC3339Nano",
                         DateTimeExtensions.Rfc3339Nano,
                         "2010-02-04T21:00:57.012345678-08:00",
-                        new DateTimeOffset(2010, 2, 4, 21, 0, 57, 0, TimeZoneInfo.FindSystemTimeZoneById("PST").BaseUtcOffset)
+                        new DateTimeOffset(2010, 2, 4, 21, 0, 57, 0, TimeZoneInfoExtensions.FindSystemTimeZoneByIdOrAbbr("PST").BaseUtcOffset)
                             .AddNs(012345678)
                         ),
                     new(
                         "RubyDate",
                         DateTimeExtensions.RubyDate,
                         "Thu Feb 04 21:00:57 -0800 2010",
-                        new(2010, 2, 4, 21, 0, 57, 0, TimeZoneInfo.FindSystemTimeZoneById("PST").BaseUtcOffset)
+                        new(2010, 2, 4, 21, 0, 57, 0, TimeZoneInfoExtensions.FindSystemTimeZoneByIdOrAbbr("PST").BaseUtcOffset)
                         ),
                     new(
                         "RubyDate F",
                         DateTimeExtensions.RubyDate,
                         "Thu Feb 04 21:00:57.012 -0800 2010",
-                        new(2010, 2, 4, 21, 0, 57, 12, TimeZoneInfo.FindSystemTimeZoneById("PST").BaseUtcOffset)
+                        new(2010, 2, 4, 21, 0, 57, 12, TimeZoneInfoExtensions.FindSystemTimeZoneByIdOrAbbr("PST").BaseUtcOffset)
                         ),
                     new(
                         "RFC1123 PST",
                         DateTimeExtensions.Rfc1123,
                         "Thu, 04 Feb 2010 21:00:57 PST",
-                        new(2010, 2, 4, 21, 0, 57, 0, TimeZoneInfo.FindSystemTimeZoneById("PST").BaseUtcOffset)
+                        new(2010, 2, 4, 21, 0, 57, 0, TimeZoneInfoExtensions.FindSystemTimeZoneByIdOrAbbr("PST").BaseUtcOffset)
                         ),
                     new(
                         "RFC1123 PDT",
                         DateTimeExtensions.Rfc1123,
                         "Thu, 04 Feb 2010 22:00:57 America/Los_Angeles",
-                        new(2010, 2, 4, 22, 0, 57, 0, TimeZoneInfo.FindSystemTimeZoneById("America/Los_Angeles").BaseUtcOffset)
+                        new(2010, 2, 4, 22, 0, 57, 0, TimeZoneInfoExtensions.FindSystemTimeZoneByIdOrAbbr("America/Los_Angeles").BaseUtcOffset)
                         ),
                     new(
                         "RFC1123 PST F",
                         DateTimeExtensions.Rfc1123,
                         "Thu, 04 Feb 2010 21:00:57 PST",
-                        new(2010, 2, 4, 21, 0, 57, 0, TimeZoneInfo.FindSystemTimeZoneById("PST").BaseUtcOffset)
+                        new(2010, 2, 4, 21, 0, 57, 0, TimeZoneInfoExtensions.FindSystemTimeZoneByIdOrAbbr("PST").BaseUtcOffset)
                         ),
                     new(
                         "RFC850",
                         DateTimeExtensions.Rfc850,
                         "Thursday, 04-Feb-10 21:00:57 PST",
-                        new(2010, 2, 4, 21, 0, 57, 0, TimeZoneInfo.FindSystemTimeZoneById("PST").BaseUtcOffset)
+                        new(2010, 2, 4, 21, 0, 57, 0, TimeZoneInfoExtensions.FindSystemTimeZoneByIdOrAbbr("PST").BaseUtcOffset)
                         ),
                     new(
                         "RFC850 F",
                         DateTimeExtensions.Rfc850,
                         "Thursday, 04-Feb-10 21:00:57.012 PST",
-                        new(2010, 2, 4, 21, 0, 57, 12, TimeZoneInfo.FindSystemTimeZoneById("PST").BaseUtcOffset)
+                        new(2010, 2, 4, 21, 0, 57, 12, TimeZoneInfoExtensions.FindSystemTimeZoneByIdOrAbbr("PST").BaseUtcOffset)
                         ),
                     new(
                         "RFC822",
                         DateTimeExtensions.Rfc822,
                         "04 Feb 10 21:00 PST",
-                        new(2010, 2, 4, 21, 0, 0, 0, TimeZoneInfo.FindSystemTimeZoneById("PST").BaseUtcOffset)
+                        new(2010, 2, 4, 21, 0, 0, 0, TimeZoneInfoExtensions.FindSystemTimeZoneByIdOrAbbr("PST").BaseUtcOffset)
                         ),
                     new(
                         "RFC822Z",
                         DateTimeExtensions.Rfc822Z,
                         "04 Feb 10 21:00 -0800",
-                        new(2010, 2, 4, 21, 0, 0, 0, TimeZoneInfo.FindSystemTimeZoneById("PST").BaseUtcOffset)
+                        new(2010, 2, 4, 21, 0, 0, 0, TimeZoneInfoExtensions.FindSystemTimeZoneByIdOrAbbr("PST").BaseUtcOffset)
                         ),
                     new(
                         "RFC1123Z",
                         DateTimeExtensions.Rfc1123Z,
                         "Thu, 04 Feb 2010 21:00:57 -0800",
-                        new(2010, 2, 4, 21, 0, 57, 0, TimeZoneInfo.FindSystemTimeZoneById("PST").BaseUtcOffset)
+                        new(2010, 2, 4, 21, 0, 57, 0, TimeZoneInfoExtensions.FindSystemTimeZoneByIdOrAbbr("PST").BaseUtcOffset)
                         ),
                     new(
                         "RFC1123Z F",
                         DateTimeExtensions.Rfc1123Z,
                         "Thu, 04 Feb 2010 21:00:57.012 -0800",
-                        new(2010, 2, 4, 21, 0, 57, 12, TimeZoneInfo.FindSystemTimeZoneById("PST").BaseUtcOffset)
+                        new(2010, 2, 4, 21, 0, 57, 12, TimeZoneInfoExtensions.FindSystemTimeZoneByIdOrAbbr("PST").BaseUtcOffset)
                         ),
                     new(
                         "Custom",
@@ -278,7 +278,7 @@ public class DateTimeExtensionsTests(ITestOutputHelper output)
                         "Custom PST",
                         "2006-01-02 15:04:05-07",
                         "2006-01-02 15:04:05-08",
-                        new(2006, 1, 2, 15, 4, 5, 0, TimeZoneInfo.FindSystemTimeZoneById("PST").BaseUtcOffset)
+                        new(2006, 1, 2, 15, 4, 5, 0, TimeZoneInfoExtensions.FindSystemTimeZoneByIdOrAbbr("PST").BaseUtcOffset)
                         ),
                     new(
                         "Janet",
@@ -290,7 +290,7 @@ public class DateTimeExtensionsTests(ITestOutputHelper output)
                         "Janet X",
                         "Hi Janet, the Month is January: Jan _2 15:04:05 2006 MST",
                         "Hi Janet, the Month is February: Feb  4 21:00:57 2010 PST",
-                        new(2010, 2, 4, 21, 0, 57, 0, TimeZoneInfo.FindSystemTimeZoneById("PST").BaseUtcOffset)
+                        new(2010, 2, 4, 21, 0, 57, 0, TimeZoneInfoExtensions.FindSystemTimeZoneByIdOrAbbr("PST").BaseUtcOffset)
                         ),
                     new(
                         "millisecond:: dot separator",
@@ -351,31 +351,6 @@ public class DateTimeExtensionsTests(ITestOutputHelper output)
         }
     }
 
-    [Fact]
-    public void X()
-    {
-        // var tt = TimeSpan.ParseExact("+0700", @"\+hhmm", CultureInfo.InvariantCulture, TimeSpanStyles.AssumeNegative);
-        // output.WriteLine(tt.ToString());
-
-        // "Thu, 04 Feb 2010 22:00:57 America/Los_Angeles'",
-        // "ddd, dd MMM yyyy HH:mm:ss.FFFFFFF \"America/Los_Angeles\"",
-        // var z = DateTimeOffset.ParseExact(
-        //     "Thu, 04 Feb 2010 22:00:57 America/Los_Angeles",
-        //     "ddd, dd MMM yyyy HH:mm:ss.FFFFFFF \"America/Los_Angeles\"",
-        //     CultureInfo.InvariantCulture
-        //     );
-        // output.WriteLine(z.ToString());
-
-        Parse(
-            new(
-                "zero1",
-                "2006.01.02.15.04.05.0",
-                "2010.02.04.21.00.57.0",
-                new DateTimeOffset(2010, 2, 4, 21, 0, 57, 0, TimeSpan.Zero)
-                )
-            );
-    }
-
     [Theory]
     [ClassData(typeof(ParseTheoryData))]
     public void Parse(ParseTestCase tc)
@@ -384,5 +359,19 @@ public class DateTimeExtensionsTests(ITestOutputHelper output)
 
         Assert.True(result);
         Assert.Equal(tc.Expected, date);
+    }
+
+    public static IEnumerable<object[]> TimeZoneAbbrCases()
+    {
+        foreach (var abbr in TimeZoneInfoExtensions.ZoneAbbreviations)
+            yield return [abbr.Key];
+    }
+
+    [Theory]
+    [MemberData(nameof(TimeZoneAbbrCases))]
+    public void TimeZoneAbbr(string abbr)
+    {
+        var tz = TimeZoneInfoExtensions.FindSystemTimeZoneByIdOrAbbr(abbr);
+        Assert.Equal(abbr, tz.Id);
     }
 }
