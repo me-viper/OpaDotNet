@@ -138,7 +138,7 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
     {
         var localTz = TimeZoneInfo.Local;
         var func = """time.format([1707133074028819500, "Local", "-07"])""";
-        var sign = localTz.BaseUtcOffset.Hours > 0 ? "+" : "-";
+        var sign = localTz.BaseUtcOffset.Hours >= 0 ? "+" : "-";
         var expected = $"\"{sign}{localTz.BaseUtcOffset.Hours:00}\"";
 
         var result = await RunTestCase(func, expected, false, new TimeImports(Output));
