@@ -53,6 +53,7 @@ internal static class TimeZoneInfoExtensions
         if (!ZoneAbbreviations.TryGetValue(abbr, out var zoneId))
             return false;
 
+        // This kinda has to succeed.
         var systemZone = TimeZoneInfo.FindSystemTimeZoneById(zoneId);
 
         // This is technically not valid way to do a clone, but on linux passing systemZone.GetAdjustmentRules() here throws:
@@ -70,6 +71,17 @@ internal static class TimeZoneInfoExtensions
 
     public static TimeZoneInfo FindSystemTimeZoneByIdOrAbbr(string zoneId)
     {
+#if NET8_0_OR_GREATER
+        TimeZoneInfo? result;
+
+        if (TimeZoneInfo.TryFindSystemTimeZoneById(zoneId, out result))
+            return result;
+
+        if (TryLookupAbbr(zoneId, out result))
+            return result;
+
+        throw new TimeZoneNotFoundException($"The time zone ID '{zoneId}' was not found on the local computer.");
+#else
         try
         {
             return TimeZoneInfo.FindSystemTimeZoneById(zoneId);
@@ -81,5 +93,6 @@ internal static class TimeZoneInfoExtensions
 
             throw;
         }
+#endif
     }
 }
