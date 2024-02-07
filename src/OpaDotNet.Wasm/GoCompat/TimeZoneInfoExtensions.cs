@@ -55,14 +55,14 @@ internal static class TimeZoneInfoExtensions
 
         var systemZone = TimeZoneInfo.FindSystemTimeZoneById(zoneId);
 
+        // This is technically not valid way to do a clone, but on linux passing systemZone.GetAdjustmentRules() here throws:
+        // "The elements of the AdjustmentRule array must be in chronological order and must not overlap".
+        // For our purposes we really care only about Id and BaseUtcOffset.
         tz = TimeZoneInfo.CreateCustomTimeZone(
             abbr,
             systemZone.BaseUtcOffset,
             systemZone.DisplayName,
-            systemZone.StandardName,
-            systemZone.DaylightName,
-            systemZone.GetAdjustmentRules(),
-            !systemZone.SupportsDaylightSavingTime
+            systemZone.StandardName
             );
 
         return true;
