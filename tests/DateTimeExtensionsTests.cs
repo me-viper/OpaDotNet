@@ -48,6 +48,7 @@ public class DateTimeExtensionsTests(ITestOutputHelper output)
                     new("StampMilli", DateTimeExtensions.StampMilli, "Feb  4 21:00:57.012"),
                     new("StampMicro", DateTimeExtensions.StampMicro, "Feb  4 21:00:57.012345"),
                     new("StampNano", DateTimeExtensions.StampNano, "Feb  4 21:00:57.012345600"),
+                    new("StampNano Trim", "Jan _2 15:04:05.999999999", "Feb  4 21:00:57.0123456"),
                     new("DateTime", DateTimeExtensions.DateTime, "2009-02-04 21:00:57"),
                     new("DateOnly", DateTimeExtensions.DateOnly, "2009-02-04"),
                     new("TimeOnly", DateTimeExtensions.TimeOnly, "21:00:57"),
@@ -77,9 +78,23 @@ public class DateTimeExtensionsTests(ITestOutputHelper output)
     {
         var tz = TimeZoneInfoExtensions.FindSystemTimeZoneByIdOrAbbr("America/New_York");
         var date = DateTimeExtensions.FromEpochNs(1707133074028819500, tz);
-        var f = DateTimeExtensions.GetFormatString(date, DateTimeExtensions.Rfc3339Nano, tz);
+        var f = DateTimeExtensions.GetFormatString(date, DateTimeExtensions.Rfc3339Nano, tz.Id);
 
         output.WriteLine(f);
+        Assert.Equal("2024-02-05T06:37:54.0288195-05:00", date.ToString(f, CultureInfo.InvariantCulture));
+    }
+
+    [Fact]
+    public void NanoTrim()
+    {
+        var tz = TimeZoneInfoExtensions.FindSystemTimeZoneByIdOrAbbr("America/New_York");
+        var date = DateTimeExtensions.FromEpochNs(1707133074028819512, tz);
+        var f = DateTimeExtensions.GetFormatString(date, DateTimeExtensions.Rfc3339Nano, tz.Id);
+
+        output.WriteLine(f);
+
+        // Although nanosecond is 512 it will actually be 500 because
+        // DateTime.Nanosecond is actually DateTime.Ticks * 100;
         Assert.Equal("2024-02-05T06:37:54.0288195-05:00", date.ToString(f, CultureInfo.InvariantCulture));
     }
 
@@ -88,7 +103,7 @@ public class DateTimeExtensionsTests(ITestOutputHelper output)
     {
         var tz = TimeZoneInfoExtensions.FindSystemTimeZoneByIdOrAbbr("EST");
         var date = DateTimeExtensions.FromEpochNs(1707133074028819500, tz);
-        var f = DateTimeExtensions.GetFormatString(date, DateTimeExtensions.Rfc822, tz);
+        var f = DateTimeExtensions.GetFormatString(date, DateTimeExtensions.Rfc822, "EST");
 
         output.WriteLine(f);
         Assert.Equal("05 Feb 24 06:37 EST", date.ToString(f, CultureInfo.InvariantCulture));
@@ -130,7 +145,7 @@ public class DateTimeExtensionsTests(ITestOutputHelper output)
     public void Format(FormatTestCase tc)
     {
         var date = TheDate;
-        var f = DateTimeExtensions.GetFormatString(date, tc.Format, TimeZoneInfoExtensions.FindSystemTimeZoneByIdOrAbbr("PST"));
+        var f = DateTimeExtensions.GetFormatString(date, tc.Format, "PST");
 
         output.WriteLine(f);
         Assert.Equal(tc.Expected, date.ToString(f, CultureInfo.InvariantCulture));
@@ -345,6 +360,12 @@ public class DateTimeExtensionsTests(ITestOutputHelper output)
                         DateTimeExtensions.UnixDate,
                         "Fri Feb  5 05:00:57 GMT-8 2010",
                         new DateTimeOffset(2010, 2, 5, 5, 0, 57, 0, TimeSpan.FromHours(-8))
+                        ),
+                    new(
+                        "Custom 1",
+                        "Monday, 06.January.02 15:04:05.999 MST",
+                        "Thursday, 10.February.04 05:00:57.012 PST",
+                        new DateTimeOffset(2010, 2, 4, 5, 0, 57, 12, TimeSpan.FromHours(-8))
                         ),
                 ]
                 );

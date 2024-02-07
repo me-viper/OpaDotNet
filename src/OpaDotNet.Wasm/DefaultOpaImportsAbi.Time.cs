@@ -149,24 +149,26 @@ public partial class DefaultOpaImportsAbi
             format = f;
 
         TimeZoneInfo? tz;
+        var zoneId = timeZone;
 
         if (string.IsNullOrEmpty(timeZone))
+        {
             tz = TimeZoneInfo.Utc;
+            zoneId = tz.Id;
+        }
         else if (string.Equals(timeZone, "Local", StringComparison.Ordinal))
+        {
             tz = TimeZoneInfo.Local;
+            zoneId = tz.Id;
+        }
         else
         {
-#if NET8_0_OR_GREATER
-            if (!TimeZoneInfo.TryFindSystemTimeZoneById(timeZone, out tz))
-                return null;
-#else
-            tz = TimeZoneInfo.FindSystemTimeZoneById(timeZone);
-#endif
+            tz = TimeZoneInfoExtensions.FindSystemTimeZoneByIdOrAbbr(timeZone);
         }
 
         date = DateTimeExtensions.FromEpochNs(ns, tz);
 
-        return date.Format(format, tz);
+        return date.Format(format, zoneId);
     }
 
     private static long? TimeParseNs(string layout, string value)

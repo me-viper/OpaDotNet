@@ -69,6 +69,33 @@ internal static class TimeZoneInfoExtensions
         return true;
     }
 
+    public static TimeSpan FindSystemTimeZoneUtcOffset(string zoneId)
+    {
+#if NET8_0_OR_GREATER
+        TimeZoneInfo? result;
+
+        if (TimeZoneInfo.TryFindSystemTimeZoneById(zoneId, out result))
+            return result.BaseUtcOffset;
+
+        if (ZoneAbbreviations.TryGetValue(zoneId, out var abbr) && TimeZoneInfo.TryFindSystemTimeZoneById(abbr, out result))
+            return result.BaseUtcOffset;
+
+        throw new TimeZoneNotFoundException($"The time zone ID '{zoneId}' was not found on the local computer.");
+#else
+        try
+        {
+            return TimeZoneInfo.FindSystemTimeZoneById(zoneId).BaseUtcOffset;
+        }
+        catch (TimeZoneNotFoundException)
+        {
+            if (ZoneAbbreviations.TryGetValue(zoneId, out var abbr))
+                return TimeZoneInfo.FindSystemTimeZoneById(abbr).BaseUtcOffset;
+
+            throw;
+        }
+#endif
+    }
+
     public static TimeZoneInfo FindSystemTimeZoneByIdOrAbbr(string zoneId)
     {
 #if NET8_0_OR_GREATER

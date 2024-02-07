@@ -1,5 +1,7 @@
 ﻿using System.Globalization;
-using System.Text;
+using System.Runtime.CompilerServices;
+
+using OpaDotNet.Wasm.Internal;
 
 // ReSharper disable IdentifierTypo
 // ReSharper disable StringLiteralTypo
@@ -84,13 +86,14 @@ internal static class DateTimeExtensions
     private const string Rfc1123ZParse = "ddd, dd MMM yyyy HH:mm:ss.9999999 -0700"; // RFC1123 with numeric zone
     private const string Rfc3339NanoParse = "yyyy-MM-ddTHH:mm:ss.999999999K";
 
-    public static string Format(this DateTimeOffset d, ReadOnlySpan<char> layout, TimeZoneInfo? timeZone = null)
+    public static string Format(this DateTimeOffset d, ReadOnlySpan<char> layout, string? timeZoneId = null)
     {
-        var format = GetFormatString(d, layout, timeZone ?? TimeZoneInfo.Utc);
+        var format = GetFormatString(d, layout, timeZoneId ?? TimeZoneInfo.Utc.Id);
         return d.ToString(format, CultureInfo.InvariantCulture);
     }
 
-    public static string GetFormatString(DateTimeOffset d, ReadOnlySpan<char> layout) => GetFormatString(d, layout, TimeZoneInfo.Utc);
+    public static string GetFormatString(DateTimeOffset d, ReadOnlySpan<char> layout)
+        => GetFormatString(d, layout, TimeZoneInfo.Utc.Id);
 
     /// <summary>
     /// GoLang time formatting is completely different from what you usually see in dotnet.
@@ -100,51 +103,68 @@ internal static class DateTimeExtensions
     /// If something can't be handled by <see cref="DateTimeOffset.ToString()"/>
     /// (like __2 aka number days in a year or time zone names) we have to do formatting manually.
     /// </summary>
-    public static string GetFormatString(DateTimeOffset d, ReadOnlySpan<char> layout, TimeZoneInfo timeZone)
+    public static string GetFormatString(
+        DateTimeOffset d,
+        ReadOnlySpan<char> layout,
+        ReadOnlySpan<char> timeZoneId)
     {
-        var inititalBufLen = "9999 September 31 23 59 59 999999999".Length;
+        var inititalBufLen = Math.Max(layout.Length, "9999 September 31 23 59 59 999999999".Length) + timeZoneId.Length;
 
-        var sb = new StringBuilder(inititalBufLen + timeZone.Id.Length);
+        var result = new ValueStringBuilder(inititalBufLen);
+
+        Span<char> timeZoneBuffer = stackalloc char[@"hh\:mm\:ss".Length];
 
         foreach (var chunk in new ChunkEnumerator(layout))
         {
             if (!chunk.Prefix.IsEmpty)
-                sb.Append($"\"{chunk.Prefix}\"");
+                result.AppendQuoted(chunk.Prefix);
 
             switch (chunk.Fmt)
             {
                 case "pm":
-                    if (d.TimeOfDay >= new TimeSpan(0, 0, 0) && d.TimeOfDay < new TimeSpan(12, 0, 0))
-                        sb.Append("a\\m");
+                    if (d.TimeOfDay.Hours is >= 0 and < 12)
+                        result.Append("a\\m");
                     else
-                        sb.Append("p\\m");
+                        result.Append("p\\m");
 
                     break;
                 case "PM":
-                    if (d.TimeOfDay >= new TimeSpan(0, 0, 0) && d.TimeOfDay < new TimeSpan(12, 0, 0))
-                        sb.Append("A\\M");
+                    if (d.TimeOfDay.Hours is >= 0 and < 12)
+                        result.Append("A\\M");
                     else
-                        sb.Append("P\\M");
+                        result.Append("P\\M");
 
                     break;
                 case "__2":
-                    sb.Append($"{d.DayOfYear,3:###}");
+                    if (d.DayOfYear < 10)
+                        result.Append(' ');
+
+                    if (d.DayOfYear < 100)
+                        result.Append(' ');
+
+                    result.Append(d.DayOfYear);
+
                     break;
                 case "002":
-                    sb.Append($"{d.DayOfYear,3:000}");
+                    result.Append(d.DayOfYear, "000");
+
                     break;
                 case "_2":
-                    sb.Append($"{d.Day,2:##}");
+                    if (d.Day < 10)
+                        result.Append(' ');
+
+                    result.Append(d.Day);
+
                     break;
                 case "MST":
-                    sb.Append($"\"{timeZone.Id}\"");
+                    result.AppendQuoted(timeZoneId);
                     break;
                 case "fffffffff":
-                    sb.Append($"ffffff{d.Nanosecond,3:000}");
+                    result.Append(d.Nanosecond, "'ffffff'000");
                     break;
                 case "FFFFFFFFF":
                     if (d.Nanosecond == 0)
-                        sb.Append("FFFFFF");
+                        result.Append("FFFFFF");
                     else
                     {
                         var tns = d.Nanosecond;
@@ -158,36 +178,36 @@ internal static class DateTimeExtensions
                                 tns /= 10;
                         }
 
-                        sb.Append($"ffffff{tns}");
+                        result.Append(tns, "'ffffff'#");
                     }
 
                     break;
                 default:
                     if (chunk.Fmt.StartsWith("ZU") && d.Offset == TimeSpan.Zero)
                     {
-                        sb.Append('Z');
+                        result.Append('Z');
                         break;
                     }
 
                     if (chunk.Fmt.StartsWith("Z"))
                     {
                         var fmt = chunk.Fmt[2..];
-                        var z = d.Offset.ToString(fmt.ToString(), CultureInfo.InvariantCulture);
 
-                        if (d.Offset.Hours < 0)
-                            sb.Append($"-{z}");
-                        else
-                            sb.Append($"+{z}");
+                        if (d.Offset.TryFormat(timeZoneBuffer, out var bw, fmt))
+                        {
+                            result.Append(d.Offset.Hours < 0 ? '-' : '+');
+                            result.Append(timeZoneBuffer[..bw]);
+                        }
 
                         break;
                     }
 
-                    sb.Append($"{chunk.Fmt}");
+                    result.Append(chunk.Fmt);
                     break;
             }
         }
 
-        return sb.ToString();
+        return result.ToString();
     }
 
     public static bool TryParse(ReadOnlySpan<char> s, ReadOnlySpan<char> layout, out DateTimeOffset result)
@@ -222,7 +242,20 @@ internal static class DateTimeExtensions
 
     private static DateTimeOffset Parse(ReadOnlySpan<char> s, ReadOnlySpan<char> layout, bool forceQuotes = false)
     {
-        var formatBuilder = new StringBuilder(layout.Length);
+        scoped ValueStringBuilder formatBuilder;
+
+        // ReSharper disable once TooWideLocalVariableScope
+        scoped Span<char> buffer;
+        const int maxStackSize = 256;
+
+        if (layout.Length > maxStackSize)
+            formatBuilder = new(layout.Length);
+        else
+        {
+            buffer = stackalloc char[maxStackSize];
+            formatBuilder = new(buffer);
+        }
+
         var parseIndex = 0;
 
         long nanoseconds = 0;
@@ -233,7 +266,7 @@ internal static class DateTimeExtensions
             if (!chunk.Prefix.IsEmpty)
             {
                 if (forceQuotes)
-                    formatBuilder.Append($"\"{chunk.Prefix}\"");
+                    formatBuilder.AppendQuoted(chunk.Prefix);
                 else
                     formatBuilder.Append(chunk.Prefix);
 
@@ -342,7 +375,7 @@ internal static class DateTimeExtensions
                 var parse = s[parseIndex..zoneIndex];
 
                 if (!parse.StartsWith("GMT"))
-                    timeZone = TimeZoneInfoExtensions.FindSystemTimeZoneByIdOrAbbr(parse.ToString()).BaseUtcOffset;
+                    timeZone = TimeZoneInfoExtensions.FindSystemTimeZoneUtcOffset(parse.ToString());
                 else
                 {
                     var gmt = parse[3..];
@@ -354,7 +387,7 @@ internal static class DateTimeExtensions
                     }
                 }
 
-                formatBuilder.Append($"\"{parse}\"");
+                formatBuilder.AppendQuoted(parse);
                 parseIndex += parse.Length;
 
                 continue;
@@ -364,18 +397,16 @@ internal static class DateTimeExtensions
             parseIndex += chunk.Fmt.Length;
         }
 
-        var fmt = formatBuilder.ToString();
-
         var success = DateTimeOffset.TryParseExact(
             s,
-            fmt,
+            formatBuilder.AsSpan(),
             CultureInfo.InvariantCulture,
             DateTimeStyles.AllowWhiteSpaces | DateTimeStyles.AssumeUniversal,
             out var result
             );
 
         if (!success)
-            throw new FormatException($"Failed to parse {s} with format {fmt}");
+            throw new FormatException($"Failed to parse {s} with format {formatBuilder.AsSpan()}");
 
         if (nanoseconds > 0)
             result = result.AddNs(nanoseconds);
@@ -386,9 +417,20 @@ internal static class DateTimeExtensions
         return result;
     }
 
-    private static bool InRange(this ReadOnlySpan<char> span, int index) => span.Length > index;
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private static bool InRange(in ReadOnlySpan<char> span, int index) => span.Length > index;
 
     private static readonly string[] ZeroFormats = ["MM", "dd", "hh", "mm", "ss", "yy"];
+
+    private static readonly string[] FractionFormatsZero =
+    [
+        "f", "ff", "fff", "ffff", "fffff", "ffffff", "fffffff", "ffffffff", "fffffffff"
+    ];
+
+    private static readonly string[] FractionFormatsNine =
+    [
+        "F", "FF", "FFF", "FFFF", "FFFFF", "FFFFFF", "FFFFFFF", "FFFFFFFF", "FFFFFFFFF"
+    ];
 
     private readonly ref struct ChunkEnumerator
     {
@@ -470,7 +512,7 @@ internal static class DateTimeExtensions
                             break;
 
                         case '0':
-                            if (layout.InRange(i + 1) && layout[i + 1] >= '1' && layout[i + 1] <= '6')
+                            if (InRange(layout, i + 1) && layout[i + 1] >= '1' && layout[i + 1] <= '6')
                                 return new(layout[..i], 2, ZeroFormats[layout[i + 1] - '1']);
 
                             if (layout[i..].StartsWith("002"))
@@ -479,7 +521,7 @@ internal static class DateTimeExtensions
                             break;
 
                         case '1':
-                            if (layout.InRange(i + 1) && layout[i + 1] == '5')
+                            if (InRange(layout, i + 1) && layout[i + 1] == '5')
                                 return new(layout[..i], 2, "HH");
 
                             return new(layout[..i], 1, "M");
@@ -491,7 +533,7 @@ internal static class DateTimeExtensions
                             return new(layout[..i], 1, "d");
 
                         case '_':
-                            if (layout.InRange(i + 1) && layout[i + 1] == '2')
+                            if (InRange(layout, i + 1) && layout[i + 1] == '2')
                             {
                                 if (layout[i..].StartsWith("2006"))
                                     return new(layout[..i], 4, "yyyy");
@@ -515,14 +557,14 @@ internal static class DateTimeExtensions
 
                         case 'P':
                             // Can't use "tt" here because if will force "PM" or "pm" only.
-                            if (layout.InRange(i + 1) && layout[i + 1] == 'M')
+                            if (InRange(layout, i + 1) && layout[i + 1] == 'M')
                                 return new(layout[..i], 2, "PM");
 
                             break;
 
                         case 'p':
                             // Can't use "tt" here because if will force "PM" or "pm" only.
-                            if (layout.InRange(i + 1) && layout[i + 1] == 'm')
+                            if (InRange(layout, i + 1) && layout[i + 1] == 'm')
                                 return new(layout[..i], 2, "pm");
 
                             break;
@@ -564,7 +606,7 @@ internal static class DateTimeExtensions
                             break;
 
                         case '.' or ',':
-                            if (layout.InRange(i + 1) && layout[i + 1] is '0' or '9')
+                            if (InRange(layout, i + 1) && layout[i + 1] is '0' or '9')
                             {
                                 var ch = layout[i + 1];
                                 int j;
@@ -575,12 +617,16 @@ internal static class DateTimeExtensions
                                         break;
                                 }
 
-                                // If we got here doesn't mean we have fraction.
-                                // It can be something wit dot separators (aka yyyy.MM.dd).
-                                if (!layout.InRange(i + j) || !char.IsDigit(layout[i + j]))
+                                if (j - 2 < FractionFormatsZero.Length)
                                 {
-                                    var fmt = new string(ch == '0' ? 'f' : 'F', j - 1);
-                                    return new(layout[..(i + 1)], j - 1, fmt);
+                                    // If we got here doesn't mean we have fraction.
+                                    // It can be something wit dot separators (aka yyyy.MM.dd).
+                                    if (!InRange(layout, i + j) || !char.IsDigit(layout[i + j]))
+                                    {
+                                        //Span<char> fmt = "";
+                                        var fmt = ch == '0' ? FractionFormatsZero[j - 2] : FractionFormatsNine[j - 2];
+                                        return new(layout[..(i + 1)], j - 1, fmt);
+                                    }
                                 }
                             }
 
