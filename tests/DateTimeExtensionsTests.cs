@@ -307,6 +307,8 @@ public class DateTimeExtensionsTests(ITestOutputHelper output)
                         "Hi Janet, the Month is February: Feb  4 21:00:57 2010 PST",
                         new(2010, 2, 4, 21, 0, 57, 0, TimeZoneInfoExtensions.FindSystemTimeZoneByIdOrAbbr("PST").BaseUtcOffset)
                         ),
+
+                    // Fractional seconds.
                     new(
                         "millisecond:: dot separator",
                         "Mon Jan _2 15:04:05.000 2006",
@@ -343,6 +345,8 @@ public class DateTimeExtensionsTests(ITestOutputHelper output)
                         "Thu Feb  4 21:00:57.012345678 2010",
                         new DateTimeOffset(2010, 2, 4, 21, 0, 57, 0, TimeSpan.Zero).AddNs(12345678)
                         ),
+
+                    // Leading zeros in other places should not be taken as fractional seconds.
                     new(
                         "zero1",
                         "2006.01.02.15.04.05.0",
@@ -367,9 +371,64 @@ public class DateTimeExtensionsTests(ITestOutputHelper output)
                         "Thursday, 10.February.04 05:00:57.012 PST",
                         new DateTimeOffset(2010, 2, 4, 5, 0, 57, 12, TimeSpan.FromHours(-8))
                         ),
+
+                    // Day of year.
+                    new(
+                        "Day of year 1",
+                        "2006-01-02 002 15:04:05",
+                        "2010-02-04 035 21:00:57",
+                        new DateTimeOffset(2010, 2, 4, 21, 0, 57, 0, TimeSpan.Zero)
+                        ),
+                    new(
+                        "Day of year 2",
+                        "2006-01 002 15:04:05",
+                        "2010-02 035 21:00:57",
+                        new DateTimeOffset(2010, 2, 4, 21, 0, 57, 0, TimeSpan.Zero)
+                        ),
+                    new(
+                        "Day of year 3",
+                        "2006-002 15:04:05",
+                        "2010-035 21:00:57",
+                        new DateTimeOffset(2010, 2, 4, 21, 0, 57, 0, TimeSpan.Zero)
+                        ),
+                    new(
+                        "Day of year 4",
+                        "200600201 15:04:05",
+                        "201003502 21:00:57",
+                        new DateTimeOffset(2010, 2, 4, 21, 0, 57, 0, TimeSpan.Zero)
+                        ),
+                    new(
+                        "Day of year 5",
+                        "200600202 15:04:05",
+                        "201003504 21:00:57",
+                        new DateTimeOffset(2010, 2, 4, 21, 0, 57, 0, TimeSpan.Zero)
+                        ),
                 ]
                 );
         }
+    }
+
+    [Fact]
+    public void ParseTest()
+    {
+        // 201003504 21:00:57 with format yyyy"035"mm" "HH":"mm":"ss
+        // var d = DateTimeOffset.ParseExact(
+        //     "201003504 21:00:57",
+        //     "yyyy\"035\"mm\" \"HH\":\"mm\":\"ss",
+        //     CultureInfo.InvariantCulture
+        //     );
+
+        ParseTestCase tc = new(
+            "Day of year 5",
+            "200600202 15:04:05",
+            "201003504 21:00:57",
+            new DateTimeOffset(2010, 2, 4, 21, 0, 57, 0, TimeSpan.Zero)
+            );
+
+        var result = DateTimeExtensions.TryParse(tc.Value, tc.Format, out var date);
+
+        Assert.True(result);
+        Assert.Equal(tc.Expected, date);
     }
 
     [Theory]
@@ -381,6 +440,10 @@ public class DateTimeExtensionsTests(ITestOutputHelper output)
         Assert.True(result);
         Assert.Equal(tc.Expected, date);
     }
+
+    [Fact]
+    public void ParseSecondsTimeZone()
+    {}
 
     public static IEnumerable<object[]> TimeZoneAbbrCases()
     {

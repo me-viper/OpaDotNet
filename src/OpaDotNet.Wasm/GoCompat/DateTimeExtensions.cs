@@ -260,6 +260,9 @@ internal static class DateTimeExtensions
 
         long nanoseconds = 0;
         var timeZone = TimeSpan.Zero;
+        var dayOfYear = -1;
+        var hasDay = false;
+        var hasMonth = false;
 
         foreach (var chunk in new ChunkEnumerator(layout))
         {
@@ -272,6 +275,12 @@ internal static class DateTimeExtensions
 
                 parseIndex += chunk.Prefix.Length;
             }
+
+            if (chunk.Fmt.StartsWith("d"))
+                hasDay = true;
+
+            if (chunk.Fmt.StartsWith("M"))
+                hasMonth = true;
 
             // Either ',' or '.' are valid as fraction separator. But for DateTime.Parse we need full match.
             if (chunk.Fmt.StartsWith("F") || chunk.Fmt.StartsWith("f"))
@@ -324,6 +333,21 @@ internal static class DateTimeExtensions
             {
                 formatBuilder.Append('d');
                 parseIndex += 2;
+
+                continue;
+            }
+
+            if (chunk.Fmt is "__2" or "002")
+            {
+                var parse = s.Slice(parseIndex, 3);
+
+                // Day of the year is always padded.
+                if (int.TryParse(parse, CultureInfo.InvariantCulture, out dayOfYear))
+                {
+                    // Just quote it so it wont get parsed.
+                    formatBuilder.AppendQuoted(parse);
+                    parseIndex += 3;
+                }
 
                 continue;
             }
@@ -407,6 +431,29 @@ internal static class DateTimeExtensions
 
         if (!success)
             throw new FormatException($"Failed to parse {s} with format {formatBuilder.AsSpan()}");
+
+        if (dayOfYear > 0)
+        {
+            if (!hasMonth && !hasDay)
+                result = result.AddDays(dayOfYear - 1);
+            else
+            {
+                // Need to ensure month and/or day match.
+                var baseDate = new DateTimeOffset(result.Year, 1, 1, 0, 0, 0, TimeSpan.Zero).AddDays(dayOfYear - 1);
+
+                if (!hasMonth)
+                    result = result.AddMonths(baseDate.Month - 1);
+
+                if (!hasDay)
+                    result = result.AddDays(baseDate.Day - 1);
+
+                if (result.Month != baseDate.Month)
+                    throw new FormatException($"Day of the year {dayOfYear} doesn't match month {result.Month}");
+
+                if (result.Day != baseDate.Day)
+                    throw new FormatException($"Day of the year {dayOfYear} doesn't match day {result.Day}");
+            }
+        }
 
         if (nanoseconds > 0)
             result = result.AddNs(nanoseconds);
