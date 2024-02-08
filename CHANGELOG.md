@@ -1,5 +1,26 @@
 # Changelog
 
+## OpaDotNet.Wasm v2.5.0 (2024-02-09)
+
+### Bug Fixes
+
+* `TryGetRegoSet<T>` fails when `T` is JsonNode ([c9f28cb](https://github.com/me-viper/OpaDotNet/commit/c9f28cb8fa8da6567a983421f8b2a9c6c17617ea))
+
+### Features
+
+* [#1](https://github.com/me-viper/OpaDotNet/issues/1). Implement missing built-ins:
+  * time.format
+  * time.parse_ns
+  * graph.reachable_paths
+  * uuid.parse
+  * object.subset
+  * crypto.parse_private_keys
+  * crypto.x509.parse_and_verify_certificates
+  * crypto.x509.parse_certificates
+  * crypto.x509.parse_certificate_request
+  * crypto.x509.parse_keypair
+  * crypto.x509.parse_rsa_private_key
+
 ## OpaDotNet.Wasm v2.4.1 (2024-01-26)
 
 ### Bug Fixes
