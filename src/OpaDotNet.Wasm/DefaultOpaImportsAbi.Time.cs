@@ -45,7 +45,7 @@ public partial class DefaultOpaImportsAbi
             .AddYears(years)
             .AddMonths(months)
             .AddDays(days)
-            .ToEpochNs();
+            .ToSafeEpochNs();
     }
 
     private static string Weekday(long ns)
@@ -101,7 +101,7 @@ public partial class DefaultOpaImportsAbi
     private static long? ParseRfc3339Ns(string s)
     {
         var result = DateTimeExtensions.ParseRfc3339(s);
-        return result?.ToEpochNs();
+        return result?.ToSafeEpochNs();
     }
 
     private static readonly IReadOnlyDictionary<string, string> TimeFormats = new Dictionary<string, string>
@@ -179,6 +179,6 @@ public partial class DefaultOpaImportsAbi
         if (!DateTimeExtensions.TryParse(value, layout, out var result))
             return null;
 
-        return result.ToEpochNs();
+        return result.ToSafeEpochNs();
     }
 }

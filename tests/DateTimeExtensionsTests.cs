@@ -44,14 +44,14 @@ public class DateTimeExtensionsTests(ITestOutputHelper output)
                     new("AM/PM", "3PM", "9PM"),
                     new("two-digit year", "06 01 02", "09 02 04"),
                     new("Janet", "Hi Janet, the Month is January", "Hi Janet, the Month is February"),
-                    new("Stamp", DateTimeExtensions.Stamp, "Feb  4 21:00:57"),
-                    new("StampMilli", DateTimeExtensions.StampMilli, "Feb  4 21:00:57.012"),
-                    new("StampMicro", DateTimeExtensions.StampMicro, "Feb  4 21:00:57.012345"),
-                    new("StampNano", DateTimeExtensions.StampNano, "Feb  4 21:00:57.012345600"),
+                    new("Stamp", DateTimeExtensions.StampTs, "Feb  4 21:00:57"),
+                    new("StampMilli", DateTimeExtensions.StampMilliTs, "Feb  4 21:00:57.012"),
+                    new("StampMicro", DateTimeExtensions.StampMicroTs, "Feb  4 21:00:57.012345"),
+                    new("StampNano", DateTimeExtensions.StampNanoTs, "Feb  4 21:00:57.012345600"),
                     new("StampNano Trim", "Jan _2 15:04:05.999999999", "Feb  4 21:00:57.0123456"),
-                    new("DateTime", DateTimeExtensions.DateTime, "2009-02-04 21:00:57"),
-                    new("DateOnly", DateTimeExtensions.DateOnly, "2009-02-04"),
-                    new("TimeOnly", DateTimeExtensions.TimeOnly, "21:00:57"),
+                    new("DateTime", DateTimeExtensions.DateTimeTs, "2009-02-04 21:00:57"),
+                    new("DateOnly", DateTimeExtensions.DateOnlyTs, "2009-02-04"),
+                    new("TimeOnly", DateTimeExtensions.TimeOnlyTs, "21:00:57"),
                     new("Dots", "2006.01.02 15:04:05.999", "2009.02.04 21:00:57.012"),
                 ]
                 );
@@ -403,6 +403,20 @@ public class DateTimeExtensionsTests(ITestOutputHelper output)
                         "201003504 21:00:57",
                         new DateTimeOffset(2010, 2, 4, 21, 0, 57, 0, TimeSpan.Zero)
                         ),
+
+                    // Time.
+                    new(
+                        "Time 1",
+                        "15:04:05",
+                        "21:00:57",
+                        new DateTimeOffset(1, 1, 1, 21, 0, 57, 0, TimeSpan.Zero)
+                        ),
+                    new(
+                        "Time 2",
+                        "03:04:05PM",
+                        "09:00:57PM",
+                        new DateTimeOffset(1, 1, 1, 21, 0, 57, 0, TimeSpan.Zero)
+                        ),
                 ]
                 );
         }
@@ -411,18 +425,11 @@ public class DateTimeExtensionsTests(ITestOutputHelper output)
     [Fact]
     public void ParseTest()
     {
-        // 201003504 21:00:57 with format yyyy"035"mm" "HH":"mm":"ss
-        // var d = DateTimeOffset.ParseExact(
-        //     "201003504 21:00:57",
-        //     "yyyy\"035\"mm\" \"HH\":\"mm\":\"ss",
-        //     CultureInfo.InvariantCulture
-        //     );
-
         ParseTestCase tc = new(
-            "Day of year 5",
-            "200600202 15:04:05",
-            "201003504 21:00:57",
-            new DateTimeOffset(2010, 2, 4, 21, 0, 57, 0, TimeSpan.Zero)
+            "Time 2",
+            "03:04:05PM",
+            "09:00:57PM",
+            new DateTimeOffset(1, 1, 1, 21, 0, 57, 0, TimeSpan.Zero)
             );
 
         var result = DateTimeExtensions.TryParse(tc.Value, tc.Format, out var date);

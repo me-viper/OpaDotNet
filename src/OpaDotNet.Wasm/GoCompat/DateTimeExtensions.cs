@@ -19,6 +19,17 @@ internal static class DateTimeExtensions
 
     public static long ToEpochNs(this DateTimeOffset d) => (d - DateTimeOffset.UnixEpoch).Ticks * TimeSpan.NanosecondsPerTick;
 
+    private static readonly DateTimeOffset MinSafeUnixDate = DateTimeOffset.UnixEpoch.AddNs(long.MinValue);
+    private static readonly DateTimeOffset MaxSafeUnixDate = DateTimeOffset.UnixEpoch.AddNs(long.MaxValue);
+
+    public static long ToSafeEpochNs(this DateTimeOffset d)
+    {
+        if (d < MinSafeUnixDate || d > MaxSafeUnixDate)
+            throw new ArgumentOutOfRangeException(nameof(d), "Date is outside of valid range");
+
+        return d.ToEpochNs();
+    }
+
     public static DateTimeOffset AddNs(this DateTimeOffset d, long ns) => d.AddTicks(ns / TimeSpan.NanosecondsPerTick);
 
     private static string[] Rfc3339Formats { get; } =
@@ -68,13 +79,13 @@ internal static class DateTimeExtensions
     internal const string Kitchen = "3:04PM";
 
     // Handy time stamps.
-    internal const string Stamp = "Jan _2 15:04:05";
-    internal const string StampMilli = "Jan _2 15:04:05.000";
-    internal const string StampMicro = "Jan _2 15:04:05.000000";
-    internal const string StampNano = "Jan _2 15:04:05.000000000";
-    internal const string DateTime = "2006-01-02 15:04:05";
-    internal const string DateOnly = "2006-01-02";
-    internal const string TimeOnly = "15:04:05";
+    internal const string StampTs = "Jan _2 15:04:05";
+    internal const string StampMilliTs = "Jan _2 15:04:05.000";
+    internal const string StampMicroTs = "Jan _2 15:04:05.000000";
+    internal const string StampNanoTs = "Jan _2 15:04:05.000000000";
+    internal const string DateTimeTs = "2006-01-02 15:04:05";
+    internal const string DateOnlyTs = "2006-01-02";
+    internal const string TimeOnlyTs = "15:04:05";
 
     private const string AnsicParse = "ddd MMM d HH:mm:ss.9999999 yyyy";
     private const string UnixDateParse = "ddd MMM _2 HH:mm:ss.9999999 MST yyyy";
@@ -216,23 +227,23 @@ internal static class DateTimeExtensions
             return TryParseRfc3339(s, DateTimeStyles.None, out result);
 
         // Known formats are pre-parsed.
-        if (layout.StartsWith(Rfc3339Nano))
+        if (layout.SequenceEqual(Rfc3339Nano))
             result = Parse(s, Rfc3339NanoParse);
-        else if (layout.StartsWith(Ansic))
+        else if (layout.SequenceEqual(Ansic))
             result = Parse(s, AnsicParse);
-        else if (layout.StartsWith(UnixDate))
+        else if (layout.SequenceEqual(UnixDate))
             result = Parse(s, UnixDateParse);
-        else if (layout.StartsWith(RubyDate))
+        else if (layout.SequenceEqual(RubyDate))
             result = Parse(s, RubyDateParse);
-        else if (layout.StartsWith(Rfc1123))
+        else if (layout.SequenceEqual(Rfc1123))
             result = Parse(s, Rfc1123Parse);
-        else if (layout.StartsWith(Rfc1123Z))
+        else if (layout.SequenceEqual(Rfc1123Z))
             result = Parse(s, Rfc1123ZParse);
-        else if (layout.StartsWith(Rfc850))
+        else if (layout.SequenceEqual(Rfc850))
             result = Parse(s, Rfc850Parse);
-        else if (layout.StartsWith(Rfc822))
+        else if (layout.SequenceEqual(Rfc822))
             result = Parse(s, Rfc822Parse);
-        else if (layout.StartsWith(Rfc822Z))
+        else if (layout.SequenceEqual(Rfc822Z))
             result = Parse(s, Rfc822ZParse);
         else
             result = Parse(s, layout, true);
@@ -240,7 +251,7 @@ internal static class DateTimeExtensions
         return true;
     }
 
-    private static DateTimeOffset Parse(ReadOnlySpan<char> s, ReadOnlySpan<char> layout, bool forceQuotes = false)
+    private static DateTimeOffset Parse(ReadOnlySpan<char> s, ReadOnlySpan<char> layout, bool customFormat = false)
     {
         scoped ValueStringBuilder formatBuilder;
 
@@ -261,20 +272,24 @@ internal static class DateTimeExtensions
         long nanoseconds = 0;
         var timeZone = TimeSpan.Zero;
         var dayOfYear = -1;
-        var hasDay = false;
-        var hasMonth = false;
+        var hasDay = !customFormat;
+        var hasMonth = !customFormat;
+        var hasYear = !customFormat;
 
         foreach (var chunk in new ChunkEnumerator(layout))
         {
             if (!chunk.Prefix.IsEmpty)
             {
-                if (forceQuotes)
+                if (customFormat)
                     formatBuilder.AppendQuoted(chunk.Prefix);
                 else
                     formatBuilder.Append(chunk.Prefix);
 
                 parseIndex += chunk.Prefix.Length;
             }
+
+            if (chunk.Fmt.StartsWith("y"))
+                hasYear = true;
 
             if (chunk.Fmt.StartsWith("d"))
                 hasDay = true;
@@ -287,7 +302,7 @@ internal static class DateTimeExtensions
             {
                 if (s[parseIndex - 1] == '.' || s[parseIndex - 1] == ',')
                 {
-                    if (forceQuotes)
+                    if (customFormat)
                     {
                         // Last char is " (quote), ^2 is separator.
                         formatBuilder[^2] = s[parseIndex - 1];
@@ -329,8 +344,17 @@ internal static class DateTimeExtensions
                 continue;
             }
 
+            if (chunk.Fmt is "pm" or "PM")
+            {
+                formatBuilder.Append("tt");
+                parseIndex += 2;
+
+                continue;
+            }
+
             if (chunk.Fmt is "_2")
             {
+                hasDay = true;
                 formatBuilder.Append('d');
                 parseIndex += 2;
 
@@ -427,6 +451,22 @@ internal static class DateTimeExtensions
             CultureInfo.InvariantCulture,
             DateTimeStyles.AllowWhiteSpaces | DateTimeStyles.AssumeUniversal,
             out var result
+            );
+
+        var year = hasYear ? result.Year : 1;
+        var month = hasMonth ? result.Month : 1;
+        var day = hasDay ? result.Day : 1;
+
+        result = new DateTimeOffset(
+            year,
+            month,
+            day,
+            result.Hour,
+            result.Minute,
+            result.Second,
+            result.Millisecond,
+            result.Microsecond,
+            result.Offset
             );
 
         if (!success)
