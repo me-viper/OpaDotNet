@@ -28,10 +28,10 @@ Bellow is the list of supported OPA built-in functions as for version v0.53.1 al
 | [time.clock](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timeclock) | :white_check_mark: | v1.0.0 |
 | [time.date](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timedate) | :white_check_mark: | v1.0.0 |
 | [time.diff](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timediff) | :white_check_mark: | v1.0.0 |
-| [time.format](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timeformat) | - | - |
+| [time.format](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timeformat) | :white_check_mark: | v2.5.0 |
 | [time.now_ns](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timenow_ns) | :white_check_mark: | v1.0.0 |
 | [time.parse_duration_ns](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timeparse_duration_ns) | :white_check_mark: | v1.1.0 |
-| [time.parse_ns](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timeparse_ns) | - | - |
+| [time.parse_ns](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timeparse_ns) | :white_check_mark: | v2.5.0 |
 | [time.parse_rfc3339_ns](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timeparse_rfc3339_ns) | :white_check_mark: | v1.1.0 |
 | [time.weekday](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-time-timeweekday) | :white_check_mark: | v1.0.0 |
 
@@ -131,7 +131,7 @@ Bellow is the list of supported OPA built-in functions as for version v0.53.1 al
 
 | Function   | Status             | OpaDotNet version  |
 |------------|--------------------|--------------------|
-| [graph.reachable_paths](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-graph-graphreachable_paths) | - | - |
+| [graph.reachable_paths](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-graph-graphreachable_paths) | :white_check_mark: | v2.5.0 |
 
 ## GraphQL
 
