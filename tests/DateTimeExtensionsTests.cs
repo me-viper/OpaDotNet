@@ -448,10 +448,6 @@ public class DateTimeExtensionsTests(ITestOutputHelper output)
         Assert.Equal(tc.Expected, date);
     }
 
-    [Fact]
-    public void ParseSecondsTimeZone()
-    {}
-
     public static IEnumerable<object[]> TimeZoneAbbrCases()
     {
         foreach (var abbr in TimeZoneInfoExtensions.ZoneAbbreviations)
