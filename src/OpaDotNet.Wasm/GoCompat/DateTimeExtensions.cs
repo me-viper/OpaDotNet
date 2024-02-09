@@ -453,24 +453,23 @@ internal static class DateTimeExtensions
             out var result
             );
 
-        var year = hasYear ? result.Year : 1;
-        var month = hasMonth ? result.Month : 1;
-        var day = hasDay ? result.Day : 1;
-
-        result = new DateTimeOffset(
-            year,
-            month,
-            day,
-            result.Hour,
-            result.Minute,
-            result.Second,
-            result.Millisecond,
-            result.Microsecond,
-            result.Offset
-            );
-
         if (!success)
             throw new FormatException($"Failed to parse {s} with format {formatBuilder.AsSpan()}");
+
+        if (!hasYear || !hasMonth || !hasDay)
+        {
+            result = new DateTimeOffset(
+                hasYear ? result.Year : 1,
+                hasMonth ? result.Month : 1,
+                hasDay ? result.Day : 1,
+                result.Hour,
+                result.Minute,
+                result.Second,
+                result.Millisecond,
+                result.Microsecond,
+                result.Offset
+                );
+        }
 
         if (dayOfYear > 0)
         {
