@@ -49,6 +49,9 @@ fsharp_max_infix_operator_expression = 10
 fsharp_multi_line_lambda_closing_newline = true
 
 [*.{cs,vb}]
+
+dotnet_public_api_analyzer.require_api_files = true
+
 #### Naming styles ####
 
 # Naming rules
