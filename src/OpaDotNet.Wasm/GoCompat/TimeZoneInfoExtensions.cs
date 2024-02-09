@@ -72,27 +72,18 @@ internal static class TimeZoneInfoExtensions
     public static TimeSpan FindSystemTimeZoneUtcOffset(string zoneId)
     {
 #if NET8_0_OR_GREATER
-        TimeZoneInfo? result;
+        if (ZoneAbbreviations.TryGetValue(zoneId, out var abbr))
+            zoneId = abbr;
 
-        if (TimeZoneInfo.TryFindSystemTimeZoneById(zoneId, out result))
-            return result.BaseUtcOffset;
-
-        if (ZoneAbbreviations.TryGetValue(zoneId, out var abbr) && TimeZoneInfo.TryFindSystemTimeZoneById(abbr, out result))
+        if (TimeZoneInfo.TryFindSystemTimeZoneById(zoneId, out var result))
             return result.BaseUtcOffset;
 
         throw new TimeZoneNotFoundException($"The time zone ID '{zoneId}' was not found on the local computer.");
 #else
-        try
-        {
-            return TimeZoneInfo.FindSystemTimeZoneById(zoneId).BaseUtcOffset;
-        }
-        catch (TimeZoneNotFoundException)
-        {
-            if (ZoneAbbreviations.TryGetValue(zoneId, out var abbr))
-                return TimeZoneInfo.FindSystemTimeZoneById(abbr).BaseUtcOffset;
+        if (ZoneAbbreviations.TryGetValue(zoneId, out var abbr))
+            zoneId = abbr;
 
-            throw;
-        }
+        return TimeZoneInfo.FindSystemTimeZoneById(zoneId).BaseUtcOffset;
 #endif
     }
 

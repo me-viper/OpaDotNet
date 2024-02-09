@@ -85,10 +85,26 @@ public class Dates
 
     [Benchmark]
     [BenchmarkCategory("Parse")]
-    public DateTimeOffset ParseCustom()
+    public DateTimeOffset ParseCustomTzPst()
     {
         var success = DateTimeExtensions.TryParse(
             "Thursday, 10.February.04 05:00:57.012 PST",
+            "Monday, 06.January.02 15:04:05.999 MST",
+            out var result
+            );
+
+        if (!success)
+            throw new InvalidOperationException("Failed");
+
+        return result;
+    }
+
+    [Benchmark]
+    [BenchmarkCategory("Parse")]
+    public DateTimeOffset ParseCustomTzAmericaLa()
+    {
+        var success = DateTimeExtensions.TryParse(
+            "Thursday, 10.February.04 05:00:57.012 America/Los_Angeles",
             "Monday, 06.January.02 15:04:05.999 MST",
             out var result
             );
