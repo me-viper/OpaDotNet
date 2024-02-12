@@ -97,7 +97,8 @@ Class ClaimPolicyInput
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public record ClaimPolicyInput : IEquatable&lt;ClaimPolicyInput&gt;</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonConverter(typeof(ClaimPolicyInputJsonSerializer))]
+public record ClaimPolicyInput : IEquatable&lt;ClaimPolicyInput&gt;</code></pre>
   </div>
 
 

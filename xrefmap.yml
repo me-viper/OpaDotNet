@@ -1822,6 +1822,21 @@ references:
   commentId: T:OpaDotNet.Extensions.AspNetCore.IHttpRequestPolicyInput
   fullName: OpaDotNet.Extensions.AspNetCore.IHttpRequestPolicyInput
   nameWithType: IHttpRequestPolicyInput
+- uid: OpaDotNet.Extensions.AspNetCore.IHttpRequestPolicyInput.Build(Microsoft.AspNetCore.Http.HttpRequest,System.Collections.Generic.IReadOnlySet{System.String},System.Collections.Generic.IEnumerable{System.Security.Claims.Claim})
+  name: Build(HttpRequest, IReadOnlySet<string>, IEnumerable<Claim>?)
+  href: api/OpaDotNet.Extensions.AspNetCore.IHttpRequestPolicyInput.html#OpaDotNet_Extensions_AspNetCore_IHttpRequestPolicyInput_Build_Microsoft_AspNetCore_Http_HttpRequest_System_Collections_Generic_IReadOnlySet_System_String__System_Collections_Generic_IEnumerable_System_Security_Claims_Claim__
+  commentId: M:OpaDotNet.Extensions.AspNetCore.IHttpRequestPolicyInput.Build(Microsoft.AspNetCore.Http.HttpRequest,System.Collections.Generic.IReadOnlySet{System.String},System.Collections.Generic.IEnumerable{System.Security.Claims.Claim})
+  name.vb: Build(HttpRequest, IReadOnlySet(Of String), IEnumerable(Of Claim))
+  fullName: OpaDotNet.Extensions.AspNetCore.IHttpRequestPolicyInput.Build(Microsoft.AspNetCore.Http.HttpRequest, System.Collections.Generic.IReadOnlySet<string>, System.Collections.Generic.IEnumerable<System.Security.Claims.Claim>?)
+  fullName.vb: OpaDotNet.Extensions.AspNetCore.IHttpRequestPolicyInput.Build(Microsoft.AspNetCore.Http.HttpRequest, System.Collections.Generic.IReadOnlySet(Of String), System.Collections.Generic.IEnumerable(Of System.Security.Claims.Claim))
+  nameWithType: IHttpRequestPolicyInput.Build(HttpRequest, IReadOnlySet<string>, IEnumerable<Claim>?)
+  nameWithType.vb: IHttpRequestPolicyInput.Build(HttpRequest, IReadOnlySet(Of String), IEnumerable(Of Claim))
+- uid: OpaDotNet.Extensions.AspNetCore.IHttpRequestPolicyInput.Build*
+  name: Build
+  href: api/OpaDotNet.Extensions.AspNetCore.IHttpRequestPolicyInput.html#OpaDotNet_Extensions_AspNetCore_IHttpRequestPolicyInput_Build_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.IHttpRequestPolicyInput.Build
+  fullName: OpaDotNet.Extensions.AspNetCore.IHttpRequestPolicyInput.Build
+  nameWithType: IHttpRequestPolicyInput.Build
 - uid: OpaDotNet.Extensions.AspNetCore.IHttpRequestPolicyInput.Claims
   name: Claims
   href: api/OpaDotNet.Extensions.AspNetCore.IHttpRequestPolicyInput.html#OpaDotNet_Extensions_AspNetCore_IHttpRequestPolicyInput_Claims
@@ -2119,6 +2134,18 @@ references:
   commentId: Overload:OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.AllowedHeaders
   fullName: OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.AllowedHeaders
   nameWithType: OpaAuthorizationOptions.AllowedHeaders
+- uid: OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.AuthenticationSchemes
+  name: AuthenticationSchemes
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.html#OpaDotNet_Extensions_AspNetCore_OpaAuthorizationOptions_AuthenticationSchemes
+  commentId: P:OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.AuthenticationSchemes
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.AuthenticationSchemes
+  nameWithType: OpaAuthorizationOptions.AuthenticationSchemes
+- uid: OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.AuthenticationSchemes*
+  name: AuthenticationSchemes
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.html#OpaDotNet_Extensions_AspNetCore_OpaAuthorizationOptions_AuthenticationSchemes_
+  commentId: Overload:OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.AuthenticationSchemes
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.AuthenticationSchemes
+  nameWithType: OpaAuthorizationOptions.AuthenticationSchemes
 - uid: OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.EngineOptions
   name: EngineOptions
   href: api/OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.html#OpaDotNet_Extensions_AspNetCore_OpaAuthorizationOptions_EngineOptions
@@ -2635,15 +2662,24 @@ references:
   commentId: T:OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider
   fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider
   nameWithType: OpaPolicyProvider
-- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.#ctor(Microsoft.Extensions.Options.IOptions{Microsoft.AspNetCore.Authorization.AuthorizationOptions})
-  name: OpaPolicyProvider(IOptions<AuthorizationOptions>)
-  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyProvider__ctor_Microsoft_Extensions_Options_IOptions_Microsoft_AspNetCore_Authorization_AuthorizationOptions__
-  commentId: M:OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.#ctor(Microsoft.Extensions.Options.IOptions{Microsoft.AspNetCore.Authorization.AuthorizationOptions})
-  name.vb: New(IOptions(Of AuthorizationOptions))
-  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.OpaPolicyProvider(Microsoft.Extensions.Options.IOptions<Microsoft.AspNetCore.Authorization.AuthorizationOptions>)
-  fullName.vb: OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.New(Microsoft.Extensions.Options.IOptions(Of Microsoft.AspNetCore.Authorization.AuthorizationOptions))
-  nameWithType: OpaPolicyProvider.OpaPolicyProvider(IOptions<AuthorizationOptions>)
-  nameWithType.vb: OpaPolicyProvider.New(IOptions(Of AuthorizationOptions))
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.#ctor(Microsoft.Extensions.Options.IOptions{Microsoft.AspNetCore.Authorization.AuthorizationOptions},Microsoft.Extensions.Options.IOptions{OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions})
+  name: OpaPolicyProvider(IOptions<AuthorizationOptions>, IOptions<OpaAuthorizationOptions>)
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyProvider__ctor_Microsoft_Extensions_Options_IOptions_Microsoft_AspNetCore_Authorization_AuthorizationOptions__Microsoft_Extensions_Options_IOptions_OpaDotNet_Extensions_AspNetCore_OpaAuthorizationOptions__
+  commentId: M:OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.#ctor(Microsoft.Extensions.Options.IOptions{Microsoft.AspNetCore.Authorization.AuthorizationOptions},Microsoft.Extensions.Options.IOptions{OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions})
+  name.vb: New(IOptions(Of AuthorizationOptions), IOptions(Of OpaAuthorizationOptions))
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.OpaPolicyProvider(Microsoft.Extensions.Options.IOptions<Microsoft.AspNetCore.Authorization.AuthorizationOptions>, Microsoft.Extensions.Options.IOptions<OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions>)
+  fullName.vb: OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.New(Microsoft.Extensions.Options.IOptions(Of Microsoft.AspNetCore.Authorization.AuthorizationOptions), Microsoft.Extensions.Options.IOptions(Of OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions))
+  nameWithType: OpaPolicyProvider.OpaPolicyProvider(IOptions<AuthorizationOptions>, IOptions<OpaAuthorizationOptions>)
+  nameWithType.vb: OpaPolicyProvider.New(IOptions(Of AuthorizationOptions), IOptions(Of OpaAuthorizationOptions))
+- uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.#ctor(Microsoft.Extensions.Options.IOptions{Microsoft.AspNetCore.Authorization.AuthorizationOptions},Microsoft.Extensions.Options.IOptions{OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions},Microsoft.AspNetCore.Authorization.IAuthorizationPolicyProvider)
+  name: OpaPolicyProvider(IOptions<AuthorizationOptions>, IOptions<OpaAuthorizationOptions>, IAuthorizationPolicyProvider)
+  href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyProvider__ctor_Microsoft_Extensions_Options_IOptions_Microsoft_AspNetCore_Authorization_AuthorizationOptions__Microsoft_Extensions_Options_IOptions_OpaDotNet_Extensions_AspNetCore_OpaAuthorizationOptions__Microsoft_AspNetCore_Authorization_IAuthorizationPolicyProvider_
+  commentId: M:OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.#ctor(Microsoft.Extensions.Options.IOptions{Microsoft.AspNetCore.Authorization.AuthorizationOptions},Microsoft.Extensions.Options.IOptions{OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions},Microsoft.AspNetCore.Authorization.IAuthorizationPolicyProvider)
+  name.vb: New(IOptions(Of AuthorizationOptions), IOptions(Of OpaAuthorizationOptions), IAuthorizationPolicyProvider)
+  fullName: OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.OpaPolicyProvider(Microsoft.Extensions.Options.IOptions<Microsoft.AspNetCore.Authorization.AuthorizationOptions>, Microsoft.Extensions.Options.IOptions<OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions>, Microsoft.AspNetCore.Authorization.IAuthorizationPolicyProvider)
+  fullName.vb: OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.New(Microsoft.Extensions.Options.IOptions(Of Microsoft.AspNetCore.Authorization.AuthorizationOptions), Microsoft.Extensions.Options.IOptions(Of OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions), Microsoft.AspNetCore.Authorization.IAuthorizationPolicyProvider)
+  nameWithType: OpaPolicyProvider.OpaPolicyProvider(IOptions<AuthorizationOptions>, IOptions<OpaAuthorizationOptions>, IAuthorizationPolicyProvider)
+  nameWithType.vb: OpaPolicyProvider.New(IOptions(Of AuthorizationOptions), IOptions(Of OpaAuthorizationOptions), IAuthorizationPolicyProvider)
 - uid: OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.#ctor*
   name: OpaPolicyProvider
   href: api/OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.html#OpaDotNet_Extensions_AspNetCore_OpaPolicyProvider__ctor_

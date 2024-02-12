@@ -156,8 +156,8 @@ Class OpaPolicyProvider
 
   <a id="OpaDotNet_Extensions_AspNetCore_OpaPolicyProvider__ctor_" data-uid="OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.#ctor*"></a>
 
-  <h3 id="OpaDotNet_Extensions_AspNetCore_OpaPolicyProvider__ctor_Microsoft_Extensions_Options_IOptions_Microsoft_AspNetCore_Authorization_AuthorizationOptions__" data-uid="OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.#ctor(Microsoft.Extensions.Options.IOptions{Microsoft.AspNetCore.Authorization.AuthorizationOptions})">
-  OpaPolicyProvider(IOptions&lt;AuthorizationOptions&gt;)
+  <h3 id="OpaDotNet_Extensions_AspNetCore_OpaPolicyProvider__ctor_Microsoft_Extensions_Options_IOptions_Microsoft_AspNetCore_Authorization_AuthorizationOptions__Microsoft_Extensions_Options_IOptions_OpaDotNet_Extensions_AspNetCore_OpaAuthorizationOptions__" data-uid="OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.#ctor(Microsoft.Extensions.Options.IOptions{Microsoft.AspNetCore.Authorization.AuthorizationOptions},Microsoft.Extensions.Options.IOptions{OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions})">
+  OpaPolicyProvider(IOptions&lt;AuthorizationOptions&gt;, IOptions&lt;OpaAuthorizationOptions&gt;)
   
   </h3>
 
@@ -165,12 +165,49 @@ Class OpaPolicyProvider
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public OpaPolicyProvider(IOptions&lt;AuthorizationOptions&gt; options)</code></pre>
+    <pre><code class="lang-csharp hljs">public OpaPolicyProvider(IOptions&lt;AuthorizationOptions&gt; options, IOptions&lt;OpaAuthorizationOptions&gt; opaOptions)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>options</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1">IOptions</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.authorization.authorizationoptions">AuthorizationOptions</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>opaOptions</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1">IOptions</a>&lt;<a class="xref" href="OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.html">OpaAuthorizationOptions</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="OpaDotNet_Extensions_AspNetCore_OpaPolicyProvider__ctor_" data-uid="OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.#ctor*"></a>
+
+  <h3 id="OpaDotNet_Extensions_AspNetCore_OpaPolicyProvider__ctor_Microsoft_Extensions_Options_IOptions_Microsoft_AspNetCore_Authorization_AuthorizationOptions__Microsoft_Extensions_Options_IOptions_OpaDotNet_Extensions_AspNetCore_OpaAuthorizationOptions__Microsoft_AspNetCore_Authorization_IAuthorizationPolicyProvider_" data-uid="OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.#ctor(Microsoft.Extensions.Options.IOptions{Microsoft.AspNetCore.Authorization.AuthorizationOptions},Microsoft.Extensions.Options.IOptions{OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions},Microsoft.AspNetCore.Authorization.IAuthorizationPolicyProvider)">
+  OpaPolicyProvider(IOptions&lt;AuthorizationOptions&gt;, IOptions&lt;OpaAuthorizationOptions&gt;, IAuthorizationPolicyProvider)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public OpaPolicyProvider(IOptions&lt;AuthorizationOptions&gt; options, IOptions&lt;OpaAuthorizationOptions&gt; opaOptions, IAuthorizationPolicyProvider defaultProvider)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>options</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1">IOptions</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.authorization.authorizationoptions">AuthorizationOptions</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>opaOptions</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1">IOptions</a>&lt;<a class="xref" href="OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.html">OpaAuthorizationOptions</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>defaultProvider</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.authorization.iauthorizationpolicyprovider">IAuthorizationPolicyProvider</a></dt>
     <dd></dd>
   </dl>
 
