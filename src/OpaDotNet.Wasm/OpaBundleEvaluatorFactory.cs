@@ -1,4 +1,6 @@
-﻿namespace OpaDotNet.Wasm;
+﻿using OpaDotNet.Wasm.Internal;
+
+namespace OpaDotNet.Wasm;
 
 /// <summary>
 /// A factory abstraction for a component that can create <see cref="IOpaEvaluator"/> instances from OPA policy bundle.
@@ -37,7 +39,7 @@ public sealed class OpaBundleEvaluatorFactory : OpaEvaluatorFactory
 
         try
         {
-            policy = TarGzHelper.ReadBundle(bundleStream);
+            policy = TarGzHelper.ReadBundleAndValidate(bundleStream, options.SignatureValidation);
 
             if (policy == null)
                 throw new OpaRuntimeException("Failed to unpack policy bundle");
@@ -65,7 +67,7 @@ public sealed class OpaBundleEvaluatorFactory : OpaEvaluatorFactory
             if (!di.Exists)
                 throw new DirectoryNotFoundException($"Directory {di.FullName} was not found");
 
-            var path = TarGzHelper.UnpackBundle(bundleStream, di);
+            var path = TarGzHelper.UnpackBundle(bundleStream, di, options.SignatureValidation);
 
             var policyFile = new FileInfo(Path.Combine(path.FullName, "policy.wasm"));
 

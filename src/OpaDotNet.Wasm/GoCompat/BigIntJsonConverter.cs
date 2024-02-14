@@ -5,7 +5,7 @@ namespace OpaDotNet.Wasm.GoCompat;
 
 internal class BigIntJsonConverter : JsonConverter<BigIntJson>
 {
-    public override BigIntJson? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override BigIntJson Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         throw new NotImplementedException();
     }

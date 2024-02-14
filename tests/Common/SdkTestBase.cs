@@ -80,6 +80,7 @@ public class SdkTestBase(ITestOutputHelper output) : OpaTestBase(output)
         {
             SerializationOptions = DefaultJsonOptions,
             StrictBuiltinErrors = strictErrors,
+            SignatureValidation = new() { Validation = SignatureValidationType.Skip },
         };
 
         using var eval = await Build(src, "sdk", options: opts);
@@ -94,7 +95,11 @@ public class SdkTestBase(ITestOutputHelper output) : OpaTestBase(output)
     {
         var policy = await CompileSource(source, new[] { entrypoint });
 
-        var engineOpts = options ?? new WasmPolicyEngineOptions { SerializationOptions = DefaultJsonOptions };
+        var engineOpts = options ?? new WasmPolicyEngineOptions
+        {
+            SerializationOptions = DefaultJsonOptions,
+            SignatureValidation = new() { Validation = SignatureValidationType.Skip },
+        };
 
         var factory = new OpaBundleEvaluatorFactory(
             policy,

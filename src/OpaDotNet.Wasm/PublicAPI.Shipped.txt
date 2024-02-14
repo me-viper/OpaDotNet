@@ -64,6 +64,33 @@ OpaDotNet.Wasm.PolicyEvaluationResult<T>.Result.set -> void
 OpaDotNet.Wasm.RegoValueFormat
 OpaDotNet.Wasm.RegoValueFormat.Json = 0 -> OpaDotNet.Wasm.RegoValueFormat
 OpaDotNet.Wasm.RegoValueFormat.Value = 1 -> OpaDotNet.Wasm.RegoValueFormat
+OpaDotNet.Wasm.SignatureValidationOptions
+OpaDotNet.Wasm.SignatureValidationOptions.ExcludeFiles.get -> System.Collections.Generic.IReadOnlySet<string!>!
+OpaDotNet.Wasm.SignatureValidationOptions.ExcludeFiles.init -> void
+OpaDotNet.Wasm.SignatureValidationOptions.SignatureValidationOptions() -> void
+OpaDotNet.Wasm.SignatureValidationOptions.SigningAlgorithm.get -> string!
+OpaDotNet.Wasm.SignatureValidationOptions.SigningAlgorithm.init -> void
+OpaDotNet.Wasm.SignatureValidationOptions.Validation.get -> OpaDotNet.Wasm.SignatureValidationType
+OpaDotNet.Wasm.SignatureValidationOptions.Validation.init -> void
+OpaDotNet.Wasm.SignatureValidationOptions.VerificationKey.get -> string?
+OpaDotNet.Wasm.SignatureValidationOptions.VerificationKey.init -> void
+OpaDotNet.Wasm.SignatureValidationOptions.VerificationKeyId.get -> string!
+OpaDotNet.Wasm.SignatureValidationOptions.VerificationKeyId.init -> void
+OpaDotNet.Wasm.SignatureValidationOptions.VerificationKeyPath.get -> string?
+OpaDotNet.Wasm.SignatureValidationOptions.VerificationKeyPath.init -> void
+OpaDotNet.Wasm.SignatureValidationType
+OpaDotNet.Wasm.SignatureValidationType.Default = 0 -> OpaDotNet.Wasm.SignatureValidationType
+OpaDotNet.Wasm.SignatureValidationType.Required = 2 -> OpaDotNet.Wasm.SignatureValidationType
+OpaDotNet.Wasm.SignatureValidationType.Skip = 1 -> OpaDotNet.Wasm.SignatureValidationType
+OpaDotNet.Wasm.Validation.BundleChecksumValidationException
+OpaDotNet.Wasm.Validation.BundleChecksumValidationException.Actual.get -> string!
+OpaDotNet.Wasm.Validation.BundleChecksumValidationException.Alg.get -> string?
+OpaDotNet.Wasm.Validation.BundleChecksumValidationException.BundleChecksumValidationException(string! fileName, string? alg, string? expected, string! actual) -> void
+OpaDotNet.Wasm.Validation.BundleChecksumValidationException.Expected.get -> string?
+OpaDotNet.Wasm.Validation.BundleChecksumValidationException.FileName.get -> string!
+OpaDotNet.Wasm.Validation.BundleSignatureValidationException
+OpaDotNet.Wasm.Validation.BundleSignatureValidationException.BundleSignatureValidationException(string? message, System.Exception? innerException) -> void
+OpaDotNet.Wasm.Validation.BundleSignatureValidationException.BundleSignatureValidationException(string? message) -> void
 OpaDotNet.Wasm.WasmPolicyEngineOptions
 OpaDotNet.Wasm.WasmPolicyEngineOptions.CachePath.get -> string?
 OpaDotNet.Wasm.WasmPolicyEngineOptions.CachePath.init -> void
@@ -75,6 +102,8 @@ OpaDotNet.Wasm.WasmPolicyEngineOptions.MinMemoryPages.get -> long
 OpaDotNet.Wasm.WasmPolicyEngineOptions.MinMemoryPages.init -> void
 OpaDotNet.Wasm.WasmPolicyEngineOptions.SerializationOptions.get -> System.Text.Json.JsonSerializerOptions!
 OpaDotNet.Wasm.WasmPolicyEngineOptions.SerializationOptions.init -> void
+OpaDotNet.Wasm.WasmPolicyEngineOptions.SignatureValidation.get -> OpaDotNet.Wasm.SignatureValidationOptions!
+OpaDotNet.Wasm.WasmPolicyEngineOptions.SignatureValidation.init -> void
 OpaDotNet.Wasm.WasmPolicyEngineOptions.StrictBuiltinErrors.get -> bool
 OpaDotNet.Wasm.WasmPolicyEngineOptions.StrictBuiltinErrors.init -> void
 OpaDotNet.Wasm.WasmPolicyEngineOptions.WasmPolicyEngineOptions() -> void

@@ -6,6 +6,4 @@ namespace OpaDotNet.Wasm.Features;
 /// Exposes ABI version dependent feature.
 /// </summary>
 [PublicAPI]
-public interface IOpaEvaluatorFeature
-{
-}
+public interface IOpaEvaluatorFeature;

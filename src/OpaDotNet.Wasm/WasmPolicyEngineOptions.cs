@@ -1,5 +1,7 @@
 ﻿using System.Text.Encodings.Web;
 
+using JetBrains.Annotations;
+
 using OpaDotNet.Wasm.Rego;
 
 namespace OpaDotNet.Wasm;
@@ -7,6 +9,7 @@ namespace OpaDotNet.Wasm;
 /// <summary>
 /// Contains members that affect OPA policy engine configuration.
 /// </summary>
+[PublicAPI]
 public class WasmPolicyEngineOptions
 {
     /// <summary>
@@ -61,6 +64,11 @@ public class WasmPolicyEngineOptions
     /// If <c>true</c> errors in built-in functions will be threaded as exceptions that halt policy evaluation.
     /// </summary>
     public bool StrictBuiltinErrors { get; init; }
+
+    /// <summary>
+    /// OPA bundle signature validation options.
+    /// </summary>
+    public SignatureValidationOptions SignatureValidation { get; init; } = new();
 
     /// <summary>
     /// JSON serialization options.
