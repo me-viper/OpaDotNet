@@ -6,7 +6,7 @@ using OpaDotNet.Wasm;
 
 namespace OpaDotNet.Benchmarks;
 
-[MemoryDiagnoser]
+[Config(typeof(Config))]
 public class Factory
 {
     private record Input

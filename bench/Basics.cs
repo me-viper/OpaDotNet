@@ -2,11 +2,12 @@
 
 using BenchmarkDotNet.Attributes;
 
+using OpaDotNet.Benchmarks.Exporters;
 using OpaDotNet.Wasm;
 
 namespace OpaDotNet.Benchmarks;
 
-[MemoryDiagnoser]
+[Config(typeof(Config))]
 public class Basics
 {
     private IOpaEvaluator _engine = default!;

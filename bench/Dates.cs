@@ -4,7 +4,7 @@ using OpaDotNet.Wasm.GoCompat;
 
 namespace OpaDotNet.Benchmarks;
 
-[MemoryDiagnoser]
+[Config(typeof(Config))]
 public class Dates
 {
     private static readonly DateTimeOffset TheDate = TimeZoneInfo.ConvertTime(
