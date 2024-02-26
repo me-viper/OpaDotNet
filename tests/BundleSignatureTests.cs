@@ -38,6 +38,44 @@ public class BundleSignatureTests(ITestOutputHelper output) : OpaTestBase(output
     public virtual string? CachePath { get; }
 
     [Fact]
+    public void DefaultValidatorAlgMismatch()
+    {
+        using var sigFile = File.OpenRead(SigPath);
+        var sig = JsonSerializer.Deserialize<BundleSignatures>(sigFile);
+
+        Assert.NotNull(sig);
+
+        var opts = new SignatureValidationOptions
+        {
+            SigningAlgorithm = "RS512",
+            VerificationKeyPath = Path.Combine(BasePath, "rsa_pub.pem"),
+        };
+
+        var validator = new DefaultBundleSignatureValidator();
+
+        Assert.Throws<BundleSignatureValidationException>(() => validator.Validate(sig, opts));
+    }
+
+    [Fact]
+    public void DefaultValidatorKidMismatch()
+    {
+        using var sigFile = File.OpenRead(SigPath);
+        var sig = JsonSerializer.Deserialize<BundleSignatures>(sigFile);
+
+        Assert.NotNull(sig);
+
+        var opts = new SignatureValidationOptions
+        {
+            VerificationKeyId = "wrong",
+            VerificationKeyPath = Path.Combine(BasePath, "rsa_pub.pem"),
+        };
+
+        var validator = new DefaultBundleSignatureValidator();
+
+        Assert.Throws<BundleSignatureValidationException>(() => validator.Validate(sig, opts));
+    }
+
+    [Fact]
     public void DefaultValidator()
     {
         using var sigFile = File.OpenRead(SigPath);

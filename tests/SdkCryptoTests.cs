@@ -38,7 +38,6 @@ public class SdkCryptoTests(ITestOutputHelper output) : SdkTestBase(output)
         -----END CERTIFICATE-----
         """;
 
-
     private const string IntermediateCa = """
         -----BEGIN CERTIFICATE-----
         MIIByDCCAW6gAwIBAgIQC0k4DPGrh9me73EJX5zntTAKBggqhkjOPQQDAjAuMREw
@@ -172,6 +171,35 @@ public class SdkCryptoTests(ITestOutputHelper output) : SdkTestBase(output)
 
     private const string Mixed = $"{RootCa}\n{IntermediateCa}\n{Leaf}\n{KeyPemEc}";
     private const string MixedTwoKeys = $"{RootCa}\n{IntermediateCa}\n{Leaf}\n{KeyPemEc}\n{RsaPrivateKey}";
+
+    [Theory]
+    [InlineData(new[] { RootCa, IntermediateCa, Leaf }, false, true)]
+    [InlineData(new[] { RootCa, IntermediateCa, Leaf }, true, true)]
+    public async Task ParseCert(string[] certs, bool isb64, bool isValid)
+    {
+        var chain = string.Join('\n', certs);
+
+        if (isb64)
+            chain = Convert.ToBase64String(Encoding.UTF8.GetBytes(chain));
+
+        var countCerts = isValid ? "count(actual) == 3" : "count(actual) == 0";
+
+        var src = $$"""
+            import future.keywords.if
+
+            chain := `{{chain}}`
+
+            assert if {
+                print(actual)
+                {{countCerts}}
+            }
+
+            actual := crypto.x509.parse_certificates(chain)
+            """;
+
+        var result = await BuildAndEvaluate(src, new TestCaseResult());
+        Assert.True(result.Assert);
+    }
 
     [Theory]
     [InlineData(new[] { RootCa, IntermediateCa, Leaf }, false, true)]
