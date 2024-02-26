@@ -15,9 +15,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: 'Qodana Setup'
+        shell: pwsh
+        run: ./qodana.ps1 -SkipScan
 
       - name: 'Qodana Scan'
-        shell: pwsh
-        run: ./build.ps1 -Token $QODANA_TOKEN -Image 'jetbrains/qodana-cdnet:2023.3-eap'
+        uses: JetBrains/qodana-action@v2023.3
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
+        with:
+          args: --linter,qodana-cdnet:2023.3-eap,--solution,qodana.sln
