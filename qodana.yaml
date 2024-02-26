@@ -1,5 +1,8 @@
 version: 1.0
 linter: jetbrains/qodana-cdnet:2023.3-eap
+dotnet:
+  configuration: Release
+
 # profile:
 #   name: qodana.recommended
 # exclude:
