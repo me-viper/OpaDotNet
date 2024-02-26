@@ -27,4 +27,4 @@ jobs:
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
         with:
-          args: --linter,qodana-cdnet:2023.3-eap,--solution,qodana.sln
+          args: --solution,qodana.sln
