@@ -10,6 +10,8 @@ using JetBrains.Annotations;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 
+using OpaDotNet.Wasm.Internal;
+
 namespace OpaDotNet.Wasm;
 
 public partial class DefaultOpaImportsAbi
@@ -85,27 +87,8 @@ public partial class DefaultOpaImportsAbi
             if (string.IsNullOrWhiteSpace(constraints.Cert))
                 return null;
 
-            if (constraints.Cert.IndexOf("-----BEGIN CERTIFICATE", StringComparison.Ordinal) >= 0)
-            {
-                var cert = X509Certificate2.CreateFromPem(constraints.Cert);
-
-                SecurityKey k;
-
-                if (cert.GetECDsaPublicKey() != null)
-                    k = new ECDsaSecurityKey(cert.GetECDsaPublicKey());
-                else if (cert.GetRSAPublicKey() != null)
-                    k = new RsaSecurityKey(cert.GetRSAPublicKey());
-                else
-                    k = new X509SecurityKey(cert);
-
-                result.IssuerSigningKey = k;
-            }
-            else if (constraints.Cert.IndexOf("-----BEGIN", StringComparison.Ordinal) >= 0)
-            {
-                var rsa = RSA.Create();
-                rsa.ImportFromPem(constraints.Cert);
-                result.IssuerSigningKey = new RsaSecurityKey(rsa);
-            }
+            if (SecurityKeyHelpers.TryReadPemKey(constraints.Cert, out var key))
+                result.IssuerSigningKey = key;
             else
             {
                 var jwks = new JsonWebKeySet(constraints.Cert);
