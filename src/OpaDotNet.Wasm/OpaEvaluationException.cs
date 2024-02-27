@@ -22,9 +22,4 @@ public class OpaEvaluationException : OpaRuntimeException
 /// Thrown when we need to abort rule evaluation and force it to return default result.
 /// </summary>
 [ExcludeFromCodeCoverage]
-internal class OpaEvaluationAbortedException : OpaEvaluationException
-{
-    public OpaEvaluationAbortedException(string? message) : base(message)
-    {
-    }
-}
+internal class OpaEvaluationAbortedException(string? message) : OpaEvaluationException(message);

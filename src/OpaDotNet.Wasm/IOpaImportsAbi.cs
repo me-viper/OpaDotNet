@@ -9,13 +9,13 @@ public interface IOpaImportsAbi
     /// Called if an internal error occurs.
     /// </summary>
     /// <param name="message">Error message.</param>
-    void Abort(string message);
+    void Abort(string message) => throw new OpaEvaluationAbortedException("Aborted: " + message);
 
     /// <summary>
     /// Called to emit a message from the policy evaluation.
     /// </summary>
     /// <param name="message">Message.</param>
-    void PrintLn(string message);
+    void PrintLn(string message) => Print([message]);
 
     /// <summary>
     /// Called to emit a message from <c>print</c> statement.

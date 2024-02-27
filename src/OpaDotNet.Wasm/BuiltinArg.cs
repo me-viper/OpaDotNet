@@ -1,3 +1,5 @@
+using System.Collections.Concurrent;
+using System.Reflection;
 using System.Text.Json.Nodes;
 
 using JetBrains.Annotations;
@@ -50,6 +52,29 @@ public class BuiltinArg
             throw new OpaEvaluationException("Argument is null");
 
         return result;
+    }
+
+    private static MethodInfo _getValue = typeof(JsonValue).GetMethod(nameof(JsonValue.GetValue))!;
+
+    private readonly ConcurrentDictionary<Type, MethodInfo> _getValueCache = new();
+
+    internal object? As(Type type, RegoValueFormat format = RegoValueFormat.Json)
+    {
+        var val = format == RegoValueFormat.Value ? Raw : RawJson;
+
+        if (val == null)
+            return null;
+
+        if (val.GetType().IsAssignableTo(type))
+            return val;
+
+        if (val is JsonValue jv)
+        {
+            var fun = _getValueCache.GetOrAdd(type, _getValue.MakeGenericMethod(type));
+            return fun.Invoke(jv, null);
+        }
+
+        return Raw.Deserialize(type, _jsonOptions);
     }
 
     /// <summary>
