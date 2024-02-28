@@ -23,7 +23,7 @@ if (-not $SkipStat) {
         mkdir $stat
     }
 
-    $semVer = $(dotnet gitversion /showvariable SemVer)
+    $semVer = $(dotnet gitversion /showvariable MajorMinorPatch)
     Write-Host $semVer
     $ver = [System.Version]::Parse($semVer)
     $verPrefix = "v{0}.{1}" -f $ver.Major, $ver.Minor

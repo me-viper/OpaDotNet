@@ -15,7 +15,7 @@ public class Imports
 
     private readonly IOpaImportsAbi _imports;
 
-    private readonly IOpaImportsAbi _default = new DefaultOpaImportsAbi();
+    private readonly IOpaImportsAbi _default = new Def();
 
     private readonly Ext _ext1 = new();
 
@@ -30,6 +30,17 @@ public class Imports
     public object Default()
     {
         var result = _ext1.Do("test");
+
+        if (result == null)
+            throw new InvalidOperationException();
+
+        return result;
+    }
+
+    [Benchmark]
+    public object Import()
+    {
+        var result = _default.Func(new() { FunctionName = "ext.do" }, Arg);
 
         if (result == null)
             throw new InvalidOperationException();
@@ -56,6 +67,33 @@ internal class Ext : IOpaImportExtension
     {
         return $"Hi {message}";
     }
+
+    public void Reset()
+    {
+    }
+}
+
+internal class Def : IOpaImportsAbi
+{
+    public void Print(IEnumerable<string> args)
+    {
+        throw new NotImplementedException();
+    }
+
+    public object? Func(BuiltinContext context)
+        => throw new NotImplementedException();
+
+    public object? Func(BuiltinContext context, BuiltinArg arg1)
+        => $"Hi {arg1.As<string>()}";
+
+    public object? Func(BuiltinContext context, BuiltinArg arg1, BuiltinArg arg2)
+        => throw new NotImplementedException();
+
+    public object? Func(BuiltinContext context, BuiltinArg arg1, BuiltinArg arg2, BuiltinArg arg3)
+        => throw new NotImplementedException();
+
+    public object? Func(BuiltinContext context, BuiltinArg arg1, BuiltinArg arg2, BuiltinArg arg3, BuiltinArg arg4)
+        => throw new NotImplementedException();
 
     public void Reset()
     {

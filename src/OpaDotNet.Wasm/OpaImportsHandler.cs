@@ -1,50 +1,9 @@
-﻿using System.Reflection;
+﻿using System.Linq.Expressions;
+using System.Reflection;
 
-namespace OpaDotNet.Wasm.Features;
+using OpaDotNet.Wasm.Features;
 
-/// <summary>
-///
-/// </summary>
-internal enum OpaImportType
-{
-    /// <summary>
-    ///
-    /// </summary>
-    Function,
-}
-
-/// <summary>
-///
-/// </summary>
-/// <param name="name"></param>
-[AttributeUsage(AttributeTargets.Method, Inherited = false)]
-internal class OpaImportAttribute(string name) : Attribute
-{
-    /// <summary>
-    ///
-    /// </summary>
-    public string Name { get; } = name;
-
-    internal string? Description { get; set; }
-
-    internal string[]? Categories { get; set; }
-
-    /// <summary>
-    ///
-    /// </summary>
-    internal OpaImportType Type { get; set; }
-}
-
-/// <summary>
-///
-/// </summary>
-internal interface IOpaImportExtension
-{
-    /// <summary>
-    ///
-    /// </summary>
-    void Reset();
-}
+namespace OpaDotNet.Wasm;
 
 internal class OpaImportsHandler : IOpaImportsAbi
 {
@@ -53,6 +12,13 @@ internal class OpaImportsHandler : IOpaImportsAbi
     private readonly IReadOnlyList<IOpaImportExtension> _imports;
 
     private readonly Dictionary<string, Func<BuiltinArg[], object?>> _importCache = new();
+
+    private static readonly MethodInfo BuildArgAsMethod = typeof(BuiltinArg)
+        .GetMethod(
+            nameof(BuiltinArg.As),
+            BindingFlags.Instance | BindingFlags.NonPublic,
+            [typeof(Type), typeof(RegoValueFormat)]
+            )!;
 
     public OpaImportsHandler(
         IOpaImportsAbi defaultImport,
@@ -98,7 +64,7 @@ internal class OpaImportsHandler : IOpaImportsAbi
                 var passJsonOptions = false;
                 var argLen = args.Length;
 
-                if (args.Length > 0)
+                if (argLen > 0)
                 {
                     if (args[^1].ParameterType.IsAssignableTo(typeof(JsonSerializerOptions)))
                     {
@@ -108,43 +74,52 @@ internal class OpaImportsHandler : IOpaImportsAbi
                 }
 
                 var name = $"{attr.Name}.{argLen}";
-                var argMapper = Map(args[..argLen]);
-                object? obj = callable.IsStatic ? null : import;
 
-                _importCache.TryAdd(
-                    name, p =>
-                    {
-                        var a = passJsonOptions ? [..argMapper(p), jsonOptions] : argMapper(p);
-                        return callable.Invoke(obj, a);
-                    }
-                    );
+                var instance = callable.IsStatic ? null : Expression.Constant(import);
+                var argsParam = Expression.Parameter(typeof(BuiltinArg[]), "args");
+
+                var argVars = new List<ParameterExpression>(argLen);
+                var bodyBlock = new List<Expression>(argLen);
+
+                for (var i = 0; i < argLen; i++)
+                {
+                    var pt = args[i].ParameterType;
+                    var argVar = Expression.Variable(pt, $"arg{i}");
+
+                    var getValFromArg = Expression.Call(
+                        Expression.ArrayAccess(argsParam, Expression.Constant(i)),
+                        BuildArgAsMethod,
+                        Expression.Constant(pt),
+                        Expression.Constant(RegoValueFormat.Json)
+                        );
+
+                    var setArg = Expression.Assign(argVar, Expression.TypeAs(getValFromArg, pt));
+
+                    argVars.Add(argVar);
+                    bodyBlock.Add(setArg);
+                }
+
+                var funcArgs = passJsonOptions
+                    ? new List<Expression>([..argVars, Expression.Constant(jsonOptions)])
+                    : argVars.Cast<Expression>();
+
+                Expression call;
+
+                if (callable.ReturnType != typeof(void))
+                    call = Expression.TypeAs(Expression.Call(instance, callable, funcArgs), typeof(object));
+                else
+                {
+                    var returnExpr = Expression.Label(Expression.Label(typeof(object)), Expression.Constant(new object()));
+                    call = Expression.Block(Expression.Call(instance, callable, funcArgs), returnExpr);
+                }
+
+                bodyBlock.Add(call);
+
+                var body = Expression.Block(argVars, bodyBlock);
+                var func = Expression.Lambda<Func<BuiltinArg[], object?>>(body, argsParam).Compile();
+
+                _importCache.TryAdd(name, func);
             }
-        }
-
-        return;
-
-        static Func<BuiltinArg[], object?[]> Map(ParameterInfo[] args)
-        {
-            var mapper = new Func<BuiltinArg, object?>[args.Length];
-
-            for (var i = 0; i < args.Length; i++)
-            {
-                var arg = args[i];
-                mapper[i] = p => p.As(arg.ParameterType);
-            }
-
-            return p =>
-            {
-                if (p.Length != mapper.Length)
-                    throw new InvalidOperationException($"Argument count mismatch. Expected {mapper.Length}, got {p.Length}");
-
-                var result = new object?[p.Length];
-
-                for (var i = 0; i < p.Length; i++)
-                    result[i] = mapper[i](p[i]);
-
-                return result;
-            };
         }
     }
 

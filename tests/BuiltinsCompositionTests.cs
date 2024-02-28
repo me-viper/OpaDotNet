@@ -45,6 +45,12 @@ public class BuiltinsCompositionTests : OpaTestBase
         var result = _imports.Func(new() { FunctionName = "ext.do_more_json_opts" }, MakeArg(input)) as bool?;
         Assert.True(result);
     }
+
+    [Fact]
+    public void DNothing()
+    {
+        _imports.Func(new() { FunctionName = "ext.do_nothing" });
+    }
 }
 
 file record DoMoreInput(string InA, int InB);
@@ -65,6 +71,12 @@ file class Ext(ILogger<Ext> logger) : IOpaImportExtension
 
     [OpaImport("ext.do_more_json_opts")]
     public static bool DoMore(DoMoreInput n, JsonSerializerOptions? opts) => opts != null;
+
+    [OpaImport("ext.do_nothing")]
+    public void DoNothing()
+    {
+        logger.LogDebug("Nothing");
+    }
 
     public void Reset()
     {
