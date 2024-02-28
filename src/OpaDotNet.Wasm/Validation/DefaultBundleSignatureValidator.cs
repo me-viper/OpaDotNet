@@ -50,8 +50,11 @@ internal class DefaultBundleSignatureValidator : IBundleSignatureValidator
             if (sig == null)
                 throw new BundleSignatureValidationException("Expected JWT token");
 
-            if (!string.Equals(sig.Header.Kid, options.VerificationKeyId, StringComparison.Ordinal))
-                throw new BundleSignatureValidationException("KeyId mismatch");
+            if (!string.IsNullOrWhiteSpace(sig.Header.Kid))
+            {
+                if (!string.Equals(sig.Header.Kid, options.VerificationKeyId, StringComparison.Ordinal))
+                    throw new BundleSignatureValidationException("KeyId mismatch");
+            }
 
             // If supplied in the payload, must match exactly the value provided out-of-band to OPA.
             if (!string.IsNullOrWhiteSpace(options.Scope))
