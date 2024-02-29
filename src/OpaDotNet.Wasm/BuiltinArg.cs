@@ -56,7 +56,7 @@ public class BuiltinArg
 
     private static MethodInfo _getValue = typeof(JsonValue).GetMethod(nameof(JsonValue.GetValue))!;
 
-    private readonly ConcurrentDictionary<Type, MethodInfo> _getValueCache = new();
+    private static readonly ConcurrentDictionary<Type, MethodInfo> GetValueCache = new();
 
     internal object? As(Type type, RegoValueFormat format = RegoValueFormat.Json)
     {
@@ -70,7 +70,7 @@ public class BuiltinArg
 
         if (val is JsonValue jv)
         {
-            var fun = _getValueCache.GetOrAdd(type, _getValue.MakeGenericMethod(type));
+            var fun = GetValueCache.GetOrAdd(type, _getValue.MakeGenericMethod(type));
             return fun.Invoke(jv, null);
         }
 

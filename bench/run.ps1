@@ -15,7 +15,7 @@ $base = "BenchmarkDotNet.Artifacts"
 $stat = "./$base/stat"
 
 if (-not $SkipBench) {
-    dotnet run -c Release --filter=$Filter @Remaining
+    dotnet run -c Release --property WarningLevel=0 --filter=$Filter @Remaining
 }
 
 if (-not $SkipStat) {

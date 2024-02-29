@@ -2,6 +2,7 @@
 
 using JetBrains.Annotations;
 
+using OpaDotNet.Wasm.Features;
 using OpaDotNet.Wasm.Rego;
 
 namespace OpaDotNet.Wasm;
@@ -69,6 +70,8 @@ public class WasmPolicyEngineOptions
     /// OPA bundle signature validation options.
     /// </summary>
     public SignatureValidationOptions SignatureValidation { get; init; } = new();
+
+    public List<Func<IOpaBuiltinsExtension>> ImportsExtensions { get; } = new();
 
     /// <summary>
     /// JSON serialization options.

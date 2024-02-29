@@ -4,59 +4,29 @@ using JetBrains.Annotations;
 
 using OpaDotNet.Tests.Common;
 using OpaDotNet.Wasm;
+using OpaDotNet.Wasm.Features;
 
 using Xunit.Abstractions;
 
 namespace OpaDotNet.Tests;
 
 [UsedImplicitly]
-public class CapabilitiesProviderTests : CustomBuiltinsTests
+public class CapabilitiesProviderTests(ITestOutputHelper output) : CustomBuiltinsTests(output)
 {
-    private readonly IOpaImportsAbi _abi;
-
-    public CapabilitiesProviderTests(ITestOutputHelper output) : base(output)
-    {
-        Options = new() { CapabilitiesVersion = "v0.53.0" };
-
-        _abi = new CustomOpaImportsAbiWithCapabilitiesProvider(
-            LoggerFactory.CreateLogger<CustomOpaImportsAbiWithCapabilitiesProvider>()
-            );
-    }
-
-    protected override IOpaImportsAbi Create() => _abi;
-
-    protected override Stream Caps()
-    {
-        if (_abi is ICapabilitiesProvider cp)
-            return cp.GetCapabilities();
-
-        throw new NotSupportedException();
-    }
+    protected override Stream Caps() => new CustomOpaImportsAbiCapabilitiesProvider().GetCapabilities();
 }
 
 [UsedImplicitly]
-public class SimpleCustomBuiltinsTests : CustomBuiltinsTests
+public class SimpleCustomBuiltinsTests(ITestOutputHelper output) : CustomBuiltinsTests(output)
 {
-    public SimpleCustomBuiltinsTests(ITestOutputHelper output) : base(output)
-    {
-    }
-
-    protected override IOpaImportsAbi Create() => new CustomOpaImportsAbi(LoggerFactory.CreateLogger<CustomOpaImportsAbi>());
-
     protected override Stream Caps() => File.OpenRead(Path.Combine(BasePath, "capabilities.json"));
 }
 
-public abstract class CustomBuiltinsTests : OpaTestBase, IAsyncLifetime
+public abstract class CustomBuiltinsTests(ITestOutputHelper output) : OpaTestBase(output), IAsyncLifetime
 {
     private IOpaEvaluator _engine = default!;
 
     protected string BasePath { get; } = Path.Combine("TestData", "custom-builtins");
-
-    protected CustomBuiltinsTests(ITestOutputHelper output) : base(output)
-    {
-    }
-
-    protected abstract IOpaImportsAbi Create();
 
     protected abstract Stream Caps();
 
@@ -64,8 +34,7 @@ public abstract class CustomBuiltinsTests : OpaTestBase, IAsyncLifetime
     {
         var policy = await CompileBundle(
             BasePath,
-            new[]
-            {
+            [
                 "custom_builtins/zero_arg",
                 "custom_builtins/one_arg",
                 "custom_builtins/one_arg_object",
@@ -74,14 +43,15 @@ public abstract class CustomBuiltinsTests : OpaTestBase, IAsyncLifetime
                 "custom_builtins/four_arg",
                 "custom_builtins/four_arg_types",
                 "custom_builtins/valid_json",
-            },
+            ],
             Caps()
             );
 
         var factory = new OpaBundleEvaluatorFactory(
             policy,
-            importsAbiFactory: Create,
-            loggerFactory: LoggerFactory
+            importsAbiFactory: () => new NotImplementedImports(),
+            loggerFactory: LoggerFactory,
+            options: new() { ImportsExtensions = { () => new CustomOpaImportsAbi(NullLogger.Instance) }}
             );
 
         _engine = factory.Create();
@@ -201,79 +171,39 @@ file record ArgObj
     public bool C { get; set; }
 }
 
-file class CustomOpaImportsAbi : DefaultOpaImportsAbi
+file class CustomOpaImportsAbi(ILogger logger) : IOpaBuiltinsExtension
 {
-    private readonly ILogger _logger;
-
-    public CustomOpaImportsAbi(ILogger<CustomOpaImportsAbi> logger)
+    public void Reset()
     {
-        _logger = logger;
     }
 
-    public override void PrintLn(string message)
-    {
-        _logger.LogDebug("{Message}", message);
-    }
+    [OpaImport("custom.zeroArgBuiltin")]
+    public static string ZeroArgBuiltin() => "hello";
 
-    public override object? Func(BuiltinContext context)
-    {
-        if (string.Equals("custom.zeroArgBuiltin", context.FunctionName, StringComparison.Ordinal))
-            return "hello";
+    [OpaImport("custom.oneArgBuiltin")]
+    public static string OneArgBuiltin(string arg1) => $"hello {arg1}";
 
-        if (string.Equals("json.valid_json", context.FunctionName, StringComparison.Ordinal))
-            throw new Exception("Should never happen");
+    [OpaImport("custom.oneArgObjectBuiltin")]
+    public static string OneArgObjectBuiltin(ArgObj arg1) => $"hello {arg1}";
 
-        return base.Func(context);
-    }
+    [OpaImport("custom.twoArgBuiltin")]
+    public static string TwoArgBuiltin(string arg1, string arg2) => $"hello {arg1} {arg2}";
 
-    public override object? Func(BuiltinContext context, BuiltinArg arg1)
-    {
-        if (string.Equals("custom.oneArgBuiltin", context.FunctionName, StringComparison.Ordinal))
-            return $"hello {arg1.AsOrNull<string>()}";
+    [OpaImport("custom.threeArgBuiltin")]
+    public static string ThreeArgBuiltin(string arg1, string arg2, string arg3)
+        => $"hello {arg1} {arg2} {arg3}";
 
-        if (string.Equals("custom.oneArgObjectBuiltin", context.FunctionName, StringComparison.Ordinal))
-            return $"hello {arg1.AsOrNull<ArgObj>()}";
+    [OpaImport("custom.fourArgBuiltin")]
+    public static string FourArgBuiltin(string arg1, string arg2, string arg3, string arg4)
+        => $"hello {arg1} {arg2} {arg3} {arg4}";
 
-        return base.Func(context, arg1);
-    }
-
-    public override object? Func(BuiltinContext context, BuiltinArg arg1, BuiltinArg arg2)
-    {
-        if (string.Equals("custom.twoArgBuiltin", context.FunctionName, StringComparison.Ordinal))
-            return $"hello {arg1.AsOrNull<string>()} {arg2.AsOrNull<string>()}";
-
-        return base.Func(context, arg1, arg2);
-    }
-
-    public override object? Func(BuiltinContext context, BuiltinArg arg1, BuiltinArg arg2, BuiltinArg arg3)
-    {
-        if (string.Equals("custom.threeArgBuiltin", context.FunctionName, StringComparison.Ordinal))
-            return $"hello {arg1.AsOrNull<string>()} {arg2.AsOrNull<string>()} {arg3.AsOrNull<string>()}";
-
-        return base.Func(context, arg1, arg2, arg3);
-    }
-
-    public override object? Func(BuiltinContext context, BuiltinArg arg1, BuiltinArg arg2, BuiltinArg arg3, BuiltinArg arg4)
-    {
-        if (string.Equals("custom.fourArgBuiltin", context.FunctionName, StringComparison.Ordinal))
-            return $"hello {arg1.AsOrNull<string>()} {arg2.AsOrNull<string>()} {arg3.AsOrNull<string>()} {arg4.AsOrNull<string>()}";
-
-        if (string.Equals("custom.fourArgTypesBuiltin", context.FunctionName, StringComparison.Ordinal))
-        {
-            return $"hello {arg1.AsOrNull<double>().ToString(CultureInfo.InvariantCulture)} " +
-                $"{arg2.As<int>()} {arg3.AsOrNull<bool>()} {arg4.AsOrNull<string?>() ?? "<null>"}";
-        }
-
-        return base.Func(context, arg1, arg2, arg3, arg4);
-    }
+    [OpaImport("custom.fourArgTypesBuiltin")]
+    public static string FourArgTypesBuiltin(double arg1, int arg2, bool? arg3, string? arg4)
+        => $"hello {arg1.ToString(CultureInfo.InvariantCulture)} {arg2} {arg3} {arg4 ?? "<null>"}";
 }
 
-file class CustomOpaImportsAbiWithCapabilitiesProvider : CustomOpaImportsAbi, ICapabilitiesProvider
+file class CustomOpaImportsAbiCapabilitiesProvider : ICapabilitiesProvider
 {
-    public CustomOpaImportsAbiWithCapabilitiesProvider(ILogger<CustomOpaImportsAbiWithCapabilitiesProvider> logger) : base(logger)
-    {
-    }
-
     public Stream GetCapabilities()
     {
         var caps = """

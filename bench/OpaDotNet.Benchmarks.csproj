@@ -6,6 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,6 +16,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\src\OpaDotNet.Wasm\OpaDotNet.Wasm.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="OpaDotNet.Benchmarks"/>
   </ItemGroup>
 
   <ItemGroup>

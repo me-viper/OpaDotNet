@@ -3,7 +3,7 @@
 /// <summary>
 ///
 /// </summary>
-internal interface IOpaImportExtension
+public interface IOpaBuiltinsExtension
 {
     /// <summary>
     ///

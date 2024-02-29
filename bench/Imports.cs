@@ -23,7 +23,7 @@ public class Imports
 
     public Imports()
     {
-        _imports = new OpaImportsHandler(_default, [_ext1], JsonSerializerOptions.Default);
+        _imports = new OpaCompositeBuiltins(_default, [_ext1], JsonSerializerOptions.Default);
     }
 
     [Benchmark(Baseline = true)]
@@ -60,7 +60,7 @@ public class Imports
     }
 }
 
-internal class Ext : IOpaImportExtension
+internal class Ext : IOpaBuiltinsExtension
 {
     [OpaImport("ext.do")]
     public string Do(string message)

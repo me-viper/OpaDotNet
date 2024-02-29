@@ -5,11 +5,11 @@ using OpaDotNet.Wasm.Features;
 
 namespace OpaDotNet.Wasm;
 
-internal class OpaImportsHandler : IOpaImportsAbi
+internal class OpaCompositeBuiltins : IOpaImportsAbi
 {
     private readonly IOpaImportsAbi _default;
 
-    private readonly IReadOnlyList<IOpaImportExtension> _imports;
+    private readonly IReadOnlyList<IOpaBuiltinsExtension> _imports;
 
     private readonly Dictionary<string, Func<BuiltinArg[], object?>> _importCache = new();
 
@@ -20,9 +20,9 @@ internal class OpaImportsHandler : IOpaImportsAbi
             [typeof(Type), typeof(RegoValueFormat)]
             )!;
 
-    public OpaImportsHandler(
+    public OpaCompositeBuiltins(
         IOpaImportsAbi defaultImport,
-        IEnumerable<IOpaImportExtension> imports,
+        IEnumerable<IOpaBuiltinsExtension> imports,
         JsonSerializerOptions jsonOptions)
     {
         ArgumentNullException.ThrowIfNull(defaultImport);
@@ -32,7 +32,7 @@ internal class OpaImportsHandler : IOpaImportsAbi
         BuildImportsCache(_imports, jsonOptions);
     }
 
-    private void BuildImportsCache(IEnumerable<IOpaImportExtension> imports, JsonSerializerOptions jsonOptions)
+    private void BuildImportsCache(IEnumerable<IOpaBuiltinsExtension> imports, JsonSerializerOptions jsonOptions)
     {
         foreach (var import in imports)
         {
@@ -44,6 +44,9 @@ internal class OpaImportsHandler : IOpaImportsAbi
 
                 if (attr == null)
                     continue;
+
+                if (callable.IsGenericMethod)
+                    throw new NotSupportedException("Generic imports are not supported");
 
                 var args = callable.GetParameters();
 
@@ -93,7 +96,7 @@ internal class OpaImportsHandler : IOpaImportsAbi
                         Expression.Constant(RegoValueFormat.Json)
                         );
 
-                    var setArg = Expression.Assign(argVar, Expression.TypeAs(getValFromArg, pt));
+                    var setArg = Expression.Assign(argVar, Expression.Convert(getValFromArg, pt));
 
                     argVars.Add(argVar);
                     bodyBlock.Add(setArg);
@@ -163,7 +166,7 @@ internal class OpaImportsHandler : IOpaImportsAbi
     }
 
     public object? Func(BuiltinContext context)
-        => TryCall(context, [], out var result) ? result : _default.Func(context);
+        => TryCall(context, Array.Empty<BuiltinArg>(), out var result) ? result : _default.Func(context);
 
     public object? Func(BuiltinContext context, BuiltinArg arg1)
         => TryCall(context, [arg1], out var result) ? result : _default.Func(context, arg1);

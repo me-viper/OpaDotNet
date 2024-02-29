@@ -127,9 +127,13 @@ public abstract class OpaEvaluatorFactory : IDisposable
             Store = store,
             Memory = memory,
             Module = module,
-            Imports = _importsAbiFactory(),
             Logger = _loggerFactory.CreateLogger<OpaWasmEvaluator>(),
             Options = options,
+            Imports = new OpaCompositeBuiltins(
+                _importsAbiFactory(),
+                options.ImportsExtensions.Select(p => p()),
+                options.SerializationOptions
+                ),
         };
 
         var result = new OpaWasmEvaluator(config);
@@ -160,9 +164,13 @@ public abstract class OpaEvaluatorFactory : IDisposable
             Store = store,
             Memory = memory,
             Module = module,
-            Imports = _importsAbiFactory(),
             Logger = _loggerFactory.CreateLogger<OpaWasmEvaluator>(),
             Options = options,
+            Imports = new OpaCompositeBuiltins(
+                _importsAbiFactory(),
+                options.ImportsExtensions.Select(p => p()),
+                options.SerializationOptions
+                ),
         };
 
         var result = new OpaWasmEvaluator(config);
