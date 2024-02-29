@@ -71,7 +71,10 @@ public class WasmPolicyEngineOptions
     /// </summary>
     public SignatureValidationOptions SignatureValidation { get; init; } = new();
 
-    public List<Func<IOpaBuiltinsExtension>> ImportsExtensions { get; } = new();
+    /// <summary>
+    /// List of custom built-ins that were registered.
+    /// </summary>
+    public List<Func<IOpaCustomBuiltins>> CustomBuiltins { get; } = [];
 
     /// <summary>
     /// JSON serialization options.

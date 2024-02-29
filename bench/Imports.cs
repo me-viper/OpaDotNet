@@ -60,7 +60,7 @@ public class Imports
     }
 }
 
-internal class Ext : IOpaBuiltinsExtension
+internal class Ext : IOpaCustomBuiltins
 {
     [OpaImport("ext.do")]
     public string Do(string message)

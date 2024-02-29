@@ -12,7 +12,7 @@ public class BuiltinsCompositionTests : OpaTestBase
 
     private readonly IOpaImportsAbi _default = new DefaultOpaImportsAbi();
 
-    private readonly IOpaBuiltinsExtension _ext1 = new Ext(NullLogger<Ext>.Instance);
+    private readonly IOpaCustomBuiltins _ext1 = new Ext(NullLogger<Ext>.Instance);
 
     private static BuiltinArg MakeArg<T>(T val)
         => new(_ => JsonSerializer.Serialize(val, JsonSerializerOptions.Default), JsonSerializerOptions.Default);
@@ -57,7 +57,7 @@ file record DoMoreInput(string InA, int InB);
 
 file record DoMoreOutput(string A, int B);
 
-file class Ext(ILogger<Ext> logger) : IOpaBuiltinsExtension
+file class Ext(ILogger<Ext> logger) : IOpaCustomBuiltins
 {
     [OpaImport("ext.do")]
     public string Do(string message)

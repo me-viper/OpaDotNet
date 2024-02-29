@@ -1,14 +1,14 @@
 ﻿namespace OpaDotNet.Wasm;
 
 /// <summary>
-///
+/// Marks custom built-in implementation.
 /// </summary>
 /// <param name="name"></param>
 [AttributeUsage(AttributeTargets.Method, Inherited = false)]
 internal class OpaImportAttribute(string name) : Attribute
 {
     /// <summary>
-    ///
+    /// Built-in name.
     /// </summary>
     public string Name { get; } = name;
 
@@ -16,8 +16,5 @@ internal class OpaImportAttribute(string name) : Attribute
 
     internal string[]? Categories { get; set; }
 
-    /// <summary>
-    ///
-    /// </summary>
     internal OpaImportType Type { get; set; }
 }

@@ -4,9 +4,10 @@ using JetBrains.Annotations;
 
 using OpaDotNet.Tests.Common;
 using OpaDotNet.Wasm;
-using OpaDotNet.Wasm.Features;
 
 using Xunit.Abstractions;
+
+// ReSharper disable UnusedMember.Local
 
 namespace OpaDotNet.Tests;
 
@@ -51,7 +52,7 @@ public abstract class CustomBuiltinsTests(ITestOutputHelper output) : OpaTestBas
             policy,
             importsAbiFactory: () => new NotImplementedImports(),
             loggerFactory: LoggerFactory,
-            options: new() { ImportsExtensions = { () => new CustomOpaImportsAbi(NullLogger.Instance) }}
+            options: new() { CustomBuiltins = { () => new CustomOpaImportsAbi(NullLogger.Instance) }}
             );
 
         _engine = factory.Create();
@@ -171,11 +172,9 @@ file record ArgObj
     public bool C { get; set; }
 }
 
-file class CustomOpaImportsAbi(ILogger logger) : IOpaBuiltinsExtension
+file class CustomOpaImportsAbi(ILogger logger) : IOpaCustomBuiltins
 {
-    public void Reset()
-    {
-    }
+    public void Reset() => logger.LogDebug("Reset");
 
     [OpaImport("custom.zeroArgBuiltin")]
     public static string ZeroArgBuiltin() => "hello";

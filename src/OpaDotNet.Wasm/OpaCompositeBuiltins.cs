@@ -9,7 +9,7 @@ internal class OpaCompositeBuiltins : IOpaImportsAbi
 {
     private readonly IOpaImportsAbi _default;
 
-    private readonly IReadOnlyList<IOpaBuiltinsExtension> _imports;
+    private readonly IReadOnlyList<IOpaCustomBuiltins> _imports;
 
     private readonly Dictionary<string, Func<BuiltinArg[], object?>> _importCache = new();
 
@@ -22,7 +22,7 @@ internal class OpaCompositeBuiltins : IOpaImportsAbi
 
     public OpaCompositeBuiltins(
         IOpaImportsAbi defaultImport,
-        IEnumerable<IOpaBuiltinsExtension> imports,
+        IEnumerable<IOpaCustomBuiltins> imports,
         JsonSerializerOptions jsonOptions)
     {
         ArgumentNullException.ThrowIfNull(defaultImport);
@@ -32,7 +32,7 @@ internal class OpaCompositeBuiltins : IOpaImportsAbi
         BuildImportsCache(_imports, jsonOptions);
     }
 
-    private void BuildImportsCache(IEnumerable<IOpaBuiltinsExtension> imports, JsonSerializerOptions jsonOptions)
+    private void BuildImportsCache(IEnumerable<IOpaCustomBuiltins> imports, JsonSerializerOptions jsonOptions)
     {
         foreach (var import in imports)
         {

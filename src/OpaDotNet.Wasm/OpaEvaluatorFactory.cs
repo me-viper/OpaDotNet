@@ -131,7 +131,7 @@ public abstract class OpaEvaluatorFactory : IDisposable
             Options = options,
             Imports = new OpaCompositeBuiltins(
                 _importsAbiFactory(),
-                options.ImportsExtensions.Select(p => p()),
+                options.CustomBuiltins.Select(p => p()),
                 options.SerializationOptions
                 ),
         };
@@ -168,7 +168,7 @@ public abstract class OpaEvaluatorFactory : IDisposable
             Options = options,
             Imports = new OpaCompositeBuiltins(
                 _importsAbiFactory(),
-                options.ImportsExtensions.Select(p => p()),
+                options.CustomBuiltins.Select(p => p()),
                 options.SerializationOptions
                 ),
         };

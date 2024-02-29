@@ -1,2 +1,4 @@
 #nullable enable
-
+OpaDotNet.Wasm.IOpaCustomBuiltins
+OpaDotNet.Wasm.IOpaCustomBuiltins.Reset() -> void
+OpaDotNet.Wasm.WasmPolicyEngineOptions.CustomBuiltins.get -> System.Collections.Generic.List<System.Func<OpaDotNet.Wasm.IOpaCustomBuiltins!>!>!
