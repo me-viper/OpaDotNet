@@ -1,5 +1,8 @@
 #nullable enable
 OpaDotNet.Wasm.IOpaCustomBuiltins
 OpaDotNet.Wasm.IOpaCustomBuiltins.Reset() -> void
-OpaDotNet.Wasm.OpaEvaluatorFactory.OpaEvaluatorFactory(System.Func<OpaDotNet.Wasm.IOpaImportsAbi!>? importsAbiFactory, Microsoft.Extensions.Logging.ILoggerFactory? loggerFactory, OpaDotNet.Wasm.WasmPolicyEngineOptions! options) -> void
+OpaDotNet.Wasm.OpaEvaluatorFactory.OpaEvaluatorFactory(System.Func<OpaDotNet.Wasm.IOpaImportsAbi!>? importsAbiFactory, Microsoft.Extensions.Logging.ILoggerFactory? loggerFactory, OpaDotNet.Wasm.WasmPolicyEngineOptions? options) -> void
+OpaDotNet.Wasm.OpaImportAttribute
+OpaDotNet.Wasm.OpaImportAttribute.Name.get -> string!
+OpaDotNet.Wasm.OpaImportAttribute.OpaImportAttribute(string! name) -> void
 OpaDotNet.Wasm.WasmPolicyEngineOptions.CustomBuiltins.get -> System.Collections.Generic.List<System.Func<OpaDotNet.Wasm.IOpaCustomBuiltins!>!>!

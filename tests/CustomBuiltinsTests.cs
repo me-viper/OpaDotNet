@@ -57,7 +57,7 @@ public abstract class CustomBuiltinsTests(ITestOutputHelper output) : OpaTestBas
             policy,
             importsAbiFactory: () => new NotImplementedImports(),
             loggerFactory: LoggerFactory,
-            options: new() { CustomBuiltins = { () => new CustomOpaImportsAbi(NullLogger.Instance) }}
+            options: new() { CustomBuiltins = { () => new CustomOpaImportsAbi(NullLogger.Instance) } }
             );
 
         _engine = factory.Create();

@@ -7,9 +7,9 @@ internal class ImportsCache(JsonSerializerOptions jsonOptions)
 {
     private readonly object _lock = new();
 
-    private IReadOnlyDictionary<string, ImportCacheEntry>? _cache;
+    private IReadOnlyDictionary<string, ImportsCacheEntry>? _cache;
 
-    private IReadOnlyDictionary<string, ImportCacheEntry> GetCache(IReadOnlyList<IOpaCustomBuiltins> instances)
+    private IReadOnlyDictionary<string, ImportsCacheEntry> GetCache(IReadOnlyList<IOpaCustomBuiltins> instances)
     {
         if (_cache == null)
         {
@@ -46,11 +46,11 @@ internal class ImportsCache(JsonSerializerOptions jsonOptions)
         return p => cacheItem.Import(instance, p);
     }
 
-    internal static IReadOnlyDictionary<string, ImportCacheEntry> BuildImportsCache(
+    internal static IReadOnlyDictionary<string, ImportsCacheEntry> BuildImportsCache(
         IEnumerable<IOpaCustomBuiltins> imports,
         JsonSerializerOptions jsonOptions)
     {
-        var result = new Dictionary<string, ImportCacheEntry>();
+        var result = new Dictionary<string, ImportsCacheEntry>();
 
         foreach (var import in imports)
         {

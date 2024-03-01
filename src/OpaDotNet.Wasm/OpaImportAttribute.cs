@@ -5,7 +5,7 @@
 /// </summary>
 /// <param name="name"></param>
 [AttributeUsage(AttributeTargets.Method, Inherited = false)]
-internal class OpaImportAttribute(string name) : Attribute
+public class OpaImportAttribute(string name) : Attribute
 {
     /// <summary>
     /// Built-in name.

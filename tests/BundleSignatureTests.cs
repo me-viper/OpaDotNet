@@ -15,7 +15,7 @@ public class FsSignatureTests(ITestOutputHelper output) : BundleSignatureTests(o
     {
         get
         {
-            var di = new DirectoryInfo("cache");
+            var di = new DirectoryInfo("fs-cache");
 
             if (di.Exists)
                 di.Delete(true);
