@@ -4,6 +4,7 @@ using BenchmarkDotNet.Attributes;
 
 using OpaDotNet.Wasm;
 using OpaDotNet.Wasm.Features;
+using OpaDotNet.Wasm.Internal;
 
 namespace OpaDotNet.Benchmarks;
 
@@ -19,11 +20,15 @@ public class Imports
 
     private readonly Ext _ext1 = new();
 
+    private readonly ImportsCache _cache = new(JsonSerializerOptions.Default);
+
     private BuiltinArg Arg { get; } = MakeArg("test");
 
     public Imports()
     {
-        _imports = new OpaCompositeBuiltins(_default, [_ext1], JsonSerializerOptions.Default);
+        List<IOpaCustomBuiltins> imports = [_ext1];
+        _ = _cache.TryResolveImport(imports, string.Empty);
+        _imports = new CompositeImportsHandler(_default, imports, _cache);
     }
 
     [Benchmark(Baseline = true)]

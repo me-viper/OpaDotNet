@@ -2,6 +2,8 @@
 
 using JetBrains.Annotations;
 
+using OpaDotNet.Wasm.Internal;
+
 using Wasmtime;
 
 namespace OpaDotNet.Wasm;
@@ -15,7 +17,13 @@ public abstract class OpaEvaluatorFactory : IDisposable
 
     private readonly Func<IOpaImportsAbi> _importsAbiFactory;
 
+    private readonly IReadOnlyList<Func<IOpaCustomBuiltins>> _importFactories;
+
+    private readonly ImportsCache _importsCache;
+
     private bool _disposed;
+
+    private protected WasmPolicyEngineOptions Options { get; }
 
     /// <summary>
     /// Creates new instance of <see cref="OpaEvaluatorFactory"/>.
@@ -23,9 +31,30 @@ public abstract class OpaEvaluatorFactory : IDisposable
     /// <param name="importsAbiFactory">Factory that produces instances of <see cref="IOpaImportsAbi"/>.</param>
     /// <param name="loggerFactory">Logger factory.</param>
     protected OpaEvaluatorFactory(Func<IOpaImportsAbi>? importsAbiFactory, ILoggerFactory? loggerFactory)
+        : this(importsAbiFactory, loggerFactory, null)
     {
+    }
+
+    /// <summary>
+    /// Creates new instance of <see cref="OpaEvaluatorFactory"/>.
+    /// </summary>
+    /// <param name="importsAbiFactory">Factory that produces instances of <see cref="IOpaImportsAbi"/>.</param>
+    /// <param name="loggerFactory">Logger factory.</param>
+    /// <param name="options">Evaluation engine options</param>
+    protected OpaEvaluatorFactory(
+        Func<IOpaImportsAbi>? importsAbiFactory,
+        ILoggerFactory? loggerFactory,
+        WasmPolicyEngineOptions? options)
+    {
+        Options = options ?? WasmPolicyEngineOptions.Default;
+
+        var factoryList = new List<Func<IOpaCustomBuiltins>>(Options.CustomBuiltins);
+        factoryList.Reverse();
+
         _loggerFactory = loggerFactory ?? NullLoggerFactory.Instance;
         _importsAbiFactory = importsAbiFactory ?? (static () => new DefaultOpaImportsAbi());
+        _importFactories = factoryList;
+        _importsCache = new(Options.SerializationOptions);
     }
 
     /// <summary>
@@ -129,10 +158,10 @@ public abstract class OpaEvaluatorFactory : IDisposable
             Module = module,
             Logger = _loggerFactory.CreateLogger<OpaWasmEvaluator>(),
             Options = options,
-            Imports = new OpaCompositeBuiltins(
+            Imports = new CompositeImportsHandler(
                 _importsAbiFactory(),
-                options.CustomBuiltins.Select(p => p()),
-                options.SerializationOptions
+                _importFactories.Select(p => p()).ToList(),
+                _importsCache
                 ),
         };
 
@@ -166,10 +195,10 @@ public abstract class OpaEvaluatorFactory : IDisposable
             Module = module,
             Logger = _loggerFactory.CreateLogger<OpaWasmEvaluator>(),
             Options = options,
-            Imports = new OpaCompositeBuiltins(
+            Imports = new CompositeImportsHandler(
                 _importsAbiFactory(),
-                options.CustomBuiltins.Select(p => p()),
-                options.SerializationOptions
+                _importFactories.Select(p => p()).ToList(),
+                _importsCache
                 ),
         };
 

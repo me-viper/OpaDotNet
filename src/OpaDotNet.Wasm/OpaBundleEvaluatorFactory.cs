@@ -22,15 +22,13 @@ public sealed class OpaBundleEvaluatorFactory : OpaEvaluatorFactory
         Stream bundleStream,
         WasmPolicyEngineOptions? options = null,
         Func<IOpaImportsAbi>? importsAbiFactory = null,
-        ILoggerFactory? loggerFactory = null) : base(importsAbiFactory, loggerFactory)
+        ILoggerFactory? loggerFactory = null) : base(importsAbiFactory, loggerFactory, options)
     {
         ArgumentNullException.ThrowIfNull(bundleStream);
 
-        options ??= WasmPolicyEngineOptions.Default;
-
-        (_factory, _disposer) = string.IsNullOrWhiteSpace(options.CachePath)
-            ? InMemoryFactory(bundleStream, options)
-            : StreamFactory(bundleStream, options);
+        (_factory, _disposer) = string.IsNullOrWhiteSpace(Options.CachePath)
+            ? InMemoryFactory(bundleStream, Options)
+            : StreamFactory(bundleStream, Options);
     }
 
     private (Func<IOpaEvaluator>, Action) InMemoryFactory(Stream bundleStream, WasmPolicyEngineOptions options)

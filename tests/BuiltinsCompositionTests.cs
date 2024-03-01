@@ -1,6 +1,7 @@
 ﻿using OpaDotNet.Tests.Common;
 using OpaDotNet.Wasm;
 using OpaDotNet.Wasm.Features;
+using OpaDotNet.Wasm.Internal;
 
 using Xunit.Abstractions;
 
@@ -19,7 +20,8 @@ public class BuiltinsCompositionTests : OpaTestBase
 
     public BuiltinsCompositionTests(ITestOutputHelper output) : base(output)
     {
-        _imports = new OpaCompositeBuiltins(_default, [_ext1], JsonSerializerOptions.Default);
+        var cache = new ImportsCache(JsonSerializerOptions.Default);
+        _imports = new CompositeImportsHandler(_default, [_ext1], cache);
     }
 
     [Fact]

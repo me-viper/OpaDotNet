@@ -12,8 +12,13 @@ using Xunit.Abstractions;
 namespace OpaDotNet.Tests;
 
 [UsedImplicitly]
-public class CapabilitiesProviderTests(ITestOutputHelper output) : CustomBuiltinsTests(output)
+public class CapabilitiesProviderTests : CustomBuiltinsTests
 {
+    public CapabilitiesProviderTests(ITestOutputHelper output) : base(output)
+    {
+        Options = new() { CapabilitiesVersion = "v0.53.0" };
+    }
+
     protected override Stream Caps() => new CustomOpaImportsAbiCapabilitiesProvider().GetCapabilities();
 }
 

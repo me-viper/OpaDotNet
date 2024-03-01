@@ -20,13 +20,11 @@ public sealed class OpaWasmEvaluatorFactory : OpaEvaluatorFactory
         Stream policyWasm,
         WasmPolicyEngineOptions? options = null,
         Func<IOpaImportsAbi>? importsAbiFactory = null,
-        ILoggerFactory? loggerFactory = null) : base(importsAbiFactory, loggerFactory)
+        ILoggerFactory? loggerFactory = null) : base(importsAbiFactory, loggerFactory, options)
     {
         ArgumentNullException.ThrowIfNull(policyWasm);
 
-        options ??= WasmPolicyEngineOptions.Default;
-
-        if (string.IsNullOrWhiteSpace(options.CachePath))
+        if (string.IsNullOrWhiteSpace(Options.CachePath))
         {
             var buffer = new byte[policyWasm.Length];
             var bytesRead = policyWasm.Read(buffer);
@@ -34,12 +32,12 @@ public sealed class OpaWasmEvaluatorFactory : OpaEvaluatorFactory
             if (bytesRead < policyWasm.Length)
                 throw new OpaRuntimeException("Failed to read wasm policy stream");
 
-            _factory = () => Create(buffer, Memory<byte>.Empty.Span, options);
+            _factory = () => Create(buffer, Memory<byte>.Empty.Span, Options);
             _disposer = () => { };
         }
         else
         {
-            var di = new DirectoryInfo(options.CachePath!);
+            var di = new DirectoryInfo(Options.CachePath!);
 
             if (!di.Exists)
                 throw new DirectoryNotFoundException($"Directory {di.FullName} was not found");
@@ -56,7 +54,7 @@ public sealed class OpaWasmEvaluatorFactory : OpaEvaluatorFactory
             _factory = () =>
             {
                 using var policyFs = File.OpenRead(policyFilePath);
-                return Create(policyFs, null, options);
+                return Create(policyFs, null, Options);
             };
 
             _disposer = () => cache.Delete(true);

@@ -1,17 +1,27 @@
 ﻿using System.Linq.Expressions;
 using System.Reflection;
 
-using OpaDotNet.Wasm.Features;
+namespace OpaDotNet.Wasm.Internal;
 
-namespace OpaDotNet.Wasm;
-
-internal class OpaCompositeBuiltins : IOpaImportsAbi
+internal class ImportsCache(JsonSerializerOptions jsonOptions)
 {
-    private readonly IOpaImportsAbi _default;
+    private readonly object _lock = new();
 
-    private readonly IReadOnlyList<IOpaCustomBuiltins> _imports;
+    private IReadOnlyDictionary<string, ImportCacheEntry>? _cache;
 
-    private readonly Dictionary<string, Func<BuiltinArg[], object?>> _importCache = new();
+    private IReadOnlyDictionary<string, ImportCacheEntry> GetCache(IReadOnlyList<IOpaCustomBuiltins> instances)
+    {
+        if (_cache == null)
+        {
+            lock (_lock)
+            {
+                if (_cache == null)
+                    _cache = BuildImportsCache(instances, jsonOptions);
+            }
+        }
+
+        return _cache;
+    }
 
     private static readonly MethodInfo BuildArgAsMethod = typeof(BuiltinArg)
         .GetMethod(
@@ -20,20 +30,28 @@ internal class OpaCompositeBuiltins : IOpaImportsAbi
             [typeof(Type), typeof(RegoValueFormat)]
             )!;
 
-    public OpaCompositeBuiltins(
-        IOpaImportsAbi defaultImport,
+    public Func<BuiltinArg[], object?>? TryResolveImport(IReadOnlyList<IOpaCustomBuiltins> instances, string name)
+    {
+        if (instances.Count == 0)
+            return null;
+
+        if (!GetCache(instances).TryGetValue(name, out var cacheItem))
+            return null;
+
+        var instance = instances.FirstOrDefault(p => p.GetType() == cacheItem.Type);
+
+        if (instance == null)
+            return null;
+
+        return p => cacheItem.Import(instance, p);
+    }
+
+    internal static IReadOnlyDictionary<string, ImportCacheEntry> BuildImportsCache(
         IEnumerable<IOpaCustomBuiltins> imports,
         JsonSerializerOptions jsonOptions)
     {
-        ArgumentNullException.ThrowIfNull(defaultImport);
+        var result = new Dictionary<string, ImportCacheEntry>();
 
-        _default = defaultImport;
-        _imports = imports.Reverse().ToList();
-        BuildImportsCache(_imports, jsonOptions);
-    }
-
-    private void BuildImportsCache(IEnumerable<IOpaCustomBuiltins> imports, JsonSerializerOptions jsonOptions)
-    {
         foreach (var import in imports)
         {
             var callables = import.GetType().GetMethods(BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance);
@@ -78,8 +96,9 @@ internal class OpaCompositeBuiltins : IOpaImportsAbi
 
                 var name = $"{attr.Name}.{argLen}";
 
-                var instance = callable.IsStatic ? null : Expression.Constant(import);
+                var instanceParam = Expression.Parameter(typeof(IOpaCustomBuiltins), "instance");
                 var argsParam = Expression.Parameter(typeof(BuiltinArg[]), "args");
+                var instance = callable.IsStatic ? null : Expression.Convert(instanceParam, import.GetType());
 
                 var argVars = new List<ParameterExpression>(argLen);
                 var bodyBlock = new List<Expression>(argLen);
@@ -119,70 +138,14 @@ internal class OpaCompositeBuiltins : IOpaImportsAbi
                 bodyBlock.Add(call);
 
                 var body = Expression.Block(argVars, bodyBlock);
-                var func = Expression.Lambda<Func<BuiltinArg[], object?>>(body, argsParam).Compile();
+                var func = Expression
+                    .Lambda<Func<IOpaCustomBuiltins, BuiltinArg[], object?>>(body, instanceParam, argsParam)
+                    .Compile();
 
-                _importCache.TryAdd(name, func);
+                result.TryAdd(name, new(import.GetType(), (i, a) => func(i, a)));
             }
         }
-    }
 
-    public void Print(IEnumerable<string> args)
-    {
-    }
-
-    private static string Name(string name, int count) => $"{name}.{count}";
-
-    private static bool OnError(BuiltinContext context, Exception ex)
-    {
-        if (context.StrictBuiltinErrors)
-            return true;
-
-        if (ex is NotImplementedException)
-            return true;
-
-        return false;
-    }
-
-    private bool TryCall(BuiltinContext context, BuiltinArg[] args, out object? result)
-    {
-        result = null;
-        var name = Name(context.FunctionName, args.Length);
-
-        try
-        {
-            if (!_importCache.TryGetValue(name, out var func))
-                return false;
-
-            result = func(args);
-            return true;
-        }
-        catch (Exception ex)
-        {
-            if (OnError(context, ex))
-                throw;
-
-            return true;
-        }
-    }
-
-    public object? Func(BuiltinContext context)
-        => TryCall(context, Array.Empty<BuiltinArg>(), out var result) ? result : _default.Func(context);
-
-    public object? Func(BuiltinContext context, BuiltinArg arg1)
-        => TryCall(context, [arg1], out var result) ? result : _default.Func(context, arg1);
-
-    public object? Func(BuiltinContext context, BuiltinArg arg1, BuiltinArg arg2)
-        => TryCall(context, [arg1, arg2], out var result) ? result : _default.Func(context, arg1, arg2);
-
-    public object? Func(BuiltinContext context, BuiltinArg arg1, BuiltinArg arg2, BuiltinArg arg3)
-        => TryCall(context, [arg1, arg2, arg3], out var result) ? result : _default.Func(context, arg1, arg2, arg3);
-
-    public object? Func(BuiltinContext context, BuiltinArg arg1, BuiltinArg arg2, BuiltinArg arg3, BuiltinArg arg4)
-        => TryCall(context, [arg1, arg2, arg3, arg4], out var result) ? result : _default.Func(context, arg1, arg2, arg3, arg4);
-
-    public void Reset()
-    {
-        foreach (var import in _imports)
-            import.Reset();
+        return result;
     }
 }
