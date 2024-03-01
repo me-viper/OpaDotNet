@@ -35,36 +35,38 @@ public class BenchStatExporter : ExporterBase
         {
             string[] name = [
                 report.BenchmarkCase.Descriptor.DisplayInfo,
-                //report.BenchmarkCase.Job.DisplayInfo,
                 report.BenchmarkCase.Parameters.DisplayInfo,
             ];
 
             var bench = string.Join('_', name).TrimEnd('_');
 
             var runs = report.GetResultRuns();
-            var stats = runs.GetStatistics();
 
             if (runs.Count == 0)
                 continue;
 
-            var iterations = runs[0].Operations;
-            var nsPerOp = stats.Mean.ToString(culture);
             var bytesPerOp = (report.GcStats.GetBytesAllocatedPerOperation(report.BenchmarkCase) ?? 0).ToString(culture);
             var gen0 = (report.GcStats.GetCollectionsCount(0) / (double) report.GcStats.TotalOperations * 1000).ToString(culture);
             var gen1 = (report.GcStats.GetCollectionsCount(1) / (double) report.GcStats.TotalOperations * 1000).ToString(culture);
             var gen2 = (report.GcStats.GetCollectionsCount(2) / (double) report.GcStats.TotalOperations * 1000).ToString(culture);
 
-            string[] statsLog = [
-                $"Benchmark{bench}",
-                $"{iterations}",
-                $"{nsPerOp} ns/op",
-                $"{bytesPerOp} B/op",
-                $"{gen0} gen0/op/1k",
-                $"{gen1} gen1/op/1k",
-                $"{gen2} gen2/op/1k",
-            ];
+            foreach (var run in runs)
+            {
+                var iterations = run.Operations;
+                var nsPerOp = run.GetAverageTime().Nanoseconds.ToString(culture);
 
-            logger.WriteLine(string.Join("    ", statsLog));
+                string[] statsLog = [
+                    $"Benchmark{bench}",
+                    $"{iterations}",
+                    $"{nsPerOp} ns/op",
+                    $"{bytesPerOp} B/op",
+                    $"{gen0} gen0/op/1k",
+                    $"{gen1} gen1/op/1k",
+                    $"{gen2} gen2/op/1k",
+                ];
+
+                logger.WriteLine(string.Join("    ", statsLog));
+            }
         }
     }
 }
