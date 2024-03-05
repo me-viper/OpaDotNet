@@ -1,4 +1,4 @@
-﻿namespace OpaDotNet.Wasm;
+﻿namespace OpaDotNet.Wasm.Builtins;
 
 /// <summary>
 /// Marks custom built-in implementation.

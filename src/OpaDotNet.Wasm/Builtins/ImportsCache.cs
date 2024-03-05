@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
 using System.Reflection;
 
-namespace OpaDotNet.Wasm.Internal;
+namespace OpaDotNet.Wasm.Builtins;
 
 internal class ImportsCache(JsonSerializerOptions jsonOptions)
 {

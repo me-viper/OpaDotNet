@@ -1,4 +1,4 @@
-﻿namespace OpaDotNet.Wasm;
+﻿namespace OpaDotNet.Wasm.Builtins;
 
 /// <summary>
 /// Custom OPA built-ins.

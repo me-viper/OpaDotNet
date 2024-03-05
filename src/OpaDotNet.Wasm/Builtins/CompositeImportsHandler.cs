@@ -1,6 +1,8 @@
 ﻿using System.Text.Json.Nodes;
 
-namespace OpaDotNet.Wasm.Internal;
+using OpaDotNet.Wasm.Internal;
+
+namespace OpaDotNet.Wasm.Builtins;
 
 internal class CompositeImportsHandler : IOpaImportsAbi
 {
@@ -26,7 +28,7 @@ internal class CompositeImportsHandler : IOpaImportsAbi
         _importsCache = importsCache;
         _importsCache.Populate(_imports);
 
-        var customPrinter = _imports.OfType<IOpaCustomPrint>().FirstOrDefault();
+        var customPrinter = _imports.OfType<IOpaCustomPrinter>().FirstOrDefault();
 
         if (customPrinter != null)
             _print = p => customPrinter.Print(p);

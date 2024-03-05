@@ -4,6 +4,7 @@ using JetBrains.Annotations;
 
 using OpaDotNet.Tests.Common;
 using OpaDotNet.Wasm;
+using OpaDotNet.Wasm.Builtins;
 
 using Xunit.Abstractions;
 

@@ -4,6 +4,7 @@ using System.Text.Json.Nodes;
 
 using OpaDotNet.Tests.Common;
 using OpaDotNet.Wasm;
+using OpaDotNet.Wasm.Builtins;
 
 using Xunit.Abstractions;
 
@@ -201,7 +202,7 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
         Assert.True(result.Assert);
     }
 
-    private class DebugImports : IOpaCustomBuiltins, IOpaCustomPrint
+    private class DebugImports : IOpaCustomBuiltins, IOpaCustomPrinter
     {
         public StringBuilder Output { get; } = new();
 

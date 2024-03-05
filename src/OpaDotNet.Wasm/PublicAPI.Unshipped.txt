@@ -1,10 +1,10 @@
 #nullable enable
-OpaDotNet.Wasm.IOpaCustomBuiltins
-OpaDotNet.Wasm.IOpaCustomBuiltins.Reset() -> void
-OpaDotNet.Wasm.IOpaCustomPrint
-OpaDotNet.Wasm.IOpaCustomPrint.Print(System.Collections.Generic.IEnumerable<string!>! args) -> void
-OpaDotNet.Wasm.OpaCustomBuiltinAttribute
-OpaDotNet.Wasm.OpaCustomBuiltinAttribute.Name.get -> string!
-OpaDotNet.Wasm.OpaCustomBuiltinAttribute.OpaCustomBuiltinAttribute(string! name) -> void
+OpaDotNet.Wasm.Builtins.IOpaCustomBuiltins
+OpaDotNet.Wasm.Builtins.IOpaCustomBuiltins.Reset() -> void
+OpaDotNet.Wasm.Builtins.IOpaCustomPrinter
+OpaDotNet.Wasm.Builtins.IOpaCustomPrinter.Print(System.Collections.Generic.IEnumerable<string!>! args) -> void
+OpaDotNet.Wasm.Builtins.OpaCustomBuiltinAttribute
+OpaDotNet.Wasm.Builtins.OpaCustomBuiltinAttribute.Name.get -> string!
+OpaDotNet.Wasm.Builtins.OpaCustomBuiltinAttribute.OpaCustomBuiltinAttribute(string! name) -> void
 OpaDotNet.Wasm.OpaEvaluatorFactory.OpaEvaluatorFactory(System.Func<OpaDotNet.Wasm.IOpaImportsAbi!>? importsAbiFactory, Microsoft.Extensions.Logging.ILoggerFactory? loggerFactory, OpaDotNet.Wasm.WasmPolicyEngineOptions? options) -> void
-OpaDotNet.Wasm.WasmPolicyEngineOptions.CustomBuiltins.get -> System.Collections.Generic.List<System.Func<OpaDotNet.Wasm.IOpaCustomBuiltins!>!>!
+OpaDotNet.Wasm.WasmPolicyEngineOptions.CustomBuiltins.get -> System.Collections.Generic.List<System.Func<OpaDotNet.Wasm.Builtins.IOpaCustomBuiltins!>!>!

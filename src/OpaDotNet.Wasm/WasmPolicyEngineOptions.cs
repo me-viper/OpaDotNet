@@ -2,6 +2,7 @@
 
 using JetBrains.Annotations;
 
+using OpaDotNet.Wasm.Builtins;
 using OpaDotNet.Wasm.Features;
 using OpaDotNet.Wasm.Rego;
 

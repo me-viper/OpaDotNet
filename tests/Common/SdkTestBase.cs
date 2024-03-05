@@ -4,6 +4,7 @@ using System.Text.Json.Nodes;
 using JetBrains.Annotations;
 
 using OpaDotNet.Wasm;
+using OpaDotNet.Wasm.Builtins;
 
 using Xunit.Abstractions;
 
