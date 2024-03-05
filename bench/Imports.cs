@@ -67,7 +67,7 @@ public class Imports
 
 internal class Ext : IOpaCustomBuiltins
 {
-    [OpaImport("ext.do")]
+    [OpaCustomBuiltin("ext.do")]
     public string Do(string message)
     {
         return $"Hi {message}";

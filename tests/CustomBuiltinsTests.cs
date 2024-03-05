@@ -181,27 +181,27 @@ file class CustomOpaImportsAbi(ILogger logger) : IOpaCustomBuiltins
 {
     public void Reset() => logger.LogDebug("Reset");
 
-    [OpaImport("custom.zeroArgBuiltin")]
+    [OpaCustomBuiltin("custom.zeroArgBuiltin")]
     public static string ZeroArgBuiltin() => "hello";
 
-    [OpaImport("custom.oneArgBuiltin")]
+    [OpaCustomBuiltin("custom.oneArgBuiltin")]
     public static string OneArgBuiltin(string arg1) => $"hello {arg1}";
 
-    [OpaImport("custom.oneArgObjectBuiltin")]
+    [OpaCustomBuiltin("custom.oneArgObjectBuiltin")]
     public static string OneArgObjectBuiltin(ArgObj arg1) => $"hello {arg1}";
 
-    [OpaImport("custom.twoArgBuiltin")]
+    [OpaCustomBuiltin("custom.twoArgBuiltin")]
     public static string TwoArgBuiltin(string arg1, string arg2) => $"hello {arg1} {arg2}";
 
-    [OpaImport("custom.threeArgBuiltin")]
+    [OpaCustomBuiltin("custom.threeArgBuiltin")]
     public static string ThreeArgBuiltin(string arg1, string arg2, string arg3)
         => $"hello {arg1} {arg2} {arg3}";
 
-    [OpaImport("custom.fourArgBuiltin")]
+    [OpaCustomBuiltin("custom.fourArgBuiltin")]
     public static string FourArgBuiltin(string arg1, string arg2, string arg3, string arg4)
         => $"hello {arg1} {arg2} {arg3} {arg4}";
 
-    [OpaImport("custom.fourArgTypesBuiltin")]
+    [OpaCustomBuiltin("custom.fourArgTypesBuiltin")]
     public static string FourArgTypesBuiltin(double arg1, int arg2, bool? arg3, string? arg4)
         => $"hello {arg1.ToString(CultureInfo.InvariantCulture)} {arg2} {arg3} {arg4 ?? "<null>"}";
 }

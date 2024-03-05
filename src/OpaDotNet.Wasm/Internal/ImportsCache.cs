@@ -58,7 +58,7 @@ internal class ImportsCache(JsonSerializerOptions jsonOptions)
 
             foreach (var callable in callables)
             {
-                var attr = callable.GetCustomAttribute<OpaImportAttribute>();
+                var attr = callable.GetCustomAttribute<OpaCustomBuiltinAttribute>();
 
                 if (attr == null)
                     continue;

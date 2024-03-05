@@ -61,20 +61,20 @@ file record DoMoreOutput(string A, int B);
 
 file class Ext(ILogger<Ext> logger) : IOpaCustomBuiltins
 {
-    [OpaImport("ext.do")]
+    [OpaCustomBuiltin("ext.do")]
     public string Do(string message)
     {
         logger.LogDebug("{Func} {Message}", nameof(Do), message);
         return $"Hi {message}";
     }
 
-    [OpaImport("ext.do_more")]
+    [OpaCustomBuiltin("ext.do_more")]
     public static DoMoreOutput DoMore(DoMoreInput n) => new(n.InA, n.InB);
 
-    [OpaImport("ext.do_more_json_opts")]
+    [OpaCustomBuiltin("ext.do_more_json_opts")]
     public static bool DoMore(DoMoreInput n, JsonSerializerOptions? opts) => opts != null;
 
-    [OpaImport("ext.do_nothing")]
+    [OpaCustomBuiltin("ext.do_nothing")]
     public void DoNothing()
     {
         logger.LogDebug("Nothing");
