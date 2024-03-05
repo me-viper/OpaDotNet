@@ -1,4 +1,6 @@
-﻿namespace OpaDotNet.Wasm.Internal;
+﻿using System.Text.Json.Nodes;
+
+namespace OpaDotNet.Wasm.Internal;
 
 internal class CompositeImportsHandler : IOpaImportsAbi
 {
@@ -6,24 +8,30 @@ internal class CompositeImportsHandler : IOpaImportsAbi
 
     private readonly IReadOnlyList<IOpaCustomBuiltins> _imports;
 
-    private readonly ImportsCache _importCache;
+    private readonly ImportsCache _importsCache;
+
+    private readonly Action<IEnumerable<string>> _print;
 
     public CompositeImportsHandler(
         IOpaImportsAbi defaultImport,
         IReadOnlyList<IOpaCustomBuiltins> imports,
-        ImportsCache importCache)
+        ImportsCache importsCache)
     {
         ArgumentNullException.ThrowIfNull(defaultImport);
         ArgumentNullException.ThrowIfNull(imports);
-        ArgumentNullException.ThrowIfNull(importCache);
+        ArgumentNullException.ThrowIfNull(importsCache);
 
         _default = defaultImport;
         _imports = imports;
-        _importCache = importCache;
-    }
+        _importsCache = importsCache;
+        _importsCache.Populate(_imports);
 
-    public void Print(IEnumerable<string> args)
-    {
+        var customPrinter = _imports.OfType<IOpaCustomPrint>().FirstOrDefault();
+
+        if (customPrinter != null)
+            _print = p => customPrinter.Print(p);
+        else
+            _print = p => _default.Print(p);
     }
 
     private static string Name(string name, int count) => $"{name}.{count}";
@@ -39,6 +47,43 @@ internal class CompositeImportsHandler : IOpaImportsAbi
         return false;
     }
 
+    private object? Print(JsonArray args, JsonSerializerOptions options)
+    {
+        var strArgs = new List<string>();
+
+        foreach (var arg in args)
+        {
+            if (arg is JsonArray ja)
+            {
+                if (ja.Count == 0)
+                    continue;
+
+                if (ja.Count != 1)
+                    strArgs.Add(ja.ToJsonString(options));
+                else
+                {
+                    var s = ja[0]?.ToJsonString(options);
+
+                    if (s != null)
+                        strArgs.Add(s);
+                }
+
+                continue;
+            }
+
+            var json = arg?.ToJsonString(options);
+
+            if (json != null)
+                strArgs.Add(json);
+        }
+
+        Print(strArgs);
+
+        return null;
+    }
+
+    public void Print(IEnumerable<string> args) => _print(args);
+
     private bool TryCall(BuiltinContext context, BuiltinArg[] args, out object? result)
     {
         result = null;
@@ -46,10 +91,23 @@ internal class CompositeImportsHandler : IOpaImportsAbi
 
         try
         {
-            var func = _importCache.TryResolveImport(_imports, name);
+            var func = _importsCache.TryResolveImport(_imports, name);
 
             if (func == null)
-                return false;
+            {
+                switch (name)
+                {
+                    case "internal.print.1":
+                        result = Print(args[0].As<JsonArray>(), context.JsonSerializerOptions);
+                        return true;
+                    case "trace.1":
+                        Print([args[0].As<string>()]);
+                        result = true;
+                        return true;
+                    default:
+                        return false;
+                }
+            }
 
             result = func(args);
             return true;

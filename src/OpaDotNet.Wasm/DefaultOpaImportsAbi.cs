@@ -57,16 +57,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
     /// <inheritdoc />
     [ExcludeFromCodeCoverage]
     [DoesNotReturn]
-    public virtual void Abort(string message)
-    {
-        throw new OpaEvaluationAbortedException("Aborted: " + message);
-    }
-
-    /// <inheritdoc />
-    [ExcludeFromCodeCoverage]
-    public virtual void PrintLn(string message)
-    {
-    }
+    public virtual void Abort(string message) => throw new OpaEvaluationAbortedException("Aborted: " + message);
 
     private object? Print(JsonArray args, JsonSerializerOptions options)
     {
@@ -101,6 +92,12 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
         Print(strArgs);
 
         return null;
+    }
+
+    /// <inheritdoc />
+    [ExcludeFromCodeCoverage]
+    public virtual void PrintLn(string message)
+    {
     }
 
     /// <inheritdoc />

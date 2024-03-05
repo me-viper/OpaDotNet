@@ -49,7 +49,7 @@ public class BuiltinsCompositionTests : OpaTestBase
     }
 
     [Fact]
-    public void DNothing()
+    public void DoNothing()
     {
         _imports.Func(new() { FunctionName = "ext.do_nothing" });
     }

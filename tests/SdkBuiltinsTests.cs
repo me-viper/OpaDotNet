@@ -201,26 +201,18 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
         Assert.True(result.Assert);
     }
 
-    private class DebugImports : DefaultOpaImportsAbi
+    private class DebugImports : IOpaCustomBuiltins, IOpaCustomPrint
     {
         public StringBuilder Output { get; } = new();
 
-        public override void PrintLn(string message)
-        {
-            throw new Exception("Boom!");
-        }
-
-        public override void Print(IEnumerable<string> args)
+        public void Print(IEnumerable<string> args)
         {
             var str = args as string[] ?? args.ToArray();
             Output.AppendJoin(", ", str);
-            base.Print(str);
         }
 
-        protected override bool Trace(string message)
+        public void Reset()
         {
-            Output.Append(message);
-            return base.Trace(message);
         }
     }
 
@@ -239,8 +231,9 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
                 o := true
             }
             """;
+
         var import = new DebugImports();
-        using var eval = await Build(src, "sdk", import);
+        using var eval = await Build(src, "sdk", customBuiltins: [() => import]);
 
         var result = eval.EvaluateValue(new { t1 = false }, "sdk");
 
@@ -260,7 +253,7 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
             }
             """;
         var import = new DebugImports();
-        using var eval = await Build(src, "sdk", import);
+        using var eval = await Build(src, "sdk", customBuiltins: [() => import]);
 
         var result = eval.EvaluateValue(new { t1 = string.Empty }, "sdk");
 

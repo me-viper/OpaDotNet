@@ -91,7 +91,8 @@ public class SdkTestBase(ITestOutputHelper output) : OpaTestBase(output)
         string source,
         string entrypoint,
         IOpaImportsAbi? imports = null,
-        WasmPolicyEngineOptions? options = null)
+        WasmPolicyEngineOptions? options = null,
+        List<Func<IOpaCustomBuiltins>>? customBuiltins = null)
     {
         var policy = await CompileSource(source, new[] { entrypoint });
 
@@ -100,6 +101,9 @@ public class SdkTestBase(ITestOutputHelper output) : OpaTestBase(output)
             SerializationOptions = DefaultJsonOptions,
             SignatureValidation = new() { Validation = SignatureValidationType.Skip },
         };
+
+        if (customBuiltins != null)
+            engineOpts.CustomBuiltins.AddRange(customBuiltins);
 
         var factory = new OpaBundleEvaluatorFactory(
             policy,

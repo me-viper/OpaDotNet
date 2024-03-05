@@ -1,6 +1,8 @@
 #nullable enable
 OpaDotNet.Wasm.IOpaCustomBuiltins
 OpaDotNet.Wasm.IOpaCustomBuiltins.Reset() -> void
+OpaDotNet.Wasm.IOpaCustomPrint
+OpaDotNet.Wasm.IOpaCustomPrint.Print(System.Collections.Generic.IEnumerable<string!>! args) -> void
 OpaDotNet.Wasm.OpaCustomBuiltinAttribute
 OpaDotNet.Wasm.OpaCustomBuiltinAttribute.Name.get -> string!
 OpaDotNet.Wasm.OpaCustomBuiltinAttribute.OpaCustomBuiltinAttribute(string! name) -> void

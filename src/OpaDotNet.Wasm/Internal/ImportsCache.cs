@@ -9,7 +9,14 @@ internal class ImportsCache(JsonSerializerOptions jsonOptions)
 
     private IReadOnlyDictionary<string, ImportsCacheEntry>? _cache;
 
-    private IReadOnlyDictionary<string, ImportsCacheEntry> GetCache(IReadOnlyList<IOpaCustomBuiltins> instances)
+    private static readonly MethodInfo BuildArgAsMethod = typeof(BuiltinArg)
+        .GetMethod(
+            nameof(BuiltinArg.As),
+            BindingFlags.Instance | BindingFlags.NonPublic,
+            [typeof(Type), typeof(RegoValueFormat)]
+            )!;
+
+    public void Populate(IReadOnlyList<IOpaCustomBuiltins> instances)
     {
         if (_cache == null)
         {
@@ -19,23 +26,17 @@ internal class ImportsCache(JsonSerializerOptions jsonOptions)
                     _cache = BuildImportsCache(instances, jsonOptions);
             }
         }
-
-        return _cache;
     }
-
-    private static readonly MethodInfo BuildArgAsMethod = typeof(BuiltinArg)
-        .GetMethod(
-            nameof(BuiltinArg.As),
-            BindingFlags.Instance | BindingFlags.NonPublic,
-            [typeof(Type), typeof(RegoValueFormat)]
-            )!;
 
     public Func<BuiltinArg[], object?>? TryResolveImport(IReadOnlyList<IOpaCustomBuiltins> instances, string name)
     {
         if (instances.Count == 0)
             return null;
 
-        if (!GetCache(instances).TryGetValue(name, out var cacheItem))
+        if (_cache == null)
+            return null;
+
+        if (!_cache.TryGetValue(name, out var cacheItem))
             return null;
 
         var instance = instances.FirstOrDefault(p => p.GetType() == cacheItem.Type);
@@ -46,7 +47,7 @@ internal class ImportsCache(JsonSerializerOptions jsonOptions)
         return p => cacheItem.Import(instance, p);
     }
 
-    internal static IReadOnlyDictionary<string, ImportsCacheEntry> BuildImportsCache(
+    private static Dictionary<string, ImportsCacheEntry> BuildImportsCache(
         IEnumerable<IOpaCustomBuiltins> imports,
         JsonSerializerOptions jsonOptions)
     {
@@ -64,7 +65,7 @@ internal class ImportsCache(JsonSerializerOptions jsonOptions)
                     continue;
 
                 if (callable.IsGenericMethod)
-                    throw new NotSupportedException("Generic imports are not supported");
+                    throw new NotSupportedException("Generic built-ins are not supported");
 
                 var args = callable.GetParameters();
 
