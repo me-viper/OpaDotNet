@@ -3,7 +3,6 @@
 using JetBrains.Annotations;
 
 using OpaDotNet.Wasm.Builtins;
-using OpaDotNet.Wasm.Internal;
 
 using Wasmtime;
 

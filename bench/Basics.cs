@@ -2,7 +2,6 @@
 
 using BenchmarkDotNet.Attributes;
 
-using OpaDotNet.Benchmarks.Exporters;
 using OpaDotNet.Wasm;
 
 namespace OpaDotNet.Benchmarks;

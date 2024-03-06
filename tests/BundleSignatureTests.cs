@@ -162,7 +162,6 @@ public class BundleSignatureTests(ITestOutputHelper output) : OpaTestBase(output
                 VerificationKeyPath = Path.Combine(BasePath, "rsa_pub.pem"),
                 ExcludeFiles = new HashSet<string> { "data.yaml", "policy.wasm" },
             },
-
         };
 
         var ex = Assert.Throws<BundleChecksumValidationException>(
@@ -199,7 +198,6 @@ public class BundleSignatureTests(ITestOutputHelper output) : OpaTestBase(output
                 VerificationKeyPath = Path.Combine(BasePath, "rsa_pub.pem"),
                 ExcludeFiles = new HashSet<string> { "data.yaml", "policy.wasm", "p1.rego" },
             },
-
         };
 
         var factory = new OpaBundleEvaluatorFactory(

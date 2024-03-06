@@ -59,8 +59,10 @@ internal class DefaultBundleSignatureValidator : IBundleSignatureValidator
             // If supplied in the payload, must match exactly the value provided out-of-band to OPA.
             if (!string.IsNullOrWhiteSpace(options.Scope))
             {
-                if (!sig.Claims.Any(p => p.Type.Equals("scope", StringComparison.Ordinal)
-                    && options.Scope.Equals(p.Value, StringComparison.Ordinal)))
+                if (!sig.Claims.Any(
+                    p => p.Type.Equals("scope", StringComparison.Ordinal)
+                        && options.Scope.Equals(p.Value, StringComparison.Ordinal)
+                    ))
                 {
                     throw new BundleSignatureValidationException("JWT scope mismatch");
                 }

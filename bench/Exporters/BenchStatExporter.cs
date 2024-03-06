@@ -3,7 +3,6 @@ using System.Reflection;
 
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Exporters;
-using BenchmarkDotNet.Extensions;
 using BenchmarkDotNet.Loggers;
 using BenchmarkDotNet.Reports;
 
@@ -33,7 +32,8 @@ public class BenchStatExporter : ExporterBase
 
         foreach (var report in summary.Reports)
         {
-            string[] name = [
+            string[] name =
+            [
                 report.BenchmarkCase.Descriptor.DisplayInfo,
                 report.BenchmarkCase.Parameters.DisplayInfo,
             ];
@@ -46,16 +46,17 @@ public class BenchStatExporter : ExporterBase
                 continue;
 
             var bytesPerOp = (report.GcStats.GetBytesAllocatedPerOperation(report.BenchmarkCase) ?? 0).ToString(culture);
-            var gen0 = (report.GcStats.GetCollectionsCount(0) / (double) report.GcStats.TotalOperations * 1000).ToString(culture);
-            var gen1 = (report.GcStats.GetCollectionsCount(1) / (double) report.GcStats.TotalOperations * 1000).ToString(culture);
-            var gen2 = (report.GcStats.GetCollectionsCount(2) / (double) report.GcStats.TotalOperations * 1000).ToString(culture);
+            var gen0 = (report.GcStats.GetCollectionsCount(0) / (double)report.GcStats.TotalOperations * 1000).ToString(culture);
+            var gen1 = (report.GcStats.GetCollectionsCount(1) / (double)report.GcStats.TotalOperations * 1000).ToString(culture);
+            var gen2 = (report.GcStats.GetCollectionsCount(2) / (double)report.GcStats.TotalOperations * 1000).ToString(culture);
 
             foreach (var run in runs)
             {
                 var iterations = run.Operations;
                 var nsPerOp = run.GetAverageTime().Nanoseconds.ToString(culture);
 
-                string[] statsLog = [
+                string[] statsLog =
+                [
                     $"Benchmark{bench}",
                     $"{iterations}",
                     $"{nsPerOp} ns/op",

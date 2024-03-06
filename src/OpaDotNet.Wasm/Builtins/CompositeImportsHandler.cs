@@ -1,7 +1,5 @@
 ﻿using System.Text.Json.Nodes;
 
-using OpaDotNet.Wasm.Internal;
-
 namespace OpaDotNet.Wasm.Builtins;
 
 internal class CompositeImportsHandler : IOpaImportsAbi
