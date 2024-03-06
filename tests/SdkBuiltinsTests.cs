@@ -97,12 +97,8 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
         Assert.True(result.Assert);
     }
 
-    private class TimeImports : TestImportsAbi
+    private class TimeImports(ITestOutputHelper output) : TestImportsAbi(output)
     {
-        public TimeImports(ITestOutputHelper output) : base(output)
-        {
-        }
-
         protected override DateTimeOffset Now()
         {
             return new DateTimeOffset(2023, 6, 5, 14, 27, 39, TimeSpan.Zero);
