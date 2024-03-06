@@ -3,7 +3,11 @@
 
 #pragma warning disable CS0105
 
+using System.Globalization;
+
 using Microsoft.Extensions.Options;
+
+using OpaDotNet.Wasm.Builtins;
 
 #region Usings
 
@@ -77,18 +81,50 @@ public partial class DocSamples
 
     #endregion
 
+    #region CustomBuiltinsImplV26
+
+    public class OpaCustomBuiltins : IOpaCustomBuiltins
+    {
+        public void Reset()
+        {}
+
+        // Built-in with zero arguments.
+        [OpaCustomBuiltin("custom.zeroArgBuiltin")]
+        public static string ZeroArgBuiltin() => "hello";
+
+        // Built-in with one argument.
+        [OpaCustomBuiltin("custom.oneArgBuiltin")]
+        public static string OneArgBuiltin(string arg1) => $"hello {arg1}";
+
+        // Built-in with two arguments.
+        [OpaCustomBuiltin("custom.twoArgBuiltin")]
+        public static string TwoArgBuiltin(string arg1, string arg2) => $"hello {arg1} {arg2}";
+
+        // Built-in with three arguments.
+        [OpaCustomBuiltin("custom.threeArgBuiltin")]
+        public static string ThreeArgBuiltin(string arg1, string arg2, string arg3)
+            => $"hello {arg1} {arg2} {arg3}";
+
+        // Built-in with four arguments.
+        [OpaCustomBuiltin("custom.fourArgBuiltin")]
+        public static string FourArgBuiltin(string arg1, string arg2, string arg3, string arg4)
+            => $"hello {arg1} {arg2} {arg3} {arg4}";
+    }
+
+    #endregion
+
     [Fact]
     public async Task CustomBuiltins()
     {
         #region CustomBuiltinsCompile
 
-        var opts = new RegoCompilerOptions
+        var compilerOptions = new RegoCompilerOptions
         {
             // Custom built-ins will be merged with capabilities v0.53.1.
             CapabilitiesVersion = "v0.53.1",
         };
 
-        var compiler = new RegoInteropCompiler(new OptionsWrapper<RegoCompilerOptions>(opts));
+        var compiler = new RegoInteropCompiler(new OptionsWrapper<RegoCompilerOptions>(compilerOptions));
         var policy = await compiler.CompileBundle(
             "builtins",
             new[]
@@ -112,6 +148,82 @@ public partial class DocSamples
         #endregion
 
         #region CustomBuiltinsEval
+
+        var resultZeroArg = engine.Evaluate<object, string>(new object(), "custom_builtins/zero_arg");
+        Console.WriteLine(resultZeroArg.Result);
+
+        var resultOneArg = engine.Evaluate<object, string>(
+            new { args = new[] { "arg0" } },
+            "custom_builtins/one_arg"
+            );
+        Console.WriteLine(resultOneArg.Result);
+
+        var resultTwoArg = engine.Evaluate<object, string>(
+            new { args = new[] { "arg0", "arg1" } },
+            "custom_builtins/two_arg"
+            );
+        Console.WriteLine(resultTwoArg.Result);
+
+        var resultThreeArg = engine.Evaluate<object, string>(
+            new { args = new[] { "arg0", "arg1", "arg2" } },
+            "custom_builtins/three_arg"
+            );
+        Console.WriteLine(resultThreeArg.Result);
+
+        var resultFourArg = engine.Evaluate<object, string>(
+            new { args = new[] { "arg0", "arg1", "arg2", "arg3" } },
+            "custom_builtins/four_arg"
+            );
+        Console.WriteLine(resultFourArg.Result);
+
+        #endregion
+
+        Assert.Equal("hello", resultZeroArg.Result);
+        Assert.Equal("hello arg0", resultOneArg.Result);
+        Assert.Equal("hello arg0 arg1", resultTwoArg.Result);
+        Assert.Equal("hello arg0 arg1 arg2", resultThreeArg.Result);
+        Assert.Equal("hello arg0 arg1 arg2 arg3", resultFourArg.Result);
+    }
+
+    [Fact]
+    public async Task CustomBuiltinsV26()
+    {
+        #region CustomBuiltinsCompileV26
+
+        var compilerOptions = new RegoCompilerOptions
+        {
+            // Custom built-ins will be merged with capabilities v0.53.1.
+            CapabilitiesVersion = "v0.53.1",
+        };
+
+        var compiler = new RegoInteropCompiler(new OptionsWrapper<RegoCompilerOptions>(compilerOptions));
+        var policy = await compiler.CompileBundle(
+            "builtins",
+            new[]
+            {
+                "custom_builtins/zero_arg",
+                "custom_builtins/one_arg",
+                "custom_builtins/two_arg",
+                "custom_builtins/three_arg",
+                "custom_builtins/four_arg",
+            },
+            // Provide built-ins capabilities for the compiler.
+            Path.Combine("builtins", "capabilities.json")
+            );
+
+        var engineOptions = new WasmPolicyEngineOptions
+        {
+            // Register custom built-ins implementation.
+            CustomBuiltins = { () => new OpaCustomBuiltins() },
+        };
+
+        var factory = new OpaBundleEvaluatorFactory(policy, options: engineOptions);
+
+        var engine = factory.Create();
+
+        #endregion
+
+        #region CustomBuiltinsEvalV26
 
         var resultZeroArg = engine.Evaluate<object, string>(new object(), "custom_builtins/zero_arg");
         Console.WriteLine(resultZeroArg.Result);
