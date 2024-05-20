@@ -617,8 +617,7 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
         var src = """
             package sdk
 
-            import future.keywords.if
-            import future.keywords.contains
+            import rego.v1
 
             allow if {
                 io.jwt.verify_hs256("xxxxx", "secret")

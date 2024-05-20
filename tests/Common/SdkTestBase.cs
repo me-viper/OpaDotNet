@@ -36,7 +36,7 @@ public class SdkTestBase(ITestOutputHelper output) : OpaTestBase(output)
     {
         var src = $$"""
             package sdk
-            import future.keywords.if
+            import rego.v1
 
             assert if {
                 expected == actual

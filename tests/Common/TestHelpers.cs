@@ -6,7 +6,7 @@ internal static class TestHelpers
 {
     public const string SimplePolicySource = """
         package example
-        import future.keywords.if
+        import rego.v1
         default allow := false
         """;
 
