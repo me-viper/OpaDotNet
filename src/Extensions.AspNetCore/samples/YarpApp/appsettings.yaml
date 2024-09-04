@@ -1,0 +1,48 @@
+﻿policies:
+  - name: p1
+    data.yaml: |
+      a: 1
+      b: 2
+    source: |
+      # METADATA
+      # entrypoint: true
+      package example.allow
+
+      # METADATA
+      # description: This policy never denies
+      deny if {
+        print("This policy never denies", "Input:", input)
+        false
+      }
+
+  - name: p2
+    source: |
+      # METADATA
+      # entrypoint: true
+      package example.deny
+
+      # METADATA
+      # description: This policy always denies
+      deny contains msg if {
+        print("This policy always denies")
+        msg := format(rego.metadata.rule())
+        true
+      }
+
+      format(meta) := {"reason": meta.description}
+
+  - name: p3
+    source: |
+      # METADATA
+      # entrypoint: true
+      package example.path
+
+      # METADATA
+      # description: Path is not allowed
+      deny contains msg if {
+        print("Path:", input.path)
+        msg := format(rego.metadata.rule())
+        not startswith(input.path, "/path/allow")
+      }
+
+      format(meta) := {"reason": meta.description}

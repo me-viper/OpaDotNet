@@ -1,0 +1,11 @@
+#nullable enable
+OpaDotNet.Compilation.Cli.RegoCliCompiler
+OpaDotNet.Compilation.Cli.RegoCliCompiler.Version(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<OpaDotNet.Compilation.Abstractions.RegoCompilerVersion!>!
+OpaDotNet.Compilation.Cli.RegoCliCompiler.Compile(string! path, OpaDotNet.Compilation.Abstractions.CompilationParameters! parameters, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<System.IO.Stream!>!
+OpaDotNet.Compilation.Cli.RegoCliCompiler.Compile(System.IO.Stream! stream, OpaDotNet.Compilation.Abstractions.CompilationParameters! parameters, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<System.IO.Stream!>!
+OpaDotNet.Compilation.Cli.RegoCliCompilerOptions
+OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.ExtraArguments.get -> string?
+OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.ExtraArguments.set -> void
+OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.OpaToolPath.get -> string?
+OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.OpaToolPath.set -> void
+OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.RegoCliCompilerOptions() -> void

@@ -1,0 +1,12 @@
+{
+  "publicReleaseRefSpec": [
+    "^refs/heads/main$",
+    "^refs/release/v\\d+\\.\\d+"
+  ],
+  "release" : {
+    "tagName" : "v{version}",
+    "branchName" : "release/v{version}",
+    "versionIncrement" : "minor",
+    "firstUnstableTag" : "alpha"
+  }
+}

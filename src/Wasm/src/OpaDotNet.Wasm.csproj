@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <IsPackable>true</IsPackable>
+    <Summary>Open Policy Agent (OPA) WebAssembly dotnet core SDK</Summary>
+    <Description>Open Policy Agent (OPA) WebAssembly dotnet core SDK</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath=""/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="OpaDotNet.Wasm.Tests"/>
+    <InternalsVisibleTo Include="OpaDotNet.Benchmarks"/>
+
+    <PackageReference Include="JetBrains.Annotations" Version="2024.2.0" />
+
+    <PackageReference Include="IPNetwork2" Version="3.0.651">
+      <Aliases>Ipn</Aliases>
+    </PackageReference>
+
+    <PackageReference Include="JsonPatch.Net" Version="3.0.0" />
+    <PackageReference Include="JsonSchema.Net" Version="6.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.1" />
+    <PackageReference Include="Microsoft.Toolkit.HighPerformance" Version="7.1.2" />
+    <PackageReference Include="Semver" Version="2.3.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.3.1" />
+    <PackageReference Include="Wasmtime" Version="17.0.0" />
+    <PackageReference Include="Yaml2JsonNode" Version="2.0.0" />
+    <PackageReference Include="YamlDotNet" Version="15.1.1" />
+
+  </ItemGroup>
+
+</Project>
