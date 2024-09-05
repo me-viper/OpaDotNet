@@ -6,8 +6,14 @@ on:
     paths-ignore:
       - 'docs/**'
       - '**.md'
+
   workflow_dispatch:
-    branches: [ main, release/v* ]
+  workflow_call:
+   inputs:
+      release:
+        required: false
+        type: boolean
+
   pull_request:
     branches: [ main ]
     paths-ignore:
@@ -15,14 +21,44 @@ on:
       - '**.md'
 
 jobs:
-  build:
+  go_build:
+    runs-on: ubuntu-20.04
 
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: glibc version
+      run: ldd --version
+
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version-file: './src/Compilation/Interop/opa-native/go.mod'
+
+    - name: Install gcc
+      run: sudo apt-get install -y gcc gcc-mingw-w64
+
+    - name: Build native
+      shell: pwsh
+      run: ./src/Compilation/Interop/build.ps1
+
+    - uses: actions/upload-artifact@v4
+      with:
+        name: opa-native
+        overwrite: true
+        path: ./src/Compilation/Interop/lib/*
+        if-no-files-found: error
+        retention-days: 1
+
+  build:
     runs-on: ubuntu-latest
+    needs: go_build
 
     steps:
     - uses: actions/checkout@v4
       with:
         fetch-depth: 0
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
@@ -30,11 +66,14 @@ jobs:
           7.0.x
           8.0.x
 
+    - name: get_opa_lib
+      uses: actions/download-artifact@v4
+      with:
+        name: opa-native
+        path: ./src/Compilation/Interop/lib
+
     - name: Restore Tools
       run: dotnet tool restore
-
-    - name: Calc Version
-      run: dotnet gitversion /updateprojectfiles /output buildserver
 
     - name: Build
       run: dotnet build -c Release
@@ -48,9 +87,19 @@ jobs:
         OPA_CLI_VERSION: ${{ vars.OPA_CLI_VERSION }}
 
     - name: Test
-      run: dotnet test /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
+      run: dotnet test -c Release --no-build /p:CollectCoverage=true /p:CoverletOutput='${GITHUB_WORKSPACE}/TestResults/' /p:CoverletOutputFormat=lcov /p:UseSourceLink=true /p:DeterministicReport=true
+
     - name: Coveralls
       uses: coverallsapp/github-action@v2
       with:
-        file: ./tests/TestResults/coverage.net7.0.info ./tests/TestResults/coverage.net8.0.info
+        file: ${GITHUB_WORKSPACE}/TestResults/coverage.net7.0.info ${GITHUB_WORKSPACE}/TestResults/coverage.net8.0.info
         format: lcov
+
+    - name: Pack
+      run: dotnet pack -c Release --no-build
+
+    - uses: actions/upload-artifact@v3
+      if: ${{ inputs.release }}
+      with:
+        name: artifacts
+        path: ./artifacts/package/release/*

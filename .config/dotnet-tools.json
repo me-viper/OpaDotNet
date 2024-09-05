@@ -2,12 +2,6 @@
   "version": 1,
   "isRoot": true,
   "tools": {
-    "gitversion.tool": {
-      "version": "5.12.0",
-      "commands": [
-        "dotnet-gitversion"
-      ]
-    },
     "nbgv": {
       "version": "3.6.139",
       "commands": [
