@@ -39,7 +39,7 @@ $targets | %{
         "-C", "./opa-native"
         "-ldflags", "-w -s -X main.Vcs=$hash",
         "-buildmode=c-shared",
-        "-o", "./lib/$outPath/Opa.Interop.$($_.Ext)",
+        "-o", "../lib/$outPath/Opa.Interop.$($_.Ext)",
         "./main.go")
 
     if ($IsWindows) {
