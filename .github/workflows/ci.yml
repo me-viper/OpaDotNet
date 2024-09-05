@@ -34,9 +34,10 @@ jobs:
       run: ldd --version
 
     - name: Set up Go
-      uses: actions/setup-go@v4
+      uses: actions/setup-go@v5
       with:
         go-version-file: './src/Compilation/Interop/opa-native/go.mod'
+        cache-dependency-path: './src/Compilation/Interop/opa-native/go.sum'
 
     - name: Install gcc
       run: sudo apt-get install -y gcc gcc-mingw-w64
@@ -90,7 +91,7 @@ jobs:
         OPA_CLI_VERSION: ${{ vars.OPA_CLI_VERSION }}
 
     - name: Test
-      run: dotnet test -c Release --no-build /p:CollectCoverage=true /p:CoverletOutput='${GITHUB_WORKSPACE}/TestResults/' /p:CoverletOutputFormat=lcov /p:UseSourceLink=true /p:DeterministicReport=true
+      run: dotnet test -c Release --no-build /p:CollectCoverage=true /p:CoverletOutput='${GITHUB_WORKSPACE}/TestResults/' /p:CoverletOutputFormat=lcov /p:UseSourceLink=true
 
     - name: Coveralls
       uses: coverallsapp/github-action@v2
