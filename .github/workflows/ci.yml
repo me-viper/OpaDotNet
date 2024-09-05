@@ -91,13 +91,13 @@ jobs:
         OPA_CLI_VERSION: ${{ vars.OPA_CLI_VERSION }}
 
     - name: Test
-      run: dotnet test -c Release -m:1 --no-build /p:CollectCoverage=true /p:CoverletOutput="${GITHUB_WORKSPACE}/TestResults/" /p:CoverletOutputFormat="cobertura%2cjson" /p:MergeWith="${GITHUB_WORKSPACE}/TestResults/coverage.net8.0.json"
+      run: dotnet test -c Release -m:1 --no-build /p:CollectCoverage=true /p:CoverletOutput="${GITHUB_WORKSPACE}/TestResults/" /p:CoverletOutputFormat="lcov%2cjson" /p:MergeWith="${GITHUB_WORKSPACE}/TestResults/coverage.net8.0.json"
 
     - name: Coveralls
       uses: coverallsapp/github-action@v2
       with:
-        file: ${GITHUB_WORKSPACE}/TestResults/coverage.net8.0.cobertura.xml ${GITHUB_WORKSPACE}/TestResults/coverage.net7.0.cobertura.xml
-        format: cobertura
+        file: ${GITHUB_WORKSPACE}/TestResults/coverage.net8.0.info ${GITHUB_WORKSPACE}/TestResults/coverage.net7.0.info
+        format: lcov
 
     - name: Pack
       run: dotnet pack -c Release --no-build
