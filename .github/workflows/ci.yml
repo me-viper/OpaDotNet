@@ -91,7 +91,7 @@ jobs:
         OPA_CLI_VERSION: ${{ vars.OPA_CLI_VERSION }}
 
     - name: Test
-      run: dotnet test -c Release --no-build /p:CollectCoverage=true /p:CoverletOutput='${GITHUB_WORKSPACE}/TestResults/' /p:CoverletOutputFormat=lcov /p:UseSourceLink=true
+      run: dotnet test -c Release --no-build /p:CollectCoverage=true /p:CoverletOutput="${GITHUB_WORKSPACE}/TestResults/" /p:CoverletOutputFormat=lcov /p:UseSourceLink=true
 
     - name: Coveralls
       uses: coverallsapp/github-action@v2

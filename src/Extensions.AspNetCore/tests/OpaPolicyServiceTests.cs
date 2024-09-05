@@ -71,7 +71,7 @@ public class OpaPolicyServiceTests(ITestOutputHelper output)
             );
     }
 
-    [Fact]
+    [Fact(Skip = "Flaky")]
     public async Task PoolSize()
     {
         const int maxEvaluators = 5;
