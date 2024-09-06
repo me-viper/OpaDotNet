@@ -9,10 +9,6 @@ jobs:
   go_build:
     runs-on: ubuntu-20.04
 
-    defaults:
-      run:
-        working-directory: './src/Compilation/Interop'
-
     steps:
     - uses: actions/checkout@v4
       with:
@@ -44,6 +40,7 @@ jobs:
 
     - name: Build native
       shell: pwsh
+      working-directory: ./src/Compilation/Interop
       run: ./build.ps1
       if: steps.cache-opa-native.outputs.cache-hit != 'true'
 
