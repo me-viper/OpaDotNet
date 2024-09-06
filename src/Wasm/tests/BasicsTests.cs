@@ -112,8 +112,7 @@ public class BasicsTests : OpaTestBase
 
         using var engine = OpaEvaluatorFactory.CreateFromBundle(
             policy,
-            options: new() { MaxAbiVersion = ver },
-            loggerFactory: LoggerFactory
+            options: new() { MaxAbiVersion = ver }
             );
 
         engine.SetDataFromRawJson(data);
@@ -145,8 +144,7 @@ public class BasicsTests : OpaTestBase
     public void StringData(string? data, string input, bool expectedResult)
     {
         using var engine = OpaEvaluatorFactory.CreateFromWasm(
-            File.OpenRead(Path.Combine(BasePath, "simple-1.2.wasm")),
-            loggerFactory: LoggerFactory
+            File.OpenRead(Path.Combine(BasePath, "simple-1.2.wasm"))
             );
 
         engine.SetDataFromRawJson(data);
@@ -173,8 +171,7 @@ public class BasicsTests : OpaTestBase
         dataStream.Seek(0, SeekOrigin.Begin);
 
         using var engine = OpaEvaluatorFactory.CreateFromWasm(
-            File.OpenRead(Path.Combine(BasePath, "simple-1.2.wasm")),
-            loggerFactory: LoggerFactory
+            File.OpenRead(Path.Combine(BasePath, "simple-1.2.wasm"))
             );
 
         engine.SetDataFromStream(dataStream);
@@ -208,8 +205,7 @@ public class BasicsTests : OpaTestBase
 
         using var engine = OpaEvaluatorFactory.CreateFromWasm(
             File.OpenRead(Path.Combine(BasePath, "simple-1.2.wasm")),
-            opts,
-            loggerFactory: LoggerFactory
+            opts
             );
 
         engine.SetData(new Data("world"));
@@ -242,7 +238,7 @@ public class BasicsTests : OpaTestBase
 
         var policy = await CompileFile(Path.Combine(BasePath, "composite.rego"), new[] { "example" });
 
-        using var engine = OpaEvaluatorFactory.CreateFromBundle(policy, options: opts, loggerFactory: LoggerFactory);
+        using var engine = OpaEvaluatorFactory.CreateFromBundle(policy, options: opts);
         var result = engine.Evaluate<object?, CompositeResult>(null, "example");
 
         var expected = new CompositeResult { X = "hi", Y = 1, Z = true };
@@ -255,7 +251,7 @@ public class BasicsTests : OpaTestBase
     public async Task EmptyOutput()
     {
         var policy = await CompileFile(Path.Combine(BasePath, "empty_composite.rego"), new[] { "example" });
-        var factory = new OpaBundleEvaluatorFactory(policy, loggerFactory: LoggerFactory);
+        var factory = new OpaBundleEvaluatorFactory(policy, null, null);
 
         using var engine = factory.Create();
 
@@ -283,8 +279,7 @@ public class BasicsTests : OpaTestBase
         Assert.NotNull(inp);
 
         using var engine = OpaEvaluatorFactory.CreateFromWasm(
-            File.OpenRead(Path.Combine(BasePath, "simple-1.2.wasm")),
-            loggerFactory: LoggerFactory
+            File.OpenRead(Path.Combine(BasePath, "simple-1.2.wasm"))
             );
 
         engine.SetDataFromRawJson("{ \"world\": \"world\" }");
@@ -311,8 +306,7 @@ public class BasicsTests : OpaTestBase
         Assert.NotNull(inp);
 
         using var engine = OpaEvaluatorFactory.CreateFromWasm(
-            File.OpenRead(Path.Combine(BasePath, "simple-1.2.wasm")),
-            loggerFactory: LoggerFactory
+            File.OpenRead(Path.Combine(BasePath, "simple-1.2.wasm"))
             );
 
         engine.SetDataFromRawJson("{ \"world\": \"world\" }");
@@ -330,7 +324,7 @@ public class BasicsTests : OpaTestBase
     public async Task EmptyPredicate()
     {
         var policy = await CompileFile(Path.Combine(BasePath, "simple.rego"), new[] { "example/empty" });
-        var factory = new OpaBundleEvaluatorFactory(policy, loggerFactory: LoggerFactory);
+        var factory = new OpaBundleEvaluatorFactory(policy, null, null);
 
         using var engine = factory.Create();
 
@@ -346,8 +340,7 @@ public class BasicsTests : OpaTestBase
         var data = "{\"world\":\"world\"}";
 
         using var engine = (OpaWasmEvaluator)OpaEvaluatorFactory.CreateFromWasm(
-            File.OpenRead(Path.Combine(BasePath, "simple-1.3.wasm")),
-            loggerFactory: LoggerFactory
+            File.OpenRead(Path.Combine(BasePath, "simple-1.3.wasm"))
             );
 
         engine.SetDataFromRawJson(data);

@@ -30,7 +30,7 @@ public class YamlSupportTests : OpaTestBase, IAsyncLifetime
             }
             );
 
-        _engine = OpaEvaluatorFactory.CreateFromBundle(policy, importsAbiFactory: () => new TestImportsAbi(Output));
+        _engine = OpaEvaluatorFactory.CreateFromBundle(policy, builtinsFactory: new DefaultBuiltinsFactory(() => new TestImportsAbi(Output)));
     }
 
     public Task DisposeAsync()

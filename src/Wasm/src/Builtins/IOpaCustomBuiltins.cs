@@ -8,5 +8,7 @@ public interface IOpaCustomBuiltins
     /// <summary>
     /// Resets built-ins between evaluations.
     /// </summary>
-    void Reset();
+    void Reset()
+    {
+    }
 }

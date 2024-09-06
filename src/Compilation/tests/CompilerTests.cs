@@ -22,12 +22,12 @@ public abstract class CompilerTests<T>
     protected CompilerTests(ITestOutputHelper output)
     {
         OutputHelper = output;
-        LoggerFactory = new LoggerFactory(new[] { new XunitLoggerProvider(output) });
+        LoggerFactory = new LoggerFactory([new XunitLoggerProvider(output)]);
     }
 
     protected abstract string BaseOutputPath { get; }
 
-    protected string DefaultCaps => "v0.64.0";
+    protected string DefaultCaps => Utils.DefaultCapabilities;
 
     protected abstract T CreateCompiler(ILoggerFactory? loggerFactory = null);
 

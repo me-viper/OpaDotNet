@@ -4,34 +4,18 @@ using OpaDotNet.Wasm;
 
 namespace OpaDotNet.Extensions.AspNetCore;
 
-public class CoreImportsAbi : DefaultOpaImportsAbi
+public class CoreImportsAbi(ILogger<CoreImportsAbi> logger, TimeProvider timeProvider) : DefaultOpaImportsAbi
 {
-    private readonly ILogger _logger;
+    internal CoreImportsAbi() : this(NullLogger<CoreImportsAbi>.Instance, TimeProvider.System)
+    {}
 
-    public CoreImportsAbi(ILogger<CoreImportsAbi>? logger = null)
-    {
-        _logger = logger ?? NullLogger<CoreImportsAbi>.Instance;
-    }
+    protected override DateTimeOffset Now() => timeProvider.GetUtcNow();
 
-    public override void PrintLn(string message)
-    {
-        _logger.LogDebug("{Message}", message);
-    }
-
-    public override void Print(IEnumerable<string> args)
-    {
-        _logger.LogDebug("{Message}", string.Join(", ", args));
-    }
-
-    protected override bool Trace(string message)
-    {
-        _logger.LogDebug("{Message}", message);
-        return base.Trace(message);
-    }
+    public override void Print(IEnumerable<string> args) => logger.LogDebug("{Message}", string.Join(", ", args));
 
     protected override bool OnError(BuiltinContext context, Exception ex)
     {
-        _logger.LogError(ex, "Failed to evaluate {Function}", context.FunctionName);
+        logger.LogError(ex, "Failed to evaluate {Function}", context.FunctionName);
         return base.OnError(context, ex);
     }
 }

@@ -19,8 +19,8 @@ public abstract class PathPolicySource : OpaPolicySource
 
     protected PathPolicySource(
         IOptionsMonitor<OpaAuthorizationOptions> options,
-        IOpaImportsAbiFactory importsAbiFactory,
-        ILoggerFactory loggerFactory) : base(options, importsAbiFactory, loggerFactory)
+        IOpaBundleEvaluatorFactoryBuilder factoryBuilder,
+        ILoggerFactory loggerFactory) : base(options, factoryBuilder, loggerFactory)
     {
         if (string.IsNullOrWhiteSpace(Options.PolicyBundlePath))
         {

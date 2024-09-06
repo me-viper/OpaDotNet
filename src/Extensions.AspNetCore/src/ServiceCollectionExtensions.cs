@@ -10,6 +10,7 @@ using Microsoft.Extensions.Options;
 
 using OpaDotNet.Compilation.Abstractions;
 using OpaDotNet.Wasm;
+using OpaDotNet.Wasm.Builtins;
 
 namespace OpaDotNet.Extensions.AspNetCore;
 
@@ -61,78 +62,27 @@ public static class ServiceCollectionExtensions
         return builder;
     }
 
-    public static IOpaAuthorizationBuilder AddImportsAbi<T>(this IOpaAuthorizationBuilder builder)
-        where T : class, IOpaImportsAbi
+    public static IOpaAuthorizationBuilder AddCustomBuiltins<T>(this IOpaAuthorizationBuilder builder)
+        where T : class, IOpaCustomBuiltins
     {
         ArgumentNullException.ThrowIfNull(builder);
 
-        builder.Services.AddTransient<IOpaImportsAbi, T>();
-
-        if (typeof(T).IsAssignableTo(typeof(ICapabilitiesProvider)))
-        {
-            builder.AddImportsAbi<T>(
-                p =>
-                {
-                    var abi = p.GetRequiredService<IOpaImportsAbi>();
-
-                    if (abi is ICapabilitiesProvider cp)
-                        return cp.GetCapabilities();
-
-                    throw new InvalidOperationException($"Type {typeof(T)} does not implement {typeof(ICapabilitiesProvider)}");
-                }
-                );
-        }
-        else
-        {
-            builder.Services.AddSingleton<IOpaImportsAbiFactory>(
-                p => new OpaImportsAbiFactory(
-                    p.GetRequiredService<IOpaImportsAbi>,
-                    p.GetRequiredService<IOptionsMonitor<OpaAuthorizationOptions>>()
-                    )
-                );
-        }
+        builder.Services.AddTransient<IOpaCustomBuiltins, T>();
 
         return builder;
     }
 
-    public static IOpaAuthorizationBuilder AddImportsAbi<T>(
-        this IOpaAuthorizationBuilder builder,
-        Func<IServiceProvider, Stream> capabilities)
-        where T : class, IOpaImportsAbi
+    public static IOpaAuthorizationBuilder AddCustomBuiltins<TBuiltins, TCapabilities>(this IOpaAuthorizationBuilder builder)
+        where TBuiltins : class, IOpaCustomBuiltins
+        where TCapabilities : class, ICapabilitiesProvider
     {
         ArgumentNullException.ThrowIfNull(builder);
-        ArgumentNullException.ThrowIfNull(capabilities);
 
-        builder.Services.AddTransient<IOpaImportsAbi, T>();
-        builder.Services.AddSingleton<IOpaImportsAbiFactory>(
-            p => new OpaImportsAbiFactory(
-                p.GetRequiredService<IOpaImportsAbi>,
-                () => capabilities(p),
-                p.GetRequiredService<IOptionsMonitor<OpaAuthorizationOptions>>()
-                )
-            );
+        builder.Services.AddTransient<IOpaCustomBuiltins, TBuiltins>();
+        builder.Services.AddTransient<ICapabilitiesProvider, TCapabilities>();
 
         return builder;
     }
-
-    // public static IOpaAuthorizationBuilder AddCompiler<TCompiler, TOptions>(
-    //     this IOpaAuthorizationBuilder builder,
-    //     Action<TOptions> configuration,
-    //     Func<IServiceProvider, TCompiler>? buildCompiler = null)
-    //     where TCompiler : class, IRegoCompiler
-    //     where TOptions : RegoCompilerOptions
-    // {
-    //     ArgumentNullException.ThrowIfNull(builder);
-    //
-    //     builder.Services.Configure(configuration);
-    //
-    //     if (buildCompiler == null)
-    //         builder.Services.TryAddSingleton<IRegoCompiler, TCompiler>();
-    //     else
-    //         builder.Services.TryAddSingleton<IRegoCompiler>(buildCompiler);
-    //
-    //     return builder;
-    // }
 
     public static IOpaAuthorizationBuilder AddCompiler<T>(
         this IOpaAuthorizationBuilder builder)
@@ -223,12 +173,8 @@ public static class ServiceCollectionExtensions
         services.TryAddSingleton(NopCompiler.Instance);
         services.TryAddSingleton<IBundleCompiler, BundleCompiler>();
         services.TryAddTransient<IOpaImportsAbi, CoreImportsAbi>();
-        services.TryAddSingleton<IOpaImportsAbiFactory>(
-            p => new OpaImportsAbiFactory(
-                p.GetRequiredService<IOpaImportsAbi>,
-                p.GetRequiredService<IOptionsMonitor<OpaAuthorizationOptions>>()
-                )
-            );
+        services.TryAddTransient<IBuiltinsFactory, AspNetCoreBuiltinsFactory>();
+        services.TryAddSingleton<IOpaBundleEvaluatorFactoryBuilder, OpaBundleEvaluatorFactoryBuilder>();
 
         return services;
     }

@@ -16,13 +16,11 @@ public sealed class OpaBundleEvaluatorFactory : OpaEvaluatorFactory
     /// </summary>
     /// <param name="bundleStream">OPA policy bundle stream</param>
     /// <param name="options">Evaluation engine options</param>
-    /// <param name="importsAbiFactory">Factory that produces instances of <see cref="IOpaImportsAbi"/></param>
-    /// <param name="loggerFactory">Logger factory</param>
+    /// <param name="builtinsFactory">Factory that produces instances of <see cref="IOpaImportsAbi"/></param>
     public OpaBundleEvaluatorFactory(
         Stream bundleStream,
-        WasmPolicyEngineOptions? options = null,
-        Func<IOpaImportsAbi>? importsAbiFactory = null,
-        ILoggerFactory? loggerFactory = null) : base(importsAbiFactory, loggerFactory, options)
+        WasmPolicyEngineOptions? options,
+        IBuiltinsFactory? builtinsFactory) : base(options, builtinsFactory)
     {
         ArgumentNullException.ThrowIfNull(bundleStream);
 

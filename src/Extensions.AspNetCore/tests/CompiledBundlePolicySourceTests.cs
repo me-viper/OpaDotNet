@@ -1,15 +1,9 @@
 ﻿using System.Text.Json;
 
-using JetBrains.Annotations;
-
-using Microsoft.Extensions.Options;
-
 using OpaDotNet.Compilation.Abstractions;
 using OpaDotNet.Compilation.Interop;
 using OpaDotNet.Extensions.AspNetCore.Tests.Common;
 using OpaDotNet.Wasm;
-
-using Xunit.Abstractions;
 
 namespace OpaDotNet.Extensions.AspNetCore.Tests;
 
@@ -33,10 +27,14 @@ public class CompiledBundlePolicySourceTests(ITestOutputHelper output) : PathPol
         };
 
         configure?.Invoke(opts);
+        var tom = TestOptionsMonitor.Create(opts);
 
         return new CompiledBundlePolicySource(
-            TestOptionsMonitor.Create(opts),
-            new OpaImportsAbiFactory(),
+            tom,
+            new OpaBundleEvaluatorFactoryBuilder(
+                tom,
+                new TestBuiltinsFactory(LoggerFactory)
+                ),
             LoggerFactory
             );
     }

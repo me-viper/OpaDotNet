@@ -34,4 +34,9 @@
 
   </ItemGroup>
 
+  <ItemGroup>
+    <Using Include="JetBrains.Annotations"/>
+    <Using Include="System.Diagnostics.CodeAnalysis"/>
+  </ItemGroup>
+
 </Project>

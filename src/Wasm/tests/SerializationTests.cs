@@ -30,7 +30,7 @@ public class SerializationTests : OpaTestBase, IAsyncLifetime
             );
 
         var logger = LoggerFactory.CreateLogger<SerializationImports>();
-        _engine = OpaEvaluatorFactory.CreateFromBundle(policy, importsAbiFactory: () => new SerializationImports(logger));
+        _engine = OpaEvaluatorFactory.CreateFromBundle(policy, builtinsFactory: new DefaultBuiltinsFactory(() => new SerializationImports(logger)));
     }
 
     public Task DisposeAsync()

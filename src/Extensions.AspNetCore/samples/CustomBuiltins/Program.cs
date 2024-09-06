@@ -10,6 +10,7 @@ using OpaDotNet.Compilation.Abstractions;
 using OpaDotNet.Compilation.Cli;
 using OpaDotNet.Extensions.AspNetCore;
 using OpaDotNet.Wasm;
+using OpaDotNet.Wasm.Builtins;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,7 +25,8 @@ builder.Services.AddOpaAuthorization(
         cfg.AddFileSystemPolicySource();
 
         // Register custom built-ins.
-        cfg.AddImportsAbi<CompositeCustomAbi>();
+        // cfg.AddImportsAbi<Custom1>();
+        // cfg.AddImportsAbi<Custom2>();
 
         // Configure.
         cfg.AddConfiguration(
@@ -92,15 +94,13 @@ internal class NopAuthenticationSchemeHandler : AuthenticationHandler<Authentica
     }
 }
 
-internal class Custom1 : CoreImportsAbi, ICapabilitiesProvider
+internal class Custom1 : IOpaCustomBuiltins, ICapabilitiesProvider
 {
-    public override object? Func(BuiltinContext context, BuiltinArg arg1)
-    {
-        if (context.FunctionName.Equals("custom1.func", StringComparison.OrdinalIgnoreCase))
-            return arg1.As<string>().Equals("/allow1", StringComparison.Ordinal);
+    public void Reset()
+    {}
 
-        return base.Func(context, arg1);
-    }
+    [OpaCustomBuiltin("custom1.func")]
+    public bool Func(string arg1) => arg1.Equals("/allow1", StringComparison.Ordinal);
 
     public Stream GetCapabilities()
     {
@@ -132,15 +132,13 @@ internal class Custom1 : CoreImportsAbi, ICapabilitiesProvider
     }
 }
 
-internal class Custom2 : CoreImportsAbi, ICapabilitiesProvider
+internal class Custom2 : IOpaCustomBuiltins, ICapabilitiesProvider
 {
-    public override object? Func(BuiltinContext context, BuiltinArg arg1)
-    {
-        if (context.FunctionName.Equals("custom2.func", StringComparison.OrdinalIgnoreCase))
-            return arg1.As<string>().Equals("/allow2", StringComparison.Ordinal);
+    public void Reset()
+    {}
 
-        return base.Func(context, arg1);
-    }
+    [OpaCustomBuiltin("custom2.func")]
+    public bool Func(string arg1) => arg1.Equals("/allow2", StringComparison.Ordinal);
 
     public Stream GetCapabilities()
     {
@@ -151,28 +149,5 @@ internal class Custom2 : CoreImportsAbi, ICapabilitiesProvider
             throw new InvalidOperationException("Failed to load 'caps2.json' resource");
 
         return result;
-    }
-}
-
-internal class CompositeCustomAbi : CoreImportsAbi, ICapabilitiesProvider
-{
-    private readonly Custom1 _custom1 = new();
-    private readonly Custom2 _custom2 = new();
-
-    public override object? Func(BuiltinContext context, BuiltinArg arg1)
-    {
-        if (context.FunctionName.StartsWith("custom1"))
-            return _custom1.Func(context, arg1);
-
-        if (context.FunctionName.StartsWith("custom2"))
-            return _custom2.Func(context, arg1);
-
-        return base.Func(context, arg1);
-    }
-
-    public Stream GetCapabilities()
-    {
-        // Merge Custom1 and Custom2 capabilities.
-        return BundleWriter.MergeCapabilities(_custom1.GetCapabilities(), _custom2.GetCapabilities());
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 
 using OpaDotNet.Compilation.Abstractions;
+using OpaDotNet.Wasm;
 
 namespace OpaDotNet.Extensions.AspNetCore;
 
@@ -15,21 +16,57 @@ internal sealed class BundleCompiler : IBundleCompiler
     public BundleCompiler(
         IRegoCompiler compiler,
         IOptionsMonitor<OpaAuthorizationOptions> compilerOptions,
-        IOpaImportsAbiFactory importsAbiFactory)
+        IEnumerable<ICapabilitiesProvider> capabilitiesProviders)
     {
         ArgumentNullException.ThrowIfNull(compiler);
         ArgumentNullException.ThrowIfNull(compilerOptions);
-        ArgumentNullException.ThrowIfNull(importsAbiFactory);
+        ArgumentNullException.ThrowIfNull(capabilitiesProviders);
 
         CompilerOptions = compilerOptions.CurrentValue.Compiler ?? new();
         Compiler = compiler;
 
-        var capsStream = importsAbiFactory.Capabilities();
+        var capsStream = Stream.Null;
 
-        if (capsStream != null)
+        try
         {
-            _capsCache = new byte[capsStream.Length];
-            _ = capsStream.Read(_capsCache.Span);
+            var capsPath = compilerOptions.CurrentValue.Compiler?.CapabilitiesFilePath;
+
+            if (!string.IsNullOrWhiteSpace(capsPath))
+            {
+                capsStream = new FileStream(
+                    capsPath,
+                    FileMode.Open,
+                    FileAccess.Read
+                    );
+            }
+            else
+            {
+                var caps = capabilitiesProviders.ToList();
+
+                if (caps.Count >= 1)
+                {
+                    capsStream = caps[0].GetCapabilities();
+
+                    foreach (var cap in caps[1..])
+                    {
+                        using var cs = cap.GetCapabilities();
+                        using var oldCaps = capsStream;
+                        capsStream = BundleWriter.MergeCapabilities(oldCaps, cs);
+                    }
+                }
+
+                capsStream.Seek(0, SeekOrigin.Begin);
+            }
+
+            if (capsStream.Length > 0)
+            {
+                _capsCache = new byte[capsStream.Length];
+                _ = capsStream.Read(_capsCache.Span);
+            }
+        }
+        finally
+        {
+            capsStream.Dispose();
         }
     }
 

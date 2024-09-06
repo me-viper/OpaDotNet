@@ -3,6 +3,7 @@
 using JetBrains.Annotations;
 
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
 using Microsoft.VisualStudio.TestPlatform.CrossPlatEngine;
 
@@ -16,17 +17,9 @@ using Xunit.Abstractions;
 
 namespace OpaDotNet.Extensions.AspNetCore.Tests;
 
-public class ConfigurationPolicySourceTests
+public class ConfigurationPolicySourceTests(ITestOutputHelper output)
 {
-    private readonly ITestOutputHelper _output;
-
-    private readonly ILoggerFactory _loggerFactory;
-
-    public ConfigurationPolicySourceTests(ITestOutputHelper output)
-    {
-        _output = output;
-        _loggerFactory = new LoggerFactory(new[] { new XunitLoggerProvider(output) });
-    }
+    private readonly ILoggerFactory _loggerFactory = new LoggerFactory([new XunitLoggerProvider(output)]);
 
     private record UserPolicyInput([UsedImplicitly] string User);
 
@@ -36,17 +29,16 @@ public class ConfigurationPolicySourceTests
         var policyOptions = new OpaPolicyOptions();
         var optionsMonitor = new PolicyOptionsMonitor(policyOptions);
         var authOptions = TestOptionsMonitor.Create(new OpaAuthorizationOptions());
-        var imports = new OpaImportsAbiFactory();
 
         using var compiler = new ConfigurationPolicySource(
             new BundleCompiler(
                 new RegoInteropCompiler(_loggerFactory.CreateLogger<RegoInteropCompiler>()),
                 authOptions,
-                imports
+                []
                 ),
             authOptions,
             optionsMonitor,
-            imports,
+            new OpaBundleEvaluatorFactoryBuilder(authOptions, new TestBuiltinsFactory(_loggerFactory)),
             _loggerFactory
             );
 
@@ -121,14 +113,13 @@ public class ConfigurationPolicySourceTests
         var optionsMonitor = new PolicyOptionsMonitor(policyOptions);
 
         var authOptions = TestOptionsMonitor.Create(opts);
-        var imports = new OpaImportsAbiFactory();
         var ric = new RegoInteropCompiler(_loggerFactory.CreateLogger<RegoInteropCompiler>());
 
         using var compiler = new ConfigurationPolicySource(
-            new BundleCompiler(ric, authOptions, imports),
+            new BundleCompiler(ric, authOptions, []),
             authOptions,
             optionsMonitor,
-            imports,
+            new OpaBundleEvaluatorFactoryBuilder(authOptions, new TestBuiltinsFactory(_loggerFactory)),
             _loggerFactory
             );
 
@@ -173,14 +164,13 @@ public class ConfigurationPolicySourceTests
         var optionsMonitor = new PolicyOptionsMonitor(policyOptions);
 
         var authOptions = TestOptionsMonitor.Create(opts);
-        var imports = new OpaImportsAbiFactory();
         var ric = new RegoInteropCompiler();
 
         using var compiler = new ConfigurationPolicySource(
-            new BundleCompiler(ric, TestOptionsMonitor.Create(opts), imports),
+            new BundleCompiler(ric, TestOptionsMonitor.Create(opts), []),
             authOptions,
             optionsMonitor,
-            imports,
+            new OpaBundleEvaluatorFactoryBuilder(authOptions, new TestBuiltinsFactory(_loggerFactory)),
             _loggerFactory
             );
 
@@ -191,7 +181,7 @@ public class ConfigurationPolicySourceTests
             var eval = compiler.CreateEvaluator();
             var result = eval.EvaluatePredicate(new UserPolicyInput($"u{i}"));
 
-            _output.WriteLine($"Checking: u{i}");
+            output.WriteLine($"Checking: u{i}");
             Assert.True(result.Result);
 
             var newOpts = new OpaPolicyOptions { { "p1", new() { Source = Policy(i + 1) } } };

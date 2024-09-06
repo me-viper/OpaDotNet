@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace OpaDotNet.Wasm.Builtins;
 
-internal class ImportsCache(JsonSerializerOptions jsonOptions)
+public class ImportsCache(JsonSerializerOptions jsonOptions)
 {
     private readonly object _lock = new();
 
@@ -16,7 +16,7 @@ internal class ImportsCache(JsonSerializerOptions jsonOptions)
             [typeof(Type), typeof(RegoValueFormat)]
             )!;
 
-    public void Populate(IReadOnlyList<IOpaCustomBuiltins> instances)
+    internal void Populate(IReadOnlyList<IOpaCustomBuiltins> instances)
     {
         if (_cache == null)
         {
@@ -28,7 +28,7 @@ internal class ImportsCache(JsonSerializerOptions jsonOptions)
         }
     }
 
-    public Func<BuiltinArg[], object?>? TryResolveImport(IReadOnlyList<IOpaCustomBuiltins> instances, string name)
+    internal Func<BuiltinArg[], object?>? TryResolveImport(IReadOnlyList<IOpaCustomBuiltins> instances, string name)
     {
         if (instances.Count == 0)
             return null;
@@ -143,7 +143,7 @@ internal class ImportsCache(JsonSerializerOptions jsonOptions)
                     .Lambda<Func<IOpaCustomBuiltins, BuiltinArg[], object?>>(body, instanceParam, argsParam)
                     .Compile();
 
-                result.TryAdd(name, new(import.GetType(), (i, a) => func(i, a)));
+                result[name] = new(import.GetType(), (i, a) => func(i, a));
             }
         }
 

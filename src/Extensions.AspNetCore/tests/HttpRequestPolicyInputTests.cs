@@ -2,6 +2,7 @@
 using System.Text.Json;
 
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Internal;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.JsonWebTokens;
 
@@ -17,7 +18,7 @@ namespace OpaDotNet.Extensions.AspNetCore.Tests;
 
 public class HttpRequestPolicyInputTests(ITestOutputHelper output) : IAsyncLifetime
 {
-    private readonly ILoggerFactory _loggerFactory = new LoggerFactory(new[] { new XunitLoggerProvider(output) });
+    private readonly ILoggerFactory _loggerFactory = new LoggerFactory([new XunitLoggerProvider(output)]);
 
     private IOpaPolicySource _policySource = default!;
 
@@ -35,7 +36,11 @@ public class HttpRequestPolicyInputTests(ITestOutputHelper output) : IAsyncLifet
         };
 
         _policySource = new TestEvaluatorFactoryProvider(
-            new OpaBundleEvaluatorFactory(policy, opts, () => new CoreImportsAbi(_loggerFactory.CreateLogger<CoreImportsAbi>()))
+            new OpaBundleEvaluatorFactory(
+                policy,
+                opts,
+                new TestBuiltinsFactory(_loggerFactory)
+                )
             );
     }
 

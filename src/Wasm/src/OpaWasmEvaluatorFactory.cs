@@ -9,18 +9,19 @@ public sealed class OpaWasmEvaluatorFactory : OpaEvaluatorFactory
 
     private readonly Action _disposer;
 
+    public OpaWasmEvaluatorFactory(Stream policyWasm) : this(policyWasm, null, null)
+    {}
+
     /// <summary>
     /// Creates new instance of <see cref="OpaWasmEvaluatorFactory"/>.
     /// </summary>
     /// <param name="policyWasm">OPA policy WASM binary stream</param>
     /// <param name="options">Evaluation engine options</param>
-    /// <param name="importsAbiFactory">Factory that produces instances of <see cref="IOpaImportsAbi"/></param>
-    /// <param name="loggerFactory">Logger factory</param>
+    /// <param name="builtinsFactory">Factory that produces instances of <see cref="IOpaImportsAbi"/></param>
     public OpaWasmEvaluatorFactory(
         Stream policyWasm,
-        WasmPolicyEngineOptions? options = null,
-        Func<IOpaImportsAbi>? importsAbiFactory = null,
-        ILoggerFactory? loggerFactory = null) : base(importsAbiFactory, loggerFactory, options)
+        WasmPolicyEngineOptions? options,
+        IBuiltinsFactory? builtinsFactory) : base(options, builtinsFactory)
     {
         ArgumentNullException.ThrowIfNull(policyWasm);
 

@@ -106,7 +106,11 @@ public class BundleSignatureTests(ITestOutputHelper output) : OpaTestBase(output
             },
         };
 
-        var factory = new OpaBundleEvaluatorFactory(fs, engineOpts, importsAbiFactory: () => new TestImportsAbi(Output));
+        var factory = new OpaBundleEvaluatorFactory(
+            fs,
+            engineOpts,
+            new TestBuiltinsFactory(Output)
+            );
 
         Assert.NotNull(factory.Create());
     }
@@ -118,7 +122,11 @@ public class BundleSignatureTests(ITestOutputHelper output) : OpaTestBase(output
         var engineOpts = new WasmPolicyEngineOptions { CachePath = CachePath };
 
         Assert.Throws<BundleSignatureValidationException>(
-            () => new OpaBundleEvaluatorFactory(fs, engineOpts, importsAbiFactory: () => new TestImportsAbi(Output))
+            () => new OpaBundleEvaluatorFactory(
+                fs,
+                engineOpts,
+                new TestBuiltinsFactory(Output)
+                )
             );
     }
 
@@ -134,7 +142,7 @@ public class BundleSignatureTests(ITestOutputHelper output) : OpaTestBase(output
         };
 
         Assert.Throws<BundleSignatureValidationException>(
-            () => new OpaBundleEvaluatorFactory(fs, engineOpts, importsAbiFactory: () => new TestImportsAbi(Output))
+            () => new OpaBundleEvaluatorFactory(fs, engineOpts, new TestBuiltinsFactory(Output))
             );
     }
 
@@ -167,7 +175,7 @@ public class BundleSignatureTests(ITestOutputHelper output) : OpaTestBase(output
             () => new OpaBundleEvaluatorFactory(
                 ms,
                 engineOpts,
-                importsAbiFactory: () => new TestImportsAbi(Output)
+                new TestBuiltinsFactory(Output)
                 )
             );
 
@@ -202,7 +210,7 @@ public class BundleSignatureTests(ITestOutputHelper output) : OpaTestBase(output
         var factory = new OpaBundleEvaluatorFactory(
             ms,
             engineOpts,
-            importsAbiFactory: () => new TestImportsAbi(Output)
+            new TestBuiltinsFactory(Output)
             );
 
         Assert.NotNull(factory);
@@ -231,7 +239,7 @@ public class BundleSignatureTests(ITestOutputHelper output) : OpaTestBase(output
             () => new OpaBundleEvaluatorFactory(
                 ms,
                 engineOpts,
-                importsAbiFactory: () => new TestImportsAbi(Output)
+                new TestBuiltinsFactory(Output)
                 )
             );
 
@@ -260,7 +268,7 @@ public class BundleSignatureTests(ITestOutputHelper output) : OpaTestBase(output
             () => new OpaBundleEvaluatorFactory(
                 ms,
                 engineOpts,
-                importsAbiFactory: () => new TestImportsAbi(Output)
+                new TestBuiltinsFactory(Output)
                 )
             );
 
@@ -295,7 +303,7 @@ public class BundleSignatureTests(ITestOutputHelper output) : OpaTestBase(output
         var factory = new OpaBundleEvaluatorFactory(
             ms,
             engineOpts,
-            importsAbiFactory: () => new TestImportsAbi(Output)
+            new TestBuiltinsFactory(Output)
             );
 
         Assert.NotNull(factory);

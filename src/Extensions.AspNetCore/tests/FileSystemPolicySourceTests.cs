@@ -2,6 +2,7 @@
 
 using JetBrains.Annotations;
 
+using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
 
 using OpaDotNet.Compilation.Abstractions;
@@ -40,13 +41,12 @@ public sealed class FileSystemPolicySourceTests : PathPolicySourceTests<FileSyst
         configure?.Invoke(opts);
 
         var authOptions = TestOptionsMonitor.Create(opts);
-        var imports = new OpaImportsAbiFactory();
         var ric = new RegoInteropCompiler();
 
         return new FileSystemPolicySource(
-            new BundleCompiler(ric, authOptions, imports),
+            new BundleCompiler(ric, authOptions, []),
             authOptions,
-            imports,
+            new OpaBundleEvaluatorFactoryBuilder(authOptions, new TestBuiltinsFactory()),
             LoggerFactory
             );
     }

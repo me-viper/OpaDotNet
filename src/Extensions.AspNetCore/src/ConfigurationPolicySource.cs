@@ -20,8 +20,8 @@ public class ConfigurationPolicySource : OpaPolicySource
         IBundleCompiler compiler,
         IOptionsMonitor<OpaAuthorizationOptions> authOptions,
         IOptionsMonitor<OpaPolicyOptions> policy,
-        IOpaImportsAbiFactory importsAbiFactory,
-        ILoggerFactory loggerFactory) : base(authOptions, importsAbiFactory, loggerFactory)
+        IOpaBundleEvaluatorFactoryBuilder factoryBuilder,
+        ILoggerFactory loggerFactory) : base(authOptions, factoryBuilder, loggerFactory)
     {
         ArgumentNullException.ThrowIfNull(compiler);
         ArgumentNullException.ThrowIfNull(policy);

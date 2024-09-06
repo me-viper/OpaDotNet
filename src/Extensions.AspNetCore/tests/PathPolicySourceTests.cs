@@ -1,11 +1,6 @@
-﻿using JetBrains.Annotations;
+﻿using Microsoft.Extensions.Logging;
 
-using Microsoft.Extensions.Logging;
-
-using OpaDotNet.Extensions.AspNetCore.Tests.Common;
 using OpaDotNet.InternalTesting;
-
-using Xunit.Abstractions;
 
 namespace OpaDotNet.Extensions.AspNetCore.Tests;
 
@@ -19,7 +14,7 @@ public abstract class PathPolicySourceTests<T> : IDisposable
     protected PathPolicySourceTests(ITestOutputHelper output)
     {
         _output = output;
-        LoggerFactory = new LoggerFactory(new[] { new XunitLoggerProvider(output) });
+        LoggerFactory = new LoggerFactory([new XunitLoggerProvider(output)]);
         Environment.SetEnvironmentVariable("DOTNET_USE_POLLING_FILE_WATCHER", null);
     }
 

@@ -20,7 +20,8 @@ public class EvaluatorFactoryTests : OpaTestBase
 
         var factory = new OpaBundleEvaluatorFactory(
             policyBundle,
-            loggerFactory: LoggerFactory
+            null,
+            null
             );
 
         Task RunTest()
@@ -46,10 +47,7 @@ public class EvaluatorFactoryTests : OpaTestBase
     public async Task ParallelWasm()
     {
         var path = Path.Combine("TestData", "compile-bundle", "policy.wasm");
-        var factory = new OpaWasmEvaluatorFactory(
-            File.OpenRead(path),
-            loggerFactory: LoggerFactory
-            );
+        var factory = new OpaWasmEvaluatorFactory(File.OpenRead(path));
 
         using var dataStream = File.OpenText(Path.Combine("TestData", "compile-bundle", "data.json"));
         var data = await dataStream.ReadToEndAsync();
@@ -87,7 +85,7 @@ public class EvaluatorFactoryTests : OpaTestBase
             CachePath = di.FullName,
         };
 
-        var factory = new OpaBundleEvaluatorFactory(File.OpenRead(path), opts);
+        var factory = new OpaBundleEvaluatorFactory(File.OpenRead(path), opts, null);
 
         var evaluator1 = factory.Create();
         var input1 = new { message = "world" };
@@ -134,7 +132,7 @@ public class EvaluatorFactoryTests : OpaTestBase
             CachePath = di.FullName,
         };
 
-        var factory = new OpaWasmEvaluatorFactory(File.OpenRead(policyPath), opts);
+        var factory = new OpaWasmEvaluatorFactory(File.OpenRead(policyPath), opts, null);
 
         var evaluator1 = factory.Create();
         evaluator1.SetDataFromStream(File.OpenRead(dataPath));

@@ -148,7 +148,7 @@ public class AspNetCoreTests(ITestOutputHelper output)
             },
         };
 
-        var factory = new TestEvaluatorFactoryProvider(new OpaBundleEvaluatorFactory(policy, opts));
+        var factory = new TestEvaluatorFactoryProvider(new OpaBundleEvaluatorFactory(policy, opts, null));
 
         var server = CreateServerFull(
             output,

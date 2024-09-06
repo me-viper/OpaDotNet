@@ -1,8 +1,5 @@
 ﻿using System.Collections.Concurrent;
-using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Nodes;
-
-using JetBrains.Annotations;
 
 // ReSharper disable HeapView.BoxingAllocation
 
@@ -32,27 +29,18 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
     /// When overriden allows replacing default logic for retrieving the current UTC date and time.
     /// </summary>
     [ExcludeFromCodeCoverage]
-    protected virtual DateTimeOffset Now()
-    {
-        return DateTimeOffset.UtcNow;
-    }
+    protected virtual DateTimeOffset Now() => DateTimeOffset.UtcNow;
 
     /// <summary>
     /// When overriden allows replacing GUID generator.
     /// </summary>
     [ExcludeFromCodeCoverage]
-    protected virtual Guid NewGuid()
-    {
-        return Guid.NewGuid();
-    }
+    protected virtual Guid NewGuid() => Guid.NewGuid();
 
     /// <summary>
     /// Resets built-ins so it can be used for subsequent evaluations (clears all caches).
     /// </summary>
-    public virtual void Reset()
-    {
-        _valueCache.Clear();
-    }
+    public virtual void Reset() => _valueCache.Clear();
 
     /// <inheritdoc />
     [ExcludeFromCodeCoverage]
@@ -95,12 +83,6 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
     }
 
     /// <inheritdoc />
-    [ExcludeFromCodeCoverage]
-    public virtual void PrintLn(string message)
-    {
-    }
-
-    /// <inheritdoc />
     public virtual void Print(IEnumerable<string> args)
     {
     }
@@ -112,6 +94,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
     [ExcludeFromCodeCoverage]
     protected virtual bool Trace(string message)
     {
+        Print([message]);
         return true;
     }
 

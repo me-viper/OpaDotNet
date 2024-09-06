@@ -36,7 +36,7 @@ public abstract class OpaPolicySource : IOpaPolicySource
     /// </summary>
     protected OpaAuthorizationOptions Options => _options.CurrentValue;
 
-    private IOpaImportsAbiFactory ImportsAbiFactory { get; }
+    private IOpaBundleEvaluatorFactoryBuilder FactoryBuilder { get; }
 
     private OpaEvaluatorFactory? _factory;
 
@@ -51,14 +51,14 @@ public abstract class OpaPolicySource : IOpaPolicySource
 
     protected OpaPolicySource(
         IOptionsMonitor<OpaAuthorizationOptions> options,
-        IOpaImportsAbiFactory importsAbiFactory,
+        IOpaBundleEvaluatorFactoryBuilder factoryBuilder,
         ILoggerFactory loggerFactory)
     {
         ArgumentNullException.ThrowIfNull(options);
         ArgumentNullException.ThrowIfNull(loggerFactory);
 
         _options = options;
-        ImportsAbiFactory = importsAbiFactory;
+        FactoryBuilder = factoryBuilder;
         LoggerFactory = loggerFactory;
 
         Logger = LoggerFactory.CreateLogger<OpaPolicySource>();
@@ -105,19 +105,14 @@ public abstract class OpaPolicySource : IOpaPolicySource
 
             var oldFactory = _factory;
 
-            _factory = new OpaBundleEvaluatorFactory(
-                policy,
-                _options.CurrentValue.EngineOptions,
-                ImportsAbiFactory.ImportsAbi,
-                LoggerFactory
-                );
+            _factory = FactoryBuilder.Build(policy);
 
             oldFactory?.Dispose();
 
             if (recompiling)
             {
                 Logger.BundleRecompilationSucceeded();
-                _changeTokenSource.Cancel();
+                await _changeTokenSource.CancelAsync().ConfigureAwait(false);
             }
         }
         catch (Exception ex)

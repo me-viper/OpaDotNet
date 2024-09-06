@@ -1,11 +1,8 @@
 ﻿using System.Globalization;
 
-using JetBrains.Annotations;
-
+using OpaDotNet.InternalTesting;
 using OpaDotNet.Wasm.Builtins;
 using OpaDotNet.Wasm.Tests.Common;
-
-using Xunit.Abstractions;
 
 // ReSharper disable UnusedMember.Local
 
@@ -16,7 +13,7 @@ public class CapabilitiesProviderTests : CustomBuiltinsTests
 {
     public CapabilitiesProviderTests(ITestOutputHelper output) : base(output)
     {
-        Options = new() { CapabilitiesVersion = "v0.53.0" };
+        Options = new() { CapabilitiesVersion = Utils.DefaultCapabilities };
     }
 
     protected override Stream Caps() => new CustomOpaImportsAbiCapabilitiesProvider().GetCapabilities();
@@ -55,9 +52,11 @@ public abstract class CustomBuiltinsTests(ITestOutputHelper output) : OpaTestBas
 
         var factory = new OpaBundleEvaluatorFactory(
             policy,
-            importsAbiFactory: () => new NotImplementedImports(),
-            loggerFactory: LoggerFactory,
-            options: new() { CustomBuiltins = { () => new CustomOpaImportsAbi(NullLogger.Instance) } }
+            null,
+            new DefaultBuiltinsFactory(() => new NotImplementedImports())
+            {
+                CustomBuiltins = [() => new CustomOpaImportsAbi(NullLogger.Instance)],
+            }
             );
 
         _engine = factory.Create();

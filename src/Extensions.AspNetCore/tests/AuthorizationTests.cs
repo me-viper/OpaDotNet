@@ -55,7 +55,7 @@ public class AuthorizationTests(ITestOutputHelper output)
             },
         };
 
-        var factory = new TestEvaluatorFactoryProvider(new OpaBundleEvaluatorFactory(policy, opts));
+        var factory = new TestEvaluatorFactoryProvider(new OpaBundleEvaluatorFactory(policy, opts, null));
 
         var builder = new WebHostBuilder()
             .ConfigureServices(

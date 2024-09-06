@@ -14,8 +14,6 @@ using EngineV13 = Internal.V13.EngineImpl<Internal.V13.OpaExportsAbi>;
 
 internal sealed class OpaWasmEvaluator : IOpaEvaluator
 {
-    private readonly ILogger _logger;
-
     private readonly Engine _engine;
 
     private readonly Linker _linker;
@@ -48,7 +46,6 @@ internal sealed class OpaWasmEvaluator : IOpaEvaluator
         _linker = configuration.Linker;
         _store = configuration.Store;
         _module = configuration.Module;
-        _logger = configuration.Logger;
         _memory = configuration.Memory;
         _importsAbi = configuration.Imports;
 
@@ -346,7 +343,6 @@ internal sealed class OpaWasmEvaluator : IOpaEvaluator
             if (ex.InnerException is OpaEvaluationAbortedException)
                 throw ex.InnerException;
 
-            _logger.LogError(ex, "Evaluation failed");
             throw new OpaEvaluationException("Evaluation failed", ex);
         }
         finally

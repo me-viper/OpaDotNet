@@ -94,7 +94,7 @@ public class SdkTestBase(ITestOutputHelper output) : OpaTestBase(output)
         WasmPolicyEngineOptions? options = null,
         List<Func<IOpaCustomBuiltins>>? customBuiltins = null)
     {
-        var policy = await CompileSource(source, new[] { entrypoint });
+        var policy = await CompileSource(source, [entrypoint]);
 
         var engineOpts = options ?? new WasmPolicyEngineOptions
         {
@@ -102,13 +102,12 @@ public class SdkTestBase(ITestOutputHelper output) : OpaTestBase(output)
             SignatureValidation = new() { Validation = SignatureValidationType.Skip },
         };
 
-        if (customBuiltins != null)
-            engineOpts.CustomBuiltins.AddRange(customBuiltins);
+        var imp = imports ?? new TestImportsAbi(Output);
 
         var factory = new OpaBundleEvaluatorFactory(
             policy,
             engineOpts,
-            importsAbiFactory: () => imports ?? new TestImportsAbi(Output)
+            new DefaultBuiltinsFactory(options, () => imp) { CustomBuiltins = customBuiltins ?? [] }
             );
 
         return factory.Create();

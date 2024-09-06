@@ -2,6 +2,7 @@
 
 using Microsoft.Extensions.Diagnostics.Metrics.Testing;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
 
 using OpaDotNet.Compilation.Abstractions;
@@ -39,13 +40,12 @@ public class OpaPolicyServiceTests(ITestOutputHelper output)
         };
 
         var authOptions = TestOptionsMonitor.Create(opts);
-        var imports = new OpaImportsAbiFactory();
         var ric = new RegoInteropCompiler();
 
         var compiler = new FileSystemPolicySource(
-            new BundleCompiler(ric, authOptions, imports),
+            new BundleCompiler(ric, authOptions, []),
             authOptions,
-            imports,
+            new OpaBundleEvaluatorFactoryBuilder(authOptions, new TestBuiltinsFactory(_loggerFactory)),
             _loggerFactory
             );
 
@@ -92,13 +92,12 @@ public class OpaPolicyServiceTests(ITestOutputHelper output)
             );
 
         var authOptions = TestOptionsMonitor.Create<OpaAuthorizationOptions>(opts);
-        var imports = new OpaImportsAbiFactory();
         var ric = new RegoInteropCompiler();
 
         var compiler = new FileSystemPolicySource(
-            new BundleCompiler(ric, authOptions, imports),
+            new BundleCompiler(ric, authOptions, []),
             authOptions,
-            new OpaImportsAbiFactory(),
+            new OpaBundleEvaluatorFactoryBuilder(authOptions, new TestBuiltinsFactory(_loggerFactory)),
             _loggerFactory
             );
 

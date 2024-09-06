@@ -65,7 +65,7 @@ public sealed class BundleWriter : IDisposable, IAsyncDisposable
     /// </summary>
     /// <param name="caps1">First capabilities.json stream.</param>
     /// <param name="caps2">Second capabilities.json stream.</param>
-    /// <returns>Merged capabilities.json stream.</returns>
+    /// <returns>New merged capabilities.json stream.</returns>
     public static Stream MergeCapabilities(Stream caps1, Stream caps2)
     {
         ArgumentNullException.ThrowIfNull(caps1);

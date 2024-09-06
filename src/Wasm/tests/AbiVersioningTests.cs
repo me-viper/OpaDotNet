@@ -43,8 +43,7 @@ public class AbiVersioningTests : IAsyncLifetime
 
         var engine = OpaEvaluatorFactory.CreateFromWasm(
             File.OpenRead(Path.Combine(BasePath, "simple-1.3.wasm")),
-            options: new() { MaxAbiVersion = abiVer },
-            loggerFactory: _loggerFactory
+            options: new() { MaxAbiVersion = abiVer }
             );
 
         engine.SetDataFromRawJson("{ \"world\": \"world\" }");
@@ -56,8 +55,7 @@ public class AbiVersioningTests : IAsyncLifetime
     public void PolicyAbiVersion()
     {
         var engine = OpaEvaluatorFactory.CreateFromWasm(
-            File.OpenRead(Path.Combine(BasePath, "simple-1.2.wasm")),
-            loggerFactory: _loggerFactory
+            File.OpenRead(Path.Combine(BasePath, "simple-1.2.wasm"))
             );
 
         engine.SetDataFromRawJson("{ \"world\": \"world\" }");

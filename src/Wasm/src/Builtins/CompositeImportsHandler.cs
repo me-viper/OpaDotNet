@@ -2,7 +2,7 @@
 
 namespace OpaDotNet.Wasm.Builtins;
 
-internal class CompositeImportsHandler : IOpaImportsAbi
+public class CompositeImportsHandler : IOpaImportsAbi
 {
     private readonly IOpaImportsAbi _default;
 
@@ -26,7 +26,7 @@ internal class CompositeImportsHandler : IOpaImportsAbi
         _importsCache = importsCache;
         _importsCache.Populate(_imports);
 
-        var customPrinter = _imports.OfType<IOpaCustomPrinter>().FirstOrDefault();
+        var customPrinter = _imports.OfType<IOpaCustomPrinter>().LastOrDefault();
 
         if (customPrinter != null)
             _print = p => customPrinter.Print(p);
@@ -122,7 +122,7 @@ internal class CompositeImportsHandler : IOpaImportsAbi
     }
 
     public object? Func(BuiltinContext context)
-        => TryCall(context, Array.Empty<BuiltinArg>(), out var result) ? result : _default.Func(context);
+        => TryCall(context, [], out var result) ? result : _default.Func(context);
 
     public object? Func(BuiltinContext context, BuiltinArg arg1)
         => TryCall(context, [arg1], out var result) ? result : _default.Func(context, arg1);

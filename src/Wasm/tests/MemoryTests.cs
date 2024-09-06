@@ -23,7 +23,7 @@ public class MemoryTests : OpaTestBase, IAsyncLifetime
             new[] { "test/allow" }
             );
 
-        _engine = p => OpaEvaluatorFactory.CreateFromBundle(policy, options: p, loggerFactory: LoggerFactory);
+        _engine = p => OpaEvaluatorFactory.CreateFromBundle(policy, options: p);
     }
 
     public Task DisposeAsync()

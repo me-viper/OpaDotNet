@@ -16,7 +16,5 @@ internal record WasmPolicyEngineConfiguration
 
     public required WasmPolicyEngineOptions Options { get; init; }
 
-    public required ILogger<IOpaEvaluator> Logger { get; init; }
-
     public required IOpaImportsAbi Imports { get; init; }
 }
