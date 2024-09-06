@@ -19,7 +19,7 @@ jobs:
         fetch-depth: 0
 
     - id: calc-hash
-      run: echo "hash=$(git log -1 --pretty=format:"%H" ./src/Compilation/Interop/opa-native/)" >> $GITHUB_OUTPUT
+      run: echo "hash=$(git log -1 --pretty=format:"%H" ./src/Compilation/Interop/opa-native)" >> $GITHUB_OUTPUT
 
     - name: Cache
       id: cache-opa-native
