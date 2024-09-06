@@ -47,7 +47,7 @@ jobs:
         path: ./src/Compilation/Interop/lib
         key: ${{ steps.calc-hash.outputs.hash }}
 
-    - uses: ./.github/workflows/opa-native.yml
+    - uses: ./.github/workflows/opa-native.yaml
       if: steps.cache-opa-native.outputs.cache-hit != 'true'
 
     - name: get_opa_lib
