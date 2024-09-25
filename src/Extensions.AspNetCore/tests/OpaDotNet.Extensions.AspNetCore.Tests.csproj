@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <IsTestProject>true</IsTestProject>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFrameworks>net8.0</TargetFrameworks>
+    <IsTestProject Condition="'$(TargetFramework)' != 'net7.0'">true</IsTestProject>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,7 +21,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
 
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.1" Condition="'$(TargetFramework)' == 'net8.0'"/>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.1" />
   </ItemGroup>
 
   <ItemGroup>
