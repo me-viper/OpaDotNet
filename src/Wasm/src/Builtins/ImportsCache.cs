@@ -3,6 +3,10 @@ using System.Reflection;
 
 namespace OpaDotNet.Wasm.Builtins;
 
+/// <summary>
+/// Built-ins cache.
+/// </summary>
+/// <param name="jsonOptions">Provides options to be used with JsonSerializer.</param>
 public class ImportsCache(JsonSerializerOptions jsonOptions)
 {
     private readonly object _lock = new();

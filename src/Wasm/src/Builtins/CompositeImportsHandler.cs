@@ -2,7 +2,10 @@
 
 namespace OpaDotNet.Wasm.Builtins;
 
-public class CompositeImportsHandler : IOpaImportsAbi
+/// <summary>
+/// Handles built-in functions invocation.
+/// </summary>
+public sealed class CompositeImportsHandler : IOpaImportsAbi
 {
     private readonly IOpaImportsAbi _default;
 
@@ -12,6 +15,12 @@ public class CompositeImportsHandler : IOpaImportsAbi
 
     private readonly Action<IEnumerable<string>> _print;
 
+    /// <summary>
+    /// Creates new instance of <see cref="OpaWasmEvaluatorFactory"/>.
+    /// </summary>
+    /// <param name="defaultImport">Default built-in functions implementation</param>
+    /// <param name="imports">Custom built-in functions implementation</param>
+    /// <param name="importsCache">Built-ins cache</param>
     public CompositeImportsHandler(
         IOpaImportsAbi defaultImport,
         IReadOnlyList<IOpaCustomBuiltins> imports,
@@ -77,12 +86,12 @@ public class CompositeImportsHandler : IOpaImportsAbi
                 strArgs.Add(json);
         }
 
-        Print(strArgs);
+        ((IOpaImportsAbi)this).Print(strArgs);
 
         return null;
     }
 
-    public void Print(IEnumerable<string> args) => _print(args);
+    void IOpaImportsAbi.Print(IEnumerable<string> args) => _print(args);
 
     private bool TryCall(BuiltinContext context, BuiltinArg[] args, out object? result)
     {
@@ -101,7 +110,7 @@ public class CompositeImportsHandler : IOpaImportsAbi
                         result = Print(args[0].As<JsonArray>(), context.JsonSerializerOptions);
                         return true;
                     case "trace.1":
-                        Print([args[0].As<string>()]);
+                        ((IOpaImportsAbi)this).Print([args[0].As<string>()]);
                         result = true;
                         return true;
                     default:
@@ -121,22 +130,22 @@ public class CompositeImportsHandler : IOpaImportsAbi
         }
     }
 
-    public object? Func(BuiltinContext context)
+    object? IOpaImportsAbi.Func(BuiltinContext context)
         => TryCall(context, [], out var result) ? result : _default.Func(context);
 
-    public object? Func(BuiltinContext context, BuiltinArg arg1)
+    object? IOpaImportsAbi.Func(BuiltinContext context, BuiltinArg arg1)
         => TryCall(context, [arg1], out var result) ? result : _default.Func(context, arg1);
 
-    public object? Func(BuiltinContext context, BuiltinArg arg1, BuiltinArg arg2)
+    object? IOpaImportsAbi.Func(BuiltinContext context, BuiltinArg arg1, BuiltinArg arg2)
         => TryCall(context, [arg1, arg2], out var result) ? result : _default.Func(context, arg1, arg2);
 
-    public object? Func(BuiltinContext context, BuiltinArg arg1, BuiltinArg arg2, BuiltinArg arg3)
+    object? IOpaImportsAbi.Func(BuiltinContext context, BuiltinArg arg1, BuiltinArg arg2, BuiltinArg arg3)
         => TryCall(context, [arg1, arg2, arg3], out var result) ? result : _default.Func(context, arg1, arg2, arg3);
 
-    public object? Func(BuiltinContext context, BuiltinArg arg1, BuiltinArg arg2, BuiltinArg arg3, BuiltinArg arg4)
+    object? IOpaImportsAbi.Func(BuiltinContext context, BuiltinArg arg1, BuiltinArg arg2, BuiltinArg arg3, BuiltinArg arg4)
         => TryCall(context, [arg1, arg2, arg3, arg4], out var result) ? result : _default.Func(context, arg1, arg2, arg3, arg4);
 
-    public void Reset()
+    void IOpaImportsAbi.Reset()
     {
         foreach (var import in _imports)
             import.Reset();

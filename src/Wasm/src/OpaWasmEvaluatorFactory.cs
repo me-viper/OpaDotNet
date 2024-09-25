@@ -9,6 +9,10 @@ public sealed class OpaWasmEvaluatorFactory : OpaEvaluatorFactory
 
     private readonly Action _disposer;
 
+    /// <summary>
+    /// Creates new instance of <see cref="OpaWasmEvaluatorFactory"/>.
+    /// </summary>
+    /// <param name="policyWasm">OPA policy WASM binary stream</param>
     public OpaWasmEvaluatorFactory(Stream policyWasm) : this(policyWasm, null, null)
     {
     }
@@ -18,7 +22,7 @@ public sealed class OpaWasmEvaluatorFactory : OpaEvaluatorFactory
     /// </summary>
     /// <param name="policyWasm">OPA policy WASM binary stream</param>
     /// <param name="options">Evaluation engine options</param>
-    /// <param name="builtinsFactory">Factory that produces instances of <see cref="IOpaImportsAbi"/></param>
+    /// <param name="builtinsFactory">Factory that produces built-ins instances</param>
     public OpaWasmEvaluatorFactory(
         Stream policyWasm,
         WasmPolicyEngineOptions? options,
