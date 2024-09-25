@@ -1,6 +1,6 @@
 <Project>
-    <PropertyGroup>
-        <IsPackable>false</IsPackable>
-        <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
-    </PropertyGroup>
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+    <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
+  </PropertyGroup>
 </Project>

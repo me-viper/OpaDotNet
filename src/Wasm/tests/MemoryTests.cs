@@ -2,8 +2,6 @@
 
 using Wasmtime;
 
-using Xunit.Abstractions;
-
 namespace OpaDotNet.Wasm.Tests;
 
 public class MemoryTests : OpaTestBase, IAsyncLifetime

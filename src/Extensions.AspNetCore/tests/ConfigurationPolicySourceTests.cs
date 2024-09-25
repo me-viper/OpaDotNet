@@ -1,19 +1,13 @@
 ﻿using System.Text.Json;
 
-using JetBrains.Annotations;
-
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
-using Microsoft.VisualStudio.TestPlatform.CrossPlatEngine;
 
 using OpaDotNet.Compilation.Abstractions;
 using OpaDotNet.Compilation.Interop;
 using OpaDotNet.Extensions.AspNetCore.Tests.Common;
 using OpaDotNet.InternalTesting;
 using OpaDotNet.Wasm;
-
-using Xunit.Abstractions;
 
 namespace OpaDotNet.Extensions.AspNetCore.Tests;
 

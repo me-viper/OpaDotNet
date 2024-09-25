@@ -2,7 +2,6 @@
 
 using OpaDotNet.Compilation.Abstractions;
 using OpaDotNet.Compilation.Cli;
-using OpaDotNet.Compilation.Tests.Common;
 using OpaDotNet.InternalTesting;
 
 using Xunit.Abstractions;

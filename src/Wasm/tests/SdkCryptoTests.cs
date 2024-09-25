@@ -2,8 +2,6 @@
 
 using OpaDotNet.Wasm.Tests.Common;
 
-using Xunit.Abstractions;
-
 namespace OpaDotNet.Wasm.Tests;
 
 public class SdkCryptoTests(ITestOutputHelper output) : SdkTestBase(output)

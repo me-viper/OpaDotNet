@@ -11,7 +11,6 @@ namespace OpaDotNet.Extensions.AspNetCore;
 /// </summary>
 [PublicAPI]
 [ExcludeFromCodeCoverage]
-
 public record RegoCompilerOptions
 {
     /// <summary>

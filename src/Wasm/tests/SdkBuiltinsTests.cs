@@ -5,8 +5,6 @@ using System.Text.Json.Nodes;
 using OpaDotNet.Wasm.Builtins;
 using OpaDotNet.Wasm.Tests.Common;
 
-using Xunit.Abstractions;
-
 // ReSharper disable StringLiteralTypo
 
 namespace OpaDotNet.Wasm.Tests;

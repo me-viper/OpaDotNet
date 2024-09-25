@@ -2,7 +2,6 @@
 using System.Text.Json;
 
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Internal;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.JsonWebTokens;
 
@@ -11,8 +10,6 @@ using OpaDotNet.Compilation.Interop;
 using OpaDotNet.Extensions.AspNetCore.Tests.Common;
 using OpaDotNet.InternalTesting;
 using OpaDotNet.Wasm;
-
-using Xunit.Abstractions;
 
 namespace OpaDotNet.Extensions.AspNetCore.Tests;
 

@@ -16,8 +16,6 @@ using OpaDotNet.Extensions.AspNetCore.Tests.Common;
 using OpaDotNet.InternalTesting;
 using OpaDotNet.Wasm;
 
-using Xunit.Abstractions;
-
 namespace OpaDotNet.Extensions.AspNetCore.Tests;
 
 public class AuthorizationTests(ITestOutputHelper output)

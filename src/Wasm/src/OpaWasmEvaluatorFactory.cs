@@ -10,7 +10,8 @@ public sealed class OpaWasmEvaluatorFactory : OpaEvaluatorFactory
     private readonly Action _disposer;
 
     public OpaWasmEvaluatorFactory(Stream policyWasm) : this(policyWasm, null, null)
-    {}
+    {
+    }
 
     /// <summary>
     /// Creates new instance of <see cref="OpaWasmEvaluatorFactory"/>.

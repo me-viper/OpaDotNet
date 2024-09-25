@@ -4,8 +4,6 @@ using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Text.Json;
 
-using JetBrains.Annotations;
-
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -23,8 +21,6 @@ using OpaDotNet.Compilation.Interop;
 using OpaDotNet.Extensions.AspNetCore.Tests.Common;
 using OpaDotNet.InternalTesting;
 using OpaDotNet.Wasm;
-
-using Xunit.Abstractions;
 
 namespace OpaDotNet.Extensions.AspNetCore.Tests;
 

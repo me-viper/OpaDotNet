@@ -1,8 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-using JetBrains.Annotations;
-
-namespace OpaDotNet.Wasm;
+﻿namespace OpaDotNet.Wasm;
 
 /// <summary>
 /// The exception that is thrown when specified export does not exist in WASM module.

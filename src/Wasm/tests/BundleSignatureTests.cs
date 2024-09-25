@@ -2,8 +2,6 @@
 using OpaDotNet.Wasm.Tests.Common;
 using OpaDotNet.Wasm.Validation;
 
-using Xunit.Abstractions;
-
 namespace OpaDotNet.Wasm.Tests;
 
 public class InMemorySignatureTests(ITestOutputHelper output) : BundleSignatureTests(output);

@@ -1,8 +1,6 @@
 ﻿using OpaDotNet.Wasm.Builtins;
 using OpaDotNet.Wasm.Tests.Common;
 
-using Xunit.Abstractions;
-
 namespace OpaDotNet.Wasm.Tests;
 
 public class BuiltinsCompositionTests : OpaTestBase

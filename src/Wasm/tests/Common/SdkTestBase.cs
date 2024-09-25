@@ -1,11 +1,7 @@
 ﻿using System.Text.Encodings.Web;
 using System.Text.Json.Nodes;
 
-using JetBrains.Annotations;
-
 using OpaDotNet.Wasm.Builtins;
-
-using Xunit.Abstractions;
 
 namespace OpaDotNet.Wasm.Tests.Common;
 

@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
 
-using OpaDotNet.Compilation.Abstractions;
 using OpaDotNet.Extensions.AspNetCore.Telemetry;
 
 namespace OpaDotNet.Extensions.AspNetCore;

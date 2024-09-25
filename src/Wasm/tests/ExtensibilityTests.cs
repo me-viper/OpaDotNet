@@ -1,8 +1,5 @@
 ﻿using OpaDotNet.InternalTesting;
 using OpaDotNet.Wasm.Features;
-using OpaDotNet.Wasm.Tests.Common;
-
-using Xunit.Abstractions;
 
 namespace OpaDotNet.Wasm.Tests;
 

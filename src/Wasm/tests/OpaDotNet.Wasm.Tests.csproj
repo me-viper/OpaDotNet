@@ -6,8 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
-    <PackageReference Include="xunit" Version="2.9.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0"/>
+    <PackageReference Include="xunit" Version="2.9.0"/>
 
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Testing\src\OpaDotNet.InternalTesting.csproj" />
+    <ProjectReference Include="..\..\Testing\src\OpaDotNet.InternalTesting.csproj"/>
     <ProjectReference Include="..\src\OpaDotNet.Wasm.csproj"/>
     <ProjectReference Include="..\..\Compilation\Cli\src\OpaDotNet.Compilation.Cli.csproj"/>
     <ProjectReference Include="..\..\Compilation\Interop\src\OpaDotNet.Compilation.Interop.csproj"/>

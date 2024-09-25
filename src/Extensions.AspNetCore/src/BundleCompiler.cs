@@ -89,7 +89,7 @@ internal sealed class BundleCompiler : IBundleCompiler
         return result;
     }
 
-    public Task<Stream?> Compile(string source, CancellationToken cancellationToken) => Compile(source, _ => {}, cancellationToken);
+    public Task<Stream?> Compile(string source, CancellationToken cancellationToken) => Compile(source, _ => { }, cancellationToken);
 
     public async Task<Stream?> Compile(
         string source,
@@ -101,7 +101,7 @@ internal sealed class BundleCompiler : IBundleCompiler
         return await Compiler.Compile(source, cp, cancellationToken).ConfigureAwait(false);
     }
 
-    public Task<Stream?> Compile(Stream source, CancellationToken cancellationToken) => Compile(source, _ => {}, cancellationToken);
+    public Task<Stream?> Compile(Stream source, CancellationToken cancellationToken) => Compile(source, _ => { }, cancellationToken);
 
     public async Task<Stream?> Compile(
         Stream source,

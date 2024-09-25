@@ -2,7 +2,6 @@ using JetBrains.Annotations;
 
 namespace OpaDotNet.Compilation.Abstractions;
 
-
 /// <summary>
 /// Language and runtime compatibility.
 /// </summary>

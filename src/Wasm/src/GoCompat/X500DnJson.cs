@@ -1,7 +1,5 @@
 ﻿using System.Security.Cryptography.X509Certificates;
 
-using JetBrains.Annotations;
-
 namespace OpaDotNet.Wasm.GoCompat;
 
 [PublicAPI]

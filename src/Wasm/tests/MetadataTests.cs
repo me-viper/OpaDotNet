@@ -1,8 +1,4 @@
-﻿using JetBrains.Annotations;
-
-using OpaDotNet.Wasm.Tests.Common;
-
-using Xunit.Abstractions;
+﻿using OpaDotNet.Wasm.Tests.Common;
 
 namespace OpaDotNet.Wasm.Tests;
 

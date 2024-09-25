@@ -1,7 +1,5 @@
 ﻿using OpaDotNet.InternalTesting;
 
-using Xunit.Abstractions;
-
 namespace OpaDotNet.Wasm.Tests;
 
 public class AbiVersioningTests : IAsyncLifetime

@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace OpaDotNet.Wasm.GoCompat;
+﻿namespace OpaDotNet.Wasm.GoCompat;
 
 internal static class TimeZoneInfoExtensions
 {

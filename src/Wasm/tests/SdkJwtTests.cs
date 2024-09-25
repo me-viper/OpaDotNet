@@ -1,7 +1,5 @@
 ﻿using OpaDotNet.Wasm.Tests.Common;
 
-using Xunit.Abstractions;
-
 namespace OpaDotNet.Wasm.Tests;
 
 public class SdkJwtTests(ITestOutputHelper output) : SdkTestBase(output)

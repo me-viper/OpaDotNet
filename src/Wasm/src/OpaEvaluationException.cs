@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace OpaDotNet.Wasm;
+﻿namespace OpaDotNet.Wasm;
 
 /// <summary>
 /// The exception that is thrown when an error occurs while evaluating OPA policy.

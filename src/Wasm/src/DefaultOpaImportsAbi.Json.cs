@@ -1,8 +1,6 @@
 ﻿using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 
-using JetBrains.Annotations;
-
 using Json.Patch;
 using Json.Schema;
 

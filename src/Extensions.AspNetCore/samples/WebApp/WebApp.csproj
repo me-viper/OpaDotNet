@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\OpaDotNet.Extensions.AspNetCore.csproj" />
+    <ProjectReference Include="..\..\src\OpaDotNet.Extensions.AspNetCore.csproj"/>
   </ItemGroup>
 
   <ItemGroup>
@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="OpaDotNet.Compilation.Cli" Version="2.0.0-preview0013" />
+    <PackageReference Include="OpaDotNet.Compilation.Cli" Version="2.0.0-preview0013"/>
   </ItemGroup>
 
 </Project>

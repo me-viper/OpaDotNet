@@ -1,6 +1,4 @@
-﻿using JetBrains.Annotations;
-
-using OpaDotNet.Wasm.Validation;
+﻿using OpaDotNet.Wasm.Validation;
 
 namespace OpaDotNet.Wasm;
 

@@ -1,11 +1,7 @@
 ﻿using System.Text;
 using System.Text.Json.Serialization;
 
-using JetBrains.Annotations;
-
 using OpaDotNet.Wasm.Tests.Common;
-
-using Xunit.Abstractions;
 
 namespace OpaDotNet.Wasm.Tests;
 

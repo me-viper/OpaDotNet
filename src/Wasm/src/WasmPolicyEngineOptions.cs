@@ -1,8 +1,5 @@
 ﻿using System.Text.Encodings.Web;
 
-using JetBrains.Annotations;
-
-using OpaDotNet.Wasm.Builtins;
 using OpaDotNet.Wasm.Rego;
 
 namespace OpaDotNet.Wasm;

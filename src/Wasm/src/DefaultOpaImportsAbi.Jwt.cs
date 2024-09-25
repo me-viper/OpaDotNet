@@ -3,8 +3,6 @@ using System.Text;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 
-using JetBrains.Annotations;
-
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 

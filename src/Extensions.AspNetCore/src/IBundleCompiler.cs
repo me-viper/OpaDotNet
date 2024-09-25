@@ -1,7 +1,5 @@
 ﻿using JetBrains.Annotations;
 
-using Microsoft.Extensions.Options;
-
 using OpaDotNet.Compilation.Abstractions;
 
 namespace OpaDotNet.Extensions.AspNetCore;

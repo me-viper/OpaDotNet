@@ -1,20 +1,17 @@
 ﻿extern alias Ipn;
-
-using System.Diagnostics.CodeAnalysis;
+using System.Net;
 using System.Net.Sockets;
 using System.Text.Json.Nodes;
 
 using OpaDotNet.Wasm.Rego;
 
-using System.Net;
-
-using IPNetwork2 = Ipn::System.Net.IPNetwork2;
+using Net_IPNetwork2 = Ipn::System.Net.IPNetwork2;
 
 namespace OpaDotNet.Wasm;
 
 public partial class DefaultOpaImportsAbi
 {
-    private record CidrOrIp(IPNetwork2 Net, JsonNode Key)
+    private record CidrOrIp(Net_IPNetwork2 Net, JsonNode Key)
     {
         private static CidrOrIp Parse(JsonNode? node, JsonSerializerOptions options, object? key = null)
         {
@@ -145,13 +142,13 @@ public partial class DefaultOpaImportsAbi
 
     private static bool CidrIsValid(string cidr)
     {
-        return IPNetwork2.TryParse(cidr, out _);
+        return Net_IPNetwork2.TryParse(cidr, out _);
     }
 
     private static RegoSet<string> CidrMerge(string[] addresses)
     {
         var nets = addresses.Select(ParseNetwork).ToArray();
-        var result = IPNetwork2.Supernet(nets).Select(p => p.ToString()).ToArray();
+        var result = Net_IPNetwork2.Supernet(nets).Select(p => p.ToString()).ToArray();
         return new RegoSet<string>(result);
     }
 
@@ -183,7 +180,7 @@ public partial class DefaultOpaImportsAbi
         return result.ToArray();
     }
 
-    private static IPNetwork2 ParseNetwork(string cidrOrIp)
+    private static Net_IPNetwork2 ParseNetwork(string cidrOrIp)
     {
         if (TryParseNetwork(cidrOrIp, out var result))
             return result;
@@ -191,16 +188,16 @@ public partial class DefaultOpaImportsAbi
         throw new FormatException($"Invalid IP/CIDR format '{cidrOrIp}'");
     }
 
-    private static bool TryParseNetwork(string cidrOrIp, [MaybeNullWhen(false)] out IPNetwork2 result)
+    private static bool TryParseNetwork(string cidrOrIp, [MaybeNullWhen(false)] out Net_IPNetwork2 result)
     {
         result = null;
 
         if (IPAddress.TryParse(cidrOrIp, out var ip))
         {
-            result = new IPNetwork2(ip, 32);
+            result = new Net_IPNetwork2(ip, 32);
             return true;
         }
 
-        return IPNetwork2.TryParse(cidrOrIp, out result);
+        return Net_IPNetwork2.TryParse(cidrOrIp, out result);
     }
 }

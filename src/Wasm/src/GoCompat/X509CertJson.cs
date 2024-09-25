@@ -1,8 +1,6 @@
 ﻿using System.Security.Cryptography.X509Certificates;
 using System.Text.Json.Serialization;
 
-using JetBrains.Annotations;
-
 namespace OpaDotNet.Wasm.GoCompat;
 
 // GoLang X509 certs are completely different form dotnet implementation in terms of properties being exposed.

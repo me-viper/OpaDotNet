@@ -7,7 +7,7 @@ namespace OpaDotNet.Wasm;
 /// </summary>
 public abstract class OpaEvaluatorFactory : IDisposable
 {
-    private readonly IBuiltinsFactory _importsAbiFactory;
+    private readonly IBuiltinsFactory _builtinsFactory;
 
     private bool _disposed;
 
@@ -29,15 +29,6 @@ public abstract class OpaEvaluatorFactory : IDisposable
     {
     }
 
-    // /// <summary>
-    // /// Creates new instance of <see cref="OpaEvaluatorFactory"/>.
-    // /// </summary>
-    // /// <param name="importsAbiFactory">Factory that produces instances of <see cref="IOpaImportsAbi"/>.</param>
-    // protected OpaEvaluatorFactory(Func<IOpaImportsAbi>? importsAbiFactory)
-    //     : this(importsAbiFactory, WasmPolicyEngineOptions.Default)
-    // {
-    // }
-
     /// <summary>
     /// Creates new instance of <see cref="OpaEvaluatorFactory"/>.
     /// </summary>
@@ -46,7 +37,7 @@ public abstract class OpaEvaluatorFactory : IDisposable
     protected OpaEvaluatorFactory(WasmPolicyEngineOptions? options, IBuiltinsFactory? builtinsFactory)
     {
         Options = options ?? WasmPolicyEngineOptions.Default;
-        _importsAbiFactory = builtinsFactory ?? new DefaultBuiltinsFactory();
+        _builtinsFactory = builtinsFactory ?? new DefaultBuiltinsFactory();
     }
 
     /// <summary>
@@ -145,7 +136,7 @@ public abstract class OpaEvaluatorFactory : IDisposable
             Memory = memory,
             Module = module,
             Options = options,
-            Imports = _importsAbiFactory.Create(),
+            Imports = _builtinsFactory.Create(),
         };
 
         var result = new OpaWasmEvaluator(config);
@@ -177,7 +168,7 @@ public abstract class OpaEvaluatorFactory : IDisposable
             Memory = memory,
             Module = module,
             Options = options,
-            Imports = _importsAbiFactory.Create(),
+            Imports = _builtinsFactory.Create(),
         };
 
         var result = new OpaWasmEvaluator(config);

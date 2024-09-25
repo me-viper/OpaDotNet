@@ -1,6 +1,4 @@
-﻿using JetBrains.Annotations;
-
-namespace OpaDotNet.Wasm.Internal.V10;
+﻿namespace OpaDotNet.Wasm.Internal.V10;
 
 /// <summary>
 /// OPA WASM ABI v1.0

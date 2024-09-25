@@ -2,8 +2,6 @@
 using System.Globalization;
 using System.Runtime.CompilerServices;
 
-using JetBrains.Annotations;
-
 namespace OpaDotNet.Wasm.Internal;
 
 // Borrowed from https://github.com/dotnet/runtime/blob/main/src/libraries/Common/src/System/Text/ValueStringBuilder.cs

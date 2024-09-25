@@ -1,8 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-using JetBrains.Annotations;
-
-using OpaDotNet.Wasm.Features;
+﻿using OpaDotNet.Wasm.Features;
 
 namespace OpaDotNet.Wasm;
 

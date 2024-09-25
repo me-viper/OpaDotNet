@@ -96,7 +96,8 @@ internal class NopAuthenticationSchemeHandler : AuthenticationHandler<Authentica
 internal class Custom1 : IOpaCustomBuiltins, ICapabilitiesProvider
 {
     public void Reset()
-    {}
+    {
+    }
 
     [OpaCustomBuiltin("custom1.func")]
     public bool Func(string arg1) => arg1.Equals("/allow1", StringComparison.Ordinal);
@@ -134,7 +135,8 @@ internal class Custom1 : IOpaCustomBuiltins, ICapabilitiesProvider
 internal class Custom2 : IOpaCustomBuiltins, ICapabilitiesProvider
 {
     public void Reset()
-    {}
+    {
+    }
 
     [OpaCustomBuiltin("custom2.func")]
     public bool Func(string arg1) => arg1.Equals("/allow2", StringComparison.Ordinal);

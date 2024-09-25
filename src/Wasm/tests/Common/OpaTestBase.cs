@@ -3,8 +3,6 @@ using OpaDotNet.Compilation.Cli;
 using OpaDotNet.Compilation.Interop;
 using OpaDotNet.InternalTesting;
 
-using Xunit.Abstractions;
-
 namespace OpaDotNet.Wasm.Tests.Common;
 
 public class OpaTestBase

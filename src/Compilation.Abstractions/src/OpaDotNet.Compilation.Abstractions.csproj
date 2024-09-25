@@ -5,9 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.FileSystemGlobbing" Version="8.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0" />
-    <PackageReference Include="JetBrains.Annotations" Version="2024.2.0" />
+    <PackageReference Include="Microsoft.Extensions.FileSystemGlobbing" Version="8.0.0"/>
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0"/>
+    <PackageReference Include="JetBrains.Annotations" Version="2024.2.0"/>
     <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="3.3.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
@@ -16,7 +16,7 @@
 
   <ItemGroup>
     <None Include="README.md" Pack="true" PackagePath=""/>
-    <InternalsVisibleTo Include="OpaDotNet.Compilation.Abstractions.Tests" />
+    <InternalsVisibleTo Include="OpaDotNet.Compilation.Abstractions.Tests"/>
   </ItemGroup>
 
   <PropertyGroup>

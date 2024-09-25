@@ -3,7 +3,6 @@ using Microsoft.Extensions.FileProviders.Physical;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
 
-using OpaDotNet.Compilation.Abstractions;
 using OpaDotNet.Extensions.AspNetCore.Telemetry;
 
 namespace OpaDotNet.Extensions.AspNetCore;

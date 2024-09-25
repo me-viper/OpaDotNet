@@ -1,6 +1,4 @@
-﻿using JetBrains.Annotations;
-
-namespace OpaDotNet.Wasm;
+﻿namespace OpaDotNet.Wasm;
 
 /// <summary>
 /// The exception that is thrown when OPA runtime encounters an error.

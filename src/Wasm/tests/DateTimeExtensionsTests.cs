@@ -2,8 +2,6 @@
 
 using OpaDotNet.Wasm.GoCompat;
 
-using Xunit.Abstractions;
-
 namespace OpaDotNet.Wasm.Tests;
 
 public class DateTimeExtensionsTests(ITestOutputHelper output)

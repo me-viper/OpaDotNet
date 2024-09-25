@@ -1,5 +1,4 @@
 ﻿using System.Collections.Immutable;
-using System.Diagnostics.CodeAnalysis;
 using System.Formats.Tar;
 using System.IO.Compression;
 using System.Security.Cryptography;

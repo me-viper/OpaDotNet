@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace OpaDotNet.Wasm.Validation;
+﻿namespace OpaDotNet.Wasm.Validation;
 
 /// <summary>
 /// The exception that is thrown if hash of file in the bundle mismatches hash in the signature.

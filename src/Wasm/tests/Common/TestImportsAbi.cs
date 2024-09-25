@@ -1,8 +1,4 @@
-﻿using System.Collections.ObjectModel;
-
-using OpaDotNet.Wasm.Builtins;
-
-using Xunit.Abstractions;
+﻿using OpaDotNet.Wasm.Builtins;
 
 namespace OpaDotNet.Wasm.Tests.Common;
 
