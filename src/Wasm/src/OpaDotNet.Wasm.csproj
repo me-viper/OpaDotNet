@@ -4,6 +4,7 @@
     <IsPackable>true</IsPackable>
     <Summary>Open Policy Agent (OPA) WebAssembly dotnet core SDK</Summary>
     <Description>Open Policy Agent (OPA) WebAssembly dotnet core SDK</Description>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
