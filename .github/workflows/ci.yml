@@ -75,7 +75,7 @@ jobs:
     - name: Coveralls
       uses: coverallsapp/github-action@v2
       with:
-        file: ${GITHUB_WORKSPACE}/TestResults/coverage.net8.0.info ${GITHUB_WORKSPACE}/TestResults/coverage.net7.0.info
+        file: ${GITHUB_WORKSPACE}/TestResults/coverage.net8.0.info
         format: lcov
 
     - name: Pack
