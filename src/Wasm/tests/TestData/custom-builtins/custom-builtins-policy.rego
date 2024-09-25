@@ -31,3 +31,13 @@ four_arg_types = x {
 valid_json {
     json.is_valid("{}")
 }
+
+json_arg = x {
+    x = custom.jsonBuiltin(input.args[0])
+}
+
+memorized = [x,y,z] {
+    x = custom.memBuiltin("a", 1)
+    y = custom.memBuiltin("a", 2)
+    z = custom.memBuiltin("a", 1)
+}

@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Text.Json.Nodes;
 
 using OpaDotNet.InternalTesting;
 using OpaDotNet.Wasm.Builtins;
@@ -46,13 +47,15 @@ public abstract class CustomBuiltinsTests(ITestOutputHelper output) : OpaTestBas
                 "custom_builtins/four_arg",
                 "custom_builtins/four_arg_types",
                 "custom_builtins/valid_json",
+                "custom_builtins/json_arg",
+                "custom_builtins/memorized",
             ],
             Caps()
             );
 
         var factory = new OpaBundleEvaluatorFactory(
             policy,
-            null,
+            WasmPolicyEngineOptions.DefaultWithJsonOptions(p => p.PropertyNamingPolicy = JsonNamingPolicy.CamelCase),
             new DefaultBuiltinsFactory(() => new NotImplementedImports())
             {
                 CustomBuiltins = [() => new CustomOpaImportsAbi(NullLogger.Instance)],
@@ -162,6 +165,33 @@ public abstract class CustomBuiltinsTests(ITestOutputHelper output) : OpaTestBas
         Assert.NotNull(result);
         Assert.Collection(result, p => Assert.True(p.Result));
     }
+
+    [Fact]
+    public void JsonArgObject()
+    {
+        var obj = new ArgObj { A = "A", B = 1, C = true };
+        var result = _engine.Evaluate<object, string>(
+            new { args = new[] { obj } },
+            "custom_builtins/json_arg"
+            );
+
+        Assert.NotNull(result);
+
+        const string expected = """{"c":true,"b":1,"a":"A"}""";
+        Assert.Equal(expected, result.Result);
+    }
+
+    [Fact]
+    public void Memorized()
+    {
+        var result = _engine.Evaluate<object, System.DateTime[]>(
+            new(),
+            "custom_builtins/memorized"
+            );
+
+        Assert.Equal(result.Result[0], result.Result[2]);
+        Assert.NotEqual(result.Result[0], result.Result[1]);
+    }
 }
 
 file record ArgObj
@@ -203,6 +233,12 @@ file class CustomOpaImportsAbi(ILogger logger) : IOpaCustomBuiltins
     [OpaCustomBuiltin("custom.fourArgTypesBuiltin")]
     public static string FourArgTypesBuiltin(double arg1, int arg2, bool? arg3, string? arg4)
         => $"hello {arg1.ToString(CultureInfo.InvariantCulture)} {arg2} {arg3} {arg4 ?? "<null>"}";
+
+    [OpaCustomBuiltin("custom.jsonBuiltin")]
+    public static string JsonBuiltin(JsonNode arg1, JsonSerializerOptions opts) => arg1.ToJsonString(opts);
+
+    [OpaCustomBuiltin("custom.memBuiltin", Memorize = true)]
+    public static DateTime DateBuiltin(string key1, int key2) => DateTime.UtcNow;
 }
 
 file class CustomOpaImportsAbiCapabilitiesProvider : ICapabilitiesProvider
@@ -274,6 +310,22 @@ file class CustomOpaImportsAbiCapabilitiesProvider : ICapabilitiesProvider
                     "type": "function",
                     "args": [ { "type": "string" } ],
                     "result": { "type": "boolean" }
+                  }
+                },
+                {
+                  "name": "custom.jsonBuiltin",
+                  "decl": {
+                    "type": "function",
+                    "args": [ { "type": "object" } ],
+                    "result": { "type": "string" }
+                  }
+                },
+                {
+                  "name": "custom.memBuiltin",
+                  "decl": {
+                    "type": "function",
+                    "args": [ { "type": "string" }, { "type": "number" } ],
+                    "result": { "type": "object" }
                   }
                 }
                 ]

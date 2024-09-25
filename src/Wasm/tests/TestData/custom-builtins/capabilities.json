@@ -136,6 +136,22 @@
       }
     },
     {
+      "name": "custom.jsonBuiltin",
+      "decl": {
+        "type": "function",
+        "args": [ { "type": "object" } ],
+        "result": { "type": "string" }
+      }
+    },
+    {
+      "name": "custom.memBuiltin",
+      "decl": {
+        "type": "function",
+        "args": [ { "type": "string" }, { "type": "number" } ],
+        "result": { "type": "object" }
+      }
+    },
+    {
       "name": "eq",
       "decl": {
         "args": [

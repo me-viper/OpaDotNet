@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Nodes;
+﻿using System.Collections.Concurrent;
+using System.Text.Json.Nodes;
 
 namespace OpaDotNet.Wasm.Builtins;
 
@@ -14,6 +15,8 @@ public sealed class CompositeImportsHandler : IOpaImportsAbi
     private readonly ImportsCache _importsCache;
 
     private readonly Action<IEnumerable<string>> _print;
+
+    private readonly ConcurrentDictionary<int, object?> _valueCache = new();
 
     /// <summary>
     /// Creates new instance of <see cref="OpaWasmEvaluatorFactory"/>.
@@ -100,7 +103,7 @@ public sealed class CompositeImportsHandler : IOpaImportsAbi
 
         try
         {
-            var func = _importsCache.TryResolveImport(_imports, name);
+            var func = _importsCache.TryResolveImport(_imports, name, out var attributes);
 
             if (func == null)
             {
@@ -116,6 +119,19 @@ public sealed class CompositeImportsHandler : IOpaImportsAbi
                     default:
                         return false;
                 }
+            }
+
+            if (attributes?.Memorize ?? false)
+            {
+                var argHash = 0;
+
+                foreach (var arg in args)
+                    argHash = HashCode.Combine(argHash, arg.GetArgHashCode());
+
+                var callHash = HashCode.Combine(name, argHash);
+
+                result = _valueCache.GetOrAdd(callHash, func(args));
+                return true;
             }
 
             result = func(args);
@@ -147,6 +163,8 @@ public sealed class CompositeImportsHandler : IOpaImportsAbi
 
     void IOpaImportsAbi.Reset()
     {
+        _valueCache.Clear();
+
         foreach (var import in _imports)
             import.Reset();
 

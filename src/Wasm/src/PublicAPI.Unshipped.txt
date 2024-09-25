@@ -8,6 +8,8 @@ OpaDotNet.Wasm.Builtins.IOpaCustomBuiltins.Reset() -> void
 OpaDotNet.Wasm.Builtins.IOpaCustomPrinter
 OpaDotNet.Wasm.Builtins.IOpaCustomPrinter.Print(System.Collections.Generic.IEnumerable<string!>! args) -> void
 OpaDotNet.Wasm.Builtins.OpaCustomBuiltinAttribute
+OpaDotNet.Wasm.Builtins.OpaCustomBuiltinAttribute.Memorize.get -> bool
+OpaDotNet.Wasm.Builtins.OpaCustomBuiltinAttribute.Memorize.init -> void
 OpaDotNet.Wasm.Builtins.OpaCustomBuiltinAttribute.Name.get -> string!
 OpaDotNet.Wasm.Builtins.OpaCustomBuiltinAttribute.OpaCustomBuiltinAttribute(string! name) -> void
 OpaDotNet.Wasm.DefaultBuiltinsFactory

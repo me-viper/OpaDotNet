@@ -32,8 +32,13 @@ public class ImportsCache(JsonSerializerOptions jsonOptions)
         }
     }
 
-    internal Func<BuiltinArg[], object?>? TryResolveImport(IReadOnlyList<IOpaCustomBuiltins> instances, string name)
+    internal Func<BuiltinArg[], object?>? TryResolveImport(
+        IReadOnlyList<IOpaCustomBuiltins> instances,
+        string name,
+        out OpaCustomBuiltinAttribute? attributes)
     {
+        attributes = null;
+
         if (instances.Count == 0)
             return null;
 
@@ -47,6 +52,8 @@ public class ImportsCache(JsonSerializerOptions jsonOptions)
 
         if (instance == null)
             return null;
+
+        attributes = cacheItem.Attributes;
 
         return p => cacheItem.Import(instance, p);
     }
@@ -147,7 +154,7 @@ public class ImportsCache(JsonSerializerOptions jsonOptions)
                     .Lambda<Func<IOpaCustomBuiltins, BuiltinArg[], object?>>(body, instanceParam, argsParam)
                     .Compile();
 
-                result[name] = new(import.GetType(), (i, a) => func(i, a));
+                result[name] = new(import.GetType(), (i, a) => func(i, a), attr);
             }
         }
 

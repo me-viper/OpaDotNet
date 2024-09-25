@@ -2,6 +2,8 @@ using System.Collections.Concurrent;
 using System.Reflection;
 using System.Text.Json.Nodes;
 
+using Json.More;
+
 namespace OpaDotNet.Wasm;
 
 /// <summary>
@@ -10,32 +12,44 @@ namespace OpaDotNet.Wasm;
 [PublicAPI]
 public class BuiltinArg
 {
-    private readonly Func<RegoValueFormat, JsonNode?> _arg;
-
     private readonly JsonSerializerOptions _jsonOptions;
+
+    private readonly Lazy<JsonNode?> _raw;
+
+    private readonly Lazy<JsonNode?> _rawJson;
+
+    private readonly Lazy<string> _rawString;
+
+    private readonly Lazy<string> _rawJsonString;
 
     internal BuiltinArg(Func<RegoValueFormat, string> getArg, JsonSerializerOptions jsonOptions)
     {
         ArgumentNullException.ThrowIfNull(getArg);
 
-        _arg = p =>
+        _rawString = new(() => getArg(RegoValueFormat.Value));
+        _rawJsonString = new(() => getArg(RegoValueFormat.Json));
+
+        JsonNode? GetArg(RegoValueFormat p)
         {
-            var json = getArg(p);
+            var json = p == RegoValueFormat.Value ? _rawString.Value : _rawJsonString.Value;
             return JsonNode.Parse(json);
-        };
+        }
 
         _jsonOptions = jsonOptions;
+
+        _raw = new(() => GetArg(RegoValueFormat.Value));
+        _rawJson = new(() => GetArg(RegoValueFormat.Json));
     }
 
     /// <summary>
     /// JSON with REGO sets specific patches.
     /// </summary>
-    public JsonNode? Raw => _arg(RegoValueFormat.Value);
+    public JsonNode? Raw => _raw.Value;
 
     /// <summary>
     /// Raw JSON with REGO sets serialized as arrays.
     /// </summary>
-    public JsonNode? RawJson => _arg(RegoValueFormat.Json);
+    public JsonNode? RawJson => _rawJson.Value;
 
     /// <summary>
     /// Converts built-in function argument in JSON format to the specified type.
@@ -74,6 +88,9 @@ public class BuiltinArg
 
         return Raw.Deserialize(type, _jsonOptions);
     }
+
+    internal int GetArgHashCode(RegoValueFormat format = RegoValueFormat.Json)
+        => (format == RegoValueFormat.Value ?  _rawString.Value : _rawJsonString.Value).GetHashCode();
 
     /// <summary>
     /// Converts built-in function argument in JSON format to the specified type.

@@ -12,6 +12,11 @@ public class OpaCustomBuiltinAttribute(string name) : Attribute
     /// </summary>
     public string Name { get; } = name;
 
+    /// <summary>
+    /// If <c>true</c> enables value memoization across multiple calls in the same query.
+    /// </summary>
+    public bool Memorize { get; init; }
+
     internal string? Description { get; set; }
 
     internal string[]? Categories { get; set; }
