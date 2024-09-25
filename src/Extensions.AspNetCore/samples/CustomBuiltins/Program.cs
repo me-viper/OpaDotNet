@@ -6,7 +6,6 @@ using System.Text.Json;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Options;
 
-using OpaDotNet.Compilation.Abstractions;
 using OpaDotNet.Compilation.Cli;
 using OpaDotNet.Extensions.AspNetCore;
 using OpaDotNet.Wasm;
@@ -25,8 +24,8 @@ builder.Services.AddOpaAuthorization(
         cfg.AddFileSystemPolicySource();
 
         // Register custom built-ins.
-        // cfg.AddImportsAbi<Custom1>();
-        // cfg.AddImportsAbi<Custom2>();
+        cfg.AddCustomBuiltins<Custom1, Custom1>();
+        cfg.AddCustomBuiltins<Custom2, Custom2>();
 
         // Configure.
         cfg.AddConfiguration(

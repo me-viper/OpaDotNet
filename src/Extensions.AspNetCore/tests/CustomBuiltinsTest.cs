@@ -105,7 +105,7 @@ public class CustomBuiltinsTest(ITestOutputHelper output)
 
 file class CustomPrinter(ILogger<CustomPrinter> logger) : IOpaCustomBuiltins, IOpaCustomPrinter
 {
-    public void Print(IEnumerable<string> args) => logger.LogInformation("{Log}", string.Join(" ", args));
+    public void Print(IEnumerable<string> args) => logger.LogInformation("Custom: {Log}", string.Join(" ", args));
 }
 
 file class Custom1 : IOpaCustomBuiltins, ICapabilitiesProvider
