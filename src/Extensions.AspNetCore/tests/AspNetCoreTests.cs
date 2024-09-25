@@ -462,11 +462,10 @@ public class AspNetCoreTests(ITestOutputHelper output)
                 {
                     builder.AddLogging(p => p.AddXunit(output).AddFilter(pp => pp > LogLevel.Trace));
 
-                    builder.AddSingleton<IRegoCompiler, RegoInteropCompiler>();
-
                     builder.AddOpaAuthorization(
                         cfg =>
                         {
+                            cfg.AddCompiler<RegoInteropCompiler>();
                             cfg.AddPolicySource<FileSystemPolicySource>();
                             cfg.AddConfiguration(
                                 p =>
