@@ -26,14 +26,14 @@ public class Imports
     public Imports()
     {
         List<IOpaCustomBuiltins> imports = [_ext1];
-        _ = _cache.TryResolveImport(imports, string.Empty);
+        _ = _cache.TryResolveImport(imports, string.Empty, out _);
         _imports = new CompositeImportsHandler(_default, imports, _cache);
     }
 
     [Benchmark(Baseline = true)]
     public object Default()
     {
-        var result = _ext1.Do("test");
+        var result = Ext.Do("test");
 
         if (result == null)
             throw new InvalidOperationException();
@@ -67,14 +67,7 @@ public class Imports
 internal class Ext : IOpaCustomBuiltins
 {
     [OpaCustomBuiltin("ext.do")]
-    public string Do(string message)
-    {
-        return $"Hi {message}";
-    }
-
-    public void Reset()
-    {
-    }
+    public static string Do(string message) => $"Hi {message}";
 }
 
 internal class Def : IOpaImportsAbi

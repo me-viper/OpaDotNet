@@ -44,7 +44,7 @@ return 0;
 
 Dictionary<string, string> ExtractPackages(FileInfo projectFile)
 {
-    var result = new Dictionary<string, string>();
+    var packs = new Dictionary<string, string>();
 
     var doc = XDocument.Load(projectFile.OpenRead());
     var packRefs = doc.XPathSelectElements(".//PackageReference");
@@ -55,8 +55,8 @@ Dictionary<string, string> ExtractPackages(FileInfo projectFile)
         var version = packRef.Attribute("Version")?.Value;
 
         if (!string.IsNullOrWhiteSpace(name) && !string.IsNullOrWhiteSpace(version))
-            result.Add(name, version);
+            packs.Add(name, version);
     }
 
-    return result;
+    return packs;
 }
