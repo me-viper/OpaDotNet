@@ -1,7 +1,6 @@
 ﻿using System.Text.Json;
 
 using OpaDotNet.Compilation.Abstractions;
-using OpaDotNet.Compilation.Interop;
 using OpaDotNet.Extensions.AspNetCore.Tests.Common;
 using OpaDotNet.InternalTesting;
 using OpaDotNet.Wasm;

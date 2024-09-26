@@ -4,7 +4,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 using OpaDotNet.Compilation.Abstractions;
-using OpaDotNet.Compilation.Interop;
 using OpaDotNet.Extensions.AspNetCore.Tests.Common;
 using OpaDotNet.InternalTesting;
 using OpaDotNet.Wasm;
@@ -107,7 +106,7 @@ public class ConfigurationPolicySourceTests(ITestOutputHelper output)
         var optionsMonitor = new PolicyOptionsMonitor(policyOptions);
 
         var authOptions = TestOptionsMonitor.Create(opts);
-        var ric = new RegoInteropCompiler(_loggerFactory.CreateLogger<RegoInteropCompiler>());
+        var ric = new TestingCompiler(_loggerFactory);
 
         using var compiler = new ConfigurationPolicySource(
             new BundleCompiler(ric, authOptions, []),
@@ -158,7 +157,7 @@ public class ConfigurationPolicySourceTests(ITestOutputHelper output)
         var optionsMonitor = new PolicyOptionsMonitor(policyOptions);
 
         var authOptions = TestOptionsMonitor.Create(opts);
-        var ric = new RegoInteropCompiler();
+        var ric = new TestingCompiler(_loggerFactory);
 
         using var compiler = new ConfigurationPolicySource(
             new BundleCompiler(ric, TestOptionsMonitor.Create(opts), []),

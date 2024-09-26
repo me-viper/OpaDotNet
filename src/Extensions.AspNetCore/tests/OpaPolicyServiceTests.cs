@@ -4,7 +4,6 @@ using Microsoft.Extensions.Diagnostics.Metrics.Testing;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-using OpaDotNet.Compilation.Interop;
 using OpaDotNet.Extensions.AspNetCore.Telemetry;
 using OpaDotNet.Extensions.AspNetCore.Tests.Common;
 using OpaDotNet.InternalTesting;
