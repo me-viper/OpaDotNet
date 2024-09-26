@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
     <IsTestProject>true</IsTestProject>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>CS1591</NoWarn>
@@ -10,9 +11,6 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0"/>
-    <PackageReference Include="OpaDotNet.Compilation.Cli" Version="1.6.1"/>
-    <PackageReference Include="OpaDotNet.Compilation.Interop" Version="1.6.1"/>
-    <PackageReference Include="OpaDotNet.Extensions.AspNetCore" Version="2.4.0"/>
     <PackageReference Include="xunit" Version="2.6.6"/>
     <PackageReference Include="xunit.runner.visualstudio" Version="2.5.6">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -25,7 +23,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\OpaDotNet.Wasm\OpaDotNet.Wasm.csproj"/>
+    <ProjectReference Include="..\..\src\Wasm\src\OpaDotNet.Wasm.csproj"/>
+    <ProjectReference Include="..\..\src\Extensions.AspNetCore\src\OpaDotNet.Extensions.AspNetCore.csproj"/>
+    <ProjectReference Include="..\..\src\Compilation\Cli\src\OpaDotNet.Compilation.Cli.csproj"/>
+    <ProjectReference Include="..\..\src\Compilation\Interop\src\OpaDotNet.Compilation.Interop.csproj"/>
   </ItemGroup>
 
   <ItemGroup>

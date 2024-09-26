@@ -68,7 +68,7 @@ public partial class DocSamples
         #region QuickStartCompilation
 
         var compiler = new RegoCliCompiler();
-        var policyStream = await compiler.CompileFile("quickstart/example.rego", new[] { "example/hello" });
+        var policyStream = await compiler.CompileFileAsync("quickstart/example.rego", new() { Entrypoints = ["example/hello"] });
 
         // Use compiled policy.
         using var engine = OpaEvaluatorFactory.CreateFromBundle(policyStream);

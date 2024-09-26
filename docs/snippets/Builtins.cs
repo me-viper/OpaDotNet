@@ -7,6 +7,7 @@ using System.Globalization;
 
 using Microsoft.Extensions.Options;
 
+using OpaDotNet.Extensions.AspNetCore;
 using OpaDotNet.Wasm.Builtins;
 
 #region Usings
@@ -118,32 +119,36 @@ public partial class DocSamples
     {
         #region CustomBuiltinsCompile
 
-        var compilerOptions = new RegoCompilerOptions
+        var compilationParameters = new CompilationParameters
         {
             // Custom built-ins will be merged with capabilities v0.53.1.
             CapabilitiesVersion = "v0.53.1",
-        };
 
-        var compiler = new RegoInteropCompiler(new OptionsWrapper<RegoCompilerOptions>(compilerOptions));
-        var policy = await compiler.CompileBundle(
-            "builtins",
-            new[]
-            {
+            // Provide built-ins capabilities for the compiler.
+            CapabilitiesFilePath = Path.Combine("builtins", "capabilities.json"),
+            Entrypoints = [
                 "custom_builtins/zero_arg",
                 "custom_builtins/one_arg",
                 "custom_builtins/two_arg",
                 "custom_builtins/three_arg",
                 "custom_builtins/four_arg",
-            },
-            Path.Combine("builtins", "capabilities.json")
+            ],
+        };
+
+        var compiler = new RegoInteropCompiler();
+
+        await using var policy = await compiler.CompileBundleAsync(
+            "builtins",
+            compilationParameters
             );
 
-        var factory = new OpaBundleEvaluatorFactory(
+        using var factory = new OpaBundleEvaluatorFactory(
             policy,
-            importsAbiFactory: () => new CustomBuiltinsSample()
+            null,
+            new DefaultBuiltinsFactory(() => new CustomBuiltinsSample())
             );
 
-        var engine = factory.Create();
+        using var engine = factory.Create();
 
         #endregion
 
@@ -190,34 +195,37 @@ public partial class DocSamples
     {
         #region CustomBuiltinsCompileV26
 
-        var compilerOptions = new RegoCompilerOptions
+        var compilationParameters = new CompilationParameters
         {
             // Custom built-ins will be merged with capabilities v0.53.1.
             CapabilitiesVersion = "v0.53.1",
-        };
 
-        var compiler = new RegoInteropCompiler(new OptionsWrapper<RegoCompilerOptions>(compilerOptions));
-        var policy = await compiler.CompileBundle(
-            "builtins",
-            new[]
-            {
+            // Provide built-ins capabilities for the compiler.
+            CapabilitiesFilePath = Path.Combine("builtins", "capabilities.json"),
+            Entrypoints = [
                 "custom_builtins/zero_arg",
                 "custom_builtins/one_arg",
                 "custom_builtins/two_arg",
                 "custom_builtins/three_arg",
                 "custom_builtins/four_arg",
-            },
-            // Provide built-ins capabilities for the compiler.
-            Path.Combine("builtins", "capabilities.json")
-            );
-
-        var engineOptions = new WasmPolicyEngineOptions
-        {
-            // Register custom built-ins implementation.
-            CustomBuiltins = { () => new OpaCustomBuiltins() },
+            ],
         };
 
-        var factory = new OpaBundleEvaluatorFactory(policy, options: engineOptions);
+        var compiler = new RegoInteropCompiler();
+        var policy = await compiler.CompileBundleAsync(
+            "builtins",
+            compilationParameters
+            );
+
+        var factory = new OpaBundleEvaluatorFactory(
+            policy,
+            null,
+            new DefaultBuiltinsFactory
+            {
+                // Register custom built-ins implementation.
+                CustomBuiltins = [() => new OpaCustomBuiltins()]
+            }
+            );
 
         var engine = factory.Create();
 
