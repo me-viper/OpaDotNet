@@ -26,7 +26,7 @@ OpaDotNet.Extensions.AspNetCore.RegoCompilerOptions.Debug.get -> bool
 OpaDotNet.Extensions.AspNetCore.RegoCompilerOptions.Debug.set -> void
 OpaDotNet.Extensions.AspNetCore.RegoCompilerOptions.DisablePrintStatements.get -> bool
 OpaDotNet.Extensions.AspNetCore.RegoCompilerOptions.DisablePrintStatements.set -> void
-OpaDotNet.Extensions.AspNetCore.RegoCompilerOptions.Entrypoints.get -> System.Collections.Generic.IReadOnlySet<string!>?
+OpaDotNet.Extensions.AspNetCore.RegoCompilerOptions.Entrypoints.get -> System.Collections.Generic.IReadOnlyList<string!>?
 OpaDotNet.Extensions.AspNetCore.RegoCompilerOptions.Entrypoints.set -> void
 OpaDotNet.Extensions.AspNetCore.RegoCompilerOptions.FollowSymlinks.get -> bool
 OpaDotNet.Extensions.AspNetCore.RegoCompilerOptions.FollowSymlinks.set -> void

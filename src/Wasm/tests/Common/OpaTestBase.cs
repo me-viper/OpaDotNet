@@ -16,7 +16,7 @@ public class OpaTestBase
     protected OpaTestBase(ITestOutputHelper output)
     {
         Output = output;
-        LoggerFactory = new LoggerFactory(new[] { new XunitLoggerProvider(output) });
+        LoggerFactory = new LoggerFactory([new XunitLoggerProvider(output)]);
     }
 
     private IRegoCompiler Interop()
@@ -40,7 +40,7 @@ public class OpaTestBase
 
         cp = cp with
         {
-            Entrypoints = entrypoints?.ToHashSet(),
+            Entrypoints = entrypoints,
             CapabilitiesFilePath = caps,
         };
 
@@ -56,7 +56,7 @@ public class OpaTestBase
 
         cp = cp with
         {
-            Entrypoints = entrypoints?.ToHashSet(),
+            Entrypoints = entrypoints,
             CapabilitiesBytes = mem,
         };
 
@@ -69,7 +69,7 @@ public class OpaTestBase
 
         cp = cp with
         {
-            Entrypoints = entrypoints?.ToHashSet(),
+            Entrypoints = entrypoints,
         };
 
         return await Interop().CompileFileAsync(path, cp);
@@ -81,7 +81,7 @@ public class OpaTestBase
 
         cp = cp with
         {
-            Entrypoints = entrypoints?.ToHashSet(),
+            Entrypoints = entrypoints,
         };
 
         return await Interop().CompileSourceAsync(path, cp);

@@ -31,7 +31,7 @@ public static class RegoCompilerExtensions
 
         var opts = new CompilationParameters
         {
-            Entrypoints = entrypoints?.ToHashSet(),
+            Entrypoints = entrypoints?.ToList(),
             CapabilitiesFilePath = capabilitiesFilePath,
             IsBundle = true,
         };
@@ -56,7 +56,7 @@ public static class RegoCompilerExtensions
     {
         ArgumentException.ThrowIfNullOrEmpty(sourceFilePath);
 
-        var opts = new CompilationParameters { Entrypoints = entrypoints?.ToHashSet() };
+        var opts = new CompilationParameters { Entrypoints = entrypoints?.ToList() };
         return compiler.Compile(sourceFilePath, opts, cancellationToken);
     }
 
@@ -91,7 +91,7 @@ public static class RegoCompilerExtensions
 
         var opts = new CompilationParameters
         {
-            Entrypoints = entrypoints?.ToHashSet(),
+            Entrypoints = entrypoints?.ToList(),
             CapabilitiesBytes = capsMem,
             IsBundle = true,
         };
@@ -116,7 +116,7 @@ public static class RegoCompilerExtensions
     {
         var opts = new CompilationParameters
         {
-            Entrypoints = entrypoints?.ToHashSet(),
+            Entrypoints = entrypoints?.ToList(),
             IsBundle = true,
         };
 

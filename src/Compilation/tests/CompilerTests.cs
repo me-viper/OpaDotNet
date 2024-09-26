@@ -41,7 +41,7 @@ public abstract class CompilerTests<T>
     [InlineData(null, "~TestData\\policy.rego")]
     public async Task CompileFile(string? entrypoint, string? path = null)
     {
-        var eps = string.IsNullOrWhiteSpace(entrypoint) ? null : new HashSet<string>([entrypoint]);
+        IReadOnlyList<string>? eps = string.IsNullOrWhiteSpace(entrypoint) ? null : [entrypoint];
         var compiler = CreateCompiler(LoggerFactory);
 
         path ??= Path.Combine("TestData", "policy.rego");
@@ -72,7 +72,7 @@ public abstract class CompilerTests<T>
     [InlineData("test1/hello", "~TestData\\compile-bundle\\example")]
     public async Task CompileBundle(string? entrypoint, string? path = null)
     {
-        var eps = string.IsNullOrWhiteSpace(entrypoint) ? null : new HashSet<string>([entrypoint]);
+        IReadOnlyList<string>? eps = string.IsNullOrWhiteSpace(entrypoint) ? null : [entrypoint];
         var compiler = CreateCompiler(LoggerFactory);
 
         path ??= Path.Combine("TestData", "compile-bundle", "example");
@@ -102,11 +102,11 @@ public abstract class CompilerTests<T>
     [InlineData("test1/hello", "./TestData/src.bundle.tar.gz")]
     public async Task CompileBundleFromBundle(string? entrypoint, string? path = null)
     {
-        var eps = string.IsNullOrWhiteSpace(entrypoint) ? null : new[] { entrypoint };
+        IReadOnlyList<string>? eps = string.IsNullOrWhiteSpace(entrypoint) ? null : [entrypoint];
         var compiler = CreateCompiler(LoggerFactory);
 
         path ??= Path.Combine("TestData", "src.bundle.tar.gz");
-        var policy = await compiler.CompileBundleAsync(path, new() { Entrypoints = eps?.ToHashSet() });
+        var policy = await compiler.CompileBundleAsync(path, new() { Entrypoints = eps });
 
         AssertBundle.IsValid(policy);
     }
@@ -129,7 +129,7 @@ public abstract class CompilerTests<T>
     {
         var compiler = CreateCompiler(LoggerFactory);
         var ex = await Assert.ThrowsAsync<RegoCompilationException>(
-            () => compiler.CompileSourceAsync("bad rego", new() { Entrypoints = new HashSet<string>(["ep"]) })
+            () => compiler.CompileSourceAsync("bad rego", new() { Entrypoints = ["ep"] })
             );
 
         Assert.Contains("rego_parse_error: package expected", ex.Message);
@@ -145,7 +145,7 @@ public abstract class CompilerTests<T>
                 Path.Combine("TestData", "capabilities"),
                 new()
                 {
-                    Entrypoints = new HashSet<string>(["capabilities/f"]),
+                    Entrypoints = ["capabilities/f"],
                     CapabilitiesFilePath = Path.Combine("TestData", "capabilities", "capabilities.json"),
                 }
                 )
@@ -161,7 +161,7 @@ public abstract class CompilerTests<T>
             Path.Combine("TestData", "compile-bundle", "example"),
             new()
             {
-                Entrypoints = new HashSet<string>(["test1/hello", "test2/hello"]),
+                Entrypoints = ["test1/hello", "test2/hello"],
                 CapabilitiesVersion = DefaultCaps,
             }
             );
@@ -178,7 +178,7 @@ public abstract class CompilerTests<T>
             TestHelpers.SimplePolicySource,
             new()
             {
-                Entrypoints = new HashSet<string>(TestHelpers.SimplePolicyEntrypoints),
+                Entrypoints = TestHelpers.SimplePolicyEntrypoints,
                 CapabilitiesVersion = DefaultCaps,
             }
             );
@@ -195,7 +195,7 @@ public abstract class CompilerTests<T>
             Path.Combine("TestData", "capabilities"),
             new()
             {
-                Entrypoints = new HashSet<string>(["capabilities/f"]),
+                Entrypoints = ["capabilities/f"],
                 CapabilitiesFilePath = Path.Combine("TestData", "capabilities", "capabilities.json"),
                 CapabilitiesVersion = DefaultCaps,
             }
@@ -224,7 +224,7 @@ public abstract class CompilerTests<T>
             bundle,
             new()
             {
-                Entrypoints = new HashSet<string>(["capabilities/f"]),
+                Entrypoints = ["capabilities/f"],
                 CapabilitiesBytes = capsBytes,
                 CapabilitiesVersion = DefaultCaps,
                 Debug = true,
@@ -276,7 +276,7 @@ public abstract class CompilerTests<T>
             ms,
             new()
             {
-                Entrypoints = TestHelpers.SimplePolicyEntrypoints.ToHashSet(),
+                Entrypoints = TestHelpers.SimplePolicyEntrypoints,
                 PruneUnused = true,
                 Debug = true,
                 OutputPath = outPath,
@@ -359,7 +359,7 @@ public abstract class CompilerTests<T>
             ms,
             new()
             {
-                Entrypoints = TestHelpers.SimplePolicyEntrypoints.ToHashSet(),
+                Entrypoints = TestHelpers.SimplePolicyEntrypoints,
                 PruneUnused = true,
                 Debug = true,
                 OutputPath = outPath,
@@ -403,7 +403,7 @@ public abstract class CompilerTests<T>
                 ms,
                 new()
                 {
-                    Entrypoints = TestHelpers.SimplePolicyEntrypoints.ToHashSet(),
+                    Entrypoints = TestHelpers.SimplePolicyEntrypoints,
                     PruneUnused = true,
                     Debug = true,
                     OutputPath = outPath,
@@ -425,7 +425,7 @@ public abstract class CompilerTests<T>
                 Path.Combine("TestData", "multi-caps"),
                 new()
                 {
-                    Entrypoints = new HashSet<string>(["capabilities/f", "capabilities/f2"]),
+                    Entrypoints = ["capabilities/f", "capabilities/f2"],
                     CapabilitiesFilePath = Path.Combine("TestData", "multi-caps", "caps1.json"),
                     CapabilitiesVersion = DefaultCaps,
                 }
@@ -462,7 +462,7 @@ public abstract class CompilerTests<T>
             Path.Combine("TestData", "multi-caps"),
             new()
             {
-                Entrypoints = new HashSet<string>(["capabilities/f", "capabilities/f2"]),
+                Entrypoints = ["capabilities/f", "capabilities/f2"],
                 CapabilitiesFilePath = tmpCapsFile,
                 CapabilitiesVersion = DefaultCaps,
                 OutputPath = outPath,
@@ -497,7 +497,7 @@ public abstract class CompilerTests<T>
             bundle,
             new()
             {
-                Entrypoints = new HashSet<string>(["capabilities/f", "capabilities/f2"]),
+                Entrypoints = ["capabilities/f", "capabilities/f2"],
                 CapabilitiesBytes = capsMem,
                 CapabilitiesVersion = DefaultCaps,
                 Debug = true,
@@ -524,7 +524,7 @@ public abstract class CompilerTests<T>
             path,
             new()
             {
-                Entrypoints = entrypoints.ToHashSet(),
+                Entrypoints = entrypoints,
                 CapabilitiesVersion = DefaultCaps,
                 Ignore = exclusions?.ToHashSet() ?? new HashSet<string>(),
             }
@@ -574,7 +574,7 @@ public abstract class CompilerTests<T>
             ms,
             new()
             {
-                Entrypoints = entrypoints.ToHashSet(),
+                Entrypoints = entrypoints,
                 CapabilitiesVersion = DefaultCaps,
             }
             );
@@ -636,7 +636,7 @@ public abstract class CompilerTests<T>
             targetPath.FullName,
             new()
             {
-                Entrypoints = new HashSet<string>(["sl/allow"]),
+                Entrypoints = ["sl/allow"],
                 CapabilitiesVersion = DefaultCaps,
                 FollowSymlinks = true,
                 Debug = true,
@@ -684,7 +684,7 @@ public abstract class CompilerTests<T>
             ms,
             new()
             {
-                Entrypoints = new HashSet<string>(["sl/allow"]),
+                Entrypoints = ["sl/allow"],
                 CapabilitiesVersion = DefaultCaps,
                 Ignore = ignore,
             }

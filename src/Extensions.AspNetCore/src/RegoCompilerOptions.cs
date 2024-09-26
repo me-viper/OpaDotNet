@@ -26,7 +26,7 @@ public record RegoCompilerOptions
     /// <summary>
     /// List of permitted policy entrypoints.
     /// </summary>
-    public IReadOnlySet<string>? Entrypoints { get; set; }
+    public IReadOnlyList<string>? Entrypoints { get; set; }
 
     /// <summary>
     /// Capabilities file that defines the built-in functions and other language features that policies may depend on.

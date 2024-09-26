@@ -1,1 +1,2 @@
 #nullable enable
+OpaDotNet.Compilation.Abstractions.CompilationParameters.Entrypoints.get -> System.Collections.Generic.IReadOnlyList<string!>?

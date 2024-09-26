@@ -67,7 +67,7 @@ public class CliCompilerTests : CompilerTests<RegoCliCompiler>
             {
                 CapabilitiesVersion = DefaultCaps,
                 OutputPath = di.FullName,
-                Entrypoints = new HashSet<string>(["capabilities/f"]),
+                Entrypoints = ["capabilities/f"],
                 CapabilitiesFilePath = Path.Combine("TestData", "capabilities", "capabilities.json"),
             }
             );
