@@ -17,7 +17,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 using OpaDotNet.Compilation.Abstractions;
-using OpaDotNet.Compilation.Interop;
+using OpaDotNet.Compilation.Cli;
 using OpaDotNet.Extensions.AspNetCore.Tests.Common;
 using OpaDotNet.InternalTesting;
 using OpaDotNet.Wasm;
@@ -133,8 +133,8 @@ public class AspNetCoreTests(ITestOutputHelper output)
     [InlineData("wrong", HttpStatusCode.Forbidden)]
     public async Task SimpleNoCompilation(string user, HttpStatusCode expected)
     {
-        var compiler = new RegoInteropCompiler();
-        var policy = await compiler.CompileBundleAsync("./Policy", new());
+        var compiler = new RegoCliCompiler();
+        await using var policy = await compiler.CompileBundleAsync("./Policy", new());
 
         var opts = new WasmPolicyEngineOptions
         {
@@ -465,7 +465,7 @@ public class AspNetCoreTests(ITestOutputHelper output)
                     builder.AddOpaAuthorization(
                         cfg =>
                         {
-                            cfg.AddCompiler<RegoInteropCompiler>();
+                            cfg.AddCompiler<RegoCliCompiler>();
                             cfg.AddPolicySource<FileSystemPolicySource>();
                             cfg.AddConfiguration(
                                 p =>
