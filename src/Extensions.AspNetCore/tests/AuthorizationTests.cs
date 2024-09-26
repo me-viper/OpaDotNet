@@ -11,7 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 using OpaDotNet.Compilation.Abstractions;
-using OpaDotNet.Compilation.Interop;
+using OpaDotNet.Compilation.Cli;
 using OpaDotNet.Extensions.AspNetCore.Tests.Common;
 using OpaDotNet.InternalTesting;
 using OpaDotNet.Wasm;
@@ -42,7 +42,7 @@ public class AuthorizationTests(ITestOutputHelper output)
 
     private async Task<TestServer> Setup(string targetScheme)
     {
-        var compiler = new RegoInteropCompiler();
+        var compiler = new RegoCliCompiler();
         var policy = await compiler.CompileBundleAsync("./Policy", new());
 
         var opts = new WasmPolicyEngineOptions
