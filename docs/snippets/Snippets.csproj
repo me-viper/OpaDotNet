@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net8.0</TargetFrameworks>
     <IsTestProject>true</IsTestProject>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>CS1591</NoWarn>
@@ -24,7 +23,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Wasm\src\OpaDotNet.Wasm.csproj"/>
-    <ProjectReference Include="..\..\src\Extensions.AspNetCore\src\OpaDotNet.Extensions.AspNetCore.csproj"/>
     <ProjectReference Include="..\..\src\Compilation\Cli\src\OpaDotNet.Compilation.Cli.csproj"/>
     <ProjectReference Include="..\..\src\Compilation\Interop\src\OpaDotNet.Compilation.Interop.csproj"/>
   </ItemGroup>

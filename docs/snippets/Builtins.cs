@@ -5,9 +5,6 @@
 
 using System.Globalization;
 
-using Microsoft.Extensions.Options;
-
-using OpaDotNet.Extensions.AspNetCore;
 using OpaDotNet.Wasm.Builtins;
 
 #region Usings
