@@ -29,8 +29,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Testing\src\OpaDotNet.InternalTesting.csproj"/>
     <ProjectReference Include="..\src\OpaDotNet.Wasm.csproj"/>
-    <ProjectReference Include="..\..\Compilation\Cli\src\OpaDotNet.Compilation.Cli.csproj"/>
-    <ProjectReference Include="..\..\Compilation\Interop\src\OpaDotNet.Compilation.Interop.csproj"/>
   </ItemGroup>
 
 </Project>

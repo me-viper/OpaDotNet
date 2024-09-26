@@ -10,6 +10,7 @@ using OpaDotNet.Wasm.Tests.Common;
 namespace OpaDotNet.Wasm.Tests;
 
 [UsedImplicitly]
+[CollectionDefinition("CapabilitiesProvider", DisableParallelization = true)]
 public class CapabilitiesProviderTests : CustomBuiltinsTests
 {
     public CapabilitiesProviderTests(ITestOutputHelper output) : base(output)
@@ -21,6 +22,7 @@ public class CapabilitiesProviderTests : CustomBuiltinsTests
 }
 
 [UsedImplicitly]
+[CollectionDefinition("FileCapabilities", DisableParallelization = true)]
 public class SimpleCustomBuiltinsTests(ITestOutputHelper output) : CustomBuiltinsTests(output)
 {
     protected override Stream Caps() => File.OpenRead(Path.Combine(BasePath, "capabilities.json"));
@@ -32,25 +34,35 @@ public abstract class CustomBuiltinsTests(ITestOutputHelper output) : OpaTestBas
 
     protected string BasePath { get; } = Path.Combine("TestData", "custom-builtins");
 
+    private readonly Guid _outDir = Guid.NewGuid();
+
+    private string OutPath => Path.Combine(BasePath, "out", _outDir.ToString());
+
     protected abstract Stream Caps();
 
     public async Task InitializeAsync()
     {
+        Directory.CreateDirectory(OutPath);
+
         var policy = await CompileBundle(
-            BasePath,
-            [
-                "custom_builtins/zero_arg",
-                "custom_builtins/one_arg",
-                "custom_builtins/one_arg_object",
-                "custom_builtins/two_arg",
-                "custom_builtins/three_arg",
-                "custom_builtins/four_arg",
-                "custom_builtins/four_arg_types",
-                "custom_builtins/valid_json",
-                "custom_builtins/json_arg",
-                "custom_builtins/memorized",
-            ],
-            Caps()
+            Path.Combine(BasePath, "bundle"),
+            Caps(),
+            p => p with
+            {
+                OutputPath = OutPath,
+                Entrypoints = [
+                    "custom_builtins/zero_arg",
+                    "custom_builtins/one_arg",
+                    "custom_builtins/one_arg_object",
+                    "custom_builtins/two_arg",
+                    "custom_builtins/three_arg",
+                    "custom_builtins/four_arg",
+                    "custom_builtins/four_arg_types",
+                    "custom_builtins/valid_json",
+                    "custom_builtins/json_arg",
+                    "custom_builtins/memorized",
+                ],
+            }
             );
 
         var factory = new OpaBundleEvaluatorFactory(
@@ -68,6 +80,7 @@ public abstract class CustomBuiltinsTests(ITestOutputHelper output) : OpaTestBas
     public Task DisposeAsync()
     {
         _engine.Dispose();
+        Directory.Delete(OutPath, true);
         return Task.CompletedTask;
     }
 

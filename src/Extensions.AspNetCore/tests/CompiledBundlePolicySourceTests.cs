@@ -3,6 +3,7 @@
 using OpaDotNet.Compilation.Abstractions;
 using OpaDotNet.Compilation.Interop;
 using OpaDotNet.Extensions.AspNetCore.Tests.Common;
+using OpaDotNet.InternalTesting;
 using OpaDotNet.Wasm;
 
 namespace OpaDotNet.Extensions.AspNetCore.Tests;
@@ -41,7 +42,7 @@ public class CompiledBundlePolicySourceTests(ITestOutputHelper output) : PathPol
 
     protected override async Task WritePolicy(string policy)
     {
-        var compiler = new RegoInteropCompiler();
+        var compiler = new TestingCompiler();
         await using var bundle = await compiler.CompileSourceAsync(policy, new());
 
         await using var fs = new FileStream("./Watch/policy.tar.gz", FileMode.Create);

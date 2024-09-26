@@ -42,7 +42,7 @@ public class AuthorizationTests(ITestOutputHelper output)
 
     private async Task<TestServer> Setup(string targetScheme)
     {
-        var compiler = new RegoCliCompiler();
+        var compiler = new TestingCompiler();
         var policy = await compiler.CompileBundleAsync("./Policy", new());
 
         var opts = new WasmPolicyEngineOptions

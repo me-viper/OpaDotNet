@@ -133,7 +133,7 @@ public class AspNetCoreTests(ITestOutputHelper output)
     [InlineData("wrong", HttpStatusCode.Forbidden)]
     public async Task SimpleNoCompilation(string user, HttpStatusCode expected)
     {
-        var compiler = new RegoCliCompiler();
+        var compiler = new TestingCompiler();
         await using var policy = await compiler.CompileBundleAsync("./Policy", new());
 
         var opts = new WasmPolicyEngineOptions
@@ -465,7 +465,7 @@ public class AspNetCoreTests(ITestOutputHelper output)
                     builder.AddOpaAuthorization(
                         cfg =>
                         {
-                            cfg.AddCompiler<RegoCliCompiler>();
+                            cfg.AddCompiler<TestingCompiler>();
                             cfg.AddPolicySource<FileSystemPolicySource>();
                             cfg.AddConfiguration(
                                 p =>

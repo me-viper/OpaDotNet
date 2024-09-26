@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Compilation.Abstractions\src\OpaDotNet.Compilation.Abstractions.csproj"/>
+    <ProjectReference Include="..\..\Compilation\Cli\src\OpaDotNet.Compilation.Cli.csproj" />
   </ItemGroup>
 
 </Project>

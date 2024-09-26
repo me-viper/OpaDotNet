@@ -1,6 +1,4 @@
 ﻿using OpaDotNet.Compilation.Abstractions;
-using OpaDotNet.Compilation.Cli;
-using OpaDotNet.Compilation.Interop;
 using OpaDotNet.InternalTesting;
 
 namespace OpaDotNet.Wasm.Tests.Common;
@@ -19,20 +17,18 @@ public class OpaTestBase
         LoggerFactory = new LoggerFactory([new XunitLoggerProvider(output)]);
     }
 
-    private IRegoCompiler Interop()
+    private IRegoCompiler MakeCompiler()
     {
-        return new RegoInteropCompiler(
-            logger: LoggerFactory.CreateLogger<RegoInteropCompiler>()
-            );
+        return new TestingCompiler(LoggerFactory);
     }
 
-    private IRegoCompiler Cli()
-    {
-        return new RegoCliCompiler(
-            new(),
-            logger: LoggerFactory.CreateLogger<RegoCliCompiler>()
-            );
-    }
+    // private IRegoCompiler Cli()
+    // {
+    //     return new RegoCliCompiler(
+    //         new(),
+    //         logger: LoggerFactory.CreateLogger<RegoCliCompiler>()
+    //         );
+    // }
 
     protected async Task<Stream> CompileBundle(string path, string[]? entrypoints = null, string? caps = null)
     {
@@ -44,23 +40,25 @@ public class OpaTestBase
             CapabilitiesFilePath = caps,
         };
 
-        return await Interop().CompileBundleAsync(path, cp);
+        return await MakeCompiler().CompileBundleAsync(path, cp);
     }
 
-    protected async Task<Stream> CompileBundle(string path, string[]? entrypoints, Stream caps)
+    protected async Task<Stream> CompileBundle(string path, Stream caps, Func<CompilationParameters, CompilationParameters>? configure = null)
     {
         var cp = Options ?? new CompilationParameters();
+
+        if (configure != null)
+            cp = configure.Invoke(cp);
 
         Memory<byte> mem = new byte[caps.Length];
         _ = await caps.ReadAsync(mem);
 
         cp = cp with
         {
-            Entrypoints = entrypoints,
             CapabilitiesBytes = mem,
         };
 
-        return await Interop().Compile(path, cp, CancellationToken.None);
+        return await MakeCompiler().Compile(path, cp, CancellationToken.None);
     }
 
     protected async Task<Stream> CompileFile(string path, string[]? entrypoints = null)
@@ -72,7 +70,7 @@ public class OpaTestBase
             Entrypoints = entrypoints,
         };
 
-        return await Interop().CompileFileAsync(path, cp);
+        return await MakeCompiler().CompileFileAsync(path, cp);
     }
 
     protected async Task<Stream> CompileSource(string path, string[]? entrypoints = null)
@@ -84,6 +82,6 @@ public class OpaTestBase
             Entrypoints = entrypoints,
         };
 
-        return await Interop().CompileSourceAsync(path, cp);
+        return await MakeCompiler().CompileSourceAsync(path, cp);
     }
 }

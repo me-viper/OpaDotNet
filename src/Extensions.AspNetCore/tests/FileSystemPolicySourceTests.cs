@@ -2,6 +2,7 @@
 
 using OpaDotNet.Compilation.Interop;
 using OpaDotNet.Extensions.AspNetCore.Tests.Common;
+using OpaDotNet.InternalTesting;
 using OpaDotNet.Wasm;
 
 namespace OpaDotNet.Extensions.AspNetCore.Tests;
@@ -33,7 +34,7 @@ public sealed class FileSystemPolicySourceTests : PathPolicySourceTests<FileSyst
         configure?.Invoke(opts);
 
         var authOptions = TestOptionsMonitor.Create(opts);
-        var ric = new RegoInteropCompiler();
+        var ric = new TestingCompiler(LoggerFactory);
 
         return new FileSystemPolicySource(
             new BundleCompiler(ric, authOptions, []),

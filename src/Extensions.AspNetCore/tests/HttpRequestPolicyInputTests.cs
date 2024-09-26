@@ -21,7 +21,7 @@ public class HttpRequestPolicyInputTests(ITestOutputHelper output) : IAsyncLifet
 
     public async Task InitializeAsync()
     {
-        var compiler = new RegoInteropCompiler();
+        var compiler = new TestingCompiler(_loggerFactory);
         var policy = await compiler.CompileBundleAsync("./Policy", new());
 
         var opts = new WasmPolicyEngineOptions

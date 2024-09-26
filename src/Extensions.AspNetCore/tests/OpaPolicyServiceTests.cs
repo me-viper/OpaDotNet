@@ -36,7 +36,7 @@ public class OpaPolicyServiceTests(ITestOutputHelper output)
         };
 
         var authOptions = TestOptionsMonitor.Create(opts);
-        var ric = new RegoInteropCompiler();
+        var ric = new TestingCompiler();
 
         var compiler = new FileSystemPolicySource(
             new BundleCompiler(ric, authOptions, []),
@@ -88,7 +88,7 @@ public class OpaPolicyServiceTests(ITestOutputHelper output)
             );
 
         var authOptions = TestOptionsMonitor.Create<OpaAuthorizationOptions>(opts);
-        var ric = new RegoInteropCompiler();
+        var ric = new TestingCompiler();
 
         var compiler = new FileSystemPolicySource(
             new BundleCompiler(ric, authOptions, []),

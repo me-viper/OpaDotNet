@@ -80,7 +80,7 @@ public class CustomBuiltinsTest(ITestOutputHelper output)
         services.AddOpaAuthorization(
             cfg =>
             {
-                cfg.AddCompiler<RegoInteropCompiler>();
+                cfg.AddCompiler<TestingCompiler>();
                 cfg.AddPolicySource<ConfigurationPolicySource>();
                 cfg.AddCustomBuiltins<CustomPrinter>();
                 cfg.AddCustomBuiltins<Custom1, Custom1>();

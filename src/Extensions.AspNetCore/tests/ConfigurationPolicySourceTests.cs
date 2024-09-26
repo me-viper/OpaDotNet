@@ -26,7 +26,7 @@ public class ConfigurationPolicySourceTests(ITestOutputHelper output)
 
         using var compiler = new ConfigurationPolicySource(
             new BundleCompiler(
-                new RegoInteropCompiler(_loggerFactory.CreateLogger<RegoInteropCompiler>()),
+                new TestingCompiler(_loggerFactory),
                 authOptions,
                 []
                 ),
