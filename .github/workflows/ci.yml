@@ -71,6 +71,8 @@ jobs:
 
     - name: Test net8.0
       run: dotnet test -c Release --no-build -f net8.0 -m:1 /p:CollectCoverage=true /p:CoverletOutput="${GITHUB_WORKSPACE}/TestResults/" /p:CoverletOutputFormat="lcov%2cjson" /p:MergeWith="${GITHUB_WORKSPACE}/TestResults/coverage.net8.0.json"
+      env:
+        OPA_TEST_COMPILER: Cli
 
     - name: Coveralls
       uses: coverallsapp/github-action@v2

@@ -2,6 +2,7 @@
 using System.Text.Encodings.Web;
 using System.Text.Json.Nodes;
 
+using OpaDotNet.InternalTesting;
 using OpaDotNet.Wasm.Builtins;
 using OpaDotNet.Wasm.Tests.Common;
 
@@ -215,6 +216,7 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
     [InlineData("\"hi\", 1", "\"hi\", 1")]
     [InlineData("""{"a": 1, "b": "aaa"}""", """{"b":"aaa","a":1}""")]
     [InlineData("""[1,2,3]""", """[1,2,3]""")]
+    [Trait(Utils.CompilerTrait, Utils.InteropCompilerTrait)]
     public async Task Print(string args, string expected)
     {
         var src = $$"""

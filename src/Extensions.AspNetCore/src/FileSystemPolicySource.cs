@@ -35,12 +35,11 @@ public sealed class FileSystemPolicySource : PathPolicySource
                 );
 
             CompositeChangeToken MakePolicyChangeToken() => new(
-                new[]
-                {
+                [
                     fileProvider.Watch("**/*.rego"),
                     fileProvider.Watch("**/data.json"),
                     fileProvider.Watch("**/data.yaml"),
-                }
+                ]
                 );
 
             void OnPolicyChange()

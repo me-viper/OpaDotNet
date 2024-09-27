@@ -1,4 +1,5 @@
-﻿using OpaDotNet.Wasm.Rego;
+﻿using OpaDotNet.InternalTesting;
+using OpaDotNet.Wasm.Rego;
 using OpaDotNet.Wasm.Tests.Common;
 
 namespace OpaDotNet.Wasm.Tests;
@@ -9,7 +10,7 @@ public class SerializationTests : OpaTestBase, IAsyncLifetime
 
     public SerializationTests(ITestOutputHelper output) : base(output)
     {
-        Options = new() { CapabilitiesVersion = "v0.54.0" };
+        Options = new() { CapabilitiesVersion = Utils.DefaultCapabilities };
     }
 
     public async Task InitializeAsync()

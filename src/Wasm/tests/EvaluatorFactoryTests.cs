@@ -2,12 +2,8 @@
 
 namespace OpaDotNet.Wasm.Tests;
 
-public class EvaluatorFactoryTests : OpaTestBase
+public class EvaluatorFactoryTests(ITestOutputHelper output) : OpaTestBase(output)
 {
-    public EvaluatorFactoryTests(ITestOutputHelper output) : base(output)
-    {
-    }
-
     [Fact]
     public async Task ParallelBundle()
     {

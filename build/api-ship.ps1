@@ -1,4 +1,4 @@
-#!/usr/bin/env pwsh
+#! /bin/pwsh
 param (
     [string]
     $Path = $null

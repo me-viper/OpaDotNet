@@ -57,6 +57,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{B1EE2A89-1
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snippets", "docs\snippets\Snippets.csproj", "{2A3F55C7-B427-4946-A5C2-47FFA0BFA0B1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{81FA4F2E-E45E-4D2C-A466-79B17AD7AE25}"
+	ProjectSection(SolutionItems) = preProject
+		build\api-ship.ps1 = build\api-ship.ps1
+		build\tests.ps1 = build\tests.ps1
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

@@ -1,6 +1,7 @@
 ﻿using JetBrains.Annotations;
 
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 
 using OpaDotNet.Compilation.Abstractions;
 using OpaDotNet.Compilation.Cli;
@@ -22,7 +23,7 @@ public class CliCompilerTests : CompilerTests<RegoCliCompiler>
 
     protected override RegoCliCompiler CreateCompiler(ILoggerFactory? loggerFactory = null)
     {
-        return new RegoCliCompiler(null, loggerFactory?.CreateLogger<RegoCliCompiler>());
+        return new RegoCliCompiler(loggerFactory?.CreateLogger<RegoCliCompiler>(), null);
     }
 
     [Fact]
@@ -34,7 +35,7 @@ public class CliCompilerTests : CompilerTests<RegoCliCompiler>
             ExtraArguments = "--debug",
         };
 
-        var compiler = new RegoCliCompiler(opts);
+        var compiler = new RegoCliCompiler(NullLogger<RegoCliCompiler>.Instance, opts);
 
         _ = await Assert.ThrowsAsync<RegoCompilationException>(
             () => compiler.CompileFileAsync("fail.rego", new())
@@ -57,8 +58,7 @@ public class CliCompilerTests : CompilerTests<RegoCliCompiler>
         };
 
         var compiler = new RegoCliCompiler(
-            opts,
-            LoggerFactory.CreateLogger<RegoCliCompiler>()
+            LoggerFactory.CreateLogger<RegoCliCompiler>(), opts
             );
 
         var policy = await compiler.CompileBundleAsync(

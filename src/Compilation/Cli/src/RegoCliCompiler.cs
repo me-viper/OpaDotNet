@@ -22,11 +22,9 @@ public class RegoCliCompiler : IRegoCompiler
     /// <summary>
     /// Creates new instance of <see cref="RegoCliCompiler"/> class.
     /// </summary>
-    /// <param name="options">Compilation options</param>
     /// <param name="logger">Logger instance</param>
-    public RegoCliCompiler(
-        RegoCliCompilerOptions? options = null,
-        ILogger<RegoCliCompiler>? logger = null)
+    /// <param name="options">Compilation options</param>
+    public RegoCliCompiler(ILogger<RegoCliCompiler>? logger = null, RegoCliCompilerOptions? options = null)
     {
         _options = options ?? new();
         _logger = logger ?? NullLogger<RegoCliCompiler>.Instance;
@@ -265,12 +263,12 @@ public class RegoCliCompiler : IRegoCompiler
         _logger.LogInformation("Compilation succeeded");
 
         return _options.PreserveBuildArtifacts
-            ? new FileStream(args.OutputFile, FileMode.Open)
+            ? new FileStream(args.OutputFile, FileMode.Open, FileAccess.Read)
             : new DeleteOnCloseFileStream(args.OutputFile, FileMode.Open);
     }
 
     [ExcludeFromCodeCoverage]
-    private class DeleteOnCloseFileStream(string path, FileMode mode) : FileStream(path, mode)
+    private class DeleteOnCloseFileStream(string path, FileMode mode) : FileStream(path, mode, FileAccess.Read)
     {
         private readonly string _path = path;
 
