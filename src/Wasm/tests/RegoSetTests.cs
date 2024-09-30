@@ -79,7 +79,7 @@ public class RegoSetTests
     [Fact]
     public void SerializeSetOfStrings()
     {
-        var o = new RegoSet<string>(new[] { "1", "2" });
+        var o = new RegoSet<string>(["1", "2"]);
 
         var opts = new JsonSerializerOptions
         {

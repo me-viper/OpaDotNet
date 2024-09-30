@@ -100,7 +100,7 @@ public class SdkTestBase(ITestOutputHelper output) : OpaTestBase(output)
 
         var imp = imports ?? new TestImportsAbi(Output);
 
-        var factory = new OpaBundleEvaluatorFactory(
+        using var factory = new OpaBundleEvaluatorFactory(
             policy,
             engineOpts,
             new DefaultBuiltinsFactory(options, () => imp) { CustomBuiltins = customBuiltins ?? [] }

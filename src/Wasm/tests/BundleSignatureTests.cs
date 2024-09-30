@@ -104,7 +104,7 @@ public class BundleSignatureTests(ITestOutputHelper output) : OpaTestBase(output
             },
         };
 
-        var factory = new OpaBundleEvaluatorFactory(
+        using var factory = new OpaBundleEvaluatorFactory(
             fs,
             engineOpts,
             new TestBuiltinsFactory(Output)
@@ -151,10 +151,15 @@ public class BundleSignatureTests(ITestOutputHelper output) : OpaTestBase(output
 
         using (var bw = new BundleWriter(ms))
         {
-            bw.WriteEntry(File.OpenRead(Path.Combine(SourcePath, "data.yaml")), "data.yaml");
+            using var data = File.OpenRead(Path.Combine(SourcePath, "data.yaml"));
+            bw.WriteEntry(data, "data.yaml");
             bw.WriteEntry("fff", "p1.rego");
-            bw.WriteEntry(File.OpenRead(Path.Combine(BasePath, "policy.wasm")), "policy.wasm");
-            bw.WriteEntry(File.OpenRead(SigPath), ".signatures.json");
+
+            using var policy = File.OpenRead(Path.Combine(BasePath, "policy.wasm"));
+            bw.WriteEntry(policy, "policy.wasm");
+
+            using var sig = File.OpenRead(SigPath);
+            bw.WriteEntry(sig, ".signatures.json");
         }
 
         ms.Seek(0, SeekOrigin.Begin);
@@ -187,10 +192,13 @@ public class BundleSignatureTests(ITestOutputHelper output) : OpaTestBase(output
 
         using (var bw = new BundleWriter(ms))
         {
-            bw.WriteEntry(File.OpenRead(Path.Combine(SourcePath, "data.yaml")), "data.yaml");
+            using var data = File.OpenRead(Path.Combine(SourcePath, "data.yaml"));
+            bw.WriteEntry(data, "data.yaml");
             bw.WriteEntry("fff", "p1.rego");
-            bw.WriteEntry(File.OpenRead(Path.Combine(BasePath, "policy.wasm")), "policy.wasm");
-            bw.WriteEntry(File.OpenRead(SigPath), ".signatures.json");
+            using var policy = File.OpenRead(Path.Combine(BasePath, "policy.wasm"));
+            bw.WriteEntry(policy, "policy.wasm");
+            using var sig = File.OpenRead(SigPath);
+            bw.WriteEntry(sig, ".signatures.json");
         }
 
         ms.Seek(0, SeekOrigin.Begin);
@@ -205,7 +213,7 @@ public class BundleSignatureTests(ITestOutputHelper output) : OpaTestBase(output
             },
         };
 
-        var factory = new OpaBundleEvaluatorFactory(
+        using var factory = new OpaBundleEvaluatorFactory(
             ms,
             engineOpts,
             new TestBuiltinsFactory(Output)
@@ -221,8 +229,10 @@ public class BundleSignatureTests(ITestOutputHelper output) : OpaTestBase(output
 
         using (var bw = new BundleWriter(ms))
         {
-            bw.WriteEntry(File.OpenRead(Path.Combine(BasePath, "policy.wasm")), "policy.wasm");
-            bw.WriteEntry(File.OpenRead(SigPath), ".signatures.json");
+            using var policy = File.OpenRead(Path.Combine(BasePath, "policy.wasm"));
+            bw.WriteEntry(policy, "policy.wasm");
+            using var sig = File.OpenRead(SigPath);
+            bw.WriteEntry(sig, ".signatures.json");
         }
 
         ms.Seek(0, SeekOrigin.Begin);
@@ -251,7 +261,8 @@ public class BundleSignatureTests(ITestOutputHelper output) : OpaTestBase(output
 
         using (var bw = new BundleWriter(ms))
         {
-            bw.WriteEntry(File.OpenRead(SigPath), ".signatures.json");
+            using var sig = File.OpenRead(SigPath);
+            bw.WriteEntry(sig, ".signatures.json");
         }
 
         ms.Seek(0, SeekOrigin.Begin);
@@ -280,10 +291,12 @@ public class BundleSignatureTests(ITestOutputHelper output) : OpaTestBase(output
 
         using (var bw = new BundleWriter(ms))
         {
-            bw.WriteEntry(File.OpenRead(Path.Combine(BasePath, "policy.wasm")), "policy.wasm");
+            using var policy = File.OpenRead(Path.Combine(BasePath, "policy.wasm"));
+            bw.WriteEntry(policy, "policy.wasm");
             bw.WriteEntry("d", "data.yaml");
             bw.WriteEntry("p", "p1.rego");
-            bw.WriteEntry(File.OpenRead(SigPath), ".signatures.json");
+            using var sig = File.OpenRead(SigPath);
+            bw.WriteEntry(sig, ".signatures.json");
         }
 
         ms.Seek(0, SeekOrigin.Begin);
@@ -298,7 +311,7 @@ public class BundleSignatureTests(ITestOutputHelper output) : OpaTestBase(output
             },
         };
 
-        var factory = new OpaBundleEvaluatorFactory(
+        using var factory = new OpaBundleEvaluatorFactory(
             ms,
             engineOpts,
             new TestBuiltinsFactory(Output)

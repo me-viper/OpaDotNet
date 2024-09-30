@@ -9,6 +9,8 @@ namespace OpaDotNet.Extensions.AspNetCore;
 
 public sealed class CompiledBundlePolicySource : PathPolicySource
 {
+    private readonly PhysicalFileProvider? _fileProvider;
+
     public CompiledBundlePolicySource(
         IOptionsMonitor<OpaAuthorizationOptions> options,
         IOpaBundleEvaluatorFactoryBuilder factoryBuilder,
@@ -24,14 +26,14 @@ public sealed class CompiledBundlePolicySource : PathPolicySource
 
         if (MonitoringEnabled)
         {
-            var fileProvider = new PhysicalFileProvider(
+            _fileProvider = new PhysicalFileProvider(
                 Path.GetDirectoryName(path)!,
                 ExclusionFilters.Sensitive
                 );
 
             var file = Path.GetFileName(path);
 
-            CompositeChangeToken MakePolicyChangeToken() => new(new[] { fileProvider.Watch(file), });
+            CompositeChangeToken MakePolicyChangeToken() => new([_fileProvider.Watch(file)]);
 
             void OnPolicyChange()
             {
@@ -41,6 +43,14 @@ public sealed class CompiledBundlePolicySource : PathPolicySource
 
             PolicyWatcher = ChangeToken.OnChange(MakePolicyChangeToken, OnPolicyChange);
         }
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing)
+            _fileProvider?.Dispose();
+
+        base.Dispose(disposing);
     }
 
     protected override Task<Stream?> CompileBundleFromSource(bool recompiling, CancellationToken cancellationToken = default)

@@ -91,14 +91,14 @@ public class OpaPolicyServiceTests(ITestOutputHelper output)
         var authOptions = TestOptionsMonitor.Create<OpaAuthorizationOptions>(opts);
         var ric = new TestingCompiler();
 
-        var compiler = new FileSystemPolicySource(
+        using var compiler = new FileSystemPolicySource(
             new BundleCompiler(ric, authOptions, []),
             authOptions,
             new OpaBundleEvaluatorFactoryBuilder(authOptions, new TestBuiltinsFactory(_loggerFactory)),
             _loggerFactory
             );
 
-        var collector = new MetricCollector<long>(Utility.OpaMeter, "opadotnet_evaluator_instances");
+        using var collector = new MetricCollector<long>(Utility.OpaMeter, "opadotnet_evaluator_instances");
         collector.RecordObservableInstruments();
 
         await compiler.StartAsync(CancellationToken.None);

@@ -25,6 +25,7 @@ public class AbiVersioningTests : IAsyncLifetime
 
     public Task DisposeAsync()
     {
+        _loggerFactory.Dispose();
         return Task.CompletedTask;
     }
 
@@ -39,7 +40,7 @@ public class AbiVersioningTests : IAsyncLifetime
         var abiVer = string.IsNullOrWhiteSpace(ver) ? null : Version.Parse(ver);
         var expectedVer = Version.Parse(expectedVersion);
 
-        var engine = OpaEvaluatorFactory.CreateFromWasm(
+        using var engine = OpaEvaluatorFactory.CreateFromWasm(
             File.OpenRead(Path.Combine(BasePath, "simple-1.3.wasm")),
             options: new() { MaxAbiVersion = abiVer }
             );
@@ -52,7 +53,7 @@ public class AbiVersioningTests : IAsyncLifetime
     [Fact]
     public void PolicyAbiVersion()
     {
-        var engine = OpaEvaluatorFactory.CreateFromWasm(
+        using var engine = OpaEvaluatorFactory.CreateFromWasm(
             File.OpenRead(Path.Combine(BasePath, "simple-1.2.wasm"))
             );
 

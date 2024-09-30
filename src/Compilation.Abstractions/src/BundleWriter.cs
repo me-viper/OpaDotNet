@@ -237,7 +237,7 @@ public sealed class BundleWriter : IDisposable, IAsyncDisposable
     {
         ArgumentNullException.ThrowIfNull(bundle);
 
-        var gzip = new GZipStream(bundle, CompressionMode.Decompress);
+        using var gzip = new GZipStream(bundle, CompressionMode.Decompress);
         using var ms = new MemoryStream();
 
         gzip.CopyTo(ms);

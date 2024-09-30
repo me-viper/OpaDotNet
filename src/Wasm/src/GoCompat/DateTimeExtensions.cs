@@ -121,7 +121,7 @@ internal static class DateTimeExtensions
     {
         var inititalBufLen = Math.Max(layout.Length, "9999 September 31 23 59 59 999999999".Length) + timeZoneId.Length;
 
-        var result = new ValueStringBuilder(inititalBufLen);
+        using var result = new ValueStringBuilder(inititalBufLen);
 
         Span<char> timeZoneBuffer = stackalloc char[@"hh\:mm\:ss".Length];
 

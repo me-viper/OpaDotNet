@@ -214,7 +214,7 @@ public partial class DocSamples
             compilationParameters
             );
 
-        var factory = new OpaBundleEvaluatorFactory(
+        using var factory = new OpaBundleEvaluatorFactory(
             policy,
             null,
             new DefaultBuiltinsFactory

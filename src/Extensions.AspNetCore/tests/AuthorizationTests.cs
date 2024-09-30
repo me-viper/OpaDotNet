@@ -25,7 +25,7 @@ public class AuthorizationTests(ITestOutputHelper output)
     [InlineData("Valid", HttpStatusCode.OK)]
     public async Task CustomAuthenticationScheme(string targetScheme, HttpStatusCode expected)
     {
-        var server = await Setup(targetScheme);
+        using var server = await Setup(targetScheme);
         var request = new HttpRequestMessage(HttpMethod.Get, $"{server.BaseAddress}attr/valid");
 
         var transaction = new Transaction
@@ -43,7 +43,7 @@ public class AuthorizationTests(ITestOutputHelper output)
     private async Task<TestServer> Setup(string targetScheme)
     {
         var compiler = new TestingCompiler();
-        var policy = await compiler.CompileBundleAsync("./Policy", new());
+        await using var policy = await compiler.CompileBundleAsync("./Policy", new());
 
         var opts = new WasmPolicyEngineOptions
         {
@@ -52,8 +52,6 @@ public class AuthorizationTests(ITestOutputHelper output)
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
             },
         };
-
-        var factory = new TestEvaluatorFactoryProvider(new OpaBundleEvaluatorFactory(policy, opts, null));
 
         var builder = new WebHostBuilder()
             .ConfigureServices(
@@ -66,7 +64,8 @@ public class AuthorizationTests(ITestOutputHelper output)
                     builder.AddOpaAuthorization(
                         cfg =>
                         {
-                            cfg.AddPolicySource(_ => factory);
+                            // ReSharper disable once AccessToDisposedClosure
+                            cfg.AddPolicySource(_ => new TestEvaluatorFactoryProvider(new OpaBundleEvaluatorFactory(policy, opts, null)));
                             cfg.AddConfiguration(
                                 pp =>
                                 {

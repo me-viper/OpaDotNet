@@ -155,7 +155,7 @@ public partial class DefaultOpaImportsAbi
     private static JsonWebKey X509ParseRsaPrivateKey(string pem)
     {
         var decodedPem = Convert.FromBase64String(pem);
-        var rsa = RSA.Create();
+        using var rsa = RSA.Create();
         rsa.ImportFromPem(Encoding.UTF8.GetString(decodedPem));
         var k = new RsaSecurityKey(rsa);
         return JsonWebKeyConverter.ConvertFromRSASecurityKey(k);
@@ -217,7 +217,7 @@ public partial class DefaultOpaImportsAbi
 
         try
         {
-            var result = X509Certificate2.CreateFromPem(decodedCert, decodedPem);
+            using var result = X509Certificate2.CreateFromPem(decodedCert, decodedPem);
             var keys = CryptoParsePrivateKeys(decodedPem);
             var certJson = X509CertJson.ToJson(result);
 
@@ -355,7 +355,7 @@ public partial class DefaultOpaImportsAbi
         {
             if (label is "EC PRIVATE KEY")
             {
-                var ecsa = ECDsa.Create();
+                using var ecsa = ECDsa.Create();
                 ecsa.ImportFromPem(key);
                 var k = ecsa.ExportParameters(true);
 
@@ -366,7 +366,7 @@ public partial class DefaultOpaImportsAbi
 
             if (label is "RSA PRIVATE KEY" or "PRIVATE KEY")
             {
-                var rsa = RSA.Create();
+                using var rsa = RSA.Create();
                 rsa.ImportFromPem(key);
                 var k = rsa.ExportParameters(true);
 

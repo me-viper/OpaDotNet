@@ -55,6 +55,9 @@ fsharp_multi_line_lambda_closing_newline = true
 [*.{cs,vb}]
 dotnet_public_api_analyzer.require_api_files = true
 
+dotnet_diagnostic.CA2000.severity = warning
+dotnet_code_quality.CA2000.excluded_type_names_with_derived_types = XunitLoggerProvider
+
 #### Naming styles ####
 
 # Naming rules

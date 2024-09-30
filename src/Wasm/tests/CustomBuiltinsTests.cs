@@ -65,7 +65,7 @@ public abstract class CustomBuiltinsTests(ITestOutputHelper output) : OpaTestBas
             }
             );
 
-        var factory = new OpaBundleEvaluatorFactory(
+        using var factory = new OpaBundleEvaluatorFactory(
             policy,
             WasmPolicyEngineOptions.DefaultWithJsonOptions(p => p.PropertyNamingPolicy = JsonNamingPolicy.CamelCase),
             new DefaultBuiltinsFactory(() => new NotImplementedImports())

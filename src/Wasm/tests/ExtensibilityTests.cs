@@ -3,7 +3,7 @@ using OpaDotNet.Wasm.Features;
 
 namespace OpaDotNet.Wasm.Tests;
 
-public class ExtensibilityTests
+public class ExtensibilityTests : IAsyncLifetime
 {
     private readonly ITestOutputHelper _output;
 
@@ -14,7 +14,15 @@ public class ExtensibilityTests
     public ExtensibilityTests(ITestOutputHelper output)
     {
         _output = output;
-        _loggerFactory = new LoggerFactory(new[] { new XunitLoggerProvider(output) });
+        _loggerFactory = new LoggerFactory([new XunitLoggerProvider(output)]);
+    }
+
+    public Task InitializeAsync() => Task.CompletedTask;
+
+    public Task DisposeAsync()
+    {
+        _loggerFactory.Dispose();
+        return Task.CompletedTask;
     }
 
     [Fact]
@@ -23,7 +31,8 @@ public class ExtensibilityTests
         const string data = "{ \"world\": \"world\" }";
         var input = new { message = "world" };
 
-        var engine = OpaEvaluatorFactory.CreateFromWasm(File.OpenRead(Path.Combine(BasePath, "simple-1.2.wasm")));
+        using var wasm = File.OpenRead(Path.Combine(BasePath, "simple-1.2.wasm"));
+        using var engine = OpaEvaluatorFactory.CreateFromWasm(wasm);
 
         Assert.Equal(new Version(1, 2), engine.AbiVersion);
 
@@ -44,7 +53,8 @@ public class ExtensibilityTests
         const string data = "{ \"world\": \"world\" }";
         var input = new { message = "world" };
 
-        var engine = OpaEvaluatorFactory.CreateFromWasm(File.OpenRead(Path.Combine(BasePath, "simple-1.3.wasm")));
+        using var wasm = File.OpenRead(Path.Combine(BasePath, "simple-1.3.wasm"));
+        using var engine = OpaEvaluatorFactory.CreateFromWasm(wasm);
 
         Assert.Equal(new Version(1, 3), engine.AbiVersion);
 
@@ -65,7 +75,8 @@ public class ExtensibilityTests
         const string data = "{\"world\":\"world\"}";
         var initialInput = new { message = "world" };
 
-        var engine = (OpaWasmEvaluator)OpaEvaluatorFactory.CreateFromWasm(File.OpenRead(Path.Combine(BasePath, "simple-1.3.wasm")));
+        using var wasm = File.OpenRead(Path.Combine(BasePath, "simple-1.3.wasm"));
+        using var engine = (OpaWasmEvaluator)OpaEvaluatorFactory.CreateFromWasm(wasm);
 
         Assert.Equal(new Version(1, 3), engine.AbiVersion);
 
@@ -95,7 +106,8 @@ public class ExtensibilityTests
         const string data = "{\"world\":\"world\"}";
         var initialInput = new { message = "world" };
 
-        var engine = (OpaWasmEvaluator)OpaEvaluatorFactory.CreateFromWasm(File.OpenRead(Path.Combine(BasePath, "simple-1.3.wasm")));
+        using var wasm = File.OpenRead(Path.Combine(BasePath, "simple-1.3.wasm"));
+        using var engine = (OpaWasmEvaluator)OpaEvaluatorFactory.CreateFromWasm(wasm);
 
         Assert.Equal(new Version(1, 3), engine.AbiVersion);
 
@@ -124,7 +136,8 @@ public class ExtensibilityTests
         const string data = "{\"new\":{\"path\":\"world\"},\"world\":\"world\"}";
         var initialInput = new { message = "world" };
 
-        var engine = (OpaWasmEvaluator)OpaEvaluatorFactory.CreateFromWasm(File.OpenRead(Path.Combine(BasePath, "simple-1.3.wasm")));
+        using var wasm = File.OpenRead(Path.Combine(BasePath, "simple-1.3.wasm"));
+        using var engine = (OpaWasmEvaluator)OpaEvaluatorFactory.CreateFromWasm(wasm);
 
         Assert.Equal(new Version(1, 3), engine.AbiVersion);
 

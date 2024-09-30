@@ -13,7 +13,9 @@ internal static class SecurityKeyHelpers
 
         if (pem.Contains("-----BEGIN CERTIFICATE"))
         {
+#pragma warning disable CA2000
             var cert = X509Certificate2.CreateFromPem(pem);
+#pragma warning restore CA2000
 
             SecurityKey k;
 
@@ -31,9 +33,9 @@ internal static class SecurityKeyHelpers
 
         if (pem.Contains("-----BEGIN"))
         {
-            var rsa = RSA.Create();
+            using var rsa = RSA.Create();
             rsa.ImportFromPem(pem);
-            result = new RsaSecurityKey(rsa);
+            result = new RsaSecurityKey(rsa.ExportParameters(false));
 
             return true;
         }

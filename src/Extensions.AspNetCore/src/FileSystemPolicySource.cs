@@ -12,6 +12,8 @@ public sealed class FileSystemPolicySource : PathPolicySource
 {
     private readonly IBundleCompiler _compiler;
 
+    private readonly PhysicalFileProvider? _fileProvider;
+
     public FileSystemPolicySource(
         IBundleCompiler compiler,
         IOptionsMonitor<OpaAuthorizationOptions> options,
@@ -29,16 +31,16 @@ public sealed class FileSystemPolicySource : PathPolicySource
 
         if (MonitoringEnabled)
         {
-            var fileProvider = new PhysicalFileProvider(
+            _fileProvider = new PhysicalFileProvider(
                 path,
                 ExclusionFilters.Sensitive
                 );
 
             CompositeChangeToken MakePolicyChangeToken() => new(
                 [
-                    fileProvider.Watch("**/*.rego"),
-                    fileProvider.Watch("**/data.json"),
-                    fileProvider.Watch("**/data.yaml"),
+                    _fileProvider.Watch("**/*.rego"),
+                    _fileProvider.Watch("**/data.json"),
+                    _fileProvider.Watch("**/data.yaml"),
                 ]
                 );
 
@@ -75,5 +77,13 @@ public sealed class FileSystemPolicySource : PathPolicySource
         ms.Seek(0, SeekOrigin.Begin);
 
         return await _compiler.Compile(ms, p => p.IsBundle = true, cancellationToken).ConfigureAwait(false);
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing)
+            _fileProvider?.Dispose();
+
+        base.Dispose(disposing);
     }
 }

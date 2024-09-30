@@ -9,10 +9,10 @@ public class EvaluatorFactoryTests(ITestOutputHelper output) : OpaTestBase(outpu
     {
         var policyBundle = await CompileBundle(
             Path.Combine("TestData", "compile-bundle", "example"),
-            new[] { "test1/hello", "test2/hello" }
+            ["test1/hello", "test2/hello"]
             );
 
-        var factory = new OpaBundleEvaluatorFactory(
+        using var factory = new OpaBundleEvaluatorFactory(
             policyBundle,
             null,
             null
@@ -41,7 +41,7 @@ public class EvaluatorFactoryTests(ITestOutputHelper output) : OpaTestBase(outpu
     public async Task ParallelWasm()
     {
         var path = Path.Combine("TestData", "compile-bundle", "policy.wasm");
-        var factory = new OpaWasmEvaluatorFactory(File.OpenRead(path));
+        using var factory = new OpaWasmEvaluatorFactory(File.OpenRead(path));
 
         using var dataStream = File.OpenText(Path.Combine("TestData", "compile-bundle", "data.json"));
         var data = await dataStream.ReadToEndAsync();
@@ -129,14 +129,16 @@ public class EvaluatorFactoryTests(ITestOutputHelper output) : OpaTestBase(outpu
         var factory = new OpaWasmEvaluatorFactory(File.OpenRead(policyPath), opts, null);
 
         var evaluator1 = factory.Create();
-        evaluator1.SetDataFromStream(File.OpenRead(dataPath));
+        using var data1 = File.OpenRead(dataPath);
+        evaluator1.SetDataFromStream(data1);
         var input1 = new { message = "world" };
         var test1Result = evaluator1.EvaluatePredicate(input1, "test1/hello");
 
         Assert.True(test1Result.Result);
 
         var evaluator2 = factory.Create();
-        evaluator2.SetDataFromStream(File.OpenRead(dataPath));
+        using var data2 = File.OpenRead(dataPath);
+        evaluator2.SetDataFromStream(data2);
         var input2 = new { message = "world" };
         var test2Result = evaluator2.EvaluatePredicate(input2, "test1/hello");
 

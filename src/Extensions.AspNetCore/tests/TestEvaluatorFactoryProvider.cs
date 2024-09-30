@@ -17,13 +17,7 @@ internal record TestEvaluatorFactoryProvider(OpaEvaluatorFactory Factory) : IOpa
 
     public IChangeToken OnPolicyUpdated() => _cct;
 
-    public Task StartAsync(CancellationToken cancellationToken)
-    {
-        return Task.CompletedTask;
-    }
+    public Task StartAsync(CancellationToken cancellationToken) => Task.CompletedTask;
 
-    public Task StopAsync(CancellationToken cancellationToken)
-    {
-        return Task.CompletedTask;
-    }
+    public Task StopAsync(CancellationToken cancellationToken) => Task.CompletedTask;
 }

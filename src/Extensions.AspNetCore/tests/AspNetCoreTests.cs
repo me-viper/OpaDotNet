@@ -43,7 +43,7 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
     [Fact]
     public async Task HttpRequestInput()
     {
-        var server = CreateServer(
+        using var server = CreateServer(
             output,
             handler: async (context, _) =>
             {
@@ -75,7 +75,7 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
     [InlineData("wrong", HttpStatusCode.Forbidden)]
     public async Task Simple(string user, HttpStatusCode expected)
     {
-        var server = CreateServer(
+        using var server = CreateServer(
             output,
             handler: async (context, _) =>
             {
@@ -108,7 +108,7 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
     [InlineData("wrong", HttpStatusCode.Forbidden)]
     public async Task CompositeAuthorizationPolicyProvider(string user, HttpStatusCode expected)
     {
-        var server = CreateServer(
+        using var server = CreateServer(
             output,
             handler: async (context, _) =>
             {
@@ -158,9 +158,7 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
             },
         };
 
-        var factory = new TestEvaluatorFactoryProvider(new OpaBundleEvaluatorFactory(policy, opts, null));
-
-        var server = CreateServerFull(
+        using var server = CreateServerFull(
             output,
             handler: async (context, _) =>
             {
@@ -179,7 +177,8 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
                 p.AddOpaAuthorization(
                     cfg =>
                     {
-                        cfg.AddPolicySource(_ => factory);
+                        // ReSharper disable once AccessToDisposedClosure
+                        cfg.AddPolicySource(_ => new TestEvaluatorFactoryProvider(new OpaBundleEvaluatorFactory(policy, opts, null)));
                         cfg.AddConfiguration(
                             pp =>
                             {
@@ -247,7 +246,7 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
 
         var options = new ParallelOptions { MaxDegreeOfParallelism = 4 };
         await Parallel.ForEachAsync(
-            Enumerable.Range(0, 10_000), 
+            Enumerable.Range(0, 10_000),
             options,
             async (i, _) => await DoSimple()
             );
@@ -258,7 +257,7 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
     [Fact]
     public async Task Jwt()
     {
-        var server = CreateServer(
+        using var server = CreateServer(
             output,
             handler: async (context, _) =>
             {
@@ -308,7 +307,7 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
     [InlineData("az/svc", "xxx", HttpStatusCode.Forbidden)]
     public async Task RouteAuthorization(string path, string? user = null, HttpStatusCode expected = HttpStatusCode.OK)
     {
-        var server = CreateServer(output);
+        using var server = CreateServer(output);
         var request = new HttpRequestMessage(HttpMethod.Get, $"{server.BaseAddress}{path}");
         var handler = new JwtSecurityTokenHandler();
 
@@ -340,7 +339,7 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
     [Fact]
     public async Task Claims()
     {
-        var server = CreateServer(
+        using var server = CreateServer(
             output,
             handler: async (context, _) =>
             {
@@ -382,7 +381,7 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
     [InlineData("u2", HttpStatusCode.Forbidden)]
     public async Task Composite(string user, HttpStatusCode expected)
     {
-        var server = CreateServer(
+        using var server = CreateServer(
             output,
             handler: async (context, _) =>
             {

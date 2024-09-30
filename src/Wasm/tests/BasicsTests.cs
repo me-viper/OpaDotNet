@@ -246,8 +246,8 @@ public class BasicsTests : OpaTestBase
     [Fact]
     public async Task EmptyOutput()
     {
-        var policy = await CompileFile(Path.Combine(BasePath, "empty_composite.rego"), new[] { "example" });
-        var factory = new OpaBundleEvaluatorFactory(policy, null, null);
+        var policy = await CompileFile(Path.Combine(BasePath, "empty_composite.rego"), ["example"]);
+        using var factory = new OpaBundleEvaluatorFactory(policy, null, null);
 
         using var engine = factory.Create();
 
@@ -319,8 +319,8 @@ public class BasicsTests : OpaTestBase
     [Fact]
     public async Task EmptyPredicate()
     {
-        var policy = await CompileFile(Path.Combine(BasePath, "simple.rego"), new[] { "example/empty" });
-        var factory = new OpaBundleEvaluatorFactory(policy, null, null);
+        var policy = await CompileFile(Path.Combine(BasePath, "simple.rego"), ["example/empty"]);
+        using var factory = new OpaBundleEvaluatorFactory(policy, null, null);
 
         using var engine = factory.Create();
 

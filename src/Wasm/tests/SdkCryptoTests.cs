@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Globalization;
+using System.Text;
 
 using OpaDotNet.Wasm.Tests.Common;
 
@@ -225,7 +226,7 @@ public class SdkCryptoTests(ITestOutputHelper output) : SdkTestBase(output)
                 {{countCerts}}
             }
 
-            expected := {{isValid.ToString().ToLower()}}
+            expected := {{isValid.ToString().ToLower(CultureInfo.InvariantCulture)}}
             actual := crypto.x509.parse_and_verify_certificates(chain)
             """;
 
