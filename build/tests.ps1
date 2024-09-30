@@ -1,4 +1,4 @@
-﻿#! /bin/pwsh
+#! /bin/pwsh
 param (
     [string]
     [ValidateSet("Cli", "Interop")]
