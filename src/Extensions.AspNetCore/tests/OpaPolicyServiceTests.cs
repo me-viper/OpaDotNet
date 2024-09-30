@@ -10,11 +10,10 @@ using OpaDotNet.InternalTesting;
 
 namespace OpaDotNet.Extensions.AspNetCore.Tests;
 
+//[Collection("Sequential")]
 public class OpaPolicyServiceTests(ITestOutputHelper output)
 {
-    private readonly ITestOutputHelper _output = output;
-
-    private readonly ILoggerFactory _loggerFactory = new LoggerFactory(new[] { new XunitLoggerProvider(output) });
+    private readonly ILoggerFactory _loggerFactory = new LoggerFactory([new XunitLoggerProvider(output)]);
 
     [Fact]
     public async Task Recompilation()
@@ -24,6 +23,7 @@ public class OpaPolicyServiceTests(ITestOutputHelper output)
         var opts = new OpaAuthorizationOptions
         {
             PolicyBundlePath = "./Policy",
+            Compiler = new() { ForceBundleWriter = true },
             MaximumEvaluatorsRetained = maxEvaluators,
             EngineOptions = new()
             {
@@ -37,7 +37,7 @@ public class OpaPolicyServiceTests(ITestOutputHelper output)
         var authOptions = TestOptionsMonitor.Create(opts);
         var ric = new TestingCompiler();
 
-        var compiler = new FileSystemPolicySource(
+        using var compiler = new FileSystemPolicySource(
             new BundleCompiler(ric, authOptions, []),
             authOptions,
             new OpaBundleEvaluatorFactoryBuilder(authOptions, new TestBuiltinsFactory(_loggerFactory)),
@@ -53,8 +53,10 @@ public class OpaPolicyServiceTests(ITestOutputHelper output)
             _loggerFactory.CreateLogger<PooledOpaPolicyService>()
             );
 
+        var options = new ParallelOptions { MaxDegreeOfParallelism = 4 };
         await Parallel.ForEachAsync(
             Enumerable.Range(0, 1000),
+            options,
             async (i, ct) =>
             {
                 if (i % 10 == 0)

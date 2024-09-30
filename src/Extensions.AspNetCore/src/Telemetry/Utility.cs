@@ -39,11 +39,11 @@ internal static class Utility
 
     public const int PolicySourceWatchStarted = 14;
 
-    public const int PolicySourceWatchStopped = 14;
+    public const int PolicySourceWatchStopped = 15;
 
-    public const int EvaluatorPoolResetting = 15;
+    public const int EvaluatorPoolResetting = 16;
 
-    public const int EvaluatorPoolNotDisposable = 16;
+    public const int EvaluatorPoolNotDisposable = 17;
 
-    public const int EvaluatorPoolDisposing = 17;
+    public const int EvaluatorPoolDisposing = 18;
 }

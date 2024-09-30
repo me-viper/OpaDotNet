@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Text;
 
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 
 using Xunit.Abstractions;
@@ -16,8 +17,11 @@ public class XunitLoggerProvider : ILoggerProvider
     private static int _instanceCount = 0;
 
     private readonly int _providerInstanceId = Interlocked.Increment(ref _instanceCount);
+
     private readonly ITestOutputHelper _output;
+    
     private readonly LogLevel _minLevel;
+    
     private readonly DateTimeOffset? _logStart;
 
     public XunitLoggerProvider(ITestOutputHelper output, LogLevel minLevel = LogLevel.Trace, DateTimeOffset? logStart = null)
@@ -130,19 +134,19 @@ public static class XunitLoggerFactoryExtensions
 {
     public static ILoggingBuilder AddXunit(this ILoggingBuilder builder, ITestOutputHelper output)
     {
-        builder.Services.AddSingleton<ILoggerProvider>(new XunitLoggerProvider(output));
+        builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<ILoggerProvider, XunitLoggerProvider>(_ => new XunitLoggerProvider(output)));
         return builder;
     }
 
     public static ILoggingBuilder AddXunit(this ILoggingBuilder builder, ITestOutputHelper output, LogLevel minLevel)
     {
-        builder.Services.AddSingleton<ILoggerProvider>(new XunitLoggerProvider(output, minLevel));
+        builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<ILoggerProvider, XunitLoggerProvider>(_ => new XunitLoggerProvider(output, minLevel)));
         return builder;
     }
 
     public static ILoggingBuilder AddXunit(this ILoggingBuilder builder, ITestOutputHelper output, LogLevel minLevel, DateTimeOffset? logStart)
     {
-        builder.Services.AddSingleton<ILoggerProvider>(new XunitLoggerProvider(output, minLevel, logStart));
+        builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<ILoggerProvider, XunitLoggerProvider>(_ => new XunitLoggerProvider(output, minLevel, logStart)));
         return builder;
     }
 

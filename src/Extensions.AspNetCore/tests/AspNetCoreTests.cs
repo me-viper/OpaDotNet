@@ -24,8 +24,22 @@ using OpaDotNet.Wasm;
 
 namespace OpaDotNet.Extensions.AspNetCore.Tests;
 
-public class AspNetCoreTests(ITestOutputHelper output)
+//[Collection("Sequential")]
+public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
 {
+    private readonly DirectoryInfo _outputDirectory = Utils.CreateTempDirectory(AppContext.BaseDirectory);
+
+    public Task InitializeAsync()
+    {
+        return Task.CompletedTask;
+    }
+
+    public Task DisposeAsync()
+    {
+        _outputDirectory.Delete(true);
+        return Task.CompletedTask;
+    }
+
     [Fact]
     public async Task HttpRequestInput()
     {
@@ -200,7 +214,7 @@ public class AspNetCoreTests(ITestOutputHelper output)
     [InlineData("wrong", HttpStatusCode.Forbidden)]
     public async Task ParallelSimple(string user, HttpStatusCode expected)
     {
-        var server = CreateServer(
+        using var server = CreateServer(
             output,
             handler: async (context, _) =>
             {
@@ -217,11 +231,12 @@ public class AspNetCoreTests(ITestOutputHelper output)
         async Task DoSimple()
         {
             var request = new HttpRequestMessage(HttpMethod.Get, $"{server.BaseAddress}");
+            using var client = server.CreateClient();
 
             var transaction = new Transaction
             {
                 Request = request,
-                Response = await server.CreateClient().SendAsync(request),
+                Response = await client.SendAsync(request),
             };
 
             transaction.ResponseText = await transaction.Response.Content.ReadAsStringAsync();
@@ -230,7 +245,14 @@ public class AspNetCoreTests(ITestOutputHelper output)
             Assert.Equal(expected, transaction.Response.StatusCode);
         }
 
-        await Parallel.ForEachAsync(Enumerable.Range(0, 10_000), async (_, _) => await DoSimple());
+        var options = new ParallelOptions { MaxDegreeOfParallelism = 4 };
+        await Parallel.ForEachAsync(
+            Enumerable.Range(0, 10_000), 
+            options,
+            async (i, _) => await DoSimple()
+            );
+
+        output.WriteLine("Done!");
     }
 
     [Fact]
@@ -341,11 +363,12 @@ public class AspNetCoreTests(ITestOutputHelper output)
             );
 
         var request = new HttpRequestMessage(HttpMethod.Get, server.BaseAddress);
+        using var client = server.CreateClient();
 
         var transaction = new Transaction
         {
             Request = request,
-            Response = await server.CreateClient().SendAsync(request),
+            Response = await client.SendAsync(request),
         };
 
         transaction.ResponseText = await transaction.Response.Content.ReadAsStringAsync();
@@ -450,8 +473,8 @@ public class AspNetCoreTests(ITestOutputHelper output)
         return server;
     }
 
-    private static TestServer CreateServer(
-        ITestOutputHelper output,
+    private TestServer CreateServer(
+        ITestOutputHelper testOutput,
         Func<HttpContext, Func<Task>, Task>? handler = null,
         Uri? baseAddress = null,
         Func<IServiceCollection, IServiceCollection>? configureServices = null)
@@ -460,7 +483,8 @@ public class AspNetCoreTests(ITestOutputHelper output)
             .ConfigureServices(
                 builder =>
                 {
-                    builder.AddLogging(p => p.AddXunit(output).AddFilter(pp => pp > LogLevel.Trace));
+                    //builder.AddLogging(p => p.AddXunit(testOutput, LogLevel.Trace));
+                    builder.AddLogging(p => p.AddConsole());
 
                     builder.AddOpaAuthorization(
                         cfg =>
@@ -470,6 +494,12 @@ public class AspNetCoreTests(ITestOutputHelper output)
                             cfg.AddConfiguration(
                                 p =>
                                 {
+                                    p.Compiler = new()
+                                    {
+                                        OutputPath = _outputDirectory.FullName,
+                                        ForceBundleWriter = true,
+                                        //Debug = true,
+                                    };
                                     p.PolicyBundlePath = "./Policy";
                                     p.AllowedHeaders.Add(".*");
                                     p.IncludeClaimsInHttpRequest = true;
