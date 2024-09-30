@@ -253,6 +253,8 @@ internal static class DateTimeExtensions
 
     private static DateTimeOffset Parse(ReadOnlySpan<char> s, ReadOnlySpan<char> layout, bool customFormat = false)
     {
+        DateTimeOffset result;
+
         scoped ValueStringBuilder formatBuilder;
 
         // ReSharper disable once TooWideLocalVariableScope
@@ -276,185 +278,192 @@ internal static class DateTimeExtensions
         var hasMonth = !customFormat;
         var hasYear = !customFormat;
 
-        foreach (var chunk in new ChunkEnumerator(layout))
+        try
         {
-            if (!chunk.Prefix.IsEmpty)
+            foreach (var chunk in new ChunkEnumerator(layout))
             {
-                if (customFormat)
-                    formatBuilder.AppendQuoted(chunk.Prefix);
-                else
-                    formatBuilder.Append(chunk.Prefix);
-
-                parseIndex += chunk.Prefix.Length;
-            }
-
-            if (chunk.Fmt.StartsWith("y"))
-                hasYear = true;
-
-            if (chunk.Fmt.StartsWith("d"))
-                hasDay = true;
-
-            if (chunk.Fmt.StartsWith("M"))
-                hasMonth = true;
-
-            // Either ',' or '.' are valid as fraction separator. But for DateTime.Parse we need full match.
-            if (chunk.Fmt.StartsWith("F") || chunk.Fmt.StartsWith("f"))
-            {
-                if (s[parseIndex - 1] == '.' || s[parseIndex - 1] == ',')
+                if (!chunk.Prefix.IsEmpty)
                 {
                     if (customFormat)
+                        formatBuilder.AppendQuoted(chunk.Prefix);
+                    else
+                        formatBuilder.Append(chunk.Prefix);
+
+                    parseIndex += chunk.Prefix.Length;
+                }
+
+                if (chunk.Fmt.StartsWith("y"))
+                    hasYear = true;
+
+                if (chunk.Fmt.StartsWith("d"))
+                    hasDay = true;
+
+                if (chunk.Fmt.StartsWith("M"))
+                    hasMonth = true;
+
+                // Either ',' or '.' are valid as fraction separator. But for DateTime.Parse we need full match.
+                if (chunk.Fmt.StartsWith("F") || chunk.Fmt.StartsWith("f"))
+                {
+                    if (s[parseIndex - 1] == '.' || s[parseIndex - 1] == ',')
                     {
-                        // Last char is " (quote), ^2 is separator.
-                        formatBuilder[^2] = s[parseIndex - 1];
+                        if (customFormat)
+                        {
+                            // Last char is " (quote), ^2 is separator.
+                            formatBuilder[^2] = s[parseIndex - 1];
+                        }
+                        else
+                        {
+                            // Last char is separator.
+                            formatBuilder[^1] = s[parseIndex - 1];
+                        }
+                    }
+                }
+
+                // Will have to handle nanoseconds manually.
+                if (chunk.Fmt.StartsWith("fffffffff") || chunk.Fmt.StartsWith("FFFFFFFFF"))
+                {
+                    var parse = s.Slice(parseIndex, chunk.Fmt.Length);
+                    nanoseconds = long.Parse(parse);
+                    formatBuilder.Append(parse);
+                    parseIndex += parse.Length - 1;
+
+                    continue;
+                }
+
+                if (chunk.Fmt.StartsWith("F") || chunk.Fmt.StartsWith("f"))
+                {
+                    if (s[parseIndex - 1] == '.' || s[parseIndex - 1] == ',')
+                    {
+                        while (parseIndex < s.Length && char.IsDigit(s[parseIndex]))
+                            parseIndex++;
                     }
                     else
                     {
-                        // Last char is separator.
-                        formatBuilder[^1] = s[parseIndex - 1];
+                        // Trim separator.
+                        parseIndex--;
                     }
+
+                    formatBuilder.Append(chunk.Fmt);
+
+                    continue;
                 }
-            }
 
-            // Will have to handle nanoseconds manually.
-            if (chunk.Fmt.StartsWith("fffffffff") || chunk.Fmt.StartsWith("FFFFFFFFF"))
-            {
-                var parse = s.Slice(parseIndex, chunk.Fmt.Length);
-                nanoseconds = long.Parse(parse);
-                formatBuilder.Append(parse);
-                parseIndex += parse.Length - 1;
-
-                continue;
-            }
-
-            if (chunk.Fmt.StartsWith("F") || chunk.Fmt.StartsWith("f"))
-            {
-                if (s[parseIndex - 1] == '.' || s[parseIndex - 1] == ',')
+                if (chunk.Fmt is "pm" or "PM")
                 {
+                    formatBuilder.Append("tt");
+                    parseIndex += 2;
+
+                    continue;
+                }
+
+                if (chunk.Fmt is "_2")
+                {
+                    hasDay = true;
+                    formatBuilder.Append('d');
+                    parseIndex += 2;
+
+                    continue;
+                }
+
+                if (chunk.Fmt is "__2" or "002")
+                {
+                    var parse = s.Slice(parseIndex, 3);
+
+                    // Day of the year is always padded.
+                    if (int.TryParse(parse, CultureInfo.InvariantCulture, out dayOfYear))
+                    {
+                        // Just quote it so it wont get parsed.
+                        formatBuilder.AppendQuoted(parse);
+                        parseIndex += 3;
+                    }
+
+                    continue;
+                }
+
+                if (chunk.Fmt is "dddd" || chunk.Fmt is "MMMM")
+                {
+                    formatBuilder.Append(chunk.Fmt);
+
+                    while (parseIndex < s.Length && char.IsLetter(s[parseIndex]))
+                        parseIndex++;
+
+                    continue;
+                }
+
+                if (chunk.Fmt is "d")
+                {
+                    formatBuilder.Append(chunk.Fmt);
+
                     while (parseIndex < s.Length && char.IsDigit(s[parseIndex]))
                         parseIndex++;
-                }
-                else
-                {
-                    // Trim separator.
-                    parseIndex--;
+
+                    continue;
                 }
 
-                formatBuilder.Append(chunk.Fmt);
-
-                continue;
-            }
-
-            if (chunk.Fmt is "pm" or "PM")
-            {
-                formatBuilder.Append("tt");
-                parseIndex += 2;
-
-                continue;
-            }
-
-            if (chunk.Fmt is "_2")
-            {
-                hasDay = true;
-                formatBuilder.Append('d');
-                parseIndex += 2;
-
-                continue;
-            }
-
-            if (chunk.Fmt is "__2" or "002")
-            {
-                var parse = s.Slice(parseIndex, 3);
-
-                // Day of the year is always padded.
-                if (int.TryParse(parse, CultureInfo.InvariantCulture, out dayOfYear))
+                if (chunk.Fmt.StartsWith("Z") && chunk.Fmt.Length > 2)
                 {
-                    // Just quote it so it wont get parsed.
-                    formatBuilder.AppendQuoted(parse);
-                    parseIndex += 3;
+                    var offset = chunk.Fmt[2..];
+                    var parse = s.Slice(parseIndex, offset.Length + 1);
+
+                    var offsetStyle = TimeSpanStyles.None;
+
+                    if (parse[0] == '-')
+                        offsetStyle = TimeSpanStyles.AssumeNegative;
+
+                    timeZone = TimeSpan.ParseExact(parse[1..], offset, CultureInfo.InvariantCulture, offsetStyle);
+                    formatBuilder.Append(parse);
+                    parseIndex += parse.Length;
+
+                    continue;
                 }
 
-                continue;
-            }
-
-            if (chunk.Fmt is "dddd" || chunk.Fmt is "MMMM")
-            {
-                formatBuilder.Append(chunk.Fmt);
-
-                while (parseIndex < s.Length && char.IsLetter(s[parseIndex]))
-                    parseIndex++;
-
-                continue;
-            }
-
-            if (chunk.Fmt is "d")
-            {
-                formatBuilder.Append(chunk.Fmt);
-
-                while (parseIndex < s.Length && char.IsDigit(s[parseIndex]))
-                    parseIndex++;
-
-                continue;
-            }
-
-            if (chunk.Fmt.StartsWith("Z") && chunk.Fmt.Length > 2)
-            {
-                var offset = chunk.Fmt[2..];
-                var parse = s.Slice(parseIndex, offset.Length + 1);
-
-                var offsetStyle = TimeSpanStyles.None;
-
-                if (parse[0] == '-')
-                    offsetStyle = TimeSpanStyles.AssumeNegative;
-
-                timeZone = TimeSpan.ParseExact(parse[1..], offset, CultureInfo.InvariantCulture, offsetStyle);
-                formatBuilder.Append(parse);
-                parseIndex += parse.Length;
-
-                continue;
-            }
-
-            if (chunk.Fmt is "MST")
-            {
-                var zoneIndex = parseIndex + 1;
-
-                while (zoneIndex < s.Length && !char.IsWhiteSpace(s[zoneIndex]))
-                    zoneIndex++;
-
-                var parse = s[parseIndex..zoneIndex];
-
-                if (!parse.StartsWith("GMT"))
-                    timeZone = TimeZoneInfoExtensions.FindSystemTimeZoneUtcOffset(parse.ToString());
-                else
+                if (chunk.Fmt is "MST")
                 {
-                    var gmt = parse[3..];
+                    var zoneIndex = parseIndex + 1;
 
-                    if (gmt.Length > 0)
+                    while (zoneIndex < s.Length && !char.IsWhiteSpace(s[zoneIndex]))
+                        zoneIndex++;
+
+                    var parse = s[parseIndex..zoneIndex];
+
+                    if (!parse.StartsWith("GMT"))
+                        timeZone = TimeZoneInfoExtensions.FindSystemTimeZoneUtcOffset(parse.ToString());
+                    else
                     {
-                        var offset = int.Parse(gmt);
-                        timeZone = TimeSpan.FromHours(offset);
+                        var gmt = parse[3..];
+
+                        if (gmt.Length > 0)
+                        {
+                            var offset = int.Parse(gmt);
+                            timeZone = TimeSpan.FromHours(offset);
+                        }
                     }
+
+                    formatBuilder.AppendQuoted(parse);
+                    parseIndex += parse.Length;
+
+                    continue;
                 }
 
-                formatBuilder.AppendQuoted(parse);
-                parseIndex += parse.Length;
-
-                continue;
+                formatBuilder.Append(chunk.Fmt);
+                parseIndex += chunk.Fmt.Length;
             }
 
-            formatBuilder.Append(chunk.Fmt);
-            parseIndex += chunk.Fmt.Length;
+            var success = DateTimeOffset.TryParseExact(
+                s,
+                formatBuilder.AsSpan(),
+                CultureInfo.InvariantCulture,
+                DateTimeStyles.AllowWhiteSpaces | DateTimeStyles.AssumeUniversal,
+                out result
+                );
+
+            if (!success)
+                throw new FormatException($"Failed to parse {s} with format {formatBuilder.AsSpan()}");
         }
-
-        var success = DateTimeOffset.TryParseExact(
-            s,
-            formatBuilder.AsSpan(),
-            CultureInfo.InvariantCulture,
-            DateTimeStyles.AllowWhiteSpaces | DateTimeStyles.AssumeUniversal,
-            out var result
-            );
-
-        if (!success)
-            throw new FormatException($"Failed to parse {s} with format {formatBuilder.AsSpan()}");
+        finally
+        {
+            formatBuilder.Dispose();
+        }
 
         if (!hasYear || !hasMonth || !hasDay)
         {
