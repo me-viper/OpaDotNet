@@ -57,7 +57,7 @@ public class RegoInteropCompiler : IRegoCompiler
     }
 
     /// <inheritdoc />
-    public async Task<Stream> Compile(
+    public Task<Stream> Compile(
         string path,
         CompilationParameters parameters,
         CancellationToken cancellationToken)
@@ -68,24 +68,14 @@ public class RegoInteropCompiler : IRegoCompiler
         if (path.StartsWith("./") || path.StartsWith(".\\"))
             path = path[2..];
 
-        Stream? caps = null;
+        var result = Interop.Compile(
+            NormalizePath(path),
+            parameters,
+            false,
+            _logger
+            );
 
-        try
-        {
-            var result = Interop.Compile(
-                NormalizePath(path),
-                parameters,
-                false,
-                _logger
-                );
-
-            return result;
-        }
-        finally
-        {
-            if (caps != null)
-                await caps.DisposeAsync().ConfigureAwait(false);
-        }
+        return Task.FromResult(result);
     }
 
     /// <inheritdoc />

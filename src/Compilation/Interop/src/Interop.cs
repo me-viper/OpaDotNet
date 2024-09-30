@@ -91,7 +91,7 @@ internal static class Interop
     }
 
     [DllImport(Lib, CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
-    public static extern void OpaGetVersion(out nint version);
+    public static extern void OpaGetVersion([Out] out nint version);
 
     [DllImport(Lib, CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
     public static extern void OpaFreeVersion([In] nint version);
@@ -99,12 +99,12 @@ internal static class Interop
     [DllImport(Lib, CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
     private static extern int OpaBuildFromFs(
         [In] ref OpaFsBuildParams buildParams,
-        out nint result);
+        [Out] out nint result);
 
     [DllImport(Lib, CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
     private static extern int OpaBuildFromBytes(
         [In] ref OpaBytesBuildParams buildParams,
-        out nint result);
+        [Out] out nint result);
 
     [DllImport(Lib, CallingConvention = CallingConvention.Cdecl)]
     private static extern void OpaFree([In] nint buildResult);
@@ -144,7 +144,7 @@ internal static class Interop
                 Target = "wasm",
                 Debug = options.Debug ? 1 : 0,
                 PruneUnused = options.PruneUnused ? 1 : 0,
-                TempDir = string.IsNullOrWhiteSpace(options.OutputPath) ? null : Path.GetFullPath(options.OutputPath),
+                //TempDir = string.IsNullOrWhiteSpace(options.OutputPath) ? null : Path.GetFullPath(options.OutputPath),
                 RegoVersion = (int)options.RegoVersion,
                 Revision = options.Revision,
                 FollowSymlinks = options.FollowSymlinks ? 1 : 0,
@@ -278,13 +278,9 @@ internal static class Interop
                 var len = (int)source.Length;
                 bytes = Marshal.AllocCoTaskMem(len);
 
-                // It's possible to do this without unsafe code but it requires creating intermediate array
-                // and extra copying. And not that this option would be safer.
-                unsafe
-                {
-                    var b = new Span<byte>(bytes.ToPointer(), len);
-                    _ = source.Read(b);
-                }
+                var buf = new byte[len];
+                var read = source.Read(buf);
+                Marshal.Copy(buf, 0, bytes, read);
 
                 var bytesBuildParams = new OpaBytesBuildParams
                 {

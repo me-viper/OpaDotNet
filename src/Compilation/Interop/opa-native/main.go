@@ -373,7 +373,6 @@ func opaBuild(params *buildParams, loggerBuffer io.Writer) (*bytes.Buffer, error
 		WithTarget(params.target).
 		WithAsBundle(params.bundleMode).
 		WithEntrypoints(params.entrypoints...).
-		WithPaths(params.source).
 		WithCapabilities(caps).
 		WithEnablePrintStatements(!params.disablePrintStatements).
 		WithOutput(buf).
@@ -388,6 +387,10 @@ func opaBuild(params *buildParams, loggerBuffer io.Writer) (*bytes.Buffer, error
 		compiler.WithBundle(params.bundle)
 	}
 
+	if len(params.source) > 0 {
+		compiler.WithPaths(params.source)
+	}
+
 	if params.fs != nil {
 		compiler.WithFS(params.fs)
 	}
@@ -396,7 +399,7 @@ func opaBuild(params *buildParams, loggerBuffer io.Writer) (*bytes.Buffer, error
 		compiler.WithDebug(loggerBuffer)
 	}
 
-	if params.revision != "" {
+	if len(params.revision) > 0 {
 		compiler.WithRevision(params.revision)
 	}
 

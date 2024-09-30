@@ -10,6 +10,7 @@ using OpaDotNet.Wasm;
 
 namespace OpaDotNet.Extensions.AspNetCore.Tests;
 
+[Collection("Sequential")]
 public class ConfigurationPolicySourceTests(ITestOutputHelper output)
 {
     private readonly ILoggerFactory _loggerFactory = new LoggerFactory([new XunitLoggerProvider(output)]);
@@ -130,7 +131,7 @@ public class ConfigurationPolicySourceTests(ITestOutputHelper output)
         var opts = new OpaAuthorizationOptions
         {
             MonitoringInterval = TimeSpan.FromSeconds(3),
-            PolicyBundlePath = "./Watch",
+            //PolicyBundlePath = "./Watch",
             EngineOptions = new WasmPolicyEngineOptions
             {
                 SerializationOptions = new()

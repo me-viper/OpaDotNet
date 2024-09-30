@@ -89,12 +89,11 @@ public abstract class OpaPolicySource : IOpaPolicySource
 
     protected internal async Task CompileBundle(bool recompiling, CancellationToken cancellationToken = default)
     {
-        Logger.BundleCompiling();
-
         try
         {
             await _lock.WaitAsync(cancellationToken).ConfigureAwait(false);
-
+            Logger.BundleCompiling();
+            
             var policy = await CompileBundleFromSource(recompiling, cancellationToken).ConfigureAwait(false);
 
             if (policy == null)

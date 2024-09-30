@@ -17,8 +17,8 @@ $targets = @(
     }
 )
 
-if (Test-Path ./lib) {
-    Remove-Item ./lib -Recurse
+if (Test-Path "$PSScriptRoot/lib") {
+    Remove-Item "$PSScriptRoot/lib" -Recurse
 }
 
 $hash = git rev-parse HEAD
@@ -36,10 +36,10 @@ $targets | %{
     $env:CXX = $_.CXX
 
     $ba = @(
-        "-C", "./opa-native"
+        "-C", "$PSScriptRoot/opa-native"
         "-ldflags", "-w -s -X main.Vcs=$hash",
         "-buildmode=c-shared",
-        "-o", "../lib/$outPath/Opa.Interop.$($_.Ext)",
+        "-o", "$PSScriptRoot/lib/$outPath/Opa.Interop.$($_.Ext)",
         "./main.go")
 
     if ($IsWindows) {
