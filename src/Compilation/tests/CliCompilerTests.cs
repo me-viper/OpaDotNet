@@ -5,14 +5,14 @@ using Microsoft.Extensions.Logging.Abstractions;
 
 using OpaDotNet.Compilation.Abstractions;
 using OpaDotNet.Compilation.Cli;
+using OpaDotNet.InternalTesting;
 
 using Xunit.Abstractions;
 
 namespace OpaDotNet.Compilation.Tests;
 
 [UsedImplicitly]
-[Trait("NeedsCli", "true")]
-[Trait("Category", "Cli")]
+[Trait(Utils.CompilerTrait, Utils.CliCompilerTrait)]
 public class CliCompilerTests : CompilerTests<RegoCliCompiler>
 {
     public CliCompilerTests(ITestOutputHelper output) : base(output)

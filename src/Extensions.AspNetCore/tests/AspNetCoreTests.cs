@@ -482,8 +482,8 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
             .ConfigureServices(
                 builder =>
                 {
-                    //builder.AddLogging(p => p.AddXunit(testOutput, LogLevel.Trace));
-                    builder.AddLogging(p => p.AddConsole());
+                    builder.AddLogging(p => p.AddXunit(testOutput, LogLevel.Trace));
+                    //builder.AddLogging(p => p.AddConsole());
 
                     builder.AddOpaAuthorization(
                         cfg =>

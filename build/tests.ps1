@@ -7,6 +7,8 @@ param (
     $Sequental,
     [switch]
     $LogToConsole,
+    [string]
+    $ExtraFilters,
     [Parameter(ValueFromRemainingArguments)]
     [string[]]
     $Remaining
@@ -25,20 +27,31 @@ foreach ($comp in $Compiler)
 
     Write-Host "Using $env:OPA_TEST_COMPILER compiler" -ForegroundColor Green
 
+    if ($LogToConsole) {
+        $Remaining += '--logger'
+        $Remaining += '"console;verbosity=detailed"'
+    }
+
+    $traits = $supportedCompilers | ? { $_ -ne $comp } | % { "Compiler!=$_" } | Join-String -Separator '&'
+
+    if ($ExtraFilters) {
+        $traits += "&$ExtraFilters"
+    }
+
     foreach ($test in $tests) {
         Write-Host "Testing $test" -ForegroundColor Green
-
-        $traits = $supportedCompilers | ? { $_ -ne $comp } | % { "Compiler!=$_" } | Join-String -Separator '&'
-
-        if ($LogToConsole) {
-            $Remaining += '--logger'
-            $Remaining += '"console;verbosity=detailed"'
-        }
 
         if ($Sequental) {
             dotnet test -m:1 --filter "$traits" @Remaining $test.FullName
         } else {
             dotnet test --filter "$traits" @Remaining $test.FullName
+        }
+
+        $exitCode = $LastExitCode
+        Write-Host "CODE: $exitCode"
+
+        if ($exitCode -ne 0) {
+            throw "Test run failed"
         }
     }
 }

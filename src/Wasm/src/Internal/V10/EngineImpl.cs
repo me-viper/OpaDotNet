@@ -1,4 +1,6 @@
-﻿using Wasmtime;
+﻿using System.Text;
+
+using Wasmtime;
 
 namespace OpaDotNet.Wasm.Internal.V10;
 
@@ -18,16 +20,26 @@ internal class EngineImpl<TAbi> : WasmPolicyEngine<TAbi>
 
         Abi.HeapPtrSet(EvalHeapPtr);
 
-        var context = Abi.ContextCreate();
+        var inputLength = Encoding.UTF8.GetByteCount(inputJson);
+        EnsureMemory(inputLength);
+        
+        try
+        {
+            var context = Abi.ContextCreate();
 
-        var parsedAdr = WriteJsonString(inputJson);
-        Abi.ContextSetInput(context, parsedAdr);
-        Abi.ContextSetData(context, DataPtr);
-        Abi.ContextSetEntrypoint(context, entrypointId);
-        Abi.Eval(context);
+            var parsedAdr = WriteJsonString(inputJson);
+            Abi.ContextSetInput(context, parsedAdr);
+            Abi.ContextSetData(context, DataPtr);
+            Abi.ContextSetEntrypoint(context, entrypointId);
+            Abi.Eval(context);
 
-        var resultAdr = Abi.ContextGetResult(context);
+            var resultAdr = Abi.ContextGetResult(context);
 
-        return Abi.JsonDump(resultAdr);
+            return Abi.JsonDump(resultAdr);
+        }
+        finally
+        {
+            Abi.HeapPtrSet(EvalHeapPtr);
+        }
     }
 }

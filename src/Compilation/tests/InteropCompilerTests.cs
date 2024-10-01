@@ -6,13 +6,14 @@ using JetBrains.Annotations;
 using Microsoft.Extensions.Logging;
 
 using OpaDotNet.Compilation.Interop;
+using OpaDotNet.InternalTesting;
 
 using Xunit.Abstractions;
 
 namespace OpaDotNet.Compilation.Tests;
 
 [UsedImplicitly]
-[Trait("Category", "Interop")]
+[Trait(Utils.CompilerTrait, Utils.InteropCompilerTrait)]
 public class InteropCompilerTests(ITestOutputHelper output) : CompilerTests<RegoInteropCompiler>(output)
 {
     static InteropCompilerTests()
