@@ -19,9 +19,9 @@ public class XunitLoggerProvider : ILoggerProvider
     private readonly int _providerInstanceId = Interlocked.Increment(ref _instanceCount);
 
     private readonly ITestOutputHelper _output;
-    
+
     private readonly LogLevel _minLevel;
-    
+
     private readonly DateTimeOffset? _logStart;
 
     public XunitLoggerProvider(ITestOutputHelper output, LogLevel minLevel = LogLevel.Trace, DateTimeOffset? logStart = null)
@@ -71,7 +71,9 @@ public class XunitLogger : ILogger
         // Buffer the message into a single string in order to avoid shearing the message when running across multiple threads.
         var messageBuilder = new StringBuilder();
 
-        var timestamp = _logStart.HasValue ? $"{(DateTimeOffset.UtcNow - _logStart.Value).TotalSeconds.ToString("N3", CultureInfo.InvariantCulture)}s" : DateTimeOffset.UtcNow.ToString("s", CultureInfo.InvariantCulture);
+        var timestamp = _logStart.HasValue
+            ? $"{(DateTimeOffset.UtcNow - _logStart.Value).TotalSeconds.ToString("N3", CultureInfo.InvariantCulture)}s"
+            : DateTimeOffset.UtcNow.ToString("s", CultureInfo.InvariantCulture);
 
         var firstLinePrefix = $"| [{timestamp}] I:{_providerInstanceId} {_category} {logLevel}: ";
         var lines = formatter(state, exception).Split(NewLineChars, StringSplitOptions.RemoveEmptyEntries);

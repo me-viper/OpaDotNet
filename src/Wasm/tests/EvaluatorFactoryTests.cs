@@ -7,7 +7,7 @@ public class EvaluatorFactoryTests(ITestOutputHelper output) : OpaTestBase(outpu
     [Fact]
     public async Task ParallelBundle()
     {
-        var policyBundle = await CompileBundle(
+        await using var policyBundle = await CompileBundle(
             Path.Combine("TestData", "compile-bundle", "example"),
             ["test1/hello", "test2/hello"]
             );

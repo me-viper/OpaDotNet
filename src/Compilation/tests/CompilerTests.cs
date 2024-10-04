@@ -55,7 +55,7 @@ public abstract class CompilerTests<T>
             Entrypoints = eps,
         };
 
-        var policy = await compiler.CompileFileAsync(path, opts);
+        await using var policy = await compiler.CompileFileAsync(path, opts);
 
         AssertBundle.DumpBundle(policy, OutputHelper);
 
@@ -80,7 +80,7 @@ public abstract class CompilerTests<T>
         if (path.StartsWith("~"))
             path = Path.Combine(AppContext.BaseDirectory, path[1..]);
 
-        var policy = await compiler.CompileBundleAsync(path, new() { Entrypoints = eps, Debug = true });
+        await using var policy = await compiler.CompileBundleAsync(path, new() { Entrypoints = eps, Debug = true });
 
         AssertBundle.DumpBundle(policy, OutputHelper);
 
