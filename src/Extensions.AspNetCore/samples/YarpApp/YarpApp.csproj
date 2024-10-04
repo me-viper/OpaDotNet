@@ -8,13 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NetEscapades.Configuration.Yaml" Version="3.1.0"/>
-    <PackageReference Include="OpaDotNet.Compilation.Interop" Version="2.0.0-preview0013"/>
-    <PackageReference Include="Yarp.ReverseProxy" Version="2.1.0"/>
+    <PackageReference Include="NetEscapades.Configuration.Yaml" Version="3.1.0" />
+    <PackageReference Include="OpaDotNet.Compilation.Interop" Version="2.0.0-preview0013" />
+    <PackageReference Include="Yarp.ReverseProxy" Version="2.2.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\OpaDotNet.Extensions.AspNetCore.csproj"/>
+    <ProjectReference Include="..\..\src\OpaDotNet.Extensions.AspNetCore.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,10 +24,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="build\**"/>
-    <Compile Remove="build\**"/>
-    <Content Remove="build\**"/>
-    <EmbeddedResource Remove="build\**"/>
+    <None Remove="build\**" />
+    <Compile Remove="build\**" />
+    <Content Remove="build\**" />
+    <EmbeddedResource Remove="build\**" />
   </ItemGroup>
 
 </Project>
