@@ -259,7 +259,7 @@ public sealed class BundleWriter : IDisposable, IAsyncDisposable
     /// <param name="overridePath">Relative file path inside bundle.</param>
     public void WriteFile(string path, string? overridePath = null)
     {
-        using var fs = new FileStream(path, FileMode.Open);
+        using var fs = new FileStream(path, FileMode.Open, FileAccess.Read);
         var targetPath = overridePath ?? path;
         WriteEntry(fs, targetPath);
     }
