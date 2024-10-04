@@ -23,6 +23,7 @@ public abstract class PathPolicySourceTests<T> : IDisposable
     {
         if (disposing)
         {
+            LoggerFactory.Dispose();
             Environment.SetEnvironmentVariable("DOTNET_USE_POLLING_FILE_WATCHER", null);
         }
     }

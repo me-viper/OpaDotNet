@@ -272,7 +272,7 @@ public abstract class CompilerTests<T>
             tmpDir.Create();
 
         var compiler = CreateCompiler(LoggerFactory);
-        var bundle = await compiler.CompileBundleAsync(
+        using var bundle = await compiler.CompileBundleAsync(
             ms,
             new()
             {
@@ -312,7 +312,7 @@ public abstract class CompilerTests<T>
         ms.Seek(0, SeekOrigin.Begin);
 
         var compiler = CreateCompiler(LoggerFactory);
-        var bundle = await compiler.CompileBundleAsync(
+        using var bundle = await compiler.CompileBundleAsync(
             ms,
             new()
             {
@@ -355,7 +355,7 @@ public abstract class CompilerTests<T>
 
         var compiler = CreateCompiler(LoggerFactory);
 
-        var bundle = await compiler.CompileBundleAsync(
+        using var bundle = await compiler.CompileBundleAsync(
             ms,
             new()
             {
@@ -719,7 +719,7 @@ public abstract class CompilerTests<T>
             allow if { true }
             """;
 
-        var policy = await compiler.CompileSourceAsync(
+        using var policy = await compiler.CompileSourceAsync(
             src,
             new()
             {
@@ -753,7 +753,7 @@ public abstract class CompilerTests<T>
             allow if { true }
             """;
 
-        var policy = await compiler.CompileSourceAsync(
+        using var policy = await compiler.CompileSourceAsync(
             src,
             new()
             {
