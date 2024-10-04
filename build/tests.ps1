@@ -42,6 +42,7 @@ foreach ($comp in $Compiler)
         Write-Host "Testing $test" -ForegroundColor Green
 
         if ($Sequential) {
+            $Remaining += "/p:TestConstants=DISABLEPARALLELIZATION"
             dotnet test -m:1 --filter "$traits" @Remaining $test.FullName
         } else {
             dotnet test --filter "$traits" @Remaining $test.FullName

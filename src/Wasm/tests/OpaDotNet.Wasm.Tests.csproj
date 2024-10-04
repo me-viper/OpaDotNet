@@ -3,6 +3,7 @@
   <PropertyGroup>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
+    <DefineConstants Condition="'$(TestConstants)' != ''">$(DefineConstants);$(TestConstants)</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>

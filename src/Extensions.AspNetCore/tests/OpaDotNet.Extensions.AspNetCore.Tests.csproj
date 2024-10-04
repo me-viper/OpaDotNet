@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>net8.0</TargetFrameworks>
     <IsTestProject Condition="'$(TargetFramework)' != 'net7.0'">true</IsTestProject>
+    <DefineConstants Condition="'$(TestConstants)' != ''">$(DefineConstants);$(TestConstants)</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
