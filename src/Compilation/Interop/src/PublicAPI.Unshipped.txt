@@ -1,2 +1,2 @@
 #nullable enable
-OpaDotNet.Compilation.Interop.RegoInteropCompiler.RegoInteropCompiler(Microsoft.Extensions.Logging.ILogger<OpaDotNet.Compilation.Interop.RegoInteropCompiler!>? logger = null) -> void
+

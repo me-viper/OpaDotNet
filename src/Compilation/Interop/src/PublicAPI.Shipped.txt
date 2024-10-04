@@ -1,5 +1,6 @@
 #nullable enable
 OpaDotNet.Compilation.Interop.RegoInteropCompiler
-OpaDotNet.Compilation.Interop.RegoInteropCompiler.Version(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<OpaDotNet.Compilation.Abstractions.RegoCompilerVersion!>!
 OpaDotNet.Compilation.Interop.RegoInteropCompiler.Compile(string! path, OpaDotNet.Compilation.Abstractions.CompilationParameters! parameters, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<System.IO.Stream!>!
 OpaDotNet.Compilation.Interop.RegoInteropCompiler.Compile(System.IO.Stream! stream, OpaDotNet.Compilation.Abstractions.CompilationParameters! parameters, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<System.IO.Stream!>!
+OpaDotNet.Compilation.Interop.RegoInteropCompiler.RegoInteropCompiler(Microsoft.Extensions.Logging.ILogger<OpaDotNet.Compilation.Interop.RegoInteropCompiler!>? logger = null) -> void
+OpaDotNet.Compilation.Interop.RegoInteropCompiler.Version(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<OpaDotNet.Compilation.Abstractions.RegoCompilerVersion!>!

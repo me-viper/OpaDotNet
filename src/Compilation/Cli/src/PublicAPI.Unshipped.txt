@@ -1,4 +1,2 @@
 #nullable enable
-OpaDotNet.Compilation.Cli.RegoCliCompiler.RegoCliCompiler(Microsoft.Extensions.Logging.ILogger<OpaDotNet.Compilation.Cli.RegoCliCompiler!>? logger = null, OpaDotNet.Compilation.Cli.RegoCliCompilerOptions? options = null) -> void
-OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.PreserveBuildArtifacts.get -> bool
-OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.PreserveBuildArtifacts.set -> void
+
