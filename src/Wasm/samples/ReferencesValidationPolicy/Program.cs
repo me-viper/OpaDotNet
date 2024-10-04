@@ -22,7 +22,7 @@ if (!fi.Exists)
 var packages = ExtractPackages(fi);
 
 var compiler = new RegoCliCompiler();
-var policy = await compiler.CompileBundle(Path.Combine("data", "policy"), new[] { "samples/invalid_packages" });
+var policy = await compiler.CompileBundleAsync(Path.Combine("data", "policy"), new() { Entrypoints = ["samples/invalid_packages"] });
 using var evaluator = OpaEvaluatorFactory.CreateFromBundle(policy);
 
 var result = evaluator.Evaluate<Dictionary<string, string>, Dictionary<string, string>>(packages, "samples/invalid_packages");
