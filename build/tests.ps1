@@ -4,7 +4,7 @@ param (
     [ValidateSet("Cli", "Interop")]
     $Compiler,
     [switch]
-    $Sequental,
+    $Sequential,
     [switch]
     $LogToConsole,
     [string]
@@ -41,7 +41,7 @@ foreach ($comp in $Compiler)
     foreach ($test in $tests) {
         Write-Host "Testing $test" -ForegroundColor Green
 
-        if ($Sequental) {
+        if ($Sequential) {
             dotnet test -m:1 --filter "$traits" @Remaining $test.FullName
         } else {
             dotnet test --filter "$traits" @Remaining $test.FullName
