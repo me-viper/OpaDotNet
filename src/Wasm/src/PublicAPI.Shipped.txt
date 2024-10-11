@@ -1,0 +1,155 @@
+#nullable enable
+abstract OpaDotNet.Wasm.OpaEvaluatorFactory.Create() -> OpaDotNet.Wasm.IOpaEvaluator!
+OpaDotNet.Wasm.BuiltinArg
+OpaDotNet.Wasm.BuiltinArg.As<T>(OpaDotNet.Wasm.RegoValueFormat format = OpaDotNet.Wasm.RegoValueFormat.Json) -> T
+OpaDotNet.Wasm.BuiltinArg.AsOrNull<T>(System.Func<T>? defaultValue = null, OpaDotNet.Wasm.RegoValueFormat format = OpaDotNet.Wasm.RegoValueFormat.Json) -> T?
+OpaDotNet.Wasm.BuiltinArg.Raw.get -> System.Text.Json.Nodes.JsonNode?
+OpaDotNet.Wasm.BuiltinArg.RawJson.get -> System.Text.Json.Nodes.JsonNode?
+OpaDotNet.Wasm.BuiltinContext
+OpaDotNet.Wasm.BuiltinContext.FunctionName.get -> string!
+OpaDotNet.Wasm.BuiltinContext.JsonSerializerOptions.get -> System.Text.Json.JsonSerializerOptions!
+OpaDotNet.Wasm.BuiltinContext.OpaContext.get -> int
+OpaDotNet.Wasm.BuiltinContext.StrictBuiltinErrors.get -> bool
+OpaDotNet.Wasm.Builtins.CompositeImportsHandler
+OpaDotNet.Wasm.Builtins.CompositeImportsHandler.CompositeImportsHandler(OpaDotNet.Wasm.IOpaImportsAbi! defaultImport, System.Collections.Generic.IReadOnlyList<OpaDotNet.Wasm.Builtins.IOpaCustomBuiltins!>! imports, OpaDotNet.Wasm.Builtins.ImportsCache! importsCache) -> void
+OpaDotNet.Wasm.Builtins.ImportsCache
+OpaDotNet.Wasm.Builtins.ImportsCache.ImportsCache(System.Text.Json.JsonSerializerOptions! jsonOptions) -> void
+OpaDotNet.Wasm.Builtins.IOpaCustomBuiltins
+OpaDotNet.Wasm.Builtins.IOpaCustomBuiltins.Reset() -> void
+OpaDotNet.Wasm.Builtins.IOpaCustomPrinter
+OpaDotNet.Wasm.Builtins.IOpaCustomPrinter.Print(System.Collections.Generic.IEnumerable<string!>! args) -> void
+OpaDotNet.Wasm.Builtins.OpaCustomBuiltinAttribute
+OpaDotNet.Wasm.Builtins.OpaCustomBuiltinAttribute.Memorize.get -> bool
+OpaDotNet.Wasm.Builtins.OpaCustomBuiltinAttribute.Memorize.init -> void
+OpaDotNet.Wasm.Builtins.OpaCustomBuiltinAttribute.Name.get -> string!
+OpaDotNet.Wasm.Builtins.OpaCustomBuiltinAttribute.OpaCustomBuiltinAttribute(string! name) -> void
+OpaDotNet.Wasm.DefaultBuiltinsFactory
+OpaDotNet.Wasm.DefaultBuiltinsFactory.Create() -> OpaDotNet.Wasm.IOpaImportsAbi!
+OpaDotNet.Wasm.DefaultBuiltinsFactory.CustomBuiltins.get -> System.Collections.Generic.IReadOnlyList<System.Func<OpaDotNet.Wasm.Builtins.IOpaCustomBuiltins!>!>!
+OpaDotNet.Wasm.DefaultBuiltinsFactory.CustomBuiltins.init -> void
+OpaDotNet.Wasm.DefaultBuiltinsFactory.DefaultBuiltinsFactory() -> void
+OpaDotNet.Wasm.DefaultBuiltinsFactory.DefaultBuiltinsFactory(OpaDotNet.Wasm.WasmPolicyEngineOptions! options) -> void
+OpaDotNet.Wasm.DefaultBuiltinsFactory.DefaultBuiltinsFactory(OpaDotNet.Wasm.WasmPolicyEngineOptions? options, System.Func<OpaDotNet.Wasm.IOpaImportsAbi!>? defaultBuiltins) -> void
+OpaDotNet.Wasm.DefaultBuiltinsFactory.DefaultBuiltinsFactory(System.Func<OpaDotNet.Wasm.IOpaImportsAbi!>? defaultBuiltins) -> void
+OpaDotNet.Wasm.DefaultOpaImportsAbi
+OpaDotNet.Wasm.DefaultOpaImportsAbi.CacheGetOrAddValue<T>(string! key, System.Func<T>! valueFactory) -> T
+OpaDotNet.Wasm.DefaultOpaImportsAbi.DefaultOpaImportsAbi() -> void
+OpaDotNet.Wasm.ExportResolutionException
+OpaDotNet.Wasm.ExportResolutionException.AbiVersion.get -> System.Version!
+OpaDotNet.Wasm.ExportResolutionException.ExportResolutionException(System.Version! abiVersion, string! externalName) -> void
+OpaDotNet.Wasm.ExportResolutionException.ExternalName.get -> string!
+OpaDotNet.Wasm.Features.IOpaEvaluatorFeature
+OpaDotNet.Wasm.Features.IUpdateDataFeature
+OpaDotNet.Wasm.Features.IUpdateDataFeature.RemoveDataPath(System.Collections.Generic.IEnumerable<string!>! path) -> void
+OpaDotNet.Wasm.Features.IUpdateDataFeature.UpdateDataPath(System.ReadOnlySpan<char> dataJson, System.Collections.Generic.IEnumerable<string!>! path) -> void
+OpaDotNet.Wasm.IBuiltinsFactory
+OpaDotNet.Wasm.IBuiltinsFactory.Create() -> OpaDotNet.Wasm.IOpaImportsAbi!
+OpaDotNet.Wasm.ICapabilitiesProvider
+OpaDotNet.Wasm.ICapabilitiesProvider.GetCapabilities() -> System.IO.Stream!
+OpaDotNet.Wasm.IOpaEvaluator
+OpaDotNet.Wasm.IOpaEvaluator.AbiVersion.get -> System.Version!
+OpaDotNet.Wasm.IOpaEvaluator.Evaluate<TInput, TOutput>(TInput input, string? entrypoint = null) -> OpaDotNet.Wasm.PolicyEvaluationResult<TOutput>!
+OpaDotNet.Wasm.IOpaEvaluator.EvaluatePredicate<TInput>(TInput input, string? entrypoint = null) -> OpaDotNet.Wasm.PolicyEvaluationResult<bool>!
+OpaDotNet.Wasm.IOpaEvaluator.EvaluateRaw(System.ReadOnlySpan<char> inputJson, string? entrypoint = null) -> string!
+OpaDotNet.Wasm.IOpaEvaluator.Reset() -> void
+OpaDotNet.Wasm.IOpaEvaluator.SetData<T>(T? data) -> void
+OpaDotNet.Wasm.IOpaEvaluator.SetDataFromRawJson(System.ReadOnlySpan<char> dataJson) -> void
+OpaDotNet.Wasm.IOpaEvaluator.SetDataFromStream(System.IO.Stream? utf8Json) -> void
+OpaDotNet.Wasm.IOpaEvaluator.TryGetFeature<TFeature>(out TFeature! feature) -> bool
+OpaDotNet.Wasm.IOpaImportsAbi
+OpaDotNet.Wasm.IOpaImportsAbi.Abort(string! message) -> void
+OpaDotNet.Wasm.IOpaImportsAbi.Func(OpaDotNet.Wasm.BuiltinContext! context, OpaDotNet.Wasm.BuiltinArg! arg1, OpaDotNet.Wasm.BuiltinArg! arg2, OpaDotNet.Wasm.BuiltinArg! arg3, OpaDotNet.Wasm.BuiltinArg! arg4) -> object?
+OpaDotNet.Wasm.IOpaImportsAbi.Func(OpaDotNet.Wasm.BuiltinContext! context, OpaDotNet.Wasm.BuiltinArg! arg1, OpaDotNet.Wasm.BuiltinArg! arg2, OpaDotNet.Wasm.BuiltinArg! arg3) -> object?
+OpaDotNet.Wasm.IOpaImportsAbi.Func(OpaDotNet.Wasm.BuiltinContext! context, OpaDotNet.Wasm.BuiltinArg! arg1, OpaDotNet.Wasm.BuiltinArg! arg2) -> object?
+OpaDotNet.Wasm.IOpaImportsAbi.Func(OpaDotNet.Wasm.BuiltinContext! context, OpaDotNet.Wasm.BuiltinArg! arg1) -> object?
+OpaDotNet.Wasm.IOpaImportsAbi.Func(OpaDotNet.Wasm.BuiltinContext! context) -> object?
+OpaDotNet.Wasm.IOpaImportsAbi.Print(System.Collections.Generic.IEnumerable<string!>! args) -> void
+OpaDotNet.Wasm.IOpaImportsAbi.PrintLn(string! message) -> void
+OpaDotNet.Wasm.IOpaImportsAbi.Reset() -> void
+OpaDotNet.Wasm.OpaBundleEvaluatorFactory
+OpaDotNet.Wasm.OpaBundleEvaluatorFactory.OpaBundleEvaluatorFactory(System.IO.Stream! bundleStream, OpaDotNet.Wasm.WasmPolicyEngineOptions? options, OpaDotNet.Wasm.IBuiltinsFactory? builtinsFactory) -> void
+OpaDotNet.Wasm.OpaEvaluationException
+OpaDotNet.Wasm.OpaEvaluationException.OpaEvaluationException(string? message, System.Exception? innerException) -> void
+OpaDotNet.Wasm.OpaEvaluationException.OpaEvaluationException(string? message) -> void
+OpaDotNet.Wasm.OpaEvaluatorFactory
+OpaDotNet.Wasm.OpaEvaluatorFactory.Dispose() -> void
+OpaDotNet.Wasm.OpaEvaluatorFactory.OpaEvaluatorFactory() -> void
+OpaDotNet.Wasm.OpaEvaluatorFactory.OpaEvaluatorFactory(OpaDotNet.Wasm.WasmPolicyEngineOptions? options, OpaDotNet.Wasm.IBuiltinsFactory? builtinsFactory) -> void
+OpaDotNet.Wasm.OpaEvaluatorFactory.OpaEvaluatorFactory(OpaDotNet.Wasm.WasmPolicyEngineOptions? options) -> void
+OpaDotNet.Wasm.OpaEvaluatorFactory.ThrowIfDisposed() -> void
+OpaDotNet.Wasm.OpaRuntimeException
+OpaDotNet.Wasm.OpaRuntimeException.OpaRuntimeException(string? message, System.Exception? innerException) -> void
+OpaDotNet.Wasm.OpaRuntimeException.OpaRuntimeException(string? message) -> void
+OpaDotNet.Wasm.OpaWasmEvaluatorFactory
+OpaDotNet.Wasm.OpaWasmEvaluatorFactory.OpaWasmEvaluatorFactory(System.IO.Stream! policyWasm, OpaDotNet.Wasm.WasmPolicyEngineOptions? options, OpaDotNet.Wasm.IBuiltinsFactory? builtinsFactory) -> void
+OpaDotNet.Wasm.OpaWasmEvaluatorFactory.OpaWasmEvaluatorFactory(System.IO.Stream! policyWasm) -> void
+OpaDotNet.Wasm.PolicyEvaluationResult<T>
+OpaDotNet.Wasm.PolicyEvaluationResult<T>.PolicyEvaluationResult() -> void
+OpaDotNet.Wasm.PolicyEvaluationResult<T>.Result.get -> T
+OpaDotNet.Wasm.PolicyEvaluationResult<T>.Result.set -> void
+OpaDotNet.Wasm.RegoValueFormat
+OpaDotNet.Wasm.RegoValueFormat.Json = 0 -> OpaDotNet.Wasm.RegoValueFormat
+OpaDotNet.Wasm.RegoValueFormat.Value = 1 -> OpaDotNet.Wasm.RegoValueFormat
+OpaDotNet.Wasm.SignatureValidationOptions
+OpaDotNet.Wasm.SignatureValidationOptions.ExcludeFiles.get -> System.Collections.Generic.IReadOnlySet<string!>!
+OpaDotNet.Wasm.SignatureValidationOptions.ExcludeFiles.init -> void
+OpaDotNet.Wasm.SignatureValidationOptions.SignatureValidationOptions() -> void
+OpaDotNet.Wasm.SignatureValidationOptions.SigningAlgorithm.get -> string!
+OpaDotNet.Wasm.SignatureValidationOptions.SigningAlgorithm.init -> void
+OpaDotNet.Wasm.SignatureValidationOptions.Validation.get -> OpaDotNet.Wasm.SignatureValidationType
+OpaDotNet.Wasm.SignatureValidationOptions.Validation.init -> void
+OpaDotNet.Wasm.SignatureValidationOptions.VerificationKey.get -> string?
+OpaDotNet.Wasm.SignatureValidationOptions.VerificationKey.init -> void
+OpaDotNet.Wasm.SignatureValidationOptions.VerificationKeyId.get -> string!
+OpaDotNet.Wasm.SignatureValidationOptions.VerificationKeyId.init -> void
+OpaDotNet.Wasm.SignatureValidationOptions.VerificationKeyPath.get -> string?
+OpaDotNet.Wasm.SignatureValidationOptions.VerificationKeyPath.init -> void
+OpaDotNet.Wasm.SignatureValidationType
+OpaDotNet.Wasm.SignatureValidationType.Default = 0 -> OpaDotNet.Wasm.SignatureValidationType
+OpaDotNet.Wasm.SignatureValidationType.Required = 2 -> OpaDotNet.Wasm.SignatureValidationType
+OpaDotNet.Wasm.SignatureValidationType.Skip = 1 -> OpaDotNet.Wasm.SignatureValidationType
+OpaDotNet.Wasm.Validation.BundleChecksumValidationException
+OpaDotNet.Wasm.Validation.BundleChecksumValidationException.Actual.get -> string!
+OpaDotNet.Wasm.Validation.BundleChecksumValidationException.Alg.get -> string?
+OpaDotNet.Wasm.Validation.BundleChecksumValidationException.BundleChecksumValidationException(string! fileName, string? alg, string? expected, string! actual) -> void
+OpaDotNet.Wasm.Validation.BundleChecksumValidationException.Expected.get -> string?
+OpaDotNet.Wasm.Validation.BundleChecksumValidationException.FileName.get -> string!
+OpaDotNet.Wasm.Validation.BundleSignatureValidationException
+OpaDotNet.Wasm.Validation.BundleSignatureValidationException.BundleSignatureValidationException(string? message, System.Exception? innerException) -> void
+OpaDotNet.Wasm.Validation.BundleSignatureValidationException.BundleSignatureValidationException(string? message) -> void
+OpaDotNet.Wasm.WasmPolicyEngineOptions
+OpaDotNet.Wasm.WasmPolicyEngineOptions.CachePath.get -> string?
+OpaDotNet.Wasm.WasmPolicyEngineOptions.CachePath.init -> void
+OpaDotNet.Wasm.WasmPolicyEngineOptions.MaxAbiVersion.get -> System.Version?
+OpaDotNet.Wasm.WasmPolicyEngineOptions.MaxAbiVersion.init -> void
+OpaDotNet.Wasm.WasmPolicyEngineOptions.MaxMemoryPages.get -> long?
+OpaDotNet.Wasm.WasmPolicyEngineOptions.MaxMemoryPages.init -> void
+OpaDotNet.Wasm.WasmPolicyEngineOptions.MinMemoryPages.get -> long
+OpaDotNet.Wasm.WasmPolicyEngineOptions.MinMemoryPages.init -> void
+OpaDotNet.Wasm.WasmPolicyEngineOptions.SerializationOptions.get -> System.Text.Json.JsonSerializerOptions!
+OpaDotNet.Wasm.WasmPolicyEngineOptions.SerializationOptions.init -> void
+OpaDotNet.Wasm.WasmPolicyEngineOptions.SignatureValidation.get -> OpaDotNet.Wasm.SignatureValidationOptions!
+OpaDotNet.Wasm.WasmPolicyEngineOptions.SignatureValidation.init -> void
+OpaDotNet.Wasm.WasmPolicyEngineOptions.StrictBuiltinErrors.get -> bool
+OpaDotNet.Wasm.WasmPolicyEngineOptions.StrictBuiltinErrors.init -> void
+OpaDotNet.Wasm.WasmPolicyEngineOptions.WasmPolicyEngineOptions() -> void
+override OpaDotNet.Wasm.OpaBundleEvaluatorFactory.Create() -> OpaDotNet.Wasm.IOpaEvaluator!
+override OpaDotNet.Wasm.OpaWasmEvaluatorFactory.Create() -> OpaDotNet.Wasm.IOpaEvaluator!
+static OpaDotNet.Wasm.OpaEvaluatorFactory.CreateFromBundle(System.IO.Stream! policyBundle, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null, OpaDotNet.Wasm.IBuiltinsFactory? builtinsFactory = null) -> OpaDotNet.Wasm.IOpaEvaluator!
+static OpaDotNet.Wasm.OpaEvaluatorFactory.CreateFromWasm(System.IO.Stream! policyWasm, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null, OpaDotNet.Wasm.IBuiltinsFactory? builtinsFactory = null) -> OpaDotNet.Wasm.IOpaEvaluator!
+static OpaDotNet.Wasm.WasmPolicyEngineOptions.Default.get -> OpaDotNet.Wasm.WasmPolicyEngineOptions!
+static OpaDotNet.Wasm.WasmPolicyEngineOptions.DefaultWithJsonOptions(System.Action<System.Text.Json.JsonSerializerOptions!>! options) -> OpaDotNet.Wasm.WasmPolicyEngineOptions!
+virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.Abort(string! message) -> void
+virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.Func(OpaDotNet.Wasm.BuiltinContext! context, OpaDotNet.Wasm.BuiltinArg! arg1, OpaDotNet.Wasm.BuiltinArg! arg2, OpaDotNet.Wasm.BuiltinArg! arg3, OpaDotNet.Wasm.BuiltinArg! arg4) -> object?
+virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.Func(OpaDotNet.Wasm.BuiltinContext! context, OpaDotNet.Wasm.BuiltinArg! arg1, OpaDotNet.Wasm.BuiltinArg! arg2, OpaDotNet.Wasm.BuiltinArg! arg3) -> object?
+virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.Func(OpaDotNet.Wasm.BuiltinContext! context, OpaDotNet.Wasm.BuiltinArg! arg1, OpaDotNet.Wasm.BuiltinArg! arg2) -> object?
+virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.Func(OpaDotNet.Wasm.BuiltinContext! context, OpaDotNet.Wasm.BuiltinArg! arg1) -> object?
+virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.Func(OpaDotNet.Wasm.BuiltinContext! context) -> object?
+virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.NewGuid() -> System.Guid
+virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.Now() -> System.DateTimeOffset
+virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.OnError(OpaDotNet.Wasm.BuiltinContext! context, System.Exception! ex) -> bool
+virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.Print(System.Collections.Generic.IEnumerable<string!>! args) -> void
+virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.Random() -> System.Random!
+virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.Reset() -> void
+virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.Trace(string! message) -> bool
+virtual OpaDotNet.Wasm.OpaEvaluatorFactory.Dispose(bool disposing) -> void

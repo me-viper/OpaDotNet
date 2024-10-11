@@ -1,0 +1,18 @@
+﻿{
+  "builtins": [
+    {
+      "name": "custom1.func",
+      "decl": {
+        "type": "function",
+        "args": [
+          {
+            "type": "string"
+          }
+        ],
+        "result": {
+          "type": "boolean"
+        }
+      }
+    }
+  ]
+}

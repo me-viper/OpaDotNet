@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <PlatformTarget>x64</PlatformTarget>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <IsPackable>true</IsPackable>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0"/>
+    <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="3.3.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\lib\windows-amd64\Opa.Interop.dll" Pack="true" PackagePath="runtimes/win-x64/native">
+      <Link>runtimes\win-x64\native\Opa.Interop.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\lib\linux-amd64\Opa.Interop.so" Pack="true" PackagePath="runtimes/linux-x64/native">
+      <Link>runtimes\linux-x64\native\Opa.Interop.so</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath=""/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Compilation.Abstractions\src\OpaDotNet.Compilation.Abstractions.csproj"/>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <Summary>Infrastructure for packaging OPA policy and data files into bundles using native wrapper over OPA SDK</Summary>
+    <Description>Infrastructure for packaging OPA policy and data files into bundles using native wrapper over OPA SDK</Description>
+  </PropertyGroup>
+</Project>

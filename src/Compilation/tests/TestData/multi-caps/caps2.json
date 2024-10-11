@@ -1,0 +1,14 @@
+﻿{
+  "builtins": [
+    {
+      "name": "custom.otherZeroArgBuiltin",
+      "decl": {
+        "type": "function",
+        "args": [],
+        "result": {
+          "type": "string"
+        }
+      }
+    }
+  ]
+}

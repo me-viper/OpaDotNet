@@ -120,13 +120,16 @@ public partial class DocSamples
 
         var compiler = new RegoCliCompiler();
 
-        var policy = await compiler.CompileFile(
+        var policy = await compiler.CompileFileAsync(
 
             // Policy source file.
             "quickstart/example.rego",
 
-            // Entrypoints (same you would pass for -e parameter for opa build).
-            new[] { "example/hello" }
+            new()
+            {
+                // Entrypoints (same you would pass for -e parameter for opa build).
+                Entrypoints = ["example/hello"],
+            }
             );
 
         // RegoCliCompiler will always produce bundle.
@@ -147,13 +150,16 @@ public partial class DocSamples
 
         var compiler = new RegoCliCompiler();
 
-        var policy = await compiler.CompileBundle(
+        var policy = await compiler.CompileBundleAsync(
 
             // Directory with bundle sources.
             "quickstart",
 
-            // Entrypoints (same you would pass for -e parameter for opa build).
-            new[] { "example/hello" }
+            new()
+            {
+                // Entrypoints (same you would pass for -e parameter for opa build).
+                Entrypoints = ["example/hello"],
+            }
             );
 
         // RegoCliCompiler will always produce bundle.
@@ -183,13 +189,16 @@ public partial class DocSamples
             }
             """;
 
-        var policy = await compiler.CompileSource(
+        var policy = await compiler.CompileSourceAsync(
 
             // Policy source code.
             policySource,
 
-            // Entrypoints (same you would pass for -e parameter for opa build).
-            new[] { "example/hello" }
+            new()
+            {
+                // Entrypoints (same you would pass for -e parameter for opa build).
+                Entrypoints = ["example/hello"],
+            }
             );
 
         // RegoCliCompiler will always produce bundle.
@@ -210,13 +219,16 @@ public partial class DocSamples
 
         var compiler = new RegoInteropCompiler();
 
-        var policy = await compiler.CompileFile(
+        var policy = await compiler.CompileFileAsync(
 
             // Policy source file.
             "quickstart/example.rego",
 
-            // Entrypoints (same you would pass for -e parameter for opa build).
-            new[] { "example/hello" }
+            new()
+            {
+                // Entrypoints (same you would pass for -e parameter for opa build).
+                Entrypoints = ["example/hello"],
+            }
             );
 
         // RegoCliCompiler will always produce bundle.
@@ -237,13 +249,16 @@ public partial class DocSamples
 
         var compiler = new RegoInteropCompiler();
 
-        var policy = await compiler.CompileBundle(
+        var policy = await compiler.CompileBundleAsync(
 
             // Directory with bundle sources.
             "quickstart/",
 
-            // Entrypoints (same you would pass for -e parameter for opa build).
-            new[] { "example/hello" }
+            new()
+            {
+                // Entrypoints (same you would pass for -e parameter for opa build).
+                Entrypoints = ["example/hello"],
+            }
             );
 
         // RegoCliCompiler will always produce bundle.
@@ -273,13 +288,16 @@ public partial class DocSamples
             }
             """;
 
-        var policy = await compiler.CompileSource(
+        var policy = await compiler.CompileSourceAsync(
 
             // Policy source code.
             policySource,
 
-            // Entrypoints (same you would pass for -e parameter for opa build).
-            new[] { "example/hello" }
+            new()
+            {
+                // Entrypoints (same you would pass for -e parameter for opa build).
+                Entrypoints = ["example/hello"],
+            }
             );
 
         // RegoCliCompiler will always produce bundle.

@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>false</IsTestProject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="xunit" Version="2.9.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Compilation.Abstractions\src\OpaDotNet.Compilation.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Compilation\Cli\src\OpaDotNet.Compilation.Cli.csproj" />
+    <ProjectReference Include="..\..\Compilation\Interop\src\OpaDotNet.Compilation.Interop.csproj" />
+  </ItemGroup>
+
+</Project>

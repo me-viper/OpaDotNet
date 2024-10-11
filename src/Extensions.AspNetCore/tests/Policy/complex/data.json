@@ -1,0 +1,14 @@
+{
+  "users": [
+    "u1",
+    "u2"
+  ],
+  "roles": {
+    "u1": {
+      "role": "admin"
+    },
+    "u2": {
+      "role": "user"
+    }
+  }
+}

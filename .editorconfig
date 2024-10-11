@@ -27,7 +27,11 @@ csharp_style_expression_bodied_lambdas = true:silent
 csharp_style_expression_bodied_local_functions = false:silent
 csharp_space_around_binary_operators = before_and_after
 
-[*.csproj]
+[{Makefile,go.mod,go.sum,*.go,.gitmodules}]
+indent_style = tab
+indent_size = 4
+
+[*.{csproj,props}]
 indent_size = 2
 
 [*.{yaml,yml,json,md}]
@@ -49,8 +53,10 @@ fsharp_max_infix_operator_expression = 10
 fsharp_multi_line_lambda_closing_newline = true
 
 [*.{cs,vb}]
-
 dotnet_public_api_analyzer.require_api_files = true
+
+dotnet_diagnostic.CA2000.severity = warning
+dotnet_code_quality.CA2000.excluded_type_names_with_derived_types = XunitLoggerProvider
 
 #### Naming styles ####
 

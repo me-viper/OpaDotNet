@@ -9,30 +9,40 @@ jobs:
   go_build:
     runs-on: ubuntu-20.04
 
-    defaults:
-      run:
-        working-directory: './src/Compilation/Interop'
-
     steps:
     - uses: actions/checkout@v4
       with:
         fetch-depth: 0
+
+    - id: calc-hash
+      run: echo "hash=$(git log -1 --pretty=format:"%H" ./src/Compilation/Interop/opa-native)" >> $GITHUB_OUTPUT
+
+    - name: Cache
+      id: cache-opa-native
+      uses: actions/cache@v4
+      with:
+        path: ./src/Compilation/Interop/lib
+        key: ${{ steps.calc-hash.outputs.hash }}
 
     - name: glibc version
       run: ldd --version
 
     - name: Set up Go
       uses: actions/setup-go@v5
+      if: steps.cache-opa-native.outputs.cache-hit != 'true'
       with:
         go-version-file: './src/Compilation/Interop/opa-native/go.mod'
         cache-dependency-path: './src/Compilation/Interop/opa-native/go.sum'
 
     - name: Install gcc
       run: sudo apt-get install -y gcc gcc-mingw-w64
+      if: steps.cache-opa-native.outputs.cache-hit != 'true'
 
     - name: Build native
       shell: pwsh
+      working-directory: ./src/Compilation/Interop
       run: ./build.ps1
+      if: steps.cache-opa-native.outputs.cache-hit != 'true'
 
     - uses: actions/upload-artifact@v4
       with:
