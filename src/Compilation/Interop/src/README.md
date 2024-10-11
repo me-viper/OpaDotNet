@@ -9,7 +9,7 @@ of [OPA SDK](https://pkg.go.dev/github.com/open-policy-agent/opa/sdk) for policy
 
 | Version | OPA SDK Version | Platforms         |
 |---------|-----------------|-------------------|
-| v1.0.X  | v0.55.0         | linux-x64 win-x64 |
+| v1.0.X  | v0.67.0         | linux-x64 win-x64 |
 
 ## Example
 

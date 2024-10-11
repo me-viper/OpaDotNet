@@ -1,19 +1,19 @@
 # Changelog
 
-## OpaDotNet.Compilation.Abstraction v2.0.0 (2024-08-06)
+## OpaDotNet 2024.9.1
 
-### Features
+### OpaDotNet.Wasm
 
-* Support `--v1-compatible`, `--follow-symlinks` and `--revision` compiler flags
-* Public API improvements
-* Add API to write bundle manifest to `BundleWriter`
+* Major release
 
-### BREAKING CHANGES
+### OpaDotNet.Compilation.Abstractions
 
-* `RegoCompilerOptions` class have been removed. All compilation options are configured using `CompilationParameters`
+* Major release
 
-## OpaDotNet.Compilation.Abstraction v1.6.0 (2024-01-10)
+### OpaDotNet.Compilation
 
-### Features
+* Major release
 
-* Move OpaDotNet.Compilation.Abstraction into separate repository for more consistent versioning.
+### OpaDotNet.Extensions
+
+* Major release

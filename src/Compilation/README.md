@@ -1,7 +1,4 @@
-[![CI](https://github.com/me-viper/OpaDotNet.Compilation/actions/workflows/ci.yml/badge.svg)](https://github.com/me-viper/OpaDotNet.Compilation/actions/workflows/ci.yml)
-[![Coverage Status](https://coveralls.io/repos/github/me-viper/OpaDotNet.Compilation/badge.svg?branch=main)](https://coveralls.io/github/me-viper/OpaDotNet.Compilation?branch=main)
-![Static Badge](https://img.shields.io/badge/OPA-_v0.65.0-blue)
-
+![Static Badge](https://img.shields.io/badge/OPA-_v0.67.0-blue)
 
 # Open Policy Agent (OPA) Compilation Tools
 
@@ -36,14 +33,14 @@ dotnet add package OpaDotNet.Compilation.Cli
 #### Usage
 
 > [!IMPORTANT]
-> You will need `opa` cli tool v0.20.0+ to be in your PATH or provide full path in `RegoCliCompilerOptions`.
+> You will need `opa` cli tool v0.67.0+ to be in your PATH or provide full path in `RegoCliCompilerOptions`.
 
 ```csharp
 using OpaDotNet.Compilation.Abstractions;
 using OpaDotNet.Compilation.Cli;
 
 IRegoCompiler compiler = new RegoCliCompiler();
-var bundleStream = await compiler.CompileFile("example.rego", new[] { "example/hello" });
+using var bundleStream = await compiler.CompileFile("example.rego", new[] { "example/hello" });
 
 // Use compiled policy bundle.
 ...
@@ -64,7 +61,7 @@ using OpaDotNet.Compilation.Abstractions;
 using OpaDotNet.Compilation.Interop;
 
 IRegoCompiler compiler = new RegoInteropCompiler();
-var bundleStream = await compiler.CompileFile("example.rego", new[] { "example/hello" });
+using var bundleStream = await compiler.CompileFile("example.rego", new[] { "example/hello" });
 
 // Use compiled policy bundle.
 ...
@@ -93,10 +90,6 @@ var bundleStream = await compiler.CompileFile("example.rego", new[] { "example/h
 
 ### Build and Test
 
-- Run `build.ps1` Compile [Opa.Interop](./interop/) libraries
-- Run `dotnet build` to build the project or use Visual Studio to build `OpaDotNet.Compilation.sln`
+- Run `./Interop/build.ps1` Compile [Opa.Interop](./Interop/opa-native) libraries
+- Run `dotnet build` to build the project or use Visual Studio to build `OpaDotNet.sln`
 - Run `dotnet test` to test the project or use Visual Studio test explorer.
-
-## 3rd Party Libraries and Contributions
-
-- [OPA SDK](https://pkg.go.dev/github.com/open-policy-agent/opa/sdk) - High-level API for embedding OPA inside of Go programs.
