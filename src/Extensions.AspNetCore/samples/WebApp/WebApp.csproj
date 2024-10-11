@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Compilation\Cli\src\OpaDotNet.Compilation.Cli.csproj" />
     <ProjectReference Include="..\..\src\OpaDotNet.Extensions.AspNetCore.csproj"/>
   </ItemGroup>
 
@@ -15,10 +16,6 @@
     <None Update="Policy\policy.rego">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="OpaDotNet.Compilation.Cli" Version="2.0.0-preview0013"/>
   </ItemGroup>
 
 </Project>
