@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.ObjectPool;
+﻿using DotNext.Threading;
+
+using Microsoft.Extensions.ObjectPool;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
 
@@ -19,7 +21,9 @@ internal class PooledOpaPolicyService : IOpaPolicyService, IDisposable
 
     private readonly IOpaPolicySource _factoryProvider;
 
-    private readonly ReaderWriterLockSlim _syncLock = new();
+    private readonly AsyncReaderWriterLock _syncLock = new();
+
+    private readonly SemaphoreSlim? _concurrencyLock;
 
     public PooledOpaPolicyService(
         IOpaPolicySource factoryProvider,
@@ -38,15 +42,20 @@ internal class PooledOpaPolicyService : IOpaPolicyService, IDisposable
 
         _poolProvider.MaximumRetained = options.Value.MaximumEvaluatorsRetained;
 
+        if (options.Value.MaximumEvaluators > 0)
+            _concurrencyLock = new(options.Value.MaximumEvaluators, options.Value.MaximumEvaluators);
+
         _evaluatorPool = _poolProvider.Create(new OpaEvaluatorPoolPolicy(() => _factoryProvider.CreateEvaluator()));
         _recompilationMonitor = ChangeToken.OnChange(factoryProvider.OnPolicyUpdated, ResetPool);
     }
 
-    private void ResetPool()
+    private void ResetPool() => ResetPoolAsync().Wait();
+
+    private async Task ResetPoolAsync(CancellationToken cancellationToken = default)
     {
         _logger.EvaluatorPoolResetting();
 
-        _syncLock.EnterWriteLock();
+        await _syncLock.EnterWriteLockAsync(cancellationToken).ConfigureAwait(false);
 
         try
         {
@@ -64,15 +73,19 @@ internal class PooledOpaPolicyService : IOpaPolicyService, IDisposable
         }
         finally
         {
-            _syncLock.ExitWriteLock();
+            _syncLock.Release();
         }
     }
 
-    public bool EvaluatePredicate<T>(T? input, string entrypoint)
+    private Task ConcurrencyLockWaitAsync(CancellationToken cancellationToken)
+        => _concurrencyLock?.WaitAsync(cancellationToken) ?? Task.CompletedTask;
+
+    public async ValueTask<bool> EvaluatePredicate<T>(T input, string entrypoint, CancellationToken cancellationToken)
     {
         ArgumentException.ThrowIfNullOrEmpty(entrypoint);
 
-        _syncLock.EnterReadLock();
+        await _syncLock.EnterReadLockAsync(cancellationToken).ConfigureAwait(false);
+        await ConcurrencyLockWaitAsync(cancellationToken).ConfigureAwait(false);
 
         var pool = _evaluatorPool;
         var evaluator = pool.Get();
@@ -85,15 +98,18 @@ internal class PooledOpaPolicyService : IOpaPolicyService, IDisposable
         finally
         {
             pool.Return(evaluator);
-            _syncLock.ExitReadLock();
+            _concurrencyLock?.Release();
+            _syncLock.Release();
         }
     }
 
-    public TOutput Evaluate<TInput, TOutput>(TInput input, string entrypoint) where TOutput : notnull
+    public async ValueTask<TOutput> Evaluate<TInput, TOutput>(TInput input, string entrypoint, CancellationToken cancellationToken)
+        where TOutput : notnull
     {
         ArgumentException.ThrowIfNullOrEmpty(entrypoint);
 
-        _syncLock.EnterReadLock();
+        await _syncLock.EnterReadLockAsync(cancellationToken).ConfigureAwait(false);
+        await ConcurrencyLockWaitAsync(cancellationToken).ConfigureAwait(false);
 
         var pool = _evaluatorPool;
         var evaluator = pool.Get();
@@ -106,27 +122,30 @@ internal class PooledOpaPolicyService : IOpaPolicyService, IDisposable
         finally
         {
             pool.Return(evaluator);
-            _syncLock.ExitReadLock();
+            _concurrencyLock?.Release();
+            _syncLock.Release();
         }
     }
 
-    public string EvaluateRaw(ReadOnlySpan<char> inputJson, string entrypoint)
+    public async ValueTask<string> EvaluateRaw(ReadOnlyMemory<char> inputJson, string entrypoint, CancellationToken cancellationToken)
     {
         ArgumentException.ThrowIfNullOrEmpty(entrypoint);
 
-        _syncLock.EnterReadLock();
+        await _syncLock.EnterReadLockAsync(cancellationToken).ConfigureAwait(false);
+        await ConcurrencyLockWaitAsync(cancellationToken).ConfigureAwait(false);
 
         var pool = _evaluatorPool;
         var evaluator = pool.Get();
 
         try
         {
-            return evaluator.EvaluateRaw(inputJson, entrypoint);
+            return evaluator.EvaluateRaw(inputJson.Span, entrypoint);
         }
         finally
         {
             pool.Return(evaluator);
-            _syncLock.ExitReadLock();
+            _concurrencyLock?.Release();
+            _syncLock.Release();
         }
     }
 
@@ -137,6 +156,7 @@ internal class PooledOpaPolicyService : IOpaPolicyService, IDisposable
         if (_evaluatorPool is IDisposable d)
             d.Dispose();
 
+        _concurrencyLock?.Dispose();
         _syncLock.Dispose();
     }
 }

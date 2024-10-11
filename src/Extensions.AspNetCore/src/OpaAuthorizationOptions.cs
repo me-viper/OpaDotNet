@@ -49,6 +49,11 @@ public class OpaAuthorizationOptions
     public int MaximumEvaluatorsRetained { get; set; } = Environment.ProcessorCount * 2;
 
     /// <summary>
+    /// Maximum number of <see cref="IOpaEvaluator"/> instances that can operate concurrently.
+    /// </summary>
+    public int MaximumEvaluators { get; set; }
+
+    /// <summary>
     /// How frequently recompilation is allowed to happen if policy sources have been changed.
     /// </summary>
     public TimeSpan MonitoringInterval { get; set; } = TimeSpan.Zero;

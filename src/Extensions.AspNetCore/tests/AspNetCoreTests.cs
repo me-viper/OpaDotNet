@@ -422,18 +422,18 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
     private class ComplexAuthorizationHandler(IOpaPolicyService service, IOptions<OpaAuthorizationOptions> options)
         : AuthorizationHandler<OpaPolicyRequirement, UserPolicyInput>
     {
-        protected override Task HandleRequirementAsync(
+        protected override async Task HandleRequirementAsync(
             AuthorizationHandlerContext context,
             OpaPolicyRequirement requirement,
             UserPolicyInput resource)
         {
-            var result1 = service.Evaluate<UserPolicyInput, UserAccessPolicyOutput>(resource, requirement.Entrypoint);
+            var result1 = await service.Evaluate<UserPolicyInput, UserAccessPolicyOutput>(resource, requirement.Entrypoint);
 
             if (result1 is not { Access: true, Admin: true })
-                return Task.CompletedTask;
+                return;
 
             var inputRaw = JsonSerializer.Serialize(resource, options.Value.EngineOptions?.SerializationOptions);
-            var result2Raw = service.EvaluateRaw(inputRaw, requirement.Entrypoint);
+            var result2Raw = await service.EvaluateRaw(inputRaw.AsMemory(), requirement.Entrypoint);
             var result2 = JsonSerializer.Deserialize<PolicyEvaluationResult<UserAccessPolicyOutput>[]>(
                 result2Raw,
                 options.Value.EngineOptions?.SerializationOptions
@@ -441,8 +441,6 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
 
             if (result2![0].Result is { Access: true, Admin: true })
                 context.Succeed(requirement);
-
-            return Task.CompletedTask;
         }
     }
 

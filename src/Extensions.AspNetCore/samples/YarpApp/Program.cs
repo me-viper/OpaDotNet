@@ -102,7 +102,7 @@ internal class CustomPolicyHandler : OpaPolicyHandler
     {
     }
 
-    protected override Task HandleRequirementAsync(
+    protected override async Task HandleRequirementAsync(
         AuthorizationHandlerContext context,
         OpaPolicyRequirement requirement,
         IHttpRequestPolicyInput resource)
@@ -110,7 +110,7 @@ internal class CustomPolicyHandler : OpaPolicyHandler
         Logger.LogDebug("Evaluating policy");
 
         // We expect policies to return something more descriptive rather than yes/no.
-        var result = Service.Evaluate<IHttpRequestPolicyInput, PolicyResult>(resource, requirement.Entrypoint);
+        var result = await Service.Evaluate<IHttpRequestPolicyInput, PolicyResult>(resource, requirement.Entrypoint);
 
         if (result.Deny.Length == 0)
         {
@@ -122,7 +122,5 @@ internal class CustomPolicyHandler : OpaPolicyHandler
             var reasons = string.Join("\n", result.Deny.Select(p => p.Reason));
             Logger.LogDebug("Authorization policy denied:\n {Reasons}", reasons);
         }
-
-        return Task.CompletedTask;
     }
 }

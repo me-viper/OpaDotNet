@@ -18,13 +18,15 @@ public class OpaPolicyServiceTests(ITestOutputHelper output)
     [Fact]
     public async Task Recompilation()
     {
-        const int maxEvaluators = 5;
+        const int maxEvaluatorsRetained = 5;
+        const int maxEvaluators = 10;
 
         var opts = new OpaAuthorizationOptions
         {
             PolicyBundlePath = "./Policy",
             Compiler = new() { ForceBundleWriter = true },
-            MaximumEvaluatorsRetained = maxEvaluators,
+            MaximumEvaluatorsRetained = maxEvaluatorsRetained,
+            MaximumEvaluators = maxEvaluators,
             EngineOptions = new()
             {
                 SerializationOptions = new()
@@ -46,23 +48,28 @@ public class OpaPolicyServiceTests(ITestOutputHelper output)
 
         await compiler.StartAsync(CancellationToken.None);
 
-        using var service = new PooledOpaPolicyService(
+        using var pooledService = new PooledOpaPolicyService(
             compiler,
             authOptions.Option(),
             new OpaEvaluatorPoolProvider(),
             _loggerFactory.CreateLogger<PooledOpaPolicyService>()
             );
 
+        var service = new CountingEvaluator(pooledService);
         var options = new ParallelOptions { MaxDegreeOfParallelism = 4 };
+
         await Parallel.ForEachAsync(
             Enumerable.Range(0, 1000),
             options,
             async (i, ct) =>
             {
                 if (i % 10 == 0)
+                {
+                    output.WriteLine($"Evaluator instances: {service.Instances}");
                     await compiler.CompileBundle(true, ct);
+                }
 
-                var result = service.EvaluatePredicate<object?>(null, "parallel/do");
+                var result = await service.EvaluatePredicate<object?>(null, "parallel/do", CancellationToken.None);
                 Assert.True(result);
             }
             );
@@ -112,11 +119,13 @@ public class OpaPolicyServiceTests(ITestOutputHelper output)
 
         var service = new CountingEvaluator(pooledService);
 
-        Parallel.ForEach(
+        await Parallel.ForEachAsync(
             Enumerable.Range(0, 1000),
-            _ =>
+            async (_, _) =>
             {
-                var result = service.EvaluatePredicate<object?>(null, "parallel/do");
+                output.WriteLine($"Evaluator instances: {OpaEventSource.EvaluatorInstances}");
+
+                var result = await service.EvaluatePredicate<object?>(null, "parallel/do", CancellationToken.None);
                 Assert.True(result);
             }
             );
@@ -129,19 +138,19 @@ public class OpaPolicyServiceTests(ITestOutputHelper output)
     {
         public int Instances;
 
-        public bool EvaluatePredicate<TInput>(TInput input, string entrypoint)
+        public ValueTask<bool> EvaluatePredicate<TInput>(TInput input, string entrypoint, CancellationToken cancellationToken)
         {
             Interlocked.Increment(ref Instances);
-            var result = inner.EvaluatePredicate(input, entrypoint);
+            var result = inner.EvaluatePredicate(input, entrypoint, cancellationToken);
             Interlocked.Decrement(ref Instances);
 
             return result;
         }
 
-        public TOutput Evaluate<TInput, TOutput>(TInput input, string entrypoint) where TOutput : notnull
-            => inner.Evaluate<TInput, TOutput>(input, entrypoint);
+        public ValueTask<TOutput> Evaluate<TInput, TOutput>(TInput input, string entrypoint, CancellationToken cancellationToken)
+            where TOutput : notnull => inner.Evaluate<TInput, TOutput>(input, entrypoint, cancellationToken);
 
-        public string EvaluateRaw(ReadOnlySpan<char> inputJson, string entrypoint)
-            => inner.EvaluateRaw(inputJson, entrypoint);
+        public ValueTask<string> EvaluateRaw(ReadOnlyMemory<char> inputJson, string entrypoint, CancellationToken cancellationToken)
+            => inner.EvaluateRaw(inputJson, entrypoint, cancellationToken);
     }
 }

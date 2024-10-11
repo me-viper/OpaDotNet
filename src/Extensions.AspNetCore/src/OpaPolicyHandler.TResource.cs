@@ -20,7 +20,7 @@ public class OpaPolicyHandler<TResource> : AuthorizationHandler<OpaPolicyRequire
         Logger = logger;
     }
 
-    protected override Task HandleRequirementAsync(
+    protected override async Task HandleRequirementAsync(
         AuthorizationHandlerContext context,
         OpaPolicyRequirement requirement,
         TResource resource)
@@ -30,7 +30,7 @@ public class OpaPolicyHandler<TResource> : AuthorizationHandler<OpaPolicyRequire
         try
         {
             Logger.PolicyEvaluating();
-            var result = Service.EvaluatePredicate(resource, requirement.Entrypoint);
+            var result = await Service.EvaluatePredicate(resource, requirement.Entrypoint).ConfigureAwait(false);
 
             if (!result)
             {
@@ -50,7 +50,5 @@ public class OpaPolicyHandler<TResource> : AuthorizationHandler<OpaPolicyRequire
             Logger.PolicyFailed(ex);
             OpaEventSource.Log.PolicyFailed(requirement.Entrypoint);
         }
-
-        return Task.CompletedTask;
     }
 }

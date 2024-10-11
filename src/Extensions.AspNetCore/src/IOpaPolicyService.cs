@@ -6,12 +6,22 @@ namespace OpaDotNet.Extensions.AspNetCore;
 public interface IOpaPolicyService
 {
     /// <summary>
-    /// Evaluates named policy with specified input. Result interpreted as simple <c>true</c>/<c>false</c> response.   
+    /// Evaluates named policy with specified input. Result interpreted as simple <c>true</c>/<c>false</c> response.
     /// </summary>
     /// <param name="input">Policy input document</param>
     /// <param name="entrypoint">Policy decision to ask for</param>
     /// <returns>Policy evaluation result</returns>
-    bool EvaluatePredicate<TInput>(TInput input, string entrypoint);
+    ValueTask<bool> EvaluatePredicate<TInput>(TInput input, string entrypoint)
+        => EvaluatePredicate(input, entrypoint, CancellationToken.None);
+
+    /// <summary>
+    /// Evaluates named policy with specified input. Result interpreted as simple <c>true</c>/<c>false</c> response.
+    /// </summary>
+    /// <param name="input">Policy input document</param>
+    /// <param name="entrypoint">Policy decision to ask for</param>
+    /// <param name="cancellationToken">Cancellation token</param>
+    /// <returns>Policy evaluation result</returns>
+    ValueTask<bool> EvaluatePredicate<TInput>(TInput input, string entrypoint, CancellationToken cancellationToken);
 
     /// <summary>
     /// Evaluates named policy with specified input.
@@ -19,7 +29,17 @@ public interface IOpaPolicyService
     /// <param name="input">Policy input document</param>
     /// <param name="entrypoint">Policy decision to ask for</param>
     /// <returns>Policy evaluation result</returns>
-    TOutput Evaluate<TInput, TOutput>(TInput input, string entrypoint)
+    ValueTask<TOutput> Evaluate<TInput, TOutput>(TInput input, string entrypoint)
+        where TOutput : notnull => Evaluate<TInput, TOutput>(input, entrypoint, CancellationToken.None);
+
+    /// <summary>
+    /// Evaluates named policy with specified input.
+    /// </summary>
+    /// <param name="input">Policy input document</param>
+    /// <param name="entrypoint">Policy decision to ask for</param>
+    /// <param name="cancellationToken">Cancellation token</param>
+    /// <returns>Policy evaluation result</returns>
+    ValueTask<TOutput> Evaluate<TInput, TOutput>(TInput input, string entrypoint, CancellationToken cancellationToken)
         where TOutput : notnull;
 
     /// <summary>
@@ -28,5 +48,15 @@ public interface IOpaPolicyService
     /// <param name="inputJson">Policy input document as JSON string</param>
     /// <param name="entrypoint">Policy decision to ask for</param>
     /// <returns>Policy evaluation result as JSON string</returns>
-    string EvaluateRaw(ReadOnlySpan<char> inputJson, string entrypoint);
+    ValueTask<string> EvaluateRaw(ReadOnlyMemory<char> inputJson, string entrypoint)
+        => EvaluateRaw(inputJson, entrypoint, CancellationToken.None);
+
+    /// <summary>
+    /// Evaluates named policy with specified raw JSON input.
+    /// </summary>
+    /// <param name="inputJson">Policy input document as JSON string</param>
+    /// <param name="entrypoint">Policy decision to ask for</param>
+    /// <param name="cancellationToken">Cancellation token</param>
+    /// <returns>Policy evaluation result as JSON string</returns>
+    ValueTask<string> EvaluateRaw(ReadOnlyMemory<char> inputJson, string entrypoint, CancellationToken cancellationToken);
 }

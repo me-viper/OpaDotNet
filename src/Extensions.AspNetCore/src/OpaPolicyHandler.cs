@@ -30,13 +30,13 @@ public class OpaPolicyHandler : AuthorizationHandler<OpaPolicyRequirement>
         Logger = logger;
     }
 
-    protected virtual Task HandleRequirementAsync(
+    protected virtual async Task HandleRequirementAsync(
         AuthorizationHandlerContext context,
         OpaPolicyRequirement requirement,
         IHttpRequestPolicyInput resource)
     {
         Logger.PolicyEvaluating();
-        var result = Service.EvaluatePredicate(resource, requirement.Entrypoint);
+        var result = await Service.EvaluatePredicate(resource, requirement.Entrypoint).ConfigureAwait(false);
 
         if (!result)
         {
@@ -50,8 +50,6 @@ public class OpaPolicyHandler : AuthorizationHandler<OpaPolicyRequirement>
 
             context.Succeed(requirement);
         }
-
-        return Task.CompletedTask;
     }
 
     protected override Task HandleRequirementAsync(
