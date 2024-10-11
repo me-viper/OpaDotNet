@@ -104,7 +104,7 @@ public class BasicsTests : OpaTestBase
         var ver = string.IsNullOrWhiteSpace(abiVersion) ? null : Version.Parse(abiVersion);
 
         var entrypoints = string.IsNullOrWhiteSpace(entrypoint) ? null : new[] { entrypoint };
-        var policy = await CompileFile(Path.Combine(BasePath, source), entrypoints);
+        await using var policy = await CompileFile(Path.Combine(BasePath, source), entrypoints);
 
         using var engine = OpaEvaluatorFactory.CreateFromBundle(
             policy,
@@ -139,9 +139,8 @@ public class BasicsTests : OpaTestBase
     [InlineData("{ \"world\": \"world\" }", "{ \"message\": \"world1\"}", false)]
     public void StringData(string? data, string input, bool expectedResult)
     {
-        using var engine = OpaEvaluatorFactory.CreateFromWasm(
-            File.OpenRead(Path.Combine(BasePath, "simple-1.2.wasm"))
-            );
+        using var policy = File.OpenRead(Path.Combine(BasePath, "simple-1.2.wasm"));
+        using var engine = OpaEvaluatorFactory.CreateFromWasm(policy);
 
         engine.SetDataFromRawJson(data);
 
@@ -161,14 +160,13 @@ public class BasicsTests : OpaTestBase
     [InlineData("{ \"world\": \"world\" }", "{ \"message\": \"world1\"}", false)]
     public Task StreamData(string data, string input, bool expectedResult)
     {
-        var dataStream = new MemoryStream();
+        using var dataStream = new MemoryStream();
         var buffer = Encoding.UTF8.GetBytes(data);
         dataStream.Write(buffer);
         dataStream.Seek(0, SeekOrigin.Begin);
 
-        using var engine = OpaEvaluatorFactory.CreateFromWasm(
-            File.OpenRead(Path.Combine(BasePath, "simple-1.2.wasm"))
-            );
+        using var policy = File.OpenRead(Path.Combine(BasePath, "simple-1.2.wasm"));
+        using var engine = OpaEvaluatorFactory.CreateFromWasm(policy);
 
         engine.SetDataFromStream(dataStream);
 
@@ -199,8 +197,10 @@ public class BasicsTests : OpaTestBase
             }
             );
 
+        using var policy = File.OpenRead(Path.Combine(BasePath, "simple-1.2.wasm"));
+
         using var engine = OpaEvaluatorFactory.CreateFromWasm(
-            File.OpenRead(Path.Combine(BasePath, "simple-1.2.wasm")),
+            policy,
             opts
             );
 
@@ -232,7 +232,7 @@ public class BasicsTests : OpaTestBase
             SerializationOptions = new() { PropertyNameCaseInsensitive = true }
         };
 
-        var policy = await CompileFile(Path.Combine(BasePath, "composite.rego"), new[] { "example" });
+        await using var policy = await CompileFile(Path.Combine(BasePath, "composite.rego"), new[] { "example" });
 
         using var engine = OpaEvaluatorFactory.CreateFromBundle(policy, options: opts);
         var result = engine.Evaluate<object?, CompositeResult>(null, "example");
@@ -246,7 +246,7 @@ public class BasicsTests : OpaTestBase
     [Fact]
     public async Task EmptyOutput()
     {
-        var policy = await CompileFile(Path.Combine(BasePath, "empty_composite.rego"), ["example"]);
+        await using var policy = await CompileFile(Path.Combine(BasePath, "empty_composite.rego"), ["example"]);
         using var factory = new OpaBundleEvaluatorFactory(policy, null, null);
 
         using var engine = factory.Create();
