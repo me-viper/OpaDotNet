@@ -20,7 +20,7 @@ jobs:
 
       - name: 'Qodana Setup'
         shell: pwsh
-        run: ./qodana.ps1 -SkipScan
+        run: ./build/qodana.ps1 -SkipScan
 
       - name: 'Qodana Scan'
         uses: JetBrains/qodana-action@v2023.3
