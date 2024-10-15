@@ -45,3 +45,4 @@ For more information check out [the guide](https://me-viper.github.io/OpaDotNet/
 * [json-everything](https://github.com/gregsdennis/json-everything) - Set of libraries that ensure that common JSON functionality has good support in the System.Text.Json space.
 * [YamlDotNet](https://github.com/aaubry/YamlDotNet) - YamlDotNet is a YAML library for netstandard and other .NET runtimes.
 * [OPA SDK](https://pkg.go.dev/github.com/open-policy-agent/opa/sdk) - High-level API for embedding OPA inside of Go programs.
+* [.NEXT](https://github.com/dotnet/dotNext) - Powerful libraries aimed to improve development productivity and extend .NET API with unique features.
