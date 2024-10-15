@@ -1,3 +1,4 @@
+
 #nullable enable
 OpaDotNet.Compilation.Abstractions.BundleManifest
 OpaDotNet.Compilation.Abstractions.BundleManifest.Metadata.get -> System.Collections.Generic.Dictionary<string!, string!>!

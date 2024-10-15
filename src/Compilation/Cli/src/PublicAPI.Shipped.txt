@@ -1,3 +1,4 @@
+
 #nullable enable
 OpaDotNet.Compilation.Cli.RegoCliCompiler
 OpaDotNet.Compilation.Cli.RegoCliCompiler.Compile(string! path, OpaDotNet.Compilation.Abstractions.CompilationParameters! parameters, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<System.IO.Stream!>!

@@ -44,9 +44,12 @@ OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder.Services.get -> Microso
 OpaDotNet.Extensions.AspNetCore.IOpaBundleEvaluatorFactoryBuilder
 OpaDotNet.Extensions.AspNetCore.IOpaBundleEvaluatorFactoryBuilder.Build(System.IO.Stream! policy) -> OpaDotNet.Wasm.OpaEvaluatorFactory!
 OpaDotNet.Extensions.AspNetCore.IOpaPolicyService
-OpaDotNet.Extensions.AspNetCore.IOpaPolicyService.Evaluate<TInput, TOutput>(TInput input, string! entrypoint) -> TOutput
-OpaDotNet.Extensions.AspNetCore.IOpaPolicyService.EvaluatePredicate<TInput>(TInput input, string! entrypoint) -> bool
-OpaDotNet.Extensions.AspNetCore.IOpaPolicyService.EvaluateRaw(System.ReadOnlySpan<char> inputJson, string! entrypoint) -> string!
+OpaDotNet.Extensions.AspNetCore.IOpaPolicyService.Evaluate<TInput, TOutput>(TInput input, string! entrypoint, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.ValueTask<TOutput>
+OpaDotNet.Extensions.AspNetCore.IOpaPolicyService.Evaluate<TInput, TOutput>(TInput input, string! entrypoint) -> System.Threading.Tasks.ValueTask<TOutput>
+OpaDotNet.Extensions.AspNetCore.IOpaPolicyService.EvaluatePredicate<TInput>(TInput input, string! entrypoint, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.ValueTask<bool>
+OpaDotNet.Extensions.AspNetCore.IOpaPolicyService.EvaluatePredicate<TInput>(TInput input, string! entrypoint) -> System.Threading.Tasks.ValueTask<bool>
+OpaDotNet.Extensions.AspNetCore.IOpaPolicyService.EvaluateRaw(System.ReadOnlyMemory<char> inputJson, string! entrypoint, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.ValueTask<string!>
+OpaDotNet.Extensions.AspNetCore.IOpaPolicyService.EvaluateRaw(System.ReadOnlyMemory<char> inputJson, string! entrypoint) -> System.Threading.Tasks.ValueTask<string!>
 OpaDotNet.Extensions.AspNetCore.IOpaPolicySource
 OpaDotNet.Extensions.AspNetCore.IOpaPolicySource.CreateEvaluator() -> OpaDotNet.Wasm.IOpaEvaluator!
 OpaDotNet.Extensions.AspNetCore.IOpaPolicySource.OnPolicyUpdated() -> Microsoft.Extensions.Primitives.IChangeToken!
@@ -61,6 +64,8 @@ OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.EngineOptions.get -> Opa
 OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.EngineOptions.set -> void
 OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.IncludeClaimsInHttpRequest.get -> bool
 OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.IncludeClaimsInHttpRequest.set -> void
+OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.MaximumEvaluators.get -> int
+OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.MaximumEvaluators.set -> void
 OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.MaximumEvaluatorsRetained.get -> int
 OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.MaximumEvaluatorsRetained.set -> void
 OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.MonitoringInterval.get -> System.TimeSpan

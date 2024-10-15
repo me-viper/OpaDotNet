@@ -1,3 +1,4 @@
+
 #nullable enable
 abstract OpaDotNet.Wasm.OpaEvaluatorFactory.Create() -> OpaDotNet.Wasm.IOpaEvaluator!
 OpaDotNet.Wasm.BuiltinArg
