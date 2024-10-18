@@ -23,8 +23,8 @@ jobs:
         run: ./build/qodana.ps1 -SkipScan
 
       - name: 'Qodana Scan'
-        uses: JetBrains/qodana-action@v2023.3
+        uses: JetBrains/qodana-action@v2024.2
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
         with:
-          args: --solution,qodana.sln
+          args: --solution,qodana.sln,--linter,jetbrains/qodana-cdnet
