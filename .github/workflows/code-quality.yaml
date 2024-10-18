@@ -8,7 +8,7 @@ on:
       - 'releases/v*'
     paths:
       - 'src/**'
-      - '.github/workflows/code-quality.yml'
+      - '.github/workflows/code-quality.yaml'
 
 jobs:
   qodana:
@@ -22,10 +22,16 @@ jobs:
         shell: pwsh
         run: ./build/qodana.ps1 -SkipScan
 
+      - name: get_opa_lib
+        uses: actions/download-artifact@v4
+        with:
+          name: opa-native
+          path: ./src/Compilation/Interop/lib
+
       - name: 'Qodana Scan'
         uses: JetBrains/qodana-action@v2024.2
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
         with:
-          args: --solution,./qodana.sln,--linter,jetbrains/qodana-cdnet,--configuration,Release
+          #args: --solution,./qodana.sln,--linter,jetbrains/qodana-cdnet,--configuration,Release
           cache-default-branch-only: true
