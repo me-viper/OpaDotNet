@@ -7,4 +7,4 @@ param (
 
 ./src/Compilation/Interop/build.ps1
 
-dotent build
+dotnet build @Remaining

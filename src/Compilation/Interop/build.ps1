@@ -24,7 +24,7 @@ if (Test-Path "$PSScriptRoot/lib") {
 $hash = git rev-parse HEAD
 Write-Host "SHA: $hash"
 
-$targets | %{
+$targets | % {
     $outPath = "$($_.OS)-$($_.Arch)"
 
     Write-Host "Building $outPath...."
@@ -35,11 +35,13 @@ $targets | %{
     $env:CC = $_.CC
     $env:CXX = $_.CXX
 
+    Push-Location $PSScriptRoot
+
     $ba = @(
-        "-C", "$PSScriptRoot/opa-native"
+        "-C", "./opa-native"
         "-ldflags", "-w -s -X main.Vcs=$hash",
         "-buildmode=c-shared",
-        "-o", "$PSScriptRoot/lib/$outPath/Opa.Interop.$($_.Ext)",
+        "-o", "../lib/$outPath/Opa.Interop.$($_.Ext)",
         "./main.go")
 
     if ($IsWindows) {
@@ -48,6 +50,8 @@ $targets | %{
     } else {
         go build @ba
     }
+
+    Pop-Location
 
     if (-not $?) {
         throw "Compilation failed"
