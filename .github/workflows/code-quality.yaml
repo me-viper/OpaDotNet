@@ -11,6 +11,9 @@ on:
       - '.github/workflows/code-quality.yaml'
 
 jobs:
+  native_build:
+    uses: ./.github/workflows/opa-native.yaml
+
   qodana:
     runs-on: ubuntu-latest
     steps:
