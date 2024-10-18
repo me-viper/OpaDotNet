@@ -4,3 +4,8 @@ dotnet:
   solution: ./qodana.sln
   configuration: Release
   frameworks: net8.0
+exclude:
+  - name: All
+    patterns:
+      - "**/*.g.cs"
+      - "**/*.AssemblyInfo.cs"

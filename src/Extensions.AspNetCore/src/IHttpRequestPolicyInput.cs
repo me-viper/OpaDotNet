@@ -26,7 +26,7 @@ public record ClaimPolicyInput(string Type, string Value);
 
 internal class ClaimPolicyInputJsonSerializer : JsonConverter<ClaimPolicyInput>
 {
-    public override ClaimPolicyInput? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override ClaimPolicyInput Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         throw new NotSupportedException("Deserialization is not supported");
     }

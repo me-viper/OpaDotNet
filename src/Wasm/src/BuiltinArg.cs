@@ -2,8 +2,6 @@ using System.Collections.Concurrent;
 using System.Reflection;
 using System.Text.Json.Nodes;
 
-using Json.More;
-
 namespace OpaDotNet.Wasm;
 
 /// <summary>

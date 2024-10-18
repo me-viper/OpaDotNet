@@ -1,6 +1,5 @@
 ﻿using OpaDotNet.Wasm.Features;
 using OpaDotNet.Wasm.Internal;
-using OpaDotNet.Wasm.Internal.V10;
 using OpaDotNet.Wasm.Rego;
 
 using Wasmtime;
