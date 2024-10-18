@@ -29,7 +29,7 @@ Get-ChildItem "$basePath/src" -Include *.csproj -Recurse `
 if (-not $SkipScan) {
     docker run -v ${basePath}:/data/project/ -e QODANA_TOKEN="$token" $Image --solution "qodana.sln"
 
-    # if (Test-Path $slnPath) {
-    #     rm $slnPath
-    # }
+    if (Test-Path $slnPath) {
+        rm $slnPath
+    }
 }

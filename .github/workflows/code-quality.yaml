@@ -27,4 +27,5 @@ jobs:
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
         with:
-          args: --solution,qodana.sln,--linter,jetbrains/qodana-cdnet
+          args: --solution,./qodana.sln,--linter,jetbrains/qodana-cdnet,--configuration,Release
+          cache-default-branch-only: true
