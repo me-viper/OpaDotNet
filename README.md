@@ -22,8 +22,8 @@ For more information check out [the guide](https://me-viper.github.io/OpaDotNet/
 |-----------------|----------|---------|
 | OpaDotNet.Wasm  | [![NuGet](https://img.shields.io/nuget/v/OpaDotNet.Wasm.svg)](https://www.nuget.org/packages/OpaDotNet.Wasm/) | [![Nuget](https://img.shields.io/nuget/vpre/OpaDotNet.Wasm.svg)](https://www.nuget.org/packages/OpaDotNet.Wasm/)  |
 | OpaDotNet.Extensions.AspNetCore | [![NuGet](https://img.shields.io/nuget/v/OpaDotNet.Extensions.AspNetCore.svg)](https://www.nuget.org/packages/OpaDotNet.Extensions.AspNetCore/) | [![Nuget](https://img.shields.io/nuget/vpre/OpaDotNet.Extensions.AspNetCore.svg)](https://www.nuget.org/packages/OpaDotNet.Extensions.AspNetCore/)  |
-| OpaDotNet.Compilation.Cli             | [![NuGet](https://img.shields.io/nuget/v/OpaDotNet.Compilation.Cli.svg)](https://www.nuget.org/packages/OpaDotNet.Compilation.Cli/) | - |
-| OpaDotNet.Compilation.Interop         | [![NuGet](https://img.shields.io/nuget/v/OpaDotNet.Compilation.Interop.svg)](https://www.nuget.org/packages/OpaDotNet.Compilation.Interop/) | - |
+| OpaDotNet.Compilation.Cli             | [![NuGet](https://img.shields.io/nuget/v/OpaDotNet.Compilation.Cli.svg)](https://www.nuget.org/packages/OpaDotNet.Compilation.Cli/) | [![NuGet](https://img.shields.io/nuget/vpre/OpaDotNet.Compilation.Cli)](https://www.nuget.org/packages/OpaDotNet.Compilation.Cli/) |
+| OpaDotNet.Compilation.Interop         | [![NuGet](https://img.shields.io/nuget/v/OpaDotNet.Compilation.Interop.svg)](https://www.nuget.org/packages/OpaDotNet.Compilation.Interop/) | [![Nuget](https://img.shields.io/nuget/vpre/OpaDotNet.Compilation.Interop)](https://www.nuget.org/packages/OpaDotNet.Compilation.Interop/) |
 
 ## Getting started
 
