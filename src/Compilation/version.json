@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/dotnet/Nerdbank.GitVersioning/main/src/NerdBank.GitVersioning/version.schema.json",
   "version": "2.0-preview.{height}",
-  "pathFilters": [".\\Cli\\src", ".\\Interop\\src", "..\\Compilation.Abstractions\\src"],
+  "pathFilters": [":/src/Compilation/Cli/src", ":/src/Compilation/Interop/src", ":/src/Compilation.Abstractions/src"],
   "inherit": true
 }
