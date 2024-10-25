@@ -14,6 +14,11 @@ on:
   #     - 'src/**'
   #     - '.github/workflows/docs.yml'
   workflow_dispatch:
+    inputs:
+      release:
+        description: Publish documentation
+        required: false
+        type: boolean
 
 jobs:
   publish-docs:
@@ -32,13 +37,21 @@ jobs:
       with:
         dotnet-version: 8.x
 
+    - name: Restore Tools
+      run: dotnet tool restore
+
+    - name: Get Version
+      id: get_version
+      run: |
+        echo "version=$(dotnet nbgv get-version -v NuGetPackageVersion)" >> "$GITHUB_OUTPUT"
+
     - run: dotnet build -f net8.0 ./docs/snippets/Snippets.csproj
     - run: dotnet tool update -g docfx
-    - run: docfx docs/docfx.json
+    - run: docfx docs/docfx.json --metadata _appTitle="OpaDotNet ${{ steps.get_version.outputs.version }}"
 
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
-      if: github.ref == 'refs/heads/main'
+      if: ${{ inputs.release }}
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: docs/_site

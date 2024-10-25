@@ -61,6 +61,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{81FA4F2E
 	ProjectSection(SolutionItems) = preProject
 		build\api-ship.ps1 = build\api-ship.ps1
 		build\tests.ps1 = build\tests.ps1
+		build\qodana.ps1 = build\qodana.ps1
+		build\versions.ps1 = build\versions.ps1
 	EndProjectSection
 EndProject
 Global
