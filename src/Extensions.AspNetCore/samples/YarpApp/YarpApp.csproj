@@ -9,12 +9,12 @@
 
   <ItemGroup>
     <PackageReference Include="NetEscapades.Configuration.Yaml" Version="3.1.0" />
-    <PackageReference Include="OpaDotNet.Compilation.Interop" Version="2.0.0-preview0013" />
     <PackageReference Include="Yarp.ReverseProxy" Version="2.2.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\OpaDotNet.Extensions.AspNetCore.csproj" />
+    <ProjectReference Include="..\..\..\Compilation\Interop\src\OpaDotNet.Compilation.Interop.csproj" />
   </ItemGroup>
 
   <ItemGroup>
