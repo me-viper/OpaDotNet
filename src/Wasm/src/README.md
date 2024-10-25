@@ -82,7 +82,7 @@ package example
 
 default hello = false
 
-hello {
+hello if {
     x := input.message
     x == data.world
 }
@@ -107,7 +107,7 @@ See `opa build --help` for more details.
 ### With OpaDotNet.Compilation
 
 You can use SDK to do compilation for you. For more information
-see [OpaDotNet.Compilation](https://github.com/me-viper/OpaDotNet.Compilation).
+see [OpaDotNet.Compilation](https://github.com/me-viper/OpaDotNet/tree/main/src/Compilation).
 
 #### OpaDotNet.Compilation.Cli
 
