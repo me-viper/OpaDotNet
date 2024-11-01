@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 
+using OpaDotNet.Common;
+
 namespace OpaDotNet.Extensions.AspNetCore.Tests.Common;
 
 internal static class TestOptionsMonitor
@@ -27,11 +29,4 @@ internal class TestOptionsMonitor<TOptions> : IOptionsMonitor<TOptions>
     public TOptions CurrentValue => _current;
 
     public IOptions<TOptions> Option() => new OptionsWrapper<TOptions>(_current);
-}
-
-internal class NopDisposable : IDisposable
-{
-    public void Dispose()
-    {
-    }
 }

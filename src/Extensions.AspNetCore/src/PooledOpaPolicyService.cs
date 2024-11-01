@@ -49,32 +49,23 @@ internal class PooledOpaPolicyService : IOpaPolicyService, IDisposable
         _recompilationMonitor = ChangeToken.OnChange(factoryProvider.OnPolicyUpdated, ResetPool);
     }
 
-    private void ResetPool() => ResetPoolAsync().Wait();
-
-    private async Task ResetPoolAsync(CancellationToken cancellationToken = default)
+    private void ResetPool()
     {
         _logger.EvaluatorPoolResetting();
 
-        await _syncLock.EnterWriteLockAsync(cancellationToken).ConfigureAwait(false);
+        using var writerLock = _syncLock.AcquireWriteLock();
 
-        try
+        var oldPool = _evaluatorPool;
+        _evaluatorPool = _poolProvider.Create(new OpaEvaluatorPoolPolicy(() => _factoryProvider.CreateEvaluator()));
+
+        if (oldPool is not IDisposable pool)
         {
-            var oldPool = _evaluatorPool;
-            _evaluatorPool = _poolProvider.Create(new OpaEvaluatorPoolPolicy(() => _factoryProvider.CreateEvaluator()));
-
-            if (oldPool is not IDisposable pool)
-            {
-                _logger.EvaluatorPoolNotDisposable();
-                return;
-            }
-
-            _logger.EvaluatorPoolDisposing();
-            pool.Dispose();
+            _logger.EvaluatorPoolNotDisposable();
+            return;
         }
-        finally
-        {
-            _syncLock.Release();
-        }
+
+        _logger.EvaluatorPoolDisposing();
+        pool.Dispose();
     }
 
     private Task ConcurrencyLockWaitAsync(CancellationToken cancellationToken)

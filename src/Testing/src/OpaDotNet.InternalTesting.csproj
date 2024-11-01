@@ -15,4 +15,14 @@
     <ProjectReference Include="..\..\Compilation\Interop\src\OpaDotNet.Compilation.Interop.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="OpaDotNet.Wasm.Tests" />
+    <InternalsVisibleTo Include="OpaDotNet.Extensions.AspNetCore.Tests" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\Common\src\NopDisposable.cs">
+      <Link>NopDisposable.cs</Link>
+    </Compile>
+  </ItemGroup>
 </Project>

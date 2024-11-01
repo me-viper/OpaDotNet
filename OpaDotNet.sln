@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{BD3907AD-9BEC-4B74-BDB7-7B2A18F394DD}"
+	ProjectSection(SolutionItems) = preProject
+		src\Common\src\NopDisposable.cs = src\Common\src\NopDisposable.cs
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Compilation", "Compilation", "{B00DE1DD-2E2D-4DEA-9DD7-B4F6DDE78545}"
 EndProject
