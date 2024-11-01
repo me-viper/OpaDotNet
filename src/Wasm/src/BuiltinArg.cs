@@ -84,7 +84,7 @@ public class BuiltinArg
             return fun.Invoke(jv, null);
         }
 
-        return Raw.Deserialize(type, _jsonOptions);
+        return val.Deserialize(type, _jsonOptions);
     }
 
     internal int GetArgHashCode(RegoValueFormat format = RegoValueFormat.Json)
@@ -108,7 +108,7 @@ public class BuiltinArg
             null => defaultValue != null ? defaultValue() : default,
             JsonValue jv => jv.GetValue<T>(),
             T t => t,
-            _ => Raw.Deserialize<T>(_jsonOptions),
+            _ => val.Deserialize<T>(_jsonOptions),
         };
     }
 }
