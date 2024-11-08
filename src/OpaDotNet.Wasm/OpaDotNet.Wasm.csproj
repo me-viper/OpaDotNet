@@ -29,7 +29,9 @@
     <PackageReference Include="IPNetwork2">
       <Aliases>Ipn</Aliases>
     </PackageReference>
-    <PackageReference Include="JetBrains.Annotations"/>
+    <PackageReference Include="JetBrains.Annotations">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="JsonPatch.Net"/>
     <PackageReference Include="JsonSchema.Net"/>
     <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers">

@@ -2,7 +2,9 @@
   <ItemGroup>
     <PackageVersion Include="coverlet.msbuild" Version="6.0.0" />
     <PackageVersion Include="IPNetwork2" Version="3.0.651" />
-    <PackageVersion Include="JetBrains.Annotations" Version="2023.3.0" />
+    <PackageVersion Include="JetBrains.Annotations" Version="2023.3.0" >
+      <PrivateAssets>all</PrivateAssets>
+    </PackageVersion>
     <PackageVersion Include="JsonPatch.Net" Version="3.0.0" />
     <PackageVersion Include="JsonSchema.Net" Version="6.0.2" />
     <PackageVersion Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="3.3.4" />
