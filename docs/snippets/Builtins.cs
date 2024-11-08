@@ -84,7 +84,8 @@ public partial class DocSamples
     public class OpaCustomBuiltins : IOpaCustomBuiltins
     {
         public void Reset()
-        {}
+        {
+        }
 
         // Built-in with zero arguments.
         [OpaCustomBuiltin("custom.zeroArgBuiltin")]
@@ -123,7 +124,8 @@ public partial class DocSamples
 
             // Provide built-ins capabilities for the compiler.
             CapabilitiesFilePath = Path.Combine("builtins", "capabilities.json"),
-            Entrypoints = [
+            Entrypoints =
+            [
                 "custom_builtins/zero_arg",
                 "custom_builtins/one_arg",
                 "custom_builtins/two_arg",
@@ -199,7 +201,8 @@ public partial class DocSamples
 
             // Provide built-ins capabilities for the compiler.
             CapabilitiesFilePath = Path.Combine("builtins", "capabilities.json"),
-            Entrypoints = [
+            Entrypoints =
+            [
                 "custom_builtins/zero_arg",
                 "custom_builtins/one_arg",
                 "custom_builtins/two_arg",

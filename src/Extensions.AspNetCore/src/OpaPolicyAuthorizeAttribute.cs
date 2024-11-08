@@ -1,6 +1,4 @@
-﻿using JetBrains.Annotations;
-
-namespace OpaDotNet.Extensions.AspNetCore;
+﻿namespace OpaDotNet.Extensions.AspNetCore;
 
 [PublicAPI]
 public class OpaPolicyAuthorizeAttribute : AuthorizeAttribute

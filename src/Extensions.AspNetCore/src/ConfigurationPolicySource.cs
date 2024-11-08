@@ -1,6 +1,4 @@
-﻿using JetBrains.Annotations;
-
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 
 using OpaDotNet.Compilation.Abstractions;
 using OpaDotNet.Extensions.AspNetCore.Telemetry;

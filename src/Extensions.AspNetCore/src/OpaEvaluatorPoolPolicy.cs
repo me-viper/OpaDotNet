@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-using Microsoft.Extensions.ObjectPool;
+﻿using Microsoft.Extensions.ObjectPool;
 
 using OpaDotNet.Extensions.AspNetCore.Telemetry;
 using OpaDotNet.Wasm;

@@ -7,6 +7,7 @@ using BenchmarkDotNet.Attributes;
 namespace OpaDotNet.Benchmarks;
 
 [Config(typeof(Config))]
+
 //[DisassemblyDiagnoser(printSource: true, maxDepth: 2)]
 //[DryJob]
 public class CallPerf

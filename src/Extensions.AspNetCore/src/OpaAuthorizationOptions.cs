@@ -1,8 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-using JetBrains.Annotations;
-
-using OpaDotNet.Wasm;
+﻿using OpaDotNet.Wasm;
 
 namespace OpaDotNet.Extensions.AspNetCore;
 

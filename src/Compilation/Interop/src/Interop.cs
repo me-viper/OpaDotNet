@@ -144,6 +144,7 @@ internal static class Interop
                 Target = "wasm",
                 Debug = options.Debug ? 1 : 0,
                 PruneUnused = options.PruneUnused ? 1 : 0,
+
                 //TempDir = string.IsNullOrWhiteSpace(options.OutputPath) ? null : Path.GetFullPath(options.OutputPath),
                 RegoVersion = (int)options.RegoVersion,
                 Revision = options.Revision,

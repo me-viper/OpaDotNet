@@ -3,13 +3,12 @@ using System.Text;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 
-#if DEBUG
-using Microsoft.IdentityModel.Logging;
-#endif
-
 using Microsoft.IdentityModel.Tokens;
 
 using OpaDotNet.Wasm.Internal;
+#if DEBUG
+using Microsoft.IdentityModel.Logging;
+#endif
 
 namespace OpaDotNet.Wasm;
 

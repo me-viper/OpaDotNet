@@ -124,7 +124,6 @@ public partial class DocSamples
 
             // Policy source file.
             "quickstart/example.rego",
-
             new()
             {
                 // Entrypoints (same you would pass for -e parameter for opa build).
@@ -154,7 +153,6 @@ public partial class DocSamples
 
             // Directory with bundle sources.
             "quickstart",
-
             new()
             {
                 // Entrypoints (same you would pass for -e parameter for opa build).
@@ -193,7 +191,6 @@ public partial class DocSamples
 
             // Policy source code.
             policySource,
-
             new()
             {
                 // Entrypoints (same you would pass for -e parameter for opa build).
@@ -223,7 +220,6 @@ public partial class DocSamples
 
             // Policy source file.
             "quickstart/example.rego",
-
             new()
             {
                 // Entrypoints (same you would pass for -e parameter for opa build).
@@ -253,7 +249,6 @@ public partial class DocSamples
 
             // Directory with bundle sources.
             "quickstart/",
-
             new()
             {
                 // Entrypoints (same you would pass for -e parameter for opa build).
@@ -292,7 +287,6 @@ public partial class DocSamples
 
             // Policy source code.
             policySource,
-
             new()
             {
                 // Entrypoints (same you would pass for -e parameter for opa build).

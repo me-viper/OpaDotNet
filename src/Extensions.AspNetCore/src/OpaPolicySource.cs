@@ -1,6 +1,4 @@
-﻿using JetBrains.Annotations;
-
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
 
 using OpaDotNet.Extensions.AspNetCore.Telemetry;
@@ -93,7 +91,7 @@ public abstract class OpaPolicySource : IOpaPolicySource
         {
             await _lock.WaitAsync(cancellationToken).ConfigureAwait(false);
             Logger.BundleCompiling();
-            
+
             var policy = await CompileBundleFromSource(recompiling, cancellationToken).ConfigureAwait(false);
 
             if (policy == null)

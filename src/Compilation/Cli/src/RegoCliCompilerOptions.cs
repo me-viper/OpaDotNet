@@ -1,6 +1,4 @@
-﻿using JetBrains.Annotations;
-
-namespace OpaDotNet.Compilation.Cli;
+﻿namespace OpaDotNet.Compilation.Cli;
 
 /// <summary>
 /// Contains members that affect compiler behaviour.

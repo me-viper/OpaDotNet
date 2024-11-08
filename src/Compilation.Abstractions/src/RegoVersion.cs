@@ -1,5 +1,3 @@
-using JetBrains.Annotations;
-
 namespace OpaDotNet.Compilation.Abstractions;
 
 /// <summary>

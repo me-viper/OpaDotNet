@@ -2,8 +2,6 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-using JetBrains.Annotations;
-
 using Microsoft.AspNetCore.Http;
 
 namespace OpaDotNet.Extensions.AspNetCore;

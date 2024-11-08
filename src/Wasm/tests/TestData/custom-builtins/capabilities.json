@@ -139,16 +139,31 @@
       "name": "custom.jsonBuiltin",
       "decl": {
         "type": "function",
-        "args": [ { "type": "object" } ],
-        "result": { "type": "string" }
+        "args": [
+          {
+            "type": "object"
+          }
+        ],
+        "result": {
+          "type": "string"
+        }
       }
     },
     {
       "name": "custom.memBuiltin",
       "decl": {
         "type": "function",
-        "args": [ { "type": "string" }, { "type": "number" } ],
-        "result": { "type": "object" }
+        "args": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          }
+        ],
+        "result": {
+          "type": "object"
+        }
       }
     },
     {

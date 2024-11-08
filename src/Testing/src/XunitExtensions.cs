@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Formats.Tar;
+﻿using System.Formats.Tar;
 using System.IO.Compression;
 using System.Text;
 using System.Text.Json;

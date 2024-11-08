@@ -1,8 +1,6 @@
 ﻿using System.Diagnostics.Metrics;
 using System.Diagnostics.Tracing;
 
-using JetBrains.Annotations;
-
 namespace OpaDotNet.Extensions.AspNetCore.Telemetry;
 
 internal sealed class OpaEventSource : EventSource

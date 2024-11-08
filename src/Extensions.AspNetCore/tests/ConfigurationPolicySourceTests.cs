@@ -131,6 +131,7 @@ public class ConfigurationPolicySourceTests(ITestOutputHelper output)
         var opts = new OpaAuthorizationOptions
         {
             MonitoringInterval = TimeSpan.FromSeconds(3),
+
             //PolicyBundlePath = "./Watch",
             EngineOptions = new WasmPolicyEngineOptions
             {

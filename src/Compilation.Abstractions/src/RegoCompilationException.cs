@@ -1,6 +1,4 @@
-﻿using JetBrains.Annotations;
-
-namespace OpaDotNet.Compilation.Abstractions;
+﻿namespace OpaDotNet.Compilation.Abstractions;
 
 /// <summary>
 /// The exception that is thrown when OPA policy compilation fails.

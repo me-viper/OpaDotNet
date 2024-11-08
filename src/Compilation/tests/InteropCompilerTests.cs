@@ -1,8 +1,6 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-using JetBrains.Annotations;
-
 using Microsoft.Extensions.Logging;
 
 using OpaDotNet.Compilation.Interop;

@@ -17,7 +17,6 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 using OpaDotNet.Compilation.Abstractions;
-using OpaDotNet.Compilation.Cli;
 using OpaDotNet.Extensions.AspNetCore.Tests.Common;
 using OpaDotNet.InternalTesting;
 using OpaDotNet.Wasm;
@@ -481,6 +480,7 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
                 builder =>
                 {
                     builder.AddLogging(p => p.AddXunit(testOutput, LogLevel.Trace));
+
                     //builder.AddLogging(p => p.AddConsole());
 
                     builder.AddOpaAuthorization(
@@ -495,6 +495,7 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
                                     {
                                         OutputPath = _outputDirectory.FullName,
                                         ForceBundleWriter = true,
+
                                         //Debug = true,
                                     };
                                     p.PolicyBundlePath = "./Policy";

@@ -1,6 +1,4 @@
-﻿using JetBrains.Annotations;
-
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 
 namespace OpaDotNet.Extensions.AspNetCore;
 

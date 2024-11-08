@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Compilation\Cli\src\OpaDotNet.Compilation.Cli.csproj" />
+    <ProjectReference Include="..\..\..\Compilation\Cli\src\OpaDotNet.Compilation.Cli.csproj"/>
     <ProjectReference Include="..\..\src\OpaDotNet.Extensions.AspNetCore.csproj"/>
   </ItemGroup>
 

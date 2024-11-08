@@ -88,7 +88,7 @@ public class BuiltinArg
     }
 
     internal int GetArgHashCode(RegoValueFormat format = RegoValueFormat.Json)
-        => (format == RegoValueFormat.Value ?  _rawString.Value : _rawJsonString.Value).GetHashCode();
+        => (format == RegoValueFormat.Value ? _rawString.Value : _rawJsonString.Value).GetHashCode();
 
     /// <summary>
     /// Converts built-in function argument in JSON format to the specified type.

@@ -1,6 +1,4 @@
-﻿using JetBrains.Annotations;
-
-using OpaDotNet.Compilation.Abstractions;
+﻿using OpaDotNet.Compilation.Abstractions;
 
 namespace OpaDotNet.Extensions.AspNetCore;
 

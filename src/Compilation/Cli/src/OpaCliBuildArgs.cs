@@ -1,7 +1,5 @@
 ﻿using System.Text;
 
-using JetBrains.Annotations;
-
 using OpaDotNet.Compilation.Abstractions;
 
 namespace OpaDotNet.Compilation.Cli;

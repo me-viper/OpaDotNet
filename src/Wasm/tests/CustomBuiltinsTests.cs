@@ -50,7 +50,8 @@ public abstract class CustomBuiltinsTests(ITestOutputHelper output) : OpaTestBas
             p => p with
             {
                 OutputPath = OutPath,
-                Entrypoints = [
+                Entrypoints =
+                [
                     "custom_builtins/zero_arg",
                     "custom_builtins/one_arg",
                     "custom_builtins/one_arg_object",
@@ -197,7 +198,7 @@ public abstract class CustomBuiltinsTests(ITestOutputHelper output) : OpaTestBas
     [Fact]
     public void Memorized()
     {
-        var result = _engine.Evaluate<object, System.DateTime[]>(
+        var result = _engine.Evaluate<object, DateTime[]>(
             new(),
             "custom_builtins/memorized"
             );

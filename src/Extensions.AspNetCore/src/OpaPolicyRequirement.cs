@@ -1,8 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-using JetBrains.Annotations;
-
-namespace OpaDotNet.Extensions.AspNetCore;
+﻿namespace OpaDotNet.Extensions.AspNetCore;
 
 /// <summary>
 /// Represents OPA policy requirement.

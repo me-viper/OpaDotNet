@@ -1,8 +1,6 @@
 ﻿using System.Security.Claims;
 using System.Text.RegularExpressions;
 
-using JetBrains.Annotations;
-
 using Microsoft.AspNetCore.Http;
 
 namespace OpaDotNet.Extensions.AspNetCore;

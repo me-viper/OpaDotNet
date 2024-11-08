@@ -61,6 +61,7 @@ public abstract class PathPolicySourceTests<T> : IDisposable
 
     [Theory]
     [InlineData(true)]
+
     //[InlineData(false)]
     public async Task WatchChanges(bool usePolingWatcher)
     {
@@ -74,7 +75,7 @@ public abstract class PathPolicySourceTests<T> : IDisposable
         using var source = CreatePolicySource(false, p => p.MonitoringInterval = TimeSpan.FromSeconds(3));
 
         await source.StartAsync(CancellationToken.None);
-        
+
         for (var i = 0; i < 3; i++)
         {
             var tcs = new TaskCompletionSource();

@@ -6,18 +6,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="xunit" Version="2.9.2" />
+    <PackageReference Include="xunit" Version="2.9.2"/>
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Compilation.Abstractions\src\OpaDotNet.Compilation.Abstractions.csproj" />
-    <ProjectReference Include="..\..\Compilation\Cli\src\OpaDotNet.Compilation.Cli.csproj" />
-    <ProjectReference Include="..\..\Compilation\Interop\src\OpaDotNet.Compilation.Interop.csproj" />
+    <ProjectReference Include="..\..\Compilation.Abstractions\src\OpaDotNet.Compilation.Abstractions.csproj"/>
+    <ProjectReference Include="..\..\Compilation\Cli\src\OpaDotNet.Compilation.Cli.csproj"/>
+    <ProjectReference Include="..\..\Compilation\Interop\src\OpaDotNet.Compilation.Interop.csproj"/>
   </ItemGroup>
 
   <ItemGroup>
-    <InternalsVisibleTo Include="OpaDotNet.Wasm.Tests" />
-    <InternalsVisibleTo Include="OpaDotNet.Extensions.AspNetCore.Tests" />
+    <InternalsVisibleTo Include="OpaDotNet.Wasm.Tests"/>
+    <InternalsVisibleTo Include="OpaDotNet.Extensions.AspNetCore.Tests"/>
   </ItemGroup>
 
   <ItemGroup>

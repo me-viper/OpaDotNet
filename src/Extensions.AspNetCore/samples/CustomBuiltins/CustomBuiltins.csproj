@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\OpaDotNet.Extensions.AspNetCore.csproj"/>
-    <ProjectReference Include="..\..\..\Compilation\Cli\src\OpaDotNet.Compilation.Cli.csproj" />
+    <ProjectReference Include="..\..\..\Compilation\Cli\src\OpaDotNet.Compilation.Cli.csproj"/>
   </ItemGroup>
 
   <ItemGroup>

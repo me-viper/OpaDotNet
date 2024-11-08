@@ -1,6 +1,4 @@
-﻿using JetBrains.Annotations;
-
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 
 using OpaDotNet.Extensions.AspNetCore.Telemetry;

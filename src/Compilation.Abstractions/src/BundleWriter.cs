@@ -5,8 +5,6 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 
-using JetBrains.Annotations;
-
 using Microsoft.Extensions.FileSystemGlobbing;
 using Microsoft.Extensions.FileSystemGlobbing.Abstractions;
 

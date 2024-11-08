@@ -22,7 +22,7 @@ internal class EngineImpl<TAbi> : WasmPolicyEngine<TAbi>
 
         var inputLength = Encoding.UTF8.GetByteCount(inputJson);
         EnsureMemory(inputLength);
-        
+
         try
         {
             var context = Abi.ContextCreate();

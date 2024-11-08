@@ -1,6 +1,4 @@
-﻿using JetBrains.Annotations;
-
-using OpaDotNet.Extensions.AspNetCore.Telemetry;
+﻿using OpaDotNet.Extensions.AspNetCore.Telemetry;
 
 namespace OpaDotNet.Extensions.AspNetCore;
 
