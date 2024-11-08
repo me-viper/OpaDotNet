@@ -13,7 +13,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageVersion>
-    <PackageVersion Include="Microsoft.Toolkit.HighPerformance" Version="7.1.2" />
     <PackageVersion Include="Moq" Version="4.18.4" />
     <PackageVersion Include="OpaDotNet.Compilation.Cli" Version="1.6.1" />
     <PackageVersion Include="OpaDotNet.Compilation.Interop" Version="1.6.1" />
