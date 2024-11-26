@@ -15,14 +15,27 @@ public class TestingCompiler : IRegoCompiler
     {
     }
 
+    public static RegoCliCompiler CreateCliCompiler(ILoggerFactory? loggerFactory = null, RegoCliCompilerOptions? options = null)
+    {
+        var opts = options ?? new RegoCliCompilerOptions();
+        var logger = loggerFactory?.CreateLogger<RegoCliCompiler>();
+
+        var cliPath = Environment.GetEnvironmentVariable("OPA_TEST_COMPILER_CLI_PATH");
+
+        if (!string.IsNullOrWhiteSpace(cliPath))
+            opts.OpaToolPath = cliPath;
+
+        return new RegoCliCompiler(logger, opts);
+    }
+
     public TestingCompiler(ILoggerFactory loggerFactory)
     {
         var compiler = Environment.GetEnvironmentVariable("OPA_TEST_COMPILER");
 
         if (string.Equals(compiler, "cli", StringComparison.OrdinalIgnoreCase))
-            _inner = new RegoCliCompiler(logger: loggerFactory.CreateLogger<RegoCliCompiler>());
-        else
-            _inner = new RegoInteropCompiler(loggerFactory.CreateLogger<RegoInteropCompiler>());
+            _inner = CreateCliCompiler(loggerFactory);
+
+        _inner = new RegoInteropCompiler(loggerFactory.CreateLogger<RegoInteropCompiler>());
     }
 
     public Task<RegoCompilerVersion> Version(CancellationToken cancellationToken = default) => _inner.Version(cancellationToken);

@@ -19,10 +19,7 @@ public class CliCompilerTests : CompilerTests<RegoCliCompiler>
 
     protected override string BaseOutputPath => "cli";
 
-    protected override RegoCliCompiler CreateCompiler(ILoggerFactory? loggerFactory = null)
-    {
-        return new RegoCliCompiler(loggerFactory?.CreateLogger<RegoCliCompiler>(), null);
-    }
+    protected override RegoCliCompiler CreateCompiler(ILoggerFactory? loggerFactory = null) => TestingCompiler.CreateCliCompiler(loggerFactory);
 
     [Fact]
     public async Task OpaCliNotFound()
@@ -67,6 +64,7 @@ public class CliCompilerTests : CompilerTests<RegoCliCompiler>
                 OutputPath = di.FullName,
                 Entrypoints = ["capabilities/f"],
                 CapabilitiesFilePath = Path.Combine("TestData", "capabilities", "capabilities.json"),
+                DisablePrintStatements = true,
             }
             );
 

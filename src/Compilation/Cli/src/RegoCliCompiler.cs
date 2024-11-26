@@ -88,6 +88,7 @@ public class RegoCliCompiler : IRegoCompiler
             Revision = parameters.Revision,
             RegoVersion = parameters.RegoVersion,
             FollowSymlinks = parameters.FollowSymlinks,
+            DisablePrintStatements = parameters.DisablePrintStatements,
         };
 
         try

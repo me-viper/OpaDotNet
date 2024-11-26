@@ -37,6 +37,8 @@ internal class OpaCliBuildArgs
 
     public bool FollowSymlinks { get; init; }
 
+    public bool DisablePrintStatements { get; init; }
+
     public override string ToString()
     {
         var result = new StringBuilder($"-t {Type}");
@@ -62,6 +64,9 @@ internal class OpaCliBuildArgs
 
         if (Debug)
             result.Append(" --debug");
+
+        if (!DisablePrintStatements)
+            result.Append(" --wasm-include-print");
 
         if (RegoVersion == RegoVersion.V1)
             result.Append(" --v1-compatible");

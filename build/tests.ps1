@@ -27,6 +27,7 @@ foreach ($comp in $Compiler)
 
     Write-Host "Using $env:OPA_TEST_COMPILER compiler" -ForegroundColor Green
 
+
     if ($LogToConsole) {
         $Remaining += '--logger'
         $Remaining += '"console;verbosity=detailed"'
