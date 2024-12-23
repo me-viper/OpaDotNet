@@ -39,7 +39,7 @@ jobs:
           path: ./src/Compilation/Interop/lib
 
       - name: Build
-        run: dotnet build -f net8.0 -c Release ./qodana.sln
+        run: dotnet build -c Release ./qodana.sln
 
       - name: 'Qodana Scan'
         uses: JetBrains/qodana-action@v2024.3
