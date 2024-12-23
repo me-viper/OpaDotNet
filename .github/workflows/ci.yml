@@ -50,8 +50,8 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: |
-          7.0.x
           8.0.x
+          9.0.x
 
     - name: get_opa_lib
       uses: actions/download-artifact@v4
@@ -68,8 +68,8 @@ jobs:
         curl -L --fail -o /usr/local/bin/opa https://openpolicyagent.org/downloads/${OPA_CLI_VERSION}/opa_linux_amd64_static
         chmod 755 /usr/local/bin/opa
 
-    - name: Test net7.0
-      run: dotnet test -c Release --no-build -f net7.0
+    - name: Test net9.0
+      run: dotnet test -c Release --no-build -f net9.0
 
     - name: Test net8.0
       shell: pwsh

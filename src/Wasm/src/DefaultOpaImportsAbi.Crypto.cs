@@ -106,7 +106,14 @@ public partial class DefaultOpaImportsAbi
                 ReadOnlySpan<byte> decodedBytes = bytes.AsSpan(0, bw);
 
                 if (!IsRawPem(decodedBytes))
+                {
+#if NET8_0
                     chain.Import(decodedBytes);
+#else
+                    var cert = X509CertificateLoader.LoadCertificate(decodedBytes);
+                    chain.Add(cert);
+#endif
+                }
                 else
                 {
                     decodedChars = ArrayPool<char>.Shared.Rent(decodedBytes.Length);
