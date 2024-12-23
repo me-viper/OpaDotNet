@@ -123,7 +123,7 @@ public partial class DefaultOpaImportsAbi
             foreach (var t in cidrOrIps)
             {
                 if (c.Net.Contains(t.Net))
-                    results.Add(new[] { c.Key, t.Key });
+                    results.Add([c.Key, t.Key]);
             }
         }
 

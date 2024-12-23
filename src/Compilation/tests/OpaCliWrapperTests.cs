@@ -18,7 +18,7 @@ public class OpaCliWrapperTests
     public OpaCliWrapperTests(ITestOutputHelper output)
     {
         _output = output;
-        _loggerFactory = new LoggerFactory(new[] { new XunitLoggerProvider(output) });
+        _loggerFactory = new LoggerFactory([new XunitLoggerProvider(output)]);
     }
 
     [Fact]

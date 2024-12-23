@@ -8,7 +8,7 @@ internal static class TestHelpers
         default allow := false
         """;
 
-    public static readonly string[] SimplePolicyEntrypoints = { "example/allow" };
+    public static readonly string[] SimplePolicyEntrypoints = ["example/allow"];
 
     public static TResult EvaluateValue<TResult>(
         this IOpaEvaluator eval,

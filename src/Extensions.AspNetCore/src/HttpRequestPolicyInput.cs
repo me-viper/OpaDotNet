@@ -21,7 +21,7 @@ internal class HttpRequestPolicyInput : IHttpRequestPolicyInput
 
     public string Host
     {
-        get => _request.Host.Value;
+        get => _request.Host.Value ?? string.Empty;
     }
 
     public string? PathBase

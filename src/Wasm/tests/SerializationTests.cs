@@ -17,14 +17,13 @@ public class SerializationTests : OpaTestBase, IAsyncLifetime
     {
         var policy = await CompileBundle(
             Path.Combine("TestData", "serialization"),
-            new[]
-            {
+            [
                 "serialization/isArray",
                 "serialization/isSet",
                 "serialization/retArray",
                 "serialization/retSet",
                 "serialization/charEncoding",
-            },
+            ],
             Path.Combine("TestData", "serialization", "capabilities.json")
             );
 
@@ -90,7 +89,7 @@ public class SerializationTests : OpaTestBase, IAsyncLifetime
         public override object? Func(BuiltinContext context)
         {
             if (string.Equals(context.FunctionName, "custom.set", StringComparison.Ordinal))
-                return new RegoSet<string>(new[] { "1", "2" });
+                return new RegoSet<string>(["1", "2"]);
 
             if (string.Equals(context.FunctionName, "custom.array", StringComparison.Ordinal))
                 return new[] { "1", "2" };

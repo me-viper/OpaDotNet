@@ -2,7 +2,6 @@
 using System.Text.Encodings.Web;
 using System.Text.Json.Nodes;
 
-using OpaDotNet.InternalTesting;
 using OpaDotNet.Wasm.Builtins;
 using OpaDotNet.Wasm.Tests.Common;
 

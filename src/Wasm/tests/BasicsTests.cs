@@ -29,65 +29,65 @@ public class BasicsTests : OpaTestBase
 
         foreach (var v in versions)
         {
-            yield return new object?[]
-            {
+            yield return
+            [
                 "simple.rego",
                 "example/hello",
                 data,
                 passInput,
                 v,
-                true
-            };
+                true,
+            ];
 
-            yield return new object?[]
-            {
+            yield return
+            [
                 "simple.rego",
                 "example/hello",
                 data,
                 failInput,
                 v,
-                false
-            };
+                false,
+            ];
 
-            yield return new object?[]
-            {
+            yield return
+            [
                 "nodata.rego",
                 "example/hello",
                 null,
                 passInput,
                 v,
-                true
-            };
+                true,
+            ];
 
-            yield return new object?[]
-            {
+            yield return
+            [
                 "nodata.rego",
                 "example/hello",
                 null,
                 failInput,
                 v,
-                false
-            };
+                false,
+            ];
 
-            yield return new object?[]
-            {
+            yield return
+            [
                 "entrypoints.rego",
                 null,
                 data,
                 passInput,
                 v,
-                true
-            };
+                true,
+            ];
 
-            yield return new object?[]
-            {
+            yield return
+            [
                 "entrypoints.rego",
                 null,
                 data,
                 failInput,
                 v,
-                false
-            };
+                false,
+            ];
         }
     }
 
@@ -232,7 +232,7 @@ public class BasicsTests : OpaTestBase
             SerializationOptions = new() { PropertyNameCaseInsensitive = true }
         };
 
-        await using var policy = await CompileFile(Path.Combine(BasePath, "composite.rego"), new[] { "example" });
+        await using var policy = await CompileFile(Path.Combine(BasePath, "composite.rego"), ["example"]);
 
         using var engine = OpaEvaluatorFactory.CreateFromBundle(policy, options: opts);
         var result = engine.Evaluate<object?, CompositeResult>(null, "example");

@@ -44,7 +44,7 @@ public partial class DefaultOpaImportsAbi
         var token = handler.ReadJwtToken(jwt);
 
         var sig = Base64UrlDecode(token.RawSignature);
-        return new object[] { token.Header, token.Payload, Convert.ToHexString(sig).ToLowerInvariant() };
+        return [token.Header, token.Payload, Convert.ToHexString(sig).ToLowerInvariant()];
     }
 
     private object[] JwtDecodeVerify(string jwt, JwtConstraints? constraints)
@@ -52,17 +52,17 @@ public partial class DefaultOpaImportsAbi
         var emptyObj = new object();
 
         if (constraints == null)
-            return new[] { false, emptyObj, emptyObj };
+            return [false, emptyObj, emptyObj];
 
         var tvp = MakeTokenValidationParameters(constraints);
 
         if (tvp == null)
-            return new[] { false, emptyObj, emptyObj };
+            return [false, emptyObj, emptyObj];
 
         if (ValidateToken(jwt, tvp) is not JwtSecurityToken token)
-            return new[] { false, emptyObj, emptyObj };
+            return [false, emptyObj, emptyObj];
 
-        return new object[] { true, token.Header, token.Payload };
+        return [true, token.Header, token.Payload];
     }
 
     private TokenValidationParameters? MakeTokenValidationParameters(JwtConstraints constraints)
@@ -76,7 +76,7 @@ public partial class DefaultOpaImportsAbi
         };
 
         if (!string.IsNullOrWhiteSpace(constraints.Alg))
-            result.ValidAlgorithms = new[] { constraints.Alg };
+            result.ValidAlgorithms = [constraints.Alg];
 
         if (!string.IsNullOrWhiteSpace(constraints.Secret))
             result.IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(constraints.Secret));
@@ -181,7 +181,7 @@ public partial class DefaultOpaImportsAbi
         return ValidateToken(jwt, tvp) != null;
     }
 
-    private static readonly string[] ReservedJwtHeaders = { "alg", "kid", "x5t", "enc", "zip" };
+    private static readonly string[] ReservedJwtHeaders = ["alg", "kid", "x5t", "enc", "zip"];
 
     private static string JwtEncodeSign(JsonNode? headers, JsonNode? payload, JsonNode? key)
     {

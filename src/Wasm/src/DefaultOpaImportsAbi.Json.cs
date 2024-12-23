@@ -31,8 +31,8 @@ public partial class DefaultOpaImportsAbi
 
     private static object?[] JsonVerifySchema(JsonNode? schema, JsonSerializerOptions options, out JsonSchema? result)
     {
-        static object?[] Success() => new object?[] { true, null };
-        static object?[] Fail(string message) => new object?[] { false, message };
+        static object?[] Success() => [true, null];
+        static object?[] Fail(string message) => [false, message];
 
         result = null;
 
@@ -109,8 +109,8 @@ public partial class DefaultOpaImportsAbi
         if (doc == null)
             return null;
 
-        static object?[] Success() => new object?[] { true, Array.Empty<object>() };
-        static object?[] Fail(params JsonSchemaError[] errors) => new object?[] { false, errors };
+        static object?[] Success() => [true, Array.Empty<object>()];
+        static object?[] Fail(params JsonSchemaError[] errors) => [false, errors];
 
         JsonVerifySchema(schema, options, out var sch);
 

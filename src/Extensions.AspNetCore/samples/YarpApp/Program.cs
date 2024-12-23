@@ -85,7 +85,7 @@ internal class NopAuthenticationSchemeHandler : AuthenticationHandler<Authentica
 
 internal record PolicyResult
 {
-    public DenyReason[] Deny { get; set; } = Array.Empty<DenyReason>();
+    public DenyReason[] Deny { get; set; } = [];
 }
 
 internal record DenyReason

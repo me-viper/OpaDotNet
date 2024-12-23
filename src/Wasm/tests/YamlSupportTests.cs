@@ -16,8 +16,7 @@ public class YamlSupportTests : OpaTestBase, IAsyncLifetime
     {
         var policy = await CompileFile(
             Path.Combine(BasePath, "yaml.rego"),
-            new[]
-            {
+            [
                 "yaml/support/canParseYAML",
                 "yaml/support/hasSyntaxError",
                 "yaml/support/hasSemanticError",
@@ -25,7 +24,7 @@ public class YamlSupportTests : OpaTestBase, IAsyncLifetime
                 "yaml/support/hasYAMLWarning",
                 "yaml/support/canMarshalYAML",
                 "yaml/support/isValidYAML",
-            }
+            ]
             );
 
         _engine = OpaEvaluatorFactory.CreateFromBundle(policy, builtinsFactory: new DefaultBuiltinsFactory(() => new TestImportsAbi(Output)));

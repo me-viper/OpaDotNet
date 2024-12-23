@@ -152,7 +152,7 @@ public partial class DefaultOpaImportsAbi
 
         var q = x[queryIndex..];
 
-        var queryParts = new StringTokenizer(q, new[] { '&' });
+        var queryParts = new StringTokenizer(q, ['&']);
 
         foreach (var part in queryParts)
         {
@@ -170,7 +170,7 @@ public partial class DefaultOpaImportsAbi
             }
 
             if (!result.ContainsKey(key))
-                result.Add(key, new());
+                result.Add(key, []);
 
             if (!string.IsNullOrWhiteSpace(value))
                 result[key].Add(value);
@@ -499,7 +499,7 @@ public partial class DefaultOpaImportsAbi
             return null;
 
         if (a == b)
-            return new[] { a };
+            return [a];
 
         var result = new List<int>();
 

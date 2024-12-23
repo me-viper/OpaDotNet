@@ -16,7 +16,7 @@ public class MetadataTests : OpaTestBase, IAsyncLifetime
     {
         var policy = await CompileBundle(
             BasePath,
-            new[] { "example" }
+            ["example"]
             );
 
         var opts = new WasmPolicyEngineOptions
@@ -50,7 +50,7 @@ public class MetadataTests : OpaTestBase, IAsyncLifetime
         }
 
         [UsedImplicitly]
-        public List<DenyReason> Deny { get; set; } = new();
+        public List<DenyReason> Deny { get; set; } = [];
     }
 
     [Fact]

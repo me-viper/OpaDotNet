@@ -16,12 +16,11 @@ public class MultiplyEntrypointsTests : OpaTestBase, IAsyncLifetime
     {
         var policy = await CompileBundle(
             BasePath,
-            new[]
-            {
+            [
                 "example",
                 "example/one",
                 "example/two",
-            }
+            ]
             );
 
         _engine = OpaEvaluatorFactory.CreateFromBundle(policy);

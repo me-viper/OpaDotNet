@@ -16,13 +16,12 @@ public class StringifiedSupportTests : OpaTestBase, IAsyncLifetime
     {
         var policy = await CompileBundle(
             BasePath,
-            new[]
-            {
+            [
                 "stringified/support",
                 "stringified/support/plainInputBoolean",
                 "stringified/support/plainInputNumber",
                 "stringified/support/plainInputString",
-            }
+            ]
             );
 
         _engine = OpaEvaluatorFactory.CreateFromBundle(policy);

@@ -160,7 +160,7 @@ internal class OpaCliWrapper
                 );
         }
 
-        var parts = ver.ToString().Split(new[] { "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+        var parts = ver.ToString().Split(["\n", "\r\n"], StringSplitOptions.RemoveEmptyEntries);
 
         foreach (var part in parts)
         {

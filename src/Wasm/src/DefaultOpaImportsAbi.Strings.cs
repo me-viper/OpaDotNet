@@ -174,7 +174,7 @@ public partial class DefaultOpaImportsAbi
         return search.Any(p => baseStr.Any(p.EndsWith));
     }
 
-    private static readonly IReadOnlySet<char> GlobChars = new HashSet<char>(new[] { '*', '?', '\\', '[', ']', '{', '}' });
+    private static readonly IReadOnlySet<char> GlobChars = new HashSet<char>(['*', '?', '\\', '[', ']', '{', '}']);
 
     private static string GlobQuoteMeta(string pattern)
     {

@@ -43,7 +43,7 @@ public class XunitLoggerProvider : ILoggerProvider
 [ExcludeFromCodeCoverage]
 public class XunitLogger : ILogger
 {
-    private static readonly string[] NewLineChars = { Environment.NewLine };
+    private static readonly string[] NewLineChars = [Environment.NewLine];
     private readonly string _category;
     private readonly LogLevel _minLogLevel;
     private readonly ITestOutputHelper _output;

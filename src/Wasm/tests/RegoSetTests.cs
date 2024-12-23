@@ -8,36 +8,36 @@ public class RegoSetTests
 {
     public static IEnumerable<object[]> RegoValueTestCases()
     {
-        yield return new object[]
-        {
+        yield return
+        [
             """[{"__rego_set":["1","2",[{"__rego_set":[3,4]}]]}]""",
             """{"1","2",{3,4}}""",
-        };
-        yield return new object[]
-        {
+        ];
+        yield return
+        [
             """[{"__rego_set":[]}]""",
             """{}""",
-        };
-        yield return new object[]
-        {
+        ];
+        yield return
+        [
             """[{"__rego_set":[1, {"a":"b"}]}]""",
             """{1, {"a":"b"}}""",
-        };
-        yield return new object[]
-        {
+        ];
+        yield return
+        [
             """[{"__rego_set":[1, [2, 3]]}]""",
             """{1, [2, 3]}""",
-        };
-        yield return new object[]
-        {
+        ];
+        yield return
+        [
             """[{"__rego_set":[1, {"a":[{"__rego_set":["y","z"]}]}]}]""",
             """{1, {"a":{"y","z"}}}""",
-        };
-        yield return new object[]
-        {
+        ];
+        yield return
+        [
             """[1, 2]""",
             """[1, 2]""",
-        };
+        ];
 
         // yield return new object[]
         // {
@@ -65,7 +65,7 @@ public class RegoSetTests
     [Fact]
     public void SerializeSetOfAny()
     {
-        var o = new object[] { "1", "2", new RegoSet<object>(new object[] { 3, 4 }) };
+        var o = new object[] { "1", "2", new RegoSet<object>([3, 4]) };
 
         var opts = new JsonSerializerOptions
         {

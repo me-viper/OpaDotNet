@@ -18,7 +18,7 @@ public class MemoryTests : OpaTestBase, IAsyncLifetime
     {
         var policy = await CompileBundle(
             BasePath,
-            new[] { "test/allow" }
+            ["test/allow"]
             );
 
         _engine = p => OpaEvaluatorFactory.CreateFromBundle(policy, options: p);

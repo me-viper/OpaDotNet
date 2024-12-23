@@ -91,7 +91,7 @@ public class ExtensibilityTests : IAsyncLifetime
         Assert.True(gotExtension);
         Assert.NotNull(ext);
 
-        ext.UpdateDataPath("\"new\"", new[] { "world" });
+        ext.UpdateDataPath("\"new\"", ["world"]);
         var updatedData = engine.DumpData();
         Assert.Equal("{\"world\":\"new\"}", updatedData);
 
@@ -122,7 +122,7 @@ public class ExtensibilityTests : IAsyncLifetime
         Assert.True(gotExtension);
         Assert.NotNull(ext);
 
-        ext.UpdateDataPath("{\"path\":\"world\"}", new[] { "new" });
+        ext.UpdateDataPath("{\"path\":\"world\"}", ["new"]);
         var updatedData = engine.DumpData();
         Assert.Equal("{\"new\":{\"path\":\"world\"},\"world\":\"world\"}", updatedData);
 
@@ -152,7 +152,7 @@ public class ExtensibilityTests : IAsyncLifetime
         Assert.True(gotExtension);
         Assert.NotNull(ext);
 
-        ext.RemoveDataPath(new[] { "new" });
+        ext.RemoveDataPath(["new"]);
         var updatedData = engine.DumpData();
         Assert.Equal("{\"world\":\"world\"}", updatedData);
 
