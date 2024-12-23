@@ -3,7 +3,7 @@ linter: jetbrains/qodana-cdnet
 dotnet:
   solution: ./qodana.sln
   configuration: Release
-  frameworks: net8.0
+  frameworks: net9.0
 exclude:
   - name: All
     patterns:
