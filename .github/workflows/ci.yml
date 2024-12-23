@@ -69,7 +69,9 @@ jobs:
         chmod 755 /usr/local/bin/opa
 
     - name: Test net9.0
-      run: dotnet test -c Release --no-build -f net9.0
+      shell: pwsh
+      run: |
+        ./build/tests.ps1 -Sequential -Compiler Cli -ExtraFilters '' --configuration Release --no-build -f net9.0
 
     - name: Test net8.0
       shell: pwsh
