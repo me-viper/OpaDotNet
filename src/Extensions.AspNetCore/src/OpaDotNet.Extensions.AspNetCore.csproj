@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net8.0</TargetFrameworks>
-    <IsPackable Condition="'$(TargetFramework)' != 'net7.0'">true</IsPackable>
+    <IsPackable Condition="'$(TargetFramework)' == 'net8.0'">true</IsPackable>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
   </PropertyGroup>
 
