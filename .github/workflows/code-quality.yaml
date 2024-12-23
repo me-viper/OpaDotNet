@@ -31,10 +31,14 @@ jobs:
           name: opa-native
           path: ./src/Compilation/Interop/lib
 
+      - name: Build
+        run: dotnet build -f net8.0 -c Release ./qodana.sln
+
       - name: 'Qodana Scan'
         uses: JetBrains/qodana-action@v2024.3
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
         with:
+          args: --no-build
           #args: --solution,./qodana.sln,--linter,jetbrains/qodana-cdnet,--configuration,Release
           cache-default-branch-only: true
