@@ -146,7 +146,7 @@ internal static class Interop
                 PruneUnused = options.PruneUnused ? 1 : 0,
 
                 //TempDir = string.IsNullOrWhiteSpace(options.OutputPath) ? null : Path.GetFullPath(options.OutputPath),
-                RegoVersion = (int)options.RegoVersion,
+                RegoVersion = (int)options.RegoVersion + 1,
                 Revision = options.Revision,
                 FollowSymlinks = options.FollowSymlinks ? 1 : 0,
                 DisablePrintStatements = options.DisablePrintStatements ? 1 : 0,

@@ -33,7 +33,10 @@ public class TestingCompiler : IRegoCompiler
         var compiler = Environment.GetEnvironmentVariable("OPA_TEST_COMPILER");
 
         if (string.Equals(compiler, "cli", StringComparison.OrdinalIgnoreCase))
+        {
             _inner = CreateCliCompiler(loggerFactory);
+            return;
+        }
 
         _inner = new RegoInteropCompiler(loggerFactory.CreateLogger<RegoInteropCompiler>());
     }

@@ -68,8 +68,8 @@ internal class OpaCliBuildArgs
         if (!DisablePrintStatements)
             result.Append(" --wasm-include-print");
 
-        if (RegoVersion == RegoVersion.V1)
-            result.Append(" --v1-compatible");
+        if (RegoVersion != RegoVersion.V1)
+            result.Append(" --v0-compatible");
 
         if (!string.IsNullOrWhiteSpace(Revision))
             result.Append($" --revision \"{Revision}\"");

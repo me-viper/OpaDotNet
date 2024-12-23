@@ -2,7 +2,7 @@
 
 public static class Utils
 {
-    public const string DefaultCapabilities = "v0.64.0";
+    public const string DefaultCapabilities = "v1.0.0";
 
     public const string CompilerTrait = "Compiler";
 
