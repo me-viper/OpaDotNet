@@ -190,4 +190,23 @@ public partial class DefaultOpaImportsAbi
 
         return sb.ToString();
     }
+
+    private static int StringCount(string search, string substring)
+    {
+        var count = 0;
+        var i = 0;
+
+        while (i < search.Length)
+        {
+            var index = search[i..].IndexOf(substring, StringComparison.Ordinal);
+
+            if (index == -1)
+                break;
+
+            count++;
+            i += index + substring.Length;
+        }
+
+        return count;
+    }
 }

@@ -206,6 +206,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
                 "rand.intn" => RandIntN(arg1.As<string>(), arg2.As<int>()),
                 "strings.any_prefix_match" => AnyPrefixMatch(arg1.As<string[]>(), arg2.As<string[]>()),
                 "strings.any_suffix_match" => AnySuffixMatch(arg1.As<string[]>(), arg2.As<string[]>()),
+                "strings.count" => StringCount(arg1.As<string>(), arg2.As<string>()),
                 "time.diff" => Diff(arg1.As<long>(), arg2.As<long>()),
                 "time.parse_ns" => TimeParseNs(arg1.As<string>(), arg2.As<string>()),
                 "crypto.hmac.equal" => HmacEqual(arg1.As<string>(), arg2.As<string>()),

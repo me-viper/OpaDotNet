@@ -95,6 +95,17 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
         Assert.True(result.Assert);
     }
 
+    [Theory]
+    [InlineData("""strings.count("qqqq", "q")""", 4)]
+    [InlineData("""strings.count("cheese", "e")""", 3)]
+    [InlineData("""strings.count("hello hello hello world", "hello")""", 3)]
+    [InlineData("""strings.count("dummy", "x")""", 0)]
+    public async Task StringsCount(string func, int expected)
+    {
+        var result = await RunTestCase(func, expected.ToString());
+        Assert.True(result.Assert);
+    }
+
     private class TimeImports(ITestOutputHelper output) : TestImportsAbi(output)
     {
         protected override DateTimeOffset Now()
@@ -216,7 +227,6 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
     [InlineData("\"hi\", 1", "\"hi\", 1")]
     [InlineData("""{"a": 1, "b": "aaa"}""", """{"b":"aaa","a":1}""")]
     [InlineData("""[1,2,3]""", """[1,2,3]""")]
-    //[Trait(Utils.CompilerTrait, Utils.InteropCompilerTrait)]
     public async Task Print(string args, string expected)
     {
         var src = $$"""
