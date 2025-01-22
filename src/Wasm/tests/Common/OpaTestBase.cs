@@ -17,7 +17,7 @@ public class OpaTestBase
         LoggerFactory = new LoggerFactory([new XunitLoggerProvider(output)]);
     }
 
-    private IRegoCompiler MakeCompiler()
+    protected IRegoCompiler MakeCompiler()
     {
         return new TestingCompiler(LoggerFactory);
     }
@@ -83,5 +83,17 @@ public class OpaTestBase
         };
 
         return await MakeCompiler().CompileSourceAsync(path, cp);
+    }
+
+    protected async Task<Stream> CompileBundle(Stream bundle, string[]? entrypoints = null)
+    {
+        var cp = Options ?? new CompilationParameters();
+
+        cp = cp with
+        {
+            Entrypoints = entrypoints,
+        };
+
+        return await MakeCompiler().CompileBundleAsync(bundle, cp);
     }
 }

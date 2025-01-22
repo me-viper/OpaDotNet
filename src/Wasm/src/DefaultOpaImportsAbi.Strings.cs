@@ -2,6 +2,7 @@
 using System.Text;
 using System.Text.Json.Nodes;
 
+using OpaDotNet.Wasm.Internal;
 using OpaDotNet.Wasm.Rego;
 
 namespace OpaDotNet.Wasm;
@@ -164,9 +165,45 @@ public partial class DefaultOpaImportsAbi
         return result.ToString();
     }
 
+    private static bool? AnyPrefixMatch(JsonNode? search, JsonNode? baseStr)
+    {
+        try
+        {
+            if (!search.TryGetArray<string>(out var sa))
+                return null;
+
+            if (!baseStr.TryGetArray<string>(out var ba))
+                return null;
+
+            return AnyPrefixMatch(sa, ba);
+        }
+        catch (InvalidOperationException ex)
+        {
+            throw new OpaBuiltinException("eval_type_error", ex.Message, ex) { Name = "any_prefix_match" };
+        }
+    }
+
     private static bool AnyPrefixMatch(IEnumerable<string> search, IEnumerable<string> baseStr)
     {
         return search.Any(p => baseStr.Any(p.StartsWith));
+    }
+
+    private static bool? AnySuffixMatch(JsonNode? search, JsonNode? baseStr)
+    {
+        try
+        {
+            if (!search.TryGetArray<string>(out var sa))
+                return null;
+
+            if (!baseStr.TryGetArray<string>(out var ba))
+                return null;
+
+            return AnySuffixMatch(sa, ba);
+        }
+        catch (InvalidOperationException ex)
+        {
+            throw new OpaBuiltinException("eval_type_error", ex.Message, ex) { Name = "any_suffix_match" };
+        }
     }
 
     private static bool AnySuffixMatch(IEnumerable<string> search, IEnumerable<string> baseStr)

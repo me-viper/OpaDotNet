@@ -57,7 +57,7 @@ public class MemoryTests : OpaTestBase, IAsyncLifetime
         using var engine = _engine(new() { MinMemoryPages = 3, MaxMemoryPages = 4 });
         var input = new string('a', 2 * 65536);
 
-        Assert.Throws<OpaEvaluationException>(() => engine.EvaluatePredicate(input));
+        Assert.Throws<OpaEvaluationAbortedException>(() => engine.EvaluatePredicate(input));
         return Task.CompletedTask;
     }
 

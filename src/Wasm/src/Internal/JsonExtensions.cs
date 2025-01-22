@@ -2,6 +2,8 @@
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 
+using Json.More;
+
 namespace OpaDotNet.Wasm.Internal;
 
 internal static class JsonExtensions
@@ -25,10 +27,27 @@ internal static class JsonExtensions
     //     return JsonSerializer.Serialize(node, options);
     // }
 
+    public static bool TryGetArray<T>(this JsonNode? node, [MaybeNullWhen(false)] out IReadOnlyList<T> result)
+    {
+        result = null;
+
+        if (node == null)
+            return false;
+
+        result = node switch
+        {
+            JsonArray array => new List<T>(array.GetValues<T>()),
+            JsonValue value => [value.GetValue<T>()],
+            _ => null,
+        };
+
+        return result != null;
+    }
+
     public static void ToAlphabeticJsonBytes(
         this JsonNode? node,
         Stream stream,
-        JsonSerializerOptions? options = default)
+        JsonSerializerOptions? options = null)
     {
         if (options == null)
             options = DefaultOptions;
@@ -40,6 +59,78 @@ internal static class JsonExtensions
 
         JsonSerializer.Serialize(stream, node, options);
     }
+
+    public static bool IsEquivalentTo(this JsonNode? a, JsonNode? b, bool strictArrayOrder)
+    {
+        if (a == null && b == null)
+            return true;
+
+        if (strictArrayOrder)
+            return a?.IsEquivalentTo(b) ?? false;
+
+        switch (a, b)
+        {
+            case (null, null):
+                return true;
+
+            case (JsonObject objA, JsonObject objB):
+                if (objA.Count != objB.Count)
+                    return false;
+
+                var grouped = objA.Concat(objB)
+                    .GroupBy(p => p.Key)
+                    .Select(g => g.ToList())
+                    .ToList();
+
+                return grouped.All(g => g.Count == 2 && g[0].Value.IsEquivalentTo(g[1].Value, strictArrayOrder));
+
+            case (JsonArray arrayA, JsonArray arrayB):
+                if (arrayA.Count != arrayB.Count)
+                    return false;
+
+                var hsa = new HashSet<JsonNode?>(arrayA, LaxJsonNodeEqualityComparer.Instance);
+                return hsa.SetEquals(arrayB);
+
+            case (JsonValue aValue, JsonValue bValue):
+                var aNumber = aValue.GetNumber();
+                var bNumber = bValue.GetNumber();
+
+                if (aNumber != null)
+                    return aNumber == bNumber;
+
+                var aString = aValue.GetString();
+                var bString = bValue.GetString();
+
+                if (aString != null)
+                    return aString == bString;
+
+                var aBool = aValue.GetBool();
+                var bBool = bValue.GetBool();
+
+                if (aBool.HasValue)
+                    return aBool == bBool;
+
+                var aObj = aValue.GetValue<object>();
+                var bObj = bValue.GetValue<object>();
+
+                if (aObj is JsonElement aElement && bObj is JsonElement bElement)
+                    return aElement.IsEquivalentTo(bElement);
+
+                return aObj.Equals(bObj);
+
+            default:
+                return false;
+        }
+    }
+}
+
+internal class LaxJsonNodeEqualityComparer : IEqualityComparer<JsonNode?>
+{
+    public static LaxJsonNodeEqualityComparer Instance { get; } = new();
+
+    public bool Equals(JsonNode? x, JsonNode? y) => x.IsEquivalentTo(y, false);
+
+    public int GetHashCode(JsonNode obj) => obj.GetEquivalenceHashCode();
 }
 
 internal class AlphabeticJsonNodeConverter : JsonConverter<JsonNode>

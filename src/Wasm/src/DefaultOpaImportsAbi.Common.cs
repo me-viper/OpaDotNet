@@ -294,10 +294,10 @@ public partial class DefaultOpaImportsAbi
     private static int? SemverCompare(string a, string b)
     {
         if (!SemVersion.TryParse(a, SemVersionStyles.Strict, out var va))
-            return null;
+            throw new OpaBuiltinException("eval_builtin_error", $"string \"{a}\" is not a valid SemVer");
 
         if (!SemVersion.TryParse(b, SemVersionStyles.Strict, out var vb))
-            return null;
+            throw new OpaBuiltinException("eval_builtin_error", $"string \"{b}\" is not a valid SemVer");
 
         return va.ComparePrecedenceTo(vb);
     }
@@ -496,7 +496,7 @@ public partial class DefaultOpaImportsAbi
     private static int[]? NumbersRangeStep(int a, int b, int step)
     {
         if (step < 1)
-            return null;
+            throw new OpaBuiltinException("eval_builtin_error", "numbers.range_step: step must be a positive number above zero");
 
         if (a == b)
             return [a];

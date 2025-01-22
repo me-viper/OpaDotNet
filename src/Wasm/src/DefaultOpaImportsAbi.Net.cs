@@ -108,9 +108,9 @@ public partial class DefaultOpaImportsAbi
 
             return CidrContainsMatches(x, y);
         }
-        catch (FormatException)
+        catch (FormatException ex)
         {
-            return null;
+            throw new OpaBuiltinException("eval_builtin_error", ex.Message) { Name = "net.cidr_contains_matches" };
         }
     }
 

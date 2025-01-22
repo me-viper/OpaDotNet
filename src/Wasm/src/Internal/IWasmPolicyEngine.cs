@@ -18,6 +18,8 @@ internal interface IWasmPolicyEngine : IDisposable
 
     string ReadJsonString(nint ptr);
 
+    string ReadString(nint ptr);
+
     T ReadJson<T>(nint ptr);
 
     void SetData(ReadOnlySpan<char> dataJson);

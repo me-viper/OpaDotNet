@@ -214,6 +214,8 @@ internal abstract class WasmPolicyEngine<TAbi> : IWasmPolicyEngine
         return Memory.ReadNullTerminatedString(jsonAdr);
     }
 
+    public string ReadString(nint ptr) => Memory.ReadNullTerminatedString(ptr);
+
     public virtual T ReadJson<T>(nint ptr)
     {
         var jsonAdr = Abi.JsonDump(ptr);

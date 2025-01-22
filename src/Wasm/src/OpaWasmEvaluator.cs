@@ -117,7 +117,7 @@ internal sealed class OpaWasmEvaluator : IOpaEvaluator
         _linker.Define(
             "env",
             "opa_abort",
-            Function.FromCallback(_store, (int ptr) => imports.Abort(ReadJson<string>(ptr)))
+            Function.FromCallback(_store, (int ptr) => imports.Abort(_abi.ReadString(ptr)))
             );
 
         _linker.Define(
@@ -312,6 +312,10 @@ internal sealed class OpaWasmEvaluator : IOpaEvaluator
         }
         catch (OpaEvaluationAbortedException)
         {
+            throw;
+        }
+        catch (OpaEvaluationException)
+        {
             return """[{"result":[]}]""";
         }
     }
@@ -325,6 +329,10 @@ internal sealed class OpaWasmEvaluator : IOpaEvaluator
             return _memory.ReadNullTerminatedJson<TOutput>(jsonAdr, JsonOptions);
         }
         catch (OpaEvaluationAbortedException)
+        {
+            throw;
+        }
+        catch (OpaEvaluationException)
         {
             return default;
         }
@@ -340,6 +348,9 @@ internal sealed class OpaWasmEvaluator : IOpaEvaluator
         {
             if (ex.InnerException is OpaEvaluationAbortedException)
                 throw ex.InnerException;
+
+            if (ex.InnerException is OpaBuiltinException)
+                throw new OpaEvaluationException("Evaluation failed", ex.InnerException);
 
             throw new OpaEvaluationException("Evaluation failed", ex);
         }

@@ -1,0 +1,29 @@
+﻿# Regex with test case name
+# SDK
+- aggregates/
+- arithmetic/
+- array/
+- bits(\w+)/
+- casts/to_number
+# Not implemented
+- graphql_
+- providers-aws-sign_req/
+- rendertemplate/
+- regoparsemodule/
+# WASM specific
+- dataref/
+- data/nested integer
+- data/toplevel integer
+- helloworld/another_test_for_builtin_error
+# Rego sets
+#- 'baseandvirtualdocs/base/virtual: set'
+#- containskeyword/ordinary deny rule
+#- defaultkeyword/set comprehension
+#- refheads/general, set leaf (other rule defines dynamic ref portion)
+#- refheads/general, set leaf (shallow ref)
+#- refheads/general, set leaf
+#- regression/virtual-cache key scope
+#- withkeyword/with virtual doc exact value
+#- withkeyword/invalidate comprehension cache
+# ???
+- virtualdocs/undefined
