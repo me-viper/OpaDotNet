@@ -23,7 +23,7 @@ public class OpaPolicyHandler<TResource> : AuthorizationHandler<OpaPolicyRequire
         OpaPolicyRequirement requirement,
         TResource resource)
     {
-        using var scope = Logger.BeginScope(new Dictionary<string, object> { { "Entrypoint", requirement.Entrypoint } });
+        using var scope = Logger.BeginScope("Entrypoint {Entrypoint}", requirement.Entrypoint);
 
         try
         {
