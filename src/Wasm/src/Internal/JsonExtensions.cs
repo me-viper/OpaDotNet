@@ -62,8 +62,8 @@ internal static class JsonExtensions
 
     public static bool IsEquivalentTo(this JsonNode? a, JsonNode? b, bool strictArrayOrder)
     {
-        if (a == null && b == null)
-            return true;
+        // if (a == null && b == null)
+        //     return true;
 
         if (strictArrayOrder)
             return a?.IsEquivalentTo(b) ?? false;
@@ -82,14 +82,36 @@ internal static class JsonExtensions
                     .Select(g => g.ToList())
                     .ToList();
 
-                return grouped.All(g => g.Count == 2 && g[0].Value.IsEquivalentTo(g[1].Value, strictArrayOrder));
+                return grouped.All(p => p.Count == 2 && p[0].Value.IsEquivalentTo(p[1].Value, strictArrayOrder));
 
             case (JsonArray arrayA, JsonArray arrayB):
                 if (arrayA.Count != arrayB.Count)
                     return false;
 
-                var hsa = new HashSet<JsonNode?>(arrayA, LaxJsonNodeEqualityComparer.Instance);
-                return hsa.SetEquals(arrayB);
+                var matches = new bool[arrayB.Count];
+
+                foreach (var el in arrayA)
+                {
+                    var match = false;
+
+                    for (var j = 0; j < arrayB.Count; j++)
+                    {
+                        if (matches[j])
+                            continue;
+
+                        if (el.IsEquivalentTo(arrayB[j], strictArrayOrder))
+                        {
+                            matches[j] = true;
+                            match = true;
+                            break;
+                        }
+                    }
+
+                    if (!match)
+                        return false;
+                }
+
+                return true;
 
             case (JsonValue aValue, JsonValue bValue):
                 var aNumber = aValue.GetNumber();

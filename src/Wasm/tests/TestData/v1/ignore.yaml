@@ -5,6 +5,8 @@
 - array/
 - bits(\w+)/
 - casts/to_number
+- strings/reverse_
+- strings/substring
 # Not implemented
 - graphql_
 - providers-aws-sign_req/

@@ -8,6 +8,7 @@ using Json.More;
 using OpaDotNet.Compilation.Abstractions;
 using OpaDotNet.InternalTesting;
 using OpaDotNet.Wasm.Builtins;
+using OpaDotNet.Wasm.GoCompat;
 using OpaDotNet.Wasm.Internal;
 using OpaDotNet.Wasm.Rego;
 using OpaDotNet.Wasm.Tests.Common;
@@ -37,6 +38,8 @@ public class SdkV1TestCase
     public JsonNode? Data { get; set; }
 
     public JsonNode? Input { get; set; }
+
+    public JsonValue? InputTerm { get; set; }
 
     public bool SortBindings { get; set; }
 
@@ -117,8 +120,62 @@ public class SdkV1Tests : SdkTestBase
     //[InlineData("globsmatch\\test-globsmatch-0866.yaml")]
     //[InlineData("disjunction\\test-disjunction-0775.yaml")]
     //[InlineData("containskeyword\\test-contains-future-keyword.yaml")]
-    [InlineData("defaultkeyword\\test-defaultkeyword-0809.yaml")]
+    //[InlineData("eqexpr\\test-eqexpr-0599.yaml")]
+    //         Do(testCase: strings\test-strings-0920.yaml => strings/sprintf: float)
+
+    [InlineData("strings\\test-strings-0920.yaml")]
     public async Task DoCase(string fileName)
+    {
+        foreach (var tc in SdkV1TestData.ParseFile(Path.Combine(SdkV1TestData.BasePath, fileName), []))
+        {
+            await XDoRunTestCase(tc);
+        }
+    }
+
+    [Theory]
+    [InlineData("1677-09-21T00:12:43.145224192-00:00", -9223372036854775808)]
+    [InlineData("2262-04-11T23:47:16.854775807-00:00", 9223372036854775807)]
+    public void ParseNsLong(string s, long e)
+    {
+        var result = DateTimeExtensions.ParseRfc3339Ns(s);
+        Assert.Equal(e, result);
+    }
+
+    //         Do(testCase: time\test-time-0948.yaml => time/parse_nanos_too_large)
+    //         Do(testCase: time\test-time-0948.yaml => time/parse_nanos_too_small)
+    [Theory]
+    [InlineData("1677-09-21T00:12:43.145224191-00:00")]
+    // [InlineData("1677-09-21T00:12:43.145224191-00:00")]
+    // [InlineData("2262-04-11T23:47:16.854775807-00:00")]
+    public void ParseNs(string s)
+    {
+        Assert.Throws<OpaBuiltinException>(() => DateTimeExtensions.ParseRfc3339Ns(s));
+        // TimeParseNs
+        // var result = DateTimeExtensions.Par(s);
+        // Assert.Equal(e, result);
+    }
+
+    [Fact]
+    public void Compare()
+    {
+        var a = """{"x":[[{"b":["a"]}],[{"b":["a","c"]}]]}""";
+        var b = """{"x":[[{"b":["c","a"]}],[{"b":["a"]}]]}""";
+
+        var ja = JsonNode.Parse(a);
+        var jb = JsonNode.Parse(b);
+
+        Assert.True(ja.IsEquivalentTo(jb, false));
+    }
+
+    [Theory]
+    //[InlineData("cryptohmacsha1\\test-cryptohmacsha1.yaml")]
+    //[InlineData("cryptohmacequal\\test-cryptohmacequal.yaml")]
+    //[InlineData("semvercompare\\test-semvercompare-0347.yaml")]
+    //[InlineData("globsmatch\\test-globsmatch-0866.yaml")]
+    //[InlineData("disjunction\\test-disjunction-0775.yaml")]
+    //[InlineData("containskeyword\\test-contains-future-keyword.yaml")]
+    [InlineData("withkeyword\\test-withkeyword-1040.yaml")]
+    public async Task DoCase2(string fileName)
     {
         foreach (var tc in SdkV1TestData.ParseFile(Path.Combine(SdkV1TestData.BasePath, fileName), []))
         {
@@ -205,8 +262,14 @@ public class SdkV1Tests : SdkTestBase
 
                 var innerEx = (OpaBuiltinException)ex.InnerException;
 
+                Assert.NotNull(innerEx.Name);
+
                 if (!string.IsNullOrWhiteSpace(testCase.WantErrorCode))
                     Assert.Equal(testCase.WantErrorCode, innerEx.ErrorCode);
+
+                Output.WriteLine("------- Exception as expected -------");
+                Output.WriteLine(innerEx.ToString());
+                Output.WriteLine("");
 
                 return;
             }

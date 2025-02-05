@@ -62,7 +62,7 @@ public partial class DefaultOpaImportsAbi
         if (duration[^2..] == "ms")
         {
             time = double.Parse(duration[..^2], CultureInfo.InvariantCulture);
-            return (long)TimeSpan.FromSeconds(time).TotalNanoseconds;
+            return (long)TimeSpan.FromMilliseconds(time).TotalNanoseconds;
         }
 
         if (duration[^2..] == "us" || duration[^2..] == "µs")
@@ -98,11 +98,7 @@ public partial class DefaultOpaImportsAbi
         return null;
     }
 
-    private static long? ParseRfc3339Ns(string s)
-    {
-        var result = DateTimeExtensions.ParseRfc3339(s);
-        return result?.ToSafeEpochNs();
-    }
+    private static long? ParseRfc3339Ns(string s) => DateTimeExtensions.ParseRfc3339Ns(s);
 
     private static readonly IReadOnlyDictionary<string, string> TimeFormats = new Dictionary<string, string>
     {

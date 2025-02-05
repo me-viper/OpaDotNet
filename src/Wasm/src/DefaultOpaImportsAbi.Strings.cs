@@ -11,7 +11,11 @@ public partial class DefaultOpaImportsAbi
 {
     private static int[] IndexOfN(string haystack, string needle)
     {
+        if (haystack.Any(char.IsSurrogate))
+            return IndexOfNSurogate(haystack, needle);
+
         var result = new List<int>();
+
         var index = haystack.IndexOf(needle, StringComparison.Ordinal);
 
         while (index > -1)
@@ -21,6 +25,38 @@ public partial class DefaultOpaImportsAbi
         }
 
         return result.ToArray();
+    }
+
+    private static int[] IndexOfNSurogate(string haystack, string needle)
+    {
+        var result = new List<int>();
+
+        var n = UChars(needle).ToArray();
+        var h = UChars(haystack).ToArray();
+
+        for (var i = 0; i <= h.Length - n.Length; i++)
+        {
+            int k;
+
+            for (k = 0; k < n.Length; k++)
+            {
+                if (!string.Equals(n[k], h[i + k], StringComparison.OrdinalIgnoreCase))
+                    break;
+            }
+
+            if (k == n.Length)
+                result.Add(i);
+        }
+
+        return result.ToArray();
+
+        static IEnumerable<string> UChars(string s)
+        {
+            var e = StringInfo.GetTextElementEnumerator(s);
+
+            while (e.MoveNext())
+                yield return e.GetTextElement();
+        }
     }
 
     private static object? FormatString(JsonNode? node, JsonSerializerOptions options)
@@ -76,6 +112,7 @@ public partial class DefaultOpaImportsAbi
             { 'F', (p, _) => (p?.GetValue<decimal>(), 'F') },
             { 'g', (p, _) => (p?.GetValue<decimal>(), 'g') },
             { 'G', (p, _) => (p?.GetValue<decimal>(), 'G') },
+            { 'v', (p, o) => (FormatString(p, o), 's') },
         };
 
     private static string? Sprintf(string format, JsonNode? values, JsonSerializerOptions options)
@@ -113,9 +150,13 @@ public partial class DefaultOpaImportsAbi
 
             widthChars.Clear();
             var widthIndex = -1;
+            var padZeros = 1;
 
             while (char.IsDigit(format[i]))
             {
+                if (format[i] == '0')
+                    padZeros++;
+
                 widthChars[++widthIndex] = format[i];
                 i++;
             }
@@ -145,7 +186,7 @@ public partial class DefaultOpaImportsAbi
                 precision = int.Parse(precisionChars[.. (precisionIndex + 1)]);
 
             if (!_formats.TryGetValue(format[i], out var val))
-                throw new FormatException($"Unknown format {format[i]}");
+                throw new OpaBuiltinException($"Unknown format {format[i]}");
 
             var (value, fmt) = val(ja[valueIndex], options);
 
@@ -155,7 +196,12 @@ public partial class DefaultOpaImportsAbi
                 precision = 6;
             }
 
-            var f = precision < 0 ? $"{{{0},{width}:{fmt}}}" : $"{{{0},{width}:{fmt}{precision}}}";
+            var formatStr = $"{fmt}";
+
+            if (precision <= 0)
+                formatStr += padZeros;
+
+            var f = precision < 0 ? $"{{{0},{width}:{formatStr}}}" : $"{{{0},{width}:{formatStr}{precision}}}";
             result.AppendFormat(CultureInfo.InvariantCulture, f, value);
 
             valueIndex++;

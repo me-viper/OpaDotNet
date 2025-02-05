@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Buffers.Text;
+using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
 using System.Text;
@@ -20,6 +21,8 @@ using Yaml2JsonNode;
 using YamlDotNet.Core;
 using YamlDotNet.RepresentationModel;
 using YamlDotNet.Serialization;
+
+using FormatException = System.FormatException;
 
 namespace OpaDotNet.Wasm;
 
@@ -117,11 +120,15 @@ public partial class DefaultOpaImportsAbi
 
     private static byte[] Base64UrlDecode(string x)
     {
+#if NET9_0_OR_GREATER
+        return Base64Url.DecodeFromChars(x);
+#else
         var s = x.PadRight(x.Length + (4 - x.Length % 4) % 4, '=')
             .Replace('-', '+')
             .Replace('_', '/');
 
         return Convert.FromBase64String(s);
+#endif
     }
 
     private static string HexEncode(string x)
@@ -131,8 +138,15 @@ public partial class DefaultOpaImportsAbi
 
     private static string HexDecode(string x)
     {
-        var bytes = Convert.FromHexString(x);
-        return Encoding.UTF8.GetString(bytes);
+        try
+        {
+            var bytes = Convert.FromHexString(x);
+            return Encoding.UTF8.GetString(bytes);
+        }
+        catch (FormatException ex)
+        {
+            throw new OpaBuiltinException(ex.Message);
+        }
     }
 
     private static string UrlQueryDecode(string x)
@@ -140,12 +154,12 @@ public partial class DefaultOpaImportsAbi
         return HttpUtility.UrlDecode(x);
     }
 
-    private static Dictionary<string, List<string>>? UrlQueryDecodeObject(string x)
+    private static Dictionary<string, List<string>> UrlQueryDecodeObject(string x)
     {
-        if (string.IsNullOrWhiteSpace(x))
-            return null;
-
         var result = new Dictionary<string, List<string>>();
+
+        if (string.IsNullOrWhiteSpace(x))
+            return result;
 
         var queryIndex = x.IndexOf('?');
         queryIndex = queryIndex == -1 ? 0 : queryIndex;
@@ -159,10 +173,13 @@ public partial class DefaultOpaImportsAbi
             var eqIndex = part.IndexOf('=');
 
             string key;
-            string? value = null;
+            string value;
 
             if (eqIndex == -1)
+            {
                 key = part.ToString();
+                value = string.Empty;
+            }
             else
             {
                 key = part.Substring(0, eqIndex);
@@ -172,8 +189,7 @@ public partial class DefaultOpaImportsAbi
             if (!result.ContainsKey(key))
                 result.Add(key, []);
 
-            if (!string.IsNullOrWhiteSpace(value))
-                result[key].Add(value);
+            result[key].Add(value);
         }
 
         return result;
@@ -181,7 +197,36 @@ public partial class DefaultOpaImportsAbi
 
     private static string UrlQueryEncode(string x)
     {
-        return HttpUtility.UrlEncode(x);
+        Span<char> s;
+        var written = 0;
+
+#if NET9_0_OR_GREATER
+        var b = Encoding.UTF8.GetBytes(x);
+        s = new char[x.Length * 3];
+        Base64Url.TryEncodeToChars(b, s, out written);
+#else
+        s = HttpUtility.UrlEncode(x).ToCharArray();
+        written = s.Length;
+#endif
+
+        for (var i = 0; i < written; i++)
+        {
+            if (s[i] != '%')
+                continue;
+
+            if (i + 3 >= s.Length)
+                continue;
+
+            i++;
+
+            for (var j = 1; j < 3; j++)
+            {
+                s[i] = char.ToUpperInvariant(s[i]);
+                i++;
+            }
+        }
+
+        return s.ToString();
     }
 
     private static string? UrlQueryEncodeObject(JsonNode? obj)
@@ -195,12 +240,12 @@ public partial class DefaultOpaImportsAbi
         {
             if (v is JsonArray ja)
             {
-                var values = ja.Select(p => $"{k}={HttpUtility.UrlEncode(p!.GetValue<string>())}");
+                var values = ja.Select(p => $"{k}={UrlQueryEncode(p!.GetValue<string>())}");
                 result.Add(string.Join('&', values));
                 continue;
             }
 
-            result.Add($"{k}={HttpUtility.UrlEncode(v!.GetValue<string>())}");
+            result.Add($"{k}={UrlQueryEncode(v!.GetValue<string>())}");
         }
 
         return string.Join('&', result);
@@ -386,7 +431,7 @@ public partial class DefaultOpaImportsAbi
     private static decimal? UnitsParse(string x)
     {
         if (string.IsNullOrWhiteSpace(x))
-            return null;
+            throw new OpaBuiltinException("no amount provided");
 
         const decimal milli = 0.001m;
 
@@ -395,13 +440,19 @@ public partial class DefaultOpaImportsAbi
 
         x = x.Replace("\"", "");
 
+        if (x[0] == ' ')
+            throw new OpaBuiltinException("spaces not allowed in resource strings");
+
         for (var i = x.Length - 1; i >= 0; i--)
         {
             if (char.IsLetter(x[i]))
                 continue;
 
+            if (x[i] == ' ')
+                throw new OpaBuiltinException("spaces not allowed in resource strings");
+
             if (!double.TryParse(x[.. (i + 1)], CultureInfo.InvariantCulture, out num))
-                return null;
+                throw new OpaBuiltinException("could not parse amount to a number");
 
             if (i + 1 < x.Length)
             {
@@ -413,7 +464,7 @@ public partial class DefaultOpaImportsAbi
         }
 
         if (double.IsNaN(num))
-            return null;
+            throw new OpaBuiltinException("no amount provided");
 
         decimal? n = unit switch
         {
@@ -431,11 +482,8 @@ public partial class DefaultOpaImportsAbi
             "pi" or "Pi" => Pi,
             "e" or "E" => Eb,
             "ei" or "Ei" => Ei,
-            _ => null,
+            _ => throw new OpaBuiltinException("no amount provided"),
         };
-
-        if (n == null)
-            return null;
 
         return n.Value * (decimal)num;
     }
@@ -443,20 +491,26 @@ public partial class DefaultOpaImportsAbi
     private static ulong? UnitsParseBytes(string x)
     {
         if (string.IsNullOrWhiteSpace(x))
-            return null;
+            throw new OpaBuiltinException("no byte amount provided");
 
         var num = double.NaN;
         var unit = string.Empty;
 
         x = x.Replace("\"", "");
 
+        if (x[0] == ' ')
+            throw new OpaBuiltinException("spaces not allowed in resource strings");
+
         for (var i = x.Length - 1; i >= 0; i--)
         {
             if (char.IsLetter(x[i]))
                 continue;
 
+            if (x[i] == ' ')
+                throw new OpaBuiltinException("spaces not allowed in resource strings");
+
             if (!double.TryParse(x[.. (i + 1)], CultureInfo.InvariantCulture, out num))
-                return null;
+                throw new OpaBuiltinException("could not parse byte amount to a number");
 
             if (i + 1 < x.Length)
                 unit = x[(i + 1) ..].ToLowerInvariant();
@@ -465,7 +519,7 @@ public partial class DefaultOpaImportsAbi
         }
 
         if (double.IsNaN(num))
-            return null;
+            throw new OpaBuiltinException("no byte amount provided");
 
         ulong? n = unit switch
         {
@@ -482,11 +536,8 @@ public partial class DefaultOpaImportsAbi
             "pib" or "pi" => Pi,
             "eb" or "e" => Eb,
             "eib" or "ei" => Ei,
-            _ => null,
+            _ => throw new OpaBuiltinException("no byte amount provided"),
         };
-
-        if (n == null)
-            return null;
 
         var result = n.Value * (decimal)num;
 

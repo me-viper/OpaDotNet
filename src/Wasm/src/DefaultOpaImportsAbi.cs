@@ -130,7 +130,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
         }
         catch (Exception ex)
         {
-            if (OnError(context, ex))
+            if (Rethrow(context, ex))
                 throw;
 
             return null;
@@ -187,7 +187,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
         }
         catch (Exception ex)
         {
-            if (OnError(context, ex))
+            if (Rethrow(context, ex))
                 throw;
 
             return null;
@@ -240,7 +240,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
         }
         catch (Exception ex)
         {
-            if (OnError(context, ex))
+            if (Rethrow(context, ex))
                 throw;
 
             return null;
@@ -264,7 +264,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
         }
         catch (Exception ex)
         {
-            if (OnError(context, ex))
+            if (Rethrow(context, ex))
                 throw;
 
             return null;
@@ -285,10 +285,18 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
         }
         catch (Exception ex)
         {
-            if (OnError(context, ex))
+            if (Rethrow(context, ex))
                 throw;
 
             return null;
         }
+    }
+
+    private bool Rethrow(BuiltinContext context, Exception ex)
+    {
+        if (ex is OpaBuiltinException obe)
+            obe.Name ??= context.FunctionName;
+
+        return OnError(context, ex);
     }
 }

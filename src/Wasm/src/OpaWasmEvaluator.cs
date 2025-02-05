@@ -314,10 +314,10 @@ internal sealed class OpaWasmEvaluator : IOpaEvaluator
         {
             throw;
         }
-        catch (OpaEvaluationException)
-        {
-            return """[{"result":[]}]""";
-        }
+        // catch (OpaEvaluationException)
+        // {
+        //     return """[{"result":[]}]""";
+        // }
     }
 
     private TOutput? EvalInternal<TInput, TOutput>(TInput input, string? entrypoint = null)
@@ -332,10 +332,10 @@ internal sealed class OpaWasmEvaluator : IOpaEvaluator
         {
             throw;
         }
-        catch (OpaEvaluationException)
-        {
-            return default;
-        }
+        // catch (OpaEvaluationException)
+        // {
+        //     return default;
+        // }
     }
 
     private nint EvalInternal(ReadOnlySpan<char> inputJson, string? entrypoint = null)
@@ -350,7 +350,7 @@ internal sealed class OpaWasmEvaluator : IOpaEvaluator
                 throw ex.InnerException;
 
             if (ex.InnerException is OpaBuiltinException)
-                throw new OpaEvaluationException("Evaluation failed", ex.InnerException);
+                throw new OpaEvaluationException("Builtin failed", ex.InnerException);
 
             throw new OpaEvaluationException("Evaluation failed", ex);
         }

@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 
 using OpaDotNet.Wasm.Internal;
 
@@ -19,15 +20,20 @@ internal static class DateTimeExtensions
 
     public static long ToEpochNs(this DateTimeOffset d) => (d - DateTimeOffset.UnixEpoch).Ticks * TimeSpan.NanosecondsPerTick;
 
-    private static readonly DateTimeOffset MinSafeUnixDate = DateTimeOffset.UnixEpoch.AddNs(long.MinValue);
-    private static readonly DateTimeOffset MaxSafeUnixDate = DateTimeOffset.UnixEpoch.AddNs(long.MaxValue);
+    private static Int128 ToEpochNs128(this DateTimeOffset d) =>
+        ((Int128)d.Ticks - DateTimeOffset.UnixEpoch.Ticks) * TimeSpan.NanosecondsPerTick;
 
-    public static long ToSafeEpochNs(this DateTimeOffset d)
+    private static readonly Int128 MinSafeUnixDateNs = DateTimeOffset.UnixEpoch.ToEpochNs128() + long.MinValue;
+    private static readonly Int128 MaxSafeUnixDateNs = DateTimeOffset.UnixEpoch.ToEpochNs128() + long.MaxValue;
+
+    public static long ToSafeEpochNs(this DateTimeOffset d, long fraction = 0)
     {
-        if (d < MinSafeUnixDate || d > MaxSafeUnixDate)
-            throw new ArgumentOutOfRangeException(nameof(d), "Date is outside of valid range");
+        var r = d.ToEpochNs128() + fraction;
 
-        return d.ToEpochNs();
+        if (r < MinSafeUnixDateNs || r > MaxSafeUnixDateNs)
+            throw new OpaBuiltinException("time outside of valid range");
+
+        return (long)r;
     }
 
     public static DateTimeOffset AddNs(this DateTimeOffset d, long ns) => d.AddTicks(ns / TimeSpan.NanosecondsPerTick);
@@ -57,7 +63,53 @@ internal static class DateTimeExtensions
         return DateTimeOffset.TryParseExact(s, Rfc3339Formats, CultureInfo.InvariantCulture, styles, out result);
     }
 
-    public static DateTimeOffset? ParseRfc3339(ReadOnlySpan<char> s, DateTimeStyles styles = DateTimeStyles.AdjustToUniversal)
+    public static long? ParseRfc3339Ns(ReadOnlySpan<char> s, DateTimeStyles styles = DateTimeStyles.AdjustToUniversal)
+    {
+        var i = 0;
+        var start = -1;
+        var end = -1;
+
+        while (i < s.Length)
+        {
+            if (s[i] == '.')
+            {
+                start = ++i;
+
+                while (i < s.Length)
+                {
+                    if (!char.IsDigit(s[i]))
+                        break;
+
+                    end = i;
+                    i++;
+                }
+            }
+
+            i++;
+        }
+
+        end++;
+
+        if (end - start <= 7)
+            return ParseRfc3339(s)?.ToSafeEpochNs();
+
+        if (!long.TryParse(s[start..end], out var fractionNs))
+            return null;
+
+        // Get date without fraction.
+        var snf = string.Concat(s[..(start - 1)], s[end..]);
+
+        if (!DateTimeOffset.TryParseExact(snf, Rfc3339Formats, CultureInfo.InvariantCulture, styles, out var result))
+            return null;
+
+        // We've got 1,000,000ns in 1ms.
+        while (fractionNs < 1_000_000)
+            fractionNs *= 10;
+
+        return result.ToSafeEpochNs(fractionNs);
+    }
+
+    private static DateTimeOffset? ParseRfc3339(ReadOnlySpan<char> s, DateTimeStyles styles = DateTimeStyles.AdjustToUniversal)
     {
         if (!DateTimeOffset.TryParseExact(s, Rfc3339Formats, CultureInfo.InvariantCulture, styles, out var result))
             return null;
@@ -742,4 +794,10 @@ internal static class DateTimeExtensions
 
         public ReadOnlySpan<char> Fmt { get; } = format;
     }
+}
+
+internal partial class DateTimeExtensionsRegex
+{
+    [GeneratedRegex("\\.\\d{8,9}", RegexOptions.IgnoreCase)]
+    internal static partial Regex LongFraction();
 }

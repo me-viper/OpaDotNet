@@ -29,6 +29,10 @@ internal class OpaEvaluationAbortedException(string? message) : OpaEvaluationExc
 internal class OpaBuiltinException(string? errorCode, string? message, Exception? innerException = null)
     : OpaEvaluationException(message, innerException)
 {
+    public OpaBuiltinException(string? message) : this("eval_builtin_error", message)
+    {
+    }
+
     public string? Name { get; internal set; }
 
     public string? ErrorCode { get; } = errorCode;
