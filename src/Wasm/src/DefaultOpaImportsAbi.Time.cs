@@ -12,10 +12,67 @@ public partial class DefaultOpaImportsAbi
         () => Now().ToEpochNs()
         );
 
+    private static int[] Date(JsonNode? nsArg)
+    {
+        ArgumentNullException.ThrowIfNull(nsArg);
+
+        if (nsArg is not JsonArray ja)
+        {
+            var n = nsArg.GetValue<long>();
+            return Date(n);
+        }
+
+        var (ns, tz) = ParseArgs<long, string>(ja);
+
+        var tzi = TimeZoneInfoExtensions.FindSystemTimeZoneByIdOrAbbr(tz);
+        var t = DateTimeExtensions.FromEpochNs(ns, tzi);
+
+        return [t.Year, t.Month, t.Day];
+    }
+
     private static int[] Date(long ns)
     {
         var result = DateTimeExtensions.FromEpochNs(ns);
         return [result.Year, result.Month, result.Day];
+    }
+
+    private static int[] Clock(JsonNode? nsArg)
+    {
+        ArgumentNullException.ThrowIfNull(nsArg);
+
+        if (nsArg is not JsonArray ja)
+        {
+            var n = nsArg.GetValue<long>();
+            return Clock(n);
+        }
+
+        var (ns, tz) = ParseArgs<long, string>(ja);
+
+        var tzi = TimeZoneInfoExtensions.FindSystemTimeZoneByIdOrAbbr(tz);
+        var t = DateTimeExtensions.FromEpochNs(ns, tzi);
+
+        return [t.Hour, t.Minute, t.Second];
+    }
+
+    private static Tuple<T1, T2> ParseArgs<T1, T2>(JsonArray ar)
+    {
+        T1 t1;
+        T2 t2;
+
+        if (ar.Count != 2)
+            throw new ArgumentException("Invalid parameter");
+
+        if (ar[0] is JsonValue jv0)
+            t1 = jv0.GetValue<T1>();
+        else
+            throw new ArgumentException("Invalid parameter");
+
+        if (ar[1] is JsonValue jv1)
+            t2 = jv1.GetValue<T2>();
+        else
+            throw new ArgumentException("Invalid parameter");
+
+        return Tuple.Create(t1, t2);
     }
 
     private static int[] Clock(long ns)
@@ -24,9 +81,30 @@ public partial class DefaultOpaImportsAbi
         return [result.Hour, result.Minute, result.Second];
     }
 
+    private static int[] Diff(JsonNode? nsArg1, JsonNode? nsArg2)
+    {
+        ArgumentNullException.ThrowIfNull(nsArg1);
+        ArgumentNullException.ThrowIfNull(nsArg2);
+
+        var ns1 = nsArg1 is not JsonArray ja1 ? nsArg1.GetValue<long>() : ParseDiffArg(ja1);
+        var ns2 = nsArg2 is not JsonArray ja2 ? nsArg2.GetValue<long>() : ParseDiffArg(ja2);
+
+        return Diff(ns1, ns2);
+    }
+
+    private static long ParseDiffArg(JsonArray arg)
+    {
+        var (ns, tz) = ParseArgs<long, string>(arg);
+
+        var tzi = TimeZoneInfoExtensions.FindSystemTimeZoneByIdOrAbbr(tz);
+        var t = DateTimeExtensions.FromEpochNs(ns, tzi);
+
+        return t.ToUniversalTime().ToSafeEpochNs();
+    }
+
     private static int[] Diff(long ns1, long ns2)
     {
-        var d = DateTimeExtensions.FromNs(ns1 - ns2);
+        var d = DateTimeExtensions.FromNs(Math.Abs(ns1 - ns2));
 
         return
         [
@@ -48,13 +126,31 @@ public partial class DefaultOpaImportsAbi
             .ToSafeEpochNs();
     }
 
+    private static string Weekday(JsonNode? nsArg)
+    {
+        ArgumentNullException.ThrowIfNull(nsArg);
+
+        if (nsArg is not JsonArray ja)
+        {
+            var n = nsArg.GetValue<long>();
+            return Weekday(n);
+        }
+
+        var (ns, tz) = ParseArgs<long, string>(ja);
+
+        var tzi = TimeZoneInfoExtensions.FindSystemTimeZoneByIdOrAbbr(tz);
+        var t = DateTimeExtensions.FromEpochNs(ns, tzi);
+
+        return t.DayOfWeek.ToString("G");
+    }
+
     private static string Weekday(long ns)
     {
-        var result = DateTimeOffset.UnixEpoch.AddTicks(ns / 100);
+        var result = DateTimeExtensions.FromEpochNs(ns);
         return result.DayOfWeek.ToString("G");
     }
 
-    private static long? ParseDurationNs(string duration)
+    internal static long? ParseDurationNs(string duration)
     {
         double time;
 
@@ -167,7 +263,7 @@ public partial class DefaultOpaImportsAbi
         return date.Format(format, zoneId);
     }
 
-    private static long? TimeParseNs(string layout, string value)
+    internal static long? TimeParseNs(string layout, string value)
     {
         if (TimeFormats.TryGetValue(layout, out var f))
             layout = f;

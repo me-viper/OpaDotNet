@@ -5,10 +5,16 @@
 - array/
 - bits(\w+)/
 - casts/to_number
+- netcidrcontains/cidr subnet
+- netcidrintersects/cidr subnet
+- numbersrange/error
+- 'strings/format_int: err: bad base'
 - strings/reverse_
 - strings/substring
+- replacen/bad
 # Not implemented
 - graphql_
+- globsmatch/
 - providers-aws-sign_req/
 - rendertemplate/
 - regoparsemodule/
@@ -17,15 +23,5 @@
 - data/nested integer
 - data/toplevel integer
 - helloworld/another_test_for_builtin_error
-# Rego sets
-#- 'baseandvirtualdocs/base/virtual: set'
-#- containskeyword/ordinary deny rule
-#- defaultkeyword/set comprehension
-#- refheads/general, set leaf (other rule defines dynamic ref portion)
-#- refheads/general, set leaf (shallow ref)
-#- refheads/general, set leaf
-#- regression/virtual-cache key scope
-#- withkeyword/with virtual doc exact value
-#- withkeyword/invalidate comprehension cache
 # ???
 - virtualdocs/undefined

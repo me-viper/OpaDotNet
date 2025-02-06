@@ -87,6 +87,9 @@ internal static class TimeZoneInfoExtensions
 
     public static TimeZoneInfo FindSystemTimeZoneByIdOrAbbr(string zoneId)
     {
+        if (string.Equals(zoneId, string.Empty, StringComparison.Ordinal))
+            return TimeZoneInfo.Utc;
+
 #if NET8_0_OR_GREATER
         TimeZoneInfo? result;
 

@@ -110,49 +110,29 @@ public class SdkV1Tests : SdkTestBase
         {
             CapabilitiesVersion = Utils.DefaultCapabilities,
             RegoVersion = RegoVersion.V1,
+            CapabilitiesBytes = TestImportsAbi.Caps(),
         };
     }
 
     [Theory]
-    //[InlineData("cryptohmacsha1\\test-cryptohmacsha1.yaml")]
-    //[InlineData("cryptohmacequal\\test-cryptohmacequal.yaml")]
-    //[InlineData("semvercompare\\test-semvercompare-0347.yaml")]
-    //[InlineData("globsmatch\\test-globsmatch-0866.yaml")]
-    //[InlineData("disjunction\\test-disjunction-0775.yaml")]
-    //[InlineData("containskeyword\\test-contains-future-keyword.yaml")]
-    //[InlineData("eqexpr\\test-eqexpr-0599.yaml")]
-    //         Do(testCase: strings\test-strings-0920.yaml => strings/sprintf: float)
-
-    [InlineData("strings\\test-strings-0920.yaml")]
+    [InlineData("time\\test-time-0957.yaml")]
+    [InlineData("time\\test-time-0952.yaml")]
+    [InlineData("time\\test-time-0953.yaml")]
     public async Task DoCase(string fileName)
     {
         foreach (var tc in SdkV1TestData.ParseFile(Path.Combine(SdkV1TestData.BasePath, fileName), []))
         {
-            await XDoRunTestCase(tc);
+            await RunTestCase(tc);
         }
     }
 
     [Theory]
-    [InlineData("1677-09-21T00:12:43.145224192-00:00", -9223372036854775808)]
-    [InlineData("2262-04-11T23:47:16.854775807-00:00", 9223372036854775807)]
-    public void ParseNsLong(string s, long e)
+    [InlineData("2006-01-02T15:04:05Z07:00", "1677-09-21T00:12:43.145224192-00:00", -9223372036854775808)]
+    [InlineData("2006-01-02T15:04:05Z07:00", "2262-04-11T23:47:16.854775807-00:00", 9223372036854775807)]
+    public void ParseNsLong(string l, string v, long e)
     {
-        var result = DateTimeExtensions.ParseRfc3339Ns(s);
+        var result = DefaultOpaImportsAbi.TimeParseNs(l, v);
         Assert.Equal(e, result);
-    }
-
-    //         Do(testCase: time\test-time-0948.yaml => time/parse_nanos_too_large)
-    //         Do(testCase: time\test-time-0948.yaml => time/parse_nanos_too_small)
-    [Theory]
-    [InlineData("1677-09-21T00:12:43.145224191-00:00")]
-    // [InlineData("1677-09-21T00:12:43.145224191-00:00")]
-    // [InlineData("2262-04-11T23:47:16.854775807-00:00")]
-    public void ParseNs(string s)
-    {
-        Assert.Throws<OpaBuiltinException>(() => DateTimeExtensions.ParseRfc3339Ns(s));
-        // TimeParseNs
-        // var result = DateTimeExtensions.Par(s);
-        // Assert.Equal(e, result);
     }
 
     [Fact]
@@ -167,23 +147,7 @@ public class SdkV1Tests : SdkTestBase
         Assert.True(ja.IsEquivalentTo(jb, false));
     }
 
-    [Theory]
-    //[InlineData("cryptohmacsha1\\test-cryptohmacsha1.yaml")]
-    //[InlineData("cryptohmacequal\\test-cryptohmacequal.yaml")]
-    //[InlineData("semvercompare\\test-semvercompare-0347.yaml")]
-    //[InlineData("globsmatch\\test-globsmatch-0866.yaml")]
-    //[InlineData("disjunction\\test-disjunction-0775.yaml")]
-    //[InlineData("containskeyword\\test-contains-future-keyword.yaml")]
-    [InlineData("withkeyword\\test-withkeyword-1040.yaml")]
-    public async Task DoCase2(string fileName)
-    {
-        foreach (var tc in SdkV1TestData.ParseFile(Path.Combine(SdkV1TestData.BasePath, fileName), []))
-        {
-            await XDoRunTestCase(tc);
-        }
-    }
-
-    private async Task XDoRunTestCase(SdkV1TestCase testCase)
+    private async Task RunTestCase(SdkV1TestCase testCase)
     {
         var engineOpts = new WasmPolicyEngineOptions
         {
@@ -203,14 +167,19 @@ public class SdkV1Tests : SdkTestBase
             shouldFail = true;
         }
 
-        var queryParts = testCase.Query.Split('=', StringSplitOptions.TrimEntries);
+        var srcParts = new StringBuilder();
 
-        if (queryParts.Length != 2)
+        var queryParts = testCase.Query.Split(['=', ';'], StringSplitOptions.TrimEntries);
+
+        if (queryParts.Length % 2 != 0)
             throw new NotSupportedException($"Invalid test case: {testCase}");
+
+        for (var i = 0; i < queryParts.Length; i += 2)
+            srcParts.AppendLine($"{queryParts[i + 1]} := {queryParts[i]}");
 
         var src = $$"""
             package run_test
-            {{queryParts[1]}} := {{queryParts[0]}}
+            {{srcParts}}
             """;
 
         using var ms = new MemoryStream();
@@ -300,8 +269,7 @@ public class SdkV1Tests : SdkTestBase
     [ClassData(typeof(SdkV1TestData))]
     public async Task Do(SdkV1TestCase testCase)
     {
-        await XDoRunTestCase(testCase);
-        //Assert.True(result.Assert);
+        await RunTestCase(testCase);
     }
 
     private async Task<IOpaEvaluator> Build(

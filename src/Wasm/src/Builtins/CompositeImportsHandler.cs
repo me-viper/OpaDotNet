@@ -96,9 +96,28 @@ public sealed class CompositeImportsHandler : IOpaImportsAbi
 
     void IOpaImportsAbi.Print(IEnumerable<string> args) => _print(args);
 
-    private bool TryCall(BuiltinContext context, BuiltinArg[] args, out object? result)
+    private object? CallDefault(BuiltinContext context, BuiltinArg[] args)
     {
-        result = null;
+        switch (args.Length)
+        {
+            case 0:
+                return _default.Func(context);
+            case 1:
+                return _default.Func(context, args[0]);
+            case 2:
+                return _default.Func(context, args[0], args[1]);
+            case 3:
+                return _default.Func(context, args[0], args[1], args[2]);
+            case 4:
+                return _default.Func(context, args[0], args[1], args[2], args[3]);
+        }
+
+        _default.Abort($"Invalid number of arguments: {args.Length}");
+        return null;
+    }
+
+    private object? TryCall(BuiltinContext context, BuiltinArg[] args)
+    {
         var name = Name(context.FunctionName, args.Length);
 
         try
@@ -110,14 +129,12 @@ public sealed class CompositeImportsHandler : IOpaImportsAbi
                 switch (name)
                 {
                     case "internal.print.1":
-                        result = Print(args[0].As<JsonArray>(), context.JsonSerializerOptions);
-                        return true;
+                        return Print(args[0].As<JsonArray>(), context.JsonSerializerOptions);
                     case "trace.1":
                         ((IOpaImportsAbi)this).Print([args[0].As<string>()]);
-                        result = true;
-                        return true;
+                        return null;
                     default:
-                        return false;
+                        return CallDefault(context, args);
                 }
             }
 
@@ -130,36 +147,45 @@ public sealed class CompositeImportsHandler : IOpaImportsAbi
 
                 var callHash = HashCode.Combine(name, argHash);
 
-                result = _valueCache.GetOrAdd(callHash, func(args));
-                return true;
+                return _valueCache.GetOrAdd(callHash, func(args));
             }
 
-            result = func(args);
-            return true;
+            return func(args);
+        }
+        catch (OpaEvaluationAbortedException)
+        {
+            throw;
+        }
+        catch (OpaBuiltinException ex)
+        {
+            ex.Name = context.FunctionName;
+
+            if (OnError(context, ex))
+                throw;
         }
         catch (Exception ex)
         {
             if (OnError(context, ex))
-                throw;
-
-            return true;
+                throw new OpaBuiltinException("eval_builtin_error", ex.Message, ex) { Name = context.FunctionName };
         }
+
+        return null;
     }
 
     object? IOpaImportsAbi.Func(BuiltinContext context)
-        => TryCall(context, [], out var result) ? result : _default.Func(context);
+        => TryCall(context, []);
 
     object? IOpaImportsAbi.Func(BuiltinContext context, BuiltinArg arg1)
-        => TryCall(context, [arg1], out var result) ? result : _default.Func(context, arg1);
+        => TryCall(context, [arg1]);
 
     object? IOpaImportsAbi.Func(BuiltinContext context, BuiltinArg arg1, BuiltinArg arg2)
-        => TryCall(context, [arg1, arg2], out var result) ? result : _default.Func(context, arg1, arg2);
+        => TryCall(context, [arg1, arg2]);
 
     object? IOpaImportsAbi.Func(BuiltinContext context, BuiltinArg arg1, BuiltinArg arg2, BuiltinArg arg3)
-        => TryCall(context, [arg1, arg2, arg3], out var result) ? result : _default.Func(context, arg1, arg2, arg3);
+        => TryCall(context, [arg1, arg2, arg3]);
 
     object? IOpaImportsAbi.Func(BuiltinContext context, BuiltinArg arg1, BuiltinArg arg2, BuiltinArg arg3, BuiltinArg arg4)
-        => TryCall(context, [arg1, arg2, arg3, arg4], out var result) ? result : _default.Func(context, arg1, arg2, arg3, arg4);
+        => TryCall(context, [arg1, arg2, arg3, arg4]);
 
     void IOpaImportsAbi.Reset()
     {

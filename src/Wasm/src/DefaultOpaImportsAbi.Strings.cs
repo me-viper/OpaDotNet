@@ -186,7 +186,7 @@ public partial class DefaultOpaImportsAbi
                 precision = int.Parse(precisionChars[.. (precisionIndex + 1)]);
 
             if (!_formats.TryGetValue(format[i], out var val))
-                throw new OpaBuiltinException($"Unknown format {format[i]}");
+                throw new FormatException($"Unknown format {format[i]}");
 
             var (value, fmt) = val(ja[valueIndex], options);
 
@@ -213,20 +213,13 @@ public partial class DefaultOpaImportsAbi
 
     private static bool? AnyPrefixMatch(JsonNode? search, JsonNode? baseStr)
     {
-        try
-        {
-            if (!search.TryGetArray<string>(out var sa))
-                return null;
+        if (!search.TryGetArray<string>(out var sa))
+            return null;
 
-            if (!baseStr.TryGetArray<string>(out var ba))
-                return null;
+        if (!baseStr.TryGetArray<string>(out var ba))
+            return null;
 
-            return AnyPrefixMatch(sa, ba);
-        }
-        catch (InvalidOperationException ex)
-        {
-            throw new OpaBuiltinException("eval_type_error", ex.Message, ex) { Name = "any_prefix_match" };
-        }
+        return AnyPrefixMatch(sa, ba);
     }
 
     private static bool AnyPrefixMatch(IEnumerable<string> search, IEnumerable<string> baseStr)
@@ -236,20 +229,13 @@ public partial class DefaultOpaImportsAbi
 
     private static bool? AnySuffixMatch(JsonNode? search, JsonNode? baseStr)
     {
-        try
-        {
-            if (!search.TryGetArray<string>(out var sa))
-                return null;
+        if (!search.TryGetArray<string>(out var sa))
+            return null;
 
-            if (!baseStr.TryGetArray<string>(out var ba))
-                return null;
+        if (!baseStr.TryGetArray<string>(out var ba))
+            return null;
 
-            return AnySuffixMatch(sa, ba);
-        }
-        catch (InvalidOperationException ex)
-        {
-            throw new OpaBuiltinException("eval_type_error", ex.Message, ex) { Name = "any_suffix_match" };
-        }
+        return AnySuffixMatch(sa, ba);
     }
 
     private static bool AnySuffixMatch(IEnumerable<string> search, IEnumerable<string> baseStr)

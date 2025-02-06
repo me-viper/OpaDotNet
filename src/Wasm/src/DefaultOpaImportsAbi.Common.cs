@@ -138,15 +138,8 @@ public partial class DefaultOpaImportsAbi
 
     private static string HexDecode(string x)
     {
-        try
-        {
-            var bytes = Convert.FromHexString(x);
-            return Encoding.UTF8.GetString(bytes);
-        }
-        catch (FormatException ex)
-        {
-            throw new OpaBuiltinException(ex.Message);
-        }
+        var bytes = Convert.FromHexString(x);
+        return Encoding.UTF8.GetString(bytes);
     }
 
     private static string UrlQueryDecode(string x)
@@ -339,10 +332,10 @@ public partial class DefaultOpaImportsAbi
     private static int? SemverCompare(string a, string b)
     {
         if (!SemVersion.TryParse(a, SemVersionStyles.Strict, out var va))
-            throw new OpaBuiltinException("eval_builtin_error", $"string \"{a}\" is not a valid SemVer");
+            throw new FormatException($"string \"{a}\" is not a valid SemVer");
 
         if (!SemVersion.TryParse(b, SemVersionStyles.Strict, out var vb))
-            throw new OpaBuiltinException("eval_builtin_error", $"string \"{b}\" is not a valid SemVer");
+            throw new FormatException($"string \"{b}\" is not a valid SemVer");
 
         return va.ComparePrecedenceTo(vb);
     }
@@ -431,7 +424,7 @@ public partial class DefaultOpaImportsAbi
     private static decimal? UnitsParse(string x)
     {
         if (string.IsNullOrWhiteSpace(x))
-            throw new OpaBuiltinException("no amount provided");
+            throw new ArgumentException("No amount provided", nameof(x));
 
         const decimal milli = 0.001m;
 
@@ -441,7 +434,7 @@ public partial class DefaultOpaImportsAbi
         x = x.Replace("\"", "");
 
         if (x[0] == ' ')
-            throw new OpaBuiltinException("spaces not allowed in resource strings");
+            throw new FormatException("Spaces not allowed in resource strings");
 
         for (var i = x.Length - 1; i >= 0; i--)
         {
@@ -449,10 +442,10 @@ public partial class DefaultOpaImportsAbi
                 continue;
 
             if (x[i] == ' ')
-                throw new OpaBuiltinException("spaces not allowed in resource strings");
+                throw new FormatException("Spaces not allowed in resource strings");
 
             if (!double.TryParse(x[.. (i + 1)], CultureInfo.InvariantCulture, out num))
-                throw new OpaBuiltinException("could not parse amount to a number");
+                throw new FormatException("Could not parse amount to a number");
 
             if (i + 1 < x.Length)
             {
@@ -464,7 +457,7 @@ public partial class DefaultOpaImportsAbi
         }
 
         if (double.IsNaN(num))
-            throw new OpaBuiltinException("no amount provided");
+            throw new FormatException("No amount provided");
 
         decimal? n = unit switch
         {
@@ -482,7 +475,7 @@ public partial class DefaultOpaImportsAbi
             "pi" or "Pi" => Pi,
             "e" or "E" => Eb,
             "ei" or "Ei" => Ei,
-            _ => throw new OpaBuiltinException("no amount provided"),
+            _ => throw new FormatException("No amount provided"),
         };
 
         return n.Value * (decimal)num;
@@ -491,7 +484,7 @@ public partial class DefaultOpaImportsAbi
     private static ulong? UnitsParseBytes(string x)
     {
         if (string.IsNullOrWhiteSpace(x))
-            throw new OpaBuiltinException("no byte amount provided");
+            throw new ArgumentException("No byte amount provided", nameof(x));
 
         var num = double.NaN;
         var unit = string.Empty;
@@ -499,7 +492,7 @@ public partial class DefaultOpaImportsAbi
         x = x.Replace("\"", "");
 
         if (x[0] == ' ')
-            throw new OpaBuiltinException("spaces not allowed in resource strings");
+            throw new FormatException("Spaces not allowed in resource strings");
 
         for (var i = x.Length - 1; i >= 0; i--)
         {
@@ -507,10 +500,10 @@ public partial class DefaultOpaImportsAbi
                 continue;
 
             if (x[i] == ' ')
-                throw new OpaBuiltinException("spaces not allowed in resource strings");
+                throw new FormatException("Spaces not allowed in resource strings");
 
             if (!double.TryParse(x[.. (i + 1)], CultureInfo.InvariantCulture, out num))
-                throw new OpaBuiltinException("could not parse byte amount to a number");
+                throw new FormatException("Could not parse byte amount to a number");
 
             if (i + 1 < x.Length)
                 unit = x[(i + 1) ..].ToLowerInvariant();
@@ -519,7 +512,7 @@ public partial class DefaultOpaImportsAbi
         }
 
         if (double.IsNaN(num))
-            throw new OpaBuiltinException("no byte amount provided");
+            throw new FormatException("No byte amount provided");
 
         ulong? n = unit switch
         {
@@ -536,7 +529,7 @@ public partial class DefaultOpaImportsAbi
             "pib" or "pi" => Pi,
             "eb" or "e" => Eb,
             "eib" or "ei" => Ei,
-            _ => throw new OpaBuiltinException("no byte amount provided"),
+            _ => throw new FormatException("No byte amount provided"),
         };
 
         var result = n.Value * (decimal)num;
@@ -547,7 +540,7 @@ public partial class DefaultOpaImportsAbi
     private static int[]? NumbersRangeStep(int a, int b, int step)
     {
         if (step < 1)
-            throw new OpaBuiltinException("eval_builtin_error", "numbers.range_step: step must be a positive number above zero");
+            throw new ArgumentOutOfRangeException(nameof(step), "Step must be a positive number above zero");
 
         if (a == b)
             return [a];

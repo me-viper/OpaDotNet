@@ -101,17 +101,10 @@ public partial class DefaultOpaImportsAbi
         if (cidrs == null || cidrOrIps == null)
             return null;
 
-        try
-        {
-            var x = CidrOrIp.ParseAll(cidrs, options).ToArray();
-            var y = CidrOrIp.ParseAll(cidrOrIps, options).ToArray();
+        var x = CidrOrIp.ParseAll(cidrs, options).ToArray();
+        var y = CidrOrIp.ParseAll(cidrOrIps, options).ToArray();
 
-            return CidrContainsMatches(x, y);
-        }
-        catch (FormatException ex)
-        {
-            throw new OpaBuiltinException("eval_builtin_error", ex.Message) { Name = "net.cidr_contains_matches" };
-        }
+        return CidrContainsMatches(x, y);
     }
 
     private static RegoSet<object> CidrContainsMatches(CidrOrIp[] cidrs, CidrOrIp[] cidrOrIps)
@@ -130,10 +123,10 @@ public partial class DefaultOpaImportsAbi
         return new(results.ToArray());
     }
 
-    private static RegoSet<string>? CidrExpand(string cidr)
+    private static RegoSet<string> CidrExpand(string cidr)
     {
         if (!TryParseNetwork(cidr, out var result))
-            return null;
+            throw new ArgumentException("Invalid CIDR address", nameof(cidr));
 
         var r = result.ListIPAddress().Select(p => p.ToString());
 
@@ -145,39 +138,36 @@ public partial class DefaultOpaImportsAbi
         return IPNetwork2.TryParse(cidr, out _);
     }
 
-    private static RegoSet<string> CidrMerge(string[] addresses)
+    private static object CidrMerge(string[] addresses)
     {
+        if (addresses.Length == 0)
+            return new JsonArray();
+
         var nets = addresses.Select(ParseNetwork).ToArray();
         var result = IPNetwork2.Supernet(nets).Select(p => p.ToString()).ToArray();
         return new RegoSet<string>(result);
     }
 
-    private static string[]? LookupIPAddress(string name)
+    private static RegoSet<string>? LookupIpAddress(string name)
     {
         var result = new List<string>();
 
+        if (IPAddress.TryParse(name, out var ip))
+        {
+            result.Add(ip.ToString());
+            return new(result);
+        }
+
         try
         {
-            var ipv4 = Dns.GetHostEntry(name, AddressFamily.InterNetwork);
+            var ipv4 = Dns.GetHostEntry(name, AddressFamily.Unspecified);
             result.AddRange(ipv4.AddressList.Select(p => p.ToString()));
+            return new(result);
         }
         catch (SocketException)
         {
             return null;
         }
-
-        try
-        {
-            var ipv4 = Dns.GetHostEntry(name, AddressFamily.InterNetworkV6);
-            result.AddRange(ipv4.AddressList.Select(p => p.ToString()));
-        }
-        catch (SocketException)
-        {
-            if (result.Count == 0)
-                return null;
-        }
-
-        return result.ToArray();
     }
 
     private static IPNetwork2 ParseNetwork(string cidrOrIp)
@@ -194,7 +184,7 @@ public partial class DefaultOpaImportsAbi
 
         if (IPAddress.TryParse(cidrOrIp, out var ip))
         {
-            result = new IPNetwork2(ip, 32);
+            result = new IPNetwork2(ip, 24);
             return true;
         }
 

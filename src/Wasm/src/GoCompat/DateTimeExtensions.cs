@@ -31,7 +31,7 @@ internal static class DateTimeExtensions
         var r = d.ToEpochNs128() + fraction;
 
         if (r < MinSafeUnixDateNs || r > MaxSafeUnixDateNs)
-            throw new OpaBuiltinException("time outside of valid range");
+            throw new ArgumentOutOfRangeException(nameof(d), "Time outside of valid range");
 
         return (long)r;
     }
