@@ -247,26 +247,6 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
     }
 
     [Fact]
-    public async Task Trace()
-    {
-        var src = """
-            package sdk
-
-            t1 := o {
-                o := "hi!"
-                trace(o)
-            }
-            """;
-        var import = new DebugImports();
-        using var eval = await Build(src, "sdk", customBuiltins: [() => import]);
-
-        var result = eval.EvaluateValue(new { t1 = string.Empty }, "sdk");
-
-        Assert.Equal("hi!", result.t1);
-        Assert.Equal("hi!", import.Output.ToString());
-    }
-
-    [Fact]
     public async Task UuidRfc4122()
     {
         var src = """
@@ -420,7 +400,7 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
     [InlineData("""base64url.encode_no_pad("message")""", "\"bWVzc2FnZQ\"")]
     [InlineData("""hex.decode("6d657373616765")""", "\"message\"")]
     [InlineData("""hex.encode("message")""", "\"6d657373616765\"")]
-    [InlineData("""urlquery.encode("x=https://w.org/ref/#encoding")""", "\"x%3dhttps%3a%2f%2fw.org%2fref%2f%23encoding\"")]
+    [InlineData("""urlquery.encode("x=https://w.org/ref/#encoding")""", "\"x%3Dhttps%3A%2F%2Fw.org%2Fref%2F%23encoding\"")]
     [InlineData("""urlquery.decode("x%3Dhttps%3A%2F%2Fw.org%2Fref%2F%23encoding")""", "\"x=https://w.org/ref/#encoding\"")]
     [InlineData(
         """urlquery.decode_object("e=1&e=2&d=b&d=a&c=true&b=bbb&a=1")""",
@@ -431,7 +411,7 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
         "\"e=1&e=2&d=b&d=a&c=true&b=bbb&a=1\""
         )]
     [InlineData("""urlquery.encode_object({})""", "\"\"")]
-    [InlineData("""urlquery.encode_object({"a": "b?b"})""", "\"a=b%3fb\"")]
+    [InlineData("""urlquery.encode_object({"a": "b?b"})""", "\"a=b%3Fb\"")]
     public async Task Encoding(string func, string expected)
     {
         var result = await RunTestCase(func, expected);

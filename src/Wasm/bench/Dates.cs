@@ -39,7 +39,7 @@ public class Dates
     [BenchmarkCategory("Parse")]
     public DateTimeOffset ParseUnix()
     {
-        var success = DateTimeExtensions.TryParse(
+        var success = DateTimeExtensions.TryParseNs(
             "Fri Feb  5 05:00:57 GMT-8 2010",
             DateTimeExtensions.UnixDate,
             out var result
@@ -55,7 +55,7 @@ public class Dates
     [BenchmarkCategory("Parse")]
     public DateTimeOffset ParseRfc3339()
     {
-        var success = DateTimeExtensions.TryParse(
+        var success = DateTimeExtensions.TryParseNs(
             "2010-02-04T21:00:57-08:00",
             DateTimeExtensions.Rfc3339,
             out var result
@@ -71,7 +71,7 @@ public class Dates
     [BenchmarkCategory("Parse")]
     public DateTimeOffset ParseRfc3339Nano()
     {
-        var success = DateTimeExtensions.TryParse(
+        var success = DateTimeExtensions.TryParseNs(
             "2010-02-04T21:00:57.012345678-08:00",
             DateTimeExtensions.Rfc3339Nano,
             out var result
@@ -87,7 +87,7 @@ public class Dates
     [BenchmarkCategory("Parse")]
     public DateTimeOffset ParseCustomTzPst()
     {
-        var success = DateTimeExtensions.TryParse(
+        var success = DateTimeExtensions.TryParseNs(
             "Thursday, 10.February.04 05:00:57.012 PST",
             "Monday, 06.January.02 15:04:05.999 MST",
             out var result
@@ -103,7 +103,7 @@ public class Dates
     [BenchmarkCategory("Parse")]
     public DateTimeOffset ParseCustomTzAmericaLa()
     {
-        var success = DateTimeExtensions.TryParse(
+        var success = DateTimeExtensions.TryParseNs(
             "Thursday, 10.February.04 05:00:57.012 America/Los_Angeles",
             "Monday, 06.January.02 15:04:05.999 MST",
             out var result
@@ -119,7 +119,7 @@ public class Dates
     [BenchmarkCategory("Parse")]
     public DateTimeOffset ParseCustomNoTz()
     {
-        var success = DateTimeExtensions.TryParse(
+        var success = DateTimeExtensions.TryParseNs(
             "Thursday, 10.February.04 05:00:57.012",
             "Monday, 06.January.02 15:04:05.999",
             out var result

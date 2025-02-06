@@ -161,7 +161,7 @@ public partial class DefaultOpaImportsAbi
                 i++;
             }
 
-            var width = 0;
+            var width = -1;
 
             if (widthIndex >= 0)
                 width = int.Parse(widthChars[.. (widthIndex + 1)]);
@@ -190,7 +190,7 @@ public partial class DefaultOpaImportsAbi
 
             var (value, fmt) = val(ja[valueIndex], options);
 
-            if (precision < 0 && fmt is 'f' or 'F')
+            if (precision < 0 && width < 0 && fmt is 'f' or 'F' or 'e' or 'E' or 'g' or 'G')
             {
                 // It seems rego takes precision 6 by default.
                 precision = 6;
@@ -198,7 +198,7 @@ public partial class DefaultOpaImportsAbi
 
             var formatStr = $"{fmt}";
 
-            if (precision <= 0)
+            if (precision < 0)
                 formatStr += padZeros;
 
             var f = precision < 0 ? $"{{{0},{width}:{formatStr}}}" : $"{{{0},{width}:{formatStr}{precision}}}";

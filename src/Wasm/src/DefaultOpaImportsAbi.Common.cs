@@ -190,19 +190,9 @@ public partial class DefaultOpaImportsAbi
 
     private static string UrlQueryEncode(string x)
     {
-        Span<char> s;
-        var written = 0;
+        Span<char> s = HttpUtility.UrlEncode(x).ToCharArray();
 
-#if NET9_0_OR_GREATER
-        var b = Encoding.UTF8.GetBytes(x);
-        s = new char[x.Length * 3];
-        Base64Url.TryEncodeToChars(b, s, out written);
-#else
-        s = HttpUtility.UrlEncode(x).ToCharArray();
-        written = s.Length;
-#endif
-
-        for (var i = 0; i < written; i++)
+        for (var i = 0; i < s.Length; i++)
         {
             if (s[i] != '%')
                 continue;
@@ -217,6 +207,8 @@ public partial class DefaultOpaImportsAbi
                 s[i] = char.ToUpperInvariant(s[i]);
                 i++;
             }
+
+            i--;
         }
 
         return s.ToString();
@@ -747,4 +739,62 @@ public partial class DefaultOpaImportsAbi
             }
         }
     }
+
+    private static T GetValue<T>(JsonArray ar, int index)
+    {
+        if (ar[index] is JsonValue jv)
+            return jv.GetValue<T>();
+
+        throw new ArgumentException("Invalid parameter");
+    }
+
+    private static Tuple<T1, T2, T3> ParseArgs<T1, T2, T3>(JsonArray ar, byte requiredArgs = 3)
+    {
+        // In general case this is wrong. But JsonValue.GetValue<T>() ensures we've got valid type.
+        T1 t1 = default!;
+        T2 t2 = default!;
+        T3 t3 = default!;
+
+        if (requiredArgs < 1)
+            throw new ArgumentOutOfRangeException(nameof(requiredArgs));
+
+        if (ar.Count < requiredArgs)
+            throw new ArgumentException("Invalid parameter");
+
+        t1 = GetValue<T1>(ar, 0);
+
+        if (ar.Count <= 1)
+            return Tuple.Create(t1, t2, t3);
+
+        t2 = GetValue<T2>(ar, 1);
+
+        if (ar.Count <= 2)
+            return Tuple.Create(t1, t2, t3);
+
+        t3 = GetValue<T3>(ar, 2);
+
+        return Tuple.Create(t1, t2, t3);
+    }
+
+    private static Tuple<T1, T2> ParseArgs<T1, T2>(JsonArray ar)
+    {
+        T1 t1;
+        T2 t2;
+
+        if (ar.Count != 2)
+            throw new ArgumentException("Invalid parameter");
+
+        if (ar[0] is JsonValue jv0)
+            t1 = jv0.GetValue<T1>();
+        else
+            throw new ArgumentException("Invalid parameter");
+
+        if (ar[1] is JsonValue jv1)
+            t2 = jv1.GetValue<T2>();
+        else
+            throw new ArgumentException("Invalid parameter");
+
+        return Tuple.Create(t1, t2);
+    }
+
 }

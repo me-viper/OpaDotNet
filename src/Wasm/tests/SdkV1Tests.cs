@@ -115,9 +115,9 @@ public class SdkV1Tests : SdkTestBase
     }
 
     [Theory]
-    [InlineData("time\\test-time-0957.yaml")]
-    [InlineData("time\\test-time-0952.yaml")]
-    [InlineData("time\\test-time-0953.yaml")]
+    //         Do(testCase: time\test-time-0971.yaml => time/format too big)
+
+    [InlineData("time\\test-time-0971.yaml")]
     public async Task DoCase(string fileName)
     {
         foreach (var tc in SdkV1TestData.ParseFile(Path.Combine(SdkV1TestData.BasePath, fileName), []))

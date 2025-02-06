@@ -54,27 +54,6 @@ public partial class DefaultOpaImportsAbi
         return [t.Hour, t.Minute, t.Second];
     }
 
-    private static Tuple<T1, T2> ParseArgs<T1, T2>(JsonArray ar)
-    {
-        T1 t1;
-        T2 t2;
-
-        if (ar.Count != 2)
-            throw new ArgumentException("Invalid parameter");
-
-        if (ar[0] is JsonValue jv0)
-            t1 = jv0.GetValue<T1>();
-        else
-            throw new ArgumentException("Invalid parameter");
-
-        if (ar[1] is JsonValue jv1)
-            t2 = jv1.GetValue<T2>();
-        else
-            throw new ArgumentException("Invalid parameter");
-
-        return Tuple.Create(t1, t2);
-    }
-
     private static int[] Clock(long ns)
     {
         var result = DateTimeExtensions.FromEpochNs(ns);
@@ -210,10 +189,9 @@ public partial class DefaultOpaImportsAbi
         { "RFC3339Nano", DateTimeExtensions.Rfc3339Nano },
     };
 
-    private static string? TimeFormat(JsonNode? x)
+    private static string TimeFormat(JsonNode? x)
     {
-        if (x == null)
-            return null;
+        ArgumentNullException.ThrowIfNull(x);
 
         long ns;
         var format = DateTimeExtensions.Rfc3339Nano;
@@ -222,23 +200,24 @@ public partial class DefaultOpaImportsAbi
         if (x is JsonValue jv)
         {
             if (!jv.TryGetValue(out ns))
-                return null;
+                throw new FormatException("Invalid time");
 
             date = DateTimeExtensions.FromEpochNs(ns);
             return date.Format(format);
         }
 
-        if (x is not JsonArray ja || ja.Count < 2)
-            return null;
+        if (x is not JsonArray ja)
+            throw new ArgumentException("JsonArray expected", nameof(x));
 
-        ns = ja[0]!.GetValue<long>();
-        var timeZone = ja[1]!.GetValue<string>();
+        (ns, var timeZone, format) = ParseArgs<long, string?, string?>(ja, 2);
 
-        if (ja.Count == 3)
-            format = ja[2]!.GetValue<string>();
-
-        if (TimeFormats.TryGetValue(format, out var f))
-            format = f;
+        if (string.IsNullOrWhiteSpace(format))
+            format = DateTimeExtensions.Rfc3339Nano;
+        else
+        {
+            if (TimeFormats.TryGetValue(format, out var f))
+                format = f;
+        }
 
         TimeZoneInfo? tz;
         var zoneId = timeZone;
@@ -268,9 +247,6 @@ public partial class DefaultOpaImportsAbi
         if (TimeFormats.TryGetValue(layout, out var f))
             layout = f;
 
-        if (!DateTimeExtensions.TryParse(value, layout, out var result))
-            return null;
-
-        return result.ToSafeEpochNs();
+        return DateTimeExtensions.ParseNs(value, layout);
     }
 }

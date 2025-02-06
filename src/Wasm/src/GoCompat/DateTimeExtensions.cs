@@ -55,15 +55,7 @@ internal static class DateTimeExtensions
         DateTimeFormatInfo.InvariantInfo.SortableDateTimePattern,
     ];
 
-    private static bool TryParseRfc3339(
-        ReadOnlySpan<char> s,
-        DateTimeStyles styles,
-        out DateTimeOffset result)
-    {
-        return DateTimeOffset.TryParseExact(s, Rfc3339Formats, CultureInfo.InvariantCulture, styles, out result);
-    }
-
-    public static long? ParseRfc3339Ns(ReadOnlySpan<char> s, DateTimeStyles styles = DateTimeStyles.AdjustToUniversal)
+    public static long ParseRfc3339Ns(ReadOnlySpan<char> s, DateTimeStyles styles = DateTimeStyles.AdjustToUniversal)
     {
         var i = 0;
         var start = -1;
@@ -91,16 +83,15 @@ internal static class DateTimeExtensions
         end++;
 
         if (end - start <= 7)
-            return ParseRfc3339(s)?.ToSafeEpochNs();
+            return ParseRfc3339(s).ToSafeEpochNs();
 
         if (!long.TryParse(s[start..end], out var fractionNs))
-            return null;
+            throw new FormatException("Invalid fration");
 
         // Get date without fraction.
         var snf = string.Concat(s[..(start - 1)], s[end..]);
 
-        if (!DateTimeOffset.TryParseExact(snf, Rfc3339Formats, CultureInfo.InvariantCulture, styles, out var result))
-            return null;
+        var result = DateTimeOffset.ParseExact(snf, Rfc3339Formats, CultureInfo.InvariantCulture, styles);
 
         // We've got 1,000,000ns in 1ms.
         while (fractionNs < 1_000_000)
@@ -109,13 +100,8 @@ internal static class DateTimeExtensions
         return result.ToSafeEpochNs(fractionNs);
     }
 
-    private static DateTimeOffset? ParseRfc3339(ReadOnlySpan<char> s, DateTimeStyles styles = DateTimeStyles.AdjustToUniversal)
-    {
-        if (!DateTimeOffset.TryParseExact(s, Rfc3339Formats, CultureInfo.InvariantCulture, styles, out var result))
-            return null;
-
-        return result;
-    }
+    private static DateTimeOffset ParseRfc3339(ReadOnlySpan<char> s, DateTimeStyles styles = DateTimeStyles.AdjustToUniversal)
+        => DateTimeOffset.ParseExact(s, Rfc3339Formats, CultureInfo.InvariantCulture, styles);
 
     internal const string Layout = "01/02 03:04:05PM '06 -0700"; // The reference time, in numerical order.
     internal const string Ansic = "Mon Jan _2 15:04:05 2006";
@@ -273,37 +259,60 @@ internal static class DateTimeExtensions
         return result.ToString();
     }
 
-    public static bool TryParse(ReadOnlySpan<char> s, ReadOnlySpan<char> layout, out DateTimeOffset result)
+    public static long ParseNs(ReadOnlySpan<char> s, ReadOnlySpan<char> layout)
     {
         if (layout.SequenceEqual(Rfc3339))
-            return TryParseRfc3339(s, DateTimeStyles.None, out result);
+            return ParseRfc3339Ns(s, DateTimeStyles.None);
 
         // Known formats are pre-parsed.
         if (layout.SequenceEqual(Rfc3339Nano))
-            result = Parse(s, Rfc3339NanoParse);
-        else if (layout.SequenceEqual(Ansic))
-            result = Parse(s, AnsicParse);
-        else if (layout.SequenceEqual(UnixDate))
-            result = Parse(s, UnixDateParse);
-        else if (layout.SequenceEqual(RubyDate))
-            result = Parse(s, RubyDateParse);
-        else if (layout.SequenceEqual(Rfc1123))
-            result = Parse(s, Rfc1123Parse);
-        else if (layout.SequenceEqual(Rfc1123Z))
-            result = Parse(s, Rfc1123ZParse);
-        else if (layout.SequenceEqual(Rfc850))
-            result = Parse(s, Rfc850Parse);
-        else if (layout.SequenceEqual(Rfc822))
-            result = Parse(s, Rfc822Parse);
-        else if (layout.SequenceEqual(Rfc822Z))
-            result = Parse(s, Rfc822ZParse);
-        else
-            result = Parse(s, layout, true);
+            return Parse(s, Rfc3339NanoParse);
 
-        return true;
+        if (layout.SequenceEqual(Ansic))
+            return Parse(s, AnsicParse);
+
+        if (layout.SequenceEqual(UnixDate))
+            return Parse(s, UnixDateParse);
+
+        if (layout.SequenceEqual(RubyDate))
+            return Parse(s, RubyDateParse);
+
+        if (layout.SequenceEqual(Rfc1123))
+            return Parse(s, Rfc1123Parse);
+
+        if (layout.SequenceEqual(Rfc1123Z))
+            return Parse(s, Rfc1123ZParse);
+
+        if (layout.SequenceEqual(Rfc850))
+            return Parse(s, Rfc850Parse);
+
+        if (layout.SequenceEqual(Rfc822))
+            return Parse(s, Rfc822Parse);
+
+        if (layout.SequenceEqual(Rfc822Z))
+            return Parse(s, Rfc822ZParse);
+
+        return Parse(s, layout, true);
     }
 
-    private static DateTimeOffset Parse(ReadOnlySpan<char> s, ReadOnlySpan<char> layout, bool customFormat = false)
+    public static bool TryParseNs(ReadOnlySpan<char> s, ReadOnlySpan<char> layout, out DateTimeOffset result)
+    {
+        result = default;
+
+        try
+        {
+            var ns = ParseNs(s, layout);
+            result = FromEpochNs(ns);
+
+            return true;
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+    }
+
+    private static long Parse(ReadOnlySpan<char> s, ReadOnlySpan<char> layout, bool customFormat = false)
     {
         DateTimeOffset result;
 
@@ -555,13 +564,10 @@ internal static class DateTimeExtensions
             }
         }
 
-        if (nanoseconds > 0)
-            result = result.AddNs(nanoseconds);
-
         if (timeZone != TimeSpan.Zero)
             result = new DateTimeOffset(result.DateTime, timeZone);
 
-        return result;
+        return result.ToUniversalTime().ToSafeEpochNs(nanoseconds);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
