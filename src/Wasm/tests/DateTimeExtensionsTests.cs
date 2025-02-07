@@ -64,89 +64,131 @@ public class DateTimeExtensionsTests(ITestOutputHelper output)
     [Fact]
     public void SingleDigits()
     {
-        var d = new DateTimeOffset(2001, 2, 3, 4, 5, 6, 700, TimeSpan.Zero);
+        var d = new DateTimeOffset(2001, 2, 3, 4, 5, 6, 700, TimeSpan.Zero).ToEx();
         var f = DateTimeExtensions.GetFormatString(d, "3:4:5");
 
         output.WriteLine(f);
-        Assert.Equal("4:5:6", d.ToString(f, CultureInfo.InvariantCulture));
+        Assert.Equal("4:5:6", d.Date.ToString(f, CultureInfo.InvariantCulture));
     }
 
     [Fact]
     public void Rfc339Nano()
     {
         var tz = TimeZoneInfoExtensions.FindSystemTimeZoneByIdOrAbbr("America/New_York");
-        var date = DateTimeExtensions.FromEpochNs(1707133074028819500, tz);
+        var date = DateTimeExtensions.FromEpochNs(1707133074028819500, tz).ToEx();
         var f = DateTimeExtensions.GetFormatString(date, DateTimeExtensions.Rfc3339Nano, tz.Id);
 
         output.WriteLine(f);
-        Assert.Equal("2024-02-05T06:37:54.0288195-05:00", date.ToString(f, CultureInfo.InvariantCulture));
+        Assert.Equal("2024-02-05T06:37:54.0288195-05:00", date.Date.ToString(f, CultureInfo.InvariantCulture));
     }
 
-    [Fact]
-    public void NanoTrim()
+    [Theory]
+    [InlineData(1707133074028819512, "2024-02-05T06:37:54.028819512-05:00")]
+    [InlineData(1707133074028819510, "2024-02-05T06:37:54.02881951-05:00")]
+    public void NanoTrim(long ns, string expected)
     {
         var tz = TimeZoneInfoExtensions.FindSystemTimeZoneByIdOrAbbr("America/New_York");
-        var date = DateTimeExtensions.FromEpochNs(1707133074028819512, tz);
+        var date = DateTimeOffsetEx.FromEpochNs(ns, tz);
         var f = DateTimeExtensions.GetFormatString(date, DateTimeExtensions.Rfc3339Nano, tz.Id);
 
         output.WriteLine(f);
 
-        // Although nanosecond is 512 it will actually be 500 because
-        // DateTime.Nanosecond is actually DateTime.Ticks * 100;
-        Assert.Equal("2024-02-05T06:37:54.0288195-05:00", date.ToString(f, CultureInfo.InvariantCulture));
+        Assert.Equal(expected, date.Date.ToString(f, CultureInfo.InvariantCulture));
+    }
+
+    [Theory]
+    [InlineData(1707133074028819512, ".028819512", 9)]
+    [InlineData(1707133074028819512, ".02881951", 8)]
+    [InlineData(1707133074028819512, ".0288195", 7)]
+    [InlineData(1707133074028819512, ".028819", 6)]
+    [InlineData(1707133074028819000, ".028819000", 9)]
+    [InlineData(1707133074028819000, ".02881900", 8)]
+    [InlineData(1707133074028819000, ".0288190", 7)]
+    [InlineData(1707133074028819000, ".028819", 6)]
+    public void NanoUpperF(long ns, string expected, int len)
+    {
+        var tz = TimeZoneInfoExtensions.FindSystemTimeZoneByIdOrAbbr("America/New_York");
+        var date = DateTimeOffsetEx.FromEpochNs(ns, tz);
+        var format = $".{new string('0', len)}";
+        var f = DateTimeExtensions.GetFormatString(date, format, tz.Id);
+
+        output.WriteLine(f);
+
+        Assert.Equal(expected, date.Date.ToString(f, CultureInfo.InvariantCulture));
+    }
+
+    [Theory]
+    [InlineData(1707133074028819512, ".028819512", 9)]
+    [InlineData(1707133074028819512, ".02881951", 8)]
+    [InlineData(1707133074028819512, ".0288195", 7)]
+    [InlineData(1707133074028819512, ".028819", 6)]
+    [InlineData(1707133074028819000, ".028819", 9)]
+    [InlineData(1707133074028819000, ".028819", 8)]
+    [InlineData(1707133074028819000, ".028819", 7)]
+    [InlineData(1707133074028819000, ".028819", 6)]
+    public void NanoLowerF(long ns, string expected, int len)
+    {
+        var tz = TimeZoneInfoExtensions.FindSystemTimeZoneByIdOrAbbr("America/New_York");
+        var date = DateTimeOffsetEx.FromEpochNs(ns, tz);
+        var format = $".{new string('9', len)}";
+        var f = DateTimeExtensions.GetFormatString(date, format, tz.Id);
+
+        output.WriteLine(f);
+
+        Assert.Equal(expected, date.Date.ToString(f, CultureInfo.InvariantCulture));
     }
 
     [Fact]
     public void Rfc822()
     {
         var tz = TimeZoneInfoExtensions.FindSystemTimeZoneByIdOrAbbr("EST");
-        var date = DateTimeExtensions.FromEpochNs(1707133074028819500, tz);
+        var date = DateTimeExtensions.FromEpochNs(1707133074028819500, tz).ToEx();
         var f = DateTimeExtensions.GetFormatString(date, DateTimeExtensions.Rfc822, "EST");
 
         output.WriteLine(f);
-        Assert.Equal("05 Feb 24 06:37 EST", date.ToString(f, CultureInfo.InvariantCulture));
+        Assert.Equal("05 Feb 24 06:37 EST", date.Date.ToString(f, CultureInfo.InvariantCulture));
     }
 
     [Fact]
     public void Rfc3339Utc()
     {
-        var date = new DateTimeOffset(2008, 9, 17, 20, 4, 26, 0, TimeSpan.Zero);
+        var date = new DateTimeOffset(2008, 9, 17, 20, 4, 26, 0, TimeSpan.Zero).ToEx();
         var f = DateTimeExtensions.GetFormatString(date, DateTimeExtensions.Rfc3339);
 
         output.WriteLine(f);
-        Assert.Equal("2008-09-17T20:04:26Z", date.ToString(f, CultureInfo.InvariantCulture));
+        Assert.Equal("2008-09-17T20:04:26Z", date.Date.ToString(f, CultureInfo.InvariantCulture));
     }
 
     [Fact]
     public void Rfc3339Est()
     {
         var tz = TimeZoneInfoExtensions.FindSystemTimeZoneByIdOrAbbr("EST");
-        var date = new DateTimeOffset(1994, 9, 17, 20, 4, 26, 0, tz.BaseUtcOffset);
+        var date = new DateTimeOffset(1994, 9, 17, 20, 4, 26, 0, tz.BaseUtcOffset).ToEx();
         var f = DateTimeExtensions.GetFormatString(date, DateTimeExtensions.Rfc3339);
 
         output.WriteLine(f);
-        Assert.Equal("1994-09-17T20:04:26-05:00", date.ToString(f, CultureInfo.InvariantCulture));
+        Assert.Equal("1994-09-17T20:04:26-05:00", date.Date.ToString(f, CultureInfo.InvariantCulture));
     }
 
     [Fact]
     public void Rfc3339Oto()
     {
-        var date = new DateTimeOffset(2000, 9, 17, 20, 4, 26, 0, new(4, 20, 0));
+        var date = new DateTimeOffset(2000, 9, 17, 20, 4, 26, 0, new(4, 20, 0)).ToEx();
         var f = DateTimeExtensions.GetFormatString(date, DateTimeExtensions.Rfc3339);
 
         output.WriteLine(f);
-        Assert.Equal("2000-09-17T20:04:26+04:20", date.ToString(f, CultureInfo.InvariantCulture));
+        Assert.Equal("2000-09-17T20:04:26+04:20", date.Date.ToString(f, CultureInfo.InvariantCulture));
     }
 
     [Theory]
     [ClassData(typeof(FormatTheoryData))]
     public void Format(FormatTestCase tc)
     {
-        var date = TheDate;
+        var date = TheDate.ToEx();
         var f = DateTimeExtensions.GetFormatString(date, tc.Format, "PST");
 
         output.WriteLine(f);
-        Assert.Equal(tc.Expected, date.ToString(f, CultureInfo.InvariantCulture));
+        Assert.Equal(tc.Expected, date.Date.ToString(f, CultureInfo.InvariantCulture));
     }
 
     public record ParseTestCase(string Name, string Format, string Value, DateTimeOffset Expected)
@@ -403,18 +445,18 @@ public class DateTimeExtensionsTests(ITestOutputHelper output)
                         ),
 
                     // Time.
-                    // new(
-                    //     "Time 1",
-                    //     "15:04:05",
-                    //     "21:00:57",
-                    //     new DateTimeOffset(1, 1, 1, 21, 0, 57, 0, TimeSpan.Zero)
-                    //     ),
-                    // new(
-                    //     "Time 2",
-                    //     "03:04:05PM",
-                    //     "09:00:57PM",
-                    //     new DateTimeOffset(1, 1, 1, 21, 0, 57, 0, TimeSpan.Zero)
-                    //     ),
+                    new(
+                        "Time 1",
+                        "15:04:05",
+                        "21:00:57",
+                        new DateTimeOffset(1, 1, 1, 21, 0, 57, 0, TimeSpan.Zero)
+                        ),
+                    new(
+                        "Time 2",
+                        "03:04:05PM",
+                        "09:00:57PM",
+                        new DateTimeOffset(1, 1, 1, 21, 0, 57, 0, TimeSpan.Zero)
+                        ),
                 ]
                 );
         }
@@ -443,7 +485,7 @@ public class DateTimeExtensionsTests(ITestOutputHelper output)
         var result = DateTimeExtensions.TryParseNs(tc.Value, tc.Format, out var date);
 
         Assert.True(result);
-        Assert.Equal(tc.Expected, date);
+        Assert.Equal(tc.Expected, date.Date);
     }
 
     public static IEnumerable<object[]> TimeZoneAbbrCases()
@@ -458,5 +500,30 @@ public class DateTimeExtensionsTests(ITestOutputHelper output)
     {
         var tz = TimeZoneInfoExtensions.FindSystemTimeZoneByIdOrAbbr(abbr);
         Assert.Equal(abbr, tz.Id);
+    }
+
+    [Fact]
+    public void Do()
+    {
+        var x = new Xxx(1670006453141828752);
+        var r = DateTimeExtensions.FromNs(1670006453141828752);
+
+        Assert.Equal(r, x._date);
+        Assert.Equal(52, x._f);
+        Assert.Equal(1670006453141828752, x.ToNs());
+    }
+
+    internal class Xxx
+    {
+        public DateTimeOffset _date;
+        public byte _f;
+
+        public Xxx(long ns)
+        {
+            _date = DateTimeExtensions.FromNs(ns);
+            _f = (byte)(ns % 100);
+        }
+
+        public long ToNs() => _date.Ticks * 100 + _f;
     }
 }

@@ -31,7 +31,7 @@ internal ref struct ValueStringBuilder
     public ValueStringBuilder(int initialCapacity)
     {
         _arrayToReturnToPool = ArrayPool<char>.Shared.Rent(initialCapacity);
-        _chars = _arrayToReturnToPool;
+        _chars = _arrayToReturnToPool ?? throw new InvalidOperationException("Failed to allocate buffer");
         _pos = 0;
     }
 

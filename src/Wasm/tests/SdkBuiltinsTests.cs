@@ -128,6 +128,7 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
 
     [Theory]
     [InlineData("time.format(1707133074028819500)", "\"2024-02-05T11:37:54.0288195Z\"")]
+    [InlineData("time.format(1670006453141828752)", "\"2022-12-02T18:40:53.141828752Z\"")]
     [InlineData("""time.format([1707133074028819500, "America/New_York"])""", "\"2024-02-05T06:37:54.0288195-05:00\"")]
     [InlineData("""time.format([1707133074028819500, "EST", "RFC822"])""", "\"05 Feb 24 06:37 EST\"")]
     [InlineData("""time.format([1707133074028819500, "UTC", "06 01 02"])""", "\"24 02 05\"")]
@@ -200,6 +201,7 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
     [InlineData("""time.parse_rfc3339_ns("1996-12-19T16:39:57-08:00")""", "851042397000000000")]
     [InlineData("""time.parse_rfc3339_ns("1990-12-31T23:59:59Z")""", "662687999000000000")]
     [InlineData("""time.parse_rfc3339_ns("1937-01-01T12:00:27.87+00:20")""", "-1041337172130000000")]
+    [InlineData("""time.parse_rfc3339_ns("2262-04-11T23:47:16.854775807-00:00")""", "9223372036854775807")]
     public async Task TimeParseRfc3339Ns(string func, string expected)
     {
         var result = await RunTestCase(func, expected, false, new TimeImports(Output));

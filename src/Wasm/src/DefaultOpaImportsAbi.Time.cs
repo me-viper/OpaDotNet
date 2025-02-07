@@ -173,9 +173,9 @@ public partial class DefaultOpaImportsAbi
         return null;
     }
 
-    private static long? ParseRfc3339Ns(string s) => DateTimeExtensions.ParseRfc3339Ns(s);
+    private static long? ParseRfc3339Ns(string s) => DateTimeOffsetEx.ParseRfc3339Ns(s).ToSafeEpochNs();
 
-    private static readonly IReadOnlyDictionary<string, string> TimeFormats = new Dictionary<string, string>
+    private static readonly Dictionary<string, string> TimeFormats = new()
     {
         { "ANSIC", DateTimeExtensions.Ansic },
         { "UnixDate", DateTimeExtensions.UnixDate },
@@ -195,14 +195,14 @@ public partial class DefaultOpaImportsAbi
 
         long ns;
         var format = DateTimeExtensions.Rfc3339Nano;
-        DateTimeOffset date;
+        DateTimeOffsetEx date;
 
         if (x is JsonValue jv)
         {
             if (!jv.TryGetValue(out ns))
                 throw new FormatException("Invalid time");
 
-            date = DateTimeExtensions.FromEpochNs(ns);
+            date = DateTimeOffsetEx.FromEpochNs(ns);
             return date.Format(format);
         }
 
@@ -237,7 +237,7 @@ public partial class DefaultOpaImportsAbi
             tz = TimeZoneInfoExtensions.FindSystemTimeZoneByIdOrAbbr(timeZone);
         }
 
-        date = DateTimeExtensions.FromEpochNs(ns, tz);
+        date = DateTimeOffsetEx.FromEpochNs(ns, tz);
 
         return date.Format(format, zoneId);
     }
@@ -247,6 +247,6 @@ public partial class DefaultOpaImportsAbi
         if (TimeFormats.TryGetValue(layout, out var f))
             layout = f;
 
-        return DateTimeExtensions.ParseNs(value, layout);
+        return DateTimeExtensions.ParseNs(value, layout).ToSafeEpochNs();
     }
 }

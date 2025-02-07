@@ -4,6 +4,8 @@ using System.Text.RegularExpressions;
 
 using OpaDotNet.Wasm.Internal;
 
+using OverflowException = System.OverflowException;
+
 // ReSharper disable IdentifierTypo
 // ReSharper disable StringLiteralTypo
 
@@ -11,6 +13,8 @@ namespace OpaDotNet.Wasm.GoCompat;
 
 internal static class DateTimeExtensions
 {
+    public static DateTimeOffsetEx ToEx(this DateTimeOffset date, uint fraction = 0) => new(date, fraction);
+
     public static DateTimeOffset FromEpochNs(long ns) => DateTimeOffset.UnixEpoch.AddTicks(ns / TimeSpan.NanosecondsPerTick);
 
     public static DateTimeOffset FromEpochNs(long ns, TimeZoneInfo tz)
@@ -20,11 +24,12 @@ internal static class DateTimeExtensions
 
     public static long ToEpochNs(this DateTimeOffset d) => (d - DateTimeOffset.UnixEpoch).Ticks * TimeSpan.NanosecondsPerTick;
 
-    private static Int128 ToEpochNs128(this DateTimeOffset d) =>
+    public static Int128 ToEpochNs128(this DateTimeOffset d) =>
         ((Int128)d.Ticks - DateTimeOffset.UnixEpoch.Ticks) * TimeSpan.NanosecondsPerTick;
 
-    private static readonly Int128 MinSafeUnixDateNs = DateTimeOffset.UnixEpoch.ToEpochNs128() + long.MinValue;
-    private static readonly Int128 MaxSafeUnixDateNs = DateTimeOffset.UnixEpoch.ToEpochNs128() + long.MaxValue;
+    public static readonly Int128 MinSafeUnixDateNs = DateTimeOffset.UnixEpoch.ToEpochNs128() + long.MinValue;
+
+    public static readonly Int128 MaxSafeUnixDateNs = DateTimeOffset.UnixEpoch.ToEpochNs128() + long.MaxValue;
 
     public static long ToSafeEpochNs(this DateTimeOffset d, long fraction = 0)
     {
@@ -37,71 +42,6 @@ internal static class DateTimeExtensions
     }
 
     public static DateTimeOffset AddNs(this DateTimeOffset d, long ns) => d.AddTicks(ns / TimeSpan.NanosecondsPerTick);
-
-    private static string[] Rfc3339Formats { get; } =
-    [
-        "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffffK",
-        "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'ffffffK",
-        "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffK",
-        "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'ffffK",
-        "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffK",
-        "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'ffK",
-        "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fK",
-        "yyyy'-'MM'-'dd'T'HH':'mm':'ssK",
-
-        // Fall back patterns
-        "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffffK",
-        DateTimeFormatInfo.InvariantInfo.UniversalSortableDateTimePattern,
-        DateTimeFormatInfo.InvariantInfo.SortableDateTimePattern,
-    ];
-
-    public static long ParseRfc3339Ns(ReadOnlySpan<char> s, DateTimeStyles styles = DateTimeStyles.AdjustToUniversal)
-    {
-        var i = 0;
-        var start = -1;
-        var end = -1;
-
-        while (i < s.Length)
-        {
-            if (s[i] == '.')
-            {
-                start = ++i;
-
-                while (i < s.Length)
-                {
-                    if (!char.IsDigit(s[i]))
-                        break;
-
-                    end = i;
-                    i++;
-                }
-            }
-
-            i++;
-        }
-
-        end++;
-
-        if (end - start <= 7)
-            return ParseRfc3339(s).ToSafeEpochNs();
-
-        if (!long.TryParse(s[start..end], out var fractionNs))
-            throw new FormatException("Invalid fration");
-
-        // Get date without fraction.
-        var snf = string.Concat(s[..(start - 1)], s[end..]);
-
-        var result = DateTimeOffset.ParseExact(snf, Rfc3339Formats, CultureInfo.InvariantCulture, styles);
-
-        // We've got 1,000,000ns in 1ms.
-        while (fractionNs < 1_000_000)
-            fractionNs *= 10;
-
-        return result.ToSafeEpochNs(fractionNs);
-    }
-
-    private static DateTimeOffset ParseRfc3339(ReadOnlySpan<char> s, DateTimeStyles styles = DateTimeStyles.AdjustToUniversal)
-        => DateTimeOffset.ParseExact(s, Rfc3339Formats, CultureInfo.InvariantCulture, styles);
 
     internal const string Layout = "01/02 03:04:05PM '06 -0700"; // The reference time, in numerical order.
     internal const string Ansic = "Mon Jan _2 15:04:05 2006";
@@ -135,13 +75,7 @@ internal static class DateTimeExtensions
     private const string Rfc1123ZParse = "ddd, dd MMM yyyy HH:mm:ss.9999999 -0700"; // RFC1123 with numeric zone
     private const string Rfc3339NanoParse = "yyyy-MM-ddTHH:mm:ss.999999999K";
 
-    public static string Format(this DateTimeOffset d, ReadOnlySpan<char> layout, string? timeZoneId = null)
-    {
-        var format = GetFormatString(d, layout, timeZoneId ?? TimeZoneInfo.Utc.Id);
-        return d.ToString(format, CultureInfo.InvariantCulture);
-    }
-
-    public static string GetFormatString(DateTimeOffset d, ReadOnlySpan<char> layout)
+    public static string GetFormatString(DateTimeOffsetEx d, ReadOnlySpan<char> layout)
         => GetFormatString(d, layout, TimeZoneInfo.Utc.Id);
 
     /// <summary>
@@ -153,7 +87,7 @@ internal static class DateTimeExtensions
     /// (like __2 aka number days in a year or time zone names) we have to do formatting manually.
     /// </summary>
     public static string GetFormatString(
-        DateTimeOffset d,
+        DateTimeOffsetEx d,
         ReadOnlySpan<char> layout,
         ReadOnlySpan<char> timeZoneId)
     {
@@ -171,52 +105,61 @@ internal static class DateTimeExtensions
             switch (chunk.Fmt)
             {
                 case "pm":
-                    if (d.TimeOfDay.Hours is >= 0 and < 12)
+                    if (d.Date.TimeOfDay.Hours is >= 0 and < 12)
                         result.Append("a\\m");
                     else
                         result.Append("p\\m");
 
                     break;
                 case "PM":
-                    if (d.TimeOfDay.Hours is >= 0 and < 12)
+                    if (d.Date.TimeOfDay.Hours is >= 0 and < 12)
                         result.Append("A\\M");
                     else
                         result.Append("P\\M");
 
                     break;
                 case "__2":
-                    if (d.DayOfYear < 10)
+                    if (d.Date.DayOfYear < 10)
                         result.Append(' ');
 
-                    if (d.DayOfYear < 100)
+                    if (d.Date.DayOfYear < 100)
                         result.Append(' ');
 
-                    result.Append(d.DayOfYear);
+                    result.Append(d.Date.DayOfYear);
 
                     break;
                 case "002":
-                    result.Append(d.DayOfYear, "000");
+                    result.Append(d.Date.DayOfYear, "000");
 
                     break;
                 case "_2":
-                    if (d.Day < 10)
+                    if (d.Date.Day < 10)
                         result.Append(' ');
 
-                    result.Append(d.Day);
+                    result.Append(d.Date.Day);
 
                     break;
                 case "MST":
                     result.AppendQuoted(timeZoneId);
                     break;
-                case "fffffffff":
-                    result.Append(d.Nanosecond, "'ffffff'000");
+                case "ffffffff":
+                    if (d.TicksFraction == 0)
+                        result.Append("fffffff0");
+                    else
+                        result.Append(d.TicksFraction / 10, "'fffffff'#0");
                     break;
-                case "FFFFFFFFF":
-                    if (d.Nanosecond == 0)
-                        result.Append("FFFFFF");
+                case "fffffffff":
+                    if (d.TicksFraction == 0)
+                        result.Append("fffffff00");
+                    else
+                        result.Append(d.TicksFraction, "'fffffff'#00");
+                    break;
+                case "FFFFFFFF":
+                    if (d.TicksFraction == 0)
+                        result.Append("FFFFFFF");
                     else
                     {
-                        var tns = d.Nanosecond;
+                        var tns = d.TicksFraction / 10;
 
                         // Have to trim trailing 0 manually.
                         if (tns % 10 == 0)
@@ -227,12 +170,32 @@ internal static class DateTimeExtensions
                                 tns /= 10;
                         }
 
-                        result.Append(tns, "'ffffff'#");
+                        result.Append(tns, "'fffffff'#");
+                    }
+
+                    break;
+                case "FFFFFFFFF":
+                    if (d.TicksFraction == 0)
+                        result.Append("FFFFFFF");
+                    else
+                    {
+                        var tns = d.TicksFraction;
+
+                        // Have to trim trailing 0 manually.
+                        if (tns % 10 == 0)
+                        {
+                            tns /= 10;
+
+                            if (tns % 10 == 0)
+                                tns /= 10;
+                        }
+
+                        result.Append(tns, "'fffffff'#");
                     }
 
                     break;
                 default:
-                    if (chunk.Fmt.StartsWith("ZU") && d.Offset == TimeSpan.Zero)
+                    if (chunk.Fmt.StartsWith("ZU") && d.Date.Offset == TimeSpan.Zero)
                     {
                         result.Append('Z');
                         break;
@@ -242,9 +205,9 @@ internal static class DateTimeExtensions
                     {
                         var fmt = chunk.Fmt[2..];
 
-                        if (d.Offset.TryFormat(timeZoneBuffer, out var bw, fmt))
+                        if (d.Date.Offset.TryFormat(timeZoneBuffer, out var bw, fmt))
                         {
-                            result.Append(d.Offset.Hours < 0 ? '-' : '+');
+                            result.Append(d.Date.Offset.Hours < 0 ? '-' : '+');
                             result.Append(timeZoneBuffer[..bw]);
                         }
 
@@ -259,10 +222,10 @@ internal static class DateTimeExtensions
         return result.ToString();
     }
 
-    public static long ParseNs(ReadOnlySpan<char> s, ReadOnlySpan<char> layout)
+    public static DateTimeOffsetEx ParseNs(ReadOnlySpan<char> s, ReadOnlySpan<char> layout)
     {
         if (layout.SequenceEqual(Rfc3339))
-            return ParseRfc3339Ns(s, DateTimeStyles.None);
+            return DateTimeOffsetEx.ParseRfc3339Ns(s, DateTimeStyles.None);
 
         // Known formats are pre-parsed.
         if (layout.SequenceEqual(Rfc3339Nano))
@@ -295,15 +258,13 @@ internal static class DateTimeExtensions
         return Parse(s, layout, true);
     }
 
-    public static bool TryParseNs(ReadOnlySpan<char> s, ReadOnlySpan<char> layout, out DateTimeOffset result)
+    public static bool TryParseNs(ReadOnlySpan<char> s, ReadOnlySpan<char> layout, out DateTimeOffsetEx result)
     {
         result = default;
 
         try
         {
-            var ns = ParseNs(s, layout);
-            result = FromEpochNs(ns);
-
+            result = ParseNs(s, layout);
             return true;
         }
         catch (Exception)
@@ -312,7 +273,7 @@ internal static class DateTimeExtensions
         }
     }
 
-    private static long Parse(ReadOnlySpan<char> s, ReadOnlySpan<char> layout, bool customFormat = false)
+    private static DateTimeOffsetEx Parse(ReadOnlySpan<char> s, ReadOnlySpan<char> layout, bool customFormat = false)
     {
         DateTimeOffset result;
 
@@ -332,7 +293,7 @@ internal static class DateTimeExtensions
 
         var parseIndex = 0;
 
-        long nanoseconds = 0;
+        uint nanoseconds = 0;
         var timeZone = TimeSpan.Zero;
         var dayOfYear = -1;
         var hasDay = !customFormat;
@@ -384,7 +345,7 @@ internal static class DateTimeExtensions
                 if (chunk.Fmt.StartsWith("fffffffff") || chunk.Fmt.StartsWith("FFFFFFFFF"))
                 {
                     var parse = s.Slice(parseIndex, chunk.Fmt.Length);
-                    nanoseconds = long.Parse(parse);
+                    nanoseconds = uint.Parse(parse);
                     formatBuilder.Append(parse);
                     parseIndex += parse.Length - 1;
 
@@ -567,7 +528,7 @@ internal static class DateTimeExtensions
         if (timeZone != TimeSpan.Zero)
             result = new DateTimeOffset(result.DateTime, timeZone);
 
-        return result.ToUniversalTime().ToSafeEpochNs(nanoseconds);
+        return new(result.ToUniversalTime(), nanoseconds);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
