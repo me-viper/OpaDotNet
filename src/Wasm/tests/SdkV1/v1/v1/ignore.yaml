@@ -1,0 +1,27 @@
+﻿# Regex with test case name
+# SDK
+- aggregates/
+- arithmetic/
+- array/
+- bits(\w+)/
+- casts/to_number
+- netcidrcontains/cidr subnet
+- netcidrintersects/cidr subnet
+- numbersrange/error
+- 'strings/format_int: err: bad base'
+- strings/reverse_
+- strings/substring
+- replacen/bad
+# Not implemented
+- graphql_
+- globsmatch/
+- providers-aws-sign_req/
+- rendertemplate/
+- regoparsemodule/
+# WASM specific
+- dataref/
+- data/nested integer
+- data/toplevel integer
+- helloworld/another_test_for_builtin_error
+# ???
+- virtualdocs/undefined
