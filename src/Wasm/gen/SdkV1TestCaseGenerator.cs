@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 
 using Microsoft.CodeAnalysis;
@@ -27,35 +28,49 @@ public class SdkV1TestCaseGenerator : IIncrementalGenerator
                 (p, c) =>
                 {
                     var fi = new FileInfo(p.Path);
-                    var name = fi.Directory!.Name;
+                    var category = fi.Directory!.Name;
+
+                    var name = Path.GetFileNameWithoutExtension(fi.Name);
 
                     try
                     {
-                        return SdkV1TestData.ParseFile(name, p.Path, filter);
+                        var source = p.GetText();
+
+                        if (source == null)
+                            return null;
+
+                        return SdkV1TestData.ParseFile(category, name, source, filter);
                     }
                     catch (Exception ex)
                     {
-                        throw new InvalidOperationException($"Failed to build tests cases for {p.Path}", ex);
+                        var failed = new SdkV1TestCaseContainer { FileName = p.Path };
+                        failed.Diagnostics.Add(Diagnostic.Create(Helpers.FailedToParseTestCaseFile, Location.None, p.Path, ex.Message));
+                        return failed;
                     }
                 }
                 )
-            .WithComparer(SdkV1TestCaseContainerEqualityComparer.Instance);
+            .WithComparer(SdkV1TestCaseContainerEqualityComparer.Instance)
+            .Where(p => p != null);
+
+        var dgs = pipe.Where(p => p!.Diagnostics.Count > 0);
+
+        context.RegisterSourceOutput(
+            dgs,
+            static (context, p) =>
+            {
+                foreach (var d in p!.Diagnostics)
+                    context.ReportDiagnostic(d);
+            }
+            );
 
         context.RegisterSourceOutput(
             pipe,
             static (context, p) =>
             {
-                try
+                if (p!.Cases.Count > 0)
                 {
-                    if (p?.Cases.Count > 0)
-                    {
-                        var src = SdkV1TestWriter.WriteTestCases(p.Cases);
-                        context.AddSource($"{p.FileName}.g.cs", SourceText.From(src, Encoding.UTF8));
-                    }
-                }
-                catch (Exception ex)
-                {
-                    throw new InvalidOperationException($"Failed to generate source for {p?.FileName}: {ex.StackTrace}", ex);
+                    var src = SdkV1TestWriter.WriteTestCases(p.Cases);
+                    context.AddSource($"{p.FileName}.g.cs", SourceText.From(src, Encoding.UTF8));
                 }
             }
             );
@@ -119,6 +134,9 @@ internal class SdkV1TestCaseContainer
     public HashSet<SdkV1TestCase> Cases { get; set; } = new();
 
     public string Hash { get; set; } = string.Empty;
+
+    [JsonIgnore]
+    public List<Diagnostic> Diagnostics { get; } = new();
 }
 
 internal class SdkV1TestCaseContainerEqualityComparer : IEqualityComparer<SdkV1TestCaseContainer?>
@@ -138,16 +156,24 @@ internal static class SdkV1TestData
         PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,
     };
 
-    public static SdkV1TestCaseContainer? ParseFile(string name, string file, SdkV1TestCaseFilter filter)
+    public static SdkV1TestCaseContainer? ParseFile(string category, string testCaseName, SourceText source, SdkV1TestCaseFilter filter)
     {
-        var text = File.ReadAllText(file);
+        var sb = new StringBuilder();
+
+        using (var sw = new StringWriter(sb))
+            source.Write(sw);
+
+        var text = sb.ToString();
+
+        if (string.IsNullOrWhiteSpace(text))
+            return null;
+
         var testCases = YamlSerializer.Deserialize<SdkV1TestCaseContainer>(text, Opts);
 
         if (testCases == null)
             return null;
 
-        var testCaseName = Path.GetFileNameWithoutExtension(file);
-        testCases.FileName = $"{name}-{testCaseName}";
+        testCases.FileName = $"{category}-{testCaseName}";
 
         using var hashesStream = new MemoryStream();
         using var md5 = MD5.Create();
@@ -156,7 +182,7 @@ internal static class SdkV1TestData
 
         foreach (var testCase in testCases.Cases)
         {
-            testCase.Category = name;
+            testCase.Category = category;
             testCase.Name = testCaseName;
 
             var skipReason = filter.SkipReason(testCase.Note);
