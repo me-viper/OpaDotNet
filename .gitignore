@@ -7,6 +7,7 @@ artifacts
 appsettings.Development.json
 qodana.sln
 lib/
+Generated/
 
 # User-specific files
 *.rsuser

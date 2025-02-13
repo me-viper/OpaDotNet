@@ -4,6 +4,9 @@
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
     <DefineConstants Condition="'$(TestConstants)' != ''">$(DefineConstants);$(TestConstants)</DefineConstants>
+
+    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+    <CompilerGeneratedFilesOutputPath>Generated</CompilerGeneratedFilesOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,6 +25,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="$(CompilerGeneratedFilesOutputPath)/**/*.cs" />
+
+    <AdditionalFiles Include="SdkV1\v1\**\*.yaml"/>
+
     <None Update="TestData\**">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -30,6 +37,15 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Testing\src\OpaDotNet.InternalTesting.csproj"/>
     <ProjectReference Include="..\src\OpaDotNet.Wasm.csproj"/>
+    <ProjectReference Include="..\gen\OpaDotNet.Wasm.Generators.csproj"
+                      ReferenceOutputAssembly="false"
+                      OutputItemType="Analyzer"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\gen\SdkV1TestCase.cs">
+      <Link>SdkV1\SdkV1TestCase.cs</Link>
+    </Compile>
   </ItemGroup>
 
 </Project>

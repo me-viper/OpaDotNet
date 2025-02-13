@@ -1,0 +1,35 @@
+﻿# Exclude:
+# Regex with test case name
+- reason: Who would use that?
+  regex:
+  - uuid-parse/positive-v2
+- reason: Internal SDK specifics
+  regex:
+  - aggregates/
+  - arithmetic/
+  - array/
+  - bits(\w+)/
+  - casts/to_number
+  - netcidrcontains/cidr subnet
+  - netcidrintersects/cidr subnet
+  - numbersrange/error
+  - 'strings/format_int: err: bad base'
+  - strings/reverse_
+  - strings/substring
+  - replacen/bad
+- reason: Not implemented
+  regex:
+  - graphql_
+  - globsmatch/
+  - providers-aws-sign_req/
+  - rendertemplate/
+  - regoparsemodule/
+- reason: WASM SDK specifics
+  regex:
+  - dataref/
+  - data/nested integer
+  - data/toplevel integer
+  - helloworld/another_test_for_builtin_error
+- reason: WTF???
+  regex:
+  - virtualdocs/undefined
