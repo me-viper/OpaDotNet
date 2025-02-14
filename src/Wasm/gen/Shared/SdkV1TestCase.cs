@@ -3,6 +3,7 @@
 // ReSharper disable once CheckNamespace
 namespace OpaDotNet.Wasm.Tests;
 
+[UsedImplicitly]
 internal class SdkV1TestCase
 {
     public string? Skip { get; set; }

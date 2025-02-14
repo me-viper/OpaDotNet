@@ -7,7 +7,7 @@ using OpaDotNet.Wasm.Tests;
 
 namespace OpaDotNet.Wasm.Generators;
 
-internal static class SdkV1TestWriter
+internal static class TestCaseWriter
 {
     public static string WriteTestCases(IEnumerable<SdkV1TestCase> cases)
     {

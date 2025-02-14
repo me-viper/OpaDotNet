@@ -1,8 +1,5 @@
 ﻿# Exclude:
 # Regex with test case name
-- reason: Who would use that?
-  regex:
-  - uuid-parse/positive-v2
 - reason: Internal SDK specifics
   regex:
   - aggregates/

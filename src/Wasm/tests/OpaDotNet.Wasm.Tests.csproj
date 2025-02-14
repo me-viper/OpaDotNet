@@ -43,7 +43,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="..\gen\SdkV1TestCase.cs">
+    <Compile Include="..\gen\Shared\SdkV1TestCase.cs">
       <Link>SdkV1\SdkV1TestCase.cs</Link>
     </Compile>
   </ItemGroup>
