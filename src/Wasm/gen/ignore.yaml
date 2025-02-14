@@ -2,6 +2,7 @@
 # Regex with test case name
 - reason: Internal SDK specifics
   regex:
+  - 'strings/format_int: err: bad base'
   - aggregates/
   - arithmetic/
   - array/
@@ -10,10 +11,14 @@
   - netcidrcontains/cidr subnet
   - netcidrintersects/cidr subnet
   - numbersrange/error
-  - 'strings/format_int: err: bad base'
+  - objectfilter/error
+  - objectget/get_for_non_object
+  - objectkeys/error
+  - objectremove/error
+  - objectunion/error
+  - replacen/bad
   - strings/reverse_
   - strings/substring
-  - replacen/bad
 - reason: Not implemented
   regex:
   - graphql_
