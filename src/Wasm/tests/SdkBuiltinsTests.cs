@@ -73,7 +73,6 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
         Assert.True(result.Assert);
     }
 
-
     [Theory]
     [InlineData("strings.any_prefix_match([\"aaa\", \"bbb\", \"ccc\"], [\"bb\"])", "true")]
     [InlineData("strings.any_prefix_match([\"aaa\", \"bbb\", \"ccc\"], [\"xx\", \"yy\", \"cc\"])", "true")]
@@ -629,6 +628,89 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
             var result = eval.EvaluateRaw(null, "sdk");
             var expected = """[{"result":{"reason":["invalid JWT supplied as input"]}}]""";
             Assert.Equal(expected, result);
+        }
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task ErrorHandlingRaw(bool strictErrors)
+    {
+        var src = """
+            package sdk
+            import rego.v1
+            r := units.parse_bytes("xx")
+            """;
+
+        using var eval = await Build(src, "sdk/r", new DefaultOpaImportsAbi(), new() { StrictBuiltinErrors = strictErrors });
+
+        if (strictErrors)
+            Assert.Throws<OpaEvaluationException>(() => eval.EvaluateRaw(null, "sdk/r"));
+        else
+        {
+            var result = eval.EvaluateRaw(null, "sdk/r");
+            var expected = """[]""";
+            Assert.Equal(expected, result);
+        }
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task ErrorHandlingObjectNullable(bool strictErrors)
+    {
+        var src = """
+            package sdk
+            import rego.v1
+            r := units.parse_bytes("xx")
+            """;
+
+        using var eval = await Build(src, "sdk/r", new DefaultOpaImportsAbi(), new() { StrictBuiltinErrors = strictErrors });
+
+        if (strictErrors)
+            Assert.Throws<OpaEvaluationException>(() => eval.EvaluateOrDefault<object?, ulong?>(null, "sdk/r"));
+        else
+        {
+            var result = eval.EvaluateOrDefault<object?, ulong?>(null, "sdk/r");
+            Assert.Null(result.Result);
+        }
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task ErrorHandlingObject(bool strictErrors)
+    {
+        var src = """
+            package sdk
+            import rego.v1
+            r := units.parse_bytes("xx")
+            """;
+
+        using var eval = await Build(src, "sdk/r", new DefaultOpaImportsAbi(), new() { StrictBuiltinErrors = strictErrors });
+
+        Assert.Throws<OpaEvaluationException>(() => eval.Evaluate<object?, ulong>(null, "sdk/r"));
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task ErrorHandlingPredicate(bool strictErrors)
+    {
+        var src = """
+            package sdk
+            import rego.v1
+            r := true if { units.parse_bytes("xx") == 1 }
+            """;
+
+        using var eval = await Build(src, "sdk/r", new DefaultOpaImportsAbi(), new() { StrictBuiltinErrors = strictErrors });
+
+        if (strictErrors)
+            Assert.Throws<OpaEvaluationException>(() => eval.EvaluatePredicate<object?>(null, "sdk/r"));
+        else
+        {
+            var result = eval.EvaluatePredicate<object?>(null, "sdk/r");
+            Assert.False(result.Result);
         }
     }
 

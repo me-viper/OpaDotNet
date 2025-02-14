@@ -43,8 +43,12 @@ internal class OpaEvaluatorPoolPolicy : PooledObjectPolicy<IOpaEvaluator>
         public PolicyEvaluationResult<bool> EvaluatePredicate<TInput>(TInput input, string? entrypoint = null)
             => _inner.EvaluatePredicate(input, entrypoint);
 
-        public PolicyEvaluationResult<TOutput> Evaluate<TInput, TOutput>(TInput input, string? entrypoint = null) where TOutput : notnull
+        public PolicyEvaluationResult<TOutput> Evaluate<TInput, TOutput>(TInput input, string? entrypoint = null)
+            where TOutput : notnull
             => _inner.Evaluate<TInput, TOutput>(input, entrypoint);
+
+        public PolicyEvaluationResult<TOutput?> EvaluateOrDefault<TInput, TOutput>(TInput input, string? entrypoint = null)
+            => _inner.EvaluateOrDefault<TInput, TOutput>(input, entrypoint);
 
         public string EvaluateRaw(ReadOnlySpan<char> inputJson, string? entrypoint = null)
             => _inner.EvaluateRaw(inputJson, entrypoint);

@@ -292,6 +292,16 @@ internal sealed class OpaWasmEvaluator : IOpaEvaluator
         return result[0];
     }
 
+    public PolicyEvaluationResult<TOutput?> EvaluateOrDefault<TInput, TOutput>(TInput input, string? entrypoint = null)
+    {
+        var result = EvalInternal<TInput, PolicyEvaluationResult<TOutput?>[]>(input, entrypoint);
+
+        if (result == null || result.Length == 0)
+            return new PolicyEvaluationResult<TOutput?> { Result = default };
+
+        return result[0];
+    }
+
     public PolicyEvaluationResult<TOutput> Evaluate<TInput, TOutput>(TInput input, string? entrypoint = null)
         where TOutput : notnull
     {
@@ -305,37 +315,19 @@ internal sealed class OpaWasmEvaluator : IOpaEvaluator
 
     public string EvaluateRaw(ReadOnlySpan<char> inputJson, string? entrypoint = null)
     {
-        try
-        {
-            var resultPtr = EvalInternal(inputJson, entrypoint);
-            return _memory.ReadNullTerminatedString(resultPtr);
-        }
-        catch (OpaEvaluationAbortedException)
-        {
-            throw;
-        }
-        // catch (OpaEvaluationException)
-        // {
-        //     return """[{"result":[]}]""";
-        // }
+        var resultPtr = EvalInternal(inputJson, entrypoint);
+        return _memory.ReadNullTerminatedString(resultPtr);
     }
 
     private TOutput? EvalInternal<TInput, TOutput>(TInput input, string? entrypoint = null)
     {
-        try
-        {
-            var s = JsonSerializer.Serialize(input, JsonOptions);
-            var jsonAdr = EvalInternal(s, entrypoint);
-            return _memory.ReadNullTerminatedJson<TOutput>(jsonAdr, JsonOptions);
-        }
-        catch (OpaEvaluationAbortedException)
-        {
-            throw;
-        }
-        // catch (OpaEvaluationException)
-        // {
-        //     return default;
-        // }
+        var s = JsonSerializer.Serialize(input, JsonOptions);
+        var jsonAdr = EvalInternal(s, entrypoint);
+
+        if (jsonAdr == 0)
+            return default;
+
+        return _memory.ReadNullTerminatedJson<TOutput>(jsonAdr, JsonOptions);
     }
 
     private nint EvalInternal(ReadOnlySpan<char> inputJson, string? entrypoint = null)

@@ -7,7 +7,7 @@ namespace OpaDotNet.Wasm;
 /// </summary>
 /// <typeparam name="T">The type of object returned by the policy.</typeparam>
 [PublicAPI]
-public class PolicyEvaluationResult<T> where T : notnull
+public class PolicyEvaluationResult<T>
 {
     /// <summary>
     /// Policy result.

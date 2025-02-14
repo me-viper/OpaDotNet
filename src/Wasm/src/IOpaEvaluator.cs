@@ -31,7 +31,7 @@ public interface IOpaEvaluator : IDisposable
     /// <typeparam name="TOutput">Type of the output.</typeparam>
     /// <returns>Policy evaluation result</returns>
     PolicyEvaluationResult<TOutput> Evaluate<TInput, TOutput>(TInput input, string? entrypoint = null)
-        where TOutput : notnull;
+        where TOutput: notnull;
 
     /// <summary>
     /// Evaluates named policy with specified raw JSON input.
@@ -72,4 +72,14 @@ public interface IOpaEvaluator : IDisposable
     /// <returns><c>true</c> if extension is supported; otherwise <c>false</c>.</returns>
     bool TryGetFeature<TFeature>([MaybeNullWhen(false)] out TFeature feature)
         where TFeature : class, IOpaEvaluatorFeature;
+
+    /// <summary>
+    /// Evaluates named policy with specified input.
+    /// </summary>
+    /// <param name="input">Policy input document.</param>
+    /// <param name="entrypoint">Policy decision to ask for.</param>
+    /// <typeparam name="TInput">Type of the input.</typeparam>
+    /// <typeparam name="TOutput">Type of the output.</typeparam>
+    /// <returns>Policy evaluation result</returns>
+    PolicyEvaluationResult<TOutput?> EvaluateOrDefault<TInput, TOutput>(TInput input, string? entrypoint = null);
 }

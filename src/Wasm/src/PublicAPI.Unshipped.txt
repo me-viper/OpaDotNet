@@ -1,2 +1,2 @@
 #nullable enable
-
+OpaDotNet.Wasm.IOpaEvaluator.EvaluateOrDefault<TInput, TOutput>(TInput input, string? entrypoint = null) -> OpaDotNet.Wasm.PolicyEvaluationResult<TOutput?>!
