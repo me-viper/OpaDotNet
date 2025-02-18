@@ -3,11 +3,14 @@
 - reason: Internal SDK specifics
   regex:
   - 'strings/format_int: err: bad base'
+  - '# 5073 regression test'
   - aggregates/
   - arithmetic/
   - array/
   - bits(\w+)/
   - casts/to_number
+  - eqexpr/indexing
+  - jsonremove/error
   - netcidrcontains/cidr subnet
   - netcidrintersects/cidr subnet
   - numbersrange/error

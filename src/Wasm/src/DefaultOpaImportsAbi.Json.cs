@@ -1,16 +1,47 @@
 ﻿using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 
+using Json.More;
 using Json.Patch;
+using Json.Pointer;
 using Json.Schema;
 
 namespace OpaDotNet.Wasm;
 
 public partial class DefaultOpaImportsAbi
 {
+    private sealed class LaxJsonPointerJsonConverter : WeaklyTypedJsonConverter<JsonPointer>
+    {
+        private readonly JsonPointerJsonConverter _inner = new();
+
+        public override JsonPointer? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        {
+            if (reader.TokenType != JsonTokenType.String)
+                throw new JsonException("Expected string");
+
+            var str = reader.GetString()!;
+
+            if (str.Length > 0 && str[0] != '#')
+            {
+                if (str[0] != '/')
+                    str = '/' + str;
+            }
+
+            return JsonPointer.TryParse(str, out var pointer)
+                ? pointer
+                : throw new JsonException("Value does not represent a JSON Pointer");
+        }
+
+        public override void Write(Utf8JsonWriter writer, JsonPointer value, JsonSerializerOptions options)
+        {
+            _inner.Write(writer, value, options);
+        }
+    }
+
     private static readonly JsonSerializerOptions PatchOptions = new()
     {
         PropertyNameCaseInsensitive = true,
+        //Converters = { new LaxJsonPointerJsonConverter() },
     };
 
     private static JsonNode? JsonPatch(JsonNode? obj, JsonNode? patches)

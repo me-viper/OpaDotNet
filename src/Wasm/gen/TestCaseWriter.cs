@@ -56,7 +56,6 @@ public partial class SdkV1Tests
     {
         var r = new StringBuilder(name.Length);
         var haveFirstChar = false;
-        var nextUpperCase = true;
 
         for (var i = 0; i < name.Length; i++)
         {
@@ -66,13 +65,9 @@ public partial class SdkV1Tests
             var ch = name[i];
 
             if (!char.IsLetterOrDigit(ch))
-            {
-                nextUpperCase = true;
-                continue;
-            }
+                ch = '_';
 
-            r.Append(nextUpperCase ? char.ToUpperInvariant(ch) : ch);
-            nextUpperCase = false;
+            r.Append(ch);
             haveFirstChar = true;
         }
 
@@ -81,8 +76,8 @@ public partial class SdkV1Tests
 
     private static string WriteTestCase(SdkV1TestCase testCase, int caseN)
     {
-        var testName = $"{testCase.Category}_{testCase.Name}";
-        var name = $"{FormatFunctionName(testName)}{caseN}";
+        var testName = $"{testCase.Category}__{testCase.Name}";
+        var name = $"{FormatFunctionName(testName)}_{caseN}";
 
         var note = SymbolDisplay.FormatLiteral(testCase.Note, true);
 

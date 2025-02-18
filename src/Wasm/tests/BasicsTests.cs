@@ -5,7 +5,7 @@ using OpaDotNet.Wasm.Tests.Common;
 
 namespace OpaDotNet.Wasm.Tests;
 
-public class BasicsTests : OpaTestBase
+public class BasicsTests(ITestOutputHelper output) : OpaTestBase(output)
 {
     private record PolicyResult
     {
@@ -14,10 +14,6 @@ public class BasicsTests : OpaTestBase
     }
 
     private string BasePath { get; } = Path.Combine("TestData", "basics");
-
-    public BasicsTests(ITestOutputHelper output) : base(output)
-    {
-    }
 
     public static IEnumerable<object?[]> BasicTestCases()
     {
@@ -328,6 +324,57 @@ public class BasicsTests : OpaTestBase
 
         Assert.NotNull(result);
         Assert.False(result.Result);
+    }
+
+    [Fact]
+    public async Task PrimitiveInput()
+    {
+        var src = """
+            package example
+            import rego.v1
+            p if input == 1.0
+            """;
+
+        var policy = await CompileSource(src, ["example/p"]);
+        using var factory = new OpaBundleEvaluatorFactory(policy, null, null);
+        using var engine = factory.Create();
+
+        var result = engine.EvaluatePredicate(1, "example/p");
+        Assert.True(result.Result);
+    }
+
+    [Fact]
+    public async Task PrimitiveInput2()
+    {
+        var src = """
+            package example
+            import rego.v1
+            p if input == 1.0
+            """;
+
+        var policy = await CompileSource(src, ["example/p"]);
+        using var factory = new OpaBundleEvaluatorFactory(policy, null, null);
+        using var engine = factory.Create();
+
+        var result = engine.EvaluatePredicate(1.0, "example/p");
+        Assert.True(result.Result);
+    }
+
+    [Fact]
+    public async Task PrimitiveInput3()
+    {
+        var src = """
+            package example
+            import rego.v1
+            p if input == 1.0
+            """;
+
+        var policy = await CompileSource(src, ["example/p"]);
+        using var factory = new OpaBundleEvaluatorFactory(policy, null, null);
+        using var engine = factory.Create();
+
+        var result = engine.EvaluatePredicate("1.0", "example/p");
+        Assert.True(result.Result);
     }
 
     [Fact]

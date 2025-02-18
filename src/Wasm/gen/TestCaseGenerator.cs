@@ -22,24 +22,27 @@ public class TestCaseGenerator : IIncrementalGenerator
             .Select(
                 (p, _) =>
                 {
-                    var fi = new FileInfo(p.Left.Path);
+                    var file = p.Left;
+                    var filter = p.Right;
+
+                    var fi = new FileInfo(file.Path);
                     var category = fi.Directory!.Name;
 
                     var name = Path.GetFileNameWithoutExtension(fi.Name);
 
                     try
                     {
-                        var source = p.Left.GetText();
+                        var source = file.GetText();
 
                         if (source == null)
                             return null;
 
-                        return TestCaseParser.ParseFile(category, name, source, p.Right);
+                        return TestCaseParser.ParseFile(category, name, source, filter);
                     }
                     catch (Exception ex)
                     {
-                        var failed = new SdkV1TestCaseContainer { FileName = p.Left.Path };
-                        failed.Diagnostics.Add(Diagnostic.Create(Helpers.FailedToParseTestCaseFile, Location.None, p.Left.Path, ex.Message));
+                        var failed = new SdkV1TestCaseContainer { FileName = file.Path };
+                        failed.Diagnostics.Add(Diagnostic.Create(Helpers.FailedToParseTestCaseFile, Location.None, file.Path, ex.Message));
                         return failed;
                     }
                 }
