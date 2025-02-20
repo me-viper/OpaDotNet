@@ -181,6 +181,9 @@ internal abstract class WasmPolicyEngine<TAbi> : IWasmPolicyEngine
         if (data == null)
             return WriteNullValue();
 
+        if (data.GetType().IsAssignableTo(typeof(ValidNull)))
+            return WriteValueString("null");
+
         var s = JsonSerializer.Serialize(data, JsonOptions);
         s = RegoValueHelper.JsonToRegoValue(s);
         return WriteValueString(s);

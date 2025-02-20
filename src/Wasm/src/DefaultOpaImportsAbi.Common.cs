@@ -382,19 +382,12 @@ public partial class DefaultOpaImportsAbi
 
     private static object? YamlUnmarshal(string yamlString)
     {
-        try
-        {
-            if (string.IsNullOrWhiteSpace(yamlString))
-                return null;
-
-            var deserializer = new DeserializerBuilder().Build();
-            var result = deserializer.Deserialize(new StringReader(yamlString));
-            return result?.ToJsonDocument();
-        }
-        catch (YamlException)
-        {
+        if (string.IsNullOrWhiteSpace(yamlString))
             return null;
-        }
+
+        var deserializer = new DeserializerBuilder().WithAttemptingUnquotedStringTypeDeserialization().Build();
+        var result = deserializer.Deserialize(new StringReader(yamlString));
+        return result?.ToJsonDocument();
     }
 
     private const ulong B = 1;

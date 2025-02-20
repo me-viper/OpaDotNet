@@ -1,6 +1,8 @@
 ﻿using System.Collections.Concurrent;
 using System.Text.Json.Nodes;
 
+using OpaDotNet.Wasm.Internal;
+
 // ReSharper disable HeapView.BoxingAllocation
 
 namespace OpaDotNet.Wasm;
@@ -160,7 +162,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
                 "crypto.md5" => HashMd5(arg1.As<string>()),
                 "crypto.sha1" => HashSha1(arg1.As<string>()),
                 "crypto.sha256" => HashSha256(arg1.As<string>()),
-                "crypto.parse_private_keys" => CryptoParsePrivateKeys(arg1.As<string>()),
+                "crypto.parse_private_keys" => CryptoParsePrivateKeys(arg1.As<string>()) ?? (object)ValidNull.Instance,
                 "crypto.x509.parse_and_verify_certificates" => X509ParseAndVerifyCertificates(arg1.As<string>()),
                 "crypto.x509.parse_certificate_request" => X509ParseCertificateRequest(arg1.As<string>()),
                 "crypto.x509.parse_certificates" => X509ParseCertificates(arg1.As<string>()),

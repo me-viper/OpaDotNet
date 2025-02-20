@@ -187,6 +187,9 @@ public partial class DefaultOpaImportsAbi
 
         if (IPAddress.TryParse(cidrOrIp, out var ip))
         {
+            if (ip.AddressFamily == AddressFamily.InterNetworkV6)
+                throw new FormatException("IPv6 invalid: needs prefix length");
+
             result = new IPNetwork2(ip, 24);
             return true;
         }

@@ -9,7 +9,7 @@ public record BuiltinContext
     /// <summary>
     /// Built-in function name.
     /// </summary>
-    public string FunctionName { get; internal init; } = default!;
+    public string FunctionName { get; internal init; } = null!;
 
     /// <summary>
     /// Reserved for future use.
@@ -19,7 +19,7 @@ public record BuiltinContext
     /// <summary>
     /// JSON serialization options.
     /// </summary>
-    public JsonSerializerOptions JsonSerializerOptions { get; internal init; } = default!;
+    public JsonSerializerOptions JsonSerializerOptions { get; internal init; } = null!;
 
     /// <summary>
     /// If <c>true</c> errors in built-in functions will be threaded as exceptions that halt policy evaluation.
