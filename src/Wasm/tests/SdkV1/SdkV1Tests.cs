@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Security.Cryptography;
+using System.Text;
 using System.Text.Json.Nodes;
 using System.Web;
 
@@ -62,6 +63,33 @@ public partial class SdkV1Tests : SdkTestBase
 
                 Assert.Equal(expected.Count, result.Count);
                 Assert.All(expected.AllKeys, p => Assert.Equal(expected.Get(p), result.Get(p)));
+            };
+
+            return;
+        }
+
+        if (string.Equals(testCase.Note, "cryptox509parsersaprivatekey/valid", StringComparison.Ordinal))
+        {
+            testCase.Assert = (JsonNode e, JsonNode r) =>
+            {
+                var ek = e["x"]?.AsObject();
+                var rk = r["x"]?.AsObject();
+
+                Assert.NotNull(ek);
+                Assert.NotNull(rk);
+
+                var keysToRemove = new List<string>();
+
+                foreach (var x in rk)
+                {
+                    if (x.Value is JsonArray { Count: 0 })
+                        keysToRemove.Add(x.Key);
+                }
+
+                foreach (var k in keysToRemove)
+                    rk.Remove(k);
+
+                Assert.True(ek.IsEquivalentTo(rk, false));
             };
 
             return;

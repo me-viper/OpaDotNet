@@ -162,9 +162,18 @@ public partial class DefaultOpaImportsAbi
 
     private static JsonWebKey X509ParseRsaPrivateKey(string pem)
     {
-        var decodedPem = Convert.FromBase64String(pem);
+        ReadOnlySpan<char> key;
+
+        if (IsRawPem(pem))
+            key = pem;
+        else
+        {
+            var decodedPem = Convert.FromBase64String(pem);
+            key = Encoding.UTF8.GetString(decodedPem);
+        }
+
         using var rsa = RSA.Create();
-        rsa.ImportFromPem(Encoding.UTF8.GetString(decodedPem));
+        rsa.ImportFromPem(key);
         var k = new RsaSecurityKey(rsa);
         return JsonWebKeyConverter.ConvertFromRSASecurityKey(k);
     }
@@ -232,7 +241,7 @@ public partial class DefaultOpaImportsAbi
             return new
             {
                 Certificate = new[] { certJson.Raw },
-                PrivateKey = keys.Length > 0 ? keys[0] : null,
+                PrivateKey = keys?.Length > 0 ? keys[0] : null,
             };
         }
         finally
