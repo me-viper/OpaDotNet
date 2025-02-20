@@ -21,6 +21,53 @@ public partial class SdkV1Tests : SdkTestBase
         };
     }
 
+    private void ApplyTestCaseShims(SdkV1TestCase testCase)
+    {
+        if (testCase.Note.StartsWith("reachable_paths/") && !string.IsNullOrWhiteSpace(testCase.InputTerm))
+        {
+            testCase.InputTerm = NormalizeSetInput(testCase.InputTerm);
+            return;
+        }
+    }
+
+    [Theory]
+    [InlineData(
+        """{ "graph": { "a": ["b"], "b": ["c"], "c": ["a"], }, "initial": ["a"] }""",
+        """{ "graph": { "a": ["b"], "b": ["c"], "c": ["a"]  }, "initial": ["a"] }""")]
+    public void NormalizeSetInputTest(string i, string e)
+    {
+        Assert.Equal(e, NormalizeSetInput(i));
+    }
+
+    private string NormalizeSetInput(ReadOnlySpan<char> input)
+    {
+        Span<char> result = stackalloc char[input.Length];
+        input.CopyTo(result);
+
+        for (var i = 0; i < input.Length; i++)
+        {
+            if (input[i] == ',')
+            {
+                var comaIndex = i;
+                i++;
+
+                for (; i < input.Length; i++)
+                {
+                    if (input[i] != ' ' && input[i] != '}')
+                        break;
+
+                    if (input[i] == '}')
+                    {
+                        result[comaIndex] = ' ';
+                        break;
+                    }
+                }
+            }
+        }
+
+        return result.ToString();
+    }
+
     private async Task RunTestCase(SdkV1TestCase testCase)
     {
         var engineOpts = new WasmPolicyEngineOptions
@@ -87,6 +134,13 @@ public partial class SdkV1Tests : SdkTestBase
             testSrc.AppendLine(testCase.Input.ToJsonString());
         }
 
+        if (testCase.InputTerm != null)
+        {
+            testSrc.AppendLine();
+            testSrc.AppendLine("input_term:");
+            testSrc.AppendLine(testCase.InputTerm);
+        }
+
         Output.WriteLine(testCase.Note);
         Output.WriteLine(testSrc.ToString());
 
@@ -126,7 +180,23 @@ public partial class SdkV1Tests : SdkTestBase
             Assert.Fail("Don't know how to fail");
         }
 
-        var result = eval.Evaluate<object?, JsonNode>(testCase.Input);
+        PolicyEvaluationResult<JsonNode> result;
+
+        if (string.IsNullOrWhiteSpace(testCase.InputTerm))
+            result = eval.Evaluate<object?, JsonNode>(testCase.Input);
+        else
+        {
+            // var jn = JsonNode.Parse(testCase.InputTerm, null, new JsonDocumentOptions { AllowTrailingCommas = true });
+            // Assert.NotNull(jn);
+            //
+            // var rawResult = eval.EvaluateRaw(jn.ToJsonString());
+            var rawResult = eval.EvaluateRaw(testCase.InputTerm);
+            var evalResult = JsonSerializer.Deserialize<PolicyEvaluationResult<JsonNode>[]>(rawResult);
+
+            Assert.NotNull(evalResult);
+            Assert.Single(evalResult);
+            result = evalResult[0];
+        }
 
         var expected = testCase.WantResult?.Count > 0 ? testCase.WantResult[0]! : new JsonObject();
 

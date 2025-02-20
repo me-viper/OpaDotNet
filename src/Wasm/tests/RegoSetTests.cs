@@ -16,7 +16,7 @@ public class RegoSetTests
         yield return
         [
             """[{"__rego_set":[]}]""",
-            """{}""",
+            """set()""",
         ];
         yield return
         [

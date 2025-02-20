@@ -113,8 +113,10 @@ public partial class SdkV1Tests
             testCase.StrictError = {testCase.StrictError.ToString().ToLowerInvariant()};
             testCase.Data = {WriteJsonNodeCode(testCase.Data)};
             testCase.Input = {WriteJsonNodeCode(testCase.Input)};
-            testCase.InputTerm = {WriteJsonArrayCode(testCase.InputTerm)};
+            testCase.InputTerm = {SymbolDisplay.FormatLiteral(testCase.InputTerm ?? string.Empty, true)};
             testCase.SortBindings = {testCase.SortBindings.ToString().ToLowerInvariant()};
+
+            ApplyTestCaseShims(testCase);
 
             await RunTestCase(testCase);
         }}";

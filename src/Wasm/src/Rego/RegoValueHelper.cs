@@ -221,7 +221,11 @@ internal static partial class RegoValueHelper
                     return s;
 
                 s = s.Remove(arrayStartIndex, arrayEndIndex - arrayStartIndex + 1);
-                s = s.Insert(arrayStartIndex, $"{{{nativeSet}}}");
+
+                if (nativeSet.Length > 0)
+                    s = s.Insert(arrayStartIndex, $"{{{nativeSet}}}");
+                else
+                    s = s.Insert(arrayStartIndex, "set()");
             }
 
             setStartIndex = s.LastIndexOf(setAnchor, StringComparison.Ordinal);

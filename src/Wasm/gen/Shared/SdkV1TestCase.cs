@@ -30,7 +30,7 @@ internal class SdkV1TestCase
 
     public JsonNode? Input { get; set; }
 
-    public JsonValue? InputTerm { get; set; }
+    public string? InputTerm { get; set; }
 
     public bool SortBindings { get; set; }
 }

@@ -373,8 +373,31 @@ public class BasicsTests(ITestOutputHelper output) : OpaTestBase(output)
         using var factory = new OpaBundleEvaluatorFactory(policy, null, null);
         using var engine = factory.Create();
 
-        var result = engine.EvaluatePredicate("1.0", "example/p");
-        Assert.True(result.Result);
+        var jsonResult = engine.EvaluateRaw("1.0", "example/p");
+        var result = JsonSerializer.Deserialize<PolicyEvaluationResult<bool>[]>(jsonResult);
+
+        Assert.NotNull(result);
+        Assert.Single(result, p => p.Result);
+    }
+
+    [Fact]
+    public async Task RegoSetInput()
+    {
+        var src = """
+            package example
+            import rego.v1
+            p := input
+            """;
+
+        var policy = await CompileSource(src, ["example/p"]);
+        using var factory = new OpaBundleEvaluatorFactory(policy, null, null);
+        using var engine = factory.Create();
+
+        var jsonResult = engine.EvaluateRaw("{1,2,3}", "example/p");
+        var result = JsonSerializer.Deserialize<PolicyEvaluationResult<int[]>[]>(jsonResult);
+
+        Assert.NotNull(result);
+        Assert.Collection(result[0].Result, p => Assert.Equal(1, p), p => Assert.Equal(2, p), p => Assert.Equal(3, p));
     }
 
     [Fact]

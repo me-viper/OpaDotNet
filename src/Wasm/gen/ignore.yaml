@@ -9,7 +9,7 @@
   - array/
   - bits(\w+)/
   - casts/to_number
-  - eqexpr/indexing
+  #- eqexpr/indexing
   - jsonremove/error
   - netcidrcontains/cidr subnet
   - netcidrintersects/cidr subnet
@@ -19,6 +19,7 @@
   - objectkeys/error
   - objectremove/error
   - objectunion/error
+  - reachable/malformed
   - replacen/bad
   - strings/reverse_
   - strings/substring

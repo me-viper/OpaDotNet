@@ -785,4 +785,25 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
         var result = await RunTestCase(func, expected);
         Assert.True(result.Assert);
     }
+
+    [Fact]
+    public async Task GraphReachablePaths2()
+    {
+        var src = """
+            package sdk
+            import rego.v1
+            r := result if {
+            	graph.reachable_paths(input.graph, input.initial, result)
+            }
+            """;
+
+        using var eval = await Build(src, "sdk/r", new DefaultOpaImportsAbi(), new() { StrictBuiltinErrors = true });
+
+        var result = eval.EvaluateRaw(
+            """{ "graph": { "a": ["b"], "b": ["c"], "c": ["a"] }, "initial": ["a"] }""",
+            "sdk/r"
+            );
+
+        Assert.Equal("""[{"result":[["a","b","c"]]}]""", result);
+    }
 }

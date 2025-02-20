@@ -679,7 +679,7 @@ public partial class DefaultOpaImportsAbi
             else
             {
                 foreach (var e in edges)
-                    Path(graphObj, e, [node], [], result);
+                    Path(graphObj, e, [node], [node], result);
             }
         }
 
