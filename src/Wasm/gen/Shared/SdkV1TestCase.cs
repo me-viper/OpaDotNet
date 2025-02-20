@@ -33,4 +33,6 @@ internal class SdkV1TestCase
     public string? InputTerm { get; set; }
 
     public bool SortBindings { get; set; }
+
+    public Action<JsonNode, JsonNode>? Assert { get; set; }
 }

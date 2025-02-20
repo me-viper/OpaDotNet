@@ -146,7 +146,7 @@ public partial class DefaultOpaImportsAbi
         JsonVerifySchema(schema, options, out var sch);
 
         if (sch == null)
-            return null;
+            throw new FormatException("Invalid json schema");
 
         var result = sch.Evaluate(document, new() { OutputFormat = OutputFormat.List });
 

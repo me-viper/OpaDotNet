@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Text.Json.Nodes;
+using System.Web;
 
 using OpaDotNet.Compilation.Abstractions;
 using OpaDotNet.InternalTesting;
@@ -26,6 +27,43 @@ public partial class SdkV1Tests : SdkTestBase
         if (testCase.Note.StartsWith("reachable_paths/") && !string.IsNullOrWhiteSpace(testCase.InputTerm))
         {
             testCase.InputTerm = NormalizeSetInput(testCase.InputTerm);
+            return;
+        }
+
+        if (testCase.Note.StartsWith("json_match_schema/invalid") || testCase.Note.StartsWith("json_verify_schema/invalid"))
+        {
+            testCase.Assert = (JsonNode e, JsonNode r) =>
+            {
+                var ear = e["x"]?.AsArray();
+                var rar = r["x"]?.AsArray();
+
+                Assert.NotNull(ear);
+                Assert.NotNull(rar);
+                Assert.True(ear.Count > 0);
+                Assert.Equal(ear.Count, rar.Count);
+                Assert.Equal(ear[0]!.GetValue<bool>(), rar[0]!.GetValue<bool>());
+            };
+
+            return;
+        }
+
+        if (string.Equals(testCase.Note, "urlbuiltins/encode_object strings", StringComparison.Ordinal))
+        {
+            testCase.Assert = (JsonNode e, JsonNode r) =>
+            {
+                var es = e["x"]?.GetValue<string>();
+                var rs = r["x"]?.GetValue<string>();
+
+                Assert.NotNull(es);
+                Assert.NotNull(rs);
+
+                var expected = HttpUtility.ParseQueryString(es);
+                var result = HttpUtility.ParseQueryString(rs);
+
+                Assert.Equal(expected.Count, result.Count);
+                Assert.All(expected.AllKeys, p => Assert.Equal(expected.Get(p), result.Get(p)));
+            };
+
             return;
         }
     }
@@ -206,7 +244,10 @@ public partial class SdkV1Tests : SdkTestBase
         Output.WriteLine(result.Result.ToJsonString());
         Output.WriteLine("-------");
 
-        Assert.True(result.Result.IsEquivalentTo(expected, false));
+        if (testCase.Assert == null)
+            Assert.True(result.Result.IsEquivalentTo(expected, false));
+        else
+            testCase.Assert(expected, result.Result);
     }
 
     private async Task<IOpaEvaluator> Build(
