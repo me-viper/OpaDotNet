@@ -5,7 +5,7 @@ namespace OpaDotNet.Wasm.GoCompat;
 [PublicAPI]
 internal record X500DnJson
 {
-    public string? CommonName { get; set; }
+    public string? CommonName { get; set; } = string.Empty;
 
     public string? SerialNumber { get; set; }
 

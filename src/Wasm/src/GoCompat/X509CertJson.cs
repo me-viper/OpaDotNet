@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿using System.Net;
+using System.Security.Cryptography.X509Certificates;
 using System.Text.Json.Serialization;
 
 namespace OpaDotNet.Wasm.GoCompat;
@@ -53,15 +54,23 @@ internal record X509CertJson
 
     public string? Thumbprint { get; set; }
 
+    [JsonPropertyName("URIStrings")]
+    public string[]? UriStrings { get; set; }
+
+
     public static X509CertJson ToJson(X509Certificate2 source)
     {
         var dns1 = source.GetNameInfo(X509NameType.DnsFromAlternativeName, false);
         var email = source.GetNameInfo(X509NameType.EmailName, false);
+        var uri = source.GetNameInfo(X509NameType.UrlName, false);
 
         var dns = new HashSet<string>();
 
         if (!string.IsNullOrWhiteSpace(dns1))
-            dns.Add(dns1);
+        {
+            if (Uri.CheckHostName(dns1) != UriHostNameType.Unknown)
+                dns.Add(dns1);
+        }
 
         var result = new X509CertJson
         {
@@ -78,6 +87,7 @@ internal record X509CertJson
             RawSubject = Convert.ToBase64String(source.SubjectName.RawData),
             RawIssuer = Convert.ToBase64String(source.IssuerName.RawData),
             Thumbprint = source.Thumbprint,
+            UriStrings = string.IsNullOrWhiteSpace(uri) ? null : [uri],
         };
 
         static int MapKeyUsage(X509KeyUsageFlags kuFlags)

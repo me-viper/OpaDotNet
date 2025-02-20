@@ -10,6 +10,7 @@
   - bits(\w+)/
   - casts/to_number
   #- eqexpr/indexing
+  - jsonbuiltins/unmarshal-non-string
   - jsonremove/error
   - netcidrcontains/cidr subnet
   - netcidrintersects/cidr subnet
@@ -29,6 +30,7 @@
   regex:
   - graphql_
   - globsmatch/
+  - jsonbuiltins/marshal_with_options
   - providers-aws-sign_req/
   - rendertemplate/
   - regoparsemodule/

@@ -61,6 +61,29 @@ public class SdkTestBase(ITestOutputHelper output) : OpaTestBase(output)
 
     protected async Task<T> BuildAndEvaluate<T>(
         string statement,
+        bool strictErrors = false) where T : notnull
+    {
+        var src = $"""
+            package sdk
+            {statement}
+            """;
+
+        Output.WriteLine(src);
+        Output.WriteLine("");
+
+        var opts = new WasmPolicyEngineOptions
+        {
+            SerializationOptions = DefaultJsonOptions,
+            StrictBuiltinErrors = strictErrors,
+            SignatureValidation = new() { Validation = SignatureValidationType.Skip },
+        };
+
+        using var eval = await Build(src, "sdk", options: opts);
+        return eval.Evaluate<object?, T>(null, "sdk").Result;
+    }
+
+    protected async Task<T> BuildAndEvaluate<T>(
+        string statement,
         T value,
         bool strictErrors = false) where T : notnull
     {

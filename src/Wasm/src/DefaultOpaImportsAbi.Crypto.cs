@@ -102,25 +102,25 @@ public partial class DefaultOpaImportsAbi
 
         try
         {
-            if (Convert.TryFromBase64Chars(certs, bytes, out var bw))
-            {
-                ReadOnlySpan<byte> decodedBytes = bytes.AsSpan(0, bw);
+            if (!Convert.TryFromBase64Chars(certs, bytes, out var bw))
+                throw new FormatException("Failed to parse certificate");
 
-                if (!IsRawPem(decodedBytes))
-                {
-#if NET8_0
-                    chain.Import(decodedBytes);
+            ReadOnlySpan<byte> decodedBytes = bytes.AsSpan(0, bw);
+
+            if (!IsRawPem(decodedBytes))
+            {
+#if NET9_0_OR_GREATER
+                var cert = X509CertificateLoader.LoadCertificate(decodedBytes);
+                chain.Add(cert);
 #else
-                    var cert = X509CertificateLoader.LoadCertificate(decodedBytes);
-                    chain.Add(cert);
+                chain.Import(decodedBytes);
 #endif
-                }
-                else
-                {
-                    decodedChars = ArrayPool<char>.Shared.Rent(decodedBytes.Length);
-                    var chars = Encoding.UTF8.GetChars(decodedBytes, decodedChars);
-                    chain.ImportFromPem(decodedChars.AsSpan(0, chars));
-                }
+            }
+            else
+            {
+                decodedChars = ArrayPool<char>.Shared.Rent(decodedBytes.Length);
+                var chars = Encoding.UTF8.GetChars(decodedBytes, decodedChars);
+                chain.ImportFromPem(decodedChars.AsSpan(0, chars));
             }
 
             return chain;
