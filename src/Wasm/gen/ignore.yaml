@@ -20,6 +20,8 @@
   - objectremove/error
   - objectunion/error
   - reachable/malformed
+  - reachable_paths/malformed 1
+  - reachable_paths/malformed 3
   - replacen/bad
   - strings/reverse_
   - strings/substring

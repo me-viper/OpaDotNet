@@ -656,13 +656,16 @@ public partial class DefaultOpaImportsAbi
         return hs.IsSubsetOf(super);
     }
 
-    private RegoSet<List<string>>? GraphReachablePaths(JsonNode? graph, JsonNode? initial)
+    private static RegoSet<List<string>> GraphReachablePaths(JsonNode? graph, JsonNode? initial)
     {
         if (graph is not JsonObject graphObj)
-            return null;
+            throw new ArgumentException($"{typeof(JsonObject)} expected", nameof(graph));
 
         if (initial is not JsonArray initialArr)
-            return null;
+            throw new ArgumentException($"{typeof(JsonArray)} expected", nameof(initial));
+
+        if (graphObj.Count == 0)
+            return new RegoSet<List<string>>([]);
 
         var initialNodes = GetArrayEdges(initialArr);
         var result = new List<List<string>>();
@@ -671,10 +674,7 @@ public partial class DefaultOpaImportsAbi
         {
             var edges = GetEdges(graphObj, node);
 
-            if (edges == null)
-                continue;
-
-            if (edges.Count == 0)
+            if (edges == null || edges.Count == 0)
                 result.Add([node]);
             else
             {

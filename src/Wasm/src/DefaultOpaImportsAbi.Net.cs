@@ -135,6 +135,9 @@ public partial class DefaultOpaImportsAbi
 
     private static bool CidrIsValid(string cidr)
     {
+        if (!cidr.Contains('/'))
+            return false;
+
         return IPNetwork2.TryParse(cidr, out _);
     }
 
