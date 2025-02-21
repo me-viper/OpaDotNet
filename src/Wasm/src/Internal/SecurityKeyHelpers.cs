@@ -37,6 +37,7 @@ internal static class SecurityKeyHelpers
         {
             using var rsa = RSA.Create();
             rsa.ImportFromPem(pem);
+
             result = new RsaSecurityKey(rsa.ExportParameters(false));
 
             EnsureValidPemBlockEnd(pem);

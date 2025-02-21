@@ -137,7 +137,7 @@ internal static partial class RegoValueHelper
             s = regex.Replace(s, "[{\"__rego_set\":[$1]}]");
         }
 
-        return s;
+        return s.Replace("set()", "[{\"__rego_set\":[]}]");
     }
 
     public static string JsonToRegoValue(string s)

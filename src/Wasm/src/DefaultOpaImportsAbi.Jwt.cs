@@ -3,6 +3,7 @@ using System.Text;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 
+using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 
 using OpaDotNet.Wasm.Internal;
@@ -38,8 +39,34 @@ public partial class DefaultOpaImportsAbi
         public bool SignatureOnly { get; set; }
     }
 
+    private static string GetInnermostToken(string jwt)
+    {
+        // It is possible for the contents of a token to be another
+        // token as a result of nested signing or encryption. To handle
+        // the case where we are given a token such as this, we check
+        // the content type and recurse on the payload if the content
+        // is "JWT".
+        var tokenPars = jwt.Split('.');
+        var header = JwtHeader.Base64UrlDeserialize(tokenPars[0]);
+
+        if (!string.Equals(header.Cty, "JWT", StringComparison.Ordinal) || tokenPars.Length <= 1)
+            return jwt;
+
+        if (tokenPars[1].Length <= 2)
+            return jwt;
+
+        // When the payload is itself another encoded JWT, then its
+        // contents are quoted (behavior of https://jwt.io/). To fix
+        // this, remove leading and trailing quotes.
+        var innerTokenRaw = Encoding.UTF8.GetString(Base64UrlDecode(tokenPars[1]));
+
+        return GetInnermostToken(innerTokenRaw[0] != '"' ? innerTokenRaw : innerTokenRaw[1..^1]);
+    }
+
     private static object[] JwtDecode(string jwt)
     {
+        jwt = GetInnermostToken(jwt);
+
         var handler = new JwtSecurityTokenHandler();
         var token = handler.ReadJwtToken(jwt);
 
@@ -49,6 +76,8 @@ public partial class DefaultOpaImportsAbi
 
     private object[] JwtDecodeVerify(string jwt, JwtConstraints? constraints)
     {
+        jwt = GetInnermostToken(jwt);
+
         var emptyObj = new object();
 
         if (constraints == null)
@@ -162,10 +191,13 @@ public partial class DefaultOpaImportsAbi
 
             return token;
         }
-        catch (SecurityTokenSignatureKeyNotFoundException)
-        {
-            throw;
-        }
+        // catch (SecurityTokenSignatureKeyNotFoundException ex)
+        // {
+        //     if (ex.InnerException is NotSupportedException)
+        //         throw;
+        //
+        //     return null;
+        // }
         catch (SecurityTokenValidationException)
         {
             return null;
@@ -230,8 +262,6 @@ public partial class DefaultOpaImportsAbi
         // been using and didn't provide alternative. So for now using the only one ugly solution available.
         var baseHeader = JwtHeader.Base64UrlDeserialize(Base64UrlEncoder.Encode(headers));
 
-        var jwtPayload = JwtPayload.Deserialize(payload);
-
         var jwk = new JsonWebKey(key);
         var alg = baseHeader.Alg ?? jwk.Alg;
         var signingCredentials = new SigningCredentials(jwk, alg);
@@ -245,9 +275,20 @@ public partial class DefaultOpaImportsAbi
             baseHeader.Where(p => !ReservedJwtHeaders.Contains(p.Key)).ToDictionary(p => p.Key, p => p.Value)
             );
 
-        var token = new JwtSecurityToken(jwtHeader, jwtPayload);
-        var handler = new JwtSecurityTokenHandler();
+        // Your basic everyday token.
+        if (string.IsNullOrWhiteSpace(jwtHeader.Typ) || string.Equals(jwtHeader.Typ, "JWT", StringComparison.Ordinal))
+        {
+            var jwtPayload = JwtPayload.Deserialize(payload);
+            var token = new JwtSecurityToken(jwtHeader, jwtPayload);
+            var handler = new JwtSecurityTokenHandler();
 
-        return handler.WriteToken(token);
+            return handler.WriteToken(token);
+        }
+
+        var encodedHeader = Base64UrlEncodeNoPad(headers);
+        var encodedPayload = Base64UrlEncodeNoPad(payload);
+        var encodedSignature = JwtTokenUtilities.CreateEncodedSignature($"{encodedHeader}.{encodedPayload}", signingCredentials);
+
+        return $"{encodedHeader}.{encodedPayload}.{encodedSignature}";
     }
 }

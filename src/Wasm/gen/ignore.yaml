@@ -39,14 +39,14 @@
   - jwtverifyhs256/success
   - jwtverifyhs384/success
   - jwtverifyhs512/success
-- reason: 'Not supported: Payload is not JSON'
-  regex:
-  - jwtencodesignraw/No Payload but Media Type is Plain
-  - jwtencodesignraw/text/plain media type
+#- reason: 'Not supported: Payload is not JSON'
+#  regex:
+#  - jwtencodesignraw/No Payload but Media Type is Plain
+#  - jwtencodesignraw/text/plain media type
 #  - jwtbuiltins/double-nested
 #  - jwtbuiltins/nested
-  - jwtdecodeverify/rsa256-nested
-  - jwtdecodeverify/rsa256-nested2
+#  - jwtdecodeverify/rsa256-nested
+#  - jwtdecodeverify/rsa256-nested2
 - reason: Not implemented
   regex:
   - graphql_

@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json.Nodes;
 
@@ -234,61 +235,6 @@ public class SdkCryptoTests(ITestOutputHelper output) : SdkTestBase(output)
         var result = await BuildAndEvaluate(src, new TestCaseResult());
         Assert.True(result.Assert);
     }
-
-//      [Fact]
-//      public async Task ParseAndVerify2()
-//      {
-//          var chain = """
-//              `-----BEGIN CERTIFICATE-----
-//              MIIB1TCCAXugAwIBAgIIKIoxsnMwJJ4wCgYIKoZIzj0EAwIwPTELMAkGA1UEBhMC
-//              R0IxEDAOBgNVBAoTB0V4YW1wbGUxHDAaBgNVBAUTEzI5MjEyMDE5NTA4MDk2NjI2
-//              MjIwIBcNMjMxMTI5MTc1NTQ2WhgPMjEyMzExMDUxNzU1NDZaMD0xCzAJBgNVBAYT
-//              AkdCMRAwDgYDVQQKEwdFeGFtcGxlMRwwGgYDVQQFExMyOTIxMjAxOTUwODA5NjYy
-//              NjIyMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEkvI9ddM0SuP9LvBWS1y64fuK
-//              ELCjVF5W3FSKm3azKEkDi8Eq1I1UM80MgCjC5ChNNyM4+cmVUDrCkTl3SqRxa6Nj
-//              MGEwDgYDVR0PAQH/BAQDAgIEMA8GA1UdEwEB/wQFMAMBAf8wHQYDVR0OBBYEFF7H
-//              A8n3mXXnwUP0ypMJ9JwY5wasMB8GA1UdEQQYMBaGFHNwaWZmZTovL2V4YW1wbGUu
-//              Y29tMAoGCCqGSM49BAMCA0gAMEUCIByB2l5RIWmaU8qcRv13qigbB9BV/F2raEk+
-//              pRQnsUcgAiEA9OvBpPKC/FBkI5vVvR7WgK5sGPna4+a0RkXxRQgN2jM=
-//              -----END CERTIFICATE-----
-//              -----BEGIN CERTIFICATE-----
-//              MIIB1jCCAXygAwIBAgIIV9914tIKKkMwCgYIKoZIzj0EAwIwPTELMAkGA1UEBhMC
-//              R0IxEDAOBgNVBAoTB0V4YW1wbGUxHDAaBgNVBAUTEzI5MjEyMDE5NTA4MDk2NjI2
-//              MjIwIBcNMjMxMTI5MTc1NTQ2WhgPMjEyMjExMDUxNzU1NDZaMD0xCzAJBgNVBAYT
-//              AkdCMRAwDgYDVQQKEwdFeGFtcGxlMRwwGgYDVQQFExM2MzMxOTA5MjE4MTUzMTQ2
-//              OTQ3MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEMoy2UqvC8zL3sPfLNvG1nX5p
-//              6hhEyDjFtokORB4VkKiPXFryIFn8XHG0ipz6aKSwVMoDT2T/YXP/wWpVwPJCi6Nk
-//              MGIwDgYDVR0PAQH/BAQDAgeAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEFBQcD
-//              ATAMBgNVHRMBAf8EAjAAMCMGA1UdEQQcMBqGGHNwaWZmZTovL2V4YW1wbGUuY29t
-//              L29wYTAKBggqhkjOPQQDAgNIADBFAiBEmdSKGj2+9J5SQPIAmwdxpVTOxqmVQv2x
-//              Vvita/AmowIhAOyX/alNJxL4iCfKUNwlC2lYxGhuWopWgB1Q32bQhTEh
-//              -----END CERTIFICATE-----
-//              `
-//              """;
-//
-//          var src = $$"""
-//              import rego.v1
-//              import future.keywords.if
-//
-//              actual := crypto.x509.parse_and_verify_certificates({{chain}})
-//
-//              result := {
-//              	"valid": actual[0],
-//              	"certs": [c |
-//              		some cert in actual[1]
-//              		c := {
-//              		    "CN": cert.Subject.CommonName,
-//              		    "DNS": cert.DNSNames,
-//              		    "URI": cert.URIStrings,
-//              		}
-//              	],
-//              }
-//              """;
-//
-//          var result = await BuildAndEvaluate<JsonNode>(src);
-//          Assert.NotNull(result);
-//          Output.WriteLine(result.ToJsonString());
-//      }
 
     [Theory]
     [InlineData(RsaPrivateKey, false, 1)]
@@ -632,5 +578,23 @@ public class SdkCryptoTests(ITestOutputHelper output) : SdkTestBase(output)
 
         var result = await BuildAndEvaluate(src, new TestCaseResult());
         Assert.Equal(!fails, result.Assert);
+    }
+
+    [Fact]
+    public void ParseEs512()
+    {
+        var pem = """
+            -----BEGIN PUBLIC KEY-----
+            MIGbMBAGByqGSM49AgEGBSuBBAAjA4GGAAQBy5tyDA//PLwv0tXAk8o6wo8ByBrI
+            4mxQcDwV7d+mCgo1HUu44iSUeWEFT8qUr+4D2iip9RPAqpH1XXd666dU6HABJrOF
+            74oLVmQWc338PccmQoJrUNnUx7Ln4v+Vv2MfDd1MPg9sJdSynCa2qLqPqoGphn7q
+            LulmwKDxLXToNPgeIxc=
+            -----END PUBLIC KEY-----
+            """;
+
+        using var rsa = RSA.Create();
+        rsa.ImportFromPem(pem);
+
+        Assert.True(true);
     }
 }

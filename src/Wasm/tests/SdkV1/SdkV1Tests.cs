@@ -97,7 +97,13 @@ public partial class SdkV1Tests : SdkTestBase
             return;
         }
 
-        if (testCase.Note.StartsWith("jwtencodesign/") || testCase.Note.StartsWith("jwtencodesignraw/"))
+        if (testCase.Note.Equals("jwtencodesignraw/No Payload but Media Type is Plain")
+            || testCase.Note.Equals("jwtencodesignraw/text/plain media type"))
+        {
+            return;
+        }
+
+        if (testCase.Note.StartsWith("jwtencodesign/") || testCase.Note.StartsWith("jwtencodesignraw/") || testCase.Note.StartsWith("set data"))
         {
             testCase.Assert = (JsonNode e, JsonNode r) =>
             {
@@ -122,7 +128,8 @@ public partial class SdkV1Tests : SdkTestBase
     [Theory]
     [InlineData(
         """{ "graph": { "a": ["b"], "b": ["c"], "c": ["a"], }, "initial": ["a"] }""",
-        """{ "graph": { "a": ["b"], "b": ["c"], "c": ["a"]  }, "initial": ["a"] }""")]
+        """{ "graph": { "a": ["b"], "b": ["c"], "c": ["a"]  }, "initial": ["a"] }"""
+        )]
     public void NormalizeSetInputTest(string i, string e)
     {
         Assert.Equal(e, NormalizeSetInput(i));

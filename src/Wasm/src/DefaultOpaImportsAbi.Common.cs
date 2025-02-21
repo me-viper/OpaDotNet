@@ -108,6 +108,15 @@ public partial class DefaultOpaImportsAbi
         return new(type, ver);
     }
 
+    private static string Base64UrlEncode(string x)
+    {
+        var bytes = Encoding.UTF8.GetBytes(x);
+
+        return Convert.ToBase64String(bytes)
+            .Replace('+', '-')
+            .Replace('/', '_');
+    }
+
     private static string Base64UrlEncodeNoPad(string x)
     {
         var bytes = Encoding.UTF8.GetBytes(x);
