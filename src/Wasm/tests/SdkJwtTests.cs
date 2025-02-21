@@ -279,4 +279,19 @@ public class SdkJwtTests(ITestOutputHelper output) : SdkTestBase(output)
         var result = await RunTestCase(func, expected);
         Assert.True(result.Assert);
     }
+
+    [Theory]
+    [InlineData(
+        """
+        io.jwt.decode("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImN0eSI6IkpXVCJ9.ImV5SmhiR2NpT2lKSVV6STFOaUlzSW5SNWNDSTZJa3BYVkNJc0ltTjBlU0k2SWtwWFZDSjkuSW1WNVNtaGlSMk5wVDJsS1NWVjZTVEZPYVVselNXNVNOV05EU1RaSmEzQllWa05LT1M1bGVVcDZaRmRKYVU5cFNYZEphWGRwWVZoT2VrbHFiMmxpTTBKb1NXNHdMbGh0Vm05TWIwaEpNM0I0VFhSTlQxOVhVazlPVFZOS2VrZFZSRkE1Y0VScWVUaEtjREJmZEdSU1dGa2kuOFcwcXg0bUx4c2xtWmw3d0VNVVdCeEg3dFNUM1hzRXVXWHhlc1hxRm5SSSI.U8rwnGAJ-bJoGrAYKEzNtbJQWd3x1eW0Y25nLKHDCgo")
+        """,
+        """
+        [{"alg":"HS256","typ":"JWT"},{"iss":"opa","sub":"0"},"5e65682e81c8de9c4cb4c3bf59138d3122731940cff690e3cbc269d3fb5d4576"]
+        """
+        )]
+    public async Task JwtNested(string func, string expected)
+    {
+        var result = await RunTestCase(func, expected);
+        Assert.True(result.Assert);
+    }
 }

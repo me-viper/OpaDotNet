@@ -26,6 +26,27 @@
   - replacen/bad
   - strings/reverse_
   - strings/substring
+- reason: 'We are fine with JWE'
+  regex:
+  - jwtbuiltins/no-support-jwe
+- reason: 'Not supported: Float EXP or NBF'
+  regex:
+  - jwtdecodeverify/hs256-float
+- reason: 'Not supported: Key is too short'
+  regex:
+  - jwtdecodeverify/missing-iss-while-required
+  - jwtdecodeverify/hs256-unconstrained
+  - jwtverifyhs256/success
+  - jwtverifyhs384/success
+  - jwtverifyhs512/success
+- reason: 'Not supported: Payload is not JSON'
+  regex:
+  - jwtencodesignraw/No Payload but Media Type is Plain
+  - jwtencodesignraw/text/plain media type
+#  - jwtbuiltins/double-nested
+#  - jwtbuiltins/nested
+  - jwtdecodeverify/rsa256-nested
+  - jwtdecodeverify/rsa256-nested2
 - reason: Not implemented
   regex:
   - graphql_

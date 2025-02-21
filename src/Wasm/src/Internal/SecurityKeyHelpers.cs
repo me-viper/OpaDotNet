@@ -26,6 +26,8 @@ internal static class SecurityKeyHelpers
             else
                 k = new X509SecurityKey(cert);
 
+            EnsureValidPemBlockEnd(pem);
+
             result = k;
 
             return true;
@@ -37,9 +39,27 @@ internal static class SecurityKeyHelpers
             rsa.ImportFromPem(pem);
             result = new RsaSecurityKey(rsa.ExportParameters(false));
 
+            EnsureValidPemBlockEnd(pem);
+
             return true;
         }
 
         return false;
+
+        void EnsureValidPemBlockEnd(string s)
+        {
+            // For compatibility purposes only.
+            // Although we were able to parse PEM, OPA expects to return an error if there is extra data besides PEM block.
+            for (var i = s.Length - 1; i > 0; i--)
+            {
+                if (char.IsControl(s[i]))
+                    continue;
+
+                if (s[i] == '-')
+                    break;
+
+                throw new FormatException("Extra data after a PEM certificate block");
+            }
+        }
     }
 }

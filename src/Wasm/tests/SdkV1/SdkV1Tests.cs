@@ -1,7 +1,9 @@
-﻿using System.Security.Cryptography;
+﻿using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using System.Text.Json.Nodes;
 using System.Web;
+
+using Microsoft.IdentityModel.JsonWebTokens;
 
 using OpaDotNet.Compilation.Abstractions;
 using OpaDotNet.InternalTesting;
@@ -90,6 +92,27 @@ public partial class SdkV1Tests : SdkTestBase
                     rk.Remove(k);
 
                 Assert.True(ek.IsEquivalentTo(rk, false));
+            };
+
+            return;
+        }
+
+        if (testCase.Note.StartsWith("jwtencodesign/") || testCase.Note.StartsWith("jwtencodesignraw/"))
+        {
+            testCase.Assert = (JsonNode e, JsonNode r) =>
+            {
+                var ek = e["x"]?.GetValue<string>();
+                var rk = r["x"]?.GetValue<string>();
+
+                Assert.NotNull(ek);
+                Assert.NotNull(rk);
+
+                var handler = new JwtSecurityTokenHandler();
+                var et = handler.ReadJwtToken(ek);
+                var rt = handler.ReadJwtToken(rk);
+
+                Assert.Equivalent(et.Header, rt.Header);
+                Assert.Equivalent(et.Payload, rt.Payload);
             };
 
             return;

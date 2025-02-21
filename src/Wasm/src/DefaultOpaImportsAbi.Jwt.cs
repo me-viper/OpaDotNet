@@ -29,7 +29,7 @@ public partial class DefaultOpaImportsAbi
         public string? Iss { get; [UsedImplicitly] set; }
 
         [JsonPropertyName("time")]
-        public long? Time { get; [UsedImplicitly] set; }
+        public double? Time { get; [UsedImplicitly] set; }
 
         [JsonPropertyName("aud")]
         public string? Aud { get; [UsedImplicitly] set; }
@@ -112,7 +112,7 @@ public partial class DefaultOpaImportsAbi
             {
                 var beforeNs = before?.ToUniversalTime().Subtract(DateTimeOffset.UnixEpoch.DateTime).TotalNanoseconds;
                 var expiresNs = expires?.ToUniversalTime().Subtract(DateTimeOffset.UnixEpoch.DateTime).TotalNanoseconds;
-                var timeNs = (double)constraints.Time;
+                var timeNs = constraints.Time;
                 return (beforeNs == null || timeNs >= beforeNs) && (expiresNs == null || timeNs <= expiresNs);
             };
         }
@@ -142,22 +142,54 @@ public partial class DefaultOpaImportsAbi
         return result;
     }
 
+    private static readonly HashSet<string> KnownHeaders = ["alg", "kid", "typ", "cty"];
+
     private static SecurityToken? ValidateToken(string jwt, TokenValidationParameters parameters)
     {
 #if DEBUG
         IdentityModelEventSource.ShowPII = true;
 #endif
 
-        var handler = new JwtSecurityTokenHandler();
-
         try
         {
+            var handler = new JwtSecurityTokenHandler();
             handler.ValidateToken(jwt, parameters, out SecurityToken token);
+
+            if (token is not JwtSecurityToken jst)
+                throw new SecurityTokenValidationException($"Expected {typeof(JwtSecurityToken)} but got {token.GetType()}");
+
+            ValidateCritHeader(jst);
+
             return token;
+        }
+        catch (SecurityTokenSignatureKeyNotFoundException)
+        {
+            throw;
         }
         catch (SecurityTokenValidationException)
         {
             return null;
+        }
+    }
+
+    private static void ValidateCritHeader(JwtSecurityToken jst)
+    {
+        if (!jst.Header.TryGetValue("crit", out var critHeaderObj))
+            return;
+
+        if (critHeaderObj is not List<object> critHeader)
+            throw new SecurityTokenValidationException("'crit' header must be nonempty list of strings");
+
+        if (critHeader.Count == 0)
+            throw new SecurityTokenValidationException("'crit' header must be nonempty list of strings");
+
+        foreach (var h in critHeader)
+        {
+            if (h is not string hs)
+                throw new SecurityTokenValidationException("'crit' header must be nonempty list of strings");
+
+            if (!KnownHeaders.Contains(hs))
+                throw new SecurityTokenValidationException($"'crit' header contains unknown parameter {hs}");
         }
     }
 
@@ -194,11 +226,11 @@ public partial class DefaultOpaImportsAbi
 
     private static string JwtEncodeSignRaw(string headers, string payload, string key)
     {
-        var jwtPayload = JwtPayload.Deserialize(payload);
-
         // System.IdentityModel.Tokens.Jwt 7.0+ removed deserialization helper method we've
         // been using and didn't provide alternative. So for now using the only one ugly solution available.
         var baseHeader = JwtHeader.Base64UrlDeserialize(Base64UrlEncoder.Encode(headers));
+
+        var jwtPayload = JwtPayload.Deserialize(payload);
 
         var jwk = new JsonWebKey(key);
         var alg = baseHeader.Alg ?? jwk.Alg;
