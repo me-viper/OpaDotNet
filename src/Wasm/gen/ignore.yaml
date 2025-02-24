@@ -37,6 +37,9 @@
   regex:
   - jwtverifyrsa/success-es384-key
   - jwtverifyrsa/success-es512-key
+- reason: 'Implemented separately'
+  regex:
+  - jsonpatch/json_patch_tests
 - reason: 'TODO: Decide how to detect bad key'
   regex:
   - jwtverifyrsa/failure-bad jwk key

@@ -482,14 +482,6 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
     }
 
     [Theory]
-    [InlineData("""json.patch({"a": {"foo": 1}}, [{"op": "add", "path": "/a/bar", "value": 2}])""", """{"a": {"foo": 1, "bar": 2}}""")]
-    public async Task JsonPatch(string func, string expected)
-    {
-        var result = await RunTestCase(func, expected);
-        Assert.True(result.Assert);
-    }
-
-    [Theory]
     [InlineData("""json.verify_schema({})""", "[true,null]")]
     [InlineData("""json.verify_schema("{}")""", "[true,null]")]
     [InlineData("""json.verify_schema({"a": {"foo": 1}})""", "[true,null]")]

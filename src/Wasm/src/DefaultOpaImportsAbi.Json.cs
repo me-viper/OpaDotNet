@@ -57,6 +57,12 @@ public partial class DefaultOpaImportsAbi
         var p = new JsonPatch(ops);
         var result = p.Apply(obj);
 
+        if (!result.IsSuccess)
+        {
+            var err = result.Error ?? "Failed to apply patch";
+            throw new OpaBuiltinException(err);
+        }
+
         return result.Result;
     }
 

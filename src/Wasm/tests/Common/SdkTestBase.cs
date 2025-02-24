@@ -17,7 +17,7 @@ public class SdkTestBase(ITestOutputHelper output) : OpaTestBase(output)
     {
         public bool Assert { get; [UsedImplicitly] set; }
 
-        public JsonNode Expected { get; [UsedImplicitly] set; } = default!;
+        public JsonNode Expected { get; [UsedImplicitly] set; } = null!;
 
         public JsonNode? Actual { get; [UsedImplicitly] set; }
     }
