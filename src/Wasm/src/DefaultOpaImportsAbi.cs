@@ -235,7 +235,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
                 "graph.reachable_paths" => GraphReachablePaths(arg1.RawJson, arg2.RawJson),
                 "object.subset" => ObjectSubset(arg1.Raw, arg2.Raw),
                 "semver.compare" => SemverCompare(arg1.As<string>(), arg2.As<string>()),
-                "json.patch" => JsonPatch(arg1.RawJson, arg2.RawJson),
+                "json.patch" => JsonPatch(arg1.Raw, arg2.RawJson),
                 "json.match_schema" => JsonMatchSchema(arg1.RawJson, arg2.RawJson, context.JsonSerializerOptions),
                 _ => throw new NotImplementedException(context.FunctionName),
             };

@@ -6,6 +6,8 @@ using Json.Patch;
 using Json.Pointer;
 using Json.Schema;
 
+using OpaDotNet.Wasm.Rego;
+
 namespace OpaDotNet.Wasm;
 
 public partial class DefaultOpaImportsAbi
@@ -19,7 +21,10 @@ public partial class DefaultOpaImportsAbi
             if (reader.TokenType != JsonTokenType.String)
                 throw new JsonException("Expected string");
 
-            var str = reader.GetString()!;
+            var str = reader.GetString();
+
+            if (str == null)
+                throw new JsonException("Value does not represent a JSON Pointer");
 
             if (str.Length > 0 && str[0] != '#')
             {
@@ -41,7 +46,7 @@ public partial class DefaultOpaImportsAbi
     private static readonly JsonSerializerOptions PatchOptions = new()
     {
         PropertyNameCaseInsensitive = true,
-        //Converters = { new LaxJsonPointerJsonConverter() },
+        Converters = { new LaxJsonPointerJsonConverter() },
     };
 
     private static JsonNode? JsonPatch(JsonNode? obj, JsonNode? patches)
@@ -54,6 +59,12 @@ public partial class DefaultOpaImportsAbi
         if (ops == null)
             return obj;
 
+        if (obj.ContainsRegoSet())
+        {
+            for (var i = 0; i < ops.Length; i++)
+                ops[i] = AdjustPathForRegoSet(ops[i], obj);
+        }
+
         var p = new JsonPatch(ops);
         var result = p.Apply(obj);
 
@@ -64,6 +75,97 @@ public partial class DefaultOpaImportsAbi
         }
 
         return result.Result;
+    }
+
+    private static PatchOperation AdjustPathForRegoSet(PatchOperation operation, JsonNode? node)
+    {
+        if (node == null)
+            return operation;
+
+        var from = AdjustPathForRegoSet(operation.From, node);
+
+        switch (operation.Op)
+        {
+            case OperationType.Unknown:
+                return operation;
+            case OperationType.Add:
+                var addPath = AdjustPathForRegoSet(operation.Path, node, false);
+                return PatchOperation.Add(addPath, operation.Value);
+            case OperationType.Remove:
+                var removePath = AdjustPathForRegoSet(operation.Path, node);
+                return PatchOperation.Remove(removePath);
+            case OperationType.Replace:
+                var replacePath = AdjustPathForRegoSet(operation.Path, node);
+                return PatchOperation.Replace(replacePath, operation.Value);
+            case OperationType.Move:
+                var movePath = AdjustPathForRegoSet(operation.Path, node, false);
+                return PatchOperation.Move(from, movePath);
+            case OperationType.Copy:
+                var copyTargetPath = AdjustPathForRegoSet(operation.Path, node, false);
+                return PatchOperation.Copy(from, copyTargetPath);
+            case OperationType.Test:
+                var testPath = AdjustPathForRegoSet(operation.Path, node, false);
+                return PatchOperation.Test(testPath, operation.Value);
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+
+    private static JsonPointer AdjustPathForRegoSet(JsonPointer pointer, JsonNode node, bool targetMustExist = true)
+    {
+        if (pointer.Count == 0)
+            return pointer;
+
+        var result = JsonPointer.Empty;
+        JsonElement? currentElement = node.ToJsonDocument().RootElement;
+
+        for (var i = 0; i < pointer.Count; i++)
+        {
+            result = result.Combine(pointer[i]);
+            currentElement = JsonPointer.Create(pointer[i]).Evaluate(currentElement!.Value);
+
+            if (currentElement == null)
+                throw new InvalidOperationException($"Target path '{result}' could not be reached");
+
+            if (!currentElement.Value.AsNode().IsRegoSet())
+                continue;
+
+            if (i + 1 >= pointer.Count)
+                continue;
+
+            var setPointer = JsonPointer.Create(0, "__rego_set");
+            currentElement = setPointer.Evaluate(currentElement.Value);
+
+            if (currentElement == null)
+                throw new InvalidOperationException("Invalid set");
+
+            i++;
+            var setMember = pointer[i];
+            var foundPosition = 0;
+
+            if (targetMustExist)
+            {
+                foundPosition = -1;
+
+                for (var j = 0; j < currentElement.Value.GetArrayLength(); j++)
+                {
+                    if (currentElement.Value[j].ValueEquals(setMember))
+                    {
+                        currentElement = currentElement.Value[j];
+                        foundPosition = j;
+                        break;
+                    }
+                }
+
+                if (foundPosition < 0)
+                    throw new InvalidOperationException($"Set does not contain '{setMember}' value");
+            }
+
+            result = result.Combine(setPointer);
+            result = result.Combine(foundPosition);
+        }
+
+        return result;
     }
 
     private static object?[] JsonVerifySchema(JsonNode? schema, JsonSerializerOptions options, out JsonSchema? result)

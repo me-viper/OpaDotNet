@@ -29,7 +29,7 @@ internal static partial class RegoValueHelper
     public static bool TryGetRegoSet<T>(
         this JsonNode? node,
         [MaybeNullWhen(false)] out RegoSet<T> set,
-        JsonSerializerOptions? options = default)
+        JsonSerializerOptions? options = null)
     {
         set = null;
 
@@ -65,7 +65,7 @@ internal static partial class RegoValueHelper
     public static bool TryGetRegoSet(
         this JsonArray ar,
         [MaybeNullWhen(false)] out RegoSet<JsonNode> set,
-        JsonSerializerOptions? options = default)
+        JsonSerializerOptions? options = null)
     {
         ArgumentNullException.ThrowIfNull(ar);
 
@@ -82,7 +82,7 @@ internal static partial class RegoValueHelper
     public static bool TryGetRegoSet<T>(
         this JsonArray ar,
         [MaybeNullWhen(false)] out RegoSet<T> set,
-        JsonSerializerOptions? options = default)
+        JsonSerializerOptions? options = null)
     {
         ArgumentNullException.ThrowIfNull(ar);
 
@@ -96,30 +96,46 @@ internal static partial class RegoValueHelper
         return set != null;
     }
 
-    public static bool IsRegoSet(this JsonNode? node)
+    public static bool ContainsRegoSet(this JsonNode? node)
     {
         if (node == null)
             return false;
 
-        ArgumentNullException.ThrowIfNull(node);
+        if (node.IsRegoSet())
+            return true;
 
-        if (node is not JsonArray ar)
-            return false;
+        switch (node)
+        {
+            case JsonObject jo:
+            {
+                if (jo.Any(p => p.Value.ContainsRegoSet()))
+                    return true;
 
-        return ar.IsRegoSet();
+                break;
+            }
+            case JsonArray ja:
+            {
+                if (ja.Any(p => p.ContainsRegoSet()))
+                    return true;
+
+                break;
+            }
+        }
+
+        return false;
     }
 
-    public static bool IsRegoSet(this JsonArray ar)
+    public static bool IsRegoSet(this JsonNode? node) => node is JsonArray ar && ar.IsRegoSet();
+
+    public static bool IsRegoSet(this JsonArray? ar)
     {
-        ArgumentNullException.ThrowIfNull(ar);
+        if (ar == null)
+            return false;
 
         if (ar.Count != 1)
             return false;
 
-        if (ar[0] is not JsonObject jo)
-            return false;
-
-        return jo.ContainsKey("__rego_set");
+        return ar[0] is JsonObject jo && jo.ContainsKey("__rego_set");
     }
 
     public static string JsonFromRegoValue(string s)
@@ -137,6 +153,7 @@ internal static partial class RegoValueHelper
             s = regex.Replace(s, "[{\"__rego_set\":[$1]}]");
         }
 
+        s = s.Replace("[{\"__rego_set\":[]}]", "{}");
         return s.Replace("set()", "[{\"__rego_set\":[]}]");
     }
 

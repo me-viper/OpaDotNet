@@ -38,6 +38,16 @@ public class RegoSetTests
             """[1, 2]""",
             """[1, 2]""",
         ];
+        yield return
+        [
+            """{}""",
+            """{}""",
+        ];
+        yield return
+        [
+            """{"foo":{}}""",
+            """{"foo":{}}""",
+        ];
 
         // yield return new object[]
         // {
@@ -143,5 +153,17 @@ public class RegoSetTests
             p => Assert.Equal(2, p.GetValue<int>()),
             p => Assert.Equal(3, p.GetValue<int>())
             );
+    }
+
+    [Theory]
+    [InlineData("[1, 2]", false)]
+    [InlineData("""{"a":1,"b":2}""", false)]
+    [InlineData("""[{"__rego_set":[3,4]}]""", true)]
+    [InlineData("""[[{"__rego_set":[3,4]}]]""", true)]
+    [InlineData("""{"s":[{"__rego_set":[3,4]}]}""", true)]
+    public void ContainsRegoSet(string json, bool expected)
+    {
+        var node = JsonNode.Parse(json);
+        Assert.Equal(expected, node.ContainsRegoSet());
     }
 }
