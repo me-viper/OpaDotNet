@@ -9,19 +9,21 @@ namespace OpaDotNet.Wasm.Generators;
 [UsedImplicitly]
 internal class SdkV1TestCaseContainer
 {
-    private string? _fileName;
+    private string? _name;
 
-    public string FileName
+    public string Name
     {
         get
         {
-            if (string.IsNullOrWhiteSpace(_fileName))
-                _fileName = Path.GetRandomFileName();
+            if (string.IsNullOrWhiteSpace(_name))
+                _name = Path.GetRandomFileName();
 
-            return _fileName!;
+            return _name!;
         }
-        set { _fileName = value; }
+        set { _name = value; }
     }
+
+    public string FileName { get; set; } = null!;
 
     public HashSet<SdkV1TestCase> Cases { get; set; } = new();
 

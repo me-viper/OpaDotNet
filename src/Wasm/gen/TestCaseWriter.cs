@@ -9,7 +9,7 @@ namespace OpaDotNet.Wasm.Generators;
 
 internal static class TestCaseWriter
 {
-    public static string WriteTestCases(IEnumerable<SdkV1TestCase> cases)
+    public static string WriteTestCases(IEnumerable<SdkV1TestCase> cases, string fileName)
     {
         var sb = new StringBuilder();
         var i = 0;
@@ -25,6 +25,7 @@ internal static class TestCaseWriter
 
         return $@"namespace OpaDotNet.Wasm.Tests.SdkV1;
 
+// {fileName}
 public partial class SdkV1Tests
 {{
     {sb}

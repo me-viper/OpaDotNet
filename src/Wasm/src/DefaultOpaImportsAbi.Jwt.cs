@@ -163,7 +163,7 @@ public partial class DefaultOpaImportsAbi
 
             // If aud is absent then the aud claim must be absent too.
             if (string.IsNullOrWhiteSpace(constraints.Aud))
-                return !auds.Any();
+                return auds.Count == 0;
 
             return auds.Any(p => string.Equals(p, constraints.Aud, StringComparison.Ordinal));
         };

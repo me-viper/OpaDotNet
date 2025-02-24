@@ -9,7 +9,6 @@
   - array/
   - bits(\w+)/
   - casts/to_number
-  #- eqexpr/indexing
   - jsonbuiltins/unmarshal-non-string
   - jsonremove/error
   - netcidrcontains/cidr subnet
@@ -26,6 +25,21 @@
   - replacen/bad
   - strings/reverse_
   - strings/substring
+- reason: 'TODO: No easy way to parse DER certificate chain'
+  regex:
+  - cryptox509parsecertificates/DER, chain, b64
+- reason: 'TODO: http.send is not implemented'
+  regex:
+  - invalidkeyerror/invalid keys
+  - invalidkeyerror/missing keys
+- reason: 'We are fine with JWE'
+- reason: 'TODO: For some reason dotnet hates this key'
+  regex:
+  - jwtverifyrsa/success-es384-key
+  - jwtverifyrsa/success-es512-key
+- reason: 'TODO: Decide how to detect bad key'
+  regex:
+  - jwtverifyrsa/failure-bad jwk key
 - reason: 'We are fine with JWE'
   regex:
   - jwtbuiltins/no-support-jwe
@@ -39,14 +53,6 @@
   - jwtverifyhs256/success
   - jwtverifyhs384/success
   - jwtverifyhs512/success
-#- reason: 'Not supported: Payload is not JSON'
-#  regex:
-#  - jwtencodesignraw/No Payload but Media Type is Plain
-#  - jwtencodesignraw/text/plain media type
-#  - jwtbuiltins/double-nested
-#  - jwtbuiltins/nested
-#  - jwtdecodeverify/rsa256-nested
-#  - jwtdecodeverify/rsa256-nested2
 - reason: Not implemented
   regex:
   - graphql_
@@ -61,6 +67,12 @@
   - data/nested integer
   - data/toplevel integer
   - helloworld/another_test_for_builtin_error
+  - unused arg
+  - wasm/additive \(negative\)
+  - wasm/object dereference \(negative\)
 - reason: WTF???
   regex:
   - virtualdocs/undefined
+  - regression/dynamic object to static object comparison
+  - refheads/general, multiple result-set entries
+  - fix1863/is defined

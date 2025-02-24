@@ -1,6 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
 
 using Yaml2JsonNode;
@@ -15,8 +16,16 @@ internal static class TestCaseParser
         PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,
     };
 
-    public static SdkV1TestCaseContainer? ParseFile(string category, string testCaseName, SourceText source, TestCaseFilter filter)
+    public static SdkV1TestCaseContainer? ParseFile(AdditionalText file, TestCaseFilter filter)
     {
+        var fi = new FileInfo(file.Path);
+        var category = fi.Directory!.Name;
+        var testCaseName = Path.GetFileNameWithoutExtension(fi.Name);
+        var source = file.GetText();
+
+        if (source == null)
+            return null;
+
         var sb = new StringBuilder();
 
         using (var sw = new StringWriter(sb))
@@ -32,11 +41,12 @@ internal static class TestCaseParser
         if (testCases == null)
             return null;
 
-        testCases.FileName = $"{category}-{testCaseName}";
+        testCases.Name = $"{category}-{testCaseName}";
+        testCases.FileName = fi.FullName;
 
         using var hashesStream = new MemoryStream();
         using var md5 = MD5.Create();
-        var testCaseHashBytes = md5.ComputeHash(Encoding.UTF8.GetBytes(testCases.FileName));
+        var testCaseHashBytes = md5.ComputeHash(Encoding.UTF8.GetBytes(testCases.Name));
         hashesStream.Write(testCaseHashBytes, 0, testCaseHashBytes.Length);
 
         foreach (var testCase in testCases.Cases)
