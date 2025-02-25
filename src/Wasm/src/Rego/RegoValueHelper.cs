@@ -5,7 +5,7 @@ namespace OpaDotNet.Wasm.Rego;
 
 internal static partial class RegoValueHelper
 {
-    [GeneratedRegex("{([^:]*?({.+})*)}")]
+    [GeneratedRegex("{([A-z0-9\\\"][^:]*?({.+})*)}")]
     private static partial Regex RegoSetRegex();
 
     public static bool TryGetTuple<T>(this JsonArray ar, [MaybeNullWhen(false)] out Tuple<T> tuple)
@@ -153,7 +153,6 @@ internal static partial class RegoValueHelper
             s = regex.Replace(s, "[{\"__rego_set\":[$1]}]");
         }
 
-        s = s.Replace("[{\"__rego_set\":[]}]", "{}");
         return s.Replace("set()", "[{\"__rego_set\":[]}]");
     }
 

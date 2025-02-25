@@ -48,6 +48,11 @@ public class RegoSetTests
             """{"foo":{}}""",
             """{"foo":{}}""",
         ];
+        yield return
+        [
+            """{"foo":{"a":1}}""",
+            """{"foo":{"a":1}}""",
+        ];
 
         // yield return new object[]
         // {
