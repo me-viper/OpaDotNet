@@ -40,6 +40,12 @@ public sealed class BundleWriter : IDisposable, IAsyncDisposable
     /// </summary>
     public bool IsEmpty { get; private set; }
 
+    private static JsonDocumentOptions CapsOptions { get; } = new()
+    {
+        CommentHandling = JsonCommentHandling.Skip,
+        AllowTrailingCommas = true,
+    };
+
     /// <summary>
     /// Creates new instance of <see cref="BundleWriter"/>.
     /// </summary>
@@ -79,7 +85,7 @@ public sealed class BundleWriter : IDisposable, IAsyncDisposable
         if (resultBins == null)
             throw new RegoCompilationException("Invalid capabilities file: 'builtins' node not found");
 
-        var capsDoc = JsonDocument.Parse(caps2);
+        var capsDoc = JsonDocument.Parse(caps2, CapsOptions);
         var capsBins = capsDoc.RootElement.GetProperty("builtins");
 
         foreach (var bin in capsBins.EnumerateArray())
