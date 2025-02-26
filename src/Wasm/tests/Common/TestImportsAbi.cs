@@ -57,7 +57,7 @@ internal class TestImportsAbi(ITestOutputHelper output) : DefaultOpaImportsAbi
                   }
                 }
                 ]
-            },
+            }
             """u8;
 
         return new ReadOnlyMemory<byte>(r.ToArray());
