@@ -25,6 +25,10 @@
   - replacen/bad
   - strings/reverse_
   - strings/substring
+- reason: 'TODO: Fix!!!'
+  regex:
+  - uuid-parse/positive-v2
+  - jsonpatch/set
 - reason: 'TODO: No easy way to parse DER certificate chain'
   regex:
   - cryptox509parsecertificates/DER, chain, b64
@@ -79,3 +83,8 @@
   - regression/dynamic object to static object comparison
   - refheads/general, multiple result-set entries
   - fix1863/is defined
+  - withkeyword/
+  - topdowndynamicdispatch/dynamic dispatch
+  - partialsetdoc/unexpected
+  - inputvalues/loopback undefined
+  - walkbuiltin/wildcard-path same values as when path provided

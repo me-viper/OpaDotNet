@@ -1,4 +1,6 @@
-﻿using OpaDotNet.Wasm.Builtins;
+﻿using System.Text.Json.Nodes;
+
+using OpaDotNet.Wasm.Builtins;
 
 namespace OpaDotNet.Wasm.Tests.Common;
 
@@ -10,6 +12,14 @@ internal class TestImportsAbi(ITestOutputHelper output) : DefaultOpaImportsAbi
         var o = string.Join(", ", str);
         output.WriteLine(o);
         base.Print(str);
+    }
+
+    public override object? Func(BuiltinContext context)
+    {
+        if (string.Equals(context.FunctionName, "opa.runtime"))
+            return JsonNode.Parse("{}"u8);
+
+        return base.Func(context);
     }
 
     public override object? Func(BuiltinContext context, BuiltinArg arg1)

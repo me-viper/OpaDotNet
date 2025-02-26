@@ -3,8 +3,6 @@ using System.Text;
 using System.Text.Json.Nodes;
 using System.Web;
 
-using Microsoft.IdentityModel.JsonWebTokens;
-
 using OpaDotNet.Compilation.Abstractions;
 using OpaDotNet.InternalTesting;
 using OpaDotNet.Wasm.Builtins;
@@ -282,10 +280,6 @@ public partial class SdkV1Tests : SdkTestBase
             result = eval.Evaluate<object?, JsonNode>(testCase.Input);
         else
         {
-            // var jn = JsonNode.Parse(testCase.InputTerm, null, new JsonDocumentOptions { AllowTrailingCommas = true });
-            // Assert.NotNull(jn);
-            //
-            // var rawResult = eval.EvaluateRaw(jn.ToJsonString());
             var rawResult = eval.EvaluateRaw(testCase.InputTerm);
             var evalResult = JsonSerializer.Deserialize<PolicyEvaluationResult<JsonNode>[]>(rawResult);
 

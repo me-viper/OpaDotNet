@@ -76,7 +76,7 @@ public class YamlSupportTests : OpaTestBase, IAsyncLifetime
     public void Marshal()
     {
         var result = _engine.EvaluateRaw("""[{"foo": [1, 2, 3]}]""", "yaml/support/canMarshalYAML");
-        Assert.Equal("""[{"result":[[{"foo":["1","2","3"]}]]}]""", result);
+        Assert.Equal("""[{"result":[[{"foo":[1,2,3]}]]}]""", result);
     }
 
     [Fact]
