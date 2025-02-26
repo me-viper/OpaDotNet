@@ -50,6 +50,7 @@ OpaDotNet.Wasm.ICapabilitiesProvider.GetCapabilities() -> System.IO.Stream!
 OpaDotNet.Wasm.IOpaEvaluator
 OpaDotNet.Wasm.IOpaEvaluator.AbiVersion.get -> System.Version!
 OpaDotNet.Wasm.IOpaEvaluator.Evaluate<TInput, TOutput>(TInput input, string? entrypoint = null) -> OpaDotNet.Wasm.PolicyEvaluationResult<TOutput>!
+OpaDotNet.Wasm.IOpaEvaluator.EvaluateOrDefault<TInput, TOutput>(TInput input, string? entrypoint = null) -> OpaDotNet.Wasm.PolicyEvaluationResult<TOutput?>!
 OpaDotNet.Wasm.IOpaEvaluator.EvaluatePredicate<TInput>(TInput input, string? entrypoint = null) -> OpaDotNet.Wasm.PolicyEvaluationResult<bool>!
 OpaDotNet.Wasm.IOpaEvaluator.EvaluateRaw(System.ReadOnlySpan<char> inputJson, string? entrypoint = null) -> string!
 OpaDotNet.Wasm.IOpaEvaluator.Reset() -> void

@@ -1,3 +1,4 @@
+
 #nullable enable
 abstract OpaDotNet.Extensions.AspNetCore.OpaPolicySource.CompileBundleFromSource(bool recompiling, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<System.IO.Stream?>!
 OpaDotNet.Extensions.AspNetCore.ClaimPolicyInput
