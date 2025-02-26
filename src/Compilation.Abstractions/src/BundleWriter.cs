@@ -94,7 +94,7 @@ public sealed class BundleWriter : IDisposable, IAsyncDisposable
             {
                 JsonValueKind.Array => JsonArray.Create(bin),
                 JsonValueKind.Object => JsonObject.Create(bin),
-                _ => JsonValue.Create(bin)
+                _ => JsonValue.Create(bin),
             };
 
             resultBins.Add(node);
