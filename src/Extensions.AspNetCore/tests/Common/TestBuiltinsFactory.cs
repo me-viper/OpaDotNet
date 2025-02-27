@@ -21,7 +21,7 @@ internal class TestBuiltinsFactory(ILoggerFactory? loggerFactory = null, TimePro
         return new CompositeImportsHandler(
             new CoreImportsAbi(Logger, timeProvider ?? TimeProvider.System),
             CustomBuiltins.Select(p => p()).ToList(),
-            new ImportsCache(JsonSerializerOptions.Default)
+            new ImportsCache()
             );
     }
 }

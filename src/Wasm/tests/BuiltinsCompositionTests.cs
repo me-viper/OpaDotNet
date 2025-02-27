@@ -16,7 +16,7 @@ public class BuiltinsCompositionTests : OpaTestBase
 
     public BuiltinsCompositionTests(ITestOutputHelper output) : base(output)
     {
-        var cache = new ImportsCache(JsonSerializerOptions.Default);
+        var cache = new ImportsCache();
         _imports = new CompositeImportsHandler(_default, [_ext1], cache);
     }
 

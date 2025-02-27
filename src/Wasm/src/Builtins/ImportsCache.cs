@@ -7,7 +7,7 @@ namespace OpaDotNet.Wasm.Builtins;
 /// Built-ins cache.
 /// </summary>
 /// <param name="jsonOptions">Provides options to be used with JsonSerializer.</param>
-public class ImportsCache(JsonSerializerOptions jsonOptions)
+public class ImportsCache
 {
     private readonly object _lock = new();
 
@@ -26,13 +26,12 @@ public class ImportsCache(JsonSerializerOptions jsonOptions)
         {
             lock (_lock)
             {
-                if (_cache == null)
-                    _cache = BuildImportsCache(instances, jsonOptions);
+                _cache ??= BuildImportsCache(instances);
             }
         }
     }
 
-    internal Func<BuiltinArg[], object?>? TryResolveImport(
+    internal Func<BuiltinArg[], JsonSerializerOptions, object?>? TryResolveImport(
         IReadOnlyList<IOpaCustomBuiltins> instances,
         string name,
         out OpaCustomBuiltinAttribute? attributes)
@@ -55,12 +54,10 @@ public class ImportsCache(JsonSerializerOptions jsonOptions)
 
         attributes = cacheItem.Attributes;
 
-        return p => cacheItem.Import(instance, p);
+        return (args, opts) => cacheItem.Import(instance, args, opts);
     }
 
-    private static Dictionary<string, ImportsCacheEntry> BuildImportsCache(
-        IEnumerable<IOpaCustomBuiltins> imports,
-        JsonSerializerOptions jsonOptions)
+    private static Dictionary<string, ImportsCacheEntry> BuildImportsCache(IEnumerable<IOpaCustomBuiltins> imports)
     {
         var result = new Dictionary<string, ImportsCacheEntry>();
 
@@ -110,10 +107,11 @@ public class ImportsCache(JsonSerializerOptions jsonOptions)
 
                 var instanceParam = Expression.Parameter(typeof(IOpaCustomBuiltins), "instance");
                 var argsParam = Expression.Parameter(typeof(BuiltinArg[]), "args");
+                var jsonParam = Expression.Parameter(typeof(JsonSerializerOptions), "jsonOpts");
                 var instance = callable.IsStatic ? null : Expression.Convert(instanceParam, import.GetType());
 
-                var argVars = new List<ParameterExpression>(argLen);
-                var bodyBlock = new List<Expression>(argLen);
+                var argVars = new List<ParameterExpression>(args.Length);
+                var bodyBlock = new List<Expression>(args.Length);
 
                 for (var i = 0; i < argLen; i++)
                 {
@@ -133,9 +131,16 @@ public class ImportsCache(JsonSerializerOptions jsonOptions)
                     bodyBlock.Add(setArg);
                 }
 
-                var funcArgs = passJsonOptions
-                    ? new List<Expression>([..argVars, Expression.Constant(jsonOptions)])
-                    : argVars.Cast<Expression>();
+                if (passJsonOptions)
+                {
+                    var jsonVar = Expression.Variable(typeof(JsonSerializerOptions), "argJsonOpts");
+                    var setJsonArg = Expression.Assign(jsonVar, jsonParam);
+
+                    argVars.Add(jsonVar);
+                    bodyBlock.Add(setJsonArg);
+                }
+
+                var funcArgs = argVars.Cast<Expression>();
 
                 Expression call;
 
@@ -151,10 +156,10 @@ public class ImportsCache(JsonSerializerOptions jsonOptions)
 
                 var body = Expression.Block(argVars, bodyBlock);
                 var func = Expression
-                    .Lambda<Func<IOpaCustomBuiltins, BuiltinArg[], object?>>(body, instanceParam, argsParam)
+                    .Lambda<Func<IOpaCustomBuiltins, BuiltinArg[], JsonSerializerOptions, object?>>(body, instanceParam, argsParam, jsonParam)
                     .Compile();
 
-                result[name] = new(import.GetType(), (i, a) => func(i, a), attr);
+                result[name] = new(import.GetType(), (i, a, j) => func(i, a, j), attr);
             }
         }
 

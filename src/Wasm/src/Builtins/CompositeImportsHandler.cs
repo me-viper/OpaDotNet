@@ -147,10 +147,10 @@ public sealed class CompositeImportsHandler : IOpaImportsAbi
 
                 var callHash = HashCode.Combine(name, argHash);
 
-                return _valueCache.GetOrAdd(callHash, func(args));
+                return _valueCache.GetOrAdd(callHash, func(args, context.JsonSerializerOptions));
             }
 
-            return func(args);
+            return func(args, context.JsonSerializerOptions);
         }
         catch (OpaEvaluationAbortedException)
         {

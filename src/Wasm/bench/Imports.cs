@@ -19,7 +19,7 @@ public class Imports
 
     private readonly Ext _ext1 = new();
 
-    private readonly ImportsCache _cache = new(JsonSerializerOptions.Default);
+    private readonly ImportsCache _cache = new();
 
     private BuiltinArg Arg { get; } = MakeArg("test");
 

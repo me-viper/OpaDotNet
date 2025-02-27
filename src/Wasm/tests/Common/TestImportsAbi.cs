@@ -73,7 +73,7 @@ internal class TestBuiltinsFactory(ITestOutputHelper output) : IBuiltinsFactory
         return new CompositeImportsHandler(
             new TestImportsAbi(output),
             CustomBuiltins.Select(p => p()).ToList(),
-            new ImportsCache(JsonSerializerOptions.Default)
+            new ImportsCache()
             );
     }
 }

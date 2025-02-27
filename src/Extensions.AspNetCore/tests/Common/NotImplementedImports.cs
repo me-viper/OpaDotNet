@@ -1,4 +1,6 @@
-﻿namespace OpaDotNet.Wasm.Tests.Common;
+﻿using OpaDotNet.Wasm;
+
+namespace OpaDotNet.Extensions.AspNetCore.Tests.Common;
 
 public class NotImplementedImports : IOpaImportsAbi
 {

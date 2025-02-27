@@ -249,7 +249,8 @@ file class CustomOpaImportsAbi(ILogger logger) : IOpaCustomBuiltins
         => $"hello {arg1.ToString(CultureInfo.InvariantCulture)} {arg2} {arg3} {arg4 ?? "<null>"}";
 
     [OpaCustomBuiltin("custom.jsonBuiltin")]
-    public static string JsonBuiltin(JsonNode arg1, JsonSerializerOptions opts) => arg1.ToJsonString(opts);
+    public static string JsonBuiltin(JsonNode arg1, JsonSerializerOptions opts)
+        => arg1.ToJsonString(opts ?? throw new InvalidOperationException());
 
     [OpaCustomBuiltin("custom.memBuiltin", Memorize = true)]
     public static DateTime DateBuiltin(string key1, int key2) => DateTime.UtcNow;

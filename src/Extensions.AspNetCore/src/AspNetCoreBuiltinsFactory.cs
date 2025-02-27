@@ -15,7 +15,7 @@ internal sealed class AspNetCoreBuiltinsFactory : IBuiltinsFactory
     public AspNetCoreBuiltinsFactory(IServiceProvider serviceProvider)
     {
         _serviceProvider = serviceProvider;
-        _importsCache = new(_serviceProvider.GetRequiredService<IOptions<WasmPolicyEngineOptions>>().Value.SerializationOptions);
+        _importsCache = new();
     }
 
     public IOpaImportsAbi Create()

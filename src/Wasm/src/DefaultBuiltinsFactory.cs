@@ -45,7 +45,7 @@ public class DefaultBuiltinsFactory : IBuiltinsFactory
         _defaultBuiltins = defaultBuiltins ?? (static () => new DefaultOpaImportsAbi());
 
         var opts = options ?? WasmPolicyEngineOptions.Default;
-        _importsCache = new ImportsCache(opts.SerializationOptions);
+        _importsCache = new ImportsCache();
     }
 
     /// <summary>
