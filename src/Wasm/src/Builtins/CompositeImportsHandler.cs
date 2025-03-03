@@ -6,7 +6,7 @@ namespace OpaDotNet.Wasm.Builtins;
 /// <summary>
 /// Handles built-in functions invocation.
 /// </summary>
-public sealed class CompositeImportsHandler : IOpaImportsAbi
+internal sealed class CompositeImportsHandler : IOpaImportsAbi
 {
     private readonly IOpaImportsAbi _default;
 

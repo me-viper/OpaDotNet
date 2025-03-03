@@ -6,7 +6,7 @@ namespace OpaDotNet.Wasm.Builtins;
 /// <summary>
 /// Built-ins cache.
 /// </summary>
-public class ImportsCache
+internal sealed class ImportsCache
 {
     private readonly object _lock = new();
 

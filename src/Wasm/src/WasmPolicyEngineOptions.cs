@@ -103,7 +103,7 @@ public class WasmPolicyEngineOptions
         return new CompositeImportsHandler(bo.DefaultBuiltins, bo.CustomBuiltins, _importsCache);
     }
 
-    public IOpaImportsAbi Builtins() => _makeBuiltins();
+    internal IOpaImportsAbi Builtins() => _makeBuiltins();
 
     /// <summary>
     /// Configure OPA built-ins.
