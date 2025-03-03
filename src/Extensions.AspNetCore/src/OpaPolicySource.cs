@@ -97,13 +97,14 @@ public abstract class OpaPolicySource : IOpaPolicySource
             if (policyStream == null)
                 return;
 
-            await using var _ = policyStream.ConfigureAwait(false);
+            await using (policyStream.ConfigureAwait(false))
+            {
+                var oldFactory = _factory;
 
-            var oldFactory = _factory;
+                _factory = new EvaluatorFactory(policyStream, _innerFactory);
 
-            _factory = new EvaluatorFactory(policyStream, _innerFactory);
-
-            oldFactory?.Dispose();
+                oldFactory?.Dispose();
+            }
 
             if (recompiling)
             {

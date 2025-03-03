@@ -60,7 +60,39 @@ Next, we need to compile the policy bundle and make it aware of our custom built
 
 # [v2.5](#tab/v25)
 
-[!code-csharp[](~/snippets/Builtins.cs#CustomBuiltinsCompile)]
+```csharp
+var compilationParameters = new CompilationParameters
+{
+    // Custom built-ins will be merged with capabilities v0.53.1.
+    CapabilitiesVersion = "v0.53.1",
+
+    // Provide built-ins capabilities for the compiler.
+    CapabilitiesFilePath = Path.Combine("builtins", "capabilities.json"),
+    Entrypoints =
+    [
+        "custom_builtins/zero_arg",
+        "custom_builtins/one_arg",
+        "custom_builtins/two_arg",
+        "custom_builtins/three_arg",
+        "custom_builtins/four_arg",
+    ],
+};
+
+var compiler = new RegoInteropCompiler();
+
+await using var policy = await compiler.CompileBundleAsync(
+    "builtins",
+    compilationParameters
+    );
+
+using var factory = new OpaBundleEvaluatorFactory(
+    policy,
+    null,
+    new DefaultBuiltinsFactory(() => new CustomBuiltinsSample())
+    );
+
+using var engine = factory.Create();
+```
 
 ---
 
@@ -68,7 +100,7 @@ Next, we need to compile the policy bundle and make it aware of our custom built
 
 Now we can evaluate policies using custom built-ins:
 
-[!code-csharp[](~/snippets/Builtins.cs#CustomBuiltinsEval)]
+[!code-csharp[](~/snippets/Builtins.cs#CustomBuiltinsEvalV26)]
 
 If you executed this code the output would be:
 

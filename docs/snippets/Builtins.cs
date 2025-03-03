@@ -111,83 +111,7 @@ public partial class DocSamples
     }
 
     #endregion
-
-    [Fact]
-    public async Task CustomBuiltins()
-    {
-        #region CustomBuiltinsCompile
-
-        var compilationParameters = new CompilationParameters
-        {
-            // Custom built-ins will be merged with capabilities v0.53.1.
-            CapabilitiesVersion = "v0.53.1",
-
-            // Provide built-ins capabilities for the compiler.
-            CapabilitiesFilePath = Path.Combine("builtins", "capabilities.json"),
-            Entrypoints =
-            [
-                "custom_builtins/zero_arg",
-                "custom_builtins/one_arg",
-                "custom_builtins/two_arg",
-                "custom_builtins/three_arg",
-                "custom_builtins/four_arg",
-            ],
-        };
-
-        var compiler = new RegoInteropCompiler();
-
-        await using var policy = await compiler.CompileBundleAsync(
-            "builtins",
-            compilationParameters
-            );
-
-        using var factory = new OpaBundleEvaluatorFactory(
-            policy,
-            null
-            );
-
-        using var engine = factory.Create();
-
-        #endregion
-
-        #region CustomBuiltinsEval
-
-        var resultZeroArg = engine.Evaluate<object, string>(new object(), "custom_builtins/zero_arg");
-        Console.WriteLine(resultZeroArg.Result);
-
-        var resultOneArg = engine.Evaluate<object, string>(
-            new { args = new[] { "arg0" } },
-            "custom_builtins/one_arg"
-            );
-        Console.WriteLine(resultOneArg.Result);
-
-        var resultTwoArg = engine.Evaluate<object, string>(
-            new { args = new[] { "arg0", "arg1" } },
-            "custom_builtins/two_arg"
-            );
-        Console.WriteLine(resultTwoArg.Result);
-
-        var resultThreeArg = engine.Evaluate<object, string>(
-            new { args = new[] { "arg0", "arg1", "arg2" } },
-            "custom_builtins/three_arg"
-            );
-        Console.WriteLine(resultThreeArg.Result);
-
-        var resultFourArg = engine.Evaluate<object, string>(
-            new { args = new[] { "arg0", "arg1", "arg2", "arg3" } },
-            "custom_builtins/four_arg"
-            );
-        Console.WriteLine(resultFourArg.Result);
-
-        #endregion
-
-        Assert.Equal("hello", resultZeroArg.Result);
-        Assert.Equal("hello arg0", resultOneArg.Result);
-        Assert.Equal("hello arg0 arg1", resultTwoArg.Result);
-        Assert.Equal("hello arg0 arg1 arg2", resultThreeArg.Result);
-        Assert.Equal("hello arg0 arg1 arg2 arg3", resultFourArg.Result);
-    }
-
+    
     [Fact]
     public async Task CustomBuiltinsV26()
     {
@@ -216,10 +140,10 @@ public partial class DocSamples
             compilationParameters
             );
 
-        using var factory = new OpaBundleEvaluatorFactory(
-            policy,
-            null
-            );
+        var opts = new WasmPolicyEngineOptions();
+        opts.ConfigureBuiltins(p => p.Custom.Add(new OpaCustomBuiltins()));
+
+        using var factory = new OpaBundleEvaluatorFactory(policy, opts);
 
         var engine = factory.Create();
 
