@@ -23,7 +23,7 @@ public class MultiplyEntrypointsTests : OpaTestBase, IAsyncLifetime
             ]
             );
 
-        _engine = OpaEvaluatorFactory.CreateFromBundle(policy);
+        _engine = OpaBundleEvaluatorFactory.Create(policy);
     }
 
     public Task DisposeAsync()

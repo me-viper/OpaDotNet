@@ -106,8 +106,7 @@ public class BundleSignatureTests(ITestOutputHelper output) : OpaTestBase(output
 
         using var factory = new OpaBundleEvaluatorFactory(
             fs,
-            engineOpts,
-            new TestBuiltinsFactory(Output)
+            engineOpts
             );
 
         Assert.NotNull(factory.Create());
@@ -120,11 +119,7 @@ public class BundleSignatureTests(ITestOutputHelper output) : OpaTestBase(output
         var engineOpts = new WasmPolicyEngineOptions { CachePath = CachePath };
 
         Assert.Throws<BundleSignatureValidationException>(
-            () => new OpaBundleEvaluatorFactory(
-                fs,
-                engineOpts,
-                new TestBuiltinsFactory(Output)
-                )
+            () => new OpaBundleEvaluatorFactory(fs, engineOpts).Create()
             );
     }
 
@@ -140,7 +135,7 @@ public class BundleSignatureTests(ITestOutputHelper output) : OpaTestBase(output
         };
 
         Assert.Throws<BundleSignatureValidationException>(
-            () => new OpaBundleEvaluatorFactory(fs, engineOpts, new TestBuiltinsFactory(Output))
+            () => new OpaBundleEvaluatorFactory(fs, engineOpts).Create()
             );
     }
 
@@ -175,11 +170,7 @@ public class BundleSignatureTests(ITestOutputHelper output) : OpaTestBase(output
         };
 
         var ex = Assert.Throws<BundleChecksumValidationException>(
-            () => new OpaBundleEvaluatorFactory(
-                ms,
-                engineOpts,
-                new TestBuiltinsFactory(Output)
-                )
+            () => new OpaBundleEvaluatorFactory(ms, engineOpts).Create()
             );
 
         Assert.Equal("p1.rego", ex.FileName);
@@ -215,8 +206,7 @@ public class BundleSignatureTests(ITestOutputHelper output) : OpaTestBase(output
 
         using var factory = new OpaBundleEvaluatorFactory(
             ms,
-            engineOpts,
-            new TestBuiltinsFactory(Output)
+            engineOpts
             );
 
         Assert.NotNull(factory);
@@ -244,11 +234,7 @@ public class BundleSignatureTests(ITestOutputHelper output) : OpaTestBase(output
         };
 
         var ex = Assert.Throws<BundleSignatureValidationException>(
-            () => new OpaBundleEvaluatorFactory(
-                ms,
-                engineOpts,
-                new TestBuiltinsFactory(Output)
-                )
+            () => new OpaBundleEvaluatorFactory(ms, engineOpts).Create()
             );
 
         Output.WriteLine(ex.ToString());
@@ -274,11 +260,7 @@ public class BundleSignatureTests(ITestOutputHelper output) : OpaTestBase(output
         };
 
         var ex = Assert.Throws<BundleSignatureValidationException>(
-            () => new OpaBundleEvaluatorFactory(
-                ms,
-                engineOpts,
-                new TestBuiltinsFactory(Output)
-                )
+            () => new OpaBundleEvaluatorFactory(ms, engineOpts).Create()
             );
 
         Output.WriteLine(ex.ToString());
@@ -313,8 +295,7 @@ public class BundleSignatureTests(ITestOutputHelper output) : OpaTestBase(output
 
         using var factory = new OpaBundleEvaluatorFactory(
             ms,
-            engineOpts,
-            new TestBuiltinsFactory(Output)
+            engineOpts
             );
 
         Assert.NotNull(factory);

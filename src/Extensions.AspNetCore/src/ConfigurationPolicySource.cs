@@ -2,6 +2,7 @@
 
 using OpaDotNet.Compilation.Abstractions;
 using OpaDotNet.Extensions.AspNetCore.Telemetry;
+using OpaDotNet.Wasm;
 
 namespace OpaDotNet.Extensions.AspNetCore;
 
@@ -18,7 +19,7 @@ public class ConfigurationPolicySource : OpaPolicySource
         IBundleCompiler compiler,
         IOptionsMonitor<OpaAuthorizationOptions> authOptions,
         IOptionsMonitor<OpaPolicyOptions> policy,
-        IOpaBundleEvaluatorFactoryBuilder factoryBuilder,
+        IOpaEvaluatorFactory factoryBuilder,
         ILoggerFactory loggerFactory) : base(authOptions, factoryBuilder, loggerFactory)
     {
         ArgumentNullException.ThrowIfNull(compiler);

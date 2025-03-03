@@ -64,7 +64,7 @@ public class AuthorizationTests(ITestOutputHelper output)
                         cfg =>
                         {
                             // ReSharper disable once AccessToDisposedClosure
-                            cfg.AddPolicySource(_ => new TestEvaluatorFactoryProvider(new OpaBundleEvaluatorFactory(policy, opts, null)));
+                            cfg.AddPolicySource(_ => new TestPolicySource(new OpaBundleEvaluatorFactory(policy, opts)));
                             cfg.AddConfiguration(
                                 pp =>
                                 {

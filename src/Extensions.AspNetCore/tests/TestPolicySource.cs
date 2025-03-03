@@ -4,7 +4,7 @@ using OpaDotNet.Wasm;
 
 namespace OpaDotNet.Extensions.AspNetCore.Tests;
 
-internal record TestEvaluatorFactoryProvider(OpaEvaluatorFactory Factory) : IOpaPolicySource
+internal record TestPolicySource(OpaBundleEvaluatorFactory Factory) : IOpaPolicySource
 {
     public IOpaEvaluator CreateEvaluator()
     {

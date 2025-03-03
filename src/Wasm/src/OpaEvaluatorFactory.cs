@@ -1,22 +1,30 @@
-﻿using Wasmtime;
+﻿using System.Buffers;
+
+using OpaDotNet.Wasm.Internal;
+
+using Wasmtime;
 
 namespace OpaDotNet.Wasm;
+
+[PublicAPI]
+public interface IOpaEvaluatorFactory
+{
+    IOpaEvaluator CreateFromWasm(Stream policyWasm);
+
+    IOpaEvaluator CreateFromBundle(Stream bundle);
+}
 
 /// <summary>
 /// A factory abstraction for a component that can create <see cref="IOpaEvaluator"/> instances.
 /// </summary>
-public abstract class OpaEvaluatorFactory : IDisposable
+public class OpaEvaluatorFactory : IOpaEvaluatorFactory
 {
-    private readonly IBuiltinsFactory _builtinsFactory;
-
-    private bool _disposed;
-
-    private protected WasmPolicyEngineOptions Options { get; }
+    private WasmPolicyEngineOptions Options { get; }
 
     /// <summary>
     /// Creates new instance of <see cref="OpaEvaluatorFactory"/>.
     /// </summary>
-    protected OpaEvaluatorFactory() : this(null, null)
+    public OpaEvaluatorFactory() : this(WasmPolicyEngineOptions.Default)
     {
     }
 
@@ -24,97 +32,54 @@ public abstract class OpaEvaluatorFactory : IDisposable
     /// Creates new instance of <see cref="OpaEvaluatorFactory"/>.
     /// </summary>
     /// <param name="options">Evaluation engine options</param>
-    protected OpaEvaluatorFactory(WasmPolicyEngineOptions? options)
-        : this(options, null)
-    {
-    }
-
-    /// <summary>
-    /// Creates new instance of <see cref="OpaEvaluatorFactory"/>.
-    /// </summary>
-    /// <param name="builtinsFactory">Factory that produces instances of <see cref="IOpaImportsAbi"/>.</param>
-    /// <param name="options">Evaluation engine options</param>
-    protected OpaEvaluatorFactory(WasmPolicyEngineOptions? options, IBuiltinsFactory? builtinsFactory)
+    public OpaEvaluatorFactory(WasmPolicyEngineOptions? options)
     {
         Options = options ?? WasmPolicyEngineOptions.Default;
-        _builtinsFactory = builtinsFactory ?? new DefaultBuiltinsFactory();
     }
 
-    /// <summary>
-    /// Creates evaluator from compiled policy bundle.
-    /// </summary>
-    /// <remarks>
-    /// Loads policy (policy.wasm) and external data (data.json) from the bundle.
-    /// </remarks>
-    /// <param name="policyBundle">Compiled policy bundle (*.tar.gz).</param>
-    /// <param name="options">Evaluator configuration.</param>
-    /// <param name="builtinsFactory">Built-ins implementation factory.</param>
-    /// <returns>Evaluator instance.</returns>
-    public static IOpaEvaluator CreateFromBundle(
-        Stream policyBundle,
-        WasmPolicyEngineOptions? options = null,
-        IBuiltinsFactory? builtinsFactory = null)
+    internal IOpaEvaluator CreateFromWasm(Span<byte> policyWasm) => Create(policyWasm, Span<byte>.Empty, Options);
+
+    public IOpaEvaluator CreateFromWasm(Stream policyWasm)
     {
-        using var result = new OpaBundleEvaluatorFactory(policyBundle, options, builtinsFactory);
-        return result.Create();
+        var buffer = ArrayPool<byte>.Shared.Rent((int)policyWasm.Length);
+
+        try
+        {
+            var bytesRead = policyWasm.Read(buffer);
+
+            if (bytesRead < policyWasm.Length)
+                throw new OpaRuntimeException("Failed to read wasm policy stream");
+
+            return Create(buffer.AsSpan(0, bytesRead), Span<byte>.Empty, Options);
+        }
+        finally
+        {
+            ArrayPool<byte>.Shared.Return(buffer);
+        }
     }
 
-    /// <summary>
-    /// Creates evaluator from compiled wasm policy file.
-    /// </summary>
-    /// <remarks>
-    /// If evaluator requires external data it should be loaded manually.
-    /// </remarks>
-    /// <param name="policyWasm">Compiled wasm policy file (*.wasm).</param>
-    /// <param name="options">Evaluator configuration.</param>
-    /// <param name="builtinsFactory">Built-ins implementation factory.</param>
-    /// <returns>Evaluator instance.</returns>
-    public static IOpaEvaluator CreateFromWasm(
-        Stream policyWasm,
-        WasmPolicyEngineOptions? options = null,
-        IBuiltinsFactory? builtinsFactory = null)
+    public IOpaEvaluator CreateFromBundle(Stream bundle)
     {
-        using var result = new OpaWasmEvaluatorFactory(policyWasm, options, builtinsFactory);
-        return result.Create();
+        try
+        {
+            var policy = TarGzHelper.ReadBundleAndValidate(bundle, Options.SignatureValidation);
+
+            if (policy == null)
+                throw new OpaRuntimeException("Failed to unpack policy bundle");
+
+            return Create(policy.Policy.Span, policy.Data.Span, Options);
+        }
+        catch (OpaRuntimeException)
+        {
+            throw;
+        }
+        catch (Exception ex)
+        {
+            throw new OpaRuntimeException("Failed to unpack policy bundle", ex);
+        }
     }
 
-    /// <summary>
-    /// Creates new instance of <see cref="IOpaEvaluator"/>.
-    /// </summary>
-    [PublicAPI]
-    public abstract IOpaEvaluator Create();
-
-    /// <inheritdoc />
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
-    }
-
-    /// <summary>
-    /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-    /// </summary>
-    /// <param name="disposing">
-    /// If disposing equals true, the method has been called directly or indirectly by a user's code.
-    /// </param>
-    [PublicAPI]
-    protected virtual void Dispose(bool disposing)
-    {
-        _disposed = true;
-    }
-
-    /// <summary>
-    /// Throws exception if this instance have been disposed.
-    /// </summary>
-    /// <exception cref="ObjectDisposedException"></exception>
-    [ExcludeFromCodeCoverage]
-    protected void ThrowIfDisposed()
-    {
-        if (_disposed)
-            throw new ObjectDisposedException(GetType().ToString());
-    }
-
-    private protected IOpaEvaluator Create(
+    private IOpaEvaluator Create(
         Stream policy,
         Stream? data,
         WasmPolicyEngineOptions options)
@@ -136,7 +101,7 @@ public abstract class OpaEvaluatorFactory : IDisposable
             Memory = memory,
             Module = module,
             Options = options,
-            Imports = _builtinsFactory.Create(),
+            Imports = options.Builtins(),
         };
 
         var result = new OpaWasmEvaluator(config);
@@ -147,7 +112,7 @@ public abstract class OpaEvaluatorFactory : IDisposable
         return result;
     }
 
-    private protected IOpaEvaluator Create(
+    private IOpaEvaluator Create(
         ReadOnlySpan<byte> policy,
         ReadOnlySpan<byte> data,
         WasmPolicyEngineOptions options)
@@ -168,7 +133,7 @@ public abstract class OpaEvaluatorFactory : IDisposable
             Memory = memory,
             Module = module,
             Options = options,
-            Imports = _builtinsFactory.Create(),
+            Imports = options.Builtins(),
         };
 
         var result = new OpaWasmEvaluator(config);

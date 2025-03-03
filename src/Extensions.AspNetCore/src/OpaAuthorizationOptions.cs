@@ -1,4 +1,8 @@
-﻿using OpaDotNet.Wasm;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+
+using OpaDotNet.Wasm;
+using OpaDotNet.Wasm.Builtins;
 
 namespace OpaDotNet.Extensions.AspNetCore;
 
@@ -53,4 +57,19 @@ public class OpaAuthorizationOptions
     /// How frequently recompilation is allowed to happen if policy sources have been changed.
     /// </summary>
     public TimeSpan MonitoringInterval { get; set; } = TimeSpan.Zero;
+}
+
+internal class ConfigureOpaAuthorizationOptions(IServiceProvider serviceProvider) : IConfigureOptions<OpaAuthorizationOptions>
+{
+    public void Configure(OpaAuthorizationOptions options)
+    {
+        options.EngineOptions ??= WasmPolicyEngineOptions.Default;
+        options.EngineOptions.ConfigureBuiltins(
+            p =>
+            {
+                p.Default = serviceProvider.GetRequiredService<IOpaImportsAbi>();
+                p.Custom.AddRange(serviceProvider.GetRequiredService<IEnumerable<IOpaCustomBuiltins>>());
+            }
+            );
+    }
 }

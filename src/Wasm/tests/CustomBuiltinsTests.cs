@@ -5,6 +5,8 @@ using OpaDotNet.InternalTesting;
 using OpaDotNet.Wasm.Builtins;
 using OpaDotNet.Wasm.Tests.Common;
 
+using Wasmtime;
+
 // ReSharper disable UnusedMember.Local
 
 namespace OpaDotNet.Wasm.Tests;
@@ -66,16 +68,26 @@ public abstract class CustomBuiltinsTests(ITestOutputHelper output) : OpaTestBas
             }
             );
 
-        using var factory = new OpaBundleEvaluatorFactory(
-            policy,
-            WasmPolicyEngineOptions.DefaultWithJsonOptions(p => p.PropertyNamingPolicy = JsonNamingPolicy.CamelCase),
-            new DefaultBuiltinsFactory(() => new NotImplementedImports())
+        // using var factory = new OpaBundleEvaluatorFactory(
+        //     policy,
+        //     WasmPolicyEngineOptions.DefaultWithJsonOptions(p => p.PropertyNamingPolicy = JsonNamingPolicy.CamelCase),
+        //     new DefaultBuiltinsFactory(() => new NotImplementedImports())
+        //     {
+        //         CustomBuiltins = [() => new CustomOpaImportsAbi(NullLogger.Instance)],
+        //     }
+        //     );
+
+        var opts = WasmPolicyEngineOptions.DefaultWithJsonOptions(p => p.PropertyNamingPolicy = JsonNamingPolicy.CamelCase);
+        opts.ConfigureBuiltins(
+            p =>
             {
-                CustomBuiltins = [() => new CustomOpaImportsAbi(NullLogger.Instance)],
+                p.Default = new NotImplementedImports();
+                p.Custom.Add(new CustomOpaImportsAbi(NullLogger.Instance));
             }
             );
 
-        _engine = factory.Create();
+        var factory = new OpaEvaluatorFactory(opts);
+        _engine = factory.CreateFromBundle(policy);
     }
 
     public Task DisposeAsync()
@@ -353,3 +365,103 @@ file class CustomOpaImportsAbiCapabilitiesProvider : ICapabilitiesProvider
         return ms;
     }
 }
+
+// internal class EvaluatorFactory(WasmPolicyEngineOptions options)
+// {
+//     private readonly ImportsCache _importsCache = new();
+//
+//     public EvaluatorFactory() : this(WasmPolicyEngineOptions.Default)
+//     {
+//     }
+//
+//     public IOpaEvaluator CreateFromWasm(Stream policy)
+//     {
+//
+//         return Create(policy, null);
+//     }
+//
+//     public IOpaEvaluator CreateFromBundle(Stream bundle)
+//     {
+//         try
+//         {
+//             //var policy = TarGzHelper.ReadBundleAndValidate(bundle, options.SignatureValidation);
+//             var policy = TarGzHelper.ReadBundle(bundle);
+//
+//             if (policy == null)
+//                 throw new OpaRuntimeException("Failed to unpack policy bundle");
+//
+//             return Create(policy.Policy.Span, policy.Data.Span);
+//         }
+//         catch (OpaRuntimeException)
+//         {
+//             throw;
+//         }
+//         catch (Exception ex)
+//         {
+//             throw new OpaRuntimeException("Failed to unpack policy bundle", ex);
+//         }
+//     }
+//
+//     private protected IOpaEvaluator Create(
+//         ReadOnlySpan<byte> policy,
+//         ReadOnlySpan<byte> data)
+//     {
+//         ArgumentNullException.ThrowIfNull(options);
+//
+//         var engine = new Engine();
+//         var linker = new Linker(engine);
+//         var store = new Store(engine);
+//         var memory = new Memory(store, options.MinMemoryPages, options.MaxMemoryPages);
+//         var module = Module.FromBytes(engine, "policy", policy);
+//
+//         var config = new WasmPolicyEngineConfiguration
+//         {
+//             Engine = engine,
+//             Linker = linker,
+//             Store = store,
+//             Memory = memory,
+//             Module = module,
+//             Options = options,
+//             Imports = options.Builtins(),
+//         };
+//
+//         var result = new OpaWasmEvaluator(config);
+//
+//         if (!data.IsEmpty)
+//             result.SetDataFromBytes(data);
+//
+//         return result;
+//     }
+//
+//     private IOpaEvaluator Create(Stream policy, Stream? data)
+//     {
+//         ArgumentNullException.ThrowIfNull(policy);
+//         ArgumentNullException.ThrowIfNull(options);
+//
+//         var engine = new Engine();
+//         var linker = new Linker(engine);
+//         var store = new Store(engine);
+//         var memory = new Memory(store, options.MinMemoryPages, options.MaxMemoryPages);
+//         var module = Module.FromStream(engine, "policy", policy);
+//
+//         var imports = options.Builtins();
+//
+//         var config = new WasmPolicyEngineConfiguration
+//         {
+//             Engine = engine,
+//             Linker = linker,
+//             Store = store,
+//             Memory = memory,
+//             Module = module,
+//             Options = options,
+//             Imports = imports,
+//         };
+//
+//         var result = new OpaWasmEvaluator(config);
+//
+//         if (data != null)
+//             result.SetDataFromStream(data);
+//
+//         return result;
+//     }
+// }

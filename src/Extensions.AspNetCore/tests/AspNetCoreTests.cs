@@ -155,6 +155,7 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
             },
+            StrictBuiltinErrors = true,
         };
 
         using var server = CreateServerFull(
@@ -177,7 +178,7 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
                     cfg =>
                     {
                         // ReSharper disable once AccessToDisposedClosure
-                        cfg.AddPolicySource(_ => new TestEvaluatorFactoryProvider(new OpaBundleEvaluatorFactory(policy, opts, null)));
+                        cfg.AddPolicySource(_ => new TestPolicySource(new OpaBundleEvaluatorFactory(policy, opts)));
                         cfg.AddConfiguration(
                             pp =>
                             {

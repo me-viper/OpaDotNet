@@ -1,5 +1,6 @@
 ﻿using System.Text.Encodings.Web;
 
+using OpaDotNet.Wasm.Builtins;
 using OpaDotNet.Wasm.Rego;
 
 namespace OpaDotNet.Wasm;
@@ -10,6 +11,10 @@ namespace OpaDotNet.Wasm;
 [PublicAPI]
 public class WasmPolicyEngineOptions
 {
+    private Func<IOpaImportsAbi> _makeBuiltins;
+
+    private readonly ImportsCache _importsCache = new();
+
     /// <summary>
     /// Default engine options.
     /// </summary>
@@ -33,6 +38,11 @@ public class WasmPolicyEngineOptions
         Converters = { RegoSetJsonConverterFactory.Instance },
         Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
     };
+
+    public WasmPolicyEngineOptions()
+    {
+        _makeBuiltins = DefaultBuiltins;
+    }
 
     /// <summary>
     /// Minimal number of 64k pages available for WASM engine.
@@ -68,11 +78,6 @@ public class WasmPolicyEngineOptions
     /// </summary>
     public SignatureValidationOptions SignatureValidation { get; init; } = new();
 
-    // /// <summary>
-    // /// List of custom built-ins that were registered.
-    // /// </summary>
-    // public List<Func<IOpaCustomBuiltins>> CustomBuiltins { get; } = [];
-
     /// <summary>
     /// JSON serialization options.
     /// </summary>
@@ -91,4 +96,43 @@ public class WasmPolicyEngineOptions
             };
         }
     }
+
+    private IOpaImportsAbi DefaultBuiltins()
+    {
+        var bo = new BuiltinsOptions();
+        return new CompositeImportsHandler(bo.Default, bo.Custom, _importsCache);
+    }
+
+    public IOpaImportsAbi Builtins() => _makeBuiltins();
+
+    /// <summary>
+    /// Configure OPA built-ins.
+    /// </summary>
+    public void ConfigureBuiltins(Action<BuiltinsOptions> configure)
+    {
+        ArgumentNullException.ThrowIfNull(configure);
+
+        _makeBuiltins = () =>
+        {
+            var bo = new BuiltinsOptions();
+            configure(bo);
+            return new CompositeImportsHandler(bo.Default, bo.Custom, _importsCache);
+        };
+    }
+}
+
+/// <summary>
+/// OPA built-ins configuration.
+/// </summary>
+public class BuiltinsOptions
+{
+    /// <summary>
+    /// Default OPA built-ins.
+    /// </summary>
+    public IOpaImportsAbi Default { get; set; } = new DefaultOpaImportsAbi();
+
+    /// <summary>
+    /// Custom OPA built-ins.
+    /// </summary>
+    public List<IOpaCustomBuiltins> Custom { get; } = [];
 }

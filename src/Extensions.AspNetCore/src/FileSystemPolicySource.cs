@@ -5,6 +5,7 @@ using Microsoft.Extensions.Primitives;
 
 using OpaDotNet.Compilation.Abstractions;
 using OpaDotNet.Extensions.AspNetCore.Telemetry;
+using OpaDotNet.Wasm;
 
 namespace OpaDotNet.Extensions.AspNetCore;
 
@@ -17,7 +18,7 @@ public sealed class FileSystemPolicySource : PathPolicySource
     public FileSystemPolicySource(
         IBundleCompiler compiler,
         IOptionsMonitor<OpaAuthorizationOptions> options,
-        IOpaBundleEvaluatorFactoryBuilder factoryBuilder,
+        IOpaEvaluatorFactory factoryBuilder,
         ILoggerFactory loggerFactory) : base(options, factoryBuilder, loggerFactory)
     {
         ArgumentNullException.ThrowIfNull(compiler);

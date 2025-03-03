@@ -27,7 +27,7 @@ public class MetadataTests : OpaTestBase, IAsyncLifetime
             },
         };
 
-        _engine = OpaEvaluatorFactory.CreateFromBundle(policy, opts);
+        _engine = OpaBundleEvaluatorFactory.Create(policy, opts);
     }
 
     public Task DisposeAsync()

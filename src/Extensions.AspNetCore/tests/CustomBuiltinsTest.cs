@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 using OpaDotNet.Compilation.Abstractions;
+using OpaDotNet.Extensions.AspNetCore.Tests.Common;
 using OpaDotNet.InternalTesting;
 using OpaDotNet.Wasm;
 using OpaDotNet.Wasm.Builtins;
@@ -102,11 +103,13 @@ public class CustomBuiltinsTest(ITestOutputHelper output)
     }
 }
 
+[UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
 file class CustomPrinter(ILogger<CustomPrinter> logger) : IOpaCustomBuiltins, IOpaCustomPrinter
 {
     public void Print(IEnumerable<string> args) => logger.LogInformation("Custom: {Log}", string.Join(" ", args));
 }
 
+[UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
 file class Custom1 : IOpaCustomBuiltins, ICapabilitiesProvider
 {
     [OpaCustomBuiltin("custom1.func")]
@@ -142,6 +145,7 @@ file class Custom1 : IOpaCustomBuiltins, ICapabilitiesProvider
     }
 }
 
+[UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
 file class Custom2 : IOpaCustomBuiltins
 {
     public void Reset()
@@ -152,6 +156,7 @@ file class Custom2 : IOpaCustomBuiltins
     public bool Func(string arg1) => arg1.Equals("test2", StringComparison.Ordinal);
 }
 
+[UsedImplicitly]
 file class Custom2Caps : ICapabilitiesProvider
 {
     public Stream GetCapabilities()

@@ -121,7 +121,14 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
     [InlineData("time.weekday(1687527385064073200)", "\"Friday\"")]
     public async Task Time(string func, string expected)
     {
-        var result = await RunTestCase(func, expected, false, new TimeImports(Output));
+        var opts = new WasmPolicyEngineOptions
+        {
+            SerializationOptions = DefaultJsonOptions,
+        };
+
+        opts.ConfigureBuiltins(p => p.Default = new TimeImports(Output));
+
+        var result = await RunTestCase(func, expected, false, opts);
         Assert.True(result.Assert);
     }
 
@@ -134,7 +141,14 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
     [InlineData("""time.format([1707133074028819500, "", "06 01 02"])""", "\"24 02 05\"")]
     public async Task TimeFormat(string func, string expected)
     {
-        var result = await RunTestCase(func, expected, false, new TimeImports(Output));
+        var opts = new WasmPolicyEngineOptions
+        {
+            SerializationOptions = DefaultJsonOptions,
+        };
+
+        opts.ConfigureBuiltins(p => p.Default = new TimeImports(Output));
+
+        var result = await RunTestCase(func, expected, false, opts);
         Assert.True(result.Assert);
     }
 
@@ -146,7 +160,14 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
         var sign = localTz.BaseUtcOffset.Hours >= 0 ? "+" : "-";
         var expected = $"\"{sign}{localTz.BaseUtcOffset.Hours:00}\"";
 
-        var result = await RunTestCase(func, expected, false, new TimeImports(Output));
+        var opts = new WasmPolicyEngineOptions
+        {
+            SerializationOptions = DefaultJsonOptions,
+        };
+
+        opts.ConfigureBuiltins(p => p.Default = new TimeImports(Output));
+
+        var result = await RunTestCase(func, expected, false, opts);
         Assert.True(result.Assert);
     }
 
@@ -155,7 +176,14 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
     [InlineData("""time.parse_ns("RFC3339", "2010-02-04T21:00:57.12345Z")""", "1265317257123450000")]
     public async Task TimeParse(string func, string expected)
     {
-        var result = await RunTestCase(func, expected, false, new TimeImports(Output));
+        var opts = new WasmPolicyEngineOptions
+        {
+            SerializationOptions = DefaultJsonOptions,
+        };
+
+        opts.ConfigureBuiltins(p => p.Default = new TimeImports(Output));
+
+        var result = await RunTestCase(func, expected, false, opts);
         Assert.True(result.Assert);
     }
 
@@ -172,7 +200,14 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
     [InlineData("time.now_ns()", "1685975259000000000")]
     public async Task TimeNow(string func, string expected)
     {
-        var result = await RunTestCase(func, expected, false, new TimeNowImports(Output));
+        var opts = new WasmPolicyEngineOptions
+        {
+            SerializationOptions = DefaultJsonOptions,
+        };
+
+        opts.ConfigureBuiltins(p => p.Default = new TimeImports(Output));
+
+        var result = await RunTestCase(func, expected, false, opts);
         Assert.True(result.Assert);
     }
 
@@ -191,7 +226,14 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
     [InlineData("""time.parse_duration_ns("1ns")""", "1")]
     public async Task TimeParseDurationNs(string func, string expected)
     {
-        var result = await RunTestCase(func, expected, false, new TimeImports(Output));
+        var opts = new WasmPolicyEngineOptions
+        {
+            SerializationOptions = DefaultJsonOptions,
+        };
+
+        opts.ConfigureBuiltins(p => p.Default = new TimeImports(Output));
+
+        var result = await RunTestCase(func, expected, false, opts);
         Assert.True(result.Assert);
     }
 
@@ -203,7 +245,14 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
     [InlineData("""time.parse_rfc3339_ns("2262-04-11T23:47:16.854775807-00:00")""", "9223372036854775807")]
     public async Task TimeParseRfc3339Ns(string func, string expected)
     {
-        var result = await RunTestCase(func, expected, false, new TimeImports(Output));
+        var opts = new WasmPolicyEngineOptions
+        {
+            SerializationOptions = DefaultJsonOptions,
+        };
+
+        opts.ConfigureBuiltins(p => p.Default = new TimeImports(Output));
+
+        var result = await RunTestCase(func, expected, false, opts);
         Assert.True(result.Assert);
     }
 
@@ -239,7 +288,7 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
             """;
 
         var import = new DebugImports();
-        using var eval = await Build(src, "sdk", customBuiltins: [() => import]);
+        using var eval = await Build(src, "sdk", customBuiltins: p => p.Custom.Add(import));
 
         var result = eval.EvaluateValue(new { t1 = false }, "sdk");
 
@@ -344,7 +393,7 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
         )]
     public async Task NetCidrContainsMatchesObjects(string func, string expected)
     {
-        var result = await RunTestCase(func, expected, false, new TimeImports(Output));
+        var result = await RunTestCase(func, expected);
         Assert.True(result.Assert);
     }
 
@@ -611,7 +660,14 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
             }
             """;
 
-        using var eval = await Build(src, "sdk", new DefaultOpaImportsAbi(), new() { StrictBuiltinErrors = strictErrors });
+        var opts = new WasmPolicyEngineOptions
+        {
+            StrictBuiltinErrors = strictErrors,
+        };
+
+        opts.ConfigureBuiltins(p => p.Default = new DefaultOpaImportsAbi());
+
+        using var eval = await Build(src, "sdk", opts);
 
         if (strictErrors)
             Assert.Throws<OpaEvaluationException>(() => eval.EvaluateRaw(null, "sdk"));
@@ -634,7 +690,10 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
             r := units.parse_bytes("xx")
             """;
 
-        using var eval = await Build(src, "sdk/r", new DefaultOpaImportsAbi(), new() { StrictBuiltinErrors = strictErrors });
+        var opts = new WasmPolicyEngineOptions { StrictBuiltinErrors = strictErrors };
+        opts.ConfigureBuiltins(p => p.Default = new DefaultOpaImportsAbi());
+
+        using var eval = await Build(src, "sdk/r", opts);
 
         if (strictErrors)
             Assert.Throws<OpaEvaluationException>(() => eval.EvaluateRaw(null, "sdk/r"));
@@ -657,7 +716,10 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
             r := units.parse_bytes("xx")
             """;
 
-        using var eval = await Build(src, "sdk/r", new DefaultOpaImportsAbi(), new() { StrictBuiltinErrors = strictErrors });
+        var opts = new WasmPolicyEngineOptions { StrictBuiltinErrors = strictErrors };
+        opts.ConfigureBuiltins(p => p.Default = new DefaultOpaImportsAbi());
+
+        using var eval = await Build(src, "sdk/r", opts);
 
         if (strictErrors)
             Assert.Throws<OpaEvaluationException>(() => eval.EvaluateOrDefault<object?, ulong?>(null, "sdk/r"));
@@ -679,7 +741,10 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
             r := units.parse_bytes("xx")
             """;
 
-        using var eval = await Build(src, "sdk/r", new DefaultOpaImportsAbi(), new() { StrictBuiltinErrors = strictErrors });
+        var opts = new WasmPolicyEngineOptions { StrictBuiltinErrors = strictErrors };
+        opts.ConfigureBuiltins(p => p.Default = new DefaultOpaImportsAbi());
+
+        using var eval = await Build(src, "sdk/r", opts);
 
         Assert.Throws<OpaEvaluationException>(() => eval.Evaluate<object?, ulong>(null, "sdk/r"));
     }
@@ -695,7 +760,10 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
             r := true if { units.parse_bytes("xx") == 1 }
             """;
 
-        using var eval = await Build(src, "sdk/r", new DefaultOpaImportsAbi(), new() { StrictBuiltinErrors = strictErrors });
+        var opts = new WasmPolicyEngineOptions { StrictBuiltinErrors = strictErrors };
+        opts.ConfigureBuiltins(p => p.Default = new DefaultOpaImportsAbi());
+
+        using var eval = await Build(src, "sdk/r", opts);
 
         if (strictErrors)
             Assert.Throws<OpaEvaluationException>(() => eval.EvaluatePredicate<object?>(null, "sdk/r"));
@@ -789,7 +857,10 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
             }
             """;
 
-        using var eval = await Build(src, "sdk/r", new DefaultOpaImportsAbi(), new() { StrictBuiltinErrors = true });
+        var opts = new WasmPolicyEngineOptions { StrictBuiltinErrors = true };
+        opts.ConfigureBuiltins(p => p.Default = new DefaultOpaImportsAbi());
+
+        using var eval = await Build(src, "sdk/r", opts);
 
         var result = eval.EvaluateRaw(
             """{ "graph": { "a": ["b"], "b": ["c"], "c": ["a"] }, "initial": ["a"] }""",

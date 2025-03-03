@@ -40,7 +40,12 @@ public class BuiltinsCompositionTests : OpaTestBase
     public void DoMoreJsonOpts()
     {
         var input = new DoMoreInput("s", 1);
-        var result = _imports.Func(new() { FunctionName = "ext.do_more_json_opts" }, MakeArg(input)) as bool?;
+
+        var result = _imports.Func(
+            new() { FunctionName = "ext.do_more_json_opts", JsonSerializerOptions = JsonSerializerOptions.Default },
+            MakeArg(input)
+            ) as bool?;
+
         Assert.True(result);
     }
 

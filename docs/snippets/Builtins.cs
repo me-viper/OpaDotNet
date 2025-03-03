@@ -143,8 +143,7 @@ public partial class DocSamples
 
         using var factory = new OpaBundleEvaluatorFactory(
             policy,
-            null,
-            new DefaultBuiltinsFactory(() => new CustomBuiltinsSample())
+            null
             );
 
         using var engine = factory.Create();
@@ -219,12 +218,7 @@ public partial class DocSamples
 
         using var factory = new OpaBundleEvaluatorFactory(
             policy,
-            null,
-            new DefaultBuiltinsFactory
-            {
-                // Register custom built-ins implementation.
-                CustomBuiltins = [() => new OpaCustomBuiltins()]
-            }
+            null
             );
 
         var engine = factory.Create();

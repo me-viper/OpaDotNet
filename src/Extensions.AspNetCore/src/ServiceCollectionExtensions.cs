@@ -170,8 +170,15 @@ public static class ServiceCollectionExtensions
         services.TryAddSingleton(NopCompiler.Instance);
         services.TryAddSingleton<IBundleCompiler, BundleCompiler>();
         services.TryAddTransient<IOpaImportsAbi, CoreImportsAbi>();
-        services.TryAddTransient<IBuiltinsFactory, AspNetCoreBuiltinsFactory>();
-        services.TryAddSingleton<IOpaBundleEvaluatorFactoryBuilder, OpaBundleEvaluatorFactoryBuilder>();
+        services.AddTransient<IConfigureOptions<OpaAuthorizationOptions>, ConfigureOpaAuthorizationOptions>();
+
+        services.TryAddSingleton<IOpaEvaluatorFactory>(
+            p =>
+            {
+                var opts = p.GetRequiredService<IOptions<OpaAuthorizationOptions>>();
+                return new OpaEvaluatorFactory(opts.Value.EngineOptions);
+            }
+            );
 
         return services;
     }

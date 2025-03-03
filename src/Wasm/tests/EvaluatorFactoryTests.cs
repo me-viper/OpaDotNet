@@ -14,7 +14,6 @@ public class EvaluatorFactoryTests(ITestOutputHelper output) : OpaTestBase(outpu
 
         using var factory = new OpaBundleEvaluatorFactory(
             policyBundle,
-            null,
             null
             );
 
@@ -59,6 +58,7 @@ public class EvaluatorFactoryTests(ITestOutputHelper output) : OpaTestBase(outpu
             return Task.CompletedTask;
         }
 
+        //await RunTest();
         await Parallel.ForEachAsync(Enumerable.Range(0, 100), async (_, _) => await RunTest());
     }
 
@@ -79,7 +79,7 @@ public class EvaluatorFactoryTests(ITestOutputHelper output) : OpaTestBase(outpu
             CachePath = di.FullName,
         };
 
-        var factory = new OpaBundleEvaluatorFactory(File.OpenRead(path), opts, null);
+        var factory = new OpaBundleEvaluatorFactory(File.OpenRead(path), opts);
 
         var evaluator1 = factory.Create();
         var input1 = new { message = "world" };
@@ -98,8 +98,7 @@ public class EvaluatorFactoryTests(ITestOutputHelper output) : OpaTestBase(outpu
 
         var files = cache[0].GetFiles();
 
-        Assert.Contains(files, p => string.Equals(p.Name, "policy.wasm", StringComparison.Ordinal));
-        Assert.Contains(files, p => string.Equals(p.Name, "data.json", StringComparison.Ordinal));
+        Assert.Contains(files, p => string.Equals(p.Name, "bundle.tar.gz", StringComparison.Ordinal));
 
         factory.Dispose();
 
@@ -126,7 +125,7 @@ public class EvaluatorFactoryTests(ITestOutputHelper output) : OpaTestBase(outpu
             CachePath = di.FullName,
         };
 
-        var factory = new OpaWasmEvaluatorFactory(File.OpenRead(policyPath), opts, null);
+        var factory = new OpaWasmEvaluatorFactory(File.OpenRead(policyPath), opts);
 
         var evaluator1 = factory.Create();
         using var data1 = File.OpenRead(dataPath);

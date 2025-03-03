@@ -7,6 +7,7 @@ using Microsoft.Extensions.Options;
 using OpaDotNet.Extensions.AspNetCore.Telemetry;
 using OpaDotNet.Extensions.AspNetCore.Tests.Common;
 using OpaDotNet.InternalTesting;
+using OpaDotNet.Wasm;
 
 namespace OpaDotNet.Extensions.AspNetCore.Tests;
 
@@ -42,7 +43,7 @@ public class OpaPolicyServiceTests(ITestOutputHelper output)
         using var compiler = new FileSystemPolicySource(
             new BundleCompiler(ric, authOptions, []),
             authOptions,
-            new OpaBundleEvaluatorFactoryBuilder(authOptions, new TestBuiltinsFactory(_loggerFactory)),
+            new OpaEvaluatorFactory(authOptions.CurrentValue.EngineOptions),
             _loggerFactory
             );
 
@@ -101,7 +102,7 @@ public class OpaPolicyServiceTests(ITestOutputHelper output)
         using var compiler = new FileSystemPolicySource(
             new BundleCompiler(ric, authOptions, []),
             authOptions,
-            new OpaBundleEvaluatorFactoryBuilder(authOptions, new TestBuiltinsFactory(_loggerFactory)),
+            new OpaEvaluatorFactory(authOptions.CurrentValue.EngineOptions),
             _loggerFactory
             );
 

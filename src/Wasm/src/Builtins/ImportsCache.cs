@@ -6,7 +6,6 @@ namespace OpaDotNet.Wasm.Builtins;
 /// <summary>
 /// Built-ins cache.
 /// </summary>
-/// <param name="jsonOptions">Provides options to be used with JsonSerializer.</param>
 public class ImportsCache
 {
     private readonly object _lock = new();

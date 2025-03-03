@@ -315,8 +315,7 @@ public partial class SdkV1Tests : SdkTestBase
 
         using var factory = new OpaBundleEvaluatorFactory(
             policy,
-            options,
-            new DefaultBuiltinsFactory(options, () => imp) { CustomBuiltins = customBuiltins ?? [] }
+            options
             );
 
         return factory.Create();

@@ -37,7 +37,7 @@ public partial class DocSamples
         #region EvalWasm
 
         // Create evaluator from compiled policy module.
-        using var engine = OpaEvaluatorFactory.CreateFromWasm(File.OpenRead("data/policy.wasm"));
+        using var engine = OpaWasmEvaluatorFactory.Create(File.OpenRead("data/policy.wasm"));
 
         // Set external data.
         var data = """{ "world": "world" }""";
@@ -79,7 +79,7 @@ public partial class DocSamples
         #region EvalBundle
 
         // Create evaluator from compiled policy module.
-        using var engine = OpaEvaluatorFactory.CreateFromBundle(File.OpenRead("data/bundle.tar.gz"));
+        using var engine = OpaBundleEvaluatorFactory.Create(File.OpenRead("data/bundle.tar.gz"));
 
         // External data is in the bundle already.
 
@@ -132,7 +132,7 @@ public partial class DocSamples
             );
 
         // RegoCliCompiler will always produce bundle.
-        using var engine = OpaEvaluatorFactory.CreateFromBundle(policy);
+        using var engine = OpaBundleEvaluatorFactory.Create(policy);
 
         #endregion
 
@@ -161,7 +161,7 @@ public partial class DocSamples
             );
 
         // RegoCliCompiler will always produce bundle.
-        using var engine = OpaEvaluatorFactory.CreateFromBundle(policy);
+        using var engine = OpaBundleEvaluatorFactory.Create(policy);
 
         #endregion
 
@@ -199,7 +199,7 @@ public partial class DocSamples
             );
 
         // RegoCliCompiler will always produce bundle.
-        using var engine = OpaEvaluatorFactory.CreateFromBundle(policy);
+        using var engine = OpaBundleEvaluatorFactory.Create(policy);
 
         #endregion
 
@@ -228,7 +228,7 @@ public partial class DocSamples
             );
 
         // RegoCliCompiler will always produce bundle.
-        using var engine = OpaEvaluatorFactory.CreateFromBundle(policy);
+        using var engine = OpaBundleEvaluatorFactory.Create(policy);
 
         #endregion
 
@@ -257,7 +257,7 @@ public partial class DocSamples
             );
 
         // RegoCliCompiler will always produce bundle.
-        using var engine = OpaEvaluatorFactory.CreateFromBundle(policy);
+        using var engine = OpaBundleEvaluatorFactory.Create(policy);
 
         #endregion
 
@@ -295,7 +295,7 @@ public partial class DocSamples
             );
 
         // RegoCliCompiler will always produce bundle.
-        using var engine = OpaEvaluatorFactory.CreateFromBundle(policy);
+        using var engine = OpaBundleEvaluatorFactory.Create(policy);
 
         #endregion
 

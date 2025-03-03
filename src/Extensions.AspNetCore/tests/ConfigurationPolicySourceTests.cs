@@ -32,7 +32,7 @@ public class ConfigurationPolicySourceTests(ITestOutputHelper output)
                 ),
             authOptions,
             optionsMonitor,
-            new OpaBundleEvaluatorFactoryBuilder(authOptions, new TestBuiltinsFactory(_loggerFactory)),
+            new OpaEvaluatorFactory(authOptions.CurrentValue.EngineOptions),
             _loggerFactory
             );
 
@@ -113,7 +113,7 @@ public class ConfigurationPolicySourceTests(ITestOutputHelper output)
             new BundleCompiler(ric, authOptions, []),
             authOptions,
             optionsMonitor,
-            new OpaBundleEvaluatorFactoryBuilder(authOptions, new TestBuiltinsFactory(_loggerFactory)),
+            new OpaEvaluatorFactory(authOptions.CurrentValue.EngineOptions),
             _loggerFactory
             );
 
@@ -165,7 +165,7 @@ public class ConfigurationPolicySourceTests(ITestOutputHelper output)
             new BundleCompiler(ric, TestOptionsMonitor.Create(opts), []),
             authOptions,
             optionsMonitor,
-            new OpaBundleEvaluatorFactoryBuilder(authOptions, new TestBuiltinsFactory(_loggerFactory)),
+            new OpaEvaluatorFactory(authOptions.CurrentValue.EngineOptions),
             _loggerFactory
             );
 

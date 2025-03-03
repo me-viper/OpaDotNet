@@ -1,7 +1,5 @@
 ﻿using System.Text.Json.Nodes;
 
-using OpaDotNet.Wasm.Builtins;
-
 namespace OpaDotNet.Wasm.Tests.Common;
 
 internal class TestImportsAbi(ITestOutputHelper output) : DefaultOpaImportsAbi
@@ -61,19 +59,5 @@ internal class TestImportsAbi(ITestOutputHelper output) : DefaultOpaImportsAbi
             """u8;
 
         return new ReadOnlyMemory<byte>(r.ToArray());
-    }
-}
-
-internal class TestBuiltinsFactory(ITestOutputHelper output) : IBuiltinsFactory
-{
-    public IReadOnlyList<Func<IOpaCustomBuiltins>> CustomBuiltins { get; init; } = [];
-
-    public IOpaImportsAbi Create()
-    {
-        return new CompositeImportsHandler(
-            new TestImportsAbi(output),
-            CustomBuiltins.Select(p => p()).ToList(),
-            new ImportsCache()
-            );
     }
 }

@@ -31,12 +31,11 @@ public class HttpRequestPolicyInputTests(ITestOutputHelper output) : IAsyncLifet
             },
         };
 
-        _policySource = new TestEvaluatorFactoryProvider(
+        _policySource = new TestPolicySource(
 #pragma warning disable CA2000
             new OpaBundleEvaluatorFactory(
                 policy,
-                opts,
-                new TestBuiltinsFactory(_loggerFactory)
+                opts
                 )
 #pragma warning restore CA2000
             );

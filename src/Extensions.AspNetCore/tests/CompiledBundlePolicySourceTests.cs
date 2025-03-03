@@ -31,10 +31,7 @@ public class CompiledBundlePolicySourceTests(ITestOutputHelper output) : PathPol
 
         return new CompiledBundlePolicySource(
             tom,
-            new OpaBundleEvaluatorFactoryBuilder(
-                tom,
-                new TestBuiltinsFactory(LoggerFactory)
-                ),
+            new OpaEvaluatorFactory(opts.EngineOptions),
             LoggerFactory
             );
     }

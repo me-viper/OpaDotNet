@@ -38,7 +38,7 @@ public sealed class FileSystemPolicySourceTests : PathPolicySourceTests<FileSyst
         return new FileSystemPolicySource(
             new BundleCompiler(ric, authOptions, []),
             authOptions,
-            new OpaBundleEvaluatorFactoryBuilder(authOptions, new TestBuiltinsFactory()),
+            new OpaEvaluatorFactory(authOptions.CurrentValue.EngineOptions),
             LoggerFactory
             );
     }

@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
 
 using OpaDotNet.Extensions.AspNetCore.Telemetry;
+using OpaDotNet.Wasm;
 
 namespace OpaDotNet.Extensions.AspNetCore;
 
@@ -13,7 +14,7 @@ public sealed class CompiledBundlePolicySource : PathPolicySource
 
     public CompiledBundlePolicySource(
         IOptionsMonitor<OpaAuthorizationOptions> options,
-        IOpaBundleEvaluatorFactoryBuilder factoryBuilder,
+        IOpaEvaluatorFactory factoryBuilder,
         ILoggerFactory loggerFactory) : base(options, factoryBuilder, loggerFactory)
     {
         var path = Options.PolicyBundlePath!;

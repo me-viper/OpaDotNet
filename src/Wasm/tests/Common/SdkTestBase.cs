@@ -7,7 +7,7 @@ namespace OpaDotNet.Wasm.Tests.Common;
 
 public class SdkTestBase(ITestOutputHelper output) : OpaTestBase(output)
 {
-    protected JsonSerializerOptions DefaultJsonOptions = new()
+    protected readonly JsonSerializerOptions DefaultJsonOptions = new()
     {
         PropertyNameCaseInsensitive = true,
         Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
@@ -26,7 +26,6 @@ public class SdkTestBase(ITestOutputHelper output) : OpaTestBase(output)
         string actual,
         string expected,
         bool fails = false,
-        IOpaImportsAbi? imports = null,
         WasmPolicyEngineOptions? options = null)
     {
         var src = $$"""
@@ -43,7 +42,7 @@ public class SdkTestBase(ITestOutputHelper output) : OpaTestBase(output)
         Output.WriteLine(src);
         Output.WriteLine("");
 
-        using var eval = await Build(src, "sdk", imports, options);
+        using var eval = await Build(src, "sdk", options);
         var result = eval.Evaluate<object?, TestCaseResult>(null);
 
         Output.WriteLine("");
@@ -109,24 +108,34 @@ public class SdkTestBase(ITestOutputHelper output) : OpaTestBase(output)
     protected async Task<IOpaEvaluator> Build(
         string source,
         string entrypoint,
-        IOpaImportsAbi? imports = null,
         WasmPolicyEngineOptions? options = null,
-        List<Func<IOpaCustomBuiltins>>? customBuiltins = null)
+        Action<BuiltinsOptions>? customBuiltins = null)
     {
         var policy = await CompileSource(source, [entrypoint]);
 
-        var engineOpts = options ?? new WasmPolicyEngineOptions
-        {
-            SerializationOptions = DefaultJsonOptions,
-            SignatureValidation = new() { Validation = SignatureValidationType.Skip },
-        };
+        var engineOpts = options;
 
-        var imp = imports ?? new TestImportsAbi(Output);
+        if (engineOpts == null)
+        {
+            engineOpts = new WasmPolicyEngineOptions
+            {
+                SerializationOptions = DefaultJsonOptions,
+                SignatureValidation = new() { Validation = SignatureValidationType.Skip },
+            };
+
+            engineOpts.ConfigureBuiltins(
+                p =>
+                {
+                    if (p.Default.GetType() == typeof(DefaultOpaImportsAbi))
+                        p.Default = new TestImportsAbi(Output);
+
+                    customBuiltins?.Invoke(p);
+                });
+        }
 
         using var factory = new OpaBundleEvaluatorFactory(
             policy,
-            engineOpts,
-            new DefaultBuiltinsFactory(options, () => imp) { CustomBuiltins = customBuiltins ?? [] }
+            engineOpts
             );
 
         return factory.Create();

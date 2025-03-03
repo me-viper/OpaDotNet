@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 
 using OpaDotNet.Extensions.AspNetCore.Telemetry;
+using OpaDotNet.Wasm;
 
 namespace OpaDotNet.Extensions.AspNetCore;
 
@@ -18,7 +19,7 @@ public abstract class PathPolicySource : OpaPolicySource
 
     protected PathPolicySource(
         IOptionsMonitor<OpaAuthorizationOptions> options,
-        IOpaBundleEvaluatorFactoryBuilder factoryBuilder,
+        IOpaEvaluatorFactory factoryBuilder,
         ILoggerFactory loggerFactory) : base(options, factoryBuilder, loggerFactory)
     {
         if (string.IsNullOrWhiteSpace(Options.PolicyBundlePath))

@@ -31,7 +31,7 @@ public partial class DocSamples
 
         const string data = "{ \"world\": \"world\" }";
 
-        using var engine = OpaEvaluatorFactory.CreateFromWasm(
+        using var engine = OpaWasmEvaluatorFactory.Create(
             File.OpenRead("data/policy.wasm")
             );
 
@@ -71,7 +71,7 @@ public partial class DocSamples
         var policyStream = await compiler.CompileFileAsync("quickstart/example.rego", new() { Entrypoints = ["example/hello"] });
 
         // Use compiled policy.
-        using var engine = OpaEvaluatorFactory.CreateFromBundle(policyStream);
+        using var engine = OpaBundleEvaluatorFactory.Create(policyStream);
 
         #endregion
 

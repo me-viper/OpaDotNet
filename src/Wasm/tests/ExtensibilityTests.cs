@@ -32,7 +32,7 @@ public class ExtensibilityTests : IAsyncLifetime
         var input = new { message = "world" };
 
         using var wasm = File.OpenRead(Path.Combine(BasePath, "simple-1.2.wasm"));
-        using var engine = OpaEvaluatorFactory.CreateFromWasm(wasm);
+        using var engine = OpaWasmEvaluatorFactory.Create(wasm);
 
         Assert.Equal(new Version(1, 2), engine.AbiVersion);
 
@@ -54,7 +54,7 @@ public class ExtensibilityTests : IAsyncLifetime
         var input = new { message = "world" };
 
         using var wasm = File.OpenRead(Path.Combine(BasePath, "simple-1.3.wasm"));
-        using var engine = OpaEvaluatorFactory.CreateFromWasm(wasm);
+        using var engine = OpaWasmEvaluatorFactory.Create(wasm);
 
         Assert.Equal(new Version(1, 3), engine.AbiVersion);
 
@@ -76,7 +76,7 @@ public class ExtensibilityTests : IAsyncLifetime
         var initialInput = new { message = "world" };
 
         using var wasm = File.OpenRead(Path.Combine(BasePath, "simple-1.3.wasm"));
-        using var engine = (OpaWasmEvaluator)OpaEvaluatorFactory.CreateFromWasm(wasm);
+        using var engine = (OpaWasmEvaluator)OpaWasmEvaluatorFactory.Create(wasm);
 
         Assert.Equal(new Version(1, 3), engine.AbiVersion);
 
@@ -107,7 +107,7 @@ public class ExtensibilityTests : IAsyncLifetime
         var initialInput = new { message = "world" };
 
         using var wasm = File.OpenRead(Path.Combine(BasePath, "simple-1.3.wasm"));
-        using var engine = (OpaWasmEvaluator)OpaEvaluatorFactory.CreateFromWasm(wasm);
+        using var engine = (OpaWasmEvaluator)OpaWasmEvaluatorFactory.Create(wasm);
 
         Assert.Equal(new Version(1, 3), engine.AbiVersion);
 
@@ -137,7 +137,7 @@ public class ExtensibilityTests : IAsyncLifetime
         var initialInput = new { message = "world" };
 
         using var wasm = File.OpenRead(Path.Combine(BasePath, "simple-1.3.wasm"));
-        using var engine = (OpaWasmEvaluator)OpaEvaluatorFactory.CreateFromWasm(wasm);
+        using var engine = (OpaWasmEvaluator)OpaWasmEvaluatorFactory.Create(wasm);
 
         Assert.Equal(new Version(1, 3), engine.AbiVersion);
 

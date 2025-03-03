@@ -31,7 +31,7 @@ public class Basics
     public void Setup()
     {
         var policy = File.OpenRead(Path.Combine("Data", "simple-1.3.wasm"));
-        _engine = OpaEvaluatorFactory.CreateFromWasm(policy, new() { MaxMemoryPages = 3 });
+        _engine = OpaWasmEvaluatorFactory.Create(policy, new() { MaxMemoryPages = 3 });
         _engine.SetData(DataInstance);
     }
 
