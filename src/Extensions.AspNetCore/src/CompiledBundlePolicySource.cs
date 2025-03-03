@@ -14,8 +14,8 @@ public sealed class CompiledBundlePolicySource : PathPolicySource
 
     public CompiledBundlePolicySource(
         IOptionsMonitor<OpaAuthorizationOptions> options,
-        IOpaEvaluatorFactory factoryBuilder,
-        ILoggerFactory loggerFactory) : base(options, factoryBuilder, loggerFactory)
+        IOpaEvaluatorFactory evaluatorFactory,
+        ILoggerFactory loggerFactory) : base(options, evaluatorFactory, loggerFactory)
     {
         var path = Options.PolicyBundlePath!;
 

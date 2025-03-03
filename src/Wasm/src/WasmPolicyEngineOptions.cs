@@ -99,8 +99,8 @@ public class WasmPolicyEngineOptions
 
     private IOpaImportsAbi DefaultBuiltins()
     {
-        var bo = new BuiltinsOptions();
-        return new CompositeImportsHandler(bo.Default, bo.Custom, _importsCache);
+        var bo = new WasmBuiltinsOptions();
+        return new CompositeImportsHandler(bo.DefaultBuiltins, bo.CustomBuiltins, _importsCache);
     }
 
     public IOpaImportsAbi Builtins() => _makeBuiltins();
@@ -108,31 +108,15 @@ public class WasmPolicyEngineOptions
     /// <summary>
     /// Configure OPA built-ins.
     /// </summary>
-    public void ConfigureBuiltins(Action<BuiltinsOptions> configure)
+    public void ConfigureBuiltins(Action<WasmBuiltinsOptions> configure)
     {
         ArgumentNullException.ThrowIfNull(configure);
 
         _makeBuiltins = () =>
         {
-            var bo = new BuiltinsOptions();
+            var bo = new WasmBuiltinsOptions();
             configure(bo);
-            return new CompositeImportsHandler(bo.Default, bo.Custom, _importsCache);
+            return new CompositeImportsHandler(bo.DefaultBuiltins, bo.CustomBuiltins, _importsCache);
         };
     }
-}
-
-/// <summary>
-/// OPA built-ins configuration.
-/// </summary>
-public class BuiltinsOptions
-{
-    /// <summary>
-    /// Default OPA built-ins.
-    /// </summary>
-    public IOpaImportsAbi Default { get; set; } = new DefaultOpaImportsAbi();
-
-    /// <summary>
-    /// Custom OPA built-ins.
-    /// </summary>
-    public List<IOpaCustomBuiltins> Custom { get; } = [];
 }

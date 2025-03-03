@@ -39,30 +39,21 @@ public class OpaEvaluatorFactory : IOpaEvaluatorFactory
 
     internal IOpaEvaluator CreateFromWasm(Span<byte> policyWasm) => Create(policyWasm, Span<byte>.Empty, Options);
 
-    public IOpaEvaluator CreateFromWasm(Stream policyWasm)
-    {
-        var buffer = ArrayPool<byte>.Shared.Rent((int)policyWasm.Length);
+    /// <summary>
+    /// Creates new instance of <see cref="OpaEvaluatorFactory"/>.
+    /// </summary>
+    /// <param name="policyWasm">OPA policy WASM binary stream</param>
+    public IOpaEvaluator CreateFromWasm(Stream policyWasm) => Create(policyWasm, null, Options);
 
-        try
-        {
-            var bytesRead = policyWasm.Read(buffer);
-
-            if (bytesRead < policyWasm.Length)
-                throw new OpaRuntimeException("Failed to read wasm policy stream");
-
-            return Create(buffer.AsSpan(0, bytesRead), Span<byte>.Empty, Options);
-        }
-        finally
-        {
-            ArrayPool<byte>.Shared.Return(buffer);
-        }
-    }
-
-    public IOpaEvaluator CreateFromBundle(Stream bundle)
+    /// <summary>
+    /// Creates new instance of <see cref="OpaEvaluatorFactory"/>.
+    /// </summary>
+    /// <param name="policyBundle">OPA policy bundle stream</param>
+    public IOpaEvaluator CreateFromBundle(Stream policyBundle)
     {
         try
         {
-            var policy = TarGzHelper.ReadBundleAndValidate(bundle, Options.SignatureValidation);
+            var policy = TarGzHelper.ReadBundleAndValidate(policyBundle, Options.SignatureValidation);
 
             if (policy == null)
                 throw new OpaRuntimeException("Failed to unpack policy bundle");

@@ -126,7 +126,7 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
             SerializationOptions = DefaultJsonOptions,
         };
 
-        opts.ConfigureBuiltins(p => p.Default = new TimeImports(Output));
+        opts.ConfigureBuiltins(p => p.DefaultBuiltins = new TimeImports(Output));
 
         var result = await RunTestCase(func, expected, false, opts);
         Assert.True(result.Assert);
@@ -146,7 +146,7 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
             SerializationOptions = DefaultJsonOptions,
         };
 
-        opts.ConfigureBuiltins(p => p.Default = new TimeImports(Output));
+        opts.ConfigureBuiltins(p => p.DefaultBuiltins = new TimeImports(Output));
 
         var result = await RunTestCase(func, expected, false, opts);
         Assert.True(result.Assert);
@@ -165,7 +165,7 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
             SerializationOptions = DefaultJsonOptions,
         };
 
-        opts.ConfigureBuiltins(p => p.Default = new TimeImports(Output));
+        opts.ConfigureBuiltins(p => p.DefaultBuiltins = new TimeImports(Output));
 
         var result = await RunTestCase(func, expected, false, opts);
         Assert.True(result.Assert);
@@ -181,7 +181,7 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
             SerializationOptions = DefaultJsonOptions,
         };
 
-        opts.ConfigureBuiltins(p => p.Default = new TimeImports(Output));
+        opts.ConfigureBuiltins(p => p.DefaultBuiltins = new TimeImports(Output));
 
         var result = await RunTestCase(func, expected, false, opts);
         Assert.True(result.Assert);
@@ -205,7 +205,7 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
             SerializationOptions = DefaultJsonOptions,
         };
 
-        opts.ConfigureBuiltins(p => p.Default = new TimeImports(Output));
+        opts.ConfigureBuiltins(p => p.DefaultBuiltins = new TimeImports(Output));
 
         var result = await RunTestCase(func, expected, false, opts);
         Assert.True(result.Assert);
@@ -231,7 +231,7 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
             SerializationOptions = DefaultJsonOptions,
         };
 
-        opts.ConfigureBuiltins(p => p.Default = new TimeImports(Output));
+        opts.ConfigureBuiltins(p => p.DefaultBuiltins = new TimeImports(Output));
 
         var result = await RunTestCase(func, expected, false, opts);
         Assert.True(result.Assert);
@@ -250,7 +250,7 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
             SerializationOptions = DefaultJsonOptions,
         };
 
-        opts.ConfigureBuiltins(p => p.Default = new TimeImports(Output));
+        opts.ConfigureBuiltins(p => p.DefaultBuiltins = new TimeImports(Output));
 
         var result = await RunTestCase(func, expected, false, opts);
         Assert.True(result.Assert);
@@ -288,7 +288,7 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
             """;
 
         var import = new DebugImports();
-        using var eval = await Build(src, "sdk", customBuiltins: p => p.Custom.Add(import));
+        using var eval = await Build(src, "sdk", customBuiltins: p => p.CustomBuiltins.Add(import));
 
         var result = eval.EvaluateValue(new { t1 = false }, "sdk");
 
@@ -665,7 +665,7 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
             StrictBuiltinErrors = strictErrors,
         };
 
-        opts.ConfigureBuiltins(p => p.Default = new DefaultOpaImportsAbi());
+        opts.ConfigureBuiltins(p => p.DefaultBuiltins = new DefaultOpaImportsAbi());
 
         using var eval = await Build(src, "sdk", opts);
 
@@ -691,7 +691,7 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
             """;
 
         var opts = new WasmPolicyEngineOptions { StrictBuiltinErrors = strictErrors };
-        opts.ConfigureBuiltins(p => p.Default = new DefaultOpaImportsAbi());
+        opts.ConfigureBuiltins(p => p.DefaultBuiltins = new DefaultOpaImportsAbi());
 
         using var eval = await Build(src, "sdk/r", opts);
 
@@ -717,7 +717,7 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
             """;
 
         var opts = new WasmPolicyEngineOptions { StrictBuiltinErrors = strictErrors };
-        opts.ConfigureBuiltins(p => p.Default = new DefaultOpaImportsAbi());
+        opts.ConfigureBuiltins(p => p.DefaultBuiltins = new DefaultOpaImportsAbi());
 
         using var eval = await Build(src, "sdk/r", opts);
 
@@ -742,7 +742,7 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
             """;
 
         var opts = new WasmPolicyEngineOptions { StrictBuiltinErrors = strictErrors };
-        opts.ConfigureBuiltins(p => p.Default = new DefaultOpaImportsAbi());
+        opts.ConfigureBuiltins(p => p.DefaultBuiltins = new DefaultOpaImportsAbi());
 
         using var eval = await Build(src, "sdk/r", opts);
 
@@ -761,7 +761,7 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
             """;
 
         var opts = new WasmPolicyEngineOptions { StrictBuiltinErrors = strictErrors };
-        opts.ConfigureBuiltins(p => p.Default = new DefaultOpaImportsAbi());
+        opts.ConfigureBuiltins(p => p.DefaultBuiltins = new DefaultOpaImportsAbi());
 
         using var eval = await Build(src, "sdk/r", opts);
 
@@ -858,7 +858,7 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
             """;
 
         var opts = new WasmPolicyEngineOptions { StrictBuiltinErrors = true };
-        opts.ConfigureBuiltins(p => p.Default = new DefaultOpaImportsAbi());
+        opts.ConfigureBuiltins(p => p.DefaultBuiltins = new DefaultOpaImportsAbi());
 
         using var eval = await Build(src, "sdk/r", opts);
 

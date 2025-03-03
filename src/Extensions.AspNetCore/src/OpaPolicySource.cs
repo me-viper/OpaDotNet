@@ -48,14 +48,14 @@ public abstract class OpaPolicySource : IOpaPolicySource
 
     protected OpaPolicySource(
         IOptionsMonitor<OpaAuthorizationOptions> options,
-        IOpaEvaluatorFactory factoryBuilder,
+        IOpaEvaluatorFactory evaluatorFactory,
         ILoggerFactory loggerFactory)
     {
         ArgumentNullException.ThrowIfNull(options);
         ArgumentNullException.ThrowIfNull(loggerFactory);
 
         _options = options;
-        _innerFactory = factoryBuilder;
+        _innerFactory = evaluatorFactory;
         LoggerFactory = loggerFactory;
 
         Logger = LoggerFactory.CreateLogger<OpaPolicySource>();

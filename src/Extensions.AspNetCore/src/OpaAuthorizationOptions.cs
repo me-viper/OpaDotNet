@@ -67,8 +67,8 @@ internal class ConfigureOpaAuthorizationOptions(IServiceProvider serviceProvider
         options.EngineOptions.ConfigureBuiltins(
             p =>
             {
-                p.Default = serviceProvider.GetRequiredService<IOpaImportsAbi>();
-                p.Custom.AddRange(serviceProvider.GetRequiredService<IEnumerable<IOpaCustomBuiltins>>());
+                p.DefaultBuiltins = serviceProvider.GetRequiredService<IOpaImportsAbi>();
+                p.CustomBuiltins.AddRange(serviceProvider.GetRequiredService<IEnumerable<IOpaCustomBuiltins>>());
             }
             );
     }

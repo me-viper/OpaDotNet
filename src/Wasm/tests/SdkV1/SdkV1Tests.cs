@@ -171,6 +171,8 @@ public partial class SdkV1Tests : SdkTestBase
             StrictBuiltinErrors = testCase.StrictError,
         };
 
+        engineOpts.ConfigureBuiltins(p => p.DefaultBuiltins = new TestImportsAbi(Output));
+
         var shouldFail = false;
         var testSrc = new StringBuilder();
 

@@ -29,7 +29,7 @@ public class SerializationTests : OpaTestBase, IAsyncLifetime
 
         var logger = LoggerFactory.CreateLogger<SerializationImports>();
         var opts = WasmPolicyEngineOptions.Default;
-        opts.ConfigureBuiltins(p => p.Default = new SerializationImports(logger));
+        opts.ConfigureBuiltins(p => p.DefaultBuiltins = new SerializationImports(logger));
 
         _engine = OpaBundleEvaluatorFactory.Create(policy, opts);
     }

@@ -18,8 +18,8 @@ public sealed class FileSystemPolicySource : PathPolicySource
     public FileSystemPolicySource(
         IBundleCompiler compiler,
         IOptionsMonitor<OpaAuthorizationOptions> options,
-        IOpaEvaluatorFactory factoryBuilder,
-        ILoggerFactory loggerFactory) : base(options, factoryBuilder, loggerFactory)
+        IOpaEvaluatorFactory evaluatorFactory,
+        ILoggerFactory loggerFactory) : base(options, evaluatorFactory, loggerFactory)
     {
         ArgumentNullException.ThrowIfNull(compiler);
 

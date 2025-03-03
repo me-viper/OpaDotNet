@@ -27,12 +27,6 @@ using var evaluator = OpaBundleEvaluatorFactory.Create(policy);
 
 var result = evaluator.Evaluate<Dictionary<string, string>, Dictionary<string, string>>(packages, "samples/invalid_packages");
 
-if (result.Result == null)
-{
-    Console.WriteLine("Policy failed");
-    return -100;
-}
-
 if (result.Result.Count == 0)
     Console.WriteLine("All good!");
 else

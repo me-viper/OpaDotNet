@@ -19,8 +19,8 @@ public class ConfigurationPolicySource : OpaPolicySource
         IBundleCompiler compiler,
         IOptionsMonitor<OpaAuthorizationOptions> authOptions,
         IOptionsMonitor<OpaPolicyOptions> policy,
-        IOpaEvaluatorFactory factoryBuilder,
-        ILoggerFactory loggerFactory) : base(authOptions, factoryBuilder, loggerFactory)
+        IOpaEvaluatorFactory evaluatorFactory,
+        ILoggerFactory loggerFactory) : base(authOptions, evaluatorFactory, loggerFactory)
     {
         ArgumentNullException.ThrowIfNull(compiler);
         ArgumentNullException.ThrowIfNull(policy);

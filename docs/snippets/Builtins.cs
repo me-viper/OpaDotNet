@@ -141,7 +141,7 @@ public partial class DocSamples
             );
 
         var opts = new WasmPolicyEngineOptions();
-        opts.ConfigureBuiltins(p => p.Custom.Add(new OpaCustomBuiltins()));
+        opts.ConfigureBuiltins(p => p.CustomBuiltins.Add(new OpaCustomBuiltins()));
 
         using var factory = new OpaBundleEvaluatorFactory(policy, opts);
 

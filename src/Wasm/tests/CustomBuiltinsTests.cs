@@ -81,8 +81,8 @@ public abstract class CustomBuiltinsTests(ITestOutputHelper output) : OpaTestBas
         opts.ConfigureBuiltins(
             p =>
             {
-                p.Default = new NotImplementedImports();
-                p.Custom.Add(new CustomOpaImportsAbi(NullLogger.Instance));
+                p.DefaultBuiltins = new NotImplementedImports();
+                p.CustomBuiltins.Add(new CustomOpaImportsAbi(NullLogger.Instance));
             }
             );
 

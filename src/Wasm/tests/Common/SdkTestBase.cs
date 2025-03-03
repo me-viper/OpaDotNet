@@ -109,7 +109,7 @@ public class SdkTestBase(ITestOutputHelper output) : OpaTestBase(output)
         string source,
         string entrypoint,
         WasmPolicyEngineOptions? options = null,
-        Action<BuiltinsOptions>? customBuiltins = null)
+        Action<WasmBuiltinsOptions>? customBuiltins = null)
     {
         var policy = await CompileSource(source, [entrypoint]);
 
@@ -126,8 +126,8 @@ public class SdkTestBase(ITestOutputHelper output) : OpaTestBase(output)
             engineOpts.ConfigureBuiltins(
                 p =>
                 {
-                    if (p.Default.GetType() == typeof(DefaultOpaImportsAbi))
-                        p.Default = new TestImportsAbi(Output);
+                    if (p.DefaultBuiltins.GetType() == typeof(DefaultOpaImportsAbi))
+                        p.DefaultBuiltins = new TestImportsAbi(Output);
 
                     customBuiltins?.Invoke(p);
                 });
