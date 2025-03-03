@@ -142,6 +142,7 @@ public abstract class OpaPolicySource : IOpaPolicySource
     {
         if (disposing)
         {
+            _factory?.Dispose();
             _lock.Dispose();
             _changeTokenSource.Dispose();
         }

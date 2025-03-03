@@ -2,15 +2,11 @@
 
 namespace OpaDotNet.Wasm.Tests;
 
-public class YamlSupportTests : OpaTestBase, IAsyncLifetime
+public class YamlSupportTests(ITestOutputHelper output) : OpaTestBase(output), IAsyncLifetime
 {
-    private IOpaEvaluator _engine = default!;
+    private IOpaEvaluator _engine = null!;
 
     private string BasePath { get; } = Path.Combine("TestData", "yaml");
-
-    public YamlSupportTests(ITestOutputHelper output) : base(output)
-    {
-    }
 
     public async Task InitializeAsync()
     {
@@ -27,7 +23,7 @@ public class YamlSupportTests : OpaTestBase, IAsyncLifetime
             ]
             );
 
-        _engine = new OpaEvaluatorFactory().CreateFromBundle(policy);
+        _engine = OpaBundleEvaluatorFactory.Create(policy);
     }
 
     public Task DisposeAsync()

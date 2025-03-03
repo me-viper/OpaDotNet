@@ -1,18 +1,8 @@
-﻿using System.Buffers;
-
-using OpaDotNet.Wasm.Internal;
+﻿using OpaDotNet.Wasm.Internal;
 
 using Wasmtime;
 
 namespace OpaDotNet.Wasm;
-
-[PublicAPI]
-public interface IOpaEvaluatorFactory
-{
-    IOpaEvaluator CreateFromWasm(Stream policyWasm);
-
-    IOpaEvaluator CreateFromBundle(Stream bundle);
-}
 
 /// <summary>
 /// A factory abstraction for a component that can create <see cref="IOpaEvaluator"/> instances.

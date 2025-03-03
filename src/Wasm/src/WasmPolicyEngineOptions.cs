@@ -100,7 +100,7 @@ public class WasmPolicyEngineOptions
     private IOpaImportsAbi DefaultBuiltins()
     {
         var bo = new WasmBuiltinsOptions();
-        return new CompositeImportsHandler(bo.DefaultBuiltins, bo.CustomBuiltins, _importsCache);
+        return new CompositeImportsHandler(bo.DefaultBuiltins, bo.CustomBuiltins.AsReadOnly(), _importsCache);
     }
 
     internal IOpaImportsAbi Builtins() => _makeBuiltins();
@@ -116,7 +116,7 @@ public class WasmPolicyEngineOptions
         {
             var bo = new WasmBuiltinsOptions();
             configure(bo);
-            return new CompositeImportsHandler(bo.DefaultBuiltins, bo.CustomBuiltins, _importsCache);
+            return new CompositeImportsHandler(bo.DefaultBuiltins, bo.CustomBuiltins.AsReadOnly(), _importsCache);
         };
     }
 }

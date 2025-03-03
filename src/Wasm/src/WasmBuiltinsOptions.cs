@@ -15,5 +15,5 @@ public class WasmBuiltinsOptions
     /// <summary>
     /// Custom OPA built-ins.
     /// </summary>
-    public List<IOpaCustomBuiltins> CustomBuiltins { get; } = [];
+    public IList<IOpaCustomBuiltins> CustomBuiltins { get; } = [];
 }
