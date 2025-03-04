@@ -5,7 +5,7 @@ namespace OpaDotNet.Wasm;
 /// <summary>
 /// A factory abstraction for a component that can create <see cref="IOpaEvaluator"/> instances from OPA policy WASM binary.
 /// </summary>
-public sealed class OpaWasmEvaluatorFactory : IDisposable
+public sealed class OpaWasmEvaluatorFactory : IOpaEvaluatorFactory
 {
     private readonly Func<IOpaEvaluator> _factory;
 
@@ -17,7 +17,7 @@ public sealed class OpaWasmEvaluatorFactory : IDisposable
     /// Creates new instance of <see cref="OpaWasmEvaluatorFactory"/>.
     /// </summary>
     /// <param name="policyWasm">OPA policy WASM binary stream</param>
-    public OpaWasmEvaluatorFactory(Stream policyWasm) : this(policyWasm, null)
+    public OpaWasmEvaluatorFactory(Stream policyWasm) : this(policyWasm, WasmPolicyEngineOptions.Default)
     {
     }
 
@@ -26,24 +26,22 @@ public sealed class OpaWasmEvaluatorFactory : IDisposable
     /// </summary>
     /// <param name="policyWasm">OPA policy WASM binary stream</param>
     /// <param name="options">Evaluation engine options</param>
-    public OpaWasmEvaluatorFactory(Stream policyWasm, WasmPolicyEngineOptions? options)
+    public OpaWasmEvaluatorFactory(Stream policyWasm, WasmPolicyEngineOptions options)
     {
         ArgumentNullException.ThrowIfNull(policyWasm);
-
-        options ??= WasmPolicyEngineOptions.Default;
-        var opaEvaluatorFactory = new OpaEvaluatorFactory(options);
+        ArgumentNullException.ThrowIfNull(options);
 
         if (string.IsNullOrWhiteSpace(options.CachePath))
         {
             var buffer = ArrayPool<byte>.Shared.Rent((int)policyWasm.Length);
-            _disposer = () => ArrayPool<byte>.Shared.Return(buffer);
 
             var bytesRead = policyWasm.Read(buffer);
 
             if (bytesRead < policyWasm.Length)
                 throw new OpaRuntimeException("Failed to read wasm policy stream");
 
-            _factory = () => opaEvaluatorFactory.CreateFromWasm(buffer.AsSpan(0, bytesRead));
+            _factory = () => OpaEvaluatorFactory.Create(buffer.AsSpan(0, bytesRead), ReadOnlySpan<byte>.Empty, options);
+            _disposer = () => ArrayPool<byte>.Shared.Return(buffer);
         }
         else
         {
@@ -64,18 +62,16 @@ public sealed class OpaWasmEvaluatorFactory : IDisposable
             _factory = () =>
             {
                 using var policyFs = File.OpenRead(policyFilePath);
-                return opaEvaluatorFactory.CreateFromWasm(policyFs);
+                return OpaEvaluatorFactory.Create(policyFs, null, options);
             };
 
             _disposer = () => cache.Delete(true);
         }
     }
 
-    public static IOpaEvaluator Create(
-        Stream policyWasm,
-        WasmPolicyEngineOptions? options = null)
+    public static IOpaEvaluator Create(Stream policyWasm, WasmPolicyEngineOptions? options = null)
     {
-        using var result = new OpaWasmEvaluatorFactory(policyWasm, options);
+        using var result = new OpaWasmEvaluatorFactory(policyWasm, options ?? WasmPolicyEngineOptions.Default);
         return result.Create();
     }
 

@@ -27,7 +27,6 @@ public static class ServiceCollectionExtensions
             .PostConfigure(
                 p =>
                 {
-                    p.EngineOptions ??= WasmPolicyEngineOptions.Default;
                     jsonOptions.Invoke(p.EngineOptions.SerializationOptions);
                 }
                 );
@@ -171,14 +170,7 @@ public static class ServiceCollectionExtensions
         services.TryAddSingleton<IBundleCompiler, BundleCompiler>();
         services.TryAddTransient<IOpaImportsAbi, CoreImportsAbi>();
         services.AddTransient<IConfigureOptions<OpaAuthorizationOptions>, ConfigureOpaAuthorizationOptions>();
-
-        services.TryAddSingleton<IOpaEvaluatorFactory>(
-            p =>
-            {
-                var opts = p.GetRequiredService<IOptions<OpaAuthorizationOptions>>();
-                return new OpaEvaluatorFactory(opts.Value.EngineOptions);
-            }
-            );
+        services.AddTransient<IMutableOpaEvaluatorFactory, MutableOpaEvaluatorFactory>();
 
         return services;
     }

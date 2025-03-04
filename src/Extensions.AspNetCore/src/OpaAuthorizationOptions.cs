@@ -37,7 +37,7 @@ public class OpaAuthorizationOptions
     /// <summary>
     /// OPA policy engine configuration.
     /// </summary>
-    public WasmPolicyEngineOptions? EngineOptions { get; set; }
+    public WasmPolicyEngineOptions EngineOptions { get; set; } = WasmPolicyEngineOptions.Default;
 
     /// <summary>
     /// Maximum number of <see cref="IOpaEvaluator"/> instances to keep in the pool.

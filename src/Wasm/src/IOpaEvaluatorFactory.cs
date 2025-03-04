@@ -1,9 +1,6 @@
 ﻿namespace OpaDotNet.Wasm;
 
-[PublicAPI]
-public interface IOpaEvaluatorFactory
+public interface IOpaEvaluatorFactory : IDisposable
 {
-    IOpaEvaluator CreateFromWasm(Stream policyWasm);
-
-    IOpaEvaluator CreateFromBundle(Stream bundle);
+    IOpaEvaluator Create();
 }

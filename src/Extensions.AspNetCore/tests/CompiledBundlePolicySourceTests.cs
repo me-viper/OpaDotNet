@@ -31,7 +31,9 @@ public class CompiledBundlePolicySourceTests(ITestOutputHelper output) : PathPol
 
         return new CompiledBundlePolicySource(
             tom,
-            new OpaEvaluatorFactory(opts.EngineOptions),
+#pragma warning disable CA2000
+            new MutableOpaEvaluatorFactory(),
+#pragma warning restore CA2000
             LoggerFactory
             );
     }

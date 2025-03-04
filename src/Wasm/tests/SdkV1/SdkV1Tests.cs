@@ -240,7 +240,7 @@ public partial class SdkV1Tests : SdkTestBase
         Output.WriteLine(testCase.Note);
         Output.WriteLine(testSrc.ToString());
 
-        using var eval = await Build(ms, "run_test", null, engineOpts);
+        using var eval = await Build(ms, "run_test", engineOpts);
 
         Output.WriteLine("-------");
 
@@ -307,17 +307,13 @@ public partial class SdkV1Tests : SdkTestBase
     private async Task<IOpaEvaluator> Build(
         Stream source,
         string entrypoint,
-        IOpaImportsAbi? imports = null,
-        WasmPolicyEngineOptions? options = null,
-        List<Func<IOpaCustomBuiltins>>? customBuiltins = null)
+        WasmPolicyEngineOptions? options = null)
     {
         var policy = await CompileBundle(source, [entrypoint]);
 
-        var imp = imports ?? new TestImportsAbi(Output);
-
         using var factory = new OpaBundleEvaluatorFactory(
             policy,
-            options
+            options ?? WasmPolicyEngineOptions.Default
             );
 
         return factory.Create();

@@ -33,29 +33,22 @@ public abstract class OpaPolicySource : IOpaPolicySource
     /// </summary>
     protected OpaAuthorizationOptions Options => _options.CurrentValue;
 
-    private readonly IOpaEvaluatorFactory _innerFactory;
-
-    private EvaluatorFactory? _factory;
+    private readonly IMutableOpaEvaluatorFactory _factory;
 
     /// <inheritdoc />
-    public IOpaEvaluator CreateEvaluator()
-    {
-        if (_factory == null)
-            throw new InvalidOperationException("Evaluator factory have not been initialized");
-
-        return _factory.CreateFromBundle();
-    }
+    public IOpaEvaluator CreateEvaluator() => _factory.Create();
 
     protected OpaPolicySource(
         IOptionsMonitor<OpaAuthorizationOptions> options,
-        IOpaEvaluatorFactory evaluatorFactory,
+        IMutableOpaEvaluatorFactory evaluatorFactory,
         ILoggerFactory loggerFactory)
     {
         ArgumentNullException.ThrowIfNull(options);
+        ArgumentNullException.ThrowIfNull(evaluatorFactory);
         ArgumentNullException.ThrowIfNull(loggerFactory);
 
         _options = options;
-        _innerFactory = evaluatorFactory;
+        _factory = evaluatorFactory;
         LoggerFactory = loggerFactory;
 
         Logger = LoggerFactory.CreateLogger<OpaPolicySource>();
@@ -99,11 +92,7 @@ public abstract class OpaPolicySource : IOpaPolicySource
 
             await using (policyStream.ConfigureAwait(false))
             {
-                var oldFactory = _factory;
-
-                _factory = new EvaluatorFactory(policyStream, _innerFactory);
-
-                oldFactory?.Dispose();
+                _factory.UpdatePolicy(policyStream, _options.CurrentValue.EngineOptions);
             }
 
             if (recompiling)
@@ -142,7 +131,7 @@ public abstract class OpaPolicySource : IOpaPolicySource
     {
         if (disposing)
         {
-            _factory?.Dispose();
+            _factory.Dispose();
             _lock.Dispose();
             _changeTokenSource.Dispose();
         }
@@ -158,29 +147,5 @@ public abstract class OpaPolicySource : IOpaPolicySource
     public virtual Task StopAsync(CancellationToken cancellationToken)
     {
         return Task.CompletedTask;
-    }
-
-    private sealed class EvaluatorFactory : IDisposable
-    {
-        private readonly byte[] _policy;
-
-        private readonly IOpaEvaluatorFactory _inner;
-
-        public EvaluatorFactory(Stream source, IOpaEvaluatorFactory inner)
-        {
-            _policy = new byte[source.Length];
-            _ = source.Read(_policy);
-            _inner = inner;
-        }
-
-        public IOpaEvaluator CreateFromBundle()
-        {
-            using var ms = new MemoryStream(_policy);
-            return _inner.CreateFromBundle(ms);
-        }
-
-        public void Dispose()
-        {
-        }
     }
 }

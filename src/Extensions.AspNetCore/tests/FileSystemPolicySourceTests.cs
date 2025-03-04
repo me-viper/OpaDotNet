@@ -7,12 +7,8 @@ using OpaDotNet.Wasm;
 namespace OpaDotNet.Extensions.AspNetCore.Tests;
 
 [UsedImplicitly]
-public sealed class FileSystemPolicySourceTests : PathPolicySourceTests<FileSystemPolicySource>
+public sealed class FileSystemPolicySourceTests(ITestOutputHelper output) : PathPolicySourceTests<FileSystemPolicySource>(output)
 {
-    public FileSystemPolicySourceTests(ITestOutputHelper output) : base(output)
-    {
-    }
-
     protected override FileSystemPolicySource CreatePolicySource(
         bool forceBundleWriter,
         Action<OpaAuthorizationOptions>? configure = null)
@@ -38,7 +34,9 @@ public sealed class FileSystemPolicySourceTests : PathPolicySourceTests<FileSyst
         return new FileSystemPolicySource(
             new BundleCompiler(ric, authOptions, []),
             authOptions,
-            new OpaEvaluatorFactory(authOptions.CurrentValue.EngineOptions),
+#pragma warning disable CA2000
+            new MutableOpaEvaluatorFactory(),
+#pragma warning restore CA2000
             LoggerFactory
             );
     }

@@ -12,10 +12,7 @@ public class EvaluatorFactoryTests(ITestOutputHelper output) : OpaTestBase(outpu
             ["test1/hello", "test2/hello"]
             );
 
-        using var factory = new OpaBundleEvaluatorFactory(
-            policyBundle,
-            null
-            );
+        using var factory = new OpaBundleEvaluatorFactory(policyBundle);
 
         Task RunTest()
         {

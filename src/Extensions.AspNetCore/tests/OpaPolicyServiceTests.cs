@@ -43,7 +43,9 @@ public class OpaPolicyServiceTests(ITestOutputHelper output)
         using var compiler = new FileSystemPolicySource(
             new BundleCompiler(ric, authOptions, []),
             authOptions,
-            new OpaEvaluatorFactory(authOptions.CurrentValue.EngineOptions),
+#pragma warning disable CA2000
+            new MutableOpaEvaluatorFactory(),
+#pragma warning restore CA2000,
             _loggerFactory
             );
 
@@ -102,7 +104,9 @@ public class OpaPolicyServiceTests(ITestOutputHelper output)
         using var compiler = new FileSystemPolicySource(
             new BundleCompiler(ric, authOptions, []),
             authOptions,
-            new OpaEvaluatorFactory(authOptions.CurrentValue.EngineOptions),
+#pragma warning disable CA2000
+            new MutableOpaEvaluatorFactory(),
+#pragma warning restore CA2000,
             _loggerFactory
             );
 

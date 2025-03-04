@@ -243,7 +243,7 @@ public class BasicsTests(ITestOutputHelper output) : OpaTestBase(output)
     public async Task EmptyOutput()
     {
         await using var policy = await CompileFile(Path.Combine(BasePath, "empty_composite.rego"), ["example"]);
-        using var factory = new OpaBundleEvaluatorFactory(policy, null);
+        using var factory = new OpaBundleEvaluatorFactory(policy);
 
         using var engine = factory.Create();
 
@@ -316,7 +316,7 @@ public class BasicsTests(ITestOutputHelper output) : OpaTestBase(output)
     public async Task EmptyPredicate()
     {
         var policy = await CompileFile(Path.Combine(BasePath, "simple.rego"), ["example/empty"]);
-        using var factory = new OpaBundleEvaluatorFactory(policy, null);
+        using var factory = new OpaBundleEvaluatorFactory(policy);
 
         using var engine = factory.Create();
 
@@ -336,7 +336,7 @@ public class BasicsTests(ITestOutputHelper output) : OpaTestBase(output)
             """;
 
         var policy = await CompileSource(src, ["example/p"]);
-        using var factory = new OpaBundleEvaluatorFactory(policy, null);
+        using var factory = new OpaBundleEvaluatorFactory(policy);
         using var engine = factory.Create();
 
         var result = engine.EvaluatePredicate(1, "example/p");
@@ -353,7 +353,7 @@ public class BasicsTests(ITestOutputHelper output) : OpaTestBase(output)
             """;
 
         var policy = await CompileSource(src, ["example/p"]);
-        using var factory = new OpaBundleEvaluatorFactory(policy, null);
+        using var factory = new OpaBundleEvaluatorFactory(policy);
         using var engine = factory.Create();
 
         var result = engine.EvaluatePredicate(1.0, "example/p");
@@ -370,7 +370,7 @@ public class BasicsTests(ITestOutputHelper output) : OpaTestBase(output)
             """;
 
         var policy = await CompileSource(src, ["example/p"]);
-        using var factory = new OpaBundleEvaluatorFactory(policy, null);
+        using var factory = new OpaBundleEvaluatorFactory(policy);
         using var engine = factory.Create();
 
         var jsonResult = engine.EvaluateRaw("1.0", "example/p");
@@ -390,7 +390,7 @@ public class BasicsTests(ITestOutputHelper output) : OpaTestBase(output)
             """;
 
         var policy = await CompileSource(src, ["example/p"]);
-        using var factory = new OpaBundleEvaluatorFactory(policy, null);
+        using var factory = new OpaBundleEvaluatorFactory(policy);
         using var engine = factory.Create();
 
         var jsonResult = engine.EvaluateRaw("{1,2,3}", "example/p");
