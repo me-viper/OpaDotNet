@@ -8,13 +8,10 @@ OpaDotNet.Extensions.AspNetCore.ClaimPolicyInput.Type.init -> void
 OpaDotNet.Extensions.AspNetCore.ClaimPolicyInput.Value.get -> string!
 OpaDotNet.Extensions.AspNetCore.ClaimPolicyInput.Value.init -> void
 OpaDotNet.Extensions.AspNetCore.CompiledBundlePolicySource
-OpaDotNet.Extensions.AspNetCore.CompiledBundlePolicySource.CompiledBundlePolicySource(Microsoft.Extensions.Options.IOptionsMonitor<OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions!>! options, OpaDotNet.Extensions.AspNetCore.IOpaBundleEvaluatorFactoryBuilder! factoryBuilder, Microsoft.Extensions.Logging.ILoggerFactory! loggerFactory) -> void
 OpaDotNet.Extensions.AspNetCore.ConfigurationPolicySource
-OpaDotNet.Extensions.AspNetCore.ConfigurationPolicySource.ConfigurationPolicySource(OpaDotNet.Extensions.AspNetCore.IBundleCompiler! compiler, Microsoft.Extensions.Options.IOptionsMonitor<OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions!>! authOptions, Microsoft.Extensions.Options.IOptionsMonitor<OpaDotNet.Extensions.AspNetCore.OpaPolicyOptions!>! policy, OpaDotNet.Extensions.AspNetCore.IOpaBundleEvaluatorFactoryBuilder! factoryBuilder, Microsoft.Extensions.Logging.ILoggerFactory! loggerFactory) -> void
 OpaDotNet.Extensions.AspNetCore.CoreImportsAbi
 OpaDotNet.Extensions.AspNetCore.CoreImportsAbi.CoreImportsAbi(Microsoft.Extensions.Logging.ILogger<OpaDotNet.Extensions.AspNetCore.CoreImportsAbi!>! logger, System.TimeProvider! timeProvider) -> void
 OpaDotNet.Extensions.AspNetCore.FileSystemPolicySource
-OpaDotNet.Extensions.AspNetCore.FileSystemPolicySource.FileSystemPolicySource(OpaDotNet.Extensions.AspNetCore.IBundleCompiler! compiler, Microsoft.Extensions.Options.IOptionsMonitor<OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions!>! options, OpaDotNet.Extensions.AspNetCore.IOpaBundleEvaluatorFactoryBuilder! factoryBuilder, Microsoft.Extensions.Logging.ILoggerFactory! loggerFactory) -> void
 OpaDotNet.Extensions.AspNetCore.IBundleCompiler
 OpaDotNet.Extensions.AspNetCore.IBundleCompiler.Compile(string! source, System.Action<OpaDotNet.Compilation.Abstractions.CompilationParameters!>! configureCompiler, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<System.IO.Stream?>!
 OpaDotNet.Extensions.AspNetCore.IBundleCompiler.Compile(string! source, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<System.IO.Stream?>!
@@ -42,8 +39,6 @@ OpaDotNet.Extensions.AspNetCore.IHttpRequestPolicyInput.QueryString.get -> strin
 OpaDotNet.Extensions.AspNetCore.IHttpRequestPolicyInput.Scheme.get -> string!
 OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder
 OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder.Services.get -> Microsoft.Extensions.DependencyInjection.IServiceCollection!
-OpaDotNet.Extensions.AspNetCore.IOpaBundleEvaluatorFactoryBuilder
-OpaDotNet.Extensions.AspNetCore.IOpaBundleEvaluatorFactoryBuilder.Build(System.IO.Stream! policy) -> OpaDotNet.Wasm.OpaEvaluatorFactory!
 OpaDotNet.Extensions.AspNetCore.IOpaPolicyService
 OpaDotNet.Extensions.AspNetCore.IOpaPolicyService.Evaluate<TInput, TOutput>(TInput input, string! entrypoint, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.ValueTask<TOutput>
 OpaDotNet.Extensions.AspNetCore.IOpaPolicyService.Evaluate<TInput, TOutput>(TInput input, string! entrypoint) -> System.Threading.Tasks.ValueTask<TOutput>
@@ -61,7 +56,6 @@ OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.AuthenticationSchemes.ge
 OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.AuthenticationSchemes.set -> void
 OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.Compiler.get -> OpaDotNet.Extensions.AspNetCore.RegoCompilerOptions?
 OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.Compiler.set -> void
-OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.EngineOptions.get -> OpaDotNet.Wasm.WasmPolicyEngineOptions?
 OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.EngineOptions.set -> void
 OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.IncludeClaimsInHttpRequest.get -> bool
 OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.IncludeClaimsInHttpRequest.set -> void
@@ -114,13 +108,11 @@ OpaDotNet.Extensions.AspNetCore.OpaPolicySource.Dispose() -> void
 OpaDotNet.Extensions.AspNetCore.OpaPolicySource.Logger.get -> Microsoft.Extensions.Logging.ILogger!
 OpaDotNet.Extensions.AspNetCore.OpaPolicySource.LoggerFactory.get -> Microsoft.Extensions.Logging.ILoggerFactory!
 OpaDotNet.Extensions.AspNetCore.OpaPolicySource.OnPolicyUpdated() -> Microsoft.Extensions.Primitives.IChangeToken!
-OpaDotNet.Extensions.AspNetCore.OpaPolicySource.OpaPolicySource(Microsoft.Extensions.Options.IOptionsMonitor<OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions!>! options, OpaDotNet.Extensions.AspNetCore.IOpaBundleEvaluatorFactoryBuilder! factoryBuilder, Microsoft.Extensions.Logging.ILoggerFactory! loggerFactory) -> void
 OpaDotNet.Extensions.AspNetCore.OpaPolicySource.Options.get -> OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions!
 OpaDotNet.Extensions.AspNetCore.PathPolicySource
 OpaDotNet.Extensions.AspNetCore.PathPolicySource.MonitoringEnabled.get -> bool
 OpaDotNet.Extensions.AspNetCore.PathPolicySource.NeedsRecompilation.get -> bool
 OpaDotNet.Extensions.AspNetCore.PathPolicySource.NeedsRecompilation.set -> void
-OpaDotNet.Extensions.AspNetCore.PathPolicySource.PathPolicySource(Microsoft.Extensions.Options.IOptionsMonitor<OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions!>! options, OpaDotNet.Extensions.AspNetCore.IOpaBundleEvaluatorFactoryBuilder! factoryBuilder, Microsoft.Extensions.Logging.ILoggerFactory! loggerFactory) -> void
 OpaDotNet.Extensions.AspNetCore.PathPolicySource.PolicyWatcher.get -> System.IDisposable?
 OpaDotNet.Extensions.AspNetCore.PathPolicySource.PolicyWatcher.init -> void
 OpaDotNet.Extensions.AspNetCore.RegoCompilerOptions
