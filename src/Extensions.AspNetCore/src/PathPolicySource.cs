@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 
 using OpaDotNet.Extensions.AspNetCore.Telemetry;
-using OpaDotNet.Wasm;
 
 namespace OpaDotNet.Extensions.AspNetCore;
 

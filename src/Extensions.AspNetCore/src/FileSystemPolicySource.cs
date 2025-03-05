@@ -5,7 +5,6 @@ using Microsoft.Extensions.Primitives;
 
 using OpaDotNet.Compilation.Abstractions;
 using OpaDotNet.Extensions.AspNetCore.Telemetry;
-using OpaDotNet.Wasm;
 
 namespace OpaDotNet.Extensions.AspNetCore;
 

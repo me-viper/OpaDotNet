@@ -5,7 +5,6 @@ using System.Web;
 
 using OpaDotNet.Compilation.Abstractions;
 using OpaDotNet.InternalTesting;
-using OpaDotNet.Wasm.Builtins;
 using OpaDotNet.Wasm.Internal;
 using OpaDotNet.Wasm.Tests.Common;
 

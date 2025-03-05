@@ -31,7 +31,7 @@ public interface IOpaEvaluator : IDisposable
     /// <typeparam name="TOutput">Type of the output.</typeparam>
     /// <returns>Policy evaluation result</returns>
     PolicyEvaluationResult<TOutput> Evaluate<TInput, TOutput>(TInput input, string? entrypoint = null)
-        where TOutput: notnull;
+        where TOutput : notnull;
 
     /// <summary>
     /// Evaluates named policy with specified raw JSON input.

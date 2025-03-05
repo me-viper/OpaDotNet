@@ -191,6 +191,7 @@ public partial class DefaultOpaImportsAbi
 
             return token;
         }
+
         // catch (SecurityTokenSignatureKeyNotFoundException ex)
         // {
         //     if (ex.InnerException is NotSupportedException)

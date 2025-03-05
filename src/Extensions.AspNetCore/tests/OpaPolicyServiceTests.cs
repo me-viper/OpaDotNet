@@ -7,7 +7,6 @@ using Microsoft.Extensions.Options;
 using OpaDotNet.Extensions.AspNetCore.Telemetry;
 using OpaDotNet.Extensions.AspNetCore.Tests.Common;
 using OpaDotNet.InternalTesting;
-using OpaDotNet.Wasm;
 
 namespace OpaDotNet.Extensions.AspNetCore.Tests;
 

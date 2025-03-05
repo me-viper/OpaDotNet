@@ -25,10 +25,7 @@ public static class ServiceCollectionExtensions
         builder.Services
             .AddOptions<OpaAuthorizationOptions>()
             .PostConfigure(
-                p =>
-                {
-                    jsonOptions.Invoke(p.EngineOptions.SerializationOptions);
-                }
+                p => { jsonOptions.Invoke(p.EngineOptions.SerializationOptions); }
                 );
 
         return builder;

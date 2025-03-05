@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="$(CompilerGeneratedFilesOutputPath)/**/*.cs" />
+    <Compile Remove="$(CompilerGeneratedFilesOutputPath)/**/*.cs"/>
 
     <AdditionalFiles Include="SdkV1\v1\**\*.yaml"/>
 

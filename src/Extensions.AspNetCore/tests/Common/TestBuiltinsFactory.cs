@@ -1,12 +1,4 @@
-﻿using System.Text.Json;
-
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
-
-using OpaDotNet.Wasm;
-using OpaDotNet.Wasm.Builtins;
-
-namespace OpaDotNet.Extensions.AspNetCore.Tests.Common;
+﻿namespace OpaDotNet.Extensions.AspNetCore.Tests.Common;
 
 // internal class TestBuiltinsFactory(ILoggerFactory? loggerFactory = null, TimeProvider? timeProvider = null) : IBuiltinsFactory
 // {

@@ -3,8 +3,6 @@ using System.Text.Encodings.Web;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 
-using Json.More;
-using Json.Patch;
 using Json.Pointer;
 
 using OpaDotNet.Wasm.Tests.Common;

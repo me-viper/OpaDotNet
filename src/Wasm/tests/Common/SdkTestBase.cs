@@ -1,8 +1,6 @@
 ﻿using System.Text.Encodings.Web;
 using System.Text.Json.Nodes;
 
-using OpaDotNet.Wasm.Builtins;
-
 namespace OpaDotNet.Wasm.Tests.Common;
 
 public class SdkTestBase(ITestOutputHelper output) : OpaTestBase(output)
@@ -130,7 +128,8 @@ public class SdkTestBase(ITestOutputHelper output) : OpaTestBase(output)
                         p.DefaultBuiltins = new TestImportsAbi(Output);
 
                     customBuiltins?.Invoke(p);
-                });
+                }
+                );
         }
 
         using var factory = new OpaBundleEvaluatorFactory(

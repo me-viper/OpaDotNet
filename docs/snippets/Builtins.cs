@@ -111,7 +111,7 @@ public partial class DocSamples
     }
 
     #endregion
-    
+
     [Fact]
     public async Task CustomBuiltinsV26()
     {

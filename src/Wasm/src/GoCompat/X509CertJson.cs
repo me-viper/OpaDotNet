@@ -1,5 +1,4 @@
-﻿using System.Net;
-using System.Security.Cryptography.X509Certificates;
+﻿using System.Security.Cryptography.X509Certificates;
 using System.Text.Json.Serialization;
 
 namespace OpaDotNet.Wasm.GoCompat;

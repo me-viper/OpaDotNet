@@ -5,8 +5,6 @@ using OpaDotNet.InternalTesting;
 using OpaDotNet.Wasm.Builtins;
 using OpaDotNet.Wasm.Tests.Common;
 
-using Wasmtime;
-
 // ReSharper disable UnusedMember.Local
 
 namespace OpaDotNet.Wasm.Tests;

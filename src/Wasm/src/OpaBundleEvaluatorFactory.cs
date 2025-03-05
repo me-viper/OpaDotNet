@@ -35,7 +35,7 @@ public sealed class OpaBundleEvaluatorFactory : IOpaEvaluatorFactory
     private static (Func<IOpaEvaluator>, Action) InMemoryFactory(Stream bundleStream, WasmPolicyEngineOptions options)
     {
         var policy = UnpackBundle(bundleStream, options);
-        return (() => OpaEvaluatorFactory.Create(policy.Policy.Span, policy.Data.Span, options), () => {});
+        return (() => OpaEvaluatorFactory.Create(policy.Policy.Span, policy.Data.Span, options), () => { });
     }
 
     private static (Func<IOpaEvaluator>, Action) StreamFactory(Stream bundleStream, WasmPolicyEngineOptions options)

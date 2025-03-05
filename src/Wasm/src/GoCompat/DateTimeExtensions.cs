@@ -4,8 +4,6 @@ using System.Text.RegularExpressions;
 
 using OpaDotNet.Wasm.Internal;
 
-using OverflowException = System.OverflowException;
-
 // ReSharper disable IdentifierTypo
 // ReSharper disable StringLiteralTypo
 
