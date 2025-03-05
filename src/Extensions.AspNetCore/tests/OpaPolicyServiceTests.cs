@@ -10,7 +10,6 @@ using OpaDotNet.InternalTesting;
 
 namespace OpaDotNet.Extensions.AspNetCore.Tests;
 
-//[Collection("Sequential")]
 public class OpaPolicyServiceTests(ITestOutputHelper output)
 {
     private readonly ILoggerFactory _loggerFactory = new LoggerFactory([new XunitLoggerProvider(output)]);
