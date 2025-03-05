@@ -7,6 +7,7 @@ using OpaDotNet.Extensions.AspNetCore.Telemetry;
 
 namespace OpaDotNet.Extensions.AspNetCore;
 
+[PublicAPI]
 public sealed class CompiledBundlePolicySource : PathPolicySource
 {
     private readonly PhysicalFileProvider? _fileProvider;
