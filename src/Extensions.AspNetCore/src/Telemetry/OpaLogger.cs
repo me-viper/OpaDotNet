@@ -9,7 +9,7 @@ internal static partial class OpaLogger
     [LoggerMessage(EventId = Utility.PolicyAllowedEventId, Message = "Authorization policy succeeded", Level = LogLevel.Debug)]
     public static partial void PolicyAllowed(this ILogger logger);
 
-    [LoggerMessage(EventId = Utility.PolicyAllowedEventId, Message = "Authorization policy denied", Level = LogLevel.Debug)]
+    [LoggerMessage(EventId = Utility.PolicyDeniedEventId, Message = "Authorization policy denied", Level = LogLevel.Debug)]
     public static partial void PolicyDenied(this ILogger logger);
 
     [LoggerMessage(EventId = Utility.PolicyFailedEventId, Message = "Authorization policy failed", Level = LogLevel.Error)]
