@@ -10,6 +10,7 @@ namespace OpaDotNet.Compilation.Interop;
 /// <summary>
 /// Compiles OPA bundle with OPA SDK interop wrapper.
 /// </summary>
+[PublicAPI]
 public class RegoInteropCompiler : IRegoCompiler
 {
     private readonly ILogger _logger;

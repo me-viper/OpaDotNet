@@ -761,8 +761,8 @@ internal static class DateTimeExtensions
     }
 }
 
-internal partial class DateTimeExtensionsRegex
-{
-    [GeneratedRegex("\\.\\d{8,9}", RegexOptions.IgnoreCase)]
-    internal static partial Regex LongFraction();
-}
+// internal partial class DateTimeExtensionsRegex
+// {
+//     [GeneratedRegex("\\.\\d{8,9}", RegexOptions.IgnoreCase)]
+//     internal static partial Regex LongFraction();
+// }

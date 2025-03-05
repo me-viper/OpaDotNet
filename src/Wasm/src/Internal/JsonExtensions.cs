@@ -146,14 +146,14 @@ internal static class JsonExtensions
     }
 }
 
-internal class LaxJsonNodeEqualityComparer : IEqualityComparer<JsonNode?>
-{
-    public static LaxJsonNodeEqualityComparer Instance { get; } = new();
-
-    public bool Equals(JsonNode? x, JsonNode? y) => x.IsEquivalentTo(y, false);
-
-    public int GetHashCode(JsonNode obj) => obj.GetEquivalenceHashCode();
-}
+// internal class LaxJsonNodeEqualityComparer : IEqualityComparer<JsonNode?>
+// {
+//     public static LaxJsonNodeEqualityComparer Instance { get; } = new();
+//
+//     public bool Equals(JsonNode? x, JsonNode? y) => x.IsEquivalentTo(y, false);
+//
+//     public int GetHashCode(JsonNode obj) => obj.GetEquivalenceHashCode();
+// }
 
 internal class AlphabeticJsonNodeConverter : JsonConverter<JsonNode>
 {
