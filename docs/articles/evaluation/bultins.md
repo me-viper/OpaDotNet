@@ -21,9 +21,9 @@ In the following sample, we define 5 custom functions:
 > [!NOTE]
 > OPA supports custom functions with up to four arguments.
 
-# [v2.6+](#tab/v26)
+# [v3.0+](#tab/v30)
 
-[!code-csharp[](~/snippets/Builtins.cs#CustomBuiltinsImplV26)]
+[!code-csharp[](~/snippets/Builtins.cs#CustomBuiltinsImplv30)]
 
 # [v2.5](#tab/v25)
 
@@ -54,9 +54,9 @@ Place policy and capabilities files into `bundle` directory.
 
 Next, we need to compile the policy bundle and make it aware of our custom built-ins:
 
-# [v2.6+](#tab/v26)
+# [v3.0+](#tab/v30)
 
-[!code-csharp[](~/snippets/Builtins.cs#CustomBuiltinsCompileV26)]
+[!code-csharp[](~/snippets/Builtins.cs#CustomBuiltinsCompilev30)]
 
 # [v2.5](#tab/v25)
 
@@ -100,7 +100,7 @@ using var engine = factory.Create();
 
 Now we can evaluate policies using custom built-ins:
 
-[!code-csharp[](~/snippets/Builtins.cs#CustomBuiltinsEvalV26)]
+[!code-csharp[](~/snippets/Builtins.cs#CustomBuiltinsEvalv30)]
 
 If you executed this code the output would be:
 

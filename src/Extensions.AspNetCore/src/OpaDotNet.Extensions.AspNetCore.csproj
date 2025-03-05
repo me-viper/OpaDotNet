@@ -21,10 +21,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-
-    <PackageReference Update="Nerdbank.GitVersioning" Version="3.7.115" />
-
-    <PackageReference Update="JetBrains.Annotations" Version="2024.3.0" />
   </ItemGroup>
 
   <ItemGroup>
