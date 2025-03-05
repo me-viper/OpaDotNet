@@ -16,7 +16,7 @@ public partial class DefaultOpaImportsAbi
     {
         private readonly JsonPointerJsonConverter _inner = new();
 
-        public override JsonPointer? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        public override JsonPointer Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             if (reader.TokenType != JsonTokenType.String)
                 throw new JsonException("Expected string");
@@ -122,7 +122,7 @@ public partial class DefaultOpaImportsAbi
         for (var i = 0; i < pointer.Count; i++)
         {
             result = result.Combine(pointer[i]);
-            currentElement = JsonPointer.Create(pointer[i]).Evaluate(currentElement!.Value);
+            currentElement = JsonPointer.Create(pointer[i]).Evaluate(currentElement.Value);
 
             if (currentElement == null)
                 throw new InvalidOperationException($"Target path '{result}' could not be reached");

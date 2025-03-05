@@ -11,7 +11,7 @@ internal static class GoCompatExtensions
         return num == null ? null : new BigIntJson(new(num, true, true));
     }
 
-    public static int[]? ToIntArray(this Oid? oid) => oid?.Value?.Split('.').Select(int.Parse).ToArray();
+    public static HashSet<int>? ToIntSet(this Oid? oid) => oid?.Value?.Split('.').Select(int.Parse).ToHashSet();
 
     public static byte[] GetX509Signature(this X509Certificate2 certificate)
     {

@@ -8,6 +8,7 @@ using OpaDotNet.Extensions.AspNetCore.Telemetry;
 
 namespace OpaDotNet.Extensions.AspNetCore;
 
+[PublicAPI]
 public sealed class FileSystemPolicySource : PathPolicySource
 {
     private readonly IBundleCompiler _compiler;

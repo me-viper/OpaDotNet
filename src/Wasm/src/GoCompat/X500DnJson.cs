@@ -43,7 +43,7 @@ internal record X500DnJson
             result.Names.Add(
                 new()
                 {
-                    Id = n.GetSingleElementType().ToIntArray(),
+                    Id = n.GetSingleElementType().ToIntSet(),
                     Value = val,
                 }
                 );

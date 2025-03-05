@@ -355,7 +355,7 @@ public abstract class CompilerTests<T>
 
         var compiler = CreateCompiler(LoggerFactory);
 
-        using var bundle = await compiler.CompileBundleAsync(
+        await using var bundle = await compiler.CompileBundleAsync(
             ms,
             new()
             {
@@ -719,7 +719,7 @@ public abstract class CompilerTests<T>
             allow if { true }
             """;
 
-        using var policy = await compiler.CompileSourceAsync(
+        await using var policy = await compiler.CompileSourceAsync(
             src,
             new()
             {
@@ -753,7 +753,7 @@ public abstract class CompilerTests<T>
             allow if { true }
             """;
 
-        using var policy = await compiler.CompileSourceAsync(
+        await using var policy = await compiler.CompileSourceAsync(
             src,
             new()
             {

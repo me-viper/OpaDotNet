@@ -4,6 +4,7 @@
 /// Marks custom built-in implementation.
 /// </summary>
 /// <param name="name">Built-in name.</param>
+[PublicAPI]
 [AttributeUsage(AttributeTargets.Method, Inherited = false)]
 public class OpaCustomBuiltinAttribute(string name) : Attribute
 {

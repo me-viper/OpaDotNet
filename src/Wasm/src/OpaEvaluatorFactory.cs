@@ -5,12 +5,8 @@ namespace OpaDotNet.Wasm;
 /// <summary>
 /// Low-level component that can create <see cref="IOpaEvaluator"/> instances.
 /// </summary>
-internal class OpaEvaluatorFactory
+internal static class OpaEvaluatorFactory
 {
-    private OpaEvaluatorFactory()
-    {
-    }
-
     internal static IOpaEvaluator Create(
         Stream policy,
         Stream? data,

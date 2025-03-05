@@ -10,7 +10,6 @@ internal class ConfigureOpaAuthorizationOptions(IServiceProvider serviceProvider
 {
     public void Configure(OpaAuthorizationOptions options)
     {
-        options.EngineOptions ??= WasmPolicyEngineOptions.Default;
         options.EngineOptions.ConfigureBuiltins(
             p =>
             {

@@ -3,7 +3,7 @@
 [PublicAPI]
 internal record X509NamesJson
 {
-    public int[]? Id { get; set; }
+    public HashSet<int>? Id { get; set; }
 
     public string? Value { get; set; }
 }

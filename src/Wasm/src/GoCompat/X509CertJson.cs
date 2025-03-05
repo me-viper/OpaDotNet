@@ -129,7 +129,7 @@ internal record X509CertJson
             {
                 Critical = ext.Critical,
                 Value = Convert.ToBase64String(ext.RawData),
-                Id = ext.Oid?.ToIntArray(),
+                Id = ext.Oid?.ToIntSet(),
             };
         }
 

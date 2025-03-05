@@ -531,7 +531,7 @@ public partial class DefaultOpaImportsAbi
         return decimal.ToUInt64(result);
     }
 
-    private static int[]? NumbersRangeStep(int a, int b, int step)
+    private static int[] NumbersRangeStep(int a, int b, int step)
     {
         if (step < 1)
             throw new ArgumentOutOfRangeException(nameof(step), "Step must be a positive number above zero");
@@ -753,6 +753,7 @@ public partial class DefaultOpaImportsAbi
     private static Tuple<T1, T2, T3> ParseArgs<T1, T2, T3>(JsonArray ar, byte requiredArgs = 3)
     {
         // In general case this is wrong. But JsonValue.GetValue<T>() ensures we've got valid type.
+        // ReSharper disable once RedundantAssignment
         T1 t1 = default!;
         T2 t2 = default!;
         T3 t3 = default!;
