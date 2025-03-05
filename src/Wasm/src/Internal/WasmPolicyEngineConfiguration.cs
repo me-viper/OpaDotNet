@@ -1,6 +1,6 @@
 ﻿using Wasmtime;
 
-namespace OpaDotNet.Wasm;
+namespace OpaDotNet.Wasm.Internal;
 
 internal record WasmPolicyEngineConfiguration
 {

@@ -1,6 +1,6 @@
 ﻿using Wasmtime;
 
-namespace OpaDotNet.Wasm;
+namespace OpaDotNet.Wasm.Internal;
 
 /// <summary>
 /// Low-level component that can create <see cref="IOpaEvaluator"/> instances.

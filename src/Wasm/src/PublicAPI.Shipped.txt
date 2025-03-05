@@ -30,8 +30,6 @@ OpaDotNet.Wasm.Features.IOpaEvaluatorFeature
 OpaDotNet.Wasm.Features.IUpdateDataFeature
 OpaDotNet.Wasm.Features.IUpdateDataFeature.RemoveDataPath(System.Collections.Generic.IEnumerable<string!>! path) -> void
 OpaDotNet.Wasm.Features.IUpdateDataFeature.UpdateDataPath(System.ReadOnlySpan<char> dataJson, System.Collections.Generic.IEnumerable<string!>! path) -> void
-OpaDotNet.Wasm.IBuiltinsFactory
-OpaDotNet.Wasm.IBuiltinsFactory.Create() -> OpaDotNet.Wasm.IOpaImportsAbi!
 OpaDotNet.Wasm.ICapabilitiesProvider
 OpaDotNet.Wasm.ICapabilitiesProvider.GetCapabilities() -> System.IO.Stream!
 OpaDotNet.Wasm.IOpaEvaluator

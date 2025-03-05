@@ -1,14 +1,13 @@
 ﻿using OpaDotNet.Wasm.Features;
-using OpaDotNet.Wasm.Internal;
 using OpaDotNet.Wasm.Rego;
 
 using Wasmtime;
 
-namespace OpaDotNet.Wasm;
+namespace OpaDotNet.Wasm.Internal;
 
-using EngineV10 = Internal.V10.EngineImpl<Internal.V10.OpaExportsAbi>;
-using EngineV12 = Internal.V12.EngineImpl<Internal.V12.OpaExportsAbi>;
-using EngineV13 = Internal.V13.EngineImpl<Internal.V13.OpaExportsAbi>;
+using EngineV10 = V10.EngineImpl<V10.OpaExportsAbi>;
+using EngineV12 = V12.EngineImpl<V12.OpaExportsAbi>;
+using EngineV13 = V13.EngineImpl<V13.OpaExportsAbi>;
 
 internal sealed class OpaWasmEvaluator : IOpaEvaluator
 {

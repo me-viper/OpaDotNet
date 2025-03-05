@@ -5,6 +5,7 @@ namespace OpaDotNet.Wasm;
 /// <summary>
 /// A factory abstraction for a component that can create <see cref="IOpaEvaluator"/> instances from OPA policy bundle.
 /// </summary>
+[PublicAPI]
 public sealed class OpaBundleEvaluatorFactory : IOpaEvaluatorFactory
 {
     private readonly Func<IOpaEvaluator> _factory;

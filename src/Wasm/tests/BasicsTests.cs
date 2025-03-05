@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using System.Text.Json.Serialization;
 
+using OpaDotNet.Wasm.Internal;
 using OpaDotNet.Wasm.Tests.Common;
 
 namespace OpaDotNet.Wasm.Tests;

@@ -1,4 +1,5 @@
 ﻿using OpaDotNet.InternalTesting;
+using OpaDotNet.Wasm.Internal;
 
 namespace OpaDotNet.Wasm.Tests;
 

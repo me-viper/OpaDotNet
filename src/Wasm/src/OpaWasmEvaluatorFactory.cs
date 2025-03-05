@@ -1,5 +1,7 @@
 ﻿using System.Buffers;
 
+using OpaDotNet.Wasm.Internal;
+
 namespace OpaDotNet.Wasm;
 
 /// <summary>

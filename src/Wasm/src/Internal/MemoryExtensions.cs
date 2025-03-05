@@ -2,7 +2,7 @@
 
 using Wasmtime;
 
-namespace OpaDotNet.Wasm;
+namespace OpaDotNet.Wasm.Internal;
 
 internal static class MemoryExtensions
 {
