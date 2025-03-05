@@ -13,23 +13,27 @@ public sealed class OpaBundleEvaluatorFactory : IOpaEvaluatorFactory
 
     private bool _disposed;
 
-    public OpaBundleEvaluatorFactory(Stream bundleStream) : this(bundleStream, WasmPolicyEngineOptions.Default)
+    /// <summary>
+    /// Creates new instance of <see cref="OpaBundleEvaluatorFactory"/>.
+    /// </summary>
+    /// <param name="source">OPA policy bundle stream</param>
+    public OpaBundleEvaluatorFactory(Stream source) : this(source, WasmPolicyEngineOptions.Default)
     {
     }
 
     /// <summary>
     /// Creates new instance of <see cref="OpaBundleEvaluatorFactory"/>.
     /// </summary>
-    /// <param name="bundleStream">OPA policy bundle stream</param>
+    /// <param name="source">OPA policy bundle stream</param>
     /// <param name="options">Evaluation engine options</param>
-    public OpaBundleEvaluatorFactory(Stream bundleStream, WasmPolicyEngineOptions options)
+    public OpaBundleEvaluatorFactory(Stream source, WasmPolicyEngineOptions options)
     {
-        ArgumentNullException.ThrowIfNull(bundleStream);
+        ArgumentNullException.ThrowIfNull(source);
         ArgumentNullException.ThrowIfNull(options);
 
         (_factory, _disposer) = string.IsNullOrWhiteSpace(options.CachePath)
-            ? InMemoryFactory(bundleStream, options)
-            : StreamFactory(bundleStream, options);
+            ? InMemoryFactory(source, options)
+            : StreamFactory(source, options);
     }
 
     private static (Func<IOpaEvaluator>, Action) InMemoryFactory(Stream bundleStream, WasmPolicyEngineOptions options)
@@ -98,9 +102,15 @@ public sealed class OpaBundleEvaluatorFactory : IOpaEvaluatorFactory
         }
     }
 
-    public static IOpaEvaluator Create(Stream policyBundle, WasmPolicyEngineOptions? options = null)
+    /// <summary>
+    /// Creates new OPA evaluator instance
+    /// </summary>
+    /// <param name="source">OPA policy WASM binary stream</param>
+    /// <param name="options">Evaluation engine options</param>
+    /// <returns>New OPA evaluator instance</returns>
+    public static IOpaEvaluator Create(Stream source, WasmPolicyEngineOptions? options = null)
     {
-        using var result = new OpaBundleEvaluatorFactory(policyBundle, options ?? WasmPolicyEngineOptions.Default);
+        using var result = new OpaBundleEvaluatorFactory(source, options ?? WasmPolicyEngineOptions.Default);
         return result.Create();
     }
 

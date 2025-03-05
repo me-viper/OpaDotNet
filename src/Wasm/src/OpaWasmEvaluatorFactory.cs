@@ -16,28 +16,28 @@ public sealed class OpaWasmEvaluatorFactory : IOpaEvaluatorFactory
     /// <summary>
     /// Creates new instance of <see cref="OpaWasmEvaluatorFactory"/>.
     /// </summary>
-    /// <param name="policyWasm">OPA policy WASM binary stream</param>
-    public OpaWasmEvaluatorFactory(Stream policyWasm) : this(policyWasm, WasmPolicyEngineOptions.Default)
+    /// <param name="source">OPA policy WASM binary stream</param>
+    public OpaWasmEvaluatorFactory(Stream source) : this(source, WasmPolicyEngineOptions.Default)
     {
     }
 
     /// <summary>
     /// Creates new instance of <see cref="OpaWasmEvaluatorFactory"/>.
     /// </summary>
-    /// <param name="policyWasm">OPA policy WASM binary stream</param>
+    /// <param name="source">OPA policy WASM binary stream</param>
     /// <param name="options">Evaluation engine options</param>
-    public OpaWasmEvaluatorFactory(Stream policyWasm, WasmPolicyEngineOptions options)
+    public OpaWasmEvaluatorFactory(Stream source, WasmPolicyEngineOptions options)
     {
-        ArgumentNullException.ThrowIfNull(policyWasm);
+        ArgumentNullException.ThrowIfNull(source);
         ArgumentNullException.ThrowIfNull(options);
 
         if (string.IsNullOrWhiteSpace(options.CachePath))
         {
-            var buffer = ArrayPool<byte>.Shared.Rent((int)policyWasm.Length);
+            var buffer = ArrayPool<byte>.Shared.Rent((int)source.Length);
 
-            var bytesRead = policyWasm.Read(buffer);
+            var bytesRead = source.Read(buffer);
 
-            if (bytesRead < policyWasm.Length)
+            if (bytesRead < source.Length)
                 throw new OpaRuntimeException("Failed to read wasm policy stream");
 
             _factory = () => OpaEvaluatorFactory.Create(buffer.AsSpan(0, bytesRead), ReadOnlySpan<byte>.Empty, options);
@@ -54,7 +54,7 @@ public sealed class OpaWasmEvaluatorFactory : IOpaEvaluatorFactory
             cache.Create();
 
             using var fs = new FileStream(Path.Combine(cache.FullName, "policy.wasm"), FileMode.CreateNew);
-            policyWasm.CopyTo(fs);
+            source.CopyTo(fs);
             fs.Flush();
 
             var policyFilePath = fs.Name;
@@ -69,9 +69,15 @@ public sealed class OpaWasmEvaluatorFactory : IOpaEvaluatorFactory
         }
     }
 
-    public static IOpaEvaluator Create(Stream policyWasm, WasmPolicyEngineOptions? options = null)
+    /// <summary>
+    /// Creates new OPA evaluator instance
+    /// </summary>
+    /// <param name="source">OPA policy WASM binary stream</param>
+    /// <param name="options">Evaluation engine options</param>
+    /// <returns>New OPA evaluator instance</returns>
+    public static IOpaEvaluator Create(Stream source, WasmPolicyEngineOptions? options = null)
     {
-        using var result = new OpaWasmEvaluatorFactory(policyWasm, options ?? WasmPolicyEngineOptions.Default);
+        using var result = new OpaWasmEvaluatorFactory(source, options ?? WasmPolicyEngineOptions.Default);
         return result.Create();
     }
 

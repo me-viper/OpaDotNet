@@ -3,7 +3,7 @@
 namespace OpaDotNet.Wasm;
 
 /// <summary>
-/// A factory abstraction for a component that can create <see cref="IOpaEvaluator"/> instances.
+/// Low-level component that can create <see cref="IOpaEvaluator"/> instances.
 /// </summary>
 internal class OpaEvaluatorFactory
 {

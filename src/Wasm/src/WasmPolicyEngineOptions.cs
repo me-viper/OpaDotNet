@@ -39,6 +39,9 @@ public class WasmPolicyEngineOptions
         Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
     };
 
+    /// <summary>
+    /// Creates new <see cref="WasmPolicyEngineOptions"/> instance.
+    /// </summary>
     public WasmPolicyEngineOptions()
     {
         _makeBuiltins = DefaultBuiltins;
