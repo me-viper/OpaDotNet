@@ -15,23 +15,27 @@
     <InternalsVisibleTo Include="OpaDotNet.Wasm.Tests"/>
     <InternalsVisibleTo Include="OpaDotNet.Benchmarks"/>
 
-    <PackageReference Include="IPNetwork2" Version="3.0.667">
+    <PackageReference Include="IPNetwork2" Version="3.0.712">
       <Aliases>Ipn</Aliases>
     </PackageReference>
 
-    <PackageReference Include="JsonPatch.Net" Version="3.2.3"/>
-    <PackageReference Include="JsonSchema.Net" Version="7.3.0"/>
-    <PackageReference Include="Microsoft.Extensions.Primitives" Version="8.0.0"/>
-    <PackageReference Include="Semver" Version="2.3.0"/>
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.3.0"/>
+    <PackageReference Include="JsonPatch.Net" Version="3.3.0" />
+    <PackageReference Include="JsonSchema.Net" Version="7.3.3" />
+    <PackageReference Include="Microsoft.Extensions.Primitives" Version="9.0.2" />
+    <PackageReference Include="Semver" Version="3.0.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.6.0" />
     <PackageReference Include="Wasmtime" Version="22.0.0"/>
     <PackageReference Include="Yaml2JsonNode" Version="2.2.0"/>
-    <PackageReference Include="YamlDotNet" Version="16.2.1"/>
+    <PackageReference Include="YamlDotNet" Version="16.3.0" />
 
     <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="3.3.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
+
+    <PackageReference Update="Nerdbank.GitVersioning" Version="3.7.115" />
+
+    <PackageReference Update="JetBrains.Annotations" Version="2024.3.0" />
   </ItemGroup>
 
 </Project>
