@@ -79,7 +79,7 @@ public partial class DocSamples
 
     #endregion
 
-    #region CustomBuiltinsImplV26
+    #region CustomBuiltinsImplv30
 
     public class OpaCustomBuiltins : IOpaCustomBuiltins
     {
@@ -115,7 +115,7 @@ public partial class DocSamples
     [Fact]
     public async Task CustomBuiltinsV26()
     {
-        #region CustomBuiltinsCompileV26
+        #region CustomBuiltinsCompilev30
 
         var compilationParameters = new CompilationParameters
         {
@@ -149,7 +149,7 @@ public partial class DocSamples
 
         #endregion
 
-        #region CustomBuiltinsEvalV26
+        #region CustomBuiltinsEvalv30
 
         var resultZeroArg = engine.Evaluate<object, string>(new object(), "custom_builtins/zero_arg");
         Console.WriteLine(resultZeroArg.Result);
