@@ -1,6 +1,6 @@
 # Changelog
 
-## OpaDotNet 2024.9.1
+## OpaDotNet 2025.1.1
 
 ### OpaDotNet.Wasm
 
