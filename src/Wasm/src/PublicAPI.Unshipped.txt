@@ -1,19 +1,2 @@
 #nullable enable
-OpaDotNet.Wasm.IOpaEvaluatorFactory
-OpaDotNet.Wasm.IOpaEvaluatorFactory.Create() -> OpaDotNet.Wasm.IOpaEvaluator!
-OpaDotNet.Wasm.OpaBundleEvaluatorFactory.Create() -> OpaDotNet.Wasm.IOpaEvaluator!
-OpaDotNet.Wasm.OpaBundleEvaluatorFactory.Dispose() -> void
-OpaDotNet.Wasm.OpaBundleEvaluatorFactory.OpaBundleEvaluatorFactory(System.IO.Stream! source) -> void
-OpaDotNet.Wasm.OpaBundleEvaluatorFactory.OpaBundleEvaluatorFactory(System.IO.Stream! source, OpaDotNet.Wasm.WasmPolicyEngineOptions! options) -> void
-OpaDotNet.Wasm.OpaWasmEvaluatorFactory.Create() -> OpaDotNet.Wasm.IOpaEvaluator!
-OpaDotNet.Wasm.OpaWasmEvaluatorFactory.Dispose() -> void
-OpaDotNet.Wasm.OpaWasmEvaluatorFactory.OpaWasmEvaluatorFactory(System.IO.Stream! source) -> void
-OpaDotNet.Wasm.OpaWasmEvaluatorFactory.OpaWasmEvaluatorFactory(System.IO.Stream! source, OpaDotNet.Wasm.WasmPolicyEngineOptions! options) -> void
-OpaDotNet.Wasm.WasmBuiltinsOptions
-OpaDotNet.Wasm.WasmBuiltinsOptions.CustomBuiltins.get -> System.Collections.Generic.IList<OpaDotNet.Wasm.Builtins.IOpaCustomBuiltins!>!
-OpaDotNet.Wasm.WasmBuiltinsOptions.DefaultBuiltins.get -> OpaDotNet.Wasm.IOpaImportsAbi!
-OpaDotNet.Wasm.WasmBuiltinsOptions.DefaultBuiltins.set -> void
-OpaDotNet.Wasm.WasmBuiltinsOptions.WasmBuiltinsOptions() -> void
-OpaDotNet.Wasm.WasmPolicyEngineOptions.ConfigureBuiltins(System.Action<OpaDotNet.Wasm.WasmBuiltinsOptions!>! configure) -> void
-static OpaDotNet.Wasm.OpaBundleEvaluatorFactory.Create(System.IO.Stream! source, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null) -> OpaDotNet.Wasm.IOpaEvaluator!
-static OpaDotNet.Wasm.OpaWasmEvaluatorFactory.Create(System.IO.Stream! source, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null) -> OpaDotNet.Wasm.IOpaEvaluator!
+
