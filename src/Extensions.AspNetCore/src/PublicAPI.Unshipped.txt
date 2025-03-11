@@ -1,3 +1,2 @@
 #nullable enable
-OpaDotNet.Extensions.AspNetCore.IConnectionInput.LocalIpAddressV6.get -> string?
-OpaDotNet.Extensions.AspNetCore.IConnectionInput.RemoteIpAddressV6.get -> string?
+

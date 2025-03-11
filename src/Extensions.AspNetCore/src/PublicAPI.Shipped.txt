@@ -24,8 +24,10 @@ OpaDotNet.Extensions.AspNetCore.IBundleCompiler.Compiler.get -> OpaDotNet.Compil
 OpaDotNet.Extensions.AspNetCore.IBundleCompiler.CompilerOptions.get -> OpaDotNet.Extensions.AspNetCore.RegoCompilerOptions!
 OpaDotNet.Extensions.AspNetCore.IConnectionInput
 OpaDotNet.Extensions.AspNetCore.IConnectionInput.LocalIpAddress.get -> string?
+OpaDotNet.Extensions.AspNetCore.IConnectionInput.LocalIpAddressV6.get -> string?
 OpaDotNet.Extensions.AspNetCore.IConnectionInput.LocalPort.get -> int
 OpaDotNet.Extensions.AspNetCore.IConnectionInput.RemoteIpAddress.get -> string?
+OpaDotNet.Extensions.AspNetCore.IConnectionInput.RemoteIpAddressV6.get -> string?
 OpaDotNet.Extensions.AspNetCore.IConnectionInput.RemotePort.get -> int
 OpaDotNet.Extensions.AspNetCore.IHttpRequestPolicyInput
 OpaDotNet.Extensions.AspNetCore.IHttpRequestPolicyInput.Build(Microsoft.AspNetCore.Http.HttpRequest! request, System.Collections.Generic.IReadOnlySet<string!>! includedHeaders, System.Collections.Generic.IEnumerable<System.Security.Claims.Claim!>? claims) -> OpaDotNet.Extensions.AspNetCore.IHttpRequestPolicyInput!
