@@ -70,7 +70,12 @@ internal class HttpRequestPolicyInput : IHttpRequestPolicyInput
 
         public string? RemoteIpAddress
         {
-            get => _connection.RemoteIpAddress?.ToString();
+            get => _connection.RemoteIpAddress?.MapToIPv4().ToString();
+        }
+
+        public string? RemoteIpAddressV6
+        {
+            get => _connection.RemoteIpAddress?.MapToIPv6().ToString();
         }
 
         public int RemotePort
@@ -80,7 +85,12 @@ internal class HttpRequestPolicyInput : IHttpRequestPolicyInput
 
         public string? LocalIpAddress
         {
-            get => _connection.LocalIpAddress?.ToString();
+            get => _connection.LocalIpAddress?.MapToIPv4().ToString();
+        }
+
+        public string? LocalIpAddressV6
+        {
+            get => _connection.LocalIpAddress?.MapToIPv6().ToString();
         }
 
         public int LocalPort

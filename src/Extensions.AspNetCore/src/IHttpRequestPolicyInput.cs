@@ -11,9 +11,13 @@ public interface IConnectionInput
 {
     string? RemoteIpAddress { get; }
 
+    string? RemoteIpAddressV6 { get; }
+
     int RemotePort { get; }
 
     string? LocalIpAddress { get; }
+
+    string? LocalIpAddressV6 { get; }
 
     int LocalPort { get; }
 }
