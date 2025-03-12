@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Class CompilationParameters | OpaDotNet.Wasm </title>
+      <title>Class CompilationParameters | OpaDotNet 2025.1.1 </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class CompilationParameters | OpaDotNet.Wasm ">
+      <meta name="title" content="Class CompilationParameters | OpaDotNet 2025.1.1 ">
       
       <meta name="description" content="Compilation parameters.">
       <link rel="icon" href="../favicon.ico">
@@ -29,23 +29,23 @@
       <meta name="loc:changeTheme" content="Change theme">
       <meta name="loc:copy" content="Copy">
       <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
   </head>
-
-  <script type="module" src="./../public/docfx.min.js"></script>
-
-  <script>
-    const theme = localStorage.getItem('theme') || 'auto'
-    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
-  </script>
-
 
   <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
     <header class="bg-body border-bottom">
       <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
         <div class="container-xxl flex-nowrap">
           <a class="navbar-brand" href="../index.html">
-            <img id="logo" class="svg" src="../logo.svg" alt="OpaDotNet.Wasm">
-            OpaDotNet.Wasm
+            <img id="logo" class="svg" src="../logo.svg" alt="OpaDotNet">
+            OpaDotNet
           </a>
           <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
             <i class="bi bi-three-dots"></i>
@@ -73,7 +73,7 @@
 
       <div class="content">
         <div class="actionbar">
-          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
             <i class="bi bi-list"></i>
           </button>
 
@@ -85,7 +85,7 @@
 
 
   <h1 id="OpaDotNet_Compilation_Abstractions_CompilationParameters" data-uid="OpaDotNet.Compilation.Abstractions.CompilationParameters" class="text-break">
-Class CompilationParameters  
+Class CompilationParameters  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/CompilationParameters.cs"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -150,7 +150,7 @@ Class CompilationParameters
 
   <h3 id="OpaDotNet_Compilation_Abstractions_CompilationParameters__ctor" data-uid="OpaDotNet.Compilation.Abstractions.CompilationParameters.#ctor">
   CompilationParameters()
-  
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/CompilationParameters.cs"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -176,7 +176,7 @@ Class CompilationParameters
 
   <h3 id="OpaDotNet_Compilation_Abstractions_CompilationParameters__ctor_OpaDotNet_Compilation_Abstractions_CompilationParameters_" data-uid="OpaDotNet.Compilation.Abstractions.CompilationParameters.#ctor(OpaDotNet.Compilation.Abstractions.CompilationParameters)">
   CompilationParameters(CompilationParameters)
-  
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/CompilationParameters.cs"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -207,20 +207,52 @@ Class CompilationParameters
 </h2>
 
 
-  <a id="OpaDotNet_Compilation_Abstractions_CompilationParameters_CapabilitiesFilePath_" data-uid="OpaDotNet.Compilation.Abstractions.CompilationParameters.CapabilitiesFilePath*"></a>
+  <a id="OpaDotNet_Compilation_Abstractions_CompilationParameters_CapabilitiesBytes_" data-uid="OpaDotNet.Compilation.Abstractions.CompilationParameters.CapabilitiesBytes*"></a>
 
-  <h3 id="OpaDotNet_Compilation_Abstractions_CompilationParameters_CapabilitiesFilePath" data-uid="OpaDotNet.Compilation.Abstractions.CompilationParameters.CapabilitiesFilePath">
-  CapabilitiesFilePath
-  
+  <h3 id="OpaDotNet_Compilation_Abstractions_CompilationParameters_CapabilitiesBytes" data-uid="OpaDotNet.Compilation.Abstractions.CompilationParameters.CapabilitiesBytes">
+  CapabilitiesBytes
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/CompilationParameters.cs"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Capabilities file that defines the built-in functions and other language features that policies may depend on.
-If <a class="xref" href="OpaDotNet.Compilation.Abstractions.CompilationParameters.html#OpaDotNet_Compilation_Abstractions_CompilationParameters_CapabilitiesFilePath">CapabilitiesFilePath</a> is specified <a class="xref" href="OpaDotNet.Compilation.Abstractions.CompilationParameters.html#OpaDotNet_Compilation_Abstractions_CompilationParameters_CapabilitiesStream">CapabilitiesStream</a> is ignored.</p>
+  <div class="markdown level1 summary"><p>Capabilities json that defines the built-in functions and other language features that policies may depend on.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string? CapabilitiesFilePath { get; init; }</code></pre>
+    <pre><code class="lang-csharp hljs">public ReadOnlyMemory&lt;byte&gt; CapabilitiesBytes { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.readonlymemory-1">ReadOnlyMemory</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="OpaDotNet_Compilation_Abstractions_CompilationParameters_CapabilitiesFilePath_" data-uid="OpaDotNet.Compilation.Abstractions.CompilationParameters.CapabilitiesFilePath*"></a>
+
+  <h3 id="OpaDotNet_Compilation_Abstractions_CompilationParameters_CapabilitiesFilePath" data-uid="OpaDotNet.Compilation.Abstractions.CompilationParameters.CapabilitiesFilePath">
+  CapabilitiesFilePath
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/CompilationParameters.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Capabilities file that defines the built-in functions and other language features that policies may depend on.
+<a class="xref" href="OpaDotNet.Compilation.Abstractions.CompilationParameters.html#OpaDotNet_Compilation_Abstractions_CompilationParameters_CapabilitiesFilePath">CapabilitiesFilePath</a> overrides any other specified capabilities.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string? CapabilitiesFilePath { get; set; }</code></pre>
   </div>
 
 
@@ -244,7 +276,7 @@ If <a class="xref" href="OpaDotNet.Compilation.Abstractions.CompilationParameter
 
   <h3 id="OpaDotNet_Compilation_Abstractions_CompilationParameters_CapabilitiesStream" data-uid="OpaDotNet.Compilation.Abstractions.CompilationParameters.CapabilitiesStream">
   CapabilitiesStream
-  
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/CompilationParameters.cs"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Capabilities json that defines the built-in functions and other language features that policies may depend on.</p>
@@ -252,7 +284,8 @@ If <a class="xref" href="OpaDotNet.Compilation.Abstractions.CompilationParameter
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Stream? CapabilitiesStream { get; init; }</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use CompilationParameters.CapabilitiesBytes instead&quot;)]
+public Stream? CapabilitiesStream { get; init; }</code></pre>
   </div>
 
 
@@ -272,19 +305,20 @@ If <a class="xref" href="OpaDotNet.Compilation.Abstractions.CompilationParameter
 
 
 
-  <a id="OpaDotNet_Compilation_Abstractions_CompilationParameters_Entrypoints_" data-uid="OpaDotNet.Compilation.Abstractions.CompilationParameters.Entrypoints*"></a>
+  <a id="OpaDotNet_Compilation_Abstractions_CompilationParameters_CapabilitiesVersion_" data-uid="OpaDotNet.Compilation.Abstractions.CompilationParameters.CapabilitiesVersion*"></a>
 
-  <h3 id="OpaDotNet_Compilation_Abstractions_CompilationParameters_Entrypoints" data-uid="OpaDotNet.Compilation.Abstractions.CompilationParameters.Entrypoints">
-  Entrypoints
-  
+  <h3 id="OpaDotNet_Compilation_Abstractions_CompilationParameters_CapabilitiesVersion" data-uid="OpaDotNet.Compilation.Abstractions.CompilationParameters.CapabilitiesVersion">
+  CapabilitiesVersion
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/CompilationParameters.cs"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Which documents (entrypoints) will be queried when asking for policy decisions.</p>
+  <div class="markdown level1 summary"><p>OPA capabilities version. If set, compiler will merge capabilities
+of specified version with any additional custom capabilities.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public IReadOnlySet&lt;string&gt;? Entrypoints { get; init; }</code></pre>
+    <pre><code class="lang-csharp hljs">public string? CapabilitiesVersion { get; set; }</code></pre>
   </div>
 
 
@@ -293,7 +327,103 @@ If <a class="xref" href="OpaDotNet.Compilation.Abstractions.CompilationParameter
 
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlyset-1">IReadOnlySet</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="OpaDotNet_Compilation_Abstractions_CompilationParameters_Debug_" data-uid="OpaDotNet.Compilation.Abstractions.CompilationParameters.Debug*"></a>
+
+  <h3 id="OpaDotNet_Compilation_Abstractions_CompilationParameters_Debug" data-uid="OpaDotNet.Compilation.Abstractions.CompilationParameters.Debug">
+  Debug
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/CompilationParameters.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>If <code>true</code> compiler will log debug information; otherwise <code>false</code>;</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Debug { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="OpaDotNet_Compilation_Abstractions_CompilationParameters_DisablePrintStatements_" data-uid="OpaDotNet.Compilation.Abstractions.CompilationParameters.DisablePrintStatements*"></a>
+
+  <h3 id="OpaDotNet_Compilation_Abstractions_CompilationParameters_DisablePrintStatements" data-uid="OpaDotNet.Compilation.Abstractions.CompilationParameters.DisablePrintStatements">
+  DisablePrintStatements
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/CompilationParameters.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>If print statements are not enabled, calls to <code>print()</code> are erased at compile-time</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool DisablePrintStatements { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="OpaDotNet_Compilation_Abstractions_CompilationParameters_Entrypoints_" data-uid="OpaDotNet.Compilation.Abstractions.CompilationParameters.Entrypoints*"></a>
+
+  <h3 id="OpaDotNet_Compilation_Abstractions_CompilationParameters_Entrypoints" data-uid="OpaDotNet.Compilation.Abstractions.CompilationParameters.Entrypoints">
+  Entrypoints
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/CompilationParameters.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Which documents (entrypoints) will be queried when asking for policy decisions.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IReadOnlyList&lt;string&gt;? Entrypoints { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
     <dd></dd>
   </dl>
 
@@ -308,7 +438,7 @@ If <a class="xref" href="OpaDotNet.Compilation.Abstractions.CompilationParameter
 
   <h3 id="OpaDotNet_Compilation_Abstractions_CompilationParameters_EqualityContract" data-uid="OpaDotNet.Compilation.Abstractions.CompilationParameters.EqualityContract">
   EqualityContract
-  
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/CompilationParameters.cs"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -335,19 +465,19 @@ If <a class="xref" href="OpaDotNet.Compilation.Abstractions.CompilationParameter
 
 
 
-  <a id="OpaDotNet_Compilation_Abstractions_CompilationParameters_IsBundle_" data-uid="OpaDotNet.Compilation.Abstractions.CompilationParameters.IsBundle*"></a>
+  <a id="OpaDotNet_Compilation_Abstractions_CompilationParameters_FollowSymlinks_" data-uid="OpaDotNet.Compilation.Abstractions.CompilationParameters.FollowSymlinks*"></a>
 
-  <h3 id="OpaDotNet_Compilation_Abstractions_CompilationParameters_IsBundle" data-uid="OpaDotNet.Compilation.Abstractions.CompilationParameters.IsBundle">
-  IsBundle
-  
+  <h3 id="OpaDotNet_Compilation_Abstractions_CompilationParameters_FollowSymlinks" data-uid="OpaDotNet.Compilation.Abstractions.CompilationParameters.FollowSymlinks">
+  FollowSymlinks
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/CompilationParameters.cs"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Specifies if compilation source if file or bundle.</p>
+  <div class="markdown level1 summary"><p>Follow symlinks in the input set of paths when building the bundle.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool IsBundle { get; init; }</code></pre>
+    <pre><code class="lang-csharp hljs">public bool FollowSymlinks { get; set; }</code></pre>
   </div>
 
 
@@ -367,6 +497,201 @@ If <a class="xref" href="OpaDotNet.Compilation.Abstractions.CompilationParameter
 
 
 
+  <a id="OpaDotNet_Compilation_Abstractions_CompilationParameters_Ignore_" data-uid="OpaDotNet.Compilation.Abstractions.CompilationParameters.Ignore*"></a>
+
+  <h3 id="OpaDotNet_Compilation_Abstractions_CompilationParameters_Ignore" data-uid="OpaDotNet.Compilation.Abstractions.CompilationParameters.Ignore">
+  Ignore
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/CompilationParameters.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Set file and directory names to ignore during loading (e.g., '.*' excludes hidden files).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IReadOnlySet&lt;string&gt; Ignore { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlyset-1">IReadOnlySet</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="OpaDotNet_Compilation_Abstractions_CompilationParameters_IsBundle_" data-uid="OpaDotNet.Compilation.Abstractions.CompilationParameters.IsBundle*"></a>
+
+  <h3 id="OpaDotNet_Compilation_Abstractions_CompilationParameters_IsBundle" data-uid="OpaDotNet.Compilation.Abstractions.CompilationParameters.IsBundle">
+  IsBundle
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/CompilationParameters.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Specifies if compilation source if file or bundle.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsBundle { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="OpaDotNet_Compilation_Abstractions_CompilationParameters_OutputPath_" data-uid="OpaDotNet.Compilation.Abstractions.CompilationParameters.OutputPath*"></a>
+
+  <h3 id="OpaDotNet_Compilation_Abstractions_CompilationParameters_OutputPath" data-uid="OpaDotNet.Compilation.Abstractions.CompilationParameters.OutputPath">
+  OutputPath
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/CompilationParameters.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Path compiler will use to store intermediate compilation artifacts.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string? OutputPath { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+  <h4 class="section" id="OpaDotNet_Compilation_Abstractions_CompilationParameters_OutputPath_remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Directory must exist and requires write permissions.</p>
+</div>
+
+
+
+
+  <a id="OpaDotNet_Compilation_Abstractions_CompilationParameters_PruneUnused_" data-uid="OpaDotNet.Compilation.Abstractions.CompilationParameters.PruneUnused*"></a>
+
+  <h3 id="OpaDotNet_Compilation_Abstractions_CompilationParameters_PruneUnused" data-uid="OpaDotNet.Compilation.Abstractions.CompilationParameters.PruneUnused">
+  PruneUnused
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/CompilationParameters.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Exclude dependents of entrypoints.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool PruneUnused { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="OpaDotNet_Compilation_Abstractions_CompilationParameters_RegoVersion_" data-uid="OpaDotNet.Compilation.Abstractions.CompilationParameters.RegoVersion*"></a>
+
+  <h3 id="OpaDotNet_Compilation_Abstractions_CompilationParameters_RegoVersion" data-uid="OpaDotNet.Compilation.Abstractions.CompilationParameters.RegoVersion">
+  RegoVersion
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/CompilationParameters.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Sets OPA features and behaviors that will be enabled by default.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RegoVersion RegoVersion { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="OpaDotNet.Compilation.Abstractions.RegoVersion.html">RegoVersion</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="OpaDotNet_Compilation_Abstractions_CompilationParameters_Revision_" data-uid="OpaDotNet.Compilation.Abstractions.CompilationParameters.Revision*"></a>
+
+  <h3 id="OpaDotNet_Compilation_Abstractions_CompilationParameters_Revision" data-uid="OpaDotNet.Compilation.Abstractions.CompilationParameters.Revision">
+  Revision
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/CompilationParameters.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Output bundle revision.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string? Revision { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <h2 class="section" id="methods">Methods
 </h2>
 
@@ -375,7 +700,7 @@ If <a class="xref" href="OpaDotNet.Compilation.Abstractions.CompilationParameter
 
   <h3 id="OpaDotNet_Compilation_Abstractions_CompilationParameters_Equals_OpaDotNet_Compilation_Abstractions_CompilationParameters_" data-uid="OpaDotNet.Compilation.Abstractions.CompilationParameters.Equals(OpaDotNet.Compilation.Abstractions.CompilationParameters)">
   Equals(CompilationParameters?)
-  
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/CompilationParameters.cs"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -411,7 +736,7 @@ If <a class="xref" href="OpaDotNet.Compilation.Abstractions.CompilationParameter
 
   <h3 id="OpaDotNet_Compilation_Abstractions_CompilationParameters_Equals_System_Object_" data-uid="OpaDotNet.Compilation.Abstractions.CompilationParameters.Equals(System.Object)">
   Equals(object?)
-  
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/CompilationParameters.cs"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -447,7 +772,7 @@ If <a class="xref" href="OpaDotNet.Compilation.Abstractions.CompilationParameter
 
   <h3 id="OpaDotNet_Compilation_Abstractions_CompilationParameters_GetHashCode" data-uid="OpaDotNet.Compilation.Abstractions.CompilationParameters.GetHashCode">
   GetHashCode()
-  
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/CompilationParameters.cs"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -478,7 +803,7 @@ If <a class="xref" href="OpaDotNet.Compilation.Abstractions.CompilationParameter
 
   <h3 id="OpaDotNet_Compilation_Abstractions_CompilationParameters_PrintMembers_System_Text_StringBuilder_" data-uid="OpaDotNet.Compilation.Abstractions.CompilationParameters.PrintMembers(System.Text.StringBuilder)">
   PrintMembers(StringBuilder)
-  
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/CompilationParameters.cs"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -514,7 +839,7 @@ If <a class="xref" href="OpaDotNet.Compilation.Abstractions.CompilationParameter
 
   <h3 id="OpaDotNet_Compilation_Abstractions_CompilationParameters_ToString" data-uid="OpaDotNet.Compilation.Abstractions.CompilationParameters.ToString">
   ToString()
-  
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/CompilationParameters.cs"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -541,37 +866,6 @@ If <a class="xref" href="OpaDotNet.Compilation.Abstractions.CompilationParameter
 
 
 
-  <a id="OpaDotNet_Compilation_Abstractions_CompilationParameters__Clone___" data-uid="OpaDotNet.Compilation.Abstractions.CompilationParameters.{Clone}$*"></a>
-
-  <h3 id="OpaDotNet_Compilation_Abstractions_CompilationParameters__Clone__" data-uid="OpaDotNet.Compilation.Abstractions.CompilationParameters.{Clone}$">
-  &lt;Clone&gt;$()
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual CompilationParameters &lt;Clone&gt;$()</code></pre>
-  </div>
-
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="OpaDotNet.Compilation.Abstractions.CompilationParameters.html">CompilationParameters</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
   <h2 class="section" id="operators">Operators
 </h2>
 
@@ -580,7 +874,7 @@ If <a class="xref" href="OpaDotNet.Compilation.Abstractions.CompilationParameter
 
   <h3 id="OpaDotNet_Compilation_Abstractions_CompilationParameters_op_Equality_OpaDotNet_Compilation_Abstractions_CompilationParameters_OpaDotNet_Compilation_Abstractions_CompilationParameters_" data-uid="OpaDotNet.Compilation.Abstractions.CompilationParameters.op_Equality(OpaDotNet.Compilation.Abstractions.CompilationParameters,OpaDotNet.Compilation.Abstractions.CompilationParameters)">
   operator ==(CompilationParameters?, CompilationParameters?)
-  
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/CompilationParameters.cs"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -618,7 +912,7 @@ If <a class="xref" href="OpaDotNet.Compilation.Abstractions.CompilationParameter
 
   <h3 id="OpaDotNet_Compilation_Abstractions_CompilationParameters_op_Inequality_OpaDotNet_Compilation_Abstractions_CompilationParameters_OpaDotNet_Compilation_Abstractions_CompilationParameters_" data-uid="OpaDotNet.Compilation.Abstractions.CompilationParameters.op_Inequality(OpaDotNet.Compilation.Abstractions.CompilationParameters,OpaDotNet.Compilation.Abstractions.CompilationParameters)">
   operator !=(CompilationParameters?, CompilationParameters?)
-  
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/CompilationParameters.cs"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -656,6 +950,7 @@ If <a class="xref" href="OpaDotNet.Compilation.Abstractions.CompilationParameter
 </article>
 
         <div class="contribution d-print-none">
+          <a href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/CompilationParameters.cs" class="edit-link">Edit this page</a>
         </div>
 
 

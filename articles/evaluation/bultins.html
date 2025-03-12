@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Custom Built-in Functions | OpaDotNet.Wasm </title>
+      <title>Custom Built-in Functions | OpaDotNet 2025.1.1 </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Custom Built-in Functions | OpaDotNet.Wasm ">
+      <meta name="title" content="Custom Built-in Functions | OpaDotNet 2025.1.1 ">
       
       
       <link rel="icon" href="../../favicon.ico">
@@ -16,7 +16,7 @@
       
       
       
-      <meta name="docfx:docurl" content="https://github.com/me-viper/OpaDotNet/blob/main/docs/articles/evaluation/bultins.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/docs/articles/evaluation/bultins.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -29,23 +29,23 @@
       <meta name="loc:changeTheme" content="Change theme">
       <meta name="loc:copy" content="Copy">
       <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
   </head>
-
-  <script type="module" src="./../../public/docfx.min.js"></script>
-
-  <script>
-    const theme = localStorage.getItem('theme') || 'auto'
-    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
-  </script>
-
 
   <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
     <header class="bg-body border-bottom">
       <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
         <div class="container-xxl flex-nowrap">
           <a class="navbar-brand" href="../../index.html">
-            <img id="logo" class="svg" src="../../logo.svg" alt="OpaDotNet.Wasm">
-            OpaDotNet.Wasm
+            <img id="logo" class="svg" src="../../logo.svg" alt="OpaDotNet">
+            OpaDotNet
           </a>
           <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
             <i class="bi bi-three-dots"></i>
@@ -73,7 +73,7 @@
 
       <div class="content">
         <div class="actionbar">
-          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
             <i class="bi bi-list"></i>
           </button>
 
@@ -100,6 +100,48 @@
 <h5>Note</h5>
 <p>OPA supports custom functions with up to four arguments.</p>
 </div>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_v30" role="tab" aria-controls="tabpanel_1_v30" data-tab="v30" tabindex="0" aria-selected="true">v3.0+</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_v25" role="tab" aria-controls="tabpanel_1_v25" data-tab="v25" tabindex="-1">v2.5</a>
+</li>
+</ul>
+<section id="tabpanel_1_v30" role="tabpanel" data-tab="v30">
+<pre><code class="lang-csharp">
+public class OpaCustomBuiltins : IOpaCustomBuiltins
+{
+    public void Reset()
+    {
+    }
+
+    // Built-in with zero arguments.
+    [OpaCustomBuiltin(&quot;custom.zeroArgBuiltin&quot;)]
+    public static string ZeroArgBuiltin() =&gt; &quot;hello&quot;;
+
+    // Built-in with one argument.
+    [OpaCustomBuiltin(&quot;custom.oneArgBuiltin&quot;)]
+    public static string OneArgBuiltin(string arg1) =&gt; $&quot;hello {arg1}&quot;;
+
+    // Built-in with two arguments.
+    [OpaCustomBuiltin(&quot;custom.twoArgBuiltin&quot;)]
+    public static string TwoArgBuiltin(string arg1, string arg2) =&gt; $&quot;hello {arg1} {arg2}&quot;;
+
+    // Built-in with three arguments.
+    [OpaCustomBuiltin(&quot;custom.threeArgBuiltin&quot;)]
+    public static string ThreeArgBuiltin(string arg1, string arg2, string arg3)
+        =&gt; $&quot;hello {arg1} {arg2} {arg3}&quot;;
+
+    // Built-in with four arguments.
+    [OpaCustomBuiltin(&quot;custom.fourArgBuiltin&quot;)]
+    public static string FourArgBuiltin(string arg1, string arg2, string arg3, string arg4)
+        =&gt; $&quot;hello {arg1} {arg2} {arg3} {arg4}&quot;;
+}
+
+</code></pre></section>
+<section id="tabpanel_1_v25" role="tabpanel" data-tab="v25" aria-hidden="true" hidden="hidden">
 <pre><code class="lang-csharp">
 public class CustomBuiltinsSample : DefaultOpaImportsAbi
 {
@@ -149,7 +191,9 @@ public class CustomBuiltinsSample : DefaultOpaImportsAbi
     }
 }
 
-</code></pre><h2 id="declaration">Declaration</h2>
+</code></pre></section>
+</div>
+<h2 id="declaration">Declaration</h2>
 <p>To make OPA aware of custom built-ins we need to add <a href="https://www.openpolicyagent.org/docs/latest/deployments/#capabilities">capabilities</a>](<a href="https://www.openpolicyagent.org/docs/latest/deployments/#capabilities">https://www.openpolicyagent.org/docs/latest/deployments/#capabilities</a>) file containing the types for declarations and runtime objects passed to your implementation.</p>
 <div class="IMPORTANT">
 <h5>Important</h5>
@@ -286,35 +330,85 @@ four_arg = x {
 </code></pre><h2 id="compilation">Compilation</h2>
 <p>Place policy and capabilities files into <code>bundle</code> directory.</p>
 <p>Next, we need to compile the policy bundle and make it aware of our custom built-ins:</p>
+<div class="tabGroup" id="tabgroup_2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_2_v30" role="tab" aria-controls="tabpanel_2_v30" data-tab="v30" tabindex="0" aria-selected="true">v3.0+</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_2_v25" role="tab" aria-controls="tabpanel_2_v25" data-tab="v25" tabindex="-1">v2.5</a>
+</li>
+</ul>
+<section id="tabpanel_2_v30" role="tabpanel" data-tab="v30">
 <pre><code class="lang-csharp">
-var opts = new RegoCompilerOptions
+var compilationParameters = new CompilationParameters
 {
     // Custom built-ins will be merged with capabilities v0.53.1.
     CapabilitiesVersion = &quot;v0.53.1&quot;,
-};
 
-var compiler = new RegoInteropCompiler(new OptionsWrapper&lt;RegoCompilerOptions&gt;(opts));
-var policy = await compiler.CompileBundle(
-    &quot;builtins&quot;,
-    new[]
-    {
+    // Provide built-ins capabilities for the compiler.
+    CapabilitiesFilePath = Path.Combine(&quot;builtins&quot;, &quot;capabilities.json&quot;),
+    Entrypoints =
+    [
         &quot;custom_builtins/zero_arg&quot;,
         &quot;custom_builtins/one_arg&quot;,
         &quot;custom_builtins/two_arg&quot;,
         &quot;custom_builtins/three_arg&quot;,
         &quot;custom_builtins/four_arg&quot;,
-    },
-    Path.Combine(&quot;builtins&quot;, &quot;capabilities.json&quot;)
+    ],
+};
+
+var compiler = new RegoInteropCompiler();
+var policy = await compiler.CompileBundleAsync(
+    &quot;builtins&quot;,
+    compilationParameters
     );
 
-var factory = new OpaBundleEvaluatorFactory(
-    policy,
-    importsAbiFactory: () =&gt; new CustomBuiltinsSample()
-    );
+var opts = new WasmPolicyEngineOptions();
+opts.ConfigureBuiltins(p =&gt; p.CustomBuiltins.Add(new OpaCustomBuiltins()));
+
+using var factory = new OpaBundleEvaluatorFactory(policy, opts);
 
 var engine = factory.Create();
 
-</code></pre><h2 id="execution">Execution</h2>
+</code></pre></section>
+<section id="tabpanel_2_v25" role="tabpanel" data-tab="v25" aria-hidden="true" hidden="hidden">
+
+<pre><code class="lang-csharp">var compilationParameters = new CompilationParameters
+{
+    // Custom built-ins will be merged with capabilities v0.53.1.
+    CapabilitiesVersion = &quot;v0.53.1&quot;,
+
+    // Provide built-ins capabilities for the compiler.
+    CapabilitiesFilePath = Path.Combine(&quot;builtins&quot;, &quot;capabilities.json&quot;),
+    Entrypoints =
+    [
+        &quot;custom_builtins/zero_arg&quot;,
+        &quot;custom_builtins/one_arg&quot;,
+        &quot;custom_builtins/two_arg&quot;,
+        &quot;custom_builtins/three_arg&quot;,
+        &quot;custom_builtins/four_arg&quot;,
+    ],
+};
+
+var compiler = new RegoInteropCompiler();
+
+await using var policy = await compiler.CompileBundleAsync(
+    &quot;builtins&quot;,
+    compilationParameters
+    );
+
+using var factory = new OpaBundleEvaluatorFactory(
+    policy,
+    null,
+    new DefaultBuiltinsFactory(() =&gt; new CustomBuiltinsSample())
+    );
+
+using var engine = factory.Create();
+</code></pre>
+</section>
+</div>
+<h2 id="execution">Execution</h2>
 <p>Now we can evaluate policies using custom built-ins:</p>
 <pre><code class="lang-csharp">
 var resultZeroArg = engine.Evaluate&lt;object, string&gt;(new object(), &quot;custom_builtins/zero_arg&quot;);
@@ -356,7 +450,7 @@ hello arg0 arg1 arg2 arg3
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/me-viper/OpaDotNet/blob/main/docs/articles/evaluation/bultins.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/docs/articles/evaluation/bultins.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

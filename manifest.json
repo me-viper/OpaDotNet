@@ -10,7 +10,11 @@
           "relative_path": "api/OpaDotNet.Compilation.Abstractions.BundleManifest.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Compilation.Abstractions.BundleManifest",
+      "Summary": "<p sourcefile=\"api/OpaDotNet.Compilation.Abstractions.BundleManifest.yml\" sourcestartlinenumber=\"1\">Policy bundle manifest.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -20,7 +24,11 @@
           "relative_path": "api/OpaDotNet.Compilation.Abstractions.BundleWriter.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Compilation.Abstractions.BundleWriter",
+      "Summary": "<p sourcefile=\"api/OpaDotNet.Compilation.Abstractions.BundleWriter.yml\" sourcestartlinenumber=\"1\">Implements writing files into OPA policy bundle.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -30,7 +38,11 @@
           "relative_path": "api/OpaDotNet.Compilation.Abstractions.CompilationParameters.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Compilation.Abstractions.CompilationParameters",
+      "Summary": "<p sourcefile=\"api/OpaDotNet.Compilation.Abstractions.CompilationParameters.yml\" sourcestartlinenumber=\"1\">Compilation parameters.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -40,7 +52,11 @@
           "relative_path": "api/OpaDotNet.Compilation.Abstractions.IRegoCompiler.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Compilation.Abstractions.IRegoCompiler",
+      "Summary": "<p sourcefile=\"api/OpaDotNet.Compilation.Abstractions.IRegoCompiler.yml\" sourcestartlinenumber=\"1\">Exposes an OPA policy compiler.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -50,7 +66,11 @@
           "relative_path": "api/OpaDotNet.Compilation.Abstractions.RegoCompilationException.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Compilation.Abstractions.RegoCompilationException",
+      "Summary": "<p sourcefile=\"api/OpaDotNet.Compilation.Abstractions.RegoCompilationException.yml\" sourcestartlinenumber=\"1\">The exception that is thrown when OPA policy compilation fails.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -60,17 +80,11 @@
           "relative_path": "api/OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpaDotNet.Compilation.Abstractions.RegoCompilerOptions.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions",
+      "Summary": "<p sourcefile=\"api/OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.yml\" sourcestartlinenumber=\"1\">Compilation extensions.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -80,7 +94,25 @@
           "relative_path": "api/OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Compilation.Abstractions.RegoCompilerVersion",
+      "Summary": "<p sourcefile=\"api/OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.yml\" sourcestartlinenumber=\"1\">Compiler version information.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Compilation.Abstractions.RegoVersion.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Compilation.Abstractions.RegoVersion.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Compilation.Abstractions.RegoVersion",
+      "Summary": "<p sourcefile=\"api/OpaDotNet.Compilation.Abstractions.RegoVersion.yml\" sourcestartlinenumber=\"1\">Language and runtime compatibility.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -90,7 +122,11 @@
           "relative_path": "api/OpaDotNet.Compilation.Abstractions.WasmMetadata.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Compilation.Abstractions.WasmMetadata",
+      "Summary": "<p sourcefile=\"api/OpaDotNet.Compilation.Abstractions.WasmMetadata.yml\" sourcestartlinenumber=\"1\">OPA WebAssembly (Wasm) module files in the bundle.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -100,7 +136,11 @@
           "relative_path": "api/OpaDotNet.Compilation.Abstractions.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Compilation.Abstractions",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -110,7 +150,11 @@
           "relative_path": "api/OpaDotNet.Compilation.Cli.RegoCliCompiler.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Compilation.Cli.RegoCliCompiler",
+      "Summary": "<p sourcefile=\"api/OpaDotNet.Compilation.Cli.RegoCliCompiler.yml\" sourcestartlinenumber=\"1\">Compiles OPA bundle with opa cli tool.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -120,7 +164,11 @@
           "relative_path": "api/OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Compilation.Cli.RegoCliCompilerOptions",
+      "Summary": "<p sourcefile=\"api/OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.yml\" sourcestartlinenumber=\"1\">Contains members that affect compiler behaviour.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -130,7 +178,11 @@
           "relative_path": "api/OpaDotNet.Compilation.Cli.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Compilation.Cli",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -140,7 +192,11 @@
           "relative_path": "api/OpaDotNet.Compilation.Interop.RegoInteropCompiler.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Compilation.Interop.RegoInteropCompiler",
+      "Summary": "<p sourcefile=\"api/OpaDotNet.Compilation.Interop.RegoInteropCompiler.yml\" sourcestartlinenumber=\"1\">Compiles OPA bundle with OPA SDK interop wrapper.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -150,247 +206,11 @@
           "relative_path": "api/OpaDotNet.Compilation.Interop.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/OpaDotNet.Extensions.AspNetCore.ClaimPolicyInput.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpaDotNet.Extensions.AspNetCore.ClaimPolicyInput.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/OpaDotNet.Extensions.AspNetCore.CompiledBundlePolicySource.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpaDotNet.Extensions.AspNetCore.CompiledBundlePolicySource.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/OpaDotNet.Extensions.AspNetCore.ConfigurationPolicySource.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpaDotNet.Extensions.AspNetCore.ConfigurationPolicySource.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/OpaDotNet.Extensions.AspNetCore.CoreImportsAbi.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpaDotNet.Extensions.AspNetCore.CoreImportsAbi.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/OpaDotNet.Extensions.AspNetCore.FileSystemPolicySource.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpaDotNet.Extensions.AspNetCore.FileSystemPolicySource.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/OpaDotNet.Extensions.AspNetCore.IConnectionInput.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpaDotNet.Extensions.AspNetCore.IConnectionInput.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/OpaDotNet.Extensions.AspNetCore.IHttpRequestPolicyInput.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpaDotNet.Extensions.AspNetCore.IHttpRequestPolicyInput.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/OpaDotNet.Extensions.AspNetCore.IOpaImportsAbiFactory.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpaDotNet.Extensions.AspNetCore.IOpaImportsAbiFactory.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/OpaDotNet.Extensions.AspNetCore.IOpaPolicyService.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpaDotNet.Extensions.AspNetCore.IOpaPolicyService.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/OpaDotNet.Extensions.AspNetCore.IOpaPolicySource.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpaDotNet.Extensions.AspNetCore.IOpaPolicySource.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/OpaDotNet.Extensions.AspNetCore.OpaEvaluatorPoolProvider.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpaDotNet.Extensions.AspNetCore.OpaEvaluatorPoolProvider.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/OpaDotNet.Extensions.AspNetCore.OpaPolicyAuthorizeAttribute.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpaDotNet.Extensions.AspNetCore.OpaPolicyAuthorizeAttribute.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/OpaDotNet.Extensions.AspNetCore.OpaPolicyDefinitionOptions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpaDotNet.Extensions.AspNetCore.OpaPolicyDefinitionOptions.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler-1.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/OpaDotNet.Extensions.AspNetCore.OpaPolicyOptions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpaDotNet.Extensions.AspNetCore.OpaPolicyOptions.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/OpaDotNet.Extensions.AspNetCore.OpaPolicySource.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpaDotNet.Extensions.AspNetCore.OpaPolicySource.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/OpaDotNet.Extensions.AspNetCore.PathPolicySource.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpaDotNet.Extensions.AspNetCore.PathPolicySource.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/OpaDotNet.Extensions.AspNetCore.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpaDotNet.Extensions.AspNetCore.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Compilation.Interop",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -400,7 +220,11 @@
           "relative_path": "api/OpaDotNet.Wasm.BuiltinArg.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Wasm.BuiltinArg",
+      "Summary": "<p sourcefile=\"api/OpaDotNet.Wasm.BuiltinArg.yml\" sourcestartlinenumber=\"1\">Represents built-in function argument.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -410,7 +234,67 @@
           "relative_path": "api/OpaDotNet.Wasm.BuiltinContext.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Wasm.BuiltinContext",
+      "Summary": "<p sourcefile=\"api/OpaDotNet.Wasm.BuiltinContext.yml\" sourcestartlinenumber=\"1\">Built-in function execution context.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Wasm.Builtins.IOpaCustomBuiltins.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Wasm.Builtins.IOpaCustomBuiltins.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Wasm.Builtins.IOpaCustomBuiltins",
+      "Summary": "<p sourcefile=\"api/OpaDotNet.Wasm.Builtins.IOpaCustomBuiltins.yml\" sourcestartlinenumber=\"1\">Custom OPA built-ins.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Wasm.Builtins.IOpaCustomPrinter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Wasm.Builtins.IOpaCustomPrinter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Wasm.Builtins.IOpaCustomPrinter",
+      "Summary": "<p sourcefile=\"api/OpaDotNet.Wasm.Builtins.IOpaCustomPrinter.yml\" sourcestartlinenumber=\"1\">When implemented provides a way to customize printing from the policy evaluation.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Wasm.Builtins.OpaCustomBuiltinAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Wasm.Builtins.OpaCustomBuiltinAttribute.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Wasm.Builtins.OpaCustomBuiltinAttribute",
+      "Summary": "<p sourcefile=\"api/OpaDotNet.Wasm.Builtins.OpaCustomBuiltinAttribute.yml\" sourcestartlinenumber=\"1\">Marks custom built-in implementation.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Wasm.Builtins.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Wasm.Builtins.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Wasm.Builtins",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -420,7 +304,11 @@
           "relative_path": "api/OpaDotNet.Wasm.DefaultOpaImportsAbi.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Wasm.DefaultOpaImportsAbi",
+      "Summary": "<p sourcefile=\"api/OpaDotNet.Wasm.DefaultOpaImportsAbi.yml\" sourcestartlinenumber=\"1\">Default built-in functions implementation.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -430,7 +318,11 @@
           "relative_path": "api/OpaDotNet.Wasm.ExportResolutionException.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Wasm.ExportResolutionException",
+      "Summary": "<p sourcefile=\"api/OpaDotNet.Wasm.ExportResolutionException.yml\" sourcestartlinenumber=\"1\">The exception that is thrown when specified export does not exist in WASM module.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -440,7 +332,11 @@
           "relative_path": "api/OpaDotNet.Wasm.Features.IOpaEvaluatorFeature.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Wasm.Features.IOpaEvaluatorFeature",
+      "Summary": "<p sourcefile=\"api/OpaDotNet.Wasm.Features.IOpaEvaluatorFeature.yml\" sourcestartlinenumber=\"1\">Exposes ABI version dependent feature.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -450,7 +346,11 @@
           "relative_path": "api/OpaDotNet.Wasm.Features.IUpdateDataFeature.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Wasm.Features.IUpdateDataFeature",
+      "Summary": "<p sourcefile=\"api/OpaDotNet.Wasm.Features.IUpdateDataFeature.yml\" sourcestartlinenumber=\"1\">External data manipulation.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -460,7 +360,11 @@
           "relative_path": "api/OpaDotNet.Wasm.Features.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Wasm.Features",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -470,7 +374,11 @@
           "relative_path": "api/OpaDotNet.Wasm.ICapabilitiesProvider.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Wasm.ICapabilitiesProvider",
+      "Summary": "<p sourcefile=\"api/OpaDotNet.Wasm.ICapabilitiesProvider.yml\" sourcestartlinenumber=\"1\">Exposes OPA built-ins implementation capabilities.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -480,7 +388,25 @@
           "relative_path": "api/OpaDotNet.Wasm.IOpaEvaluator.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Wasm.IOpaEvaluator",
+      "Summary": "<p sourcefile=\"api/OpaDotNet.Wasm.IOpaEvaluator.yml\" sourcestartlinenumber=\"1\">OPA policy evaluator.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Wasm.IOpaEvaluatorFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Wasm.IOpaEvaluatorFactory.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Wasm.IOpaEvaluatorFactory",
+      "Summary": "<p sourcefile=\"api/OpaDotNet.Wasm.IOpaEvaluatorFactory.yml\" sourcestartlinenumber=\"1\">A factory abstraction for a component that can create <xref href=\"OpaDotNet.Wasm.IOpaEvaluator\" data-throw-if-not-resolved=\"false\"></xref> instances.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -490,7 +416,11 @@
           "relative_path": "api/OpaDotNet.Wasm.IOpaImportsAbi.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Wasm.IOpaImportsAbi",
+      "Summary": "<p sourcefile=\"api/OpaDotNet.Wasm.IOpaImportsAbi.yml\" sourcestartlinenumber=\"1\">Exposes OPA built-ins implementation.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -500,7 +430,11 @@
           "relative_path": "api/OpaDotNet.Wasm.OpaBundleEvaluatorFactory.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Wasm.OpaBundleEvaluatorFactory",
+      "Summary": "<p sourcefile=\"api/OpaDotNet.Wasm.OpaBundleEvaluatorFactory.yml\" sourcestartlinenumber=\"1\">A factory abstraction for a component that can create <xref href=\"OpaDotNet.Wasm.IOpaEvaluator\" data-throw-if-not-resolved=\"false\"></xref> instances from OPA policy bundle.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -510,17 +444,11 @@
           "relative_path": "api/OpaDotNet.Wasm.OpaEvaluationException.html"
         }
       },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/OpaDotNet.Wasm.OpaEvaluatorFactory.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpaDotNet.Wasm.OpaEvaluatorFactory.html"
-        }
-      },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Wasm.OpaEvaluationException",
+      "Summary": "<p sourcefile=\"api/OpaDotNet.Wasm.OpaEvaluationException.yml\" sourcestartlinenumber=\"1\">The exception that is thrown when an error occurs while evaluating OPA policy.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -530,7 +458,11 @@
           "relative_path": "api/OpaDotNet.Wasm.OpaRuntimeException.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Wasm.OpaRuntimeException",
+      "Summary": "<p sourcefile=\"api/OpaDotNet.Wasm.OpaRuntimeException.yml\" sourcestartlinenumber=\"1\">The exception that is thrown when OPA runtime encounters an error.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -540,7 +472,11 @@
           "relative_path": "api/OpaDotNet.Wasm.OpaWasmEvaluatorFactory.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Wasm.OpaWasmEvaluatorFactory",
+      "Summary": "<p sourcefile=\"api/OpaDotNet.Wasm.OpaWasmEvaluatorFactory.yml\" sourcestartlinenumber=\"1\">A factory abstraction for a component that can create <xref href=\"OpaDotNet.Wasm.IOpaEvaluator\" data-throw-if-not-resolved=\"false\"></xref> instances from OPA policy WASM binary.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -550,7 +486,11 @@
           "relative_path": "api/OpaDotNet.Wasm.PolicyEvaluationResult-1.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Wasm.PolicyEvaluationResult<T>",
+      "Summary": "<p sourcefile=\"api/OpaDotNet.Wasm.PolicyEvaluationResult-1.yml\" sourcestartlinenumber=\"1\">Policy evaluation result.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -560,7 +500,95 @@
           "relative_path": "api/OpaDotNet.Wasm.RegoValueFormat.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Wasm.RegoValueFormat",
+      "Summary": "<p sourcefile=\"api/OpaDotNet.Wasm.RegoValueFormat.yml\" sourcestartlinenumber=\"1\">Value format.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Wasm.SignatureValidationOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Wasm.SignatureValidationOptions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Wasm.SignatureValidationOptions",
+      "Summary": "<p sourcefile=\"api/OpaDotNet.Wasm.SignatureValidationOptions.yml\" sourcestartlinenumber=\"1\">Contains members that affect OPA bundle signature validation.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Wasm.SignatureValidationType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Wasm.SignatureValidationType.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Wasm.SignatureValidationType",
+      "Summary": "<p sourcefile=\"api/OpaDotNet.Wasm.SignatureValidationType.yml\" sourcestartlinenumber=\"1\">Signature validation type.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Wasm.Validation.BundleChecksumValidationException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Wasm.Validation.BundleChecksumValidationException.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Wasm.Validation.BundleChecksumValidationException",
+      "Summary": "<p sourcefile=\"api/OpaDotNet.Wasm.Validation.BundleChecksumValidationException.yml\" sourcestartlinenumber=\"1\">The exception that is thrown if hash of file in the bundle mismatches hash in the signature.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Wasm.Validation.BundleSignatureValidationException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Wasm.Validation.BundleSignatureValidationException.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Wasm.Validation.BundleSignatureValidationException",
+      "Summary": "<p sourcefile=\"api/OpaDotNet.Wasm.Validation.BundleSignatureValidationException.yml\" sourcestartlinenumber=\"1\">The exception that is thrown when there is bundle signature validation error.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Wasm.Validation.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Wasm.Validation.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Wasm.Validation",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Wasm.WasmBuiltinsOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Wasm.WasmBuiltinsOptions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Wasm.WasmBuiltinsOptions",
+      "Summary": "<p sourcefile=\"api/OpaDotNet.Wasm.WasmBuiltinsOptions.yml\" sourcestartlinenumber=\"1\">OPA built-ins configuration.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -570,7 +598,11 @@
           "relative_path": "api/OpaDotNet.Wasm.WasmPolicyEngineOptions.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Wasm.WasmPolicyEngineOptions",
+      "Summary": "<p sourcefile=\"api/OpaDotNet.Wasm.WasmPolicyEngineOptions.yml\" sourcestartlinenumber=\"1\">Contains members that affect OPA policy engine configuration.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -580,7 +612,11 @@
           "relative_path": "api/OpaDotNet.Wasm.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Wasm",
+      "Summary": null
     },
     {
       "type": "Conceptual",
@@ -596,11 +632,11 @@
       "type": "Toc",
       "source_relative_path": "api/toc.yml",
       "output": {
-        ".html": {
-          "relative_path": "api/toc.html"
-        },
         ".json": {
           "relative_path": "api/toc.json"
+        },
+        ".html": {
+          "relative_path": "api/toc.html"
         }
       },
       "version": ""
@@ -759,11 +795,11 @@
       "type": "Toc",
       "source_relative_path": "articles/toc.yml",
       "output": {
-        ".html": {
-          "relative_path": "articles/toc.html"
-        },
         ".json": {
           "relative_path": "articles/toc.json"
+        },
+        ".html": {
+          "relative_path": "articles/toc.html"
         }
       },
       "version": ""
@@ -792,11 +828,11 @@
       "type": "Toc",
       "source_relative_path": "toc.yml",
       "output": {
-        ".html": {
-          "relative_path": "toc.html"
-        },
         ".json": {
           "relative_path": "toc.json"
+        },
+        ".html": {
+          "relative_path": "toc.html"
         }
       },
       "version": ""

@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Class RegoCompilerExtensions | OpaDotNet.Wasm </title>
+      <title>Class RegoCompilerExtensions | OpaDotNet 2025.1.1 </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class RegoCompilerExtensions | OpaDotNet.Wasm ">
+      <meta name="title" content="Class RegoCompilerExtensions | OpaDotNet 2025.1.1 ">
       
       <meta name="description" content="Compilation extensions.">
       <link rel="icon" href="../favicon.ico">
@@ -29,23 +29,23 @@
       <meta name="loc:changeTheme" content="Change theme">
       <meta name="loc:copy" content="Copy">
       <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
   </head>
-
-  <script type="module" src="./../public/docfx.min.js"></script>
-
-  <script>
-    const theme = localStorage.getItem('theme') || 'auto'
-    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
-  </script>
-
 
   <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
     <header class="bg-body border-bottom">
       <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
         <div class="container-xxl flex-nowrap">
           <a class="navbar-brand" href="../index.html">
-            <img id="logo" class="svg" src="../logo.svg" alt="OpaDotNet.Wasm">
-            OpaDotNet.Wasm
+            <img id="logo" class="svg" src="../logo.svg" alt="OpaDotNet">
+            OpaDotNet
           </a>
           <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
             <i class="bi bi-three-dots"></i>
@@ -73,7 +73,7 @@
 
       <div class="content">
         <div class="actionbar">
-          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
             <i class="bi bi-list"></i>
           </button>
 
@@ -85,7 +85,7 @@
 
 
   <h1 id="OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions" data-uid="OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions" class="text-break">
-Class RegoCompilerExtensions  
+Class RegoCompilerExtensions  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/RegoCompilerExtensions.cs"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -153,7 +153,7 @@ Class RegoCompilerExtensions
 
   <h3 id="OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileBundle_OpaDotNet_Compilation_Abstractions_IRegoCompiler_System_String_System_Collections_Generic_IEnumerable_System_String__System_String_System_Threading_CancellationToken_" data-uid="OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileBundle(OpaDotNet.Compilation.Abstractions.IRegoCompiler,System.String,System.Collections.Generic.IEnumerable{System.String},System.String,System.Threading.CancellationToken)">
   CompileBundle(IRegoCompiler, string, IEnumerable&lt;string&gt;?, string?, CancellationToken)
-  
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/RegoCompilerExtensions.cs"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Compiles OPA bundle from bundle directory.</p>
@@ -161,7 +161,8 @@ Class RegoCompilerExtensions
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;Stream&gt; CompileBundle(this IRegoCompiler compiler, string bundlePath, IEnumerable&lt;string&gt;? entrypoints = null, string? capabilitiesFilePath = null, CancellationToken cancellationToken = default)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use IRegoCompiler.CompileBundleAsync instead&quot;)]
+public static Task&lt;Stream&gt; CompileBundle(this IRegoCompiler compiler, string bundlePath, IEnumerable&lt;string&gt;? entrypoints = null, string? capabilitiesFilePath = null, CancellationToken cancellationToken = default)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -200,11 +201,209 @@ Class RegoCompilerExtensions
 
 
 
+  <a id="OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileBundleAsync_" data-uid="OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileBundleAsync*"></a>
+
+  <h3 id="OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileBundleAsync_OpaDotNet_Compilation_Abstractions_IRegoCompiler_System_IO_Stream_OpaDotNet_Compilation_Abstractions_CompilationParameters_" data-uid="OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileBundleAsync(OpaDotNet.Compilation.Abstractions.IRegoCompiler,System.IO.Stream,OpaDotNet.Compilation.Abstractions.CompilationParameters)">
+  CompileBundleAsync(IRegoCompiler, Stream, CompilationParameters)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/RegoCompilerExtensions.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Compiles OPA bundle from rego bundle stream.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task&lt;Stream&gt; CompileBundleAsync(this IRegoCompiler compiler, Stream bundle, CompilationParameters parameters)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>compiler</code> <a class="xref" href="OpaDotNet.Compilation.Abstractions.IRegoCompiler.html">IRegoCompiler</a></dt>
+    <dd><p>Compiler instance.</p>
+</dd>
+    <dt><code>bundle</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a></dt>
+    <dd><p>Rego bundle stream.</p>
+</dd>
+    <dt><code>parameters</code> <a class="xref" href="OpaDotNet.Compilation.Abstractions.CompilationParameters.html">CompilationParameters</a></dt>
+    <dd><p>Compiler parameters.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a>&gt;</dt>
+    <dd><p>Compiled OPA bundle stream.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section" id="OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileBundleAsync_OpaDotNet_Compilation_Abstractions_IRegoCompiler_System_IO_Stream_OpaDotNet_Compilation_Abstractions_CompilationParameters__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>This method always compiles contents as bundle.</p>
+</div>
+
+
+
+
+  <a id="OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileBundleAsync_" data-uid="OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileBundleAsync*"></a>
+
+  <h3 id="OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileBundleAsync_OpaDotNet_Compilation_Abstractions_IRegoCompiler_System_IO_Stream_OpaDotNet_Compilation_Abstractions_CompilationParameters_System_Threading_CancellationToken_" data-uid="OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileBundleAsync(OpaDotNet.Compilation.Abstractions.IRegoCompiler,System.IO.Stream,OpaDotNet.Compilation.Abstractions.CompilationParameters,System.Threading.CancellationToken)">
+  CompileBundleAsync(IRegoCompiler, Stream, CompilationParameters, CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/RegoCompilerExtensions.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Compiles OPA bundle from rego bundle stream.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task&lt;Stream&gt; CompileBundleAsync(this IRegoCompiler compiler, Stream bundle, CompilationParameters parameters, CancellationToken cancellationToken)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>compiler</code> <a class="xref" href="OpaDotNet.Compilation.Abstractions.IRegoCompiler.html">IRegoCompiler</a></dt>
+    <dd><p>Compiler instance.</p>
+</dd>
+    <dt><code>bundle</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a></dt>
+    <dd><p>Rego bundle stream.</p>
+</dd>
+    <dt><code>parameters</code> <a class="xref" href="OpaDotNet.Compilation.Abstractions.CompilationParameters.html">CompilationParameters</a></dt>
+    <dd><p>Compiler parameters.</p>
+</dd>
+    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd><p>Cancellation token.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a>&gt;</dt>
+    <dd><p>Compiled OPA bundle stream.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section" id="OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileBundleAsync_OpaDotNet_Compilation_Abstractions_IRegoCompiler_System_IO_Stream_OpaDotNet_Compilation_Abstractions_CompilationParameters_System_Threading_CancellationToken__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>This method always compiles contents as bundle.</p>
+</div>
+
+
+
+
+  <a id="OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileBundleAsync_" data-uid="OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileBundleAsync*"></a>
+
+  <h3 id="OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileBundleAsync_OpaDotNet_Compilation_Abstractions_IRegoCompiler_System_String_OpaDotNet_Compilation_Abstractions_CompilationParameters_" data-uid="OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileBundleAsync(OpaDotNet.Compilation.Abstractions.IRegoCompiler,System.String,OpaDotNet.Compilation.Abstractions.CompilationParameters)">
+  CompileBundleAsync(IRegoCompiler, string, CompilationParameters)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/RegoCompilerExtensions.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Compiles OPA bundle from path.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task&lt;Stream&gt; CompileBundleAsync(this IRegoCompiler compiler, string path, CompilationParameters parameters)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>compiler</code> <a class="xref" href="OpaDotNet.Compilation.Abstractions.IRegoCompiler.html">IRegoCompiler</a></dt>
+    <dd><p>Compiler instance.</p>
+</dd>
+    <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Bundle directory or bundle archive path.</p>
+</dd>
+    <dt><code>parameters</code> <a class="xref" href="OpaDotNet.Compilation.Abstractions.CompilationParameters.html">CompilationParameters</a></dt>
+    <dd><p>Compiler parameters.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a>&gt;</dt>
+    <dd><p>Compiled OPA bundle stream.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section" id="OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileBundleAsync_OpaDotNet_Compilation_Abstractions_IRegoCompiler_System_String_OpaDotNet_Compilation_Abstractions_CompilationParameters__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>This method always compiles contents as bundle.</p>
+</div>
+
+
+
+
+  <a id="OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileBundleAsync_" data-uid="OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileBundleAsync*"></a>
+
+  <h3 id="OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileBundleAsync_OpaDotNet_Compilation_Abstractions_IRegoCompiler_System_String_OpaDotNet_Compilation_Abstractions_CompilationParameters_System_Threading_CancellationToken_" data-uid="OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileBundleAsync(OpaDotNet.Compilation.Abstractions.IRegoCompiler,System.String,OpaDotNet.Compilation.Abstractions.CompilationParameters,System.Threading.CancellationToken)">
+  CompileBundleAsync(IRegoCompiler, string, CompilationParameters, CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/RegoCompilerExtensions.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Compiles OPA bundle from rego bundle stream.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task&lt;Stream&gt; CompileBundleAsync(this IRegoCompiler compiler, string path, CompilationParameters parameters, CancellationToken cancellationToken)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>compiler</code> <a class="xref" href="OpaDotNet.Compilation.Abstractions.IRegoCompiler.html">IRegoCompiler</a></dt>
+    <dd><p>Compiler instance.</p>
+</dd>
+    <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Bundle directory or bundle archive path.</p>
+</dd>
+    <dt><code>parameters</code> <a class="xref" href="OpaDotNet.Compilation.Abstractions.CompilationParameters.html">CompilationParameters</a></dt>
+    <dd><p>Compiler parameters.</p>
+</dd>
+    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd><p>Cancellation token.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a>&gt;</dt>
+    <dd><p>Compiled OPA bundle stream.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section" id="OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileBundleAsync_OpaDotNet_Compilation_Abstractions_IRegoCompiler_System_String_OpaDotNet_Compilation_Abstractions_CompilationParameters_System_Threading_CancellationToken__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>This method always compiles contents as bundle.</p>
+</div>
+
+
+
+
   <a id="OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileFile_" data-uid="OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileFile*"></a>
 
   <h3 id="OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileFile_OpaDotNet_Compilation_Abstractions_IRegoCompiler_System_String_System_Collections_Generic_IEnumerable_System_String__System_Threading_CancellationToken_" data-uid="OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileFile(OpaDotNet.Compilation.Abstractions.IRegoCompiler,System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
   CompileFile(IRegoCompiler, string, IEnumerable&lt;string&gt;?, CancellationToken)
-  
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/RegoCompilerExtensions.cs"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Compiles OPA bundle from rego policy source file.</p>
@@ -212,7 +411,8 @@ Class RegoCompilerExtensions
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;Stream&gt; CompileFile(this IRegoCompiler compiler, string sourceFilePath, IEnumerable&lt;string&gt;? entrypoints = null, CancellationToken cancellationToken = default)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use IRegoCompiler.CompileFileAsync instead&quot;)]
+public static Task&lt;Stream&gt; CompileFile(this IRegoCompiler compiler, string sourceFilePath, IEnumerable&lt;string&gt;? entrypoints = null, CancellationToken cancellationToken = default)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -248,11 +448,104 @@ Class RegoCompilerExtensions
 
 
 
+  <a id="OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileFileAsync_" data-uid="OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileFileAsync*"></a>
+
+  <h3 id="OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileFileAsync_OpaDotNet_Compilation_Abstractions_IRegoCompiler_System_String_OpaDotNet_Compilation_Abstractions_CompilationParameters_" data-uid="OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileFileAsync(OpaDotNet.Compilation.Abstractions.IRegoCompiler,System.String,OpaDotNet.Compilation.Abstractions.CompilationParameters)">
+  CompileFileAsync(IRegoCompiler, string, CompilationParameters)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/RegoCompilerExtensions.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Compiles OPA bundle from rego bundle stream.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task&lt;Stream&gt; CompileFileAsync(this IRegoCompiler compiler, string sourceFilePath, CompilationParameters parameters)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>compiler</code> <a class="xref" href="OpaDotNet.Compilation.Abstractions.IRegoCompiler.html">IRegoCompiler</a></dt>
+    <dd><p>Compiler instance.</p>
+</dd>
+    <dt><code>sourceFilePath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Source file path.</p>
+</dd>
+    <dt><code>parameters</code> <a class="xref" href="OpaDotNet.Compilation.Abstractions.CompilationParameters.html">CompilationParameters</a></dt>
+    <dd><p>Compiler parameters.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a>&gt;</dt>
+    <dd><p>Compiled OPA bundle stream.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileFileAsync_" data-uid="OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileFileAsync*"></a>
+
+  <h3 id="OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileFileAsync_OpaDotNet_Compilation_Abstractions_IRegoCompiler_System_String_OpaDotNet_Compilation_Abstractions_CompilationParameters_System_Threading_CancellationToken_" data-uid="OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileFileAsync(OpaDotNet.Compilation.Abstractions.IRegoCompiler,System.String,OpaDotNet.Compilation.Abstractions.CompilationParameters,System.Threading.CancellationToken)">
+  CompileFileAsync(IRegoCompiler, string, CompilationParameters, CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/RegoCompilerExtensions.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Compiles OPA bundle from rego bundle stream.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task&lt;Stream&gt; CompileFileAsync(this IRegoCompiler compiler, string sourceFilePath, CompilationParameters parameters, CancellationToken cancellationToken)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>compiler</code> <a class="xref" href="OpaDotNet.Compilation.Abstractions.IRegoCompiler.html">IRegoCompiler</a></dt>
+    <dd><p>Compiler instance.</p>
+</dd>
+    <dt><code>sourceFilePath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Source file path.</p>
+</dd>
+    <dt><code>parameters</code> <a class="xref" href="OpaDotNet.Compilation.Abstractions.CompilationParameters.html">CompilationParameters</a></dt>
+    <dd><p>Compiler parameters.</p>
+</dd>
+    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd><p>Cancellation token.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a>&gt;</dt>
+    <dd><p>Compiled OPA bundle stream.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileSource_" data-uid="OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileSource*"></a>
 
   <h3 id="OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileSource_OpaDotNet_Compilation_Abstractions_IRegoCompiler_System_String_System_Collections_Generic_IEnumerable_System_String__System_Threading_CancellationToken_" data-uid="OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileSource(OpaDotNet.Compilation.Abstractions.IRegoCompiler,System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
   CompileSource(IRegoCompiler, string, IEnumerable&lt;string&gt;?, CancellationToken)
-  
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/RegoCompilerExtensions.cs"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Compiles OPA bundle from rego policy source code.</p>
@@ -260,7 +553,8 @@ Class RegoCompilerExtensions
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;Stream&gt; CompileSource(this IRegoCompiler compiler, string source, IEnumerable&lt;string&gt;? entrypoints = null, CancellationToken cancellationToken = default)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use IRegoCompiler.CompileSourceAsync instead&quot;)]
+public static Task&lt;Stream&gt; CompileSource(this IRegoCompiler compiler, string source, IEnumerable&lt;string&gt;? entrypoints = null, CancellationToken cancellationToken = default)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -296,11 +590,110 @@ Class RegoCompilerExtensions
 
 
 
+  <a id="OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileSourceAsync_" data-uid="OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileSourceAsync*"></a>
+
+  <h3 id="OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileSourceAsync_OpaDotNet_Compilation_Abstractions_IRegoCompiler_System_String_OpaDotNet_Compilation_Abstractions_CompilationParameters_" data-uid="OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileSourceAsync(OpaDotNet.Compilation.Abstractions.IRegoCompiler,System.String,OpaDotNet.Compilation.Abstractions.CompilationParameters)">
+  CompileSourceAsync(IRegoCompiler, string, CompilationParameters)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/RegoCompilerExtensions.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Compiles OPA bundle from rego policy source code.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task&lt;Stream&gt; CompileSourceAsync(this IRegoCompiler compiler, string source, CompilationParameters parameters)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>compiler</code> <a class="xref" href="OpaDotNet.Compilation.Abstractions.IRegoCompiler.html">IRegoCompiler</a></dt>
+    <dd><p>Compiler instance.</p>
+</dd>
+    <dt><code>source</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Source file path.</p>
+</dd>
+    <dt><code>parameters</code> <a class="xref" href="OpaDotNet.Compilation.Abstractions.CompilationParameters.html">CompilationParameters</a></dt>
+    <dd><p>Compiler parameters.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a>&gt;</dt>
+    <dd><p>Compiled OPA bundle stream.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section" id="OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileSourceAsync_OpaDotNet_Compilation_Abstractions_IRegoCompiler_System_String_OpaDotNet_Compilation_Abstractions_CompilationParameters__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>This method always compiles contents as bundle.</p>
+</div>
+
+
+
+
+  <a id="OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileSourceAsync_" data-uid="OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileSourceAsync*"></a>
+
+  <h3 id="OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileSourceAsync_OpaDotNet_Compilation_Abstractions_IRegoCompiler_System_String_OpaDotNet_Compilation_Abstractions_CompilationParameters_System_Threading_CancellationToken_" data-uid="OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileSourceAsync(OpaDotNet.Compilation.Abstractions.IRegoCompiler,System.String,OpaDotNet.Compilation.Abstractions.CompilationParameters,System.Threading.CancellationToken)">
+  CompileSourceAsync(IRegoCompiler, string, CompilationParameters, CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/RegoCompilerExtensions.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Compiles OPA bundle from rego policy source code.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task&lt;Stream&gt; CompileSourceAsync(this IRegoCompiler compiler, string source, CompilationParameters parameters, CancellationToken cancellationToken)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>compiler</code> <a class="xref" href="OpaDotNet.Compilation.Abstractions.IRegoCompiler.html">IRegoCompiler</a></dt>
+    <dd><p>Compiler instance.</p>
+</dd>
+    <dt><code>source</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Source file path.</p>
+</dd>
+    <dt><code>parameters</code> <a class="xref" href="OpaDotNet.Compilation.Abstractions.CompilationParameters.html">CompilationParameters</a></dt>
+    <dd><p>Compiler parameters.</p>
+</dd>
+    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd><p>Cancellation token.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a>&gt;</dt>
+    <dd><p>Compiled OPA bundle stream.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section" id="OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileSourceAsync_OpaDotNet_Compilation_Abstractions_IRegoCompiler_System_String_OpaDotNet_Compilation_Abstractions_CompilationParameters_System_Threading_CancellationToken__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>This method always compiles contents as bundle.</p>
+</div>
+
+
+
+
   <a id="OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileStream_" data-uid="OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileStream*"></a>
 
   <h3 id="OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileStream_OpaDotNet_Compilation_Abstractions_IRegoCompiler_System_IO_Stream_System_Collections_Generic_IEnumerable_System_String__System_IO_Stream_System_Threading_CancellationToken_" data-uid="OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileStream(OpaDotNet.Compilation.Abstractions.IRegoCompiler,System.IO.Stream,System.Collections.Generic.IEnumerable{System.String},System.IO.Stream,System.Threading.CancellationToken)">
   CompileStream(IRegoCompiler, Stream, IEnumerable&lt;string&gt;?, Stream?, CancellationToken)
-  
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/RegoCompilerExtensions.cs"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Compiles OPA bundle from rego bundle stream.</p>
@@ -308,7 +701,8 @@ Class RegoCompilerExtensions
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;Stream&gt; CompileStream(this IRegoCompiler compiler, Stream bundle, IEnumerable&lt;string&gt;? entrypoints = null, Stream? capabilitiesJson = null, CancellationToken cancellationToken = default)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use IRegoCompiler.CompileBundleAsync instead&quot;)]
+public static Task&lt;Stream&gt; CompileStream(this IRegoCompiler compiler, Stream bundle, IEnumerable&lt;string&gt;? entrypoints = null, Stream? capabilitiesJson = null, CancellationToken cancellationToken = default)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -351,6 +745,7 @@ Class RegoCompilerExtensions
 </article>
 
         <div class="contribution d-print-none">
+          <a href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/RegoCompilerExtensions.cs" class="edit-link">Edit this page</a>
         </div>
 
 

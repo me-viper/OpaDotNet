@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Class WasmMetadata | OpaDotNet.Wasm </title>
+      <title>Class WasmMetadata | OpaDotNet 2025.1.1 </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class WasmMetadata | OpaDotNet.Wasm ">
+      <meta name="title" content="Class WasmMetadata | OpaDotNet 2025.1.1 ">
       
       <meta name="description" content="OPA WebAssembly (Wasm) module files in the bundle.">
       <link rel="icon" href="../favicon.ico">
@@ -29,23 +29,23 @@
       <meta name="loc:changeTheme" content="Change theme">
       <meta name="loc:copy" content="Copy">
       <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
   </head>
-
-  <script type="module" src="./../public/docfx.min.js"></script>
-
-  <script>
-    const theme = localStorage.getItem('theme') || 'auto'
-    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
-  </script>
-
 
   <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
     <header class="bg-body border-bottom">
       <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
         <div class="container-xxl flex-nowrap">
           <a class="navbar-brand" href="../index.html">
-            <img id="logo" class="svg" src="../logo.svg" alt="OpaDotNet.Wasm">
-            OpaDotNet.Wasm
+            <img id="logo" class="svg" src="../logo.svg" alt="OpaDotNet">
+            OpaDotNet
           </a>
           <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
             <i class="bi bi-three-dots"></i>
@@ -73,7 +73,7 @@
 
       <div class="content">
         <div class="actionbar">
-          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
             <i class="bi bi-list"></i>
           </button>
 
@@ -85,7 +85,7 @@
 
 
   <h1 id="OpaDotNet_Compilation_Abstractions_WasmMetadata" data-uid="OpaDotNet.Compilation.Abstractions.WasmMetadata" class="text-break">
-Class WasmMetadata  
+Class WasmMetadata  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/BundleManifest.cs"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -150,7 +150,7 @@ Class WasmMetadata
 
   <h3 id="OpaDotNet_Compilation_Abstractions_WasmMetadata__ctor_OpaDotNet_Compilation_Abstractions_WasmMetadata_" data-uid="OpaDotNet.Compilation.Abstractions.WasmMetadata.#ctor(OpaDotNet.Compilation.Abstractions.WasmMetadata)">
   WasmMetadata(WasmMetadata)
-  
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/BundleManifest.cs"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -181,7 +181,7 @@ Class WasmMetadata
 
   <h3 id="OpaDotNet_Compilation_Abstractions_WasmMetadata__ctor_System_String_System_String_" data-uid="OpaDotNet.Compilation.Abstractions.WasmMetadata.#ctor(System.String,System.String)">
   WasmMetadata(string, string)
-  
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/BundleManifest.cs"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>OPA WebAssembly (Wasm) module files in the bundle.</p>
@@ -222,7 +222,7 @@ Once loaded any usage of this path in a query will use the Wasm module to comput
 
   <h3 id="OpaDotNet_Compilation_Abstractions_WasmMetadata_Entrypoint" data-uid="OpaDotNet.Compilation.Abstractions.WasmMetadata.Entrypoint">
   Entrypoint
-  
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/BundleManifest.cs"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>A string path defining what query path the wasm module is built to evaluate.
@@ -256,7 +256,7 @@ public string Entrypoint { get; init; }</code></pre>
 
   <h3 id="OpaDotNet_Compilation_Abstractions_WasmMetadata_EqualityContract" data-uid="OpaDotNet.Compilation.Abstractions.WasmMetadata.EqualityContract">
   EqualityContract
-  
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/BundleManifest.cs"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -287,7 +287,7 @@ public string Entrypoint { get; init; }</code></pre>
 
   <h3 id="OpaDotNet_Compilation_Abstractions_WasmMetadata_Module" data-uid="OpaDotNet.Compilation.Abstractions.WasmMetadata.Module">
   Module
-  
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/BundleManifest.cs"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>A string path to the Wasm module relative to the root of the bundle.</p>
@@ -324,7 +324,7 @@ public string Module { get; init; }</code></pre>
 
   <h3 id="OpaDotNet_Compilation_Abstractions_WasmMetadata_Deconstruct_System_String__System_String__" data-uid="OpaDotNet.Compilation.Abstractions.WasmMetadata.Deconstruct(System.String@,System.String@)">
   Deconstruct(out string, out string)
-  
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/BundleManifest.cs"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -357,7 +357,7 @@ public string Module { get; init; }</code></pre>
 
   <h3 id="OpaDotNet_Compilation_Abstractions_WasmMetadata_Equals_OpaDotNet_Compilation_Abstractions_WasmMetadata_" data-uid="OpaDotNet.Compilation.Abstractions.WasmMetadata.Equals(OpaDotNet.Compilation.Abstractions.WasmMetadata)">
   Equals(WasmMetadata?)
-  
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/BundleManifest.cs"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -393,7 +393,7 @@ public string Module { get; init; }</code></pre>
 
   <h3 id="OpaDotNet_Compilation_Abstractions_WasmMetadata_Equals_System_Object_" data-uid="OpaDotNet.Compilation.Abstractions.WasmMetadata.Equals(System.Object)">
   Equals(object?)
-  
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/BundleManifest.cs"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -429,7 +429,7 @@ public string Module { get; init; }</code></pre>
 
   <h3 id="OpaDotNet_Compilation_Abstractions_WasmMetadata_GetHashCode" data-uid="OpaDotNet.Compilation.Abstractions.WasmMetadata.GetHashCode">
   GetHashCode()
-  
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/BundleManifest.cs"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -460,7 +460,7 @@ public string Module { get; init; }</code></pre>
 
   <h3 id="OpaDotNet_Compilation_Abstractions_WasmMetadata_PrintMembers_System_Text_StringBuilder_" data-uid="OpaDotNet.Compilation.Abstractions.WasmMetadata.PrintMembers(System.Text.StringBuilder)">
   PrintMembers(StringBuilder)
-  
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/BundleManifest.cs"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -496,7 +496,7 @@ public string Module { get; init; }</code></pre>
 
   <h3 id="OpaDotNet_Compilation_Abstractions_WasmMetadata_ToString" data-uid="OpaDotNet.Compilation.Abstractions.WasmMetadata.ToString">
   ToString()
-  
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/BundleManifest.cs"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -523,37 +523,6 @@ public string Module { get; init; }</code></pre>
 
 
 
-  <a id="OpaDotNet_Compilation_Abstractions_WasmMetadata__Clone___" data-uid="OpaDotNet.Compilation.Abstractions.WasmMetadata.{Clone}$*"></a>
-
-  <h3 id="OpaDotNet_Compilation_Abstractions_WasmMetadata__Clone__" data-uid="OpaDotNet.Compilation.Abstractions.WasmMetadata.{Clone}$">
-  &lt;Clone&gt;$()
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual WasmMetadata &lt;Clone&gt;$()</code></pre>
-  </div>
-
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="OpaDotNet.Compilation.Abstractions.WasmMetadata.html">WasmMetadata</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
   <h2 class="section" id="operators">Operators
 </h2>
 
@@ -562,7 +531,7 @@ public string Module { get; init; }</code></pre>
 
   <h3 id="OpaDotNet_Compilation_Abstractions_WasmMetadata_op_Equality_OpaDotNet_Compilation_Abstractions_WasmMetadata_OpaDotNet_Compilation_Abstractions_WasmMetadata_" data-uid="OpaDotNet.Compilation.Abstractions.WasmMetadata.op_Equality(OpaDotNet.Compilation.Abstractions.WasmMetadata,OpaDotNet.Compilation.Abstractions.WasmMetadata)">
   operator ==(WasmMetadata?, WasmMetadata?)
-  
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/BundleManifest.cs"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -600,7 +569,7 @@ public string Module { get; init; }</code></pre>
 
   <h3 id="OpaDotNet_Compilation_Abstractions_WasmMetadata_op_Inequality_OpaDotNet_Compilation_Abstractions_WasmMetadata_OpaDotNet_Compilation_Abstractions_WasmMetadata_" data-uid="OpaDotNet.Compilation.Abstractions.WasmMetadata.op_Inequality(OpaDotNet.Compilation.Abstractions.WasmMetadata,OpaDotNet.Compilation.Abstractions.WasmMetadata)">
   operator !=(WasmMetadata?, WasmMetadata?)
-  
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/BundleManifest.cs"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -638,6 +607,7 @@ public string Module { get; init; }</code></pre>
 </article>
 
         <div class="contribution d-print-none">
+          <a href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/BundleManifest.cs" class="edit-link">Edit this page</a>
         </div>
 
 

@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Interface IRegoCompiler | OpaDotNet.Wasm </title>
+      <title>Interface IRegoCompiler | OpaDotNet 2025.1.1 </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Interface IRegoCompiler | OpaDotNet.Wasm ">
+      <meta name="title" content="Interface IRegoCompiler | OpaDotNet 2025.1.1 ">
       
       <meta name="description" content="Exposes an OPA policy compiler.">
       <link rel="icon" href="../favicon.ico">
@@ -29,23 +29,23 @@
       <meta name="loc:changeTheme" content="Change theme">
       <meta name="loc:copy" content="Copy">
       <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
   </head>
-
-  <script type="module" src="./../public/docfx.min.js"></script>
-
-  <script>
-    const theme = localStorage.getItem('theme') || 'auto'
-    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
-  </script>
-
 
   <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
     <header class="bg-body border-bottom">
       <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
         <div class="container-xxl flex-nowrap">
           <a class="navbar-brand" href="../index.html">
-            <img id="logo" class="svg" src="../logo.svg" alt="OpaDotNet.Wasm">
-            OpaDotNet.Wasm
+            <img id="logo" class="svg" src="../logo.svg" alt="OpaDotNet">
+            OpaDotNet
           </a>
           <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
             <i class="bi bi-three-dots"></i>
@@ -73,7 +73,7 @@
 
       <div class="content">
         <div class="actionbar">
-          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
             <i class="bi bi-list"></i>
           </button>
 
@@ -85,7 +85,7 @@
 
 
   <h1 id="OpaDotNet_Compilation_Abstractions_IRegoCompiler" data-uid="OpaDotNet.Compilation.Abstractions.IRegoCompiler" class="text-break">
-Interface IRegoCompiler  
+Interface IRegoCompiler  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/IRegoCompiler.cs"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -115,10 +115,34 @@ Interface IRegoCompiler
       <a class="xref" href="OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.html#OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileBundle_OpaDotNet_Compilation_Abstractions_IRegoCompiler_System_String_System_Collections_Generic_IEnumerable_System_String__System_String_System_Threading_CancellationToken_">RegoCompilerExtensions.CompileBundle(IRegoCompiler, string, IEnumerable&lt;string&gt;?, string?, CancellationToken)</a>
   </div>
   <div>
+      <a class="xref" href="OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.html#OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileBundleAsync_OpaDotNet_Compilation_Abstractions_IRegoCompiler_System_IO_Stream_OpaDotNet_Compilation_Abstractions_CompilationParameters_">RegoCompilerExtensions.CompileBundleAsync(IRegoCompiler, Stream, CompilationParameters)</a>
+  </div>
+  <div>
+      <a class="xref" href="OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.html#OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileBundleAsync_OpaDotNet_Compilation_Abstractions_IRegoCompiler_System_IO_Stream_OpaDotNet_Compilation_Abstractions_CompilationParameters_System_Threading_CancellationToken_">RegoCompilerExtensions.CompileBundleAsync(IRegoCompiler, Stream, CompilationParameters, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.html#OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileBundleAsync_OpaDotNet_Compilation_Abstractions_IRegoCompiler_System_String_OpaDotNet_Compilation_Abstractions_CompilationParameters_">RegoCompilerExtensions.CompileBundleAsync(IRegoCompiler, string, CompilationParameters)</a>
+  </div>
+  <div>
+      <a class="xref" href="OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.html#OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileBundleAsync_OpaDotNet_Compilation_Abstractions_IRegoCompiler_System_String_OpaDotNet_Compilation_Abstractions_CompilationParameters_System_Threading_CancellationToken_">RegoCompilerExtensions.CompileBundleAsync(IRegoCompiler, string, CompilationParameters, CancellationToken)</a>
+  </div>
+  <div>
       <a class="xref" href="OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.html#OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileFile_OpaDotNet_Compilation_Abstractions_IRegoCompiler_System_String_System_Collections_Generic_IEnumerable_System_String__System_Threading_CancellationToken_">RegoCompilerExtensions.CompileFile(IRegoCompiler, string, IEnumerable&lt;string&gt;?, CancellationToken)</a>
   </div>
   <div>
+      <a class="xref" href="OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.html#OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileFileAsync_OpaDotNet_Compilation_Abstractions_IRegoCompiler_System_String_OpaDotNet_Compilation_Abstractions_CompilationParameters_">RegoCompilerExtensions.CompileFileAsync(IRegoCompiler, string, CompilationParameters)</a>
+  </div>
+  <div>
+      <a class="xref" href="OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.html#OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileFileAsync_OpaDotNet_Compilation_Abstractions_IRegoCompiler_System_String_OpaDotNet_Compilation_Abstractions_CompilationParameters_System_Threading_CancellationToken_">RegoCompilerExtensions.CompileFileAsync(IRegoCompiler, string, CompilationParameters, CancellationToken)</a>
+  </div>
+  <div>
       <a class="xref" href="OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.html#OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileSource_OpaDotNet_Compilation_Abstractions_IRegoCompiler_System_String_System_Collections_Generic_IEnumerable_System_String__System_Threading_CancellationToken_">RegoCompilerExtensions.CompileSource(IRegoCompiler, string, IEnumerable&lt;string&gt;?, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.html#OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileSourceAsync_OpaDotNet_Compilation_Abstractions_IRegoCompiler_System_String_OpaDotNet_Compilation_Abstractions_CompilationParameters_">RegoCompilerExtensions.CompileSourceAsync(IRegoCompiler, string, CompilationParameters)</a>
+  </div>
+  <div>
+      <a class="xref" href="OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.html#OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileSourceAsync_OpaDotNet_Compilation_Abstractions_IRegoCompiler_System_String_OpaDotNet_Compilation_Abstractions_CompilationParameters_System_Threading_CancellationToken_">RegoCompilerExtensions.CompileSourceAsync(IRegoCompiler, string, CompilationParameters, CancellationToken)</a>
   </div>
   <div>
       <a class="xref" href="OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.html#OpaDotNet_Compilation_Abstractions_RegoCompilerExtensions_CompileStream_OpaDotNet_Compilation_Abstractions_IRegoCompiler_System_IO_Stream_System_Collections_Generic_IEnumerable_System_String__System_IO_Stream_System_Threading_CancellationToken_">RegoCompilerExtensions.CompileStream(IRegoCompiler, Stream, IEnumerable&lt;string&gt;?, Stream?, CancellationToken)</a>
@@ -137,7 +161,7 @@ Interface IRegoCompiler
 
   <h3 id="OpaDotNet_Compilation_Abstractions_IRegoCompiler_Compile_System_IO_Stream_OpaDotNet_Compilation_Abstractions_CompilationParameters_System_Threading_CancellationToken_" data-uid="OpaDotNet.Compilation.Abstractions.IRegoCompiler.Compile(System.IO.Stream,OpaDotNet.Compilation.Abstractions.CompilationParameters,System.Threading.CancellationToken)">
   Compile(Stream, CompilationParameters, CancellationToken)
-  
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/IRegoCompiler.cs"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Compiles OPA bundle from stream.</p>
@@ -182,7 +206,7 @@ Interface IRegoCompiler
 
   <h3 id="OpaDotNet_Compilation_Abstractions_IRegoCompiler_Compile_System_String_OpaDotNet_Compilation_Abstractions_CompilationParameters_System_Threading_CancellationToken_" data-uid="OpaDotNet.Compilation.Abstractions.IRegoCompiler.Compile(System.String,OpaDotNet.Compilation.Abstractions.CompilationParameters,System.Threading.CancellationToken)">
   Compile(string, CompilationParameters, CancellationToken)
-  
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/IRegoCompiler.cs"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Compiles OPA bundle from path.</p>
@@ -227,7 +251,7 @@ Interface IRegoCompiler
 
   <h3 id="OpaDotNet_Compilation_Abstractions_IRegoCompiler_Version_System_Threading_CancellationToken_" data-uid="OpaDotNet.Compilation.Abstractions.IRegoCompiler.Version(System.Threading.CancellationToken)">
   Version(CancellationToken)
-  
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/IRegoCompiler.cs"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Compiler version information.</p>
@@ -246,7 +270,7 @@ Interface IRegoCompiler
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.html">RegoCompilerVersion</a>&gt;</dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/RegoCompilerVersion.cs">RegoCompilerVersion</a>&gt;</dt>
     <dd></dd>
   </dl>
 
@@ -264,6 +288,7 @@ Interface IRegoCompiler
 </article>
 
         <div class="contribution d-print-none">
+          <a href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Compilation.Abstractions/src/IRegoCompiler.cs" class="edit-link">Edit this page</a>
         </div>
 
 

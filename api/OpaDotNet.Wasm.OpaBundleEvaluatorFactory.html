@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Class OpaBundleEvaluatorFactory | OpaDotNet.Wasm </title>
+      <title>Class OpaBundleEvaluatorFactory | OpaDotNet 2025.1.1 </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class OpaBundleEvaluatorFactory | OpaDotNet.Wasm ">
+      <meta name="title" content="Class OpaBundleEvaluatorFactory | OpaDotNet 2025.1.1 ">
       
       <meta name="description" content="A factory abstraction for a component that can create  instances from OPA policy bundle.">
       <link rel="icon" href="../favicon.ico">
@@ -29,23 +29,23 @@
       <meta name="loc:changeTheme" content="Change theme">
       <meta name="loc:copy" content="Copy">
       <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
   </head>
-
-  <script type="module" src="./../public/docfx.min.js"></script>
-
-  <script>
-    const theme = localStorage.getItem('theme') || 'auto'
-    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
-  </script>
-
 
   <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
     <header class="bg-body border-bottom">
       <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
         <div class="container-xxl flex-nowrap">
           <a class="navbar-brand" href="../index.html">
-            <img id="logo" class="svg" src="../logo.svg" alt="OpaDotNet.Wasm">
-            OpaDotNet.Wasm
+            <img id="logo" class="svg" src="../logo.svg" alt="OpaDotNet">
+            OpaDotNet
           </a>
           <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
             <i class="bi bi-three-dots"></i>
@@ -73,7 +73,7 @@
 
       <div class="content">
         <div class="actionbar">
-          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
             <i class="bi bi-list"></i>
           </button>
 
@@ -85,7 +85,7 @@
 
 
   <h1 id="OpaDotNet_Wasm_OpaBundleEvaluatorFactory" data-uid="OpaDotNet.Wasm.OpaBundleEvaluatorFactory" class="text-break">
-Class OpaBundleEvaluatorFactory  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/main/src/OpaDotNet.Wasm/OpaBundleEvaluatorFactory.cs"><i class="bi bi-code-slash"></i></a>
+Class OpaBundleEvaluatorFactory  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Wasm/src/OpaBundleEvaluatorFactory.cs"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -98,7 +98,7 @@ Class OpaBundleEvaluatorFactory  <a class="header-action link-secondary" title="
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public sealed class OpaBundleEvaluatorFactory : OpaEvaluatorFactory, IDisposable</code></pre>
+    <pre><code class="lang-csharp hljs">public sealed class OpaBundleEvaluatorFactory : IOpaEvaluatorFactory, IDisposable</code></pre>
   </div>
 
 
@@ -108,7 +108,6 @@ Class OpaBundleEvaluatorFactory  <a class="header-action link-secondary" title="
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><a class="xref" href="OpaDotNet.Wasm.OpaEvaluatorFactory.html">OpaEvaluatorFactory</a></div>
       <div><span class="xref">OpaBundleEvaluatorFactory</span></div>
     </dd>
   </dl>
@@ -116,6 +115,7 @@ Class OpaBundleEvaluatorFactory  <a class="header-action link-secondary" title="
   <dl class="typelist implements">
     <dt>Implements</dt>
     <dd>
+      <div><a class="xref" href="OpaDotNet.Wasm.IOpaEvaluatorFactory.html">IOpaEvaluatorFactory</a></div>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
     </dd>
   </dl>
@@ -124,15 +124,6 @@ Class OpaBundleEvaluatorFactory  <a class="header-action link-secondary" title="
   <dl class="typelist inheritedMembers">
     <dt>Inherited Members</dt>
     <dd>
-    <div>
-      <a class="xref" href="OpaDotNet.Wasm.OpaEvaluatorFactory.html#OpaDotNet_Wasm_OpaEvaluatorFactory_CreateFromBundle_System_IO_Stream_OpaDotNet_Wasm_WasmPolicyEngineOptions_System_Func_OpaDotNet_Wasm_IOpaImportsAbi__Microsoft_Extensions_Logging_ILoggerFactory_">OpaEvaluatorFactory.CreateFromBundle(Stream, WasmPolicyEngineOptions, Func&lt;IOpaImportsAbi&gt;, ILoggerFactory)</a>
-    </div>
-    <div>
-      <a class="xref" href="OpaDotNet.Wasm.OpaEvaluatorFactory.html#OpaDotNet_Wasm_OpaEvaluatorFactory_CreateFromWasm_System_IO_Stream_OpaDotNet_Wasm_WasmPolicyEngineOptions_System_Func_OpaDotNet_Wasm_IOpaImportsAbi__Microsoft_Extensions_Logging_ILoggerFactory_">OpaEvaluatorFactory.CreateFromWasm(Stream, WasmPolicyEngineOptions, Func&lt;IOpaImportsAbi&gt;, ILoggerFactory)</a>
-    </div>
-    <div>
-      <a class="xref" href="OpaDotNet.Wasm.OpaEvaluatorFactory.html#OpaDotNet_Wasm_OpaEvaluatorFactory_Dispose">OpaEvaluatorFactory.Dispose()</a>
-    </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
     </div>
@@ -164,9 +155,9 @@ Class OpaBundleEvaluatorFactory  <a class="header-action link-secondary" title="
 
   <a id="OpaDotNet_Wasm_OpaBundleEvaluatorFactory__ctor_" data-uid="OpaDotNet.Wasm.OpaBundleEvaluatorFactory.#ctor*"></a>
 
-  <h3 id="OpaDotNet_Wasm_OpaBundleEvaluatorFactory__ctor_System_IO_Stream_OpaDotNet_Wasm_WasmPolicyEngineOptions_System_Func_OpaDotNet_Wasm_IOpaImportsAbi__Microsoft_Extensions_Logging_ILoggerFactory_" data-uid="OpaDotNet.Wasm.OpaBundleEvaluatorFactory.#ctor(System.IO.Stream,OpaDotNet.Wasm.WasmPolicyEngineOptions,System.Func{OpaDotNet.Wasm.IOpaImportsAbi},Microsoft.Extensions.Logging.ILoggerFactory)">
-  OpaBundleEvaluatorFactory(Stream, WasmPolicyEngineOptions?, Func&lt;IOpaImportsAbi&gt;?, ILoggerFactory?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/main/src/OpaDotNet.Wasm/OpaBundleEvaluatorFactory.cs"><i class="bi bi-code-slash"></i></a>
+  <h3 id="OpaDotNet_Wasm_OpaBundleEvaluatorFactory__ctor_System_IO_Stream_" data-uid="OpaDotNet.Wasm.OpaBundleEvaluatorFactory.#ctor(System.IO.Stream)">
+  OpaBundleEvaluatorFactory(Stream)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Wasm/src/OpaBundleEvaluatorFactory.cs"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates new instance of <a class="xref" href="OpaDotNet.Wasm.OpaBundleEvaluatorFactory.html">OpaBundleEvaluatorFactory</a>.</p>
@@ -174,22 +165,49 @@ Class OpaBundleEvaluatorFactory  <a class="header-action link-secondary" title="
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public OpaBundleEvaluatorFactory(Stream bundleStream, WasmPolicyEngineOptions? options = null, Func&lt;IOpaImportsAbi&gt;? importsAbiFactory = null, ILoggerFactory? loggerFactory = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public OpaBundleEvaluatorFactory(Stream source)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>bundleStream</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a></dt>
+    <dt><code>source</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a></dt>
+    <dd><p>OPA policy bundle stream</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="OpaDotNet_Wasm_OpaBundleEvaluatorFactory__ctor_" data-uid="OpaDotNet.Wasm.OpaBundleEvaluatorFactory.#ctor*"></a>
+
+  <h3 id="OpaDotNet_Wasm_OpaBundleEvaluatorFactory__ctor_System_IO_Stream_OpaDotNet_Wasm_WasmPolicyEngineOptions_" data-uid="OpaDotNet.Wasm.OpaBundleEvaluatorFactory.#ctor(System.IO.Stream,OpaDotNet.Wasm.WasmPolicyEngineOptions)">
+  OpaBundleEvaluatorFactory(Stream, WasmPolicyEngineOptions)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Wasm/src/OpaBundleEvaluatorFactory.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates new instance of <a class="xref" href="OpaDotNet.Wasm.OpaBundleEvaluatorFactory.html">OpaBundleEvaluatorFactory</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public OpaBundleEvaluatorFactory(Stream source, WasmPolicyEngineOptions options)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>source</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a></dt>
     <dd><p>OPA policy bundle stream</p>
 </dd>
     <dt><code>options</code> <a class="xref" href="OpaDotNet.Wasm.WasmPolicyEngineOptions.html">WasmPolicyEngineOptions</a></dt>
     <dd><p>Evaluation engine options</p>
-</dd>
-    <dt><code>importsAbiFactory</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<a class="xref" href="OpaDotNet.Wasm.IOpaImportsAbi.html">IOpaImportsAbi</a>&gt;</dt>
-    <dd><p>Factory that produces instances of <a class="xref" href="OpaDotNet.Wasm.IOpaImportsAbi.html">IOpaImportsAbi</a></p>
-</dd>
-    <dt><code>loggerFactory</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.iloggerfactory">ILoggerFactory</a></dt>
-    <dd><p>Logger factory</p>
 </dd>
   </dl>
 
@@ -212,22 +230,65 @@ Class OpaBundleEvaluatorFactory  <a class="header-action link-secondary" title="
 
   <h3 id="OpaDotNet_Wasm_OpaBundleEvaluatorFactory_Create" data-uid="OpaDotNet.Wasm.OpaBundleEvaluatorFactory.Create">
   Create()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/main/src/OpaDotNet.Wasm/OpaBundleEvaluatorFactory.cs"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Wasm/src/OpaBundleEvaluatorFactory.cs"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Creates new instance of <a class="xref" href="OpaDotNet.Wasm.IOpaEvaluator.html">IOpaEvaluator</a>.</p>
+  <div class="markdown level1 summary"><p>Creates new OPA evaluator instance</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override IOpaEvaluator Create()</code></pre>
+    <pre><code class="lang-csharp hljs">public IOpaEvaluator Create()</code></pre>
   </div>
 
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="OpaDotNet.Wasm.IOpaEvaluator.html">IOpaEvaluator</a></dt>
-    <dd></dd>
+    <dd><p>New OPA evaluator instance</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="OpaDotNet_Wasm_OpaBundleEvaluatorFactory_Create_" data-uid="OpaDotNet.Wasm.OpaBundleEvaluatorFactory.Create*"></a>
+
+  <h3 id="OpaDotNet_Wasm_OpaBundleEvaluatorFactory_Create_System_IO_Stream_OpaDotNet_Wasm_WasmPolicyEngineOptions_" data-uid="OpaDotNet.Wasm.OpaBundleEvaluatorFactory.Create(System.IO.Stream,OpaDotNet.Wasm.WasmPolicyEngineOptions)">
+  Create(Stream, WasmPolicyEngineOptions?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Wasm/src/OpaBundleEvaluatorFactory.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates new OPA evaluator instance</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IOpaEvaluator Create(Stream source, WasmPolicyEngineOptions? options = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>source</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a></dt>
+    <dd><p>OPA policy WASM binary stream</p>
+</dd>
+    <dt><code>options</code> <a class="xref" href="OpaDotNet.Wasm.WasmPolicyEngineOptions.html">WasmPolicyEngineOptions</a></dt>
+    <dd><p>Evaluation engine options</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="OpaDotNet.Wasm.IOpaEvaluator.html">IOpaEvaluator</a></dt>
+    <dd><p>New OPA evaluator instance</p>
+</dd>
   </dl>
 
 
@@ -242,25 +303,18 @@ Class OpaBundleEvaluatorFactory  <a class="header-action link-secondary" title="
 
   <a id="OpaDotNet_Wasm_OpaBundleEvaluatorFactory_Dispose_" data-uid="OpaDotNet.Wasm.OpaBundleEvaluatorFactory.Dispose*"></a>
 
-  <h3 id="OpaDotNet_Wasm_OpaBundleEvaluatorFactory_Dispose_System_Boolean_" data-uid="OpaDotNet.Wasm.OpaBundleEvaluatorFactory.Dispose(System.Boolean)">
-  Dispose(bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/main/src/OpaDotNet.Wasm/OpaBundleEvaluatorFactory.cs"><i class="bi bi-code-slash"></i></a>
+  <h3 id="OpaDotNet_Wasm_OpaBundleEvaluatorFactory_Dispose" data-uid="OpaDotNet.Wasm.OpaBundleEvaluatorFactory.Dispose">
+  Dispose()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Wasm/src/OpaBundleEvaluatorFactory.cs"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</p>
-</div>
+  <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected override void Dispose(bool disposing)</code></pre>
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
   </div>
 
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>disposing</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd><p>If disposing equals true, the method has been called directly or indirectly by a user's code.</p>
-</dd>
-  </dl>
 
 
 
@@ -277,7 +331,7 @@ Class OpaBundleEvaluatorFactory  <a class="header-action link-secondary" title="
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/me-viper/OpaDotNet/blob/main/src/OpaDotNet.Wasm/OpaBundleEvaluatorFactory.cs" class="edit-link">Edit this page</a>
+          <a href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/src/Wasm/src/OpaBundleEvaluatorFactory.cs" class="edit-link">Edit this page</a>
         </div>
 
 
