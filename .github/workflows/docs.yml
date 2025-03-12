@@ -21,6 +21,9 @@ on:
         type: boolean
 
 jobs:
+  native_build:
+    uses: ./.github/workflows/opa-native.yaml
+
   publish-docs:
     runs-on: ubuntu-latest
     permissions:
