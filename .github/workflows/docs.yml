@@ -47,6 +47,12 @@ jobs:
       run: |
         echo "version=$(dotnet nbgv get-version -v NuGetPackageVersion)" >> "$GITHUB_OUTPUT"
 
+    - name: get_opa_lib
+      uses: actions/download-artifact@v4
+      with:
+        name: opa-native
+        path: ./src/Compilation/Interop/lib
+
     - run: dotnet build -f net8.0 ./docs/snippets/Snippets.csproj
     - run: dotnet tool update -g docfx
     - run: docfx docs/docfx.json --metadata _appTitle="OpaDotNet ${{ steps.get_version.outputs.version }}"
