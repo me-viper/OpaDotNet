@@ -20,6 +20,8 @@
 
   <ItemGroup>
     <Using Include="OpaDotNet.Benchmarks"/>
+    <Using Include="BenchmarkDotNet"/>
+    <Using Include="BenchmarkDotNet.Attributes"/>
   </ItemGroup>
 
   <ItemGroup>

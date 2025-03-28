@@ -20,23 +20,23 @@ public class RegoSetTests
         ];
         yield return
         [
-            """[{"__rego_set":[1, {"a":"b"}]}]""",
-            """{1, {"a":"b"}}""",
+            """[{"__rego_set":[1,{"a":"b"}]}]""",
+            """{1,{"a":"b"}}""",
         ];
         yield return
         [
-            """[{"__rego_set":[1, [2, 3]]}]""",
-            """{1, [2, 3]}""",
+            """[{"__rego_set":[1,[2,3]]}]""",
+            """{1,[2,3]}""",
         ];
         yield return
         [
-            """[{"__rego_set":[1, {"a":[{"__rego_set":["y","z"]}]}]}]""",
-            """{1, {"a":{"y","z"}}}""",
+            """[{"__rego_set":[1,{"a":[{"__rego_set":["y","z"]}]}]}]""",
+            """{1,{"a":{"y","z"}}}""",
         ];
         yield return
         [
-            """[1, 2]""",
-            """[1, 2]""",
+            """[1,2]""",
+            """[1,2]""",
         ];
         yield return
         [
@@ -177,3 +177,4 @@ public class RegoSetTests
         Assert.Equal(expected, node.ContainsRegoSet());
     }
 }
+

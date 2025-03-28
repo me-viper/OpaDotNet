@@ -1,13 +1,12 @@
 ﻿using System.Text.Json.Nodes;
 using System.Text.RegularExpressions;
 
+using OpaDotNet.Wasm.Internal;
+
 namespace OpaDotNet.Wasm.Rego;
 
-internal static partial class RegoValueHelper
+internal static class RegoValueHelper
 {
-    [GeneratedRegex("{([^:]*?({.+})*)}")]
-    private static partial Regex RegoSetRegex();
-
     public static bool TryGetTuple<T>(this JsonArray ar, [MaybeNullWhen(false)] out Tuple<T> tuple)
     {
         ArgumentNullException.ThrowIfNull(ar);
@@ -138,116 +137,119 @@ internal static partial class RegoValueHelper
         return ar[0] is JsonObject jo && jo.ContainsKey("__rego_set");
     }
 
-    public static string JsonFromRegoValue(string s)
+    public static string JsonFromRegoValue(string s) => ConvertOpaJson(
+        s,
+        """[{"__rego_set":[]}]""",
+        """[{"__rego_set":[""",
+        "]}]"
+        );
+
+    public static string JsonToRegoValue(string s) => ConvertOpaJson(s, "set()", "{", "}");
+
+    private static string ConvertOpaJson(
+        ReadOnlySpan<char> s,
+        ReadOnlySpan<char> emptySet,
+        ReadOnlySpan<char> startSet,
+        ReadOnlySpan<char> endSet)
     {
-        var regex = RegoSetRegex();
+        var reader = new OpaJsonReader(s);
 
-        var maxIterations = s.Length;
-        var currentIteration = 0;
+#pragma warning disable CA2000
+        var sb = new ValueStringBuilder(s.Length);
+#pragma warning restore CA2000
 
-        while (regex.IsMatch(s))
+        try
         {
-            if (currentIteration++ > maxIterations)
-                break;
+            Span<bool> writeSeparator = stackalloc bool[OpaJsonReader.MaxDepth];
+            var depth = 0;
 
-            s = regex.Replace(s, "[{\"__rego_set\":[$1]}]");
-        }
-
-        s = s.Replace("[{\"__rego_set\":[]}]", "{}");
-        return s.Replace("set()", "[{\"__rego_set\":[]}]");
-    }
-
-    public static string JsonToRegoValue(string s)
-    {
-        const string setAnchor = "\"__rego_set\"";
-
-        var setStartIndex = s.LastIndexOf(setAnchor, StringComparison.Ordinal);
-        var maxIterations = s.Length;
-        var iterations = 0;
-
-        while (setStartIndex > 0)
-        {
-            if (iterations++ > maxIterations)
-                break;
-
-            var i = setStartIndex;
-            var depth = -1;
-            var start = -1;
-            var end = -1;
-
-            while (i < s.Length)
+            while (reader.Read())
             {
-                if (s[i] == '[')
+                switch (reader.Token.TokenType)
                 {
-                    if (depth == -1)
-                        start = i;
+                    case OpaJsonTokenType.ObjectStart:
+                    case OpaJsonTokenType.ArrayStart:
+                    case OpaJsonTokenType.SetStart:
+                        if (writeSeparator[depth])
+                            sb.Append(',');
+                        else
+                            writeSeparator[depth] = true;
 
-                    depth++;
-                }
+                        depth++;
 
-                if (s[i] == ']')
-                {
-                    if (depth == 0)
-                    {
-                        end = i;
+                        if (depth > OpaJsonReader.MaxDepth)
+                            throw new InvalidOperationException($"Maximum depth {OpaJsonReader.MaxDepth} reached");
+
                         break;
-                    }
 
-                    depth--;
+                    case OpaJsonTokenType.PropertyName:
+                    case OpaJsonTokenType.Null:
+                    case OpaJsonTokenType.EmptySet:
+                    case OpaJsonTokenType.String:
+                    case OpaJsonTokenType.Value:
+                        if (writeSeparator[depth])
+                            sb.Append(',');
+                        else
+                            writeSeparator[depth] = true;
+
+                        break;
+
+                    case OpaJsonTokenType.ObjectEnd:
+                    case OpaJsonTokenType.ArrayEnd:
+                    case OpaJsonTokenType.SetEnd:
+                        writeSeparator[depth] = false;
+                        depth--;
+                        break;
                 }
 
-                i++;
+                switch (reader.Token.TokenType)
+                {
+                    case OpaJsonTokenType.ObjectStart:
+                        sb.Append('{');
+                        break;
+                    case OpaJsonTokenType.PropertyName:
+                        writeSeparator[depth] = false;
+                        sb.AppendQuoted(reader.Token.Buf);
+                        sb.Append(':');
+                        break;
+                    case OpaJsonTokenType.ObjectEnd:
+                        sb.Append('}');
+                        break;
+                    case OpaJsonTokenType.ArrayStart:
+                        sb.Append('[');
+                        break;
+                    case OpaJsonTokenType.ArrayEnd:
+                        sb.Append(']');
+                        break;
+                    case OpaJsonTokenType.SetStart:
+                        sb.Append(startSet);
+                        break;
+                    case OpaJsonTokenType.SetEnd:
+                        sb.Append(endSet);
+                        break;
+                    case OpaJsonTokenType.Null:
+                        sb.Append("null");
+                        break;
+                    case OpaJsonTokenType.EmptySet:
+                        sb.Append(emptySet);
+                        break;
+                    case OpaJsonTokenType.String:
+                        sb.AppendQuoted(reader.Token.Buf);
+                        break;
+                    case OpaJsonTokenType.Value:
+                        sb.Append(reader.Token.Buf);
+                        break;
+                    default:
+                        throw new InvalidOperationException($"Unexpected token: {reader.Token.TokenType}");
+                }
             }
 
-            if (start > -1 && end > -1)
-            {
-                var nativeSet = s[(start + 1)..end];
-
-                var arrayStartIndex = -1;
-                var asi = setStartIndex;
-
-                while (asi >= 0)
-                {
-                    if (s[asi] == '[')
-                    {
-                        arrayStartIndex = asi;
-                        break;
-                    }
-
-                    asi--;
-                }
-
-                if (arrayStartIndex < 0)
-                    return s;
-
-                var arrayEndIndex = -1;
-                var aei = end + 1;
-
-                while (aei < s.Length)
-                {
-                    if (s[aei] == ']')
-                    {
-                        arrayEndIndex = aei;
-                        break;
-                    }
-
-                    aei++;
-                }
-
-                if (arrayEndIndex < 0)
-                    return s;
-
-                s = s.Remove(arrayStartIndex, arrayEndIndex - arrayStartIndex + 1);
-
-                if (nativeSet.Length > 0)
-                    s = s.Insert(arrayStartIndex, $"{{{nativeSet}}}");
-                else
-                    s = s.Insert(arrayStartIndex, "set()");
-            }
-
-            setStartIndex = s.LastIndexOf(setAnchor, StringComparison.Ordinal);
+            return sb.ToString();
         }
-
-        return s;
+        catch
+        {
+            sb.Dispose();
+            throw;
+        }
     }
 }
