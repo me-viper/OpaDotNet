@@ -237,6 +237,7 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
                 "semver.compare" => SemverCompare(arg1.As<string>(), arg2.As<string>()),
                 "json.patch" => JsonPatch(arg1.Raw, arg2.RawJson),
                 "json.match_schema" => JsonMatchSchema(arg1.RawJson, arg2.RawJson, context.JsonSerializerOptions),
+                "json.marshal_with_options" => MarshalWithOptions(arg1.RawJsonString, arg2.As<JsonMarshalOptions>()),
                 _ => throw new NotImplementedException(context.FunctionName),
             };
         }

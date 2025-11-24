@@ -49,6 +49,8 @@ public class BuiltinArg
     /// </summary>
     public JsonNode? RawJson => _rawJson.Value;
 
+    internal string RawJsonString => _rawJsonString.Value;
+
     /// <summary>
     /// Converts built-in function argument in JSON format to the specified type.
     /// </summary>

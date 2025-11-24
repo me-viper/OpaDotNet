@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Nodes;
+﻿using System.Text;
+using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 
 using Json.More;
@@ -284,5 +285,109 @@ public partial class DefaultOpaImportsAbi
         }
 
         return Fail(errors.ToArray());
+    }
+
+    [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
+    private class JsonMarshalOptions
+    {
+        [JsonPropertyName("pretty")]
+        public bool? Pretty { get; set; }
+
+        [JsonPropertyName("prefix")]
+        public string Prefix { get; set; } = string.Empty;
+
+        [JsonPropertyName("indent")]
+        public string Indent { get; set; } = "\t";
+    }
+
+    private static string MarshalWithOptions(string x, JsonMarshalOptions opts)
+    {
+        if (opts.Pretty == false)
+            return x;
+
+        var doPretty = opts.Prefix != string.Empty || opts.Indent != "\t";
+
+        if (!doPretty && opts.Pretty != true)
+            return x;
+
+        var result = new StringBuilder(x.Length);
+
+        var bytes = Encoding.UTF8.GetBytes(x);
+        var reader = new Utf8JsonReader(bytes);
+
+        var indent = 0;
+        var lastToken = JsonTokenType.None;
+
+        if (!string.IsNullOrWhiteSpace(opts.Prefix))
+            result.Append(opts.Prefix);
+
+        while (reader.Read())
+        {
+            var doIndent = lastToken is not (JsonTokenType.PropertyName or JsonTokenType.None);
+            var doComa = lastToken is not (JsonTokenType.StartArray or JsonTokenType.StartObject);
+
+            if (reader.TokenType is JsonTokenType.EndArray or JsonTokenType.EndObject)
+            {
+                indent--;
+                doComa = false;
+
+                if (lastToken is JsonTokenType.StartArray or JsonTokenType.StartObject)
+                    doIndent = false;
+            }
+
+            if (doIndent)
+            {
+                if (doComa)
+                    result.Append(',');
+
+                result.Append('\n');
+
+                if (!string.IsNullOrWhiteSpace(opts.Prefix))
+                    result.Append(opts.Prefix);
+
+                for (var i = 0; i < indent; i++)
+                    result.Append(opts.Indent);
+            }
+
+            switch (reader.TokenType)
+            {
+                case JsonTokenType.StartArray:
+                    result.Append('[');
+                    indent++;
+                    break;
+                case JsonTokenType.EndArray:
+                    result.Append(']');
+                    break;
+                case JsonTokenType.StartObject:
+                    result.Append('{');
+                    indent++;
+                    break;
+                case JsonTokenType.EndObject:
+                    result.Append('}');
+                    break;
+                case JsonTokenType.PropertyName:
+                {
+                    var v = Encoding.UTF8.GetString(reader.ValueSpan);
+                    result.Append($"\"{v}\": ");
+                    break;
+                }
+                case JsonTokenType.String:
+                {
+                    var v = Encoding.UTF8.GetString(reader.ValueSpan);
+                    result.Append($"\"{v}\"");
+                    break;
+                }
+                case JsonTokenType.False or JsonTokenType.True or JsonTokenType.Null or JsonTokenType.Number:
+                {
+                    var v = Encoding.UTF8.GetString(reader.ValueSpan);
+                    result.Append(v);
+                    break;
+                }
+            }
+
+            lastToken = reader.TokenType;
+        }
+
+        return result.ToString();
     }
 }

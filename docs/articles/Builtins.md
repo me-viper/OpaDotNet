@@ -1,6 +1,6 @@
 # Built-in Functions Implementation Status
 
-Bellow is the list of supported OPA built-in functions as for version v0.53.1 along with their implementation status in OpaDotNet.Wasm.
+Bellow is the list of supported OPA built-in functions as for version v1.10.1 along with their implementation status in OpaDotNet.Wasm.
 
 ## Numbers
 
@@ -17,6 +17,7 @@ Bellow is the list of supported OPA built-in functions as for version v0.53.1 al
 | [strings.strings.any_prefix_match](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-strings-stringsany_prefix_match)    | :white_check_mark: | v1.0.0 |
 | [strings.any_suffix_match](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-strings-stringsany_suffix_match)    | :white_check_mark: | v1.0.0 |
 | [strings.render_template](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-strings-stringsrender_template)    | - | - |
+| [strings.strings.count](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-strings-stringscount)    | :white_check_mark: | v3.1.0 |
 
 \* Inconsistent behavior with native implementation when argument is object.
 
@@ -42,6 +43,7 @@ Bellow is the list of supported OPA built-in functions as for version v0.53.1 al
 | [json.match_schema](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-object-jsonmatch_schema) | :white_check_mark: | v1.2.0 (*) |
 | [json.patch](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-object-jsonpatch) | :white_check_mark: | v1.2.0 |
 | [json.verify_schema](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-object-jsonverify_schema) | :white_check_mark: | v1.2.0 |
+| [json.marshal_with_options](https://www.openpolicyagent.org/docs/policy-reference/builtins/encoding#builtin-encoding-jsonmarshal) | :white_check_mark: | v3.1.0 |
 
 \* Due to differences in JSON Schema libraries reported schema validation errors might differ from native.
 
