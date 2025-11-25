@@ -53,19 +53,30 @@ internal class PooledOpaPolicyService : IOpaPolicyService, IDisposable
     {
         _logger.EvaluatorPoolResetting();
 
-        using var writerLock = _syncLock.AcquireWriteLock();
+        var gotLock = _syncLock.TryEnterWriteLock(TimeSpan.FromSeconds(60));
 
-        var oldPool = _evaluatorPool;
-        _evaluatorPool = _poolProvider.Create(new OpaEvaluatorPoolPolicy(() => _factoryProvider.CreateEvaluator()));
+        if (!gotLock)
+            throw new TimeoutException("Failed to enter write lock within 60 seconds timeout");
 
-        if (oldPool is not IDisposable pool)
+        try
         {
-            _logger.EvaluatorPoolNotDisposable();
-            return;
-        }
+            var oldPool = _evaluatorPool;
+            _evaluatorPool = _poolProvider.Create(new OpaEvaluatorPoolPolicy(() => _factoryProvider.CreateEvaluator()));
 
-        _logger.EvaluatorPoolDisposing();
-        pool.Dispose();
+            if (oldPool is not IDisposable pool)
+            {
+                _logger.EvaluatorPoolNotDisposable();
+                return;
+            }
+
+
+            _logger.EvaluatorPoolDisposing();
+            pool.Dispose();
+        }
+        finally
+        {
+            _syncLock.Release();
+        }
     }
 
     private Task ConcurrencyLockWaitAsync(CancellationToken cancellationToken)

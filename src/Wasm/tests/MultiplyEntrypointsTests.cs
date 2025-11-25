@@ -12,7 +12,7 @@ public class MultiplyEntrypointsTests : OpaTestBase, IAsyncLifetime
     {
     }
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         var policy = await CompileBundle(
             BasePath,
@@ -26,10 +26,10 @@ public class MultiplyEntrypointsTests : OpaTestBase, IAsyncLifetime
         _engine = OpaBundleEvaluatorFactory.Create(policy);
     }
 
-    public Task DisposeAsync()
+    public ValueTask DisposeAsync()
     {
         _engine.Dispose();
-        return Task.CompletedTask;
+        return ValueTask.CompletedTask;
     }
 
     private record CompositeResult

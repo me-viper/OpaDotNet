@@ -65,10 +65,12 @@ public partial class DocSamples
     [Fact]
     public async Task QuickStartCompileCli()
     {
+        var cancellationToken = TestContext.Current.CancellationToken;
+
         #region QuickStartCompilation
 
         var compiler = new RegoCliCompiler();
-        var policyStream = await compiler.CompileFileAsync("quickstart/example.rego", new() { Entrypoints = ["example/hello"] });
+        var policyStream = await compiler.CompileFileAsync("quickstart/example.rego", new() { Entrypoints = ["example/hello"] }, cancellationToken);
 
         // Use compiled policy.
         using var engine = OpaBundleEvaluatorFactory.Create(policyStream);

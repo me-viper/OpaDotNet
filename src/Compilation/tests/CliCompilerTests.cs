@@ -5,8 +5,6 @@ using OpaDotNet.Compilation.Abstractions;
 using OpaDotNet.Compilation.Cli;
 using OpaDotNet.InternalTesting;
 
-using Xunit.Abstractions;
-
 namespace OpaDotNet.Compilation.Tests;
 
 [UsedImplicitly]
@@ -33,7 +31,7 @@ public class CliCompilerTests : CompilerTests<RegoCliCompiler>
         var compiler = new RegoCliCompiler(NullLogger<RegoCliCompiler>.Instance, opts);
 
         _ = await Assert.ThrowsAsync<RegoCompilationException>(
-            () => compiler.CompileFileAsync("fail.rego", new())
+            () => compiler.CompileFileAsync("fail.rego", new(), TestContext.Current.CancellationToken)
             );
     }
 
@@ -65,7 +63,8 @@ public class CliCompilerTests : CompilerTests<RegoCliCompiler>
                 Entrypoints = ["capabilities/f"],
                 CapabilitiesFilePath = Path.Combine("TestData", "capabilities", "capabilities.json"),
                 DisablePrintStatements = true,
-            }
+            },
+            TestContext.Current.CancellationToken
             );
 
         Assert.IsType<FileStream>(policy);

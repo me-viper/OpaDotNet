@@ -14,7 +14,7 @@ public class MemoryTests : OpaTestBase, IAsyncLifetime
     {
     }
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         var policy = await CompileBundle(
             BasePath,
@@ -24,9 +24,9 @@ public class MemoryTests : OpaTestBase, IAsyncLifetime
         _engine = p => OpaBundleEvaluatorFactory.Create(policy, options: p);
     }
 
-    public Task DisposeAsync()
+    public ValueTask DisposeAsync()
     {
-        return Task.CompletedTask;
+        return ValueTask.CompletedTask;
     }
 
     [Fact]

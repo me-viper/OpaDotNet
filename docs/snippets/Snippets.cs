@@ -116,6 +116,8 @@ public partial class DocSamples
     [Fact]
     public async Task CompileFileCli()
     {
+        var cancellationToken = TestContext.Current.CancellationToken;
+
         #region CompileFileCli
 
         var compiler = new RegoCliCompiler();
@@ -128,7 +130,8 @@ public partial class DocSamples
             {
                 // Entrypoints (same you would pass for -e parameter for opa build).
                 Entrypoints = ["example/hello"],
-            }
+            },
+            cancellationToken
             );
 
         // RegoCliCompiler will always produce bundle.
@@ -145,6 +148,8 @@ public partial class DocSamples
     [Fact]
     public async Task CompileBundleCli()
     {
+        var cancellationToken = TestContext.Current.CancellationToken;
+
         #region CompileBundleCli
 
         var compiler = new RegoCliCompiler();
@@ -157,7 +162,8 @@ public partial class DocSamples
             {
                 // Entrypoints (same you would pass for -e parameter for opa build).
                 Entrypoints = ["example/hello"],
-            }
+            },
+            cancellationToken
             );
 
         // RegoCliCompiler will always produce bundle.
@@ -172,6 +178,8 @@ public partial class DocSamples
     [Fact]
     public async Task CompileSourceCli()
     {
+        var cancellationToken = TestContext.Current.CancellationToken;
+
         #region CompileSourceCli
 
         IRegoCompiler compiler = new RegoCliCompiler();
@@ -195,7 +203,8 @@ public partial class DocSamples
             {
                 // Entrypoints (same you would pass for -e parameter for opa build).
                 Entrypoints = ["example/hello"],
-            }
+            },
+            cancellationToken
             );
 
         // RegoCliCompiler will always produce bundle.
@@ -212,6 +221,8 @@ public partial class DocSamples
     [Fact]
     public async Task CompileFileInterop()
     {
+        var cancellationToken = TestContext.Current.CancellationToken;
+
         #region CompileFileInterop
 
         var compiler = new RegoInteropCompiler();
@@ -224,7 +235,8 @@ public partial class DocSamples
             {
                 // Entrypoints (same you would pass for -e parameter for opa build).
                 Entrypoints = ["example/hello"],
-            }
+            },
+            cancellationToken
             );
 
         // RegoCliCompiler will always produce bundle.
@@ -241,6 +253,8 @@ public partial class DocSamples
     [Fact]
     public async Task CompileBundleInterop()
     {
+        var cancellationToken = TestContext.Current.CancellationToken;
+
         #region CompileBundleInterop
 
         var compiler = new RegoInteropCompiler();
@@ -253,7 +267,8 @@ public partial class DocSamples
             {
                 // Entrypoints (same you would pass for -e parameter for opa build).
                 Entrypoints = ["example/hello"],
-            }
+            },
+            cancellationToken
             );
 
         // RegoCliCompiler will always produce bundle.
@@ -268,6 +283,8 @@ public partial class DocSamples
     [Fact]
     public async Task CompileSourceInterop()
     {
+        var cancellationToken = TestContext.Current.CancellationToken;
+
         #region CompileSourceInterop
 
         IRegoCompiler compiler = new RegoInteropCompiler();
@@ -291,7 +308,8 @@ public partial class DocSamples
             {
                 // Entrypoints (same you would pass for -e parameter for opa build).
                 Entrypoints = ["example/hello"],
-            }
+            },
+            cancellationToken
             );
 
         // RegoCliCompiler will always produce bundle.

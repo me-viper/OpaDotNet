@@ -1,7 +1,5 @@
 ﻿using System.Text.Json;
 
-using BenchmarkDotNet.Attributes;
-
 using OpaDotNet.Wasm;
 using OpaDotNet.Wasm.Builtins;
 

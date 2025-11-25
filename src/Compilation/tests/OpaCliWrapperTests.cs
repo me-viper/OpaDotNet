@@ -4,8 +4,6 @@ using OpaDotNet.Compilation.Abstractions;
 using OpaDotNet.Compilation.Cli;
 using OpaDotNet.InternalTesting;
 
-using Xunit.Abstractions;
-
 namespace OpaDotNet.Compilation.Tests;
 
 [Trait("NeedsCli", "true")]
@@ -25,14 +23,16 @@ public class OpaCliWrapperTests
     public async Task ToolMissing()
     {
         _ = await Assert.ThrowsAsync<RegoCompilationException>(
-            () => OpaCliWrapper.Create("./non-opa", logger: _loggerFactory.CreateLogger<OpaCliWrapper>())
-            );
+            () => OpaCliWrapper.Create("./non-opa", logger: _loggerFactory.CreateLogger<OpaCliWrapper>(), TestContext.Current.CancellationToken));
     }
 
     [Fact]
     public async Task Version()
     {
-        var result = await OpaCliWrapper.Create(logger: _loggerFactory.CreateLogger<OpaCliWrapper>());
+        var result = await OpaCliWrapper.Create(
+            logger: _loggerFactory.CreateLogger<OpaCliWrapper>(),
+            cancellationToken: TestContext.Current.CancellationToken
+            );
 
         _output.WriteLine(result.VersionInfo.ToString());
 

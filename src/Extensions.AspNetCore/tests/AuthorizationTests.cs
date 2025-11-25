@@ -32,10 +32,10 @@ public class AuthorizationTests(ITestOutputHelper output)
         var transaction = new Transaction
         {
             Request = request,
-            Response = await server.CreateClient().SendAsync(request),
+            Response = await server.CreateClient().SendAsync(request, TestContext.Current.CancellationToken),
         };
 
-        transaction.ResponseText = await transaction.Response.Content.ReadAsStringAsync();
+        transaction.ResponseText = await transaction.Response.Content.ReadAsStringAsync(TestContext.Current.CancellationToken);
 
         Assert.NotNull(transaction.Response);
         Assert.Equal(expected, transaction.Response.StatusCode);

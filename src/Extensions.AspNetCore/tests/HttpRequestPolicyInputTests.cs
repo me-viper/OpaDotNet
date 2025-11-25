@@ -17,7 +17,7 @@ public class HttpRequestPolicyInputTests(ITestOutputHelper output) : IAsyncLifet
 
     private IOpaPolicySource _policySource = default!;
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         var compiler = new TestingCompiler(_loggerFactory);
         var policy = await compiler.CompileBundleAsync("./Policy", new());
@@ -40,10 +40,10 @@ public class HttpRequestPolicyInputTests(ITestOutputHelper output) : IAsyncLifet
             );
     }
 
-    public Task DisposeAsync()
+    public ValueTask DisposeAsync()
     {
         _policySource.Dispose();
-        return Task.CompletedTask;
+        return ValueTask.CompletedTask;
     }
 
     [Theory]

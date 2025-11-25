@@ -12,7 +12,7 @@ public class MetadataTests : OpaTestBase, IAsyncLifetime
     {
     }
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         var policy = await CompileBundle(
             BasePath,
@@ -30,10 +30,10 @@ public class MetadataTests : OpaTestBase, IAsyncLifetime
         _engine = OpaBundleEvaluatorFactory.Create(policy, opts);
     }
 
-    public Task DisposeAsync()
+    public ValueTask DisposeAsync()
     {
         _engine.Dispose();
-        return Task.CompletedTask;
+        return ValueTask.CompletedTask;
     }
 
     private record MetaInput([UsedImplicitly] int Number, [UsedImplicitly] string Role);

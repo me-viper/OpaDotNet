@@ -18,12 +18,12 @@ public class ExtensibilityTests : IAsyncLifetime
         _loggerFactory = new LoggerFactory([new XunitLoggerProvider(output)]);
     }
 
-    public Task InitializeAsync() => Task.CompletedTask;
+    public ValueTask InitializeAsync() => ValueTask.CompletedTask;
 
-    public Task DisposeAsync()
+    public ValueTask DisposeAsync()
     {
         _loggerFactory.Dispose();
-        return Task.CompletedTask;
+        return ValueTask.CompletedTask;
     }
 
     [Fact]

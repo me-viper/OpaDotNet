@@ -7,8 +7,6 @@ using OpaDotNet.Compilation.Abstractions;
 using OpaDotNet.Compilation.Tests.Common;
 using OpaDotNet.InternalTesting;
 
-using Xunit.Abstractions;
-
 namespace OpaDotNet.Compilation.Tests;
 
 [Collection("Compilation")]
@@ -55,7 +53,7 @@ public abstract class CompilerTests<T>
             Entrypoints = eps,
         };
 
-        await using var policy = await compiler.CompileFileAsync(path, opts);
+        await using var policy = await compiler.CompileFileAsync(path, opts, TestContext.Current.CancellationToken);
 
         AssertBundle.DumpBundle(policy, OutputHelper);
 
@@ -80,7 +78,7 @@ public abstract class CompilerTests<T>
         if (path.StartsWith("~"))
             path = Path.Combine(AppContext.BaseDirectory, path[1..]);
 
-        await using var policy = await compiler.CompileBundleAsync(path, new() { Entrypoints = eps, Debug = true });
+        await using var policy = await compiler.CompileBundleAsync(path, new() { Entrypoints = eps, Debug = true }, TestContext.Current.CancellationToken);
 
         AssertBundle.DumpBundle(policy, OutputHelper);
 
@@ -106,7 +104,7 @@ public abstract class CompilerTests<T>
         var compiler = CreateCompiler(LoggerFactory);
 
         path ??= Path.Combine("TestData", "src.bundle.tar.gz");
-        var policy = await compiler.CompileBundleAsync(path, new() { Entrypoints = eps });
+        var policy = await compiler.CompileBundleAsync(path, new() { Entrypoints = eps }, TestContext.Current.CancellationToken);
 
         AssertBundle.IsValid(policy);
     }
@@ -115,7 +113,7 @@ public abstract class CompilerTests<T>
     public async Task Version()
     {
         var compiler = CreateCompiler();
-        var v = await compiler.Version();
+        var v = await compiler.Version(TestContext.Current.CancellationToken);
 
         Assert.NotNull(v.Version);
         Assert.NotNull(v.GoVersion);
@@ -129,7 +127,7 @@ public abstract class CompilerTests<T>
     {
         var compiler = CreateCompiler(LoggerFactory);
         var ex = await Assert.ThrowsAsync<RegoCompilationException>(
-            () => compiler.CompileSourceAsync("bad rego", new() { Entrypoints = ["ep"] })
+            () => compiler.CompileSourceAsync("bad rego", new() { Entrypoints = ["ep"] }, TestContext.Current.CancellationToken)
             );
 
         Assert.Contains("rego_parse_error: package expected", ex.Message);
@@ -147,7 +145,8 @@ public abstract class CompilerTests<T>
                 {
                     Entrypoints = ["capabilities/f"],
                     CapabilitiesFilePath = Path.Combine("TestData", "capabilities", "capabilities.json"),
-                }
+                },
+                TestContext.Current.CancellationToken
                 )
             );
     }
@@ -163,7 +162,8 @@ public abstract class CompilerTests<T>
             {
                 Entrypoints = ["test1/hello", "test2/hello"],
                 CapabilitiesVersion = DefaultCaps,
-            }
+            },
+            TestContext.Current.CancellationToken
             );
 
         Assert.NotNull(policy);
@@ -180,7 +180,8 @@ public abstract class CompilerTests<T>
             {
                 Entrypoints = TestHelpers.SimplePolicyEntrypoints,
                 CapabilitiesVersion = DefaultCaps,
-            }
+            },
+            TestContext.Current.CancellationToken
             );
 
         Assert.NotNull(policy);
@@ -198,7 +199,8 @@ public abstract class CompilerTests<T>
                 Entrypoints = ["capabilities/f"],
                 CapabilitiesFilePath = Path.Combine("TestData", "capabilities", "capabilities.json"),
                 CapabilitiesVersion = DefaultCaps,
-            }
+            },
+            TestContext.Current.CancellationToken
             );
 
         AssertBundle.IsValid(policy);
@@ -211,12 +213,12 @@ public abstract class CompilerTests<T>
 
         await using (var bw = new BundleWriter(bundle))
         {
-            var rego = await File.ReadAllBytesAsync(Path.Combine("TestData", "capabilities", "capabilities.rego"));
+            var rego = await File.ReadAllBytesAsync(Path.Combine("TestData", "capabilities", "capabilities.rego"), TestContext.Current.CancellationToken);
             bw.WriteEntry(rego, "capabilities.rego");
         }
 
         bundle.Seek(0, SeekOrigin.Begin);
-        var capsBytes = await File.ReadAllBytesAsync(Path.Combine("TestData", "capabilities", "capabilities.json"));
+        var capsBytes = await File.ReadAllBytesAsync(Path.Combine("TestData", "capabilities", "capabilities.json"), TestContext.Current.CancellationToken);
 
         var compiler = CreateCompiler(LoggerFactory);
 
@@ -228,7 +230,8 @@ public abstract class CompilerTests<T>
                 CapabilitiesBytes = capsBytes,
                 CapabilitiesVersion = DefaultCaps,
                 Debug = true,
-            }
+            },
+            TestContext.Current.CancellationToken
             );
 
         AssertBundle.DumpBundle(policy, OutputHelper);
@@ -280,7 +283,8 @@ public abstract class CompilerTests<T>
                 PruneUnused = true,
                 Debug = true,
                 OutputPath = outPath,
-            }
+            },
+            TestContext.Current.CancellationToken
             );
 
         AssertBundle.DumpBundle(bundle, OutputHelper);
@@ -319,7 +323,8 @@ public abstract class CompilerTests<T>
                 PruneUnused = true,
                 Debug = true,
                 OutputPath = Path.Combine(BaseOutputPath, "./tmp-cleanup"),
-            }
+            },
+            TestContext.Current.CancellationToken
             );
 
         AssertBundle.DumpBundle(bundle, OutputHelper);
@@ -363,7 +368,8 @@ public abstract class CompilerTests<T>
                 PruneUnused = true,
                 Debug = true,
                 OutputPath = outPath,
-            }
+            },
+            TestContext.Current.CancellationToken
             );
 
         await bundle.DisposeAsync();
@@ -407,7 +413,8 @@ public abstract class CompilerTests<T>
                     PruneUnused = true,
                     Debug = true,
                     OutputPath = outPath,
-                }
+                },
+                TestContext.Current.CancellationToken
                 )
             );
 
@@ -428,7 +435,8 @@ public abstract class CompilerTests<T>
                     Entrypoints = ["capabilities/f", "capabilities/f2"],
                     CapabilitiesFilePath = Path.Combine("TestData", "multi-caps", "caps1.json"),
                     CapabilitiesVersion = DefaultCaps,
-                }
+                },
+                TestContext.Current.CancellationToken
                 )
             );
     }
@@ -453,7 +461,7 @@ public abstract class CompilerTests<T>
 
         await using (var fs = new FileStream(tmpCapsFile, FileMode.CreateNew))
         {
-            await capsFs.CopyToAsync(fs);
+            await capsFs.CopyToAsync(fs, TestContext.Current.CancellationToken);
         }
 
         var compiler = CreateCompiler(LoggerFactory);
@@ -466,7 +474,8 @@ public abstract class CompilerTests<T>
                 CapabilitiesFilePath = tmpCapsFile,
                 CapabilitiesVersion = DefaultCaps,
                 OutputPath = outPath,
-            }
+            },
+            TestContext.Current.CancellationToken
             );
 
         AssertBundle.IsValid(policy);
@@ -479,7 +488,7 @@ public abstract class CompilerTests<T>
 
         await using (var bw = new BundleWriter(bundle))
         {
-            var rego = await File.ReadAllBytesAsync(Path.Combine("TestData", "multi-caps", "capabilities.rego"));
+            var rego = await File.ReadAllBytesAsync(Path.Combine("TestData", "multi-caps", "capabilities.rego"), TestContext.Current.CancellationToken);
             bw.WriteEntry(rego, "capabilities.rego");
         }
 
@@ -489,7 +498,7 @@ public abstract class CompilerTests<T>
         await using var capsFs = BundleWriter.MergeCapabilities(caps1Fs, caps2Fs);
 
         Memory<byte> capsMem = new byte[capsFs.Length];
-        _ = await capsFs.ReadAsync(capsMem);
+        _ = await capsFs.ReadAsync(capsMem, TestContext.Current.CancellationToken);
 
         var compiler = CreateCompiler(LoggerFactory);
 
@@ -501,7 +510,8 @@ public abstract class CompilerTests<T>
                 CapabilitiesBytes = capsMem,
                 CapabilitiesVersion = DefaultCaps,
                 Debug = true,
-            }
+            },
+            TestContext.Current.CancellationToken
             );
 
         AssertBundle.DumpBundle(policy, OutputHelper);
@@ -527,7 +537,8 @@ public abstract class CompilerTests<T>
                 Entrypoints = entrypoints,
                 CapabilitiesVersion = DefaultCaps,
                 Ignore = exclusions?.ToHashSet() ?? new HashSet<string>(),
-            }
+            },
+            TestContext.Current.CancellationToken
             );
 
         AssertBundle.DumpBundle(bundle, OutputHelper);
@@ -576,7 +587,8 @@ public abstract class CompilerTests<T>
             {
                 Entrypoints = entrypoints,
                 CapabilitiesVersion = DefaultCaps,
-            }
+            },
+            TestContext.Current.CancellationToken
             );
 
         AssertBundle.DumpBundle(bundle, OutputHelper);
@@ -641,7 +653,8 @@ public abstract class CompilerTests<T>
                 FollowSymlinks = true,
                 Debug = true,
                 Ignore = ignore,
-            }
+            },
+            TestContext.Current.CancellationToken
             );
 
         AssertBundle.DumpBundle(bundle, OutputHelper);
@@ -687,7 +700,8 @@ public abstract class CompilerTests<T>
                 Entrypoints = ["sl/allow"],
                 CapabilitiesVersion = DefaultCaps,
                 Ignore = ignore,
-            }
+            },
+            TestContext.Current.CancellationToken
             );
 
         AssertBundle.DumpBundle(bundle, OutputHelper);
@@ -727,7 +741,8 @@ public abstract class CompilerTests<T>
                 CapabilitiesVersion = DefaultCaps,
                 Debug = true,
                 RegoVersion = RegoVersion.V1,
-            }
+            },
+            TestContext.Current.CancellationToken
             );
 
         AssertBundle.DumpBundle(policy, OutputHelper);
@@ -760,7 +775,8 @@ public abstract class CompilerTests<T>
                 CapabilitiesVersion = DefaultCaps,
                 Debug = true,
                 RegoVersion = RegoVersion.V1,
-            }
+            },
+            TestContext.Current.CancellationToken
             );
 
         AssertBundle.IsValid(policy);

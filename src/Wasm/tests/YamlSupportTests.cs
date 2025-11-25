@@ -8,7 +8,7 @@ public class YamlSupportTests(ITestOutputHelper output) : OpaTestBase(output), I
 
     private string BasePath { get; } = Path.Combine("TestData", "yaml");
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         var policy = await CompileFile(
             Path.Combine(BasePath, "yaml.rego"),
@@ -26,10 +26,10 @@ public class YamlSupportTests(ITestOutputHelper output) : OpaTestBase(output), I
         _engine = OpaBundleEvaluatorFactory.Create(policy);
     }
 
-    public Task DisposeAsync()
+    public ValueTask DisposeAsync()
     {
         _engine.Dispose();
-        return Task.CompletedTask;
+        return ValueTask.CompletedTask;
     }
 
     [Fact]

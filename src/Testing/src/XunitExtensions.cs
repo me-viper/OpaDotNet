@@ -6,7 +6,6 @@ using System.Text.Json;
 using OpaDotNet.Compilation.Abstractions;
 
 using Xunit;
-using Xunit.Abstractions;
 
 namespace OpaDotNet.InternalTesting;
 

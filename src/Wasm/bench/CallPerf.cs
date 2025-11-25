@@ -2,8 +2,6 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-using BenchmarkDotNet.Attributes;
-
 namespace OpaDotNet.Benchmarks;
 
 [Config(typeof(Config))]

@@ -1,7 +1,6 @@
 ﻿using System.Globalization;
 using System.Reflection;
 
-using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Exporters;
 using BenchmarkDotNet.Loggers;
 using BenchmarkDotNet.Reports;

@@ -19,15 +19,15 @@ public class AbiVersioningTests : IAsyncLifetime
         _loggerFactory = new LoggerFactory([new XunitLoggerProvider(output)]);
     }
 
-    public Task InitializeAsync()
+    public ValueTask InitializeAsync()
     {
-        return Task.CompletedTask;
+        return ValueTask.CompletedTask;
     }
 
-    public Task DisposeAsync()
+    public ValueTask DisposeAsync()
     {
         _loggerFactory.Dispose();
-        return Task.CompletedTask;
+        return ValueTask.CompletedTask;
     }
 
     [Theory]

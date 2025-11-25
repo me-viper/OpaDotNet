@@ -115,6 +115,8 @@ public partial class DocSamples
     [Fact]
     public async Task CustomBuiltinsV26()
     {
+        var cancellationToken = TestContext.Current.CancellationToken;
+
         #region CustomBuiltinsCompilev30
 
         var compilationParameters = new CompilationParameters
@@ -137,7 +139,8 @@ public partial class DocSamples
         var compiler = new RegoInteropCompiler();
         var policy = await compiler.CompileBundleAsync(
             "builtins",
-            compilationParameters
+            compilationParameters,
+            cancellationToken
             );
 
         var opts = new WasmPolicyEngineOptions();

@@ -91,7 +91,7 @@ public abstract class PathPolicySourceTests<T> : IDisposable
             var token = source.OnPolicyUpdated();
             using var _ = token.RegisterChangeCallback(_ => tcs.SetResult(), null);
 
-            await tcs.Task.WaitAsync(TimeSpan.FromSeconds(10));
+            await tcs.Task.WaitAsync(TimeSpan.FromSeconds(10), TestContext.Current.CancellationToken);
         }
 
         await source.StopAsync(CancellationToken.None);

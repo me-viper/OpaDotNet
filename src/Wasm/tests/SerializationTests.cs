@@ -13,7 +13,7 @@ public class SerializationTests : OpaTestBase, IAsyncLifetime
         Options = new() { CapabilitiesVersion = Utils.DefaultCapabilities };
     }
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         var policy = await CompileBundle(
             Path.Combine("TestData", "serialization"),
@@ -34,10 +34,10 @@ public class SerializationTests : OpaTestBase, IAsyncLifetime
         _engine = OpaBundleEvaluatorFactory.Create(policy, opts);
     }
 
-    public Task DisposeAsync()
+    public ValueTask DisposeAsync()
     {
         _engine.Dispose();
-        return Task.CompletedTask;
+        return ValueTask.CompletedTask;
     }
 
     [Fact]

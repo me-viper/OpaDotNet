@@ -187,7 +187,7 @@ public class ConfigurationPolicySourceTests(ITestOutputHelper output)
             var newOpts = new OpaPolicyOptions { { "p1", new() { Source = Policy(i + 1) } } };
             optionsMonitor.Change(newOpts);
 
-            await Task.Delay(TimeSpan.FromSeconds(5));
+            await Task.Delay(TimeSpan.FromSeconds(5), TestContext.Current.CancellationToken);
         }
 
         await compiler.StopAsync(CancellationToken.None);

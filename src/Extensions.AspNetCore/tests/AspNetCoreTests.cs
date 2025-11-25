@@ -29,15 +29,15 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
 {
     private readonly DirectoryInfo _outputDirectory = Utils.CreateTempDirectory(AppContext.BaseDirectory);
 
-    public Task InitializeAsync()
+    public ValueTask InitializeAsync()
     {
-        return Task.CompletedTask;
+        return ValueTask.CompletedTask;
     }
 
-    public Task DisposeAsync()
+    public ValueTask DisposeAsync()
     {
         _outputDirectory.Delete(true);
-        return Task.CompletedTask;
+        return ValueTask.CompletedTask;
     }
 
     [Fact]
@@ -62,10 +62,10 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
         var transaction = new Transaction
         {
             Request = request,
-            Response = await server.CreateClient().SendAsync(request),
+            Response = await server.CreateClient().SendAsync(request, TestContext.Current.CancellationToken),
         };
 
-        transaction.ResponseText = await transaction.Response.Content.ReadAsStringAsync();
+        transaction.ResponseText = await transaction.Response.Content.ReadAsStringAsync(TestContext.Current.CancellationToken);
 
         Assert.NotNull(transaction.Response);
         Assert.Equal(HttpStatusCode.OK, transaction.Response.StatusCode);
@@ -96,10 +96,10 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
         var transaction = new Transaction
         {
             Request = request,
-            Response = await server.CreateClient().SendAsync(request),
+            Response = await server.CreateClient().SendAsync(request, TestContext.Current.CancellationToken),
         };
 
-        transaction.ResponseText = await transaction.Response.Content.ReadAsStringAsync();
+        transaction.ResponseText = await transaction.Response.Content.ReadAsStringAsync(TestContext.Current.CancellationToken);
 
         Assert.NotNull(transaction.Response);
         Assert.Equal(expected, transaction.Response.StatusCode);
@@ -136,10 +136,10 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
         var transaction = new Transaction
         {
             Request = request,
-            Response = await server.CreateClient().SendAsync(request),
+            Response = await server.CreateClient().SendAsync(request, TestContext.Current.CancellationToken),
         };
 
-        transaction.ResponseText = await transaction.Response.Content.ReadAsStringAsync();
+        transaction.ResponseText = await transaction.Response.Content.ReadAsStringAsync(TestContext.Current.CancellationToken);
 
         Assert.NotNull(transaction.Response);
         Assert.Equal(expected, transaction.Response.StatusCode);
@@ -151,7 +151,7 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
     public async Task SimpleNoCompilation(string user, HttpStatusCode expected)
     {
         var compiler = new TestingCompiler();
-        await using var policy = await compiler.CompileBundleAsync("./Policy", new());
+        await using var policy = await compiler.CompileBundleAsync("./Policy", new(), TestContext.Current.CancellationToken);
 
         var opts = new WasmPolicyEngineOptions
         {
@@ -204,10 +204,10 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
         var transaction = new Transaction
         {
             Request = request,
-            Response = await server.CreateClient().SendAsync(request),
+            Response = await server.CreateClient().SendAsync(request, TestContext.Current.CancellationToken),
         };
 
-        transaction.ResponseText = await transaction.Response.Content.ReadAsStringAsync();
+        transaction.ResponseText = await transaction.Response.Content.ReadAsStringAsync(TestContext.Current.CancellationToken);
 
         Assert.NotNull(transaction.Response);
         Assert.Equal(expected, transaction.Response.StatusCode);
@@ -299,10 +299,10 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
         var transaction = new Transaction
         {
             Request = request,
-            Response = await server.CreateClient().SendAsync(request),
+            Response = await server.CreateClient().SendAsync(request, TestContext.Current.CancellationToken),
         };
 
-        transaction.ResponseText = await transaction.Response.Content.ReadAsStringAsync();
+        transaction.ResponseText = await transaction.Response.Content.ReadAsStringAsync(TestContext.Current.CancellationToken);
 
         Assert.NotNull(transaction.Response);
         Assert.Equal(HttpStatusCode.OK, transaction.Response.StatusCode);
@@ -336,10 +336,10 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
         var transaction = new Transaction
         {
             Request = request,
-            Response = await server.CreateClient().SendAsync(request),
+            Response = await server.CreateClient().SendAsync(request, TestContext.Current.CancellationToken),
         };
 
-        transaction.ResponseText = await transaction.Response.Content.ReadAsStringAsync();
+        transaction.ResponseText = await transaction.Response.Content.ReadAsStringAsync(TestContext.Current.CancellationToken);
 
         Assert.NotNull(transaction.Response);
         Assert.Equal(expected, transaction.Response.StatusCode);
@@ -377,10 +377,10 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
         var transaction = new Transaction
         {
             Request = request,
-            Response = await client.SendAsync(request),
+            Response = await client.SendAsync(request, TestContext.Current.CancellationToken),
         };
 
-        transaction.ResponseText = await transaction.Response.Content.ReadAsStringAsync();
+        transaction.ResponseText = await transaction.Response.Content.ReadAsStringAsync(TestContext.Current.CancellationToken);
 
         Assert.NotNull(transaction.Response);
         Assert.Equal(HttpStatusCode.OK, transaction.Response.StatusCode);
@@ -411,10 +411,10 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
         var transaction = new Transaction
         {
             Request = request,
-            Response = await server.CreateClient().SendAsync(request),
+            Response = await server.CreateClient().SendAsync(request, TestContext.Current.CancellationToken),
         };
 
-        transaction.ResponseText = await transaction.Response.Content.ReadAsStringAsync();
+        transaction.ResponseText = await transaction.Response.Content.ReadAsStringAsync(TestContext.Current.CancellationToken);
 
         Assert.NotNull(transaction.Response);
         Assert.Equal(expected, transaction.Response.StatusCode);

@@ -1,7 +1,5 @@
 ﻿using System.Text.Json.Serialization;
 
-using BenchmarkDotNet.Attributes;
-
 using OpaDotNet.Wasm;
 
 namespace OpaDotNet.Benchmarks;

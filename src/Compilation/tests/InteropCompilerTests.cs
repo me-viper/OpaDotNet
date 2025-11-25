@@ -6,8 +6,6 @@ using Microsoft.Extensions.Logging;
 using OpaDotNet.Compilation.Interop;
 using OpaDotNet.InternalTesting;
 
-using Xunit.Abstractions;
-
 namespace OpaDotNet.Compilation.Tests;
 
 [UsedImplicitly]

@@ -40,7 +40,7 @@ public abstract class CustomBuiltinsTests(ITestOutputHelper output) : OpaTestBas
 
     protected abstract Stream Caps();
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         Directory.CreateDirectory(OutPath);
 
@@ -78,11 +78,11 @@ public abstract class CustomBuiltinsTests(ITestOutputHelper output) : OpaTestBas
         _engine = OpaBundleEvaluatorFactory.Create(policy, opts);
     }
 
-    public Task DisposeAsync()
+    public ValueTask DisposeAsync()
     {
         _engine.Dispose();
         Directory.Delete(OutPath, true);
-        return Task.CompletedTask;
+        return ValueTask.CompletedTask;
     }
 
     [Fact]
