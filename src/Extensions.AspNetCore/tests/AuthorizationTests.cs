@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 using OpaDotNet.Compilation.Abstractions;
@@ -24,7 +25,8 @@ public class AuthorizationTests(ITestOutputHelper output)
     [InlineData("Valid", HttpStatusCode.OK)]
     public async Task CustomAuthenticationScheme(string targetScheme, HttpStatusCode expected)
     {
-        using var server = await Setup(targetScheme);
+        using var host = await Setup(targetScheme);
+        var server = host.GetTestServer();
         var request = new HttpRequestMessage(HttpMethod.Get, $"{server.BaseAddress}attr/valid");
 
         var transaction = new Transaction
@@ -39,7 +41,7 @@ public class AuthorizationTests(ITestOutputHelper output)
         Assert.Equal(expected, transaction.Response.StatusCode);
     }
 
-    private async Task<TestServer> Setup(string targetScheme)
+    private async Task<IHost> Setup(string targetScheme)
     {
         var compiler = new TestingCompiler();
         await using var policy = await compiler.CompileBundleAsync("./Policy", new());
@@ -52,58 +54,65 @@ public class AuthorizationTests(ITestOutputHelper output)
             },
         };
 
-        var builder = new WebHostBuilder()
-            .ConfigureServices(
-                builder =>
-                {
-                    builder.AddRouting();
+        IWebHostBuilder ConfigureWebHost(IWebHostBuilder host)
+        {
+            host
+                .UseTestServer()
+                .ConfigureServices(builder =>
+                    {
+                        builder.AddRouting();
 
-                    builder.AddLogging(p => p.AddXunit(output).AddFilter(pp => pp > LogLevel.Trace));
+                        builder.AddLogging(p => p.AddXunit(output).AddFilter(pp => pp > LogLevel.Trace));
 
-                    builder.AddOpaAuthorization(
-                        cfg =>
-                        {
-                            // ReSharper disable once AccessToDisposedClosure
-                            cfg.AddPolicySource(_ => new TestPolicySource(new OpaBundleEvaluatorFactory(policy, opts)));
-                            cfg.AddConfiguration(
-                                pp =>
-                                {
-                                    pp.AllowedHeaders.Add(".*");
-                                    pp.IncludeClaimsInHttpRequest = true;
-                                    pp.EngineOptions = opts;
-                                    pp.AuthenticationSchemes = [targetScheme];
-                                }
-                                );
-                        }
-                        );
+                        builder.AddOpaAuthorization(cfg =>
+                            {
+                                // ReSharper disable once AccessToDisposedClosure
+                                cfg.AddPolicySource(_ =>
+                                        new TestPolicySource(new OpaBundleEvaluatorFactory(policy, opts))
+                                    );
+                                cfg.AddConfiguration(pp =>
+                                    {
+                                        pp.AllowedHeaders.Add(".*");
+                                        pp.IncludeClaimsInHttpRequest = true;
+                                        pp.EngineOptions = opts;
+                                        pp.AuthenticationSchemes = [targetScheme];
+                                    }
+                                    );
+                            }
+                            );
 
-                    builder.AddAuthentication("Bad")
-                        .AddScheme<AuthenticationSchemeOptions, TestAuthenticationSchemeHandler>("Valid", null)
-                        .AddScheme<AuthenticationSchemeOptions, TestAuthenticationSchemeHandler>("Bad", null);
+                        builder.AddAuthentication("Bad")
+                            .AddScheme<AuthenticationSchemeOptions, TestAuthenticationSchemeHandler>("Valid", null)
+                            .AddScheme<AuthenticationSchemeOptions, TestAuthenticationSchemeHandler>("Bad", null);
 
-                    builder.AddAuthorization();
-                }
-                )
-            .Configure(
-                app =>
-                {
-                    app.UseRouting();
+                        builder.AddAuthorization();
+                    }
+                    )
+                .Configure(app =>
+                    {
+                        app.UseRouting();
 
-                    app.UseAuthentication();
-                    app.UseAuthorization();
+                        app.UseAuthentication();
+                        app.UseAuthorization();
 
-                    app.UseEndpoints(
-                        p =>
-                        {
-                            p.MapGet(
-                                "/attr/valid",
-                                [Authorize("Opa/az/auth_scheme")]() => Results.Ok()
-                                );
-                        }
-                        );
-                }
-                );
+                        app.UseEndpoints(p =>
+                            {
+                                p.MapGet(
+                                    "/attr/valid",
+                                    [Authorize("Opa/az/auth_scheme")]() => Results.Ok()
+                                    );
+                            }
+                            );
+                    }
+                    );
 
-        return new TestServer(builder);
+            return host;
+        }
+
+
+        var host = new HostBuilder().ConfigureWebHost(p => ConfigureWebHost(p)).Build();
+        await host.StartAsync();
+
+        return host;
     }
 }

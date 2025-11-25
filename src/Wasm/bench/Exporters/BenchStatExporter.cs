@@ -23,11 +23,11 @@ public class BenchStatExporter : ExporterBase
         var pkg = Assembly.GetEntryAssembly()!.GetName().Name;
         var culture = CultureInfo.InvariantCulture;
 
-        logger.WriteLine($"os: {summary.HostEnvironmentInfo.OsVersion.Value}");
+        logger.WriteLine($"os: {summary.HostEnvironmentInfo.Os.Value}");
         logger.WriteLine($"arch: {summary.HostEnvironmentInfo.Architecture}");
         logger.WriteLine($"pkg: {pkg}");
-        logger.WriteLine($"cpu: {summary.HostEnvironmentInfo.CpuInfo.Value.ProcessorName}");
-        logger.WriteLine($"cores: {summary.HostEnvironmentInfo.CpuInfo.Value.LogicalCoreCount ?? 0}");
+        logger.WriteLine($"cpu: {summary.HostEnvironmentInfo.Cpu.Value.ProcessorName}");
+        logger.WriteLine($"cores: {summary.HostEnvironmentInfo.Cpu.Value.LogicalCoreCount ?? 0}");
         logger.WriteLine($"net: {string.Join(';', summary.HostEnvironmentInfo.DotNetSdkVersion)}");
 
         foreach (var report in summary.Reports)

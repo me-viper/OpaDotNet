@@ -27,19 +27,6 @@ public partial class OpaJsonReaderBench
         return RegoValueHelper.JsonFromRegoValue(RegoToJson);
     }
 
-    [Benchmark]
-    public object X()
-    {
-        return null;
-    }
-
-    [Benchmark]
-    public object Q()
-    {
-        var r = new Utf8JsonReader();
-        return null;
-    }
-
     private static string JsonFromRegoValue(string s)
     {
         var regex = RegoSetRegex();

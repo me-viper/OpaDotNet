@@ -5,17 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="README.md" Pack="true" PackagePath=""/>
+    <None Include="README.md" Pack="true" PackagePath="" />
   </ItemGroup>
 
   <ItemGroup>
-    <FrameworkReference Include="Microsoft.AspNetCore.App"/>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DotNext.Threading" Version="5.19.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="8.0.11"/>
-    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.1"/>
+    <PackageReference Include="DotNext.Threading" Version="5.26.1" />
 
     <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="3.3.4">
       <PrivateAssets>all</PrivateAssets>
@@ -24,13 +22,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Compilation.Abstractions\src\OpaDotNet.Compilation.Abstractions.csproj"/>
-    <ProjectReference Include="..\..\Wasm\src\OpaDotNet.Wasm.csproj"/>
+    <ProjectReference Include="..\..\Compilation.Abstractions\src\OpaDotNet.Compilation.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Wasm\src\OpaDotNet.Wasm.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Using Include="Microsoft.AspNetCore.Authorization"/>
-    <Using Include="Microsoft.Extensions.Logging"/>
+    <Using Include="Microsoft.AspNetCore.Authorization" />
+    <Using Include="Microsoft.Extensions.Logging" />
   </ItemGroup>
 
 </Project>

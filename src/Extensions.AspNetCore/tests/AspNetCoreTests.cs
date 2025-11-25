@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -42,7 +43,7 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
     [Fact]
     public async Task HttpRequestInput()
     {
-        using var server = CreateServer(
+        using var host = await CreateServer(
             output,
             handler: async (context, _) =>
             {
@@ -55,6 +56,7 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
             }
             );
 
+        var server = host.GetTestServer();
         var request = new HttpRequestMessage(HttpMethod.Get, $"{server.BaseAddress}az/request");
 
         var transaction = new Transaction
@@ -74,7 +76,7 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
     [InlineData("wrong", HttpStatusCode.Forbidden)]
     public async Task Simple(string user, HttpStatusCode expected)
     {
-        using var server = CreateServer(
+        using var host = await CreateServer(
             output,
             handler: async (context, _) =>
             {
@@ -88,6 +90,7 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
             configureServices: p => p.AddSingleton<IAuthorizationHandler, OpaPolicyHandler<UserPolicyInput>>()
             );
 
+        var server = host.GetTestServer();
         var request = new HttpRequestMessage(HttpMethod.Get, $"{server.BaseAddress}");
 
         var transaction = new Transaction
@@ -107,7 +110,7 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
     [InlineData("wrong", HttpStatusCode.Forbidden)]
     public async Task CompositeAuthorizationPolicyProvider(string user, HttpStatusCode expected)
     {
-        using var server = CreateServer(
+        using var host = await CreateServer(
             output,
             handler: async (context, _) =>
             {
@@ -127,6 +130,7 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
             }
             );
 
+        var server = host.GetTestServer();
         var request = new HttpRequestMessage(HttpMethod.Get, $"{server.BaseAddress}");
 
         var transaction = new Transaction
@@ -158,7 +162,7 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
             StrictBuiltinErrors = true,
         };
 
-        using var server = CreateServerFull(
+        using var host = await CreateServerFull(
             output,
             handler: async (context, _) =>
             {
@@ -171,7 +175,7 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
             },
             configureServices: p =>
             {
-                p.AddLogging(p => p.AddXunit(output).AddFilter(pp => pp > LogLevel.Trace));
+                p.AddLogging(pp => pp.AddXunit(output).AddFilter(log => log > LogLevel.Trace));
                 p.AddSingleton<IAuthorizationHandler, OpaPolicyHandler<UserPolicyInput>>();
 
                 p.AddOpaAuthorization(
@@ -194,6 +198,7 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
             }
             );
 
+        var server = host.GetTestServer();
         var request = new HttpRequestMessage(HttpMethod.Get, $"{server.BaseAddress}");
 
         var transaction = new Transaction
@@ -213,7 +218,7 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
     [InlineData("wrong", HttpStatusCode.Forbidden)]
     public async Task ParallelSimple(string user, HttpStatusCode expected)
     {
-        using var server = CreateServer(
+        using var host = await CreateServer(
             output,
             handler: async (context, _) =>
             {
@@ -226,6 +231,8 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
             },
             configureServices: p => p.AddSingleton<IAuthorizationHandler, OpaPolicyHandler<UserPolicyInput>>()
             );
+
+        var server = host.GetTestServer();
 
         async Task DoSimple()
         {
@@ -248,7 +255,7 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
         await Parallel.ForEachAsync(
             Enumerable.Range(0, 10_000),
             options,
-            async (i, _) => await DoSimple()
+            async (_, _) => await DoSimple()
             );
 
         output.WriteLine("Done!");
@@ -257,7 +264,7 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
     [Fact]
     public async Task Jwt()
     {
-        using var server = CreateServer(
+        using var host = await CreateServer(
             output,
             handler: async (context, _) =>
             {
@@ -271,6 +278,7 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
             }
             );
 
+        var server = host.GetTestServer();
         var request = new HttpRequestMessage(HttpMethod.Get, server.BaseAddress);
 
         var handler = new JwtSecurityTokenHandler();
@@ -307,7 +315,8 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
     [InlineData("az/svc", "xxx", HttpStatusCode.Forbidden)]
     public async Task RouteAuthorization(string path, string? user = null, HttpStatusCode expected = HttpStatusCode.OK)
     {
-        using var server = CreateServer(output);
+        using var host = await CreateServer(output);
+        var server = host.GetTestServer();
         var request = new HttpRequestMessage(HttpMethod.Get, $"{server.BaseAddress}{path}");
         var handler = new JwtSecurityTokenHandler();
 
@@ -339,7 +348,7 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
     [Fact]
     public async Task Claims()
     {
-        using var server = CreateServer(
+        using var host = await CreateServer(
             output,
             handler: async (context, _) =>
             {
@@ -361,6 +370,7 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
             }
             );
 
+        var server = host.GetTestServer();
         var request = new HttpRequestMessage(HttpMethod.Get, server.BaseAddress);
         using var client = server.CreateClient();
 
@@ -381,7 +391,7 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
     [InlineData("u2", HttpStatusCode.Forbidden)]
     public async Task Composite(string user, HttpStatusCode expected)
     {
-        using var server = CreateServer(
+        using var host = await CreateServer(
             output,
             handler: async (context, _) =>
             {
@@ -395,6 +405,7 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
             configureServices: p => p.AddSingleton<IAuthorizationHandler, ComplexAuthorizationHandler>()
             );
 
+        var server = host.GetTestServer();
         var request = new HttpRequestMessage(HttpMethod.Get, $"{server.BaseAddress}");
 
         var transaction = new Transaction
@@ -432,11 +443,11 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
             if (result1 is not { Access: true, Admin: true })
                 return;
 
-            var inputRaw = JsonSerializer.Serialize(resource, options.Value.EngineOptions?.SerializationOptions);
+            var inputRaw = JsonSerializer.Serialize(resource, options.Value.EngineOptions.SerializationOptions);
             var result2Raw = await service.EvaluateRaw(inputRaw.AsMemory(), requirement.Entrypoint);
             var result2 = JsonSerializer.Deserialize<PolicyEvaluationResult<UserAccessPolicyOutput>[]>(
                 result2Raw,
-                options.Value.EngineOptions?.SerializationOptions
+                options.Value.EngineOptions.SerializationOptions
                 );
 
             if (result2![0].Result is { Access: true, Admin: true })
@@ -444,130 +455,140 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
         }
     }
 
-    private static TestServer CreateServerFull(
+    private static async Task<IHost> CreateServerFull(
         ITestOutputHelper output,
         Func<HttpContext, Func<Task>, Task> handler,
         Action<IServiceCollection> configureServices,
         Uri? baseAddress = null)
     {
-        var builder = new WebHostBuilder()
-            .ConfigureServices(configureServices)
-            .Configure(
-                app =>
-                {
-                    app.UseAuthentication();
-                    app.UseAuthorization();
+        var host = new HostBuilder()
+            .ConfigureWebHost(p => p
+                    .UseTestServer(pp =>
+                        {
+                            if (baseAddress != null)
+                                pp.BaseAddress = baseAddress;
+                        }
+                        )
+                    .ConfigureServices(configureServices)
+                    .Configure(app =>
+                        {
+                            app.UseAuthentication();
+                            app.UseAuthorization();
 
-                    app.Use(handler);
-                }
-                );
+                            app.Use(handler);
+                        }
+                        )
+                )
+            .Build();
 
-        var server = new TestServer(builder);
+        await host.StartAsync();
 
-        if (baseAddress != null)
-            server.BaseAddress = baseAddress;
-
-        return server;
+        return host;
     }
 
-    private TestServer CreateServer(
+    private async Task<IHost> CreateServer(
         ITestOutputHelper testOutput,
         Func<HttpContext, Func<Task>, Task>? handler = null,
         Uri? baseAddress = null,
         Func<IServiceCollection, IServiceCollection>? configureServices = null)
     {
-        var builder = new WebHostBuilder()
-            .ConfigureServices(
-                builder =>
-                {
-                    builder.AddLogging(p => p.AddXunit(testOutput, LogLevel.Trace));
-
-                    //builder.AddLogging(p => p.AddConsole());
-
-                    builder.AddOpaAuthorization(
-                        cfg =>
-                        {
-                            cfg.AddCompiler<TestingCompiler>();
-                            cfg.AddPolicySource<FileSystemPolicySource>();
-                            cfg.AddConfiguration(
-                                p =>
-                                {
-                                    p.Compiler = new()
-                                    {
-                                        OutputPath = _outputDirectory.FullName,
-                                        ForceBundleWriter = true,
-
-                                        //Debug = true,
-                                    };
-                                    p.PolicyBundlePath = "./Policy";
-                                    p.AllowedHeaders.Add(".*");
-                                    p.IncludeClaimsInHttpRequest = true;
-                                    p.EngineOptions = new()
-                                    {
-                                        SerializationOptions = new()
-                                        {
-                                            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                                        },
-                                    };
-                                }
-                                );
-                        }
-                        );
-
-                    if (handler == null)
-                        builder.AddRouting();
-
-                    builder.AddAuthentication()
-                        .AddScheme<AuthenticationSchemeOptions, TestAuthenticationSchemeHandler>("Test", null);
-                    builder.AddAuthorization();
-
-                    configureServices?.Invoke(builder);
-                }
-                )
-            .Configure(
-                app =>
-                {
-                    if (handler != null)
+        IWebHostBuilder ConfigureWebHost(IWebHostBuilder host)
+        {
+            host.UseTestServer(p =>
                     {
-                        app.UseAuthentication();
-                        app.UseAuthorization();
-
-                        app.Use(handler);
+                        if (baseAddress != null)
+                            p.BaseAddress = baseAddress;
                     }
-                    else
+                    )
+                .ConfigureServices(builder =>
                     {
-                        app.UseRouting();
+                        builder.AddLogging(p => p.AddXunit(testOutput, LogLevel.Trace));
 
-                        app.UseAuthentication();
-                        app.UseAuthorization();
+                        //builder.AddLogging(p => p.AddConsole());
 
-                        app.UseEndpoints(
-                            p =>
+                        builder.AddOpaAuthorization(cfg =>
                             {
-                                p.MapGet(
-                                    "/az/attr",
-                                    [OpaPolicyAuthorize("az", "attr")](HttpContext context, CancellationToken ct)
-                                        => Task.FromResult(Results.Ok())
-                                    );
-                                p.MapGet(
-                                    "/az/svc",
-                                    async ([FromServices] IAuthorizationService azs, ClaimsPrincipal user, HttpContext context) =>
+                                cfg.AddCompiler<TestingCompiler>();
+                                cfg.AddPolicySource<FileSystemPolicySource>();
+                                cfg.AddConfiguration(p =>
                                     {
-                                        var result = await azs.AuthorizeAsync(user, context, "Opa/az/attr");
-                                        return result.Succeeded ? Results.Ok() : Results.Forbid();
+                                        p.Compiler = new()
+                                        {
+                                            OutputPath = _outputDirectory.FullName,
+                                            ForceBundleWriter = true,
+
+                                            //Debug = true,
+                                        };
+                                        p.PolicyBundlePath = "./Policy";
+                                        p.AllowedHeaders.Add(".*");
+                                        p.IncludeClaimsInHttpRequest = true;
+                                        p.EngineOptions = new()
+                                        {
+                                            SerializationOptions = new()
+                                            {
+                                                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                                            },
+                                        };
                                     }
                                     );
                             }
                             );
+
+                        if (handler == null)
+                            builder.AddRouting();
+
+                        builder.AddAuthentication()
+                            .AddScheme<AuthenticationSchemeOptions, TestAuthenticationSchemeHandler>("Test", null);
+                        builder.AddAuthorization();
+
+                        configureServices?.Invoke(builder);
                     }
-                }
-                );
+                    )
+                .Configure(app =>
+                    {
+                        if (handler != null)
+                        {
+                            app.UseAuthentication();
+                            app.UseAuthorization();
 
-        var server = new TestServer(builder);
+                            app.Use(handler);
+                        }
+                        else
+                        {
+                            app.UseRouting();
 
-        if (baseAddress != null)
-            server.BaseAddress = baseAddress;
+                            app.UseAuthentication();
+                            app.UseAuthorization();
 
-        return server;
+                            app.UseEndpoints(p =>
+                                {
+                                    p.MapGet(
+                                        "/az/attr",
+                                        [OpaPolicyAuthorize("az", "attr")](HttpContext context, CancellationToken ct)
+                                            => Task.FromResult(Results.Ok())
+                                        );
+                                    p.MapGet(
+                                        "/az/svc",
+                                        async (
+                                            [FromServices] IAuthorizationService azs, ClaimsPrincipal user,
+                                            HttpContext context) =>
+                                        {
+                                            var result = await azs.AuthorizeAsync(user, context, "Opa/az/attr");
+                                            return result.Succeeded ? Results.Ok() : Results.Forbid();
+                                        }
+                                        );
+                                }
+                                );
+                        }
+                    }
+                    );
+
+            return host;
+        }
+
+        var host = new HostBuilder().ConfigureWebHost(p => ConfigureWebHost(p)).Build();
+        await host.StartAsync();
+
+        return host;
     }
 }
