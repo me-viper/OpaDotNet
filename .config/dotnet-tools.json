@@ -6,7 +6,15 @@
       "version": "3.6.139",
       "commands": [
         "nbgv"
-      ]
+      ],
+      "rollForward": false
+    },
+    "dotnet-coverage": {
+      "version": "18.1.0",
+      "commands": [
+        "dotnet-coverage"
+      ],
+      "rollForward": false
     }
   }
 }
