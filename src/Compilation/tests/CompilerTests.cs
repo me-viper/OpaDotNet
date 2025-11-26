@@ -349,7 +349,7 @@ public abstract class CompilerTests<T>
 
         ms.Seek(0, SeekOrigin.Begin);
 
-        var outPath = Path.Combine(BaseOutputPath, "./tmp-cleanup");
+        var outPath = Path.Combine(BaseOutputPath, "./tmp-cleanup", Path.GetRandomFileName());
 
         var tmpDir = new DirectoryInfo(outPath);
 
