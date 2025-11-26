@@ -1,0 +1,64 @@
+<Solution>
+  <Folder Name="/build/">
+    <File Path="build/api-ship.ps1" />
+    <File Path="build/qodana.ps1" />
+    <File Path="build/versions.ps1" />
+  </Folder>
+  <Folder Name="/docs/">
+    <Project Path="docs/snippets/Snippets.csproj" />
+  </Folder>
+  <Folder Name="/sln/">
+    <File Path=".editorconfig" />
+    <File Path=".gitattributes" />
+    <File Path=".gitignore" />
+    <File Path="build.ps1" />
+    <File Path="CHANGELOG.md" />
+    <File Path="Directory.Build.props" />
+    <File Path="global.json" />
+    <File Path="LICENSE" />
+    <File Path="NuGet.Config" />
+    <File Path="qodana.yaml" />
+    <File Path="README.md" />
+    <File Path="version.json" />
+  </Folder>
+  <Folder Name="/src/">
+    <File Path="src/Common/src/NopDisposable.cs" />
+  </Folder>
+  <Folder Name="/src/Compilation.Abstractions/">
+    <Project Path="src/Compilation.Abstractions/src/OpaDotNet.Compilation.Abstractions.csproj" />
+  </Folder>
+  <Folder Name="/src/Compilation/">
+    <Project Path="src/Compilation/tests/OpaDotNet.Compilation.Tests.csproj" />
+  </Folder>
+  <Folder Name="/src/Compilation/Cli/">
+    <Project Path="src/Compilation/Cli/src/OpaDotNet.Compilation.Cli.csproj" />
+  </Folder>
+  <Folder Name="/src/Compilation/Interop/">
+    <Project Path="src/Compilation/Interop/src/OpaDotNet.Compilation.Interop.csproj" />
+  </Folder>
+  <Folder Name="/src/Extensions.AspNetCore/">
+    <Project Path="src/Extensions.AspNetCore/src/OpaDotNet.Extensions.AspNetCore.csproj" />
+    <Project Path="src/Extensions.AspNetCore/tests/OpaDotNet.Extensions.AspNetCore.Tests.csproj" />
+  </Folder>
+  <Folder Name="/src/Extensions.AspNetCore/samples/">
+    <Project Path="src/Extensions.AspNetCore/samples/CustomBuiltins/CustomBuiltins.csproj" />
+    <Project Path="src/Extensions.AspNetCore/samples/WebApp/WebApp.csproj" />
+    <Project Path="src/Extensions.AspNetCore/samples/YarpApp/YarpApp.csproj" />
+  </Folder>
+  <Folder Name="/src/Testing/">
+    <Project Path="src/Testing/src/OpaDotNet.InternalTesting.csproj" />
+  </Folder>
+  <Folder Name="/src/Wasm/">
+    <Project Path="src/Wasm/src/OpaDotNet.Wasm.csproj" />
+    <Project Path="src/Wasm/tests/OpaDotNet.Wasm.Tests.csproj" />
+  </Folder>
+  <Folder Name="/src/Wasm/bench/">
+    <Project Path="src/Wasm/bench/OpaDotNet.Benchmarks.csproj" />
+  </Folder>
+  <Folder Name="/src/Wasm/gen/">
+    <Project Path="src/Wasm/gen/OpaDotNet.Wasm.Generators.csproj" />
+  </Folder>
+  <Folder Name="/src/Wasm/samples/">
+    <Project Path="src/Wasm/samples/ReferencesValidationPolicy/ReferencesValidationPolicy.csproj" />
+  </Folder>
+</Solution>
