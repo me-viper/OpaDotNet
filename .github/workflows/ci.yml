@@ -47,11 +47,10 @@ jobs:
         echo "version=$(dotnet nbgv get-version -v NuGetPackageVersion)" >> $env:GITHUB_OUTPUT
 
     - name: Setup .NET
-      uses: actions/setup-dotnet@v4
+      uses: actions/setup-dotnet@v5
       with:
         dotnet-version: |
-          8.0.x
-          9.0.x
+          10.0.x
 
     - name: get_opa_lib
       uses: actions/download-artifact@v4
@@ -68,24 +67,17 @@ jobs:
         curl -L --fail -o /usr/local/bin/opa https://openpolicyagent.org/downloads/${OPA_CLI_VERSION}/opa_linux_amd64_static
         chmod 755 /usr/local/bin/opa
 
-    - name: Test net9.0
-      shell: pwsh
-      run: |
-        ./build/tests.ps1 -Compiler Cli -ExtraFilters '' --configuration Release --no-build -f net9.0
+    - name: Tests
+      run: dotnet test --configuration Release --no-build --filter-not-trait "Compiler=Interop" -- --coverage --coverage-output-format cobertura --coverage-output cov.xml
 
-    - name: Test net8.0
-      shell: pwsh
-      #run: dotnet test -c Release --no-build -f net8.0 -m:1 /p:CollectCoverage=true /p:CoverletOutput="${GITHUB_WORKSPACE}/TestResults/" /p:CoverletOutputFormat="lcov%2cjson" /p:MergeWith="${GITHUB_WORKSPACE}/TestResults/coverage.net8.0.json"
-      run: |
-        ./build/tests.ps1 -Compiler Cli -ExtraFilters '' `
-          --configuration Release --no-build -f net8.0 `
-          /p:CollectCoverage=true /p:CoverletOutput="${PWD}/TestResults/" /p:CoverletOutputFormat="lcov%2cjson" /p:MergeWith="${PWD}/TestResults/coverage.net8.0.json"
+    - name: Merge Coverage
+      run: dotnet coverage merge -o coveralls.xml -f cobertura ./artifacts/**/cov.xml
 
     - name: Coveralls
       uses: coverallsapp/github-action@v2
       with:
-        file: ${GITHUB_WORKSPACE}/TestResults/coverage.net8.0.info
-        format: lcov
+        file: coveralls.xml
+        format: cobertura
 
     - name: Pack
       run: dotnet pack -c Release --no-build
