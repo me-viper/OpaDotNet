@@ -1,5 +1,13 @@
 # Changelog
 
+## OpaDotNet 2025.2.1
+
+.NET 10 support
+
+### OpaDotNet.Wasm
+
+* Implement `json.marshal_with_options`
+
 ## OpaDotNet 2025.1.1
 
 ### OpaDotNet.Wasm
