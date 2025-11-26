@@ -68,7 +68,7 @@ jobs:
         chmod 755 /usr/local/bin/opa
 
     - name: Tests
-      run: dotnet test --configuration Release --no-build --filter-not-trait "Compiler=Interop" -- --coverage --coverage-output-format cobertura --coverage-output cov.xml
+      run: dotnet test --configuration Release --no-build --no-progress --filter-not-trait "Compiler=Interop" -- --coverage --coverage-output-format cobertura --coverage-output cov.xml
 
     - name: Merge Coverage
       run: dotnet coverage merge -o coveralls.xml -f cobertura ./artifacts/**/cov.xml
