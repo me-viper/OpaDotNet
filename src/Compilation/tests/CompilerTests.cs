@@ -322,7 +322,7 @@ public abstract class CompilerTests<T>
             {
                 PruneUnused = true,
                 Debug = true,
-                OutputPath = Path.Combine(BaseOutputPath, "./tmp-cleanup"),
+                OutputPath = Path.Combine(BaseOutputPath, "./tmp-cleanup", Path.GetRandomFileName()),
             },
             TestContext.Current.CancellationToken
             );
@@ -394,7 +394,7 @@ public abstract class CompilerTests<T>
 
         ms.Seek(0, SeekOrigin.Begin);
 
-        var outPath = Path.Combine(BaseOutputPath, "./tmp-cleanup-fail");
+        var outPath = Path.Combine(BaseOutputPath, "./tmp-cleanup-fail", Path.GetRandomFileName());
 
         var tmpDir = new DirectoryInfo(outPath);
 
