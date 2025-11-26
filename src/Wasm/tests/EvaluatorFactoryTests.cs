@@ -40,7 +40,7 @@ public class EvaluatorFactoryTests(ITestOutputHelper output) : OpaTestBase(outpu
         using var factory = new OpaWasmEvaluatorFactory(File.OpenRead(path));
 
         using var dataStream = File.OpenText(Path.Combine("TestData", "compile-bundle", "data.json"));
-        var data = await dataStream.ReadToEndAsync();
+        var data = await dataStream.ReadToEndAsync(TestContext.Current.CancellationToken);
 
         Task RunTest()
         {
