@@ -134,7 +134,16 @@ public class RegoCliCompiler : IRegoCompiler
         finally
         {
             if (!_options.PreserveBuildArtifacts)
-                sourceFile.Delete();
+            {
+                try
+                {
+                    sourceFile.Delete();
+                }
+                catch(Exception ex)
+                {
+                    _logger.LogWarning(ex, "Failed to remove build artifacts");
+                }
+            }
         }
     }
 
