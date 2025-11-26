@@ -315,19 +315,31 @@ public abstract class CompilerTests<T>
 
         ms.Seek(0, SeekOrigin.Begin);
 
+        var outPath = Path.Combine(BaseOutputPath, "./tmp-cleanup", Path.GetRandomFileName());
+        Directory.CreateDirectory(outPath);
+
         var compiler = CreateCompiler(LoggerFactory);
-        using var bundle = await compiler.CompileBundleAsync(
+
+        var bundle = await compiler.CompileBundleAsync(
             ms,
             new()
             {
                 PruneUnused = true,
                 Debug = true,
-                OutputPath = Path.Combine(BaseOutputPath, "./tmp-cleanup", Path.GetRandomFileName()),
+                OutputPath = outPath,
             },
             TestContext.Current.CancellationToken
             );
 
-        AssertBundle.DumpBundle(bundle, OutputHelper);
+        try
+        {
+            AssertBundle.DumpBundle(bundle, OutputHelper);
+        }
+        finally
+        {
+            await bundle.DisposeAsync();
+            Directory.Delete(outPath, true);
+        }
     }
 
     [Fact]
@@ -374,8 +386,15 @@ public abstract class CompilerTests<T>
 
         await bundle.DisposeAsync();
 
-        var filesCount = tmpDir.EnumerateFiles().Count();
-        Assert.Equal(0, filesCount);
+        try
+        {
+            var filesCount = tmpDir.EnumerateFiles().Count();
+            Assert.Equal(0, filesCount);
+        }
+        finally
+        {
+            tmpDir.Delete(true);
+        }
     }
 
     [Fact]
@@ -420,6 +439,8 @@ public abstract class CompilerTests<T>
 
         var filesCount = tmpDir.EnumerateFiles().Count();
         Assert.Equal(0, filesCount);
+
+        tmpDir.Delete(true);
     }
 
     [Fact]
