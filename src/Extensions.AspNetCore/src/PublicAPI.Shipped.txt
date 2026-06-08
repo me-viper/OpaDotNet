@@ -23,6 +23,7 @@ OpaDotNet.Extensions.AspNetCore.IBundleCompiler.Compile(System.IO.Stream! source
 OpaDotNet.Extensions.AspNetCore.IBundleCompiler.Compiler.get -> OpaDotNet.Compilation.Abstractions.IRegoCompiler!
 OpaDotNet.Extensions.AspNetCore.IBundleCompiler.CompilerOptions.get -> OpaDotNet.Extensions.AspNetCore.RegoCompilerOptions!
 OpaDotNet.Extensions.AspNetCore.IConnectionInput
+OpaDotNet.Extensions.AspNetCore.IConnectionInput.ClientCertificatePem.get -> string?
 OpaDotNet.Extensions.AspNetCore.IConnectionInput.LocalIpAddress.get -> string?
 OpaDotNet.Extensions.AspNetCore.IConnectionInput.LocalIpAddressV6.get -> string?
 OpaDotNet.Extensions.AspNetCore.IConnectionInput.LocalPort.get -> int
