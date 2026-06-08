@@ -98,6 +98,11 @@ internal class HttpRequestPolicyInput : IHttpRequestPolicyInput
             get => _connection.LocalPort;
         }
 
+        public string? ClientCertificatePem
+        {
+            get => _connection.ClientCertificate?.ExportCertificatePem();
+        }
+
         // public X509Certificate2? ClientCertificate
         // {
         //     get => _connection.ClientCertificate;

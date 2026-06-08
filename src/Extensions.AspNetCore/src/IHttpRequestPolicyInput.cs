@@ -20,6 +20,7 @@ public interface IConnectionInput
     string? LocalIpAddressV6 { get; }
 
     int LocalPort { get; }
+    string? ClientCertificatePem { get; }
 }
 
 [PublicAPI]
