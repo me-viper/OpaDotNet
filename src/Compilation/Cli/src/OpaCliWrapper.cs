@@ -38,6 +38,7 @@ internal class OpaCliWrapper
     private async Task<int> Run(
         ProcessStartInfo psi,
         Action<string?> writeOutput,
+        Action<string?>? writeError = null,
         string? sourcePath = null,
         bool suppressLogging = false,
         CancellationToken cancellationToken = default)
@@ -69,6 +70,8 @@ internal class OpaCliWrapper
                 return;
 
             _logger.LogError("{Error}", ea.Data);
+
+            writeError?.Invoke(ea.Data);
         };
 
         _logger.LogDebug("Running [{Cli} {Args}]", psi.FileName, psi.Arguments);
@@ -107,6 +110,7 @@ internal class OpaCliWrapper
         var code = await Run(
             CreateProcess("build", args.ToString()),
             p => sb.AppendLine(p),
+            null,
             args.SourcePath,
             false,
             cancellationToken
@@ -121,6 +125,29 @@ internal class OpaCliWrapper
         }
     }
 
+    public async Task<CheckResult> Check(OpaCliCheckArgs args, CancellationToken cancellationToken)
+    {
+        _logger.LogInformation("Checking");
+
+        var err = new StringBuilder();
+
+        var code = await Run(
+            CreateProcess("check", args.ToString()),
+            _ => {},
+            p => err.AppendLine(p),
+            args.SourcePath,
+            false,
+            cancellationToken
+            ).ConfigureAwait(false);
+
+        return new()
+        {
+            Success = code == 0,
+            ExitCode = code,
+            Output = err.ToString(),
+        };
+    }
+
     public async Task Capabilities(string outputFileName, string version, CancellationToken cancellationToken)
     {
         var sw = new StreamWriter(outputFileName);
@@ -131,6 +158,7 @@ internal class OpaCliWrapper
         var code = await Run(
             CreateProcess("capabilities", $"--version {version}"),
             p => sw.WriteLine(p),
+            null,
             AppContext.BaseDirectory,
             true,
             cancellationToken
@@ -149,7 +177,7 @@ internal class OpaCliWrapper
     {
         var ver = new StringBuilder();
 
-        var code = await Run(CreateProcess("version", null), p => ver.AppendLine(p), null, true, cancellationToken)
+        var code = await Run(CreateProcess("version", null), p => ver.AppendLine(p), null, null, true, cancellationToken)
             .ConfigureAwait(false);
 
         if (code != 0)

@@ -1,10 +1,45 @@
 
 #nullable enable
+OpaDotNet.Compilation.Cli.CheckOutputFormat
+OpaDotNet.Compilation.Cli.CheckOutputFormat.Json = 1 -> OpaDotNet.Compilation.Cli.CheckOutputFormat
+OpaDotNet.Compilation.Cli.CheckOutputFormat.Pretty = 0 -> OpaDotNet.Compilation.Cli.CheckOutputFormat
+OpaDotNet.Compilation.Cli.CheckParameters
+OpaDotNet.Compilation.Cli.CheckParameters.CapabilitiesBytes.get -> System.ReadOnlyMemory<byte>
+OpaDotNet.Compilation.Cli.CheckParameters.CapabilitiesBytes.init -> void
+OpaDotNet.Compilation.Cli.CheckParameters.CapabilitiesFilePath.get -> string?
+OpaDotNet.Compilation.Cli.CheckParameters.CapabilitiesFilePath.init -> void
+OpaDotNet.Compilation.Cli.CheckParameters.CapabilitiesVersion.get -> string?
+OpaDotNet.Compilation.Cli.CheckParameters.CapabilitiesVersion.init -> void
+OpaDotNet.Compilation.Cli.CheckParameters.Format.get -> OpaDotNet.Compilation.Cli.CheckOutputFormat
+OpaDotNet.Compilation.Cli.CheckParameters.Format.init -> void
+OpaDotNet.Compilation.Cli.CheckParameters.Ignore.get -> System.Collections.Generic.IReadOnlySet<string!>!
+OpaDotNet.Compilation.Cli.CheckParameters.Ignore.init -> void
+OpaDotNet.Compilation.Cli.CheckParameters.IsBundle.get -> bool
+OpaDotNet.Compilation.Cli.CheckParameters.IsBundle.init -> void
+OpaDotNet.Compilation.Cli.CheckParameters.MaxErrors.get -> int?
+OpaDotNet.Compilation.Cli.CheckParameters.MaxErrors.init -> void
+OpaDotNet.Compilation.Cli.CheckParameters.RegoVersion.get -> OpaDotNet.Compilation.Abstractions.RegoVersion
+OpaDotNet.Compilation.Cli.CheckParameters.RegoVersion.init -> void
+OpaDotNet.Compilation.Cli.CheckParameters.Schema.get -> string?
+OpaDotNet.Compilation.Cli.CheckParameters.Schema.init -> void
+OpaDotNet.Compilation.Cli.CheckParameters.Strict.get -> bool
+OpaDotNet.Compilation.Cli.CheckParameters.Strict.init -> void
+OpaDotNet.Compilation.Cli.CheckResult
+OpaDotNet.Compilation.Cli.CheckResult.CheckResult() -> void
+OpaDotNet.Compilation.Cli.CheckResult.ExitCode.get -> int
+OpaDotNet.Compilation.Cli.CheckResult.ExitCode.set -> void
+OpaDotNet.Compilation.Cli.CheckResult.Output.get -> string?
+OpaDotNet.Compilation.Cli.CheckResult.Output.set -> void
+OpaDotNet.Compilation.Cli.CheckResult.Success.get -> bool
+OpaDotNet.Compilation.Cli.CheckResult.Success.set -> void
 OpaDotNet.Compilation.Cli.RegoCliCompiler
+OpaDotNet.Compilation.Cli.RegoCliCompiler.CheckAsync(string! path, OpaDotNet.Compilation.Cli.CheckParameters! parameters, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<OpaDotNet.Compilation.Cli.CheckResult!>!
+OpaDotNet.Compilation.Cli.RegoCliCompiler.CheckAsync(System.IO.Stream! stream, OpaDotNet.Compilation.Cli.CheckParameters! parameters, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<OpaDotNet.Compilation.Cli.CheckResult!>!
 OpaDotNet.Compilation.Cli.RegoCliCompiler.Compile(string! path, OpaDotNet.Compilation.Abstractions.CompilationParameters! parameters, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<System.IO.Stream!>!
 OpaDotNet.Compilation.Cli.RegoCliCompiler.Compile(System.IO.Stream! stream, OpaDotNet.Compilation.Abstractions.CompilationParameters! parameters, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<System.IO.Stream!>!
 OpaDotNet.Compilation.Cli.RegoCliCompiler.RegoCliCompiler(Microsoft.Extensions.Logging.ILogger<OpaDotNet.Compilation.Cli.RegoCliCompiler!>? logger = null, OpaDotNet.Compilation.Cli.RegoCliCompilerOptions? options = null) -> void
 OpaDotNet.Compilation.Cli.RegoCliCompiler.Version(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<OpaDotNet.Compilation.Abstractions.RegoCompilerVersion!>!
+OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions
 OpaDotNet.Compilation.Cli.RegoCliCompilerOptions
 OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.ExtraArguments.get -> string?
 OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.ExtraArguments.set -> void
@@ -13,3 +48,11 @@ OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.OpaToolPath.set -> void
 OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.PreserveBuildArtifacts.get -> bool
 OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.PreserveBuildArtifacts.set -> void
 OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.RegoCliCompilerOptions() -> void
+static OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckBundleAsync(this OpaDotNet.Compilation.Cli.RegoCliCompiler! compiler, string! path, OpaDotNet.Compilation.Cli.CheckParameters! parameters, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<OpaDotNet.Compilation.Cli.CheckResult!>!
+static OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckBundleAsync(this OpaDotNet.Compilation.Cli.RegoCliCompiler! compiler, string! path, OpaDotNet.Compilation.Cli.CheckParameters! parameters) -> System.Threading.Tasks.Task<OpaDotNet.Compilation.Cli.CheckResult!>!
+static OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckBundleAsync(this OpaDotNet.Compilation.Cli.RegoCliCompiler! compiler, System.IO.Stream! stream, OpaDotNet.Compilation.Cli.CheckParameters! parameters, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<OpaDotNet.Compilation.Cli.CheckResult!>!
+static OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckBundleAsync(this OpaDotNet.Compilation.Cli.RegoCliCompiler! compiler, System.IO.Stream! stream, OpaDotNet.Compilation.Cli.CheckParameters! parameters) -> System.Threading.Tasks.Task<OpaDotNet.Compilation.Cli.CheckResult!>!
+static OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckFileAsync(this OpaDotNet.Compilation.Cli.RegoCliCompiler! compiler, string! sourceFilePath, OpaDotNet.Compilation.Cli.CheckParameters! parameters, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<OpaDotNet.Compilation.Cli.CheckResult!>!
+static OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckFileAsync(this OpaDotNet.Compilation.Cli.RegoCliCompiler! compiler, string! sourceFilePath, OpaDotNet.Compilation.Cli.CheckParameters! parameters) -> System.Threading.Tasks.Task<OpaDotNet.Compilation.Cli.CheckResult!>!
+static OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckSourceAsync(this OpaDotNet.Compilation.Cli.RegoCliCompiler! compiler, string! source, OpaDotNet.Compilation.Cli.CheckParameters! parameters, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<OpaDotNet.Compilation.Cli.CheckResult!>!
+static OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckSourceAsync(this OpaDotNet.Compilation.Cli.RegoCliCompiler! compiler, string! source, OpaDotNet.Compilation.Cli.CheckParameters! parameters) -> System.Threading.Tasks.Task<OpaDotNet.Compilation.Cli.CheckResult!>!

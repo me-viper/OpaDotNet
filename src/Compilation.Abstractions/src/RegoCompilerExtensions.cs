@@ -161,7 +161,7 @@ public static class RegoCompilerExtensions
     /// Compiles OPA bundle from rego policy source code.
     /// </summary>
     /// <param name="compiler">Compiler instance.</param>
-    /// <param name="source">Source file path.</param>
+    /// <param name="source">Policy source code.</param>
     /// <param name="parameters">Compiler parameters.</param>
     /// <remarks>This method always compiles contents as bundle.</remarks>
     /// <returns>Compiled OPA bundle stream.</returns>
@@ -174,7 +174,7 @@ public static class RegoCompilerExtensions
     /// Compiles OPA bundle from rego policy source code.
     /// </summary>
     /// <param name="compiler">Compiler instance.</param>
-    /// <param name="source">Source file path.</param>
+    /// <param name="source">Policy source code.</param>
     /// <param name="parameters">Compiler parameters.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <remarks>This method always compiles contents as bundle.</remarks>

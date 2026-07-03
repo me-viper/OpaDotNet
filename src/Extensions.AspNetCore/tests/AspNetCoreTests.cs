@@ -516,6 +516,7 @@ public class AspNetCoreTests(ITestOutputHelper output) : IAsyncLifetime
                                         {
                                             OutputPath = _outputDirectory.FullName,
                                             ForceBundleWriter = true,
+                                            PruneUnused = false,
 
                                             //Debug = true,
                                         };

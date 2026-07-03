@@ -66,7 +66,14 @@ public class RegoCliCompiler : IRegoCompiler
         var outputPath = outDir.FullName;
         var outputFileName = Path.Combine(outputPath, $"{Guid.NewGuid()}.tar.gz");
 
-        var capsFile = await WriteCapabilities(cli, parameters, outputPath, cancellationToken).ConfigureAwait(false);
+        var capsOpts = new CapabilitiesOptions
+        {
+            CapabilitiesFilePath = parameters.CapabilitiesFilePath,
+            CapabilitiesBytes = parameters.CapabilitiesBytes,
+            CapabilitiesVersion = parameters.CapabilitiesVersion,
+        };
+
+        var capsFile = await WriteCapabilities(cli, capsOpts, outputPath, cancellationToken).ConfigureAwait(false);
 
         var sourcePath = fullPath;
 
@@ -147,9 +154,110 @@ public class RegoCliCompiler : IRegoCompiler
         }
     }
 
+    /// <summary>
+    /// Check Rego sources for parse and compilation errors.
+    /// </summary>
+    /// <param name="path">Source file or bundle path.</param>
+    /// <param name="parameters">Compiler parameters.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>Result of parsing and compiling the source file.</returns>
+    public async Task<CheckResult> CheckAsync(
+        string path,
+        CheckParameters parameters,
+        CancellationToken cancellationToken)
+    {
+        ArgumentException.ThrowIfNullOrEmpty(path);
+        ArgumentNullException.ThrowIfNull(parameters);
+
+        path = NormalizePath(path);
+
+        using var scope = _logger.BeginScope("Bundle {Path}", path);
+
+        var fullPath = Path.GetFullPath(path);
+
+        var cli = await OpaCliWrapper.Create(CliPath, _logger, cancellationToken).ConfigureAwait(false);
+
+        var capsOpts = new CapabilitiesOptions
+        {
+            CapabilitiesFilePath = parameters.CapabilitiesFilePath,
+            CapabilitiesBytes = parameters.CapabilitiesBytes,
+            CapabilitiesVersion = parameters.CapabilitiesVersion,
+        };
+
+        var capsPath = Path.GetTempPath();
+        var capsFile = await WriteCapabilities(cli, capsOpts, capsPath, cancellationToken).ConfigureAwait(false);
+
+        try
+        {
+            var args = new OpaCliCheckArgs(parameters)
+            {
+                SourcePath = fullPath,
+                CapabilitiesFile = capsFile?.FullName,
+            };
+
+            return await cli.Check(args, cancellationToken).ConfigureAwait(false);
+        }
+        finally
+        {
+            var doCleanup = capsFile != null && capsFile.Attributes.HasFlag(FileAttributes.Temporary);
+
+            if (doCleanup && !_options.PreserveBuildArtifacts)
+                capsFile?.Delete();
+        }
+    }
+
+    /// <summary>
+    /// Check Rego sources for parse and compilation errors.
+    /// </summary>
+    /// <param name="stream">Source file or bundle stream.</param>
+    /// <param name="parameters">Compiler parameters.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>Result of parsing and compiling the source file.</returns>
+    public async Task<CheckResult> CheckAsync(
+        Stream stream,
+        CheckParameters parameters,
+        CancellationToken cancellationToken)
+    {
+        ArgumentNullException.ThrowIfNull(stream);
+        ArgumentNullException.ThrowIfNull(parameters);
+
+        var path = Path.GetTempPath();
+        var fileName = Guid.NewGuid();
+        var sourceFile = new FileInfo(Path.Combine(path, $"{fileName}.tar.gz"));
+
+        try
+        {
+            var fs = new FileStream(sourceFile.FullName, FileMode.CreateNew);
+            await using var _ = fs.ConfigureAwait(false);
+
+            await stream.CopyToAsync(fs, cancellationToken).ConfigureAwait(false);
+            await fs.FlushAsync(cancellationToken).ConfigureAwait(false);
+
+            return await CheckAsync(
+                fs.Name,
+                parameters,
+                cancellationToken
+                ).ConfigureAwait(false);
+        }
+        finally
+        {
+            if (!_options.PreserveBuildArtifacts)
+            {
+                try
+                {
+                    sourceFile.Delete();
+                }
+                catch(Exception ex)
+                {
+                    _logger.LogWarning(ex, "Failed to remove build artifacts");
+                }
+            }
+        }
+    }
+
     private async Task<FileInfo?> WriteCapabilities(
         OpaCliWrapper cli,
-        CompilationParameters parameters,
+        CapabilitiesOptions parameters,
         string outputPath,
         CancellationToken cancellationToken)
     {
