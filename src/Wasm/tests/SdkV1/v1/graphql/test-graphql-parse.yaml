@@ -69,7 +69,7 @@ cases:
         	graphql.parse(query, schema)
         }
     want_error_code: eval_builtin_error
-    want_error: 'graphql.parse: Field "myAction" argument "myEnum" of type "Locale!" is required, but it was not provided in GraphQL query string at location 4:5'
+    want_error: 'graphql.parse: Field "myAction" argument "myEnum" of type "Locale!" is required, but it was not provided in GraphQL string at location 4:5'
     strict_error: true
   - note: graphql_parse/success validation rules are independent case 2
     query: data.test.p = x
@@ -78,6 +78,9 @@ cases:
         package test
 
         schema := `
+          type Query {
+              x: Int
+          }
           extend type Query {
               myAction(myEnum: Locale!): SomeResult!
           }
@@ -92,7 +95,6 @@ cases:
         `
 
         query := `
-          # Note: there is default enum value in variables
           query SomeOperation ($locale: Locale! = DE) {
             myAction(myEnum: $locale) {
               id
@@ -100,7 +102,7 @@ cases:
           }
         `
 
-        q_ast := {"Operations": [{"Name": "SomeOperation", "Operation": "query", "SelectionSet": [{"Alias": "myAction", "Arguments": [{"Name": "myEnum", "Value": {"Kind": 0, "Raw": "locale"}}], "Name": "myAction", "SelectionSet": [{"Alias": "id", "Name": "id"}]}], "VariableDefinitions": [{"DefaultValue": {"Kind": 7, "Raw": "DE"}, "Type": {"NamedType": "Locale", "NonNull": true}, "Used": false, "Variable": "locale"}]}]}
+        q_ast := {"Operations": [{"Name": "SomeOperation", "Operation": "query", "SelectionSet": [{"Alias": "myAction", "Arguments": [{"Name": "myEnum", "Value": {"ExpectedTypeHasDefault": false, "Kind": 0, "Raw": "locale"}}], "Name": "myAction", "SelectionSet": [{"Alias": "id", "Name": "id"}]}], "VariableDefinitions": [{"DefaultValue": {"ExpectedTypeHasDefault": false, "Kind": 7, "Raw": "DE"}, "Type": {"NamedType": "Locale", "NonNull": true}, "Used": false, "Variable": "locale"}]}]}
 
         p if {
         	[q_ast, _] = graphql.parse(query, schema)
@@ -151,7 +153,7 @@ cases:
           }
         `
 
-        q_ast := {"Fragments": [{"Name": "Bar", "SelectionSet": [{"Alias": "bar", "Directives": [{"Arguments": [{"Name": "if", "Value": {"Kind": 0, "Raw": "flag"}}], "Location": "", "Name": "include"}], "Name": "bar"}], "TypeCondition": "Query"}], "Operations": [{"Name": "Foo", "Operation": "query", "SelectionSet": [{"Name": "Bar"}], "VariableDefinitions": [{"Type": {"NamedType": "Boolean", "NonNull": true}, "Used": false, "Variable": "flag"}]}]}
+        q_ast := {"Fragments": [{"Name": "Bar", "SelectionSet": [{"Alias": "bar", "Directives": [{"Arguments": [{"Name": "if", "Value": {"ExpectedTypeHasDefault": false, "Kind": 0, "Raw": "flag"}}], "Location": "", "Name": "include"}], "Name": "bar"}], "TypeCondition": "Query"}], "Operations": [{"Name": "Foo", "Operation": "query", "SelectionSet": [{"Name": "Bar"}], "VariableDefinitions": [{"Type": {"NamedType": "Boolean", "NonNull": true}, "Used": false, "Variable": "flag"}]}]}
 
         p if {
         	[q_ast, _] = graphql.parse(query, schema)
