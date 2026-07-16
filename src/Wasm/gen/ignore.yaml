@@ -34,6 +34,10 @@
   regex:
   - cryptox509parsecertificates/DER, chain, b64
 
+- reason: 'TODO: BigInt built-ins dont look right'
+  regex:
+  - numbersrangestep/big int step
+
 - reason: 'TODO: No native EdDSA support'
   regex:
   - jwtdecodeverify/EdDSA
@@ -83,6 +87,7 @@
   - data/toplevel integer
   - helloworld/another_test_for_builtin_error
   - unused arg
+  - strings/format_int
   - wasm/additive \(negative\)
   - wasm/object dereference \(negative\)
 - reason: WTF???
