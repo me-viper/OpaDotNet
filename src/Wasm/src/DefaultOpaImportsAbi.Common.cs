@@ -735,6 +735,7 @@ public partial class DefaultOpaImportsAbi
                         {
                             reached.Add(root);
                             Path(graph, edge, [..path], reached, result);
+                            reached.Remove(edge);
                         }
                     }
                 }
