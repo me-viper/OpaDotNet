@@ -265,6 +265,10 @@ public partial class DefaultOpaImportsAbi
         var count = 0;
         var i = 0;
 
+        // OPA behaves this way.
+        if (substring.Length == 0)
+            return search.Length + 1;
+
         while (i < search.Length)
         {
             var index = search[i..].IndexOf(substring, StringComparison.Ordinal);
