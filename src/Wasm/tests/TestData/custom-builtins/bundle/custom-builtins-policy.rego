@@ -41,3 +41,39 @@ memorized = [x,y,z] {
     y = custom.memBuiltin("a", 2)
     z = custom.memBuiltin("a", 1)
 }
+
+async_arg = x {
+    x = custom.asyncBuiltin(input.args[0])
+}
+
+async_context_arg = x {
+    x = custom.asyncContextBuiltin(input.args[0])
+}
+
+async_two_arg = x {
+    x = custom.asyncTwoArgBuiltin(input.args[0], input.args[1])
+}
+
+async_three_arg = x {
+    x = custom.asyncThreeArgBuiltin(input.args[0], input.args[1], input.args[2])
+}
+
+async_four_arg = x {
+    x = custom.asyncFourArgBuiltin(input.args[0], input.args[1], input.args[2], input.args[3])
+}
+
+void_arg {
+    custom.voidBuiltin(input.args[0])
+}
+
+task_arg {
+    custom.taskBuiltin(input.args[0])
+}
+
+sync_cancellation_arg = x {
+    x = custom.syncCancellationBuiltin(input.args[0])
+}
+
+async_cancellation_arg = x {
+    x = custom.asyncCancellationBuiltin(input.args[0])
+}

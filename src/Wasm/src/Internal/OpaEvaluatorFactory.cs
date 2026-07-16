@@ -15,7 +15,12 @@ internal static class OpaEvaluatorFactory
         ArgumentNullException.ThrowIfNull(policy);
         ArgumentNullException.ThrowIfNull(options);
 
-        var engine = new Engine();
+        using var cfg = new Config();
+
+        if (options.Timeout > TimeSpan.Zero)
+            cfg.WithEpochInterruption(true);
+
+        var engine = new Engine(cfg);
         var linker = new Linker(engine);
         var store = new Store(engine);
         var memory = new Memory(store, options.MinMemoryPages, options.MaxMemoryPages);
@@ -30,7 +35,10 @@ internal static class OpaEvaluatorFactory
             Module = module,
             Options = options,
             Imports = options.Builtins(),
+            Timeout = options.Timeout,
         };
+
+        options.MakeReadOnly();
 
         var result = new OpaWasmEvaluator(config);
 
@@ -47,7 +55,12 @@ internal static class OpaEvaluatorFactory
     {
         ArgumentNullException.ThrowIfNull(options);
 
-        var engine = new Engine();
+        using var cfg = new Config();
+
+        if (options.Timeout > TimeSpan.Zero)
+            cfg.WithEpochInterruption(true);
+
+        var engine = new Engine(cfg);
         var linker = new Linker(engine);
         var store = new Store(engine);
         var memory = new Memory(store, options.MinMemoryPages, options.MaxMemoryPages);
@@ -62,7 +75,10 @@ internal static class OpaEvaluatorFactory
             Module = module,
             Options = options,
             Imports = options.Builtins(),
+            Timeout = options.Timeout,
         };
+
+        options.MakeReadOnly();
 
         var result = new OpaWasmEvaluator(config);
 

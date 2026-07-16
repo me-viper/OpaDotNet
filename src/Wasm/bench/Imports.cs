@@ -25,7 +25,7 @@ public class Imports
     {
         List<IOpaCustomBuiltins> imports = [_ext1];
         _ = _cache.TryResolveImport(imports, string.Empty, out _);
-        _imports = new CompositeImportsHandler(_default, imports, _cache);
+        _imports = new CompositeImportsHandler(_default, imports, _cache, false);
     }
 
     [Benchmark(Baseline = true)]

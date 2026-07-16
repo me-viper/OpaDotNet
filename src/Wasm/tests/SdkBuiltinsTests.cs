@@ -670,7 +670,7 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
         using var eval = await Build(src, "sdk", opts);
 
         if (strictErrors)
-            Assert.Throws<OpaEvaluationException>(() => eval.EvaluateRaw(null, "sdk"));
+            Assert.Throws<OpaBuiltinException>(() => eval.EvaluateRaw(null, "sdk"));
         else
         {
             var result = eval.EvaluateRaw(null, "sdk");
@@ -696,7 +696,7 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
         using var eval = await Build(src, "sdk/r", opts);
 
         if (strictErrors)
-            Assert.Throws<OpaEvaluationException>(() => eval.EvaluateRaw(null, "sdk/r"));
+            Assert.Throws<OpaBuiltinException>(() => eval.EvaluateRaw(null, "sdk/r"));
         else
         {
             var result = eval.EvaluateRaw(null, "sdk/r");
@@ -722,7 +722,7 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
         using var eval = await Build(src, "sdk/r", opts);
 
         if (strictErrors)
-            Assert.Throws<OpaEvaluationException>(() => eval.EvaluateOrDefault<object?, ulong?>(null, "sdk/r"));
+            Assert.Throws<OpaBuiltinException>(() => eval.EvaluateOrDefault<object?, ulong?>(null, "sdk/r"));
         else
         {
             var result = eval.EvaluateOrDefault<object?, ulong?>(null, "sdk/r");
@@ -746,7 +746,10 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
 
         using var eval = await Build(src, "sdk/r", opts);
 
-        Assert.Throws<OpaEvaluationException>(() => eval.Evaluate<object?, ulong>(null, "sdk/r"));
+        if (strictErrors)
+            Assert.Throws<OpaBuiltinException>(() => eval.Evaluate<object?, ulong>(null, "sdk/r"));
+        else
+            Assert.Throws<OpaEvaluationException>(() => eval.Evaluate<object?, ulong>(null, "sdk/r"));
     }
 
     [Theory]
@@ -766,7 +769,7 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
         using var eval = await Build(src, "sdk/r", opts);
 
         if (strictErrors)
-            Assert.Throws<OpaEvaluationException>(() => eval.EvaluatePredicate<object?>(null, "sdk/r"));
+            Assert.Throws<OpaBuiltinException>(() => eval.EvaluatePredicate<object?>(null, "sdk/r"));
         else
         {
             var result = eval.EvaluatePredicate<object?>(null, "sdk/r");

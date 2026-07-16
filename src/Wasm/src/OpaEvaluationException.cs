@@ -29,7 +29,11 @@ internal class OpaEvaluationAbortedException(string? message) : OpaEvaluationExc
 internal class OpaBuiltinException(string? errorCode, string? message, Exception? innerException = null)
     : OpaEvaluationException(message, innerException)
 {
-    public OpaBuiltinException(string? message) : this("eval_builtin_error", message)
+    public const string Error = "eval_builtin_error";
+
+    public const string Timeout = "eval_builtin_timeout";
+
+    public OpaBuiltinException(string? message) : this(Error, message)
     {
     }
 

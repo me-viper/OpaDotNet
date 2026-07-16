@@ -25,21 +25,10 @@ internal class EngineImpl<TAbi> : V10.EngineImpl<TAbi>
         var inputLength = Encoding.UTF8.GetByteCount(inputJson);
         EnsureMemory(inputLength);
 
-        nint resultPtr;
+        var inputPtr = EvalHeapPtr;
+        var bytesWritten = Memory.WriteString(inputPtr, inputJson, Encoding.UTF8);
 
-        try
-        {
-            var inputPtr = EvalHeapPtr;
-            var bytesWritten = Memory.WriteString(inputPtr, inputJson, Encoding.UTF8);
-
-            var resultHeapPtr = inputPtr + bytesWritten;
-            resultPtr = Abi.Eval(0, entrypointId, DataPtr, inputPtr, inputLength, resultHeapPtr, RegoValueFormat.Json);
-        }
-        finally
-        {
-            Abi.HeapPtrSet(EvalHeapPtr);
-        }
-
-        return resultPtr;
+        var resultHeapPtr = inputPtr + bytesWritten;
+        return Abi.Eval(0, entrypointId, DataPtr, inputPtr, inputLength, resultHeapPtr, RegoValueFormat.Json);
     }
 }

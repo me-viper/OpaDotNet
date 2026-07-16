@@ -167,6 +167,150 @@
       }
     },
     {
+      "name": "custom.asyncBuiltin",
+      "decl": {
+        "type": "function",
+        "args": [
+          {
+            "type": "string"
+          }
+        ],
+        "result": {
+          "type": "string"
+        }
+      }
+    },
+    {
+      "name": "custom.asyncContextBuiltin",
+      "decl": {
+        "type": "function",
+        "args": [
+          {
+            "type": "string"
+          }
+        ],
+        "result": {
+          "type": "string"
+        }
+      }
+    },
+    {
+      "name": "custom.asyncTwoArgBuiltin",
+      "decl": {
+        "type": "function",
+        "args": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string"
+          }
+        ],
+        "result": {
+          "type": "string"
+        }
+      }
+    },
+    {
+      "name": "custom.asyncThreeArgBuiltin",
+      "decl": {
+        "type": "function",
+        "args": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "string"
+          }
+        ],
+        "result": {
+          "type": "string"
+        }
+      }
+    },
+    {
+      "name": "custom.asyncFourArgBuiltin",
+      "decl": {
+        "type": "function",
+        "args": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "string"
+          }
+        ],
+        "result": {
+          "type": "string"
+        }
+      }
+    },
+    {
+      "name": "custom.voidBuiltin",
+      "decl": {
+        "type": "function",
+        "args": [
+          {
+            "type": "string"
+          }
+        ],
+        "result": {
+          "type": "object"
+        }
+      }
+    },
+    {
+      "name": "custom.taskBuiltin",
+      "decl": {
+        "type": "function",
+        "args": [
+          {
+            "type": "string"
+          }
+        ],
+        "result": {
+          "type": "object"
+        }
+      }
+    },
+    {
+      "name": "custom.syncCancellationBuiltin",
+      "decl": {
+        "type": "function",
+        "args": [
+          {
+            "type": "string"
+          }
+        ],
+        "result": {
+          "type": "string"
+        }
+      }
+    },
+    {
+      "name": "custom.asyncCancellationBuiltin",
+      "decl": {
+        "type": "function",
+        "args": [
+          {
+            "type": "string"
+          }
+        ],
+        "result": {
+          "type": "string"
+        }
+      }
+    },
+    {
       "name": "eq",
       "decl": {
         "args": [

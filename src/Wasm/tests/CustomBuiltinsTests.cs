@@ -62,6 +62,15 @@ public abstract class CustomBuiltinsTests(ITestOutputHelper output) : OpaTestBas
                     "custom_builtins/valid_json",
                     "custom_builtins/json_arg",
                     "custom_builtins/memorized",
+                    "custom_builtins/async_arg",
+                    "custom_builtins/async_context_arg",
+                    "custom_builtins/async_two_arg",
+                    "custom_builtins/async_three_arg",
+                    "custom_builtins/async_four_arg",
+                    "custom_builtins/void_arg",
+                    "custom_builtins/task_arg",
+                    "custom_builtins/sync_cancellation_arg",
+                    "custom_builtins/async_cancellation_arg",
                 ],
             }
             );
@@ -75,7 +84,30 @@ public abstract class CustomBuiltinsTests(ITestOutputHelper output) : OpaTestBas
             }
             );
 
-        _engine = OpaBundleEvaluatorFactory.Create(policy, opts);
+        _engine = OpaBundleEvaluatorFactory.Create(policy, EngineOptions());
+    }
+
+    private static WasmPolicyEngineOptions EngineOptions()
+    {
+        var opts = new WasmPolicyEngineOptions
+        {
+            StrictBuiltinErrors = true,
+            //Timeout = TimeSpan.FromSeconds(timeout),
+            SerializationOptions = new(JsonSerializerOptions.Default)
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            },
+        };
+
+        opts.ConfigureBuiltins(
+            p =>
+            {
+                p.DefaultBuiltins = new NotImplementedImports();
+                p.CustomBuiltins.Add(new CustomOpaImportsAbi(NullLogger.Instance));
+            }
+            );
+
+        return opts;
     }
 
     public ValueTask DisposeAsync()
@@ -206,6 +238,116 @@ public abstract class CustomBuiltinsTests(ITestOutputHelper output) : OpaTestBas
         Assert.Equal(result.Result[0], result.Result[2]);
         Assert.NotEqual(result.Result[0], result.Result[1]);
     }
+
+    [Fact]
+    public void AsyncArg()
+    {
+        var result = _engine.Evaluate<object, string>(
+            new { args = new[] { "arg0" } },
+            "custom_builtins/async_arg"
+            );
+
+        Assert.NotNull(result);
+        Assert.Equal("hello async arg0", result.Result);
+    }
+
+    [Fact]
+    public void AsyncContextArg()
+    {
+        var result = _engine.Evaluate<object, string>(
+            new { args = new[] { "arg0" } },
+            "custom_builtins/async_context_arg"
+            );
+
+        Assert.NotNull(result);
+        Assert.Equal("hello arg0 True", result.Result);
+    }
+
+    [Fact]
+    public void AsyncTwoArg()
+    {
+        var result = _engine.Evaluate<object, string>(
+            new { args = new[] { "arg0", "arg1" } },
+            "custom_builtins/async_two_arg"
+            );
+
+        Assert.NotNull(result);
+        Assert.Equal("hello async arg0 arg1", result.Result);
+    }
+
+    [Fact]
+    public void AsyncThreeArg()
+    {
+        var result = _engine.Evaluate<object, string>(
+            new { args = new[] { "arg0", "arg1", "arg2" } },
+            "custom_builtins/async_three_arg"
+            );
+
+        Assert.NotNull(result);
+        Assert.Equal("hello async arg0 arg1 arg2", result.Result);
+    }
+
+    [Fact]
+    public void AsyncFourArg()
+    {
+        var result = _engine.Evaluate<object, string>(
+            new { args = new[] { "arg0", "arg1", "arg2", "arg3" } },
+            "custom_builtins/async_four_arg"
+            );
+
+        Assert.NotNull(result);
+        Assert.Equal("hello async arg0 arg1 arg2 arg3", result.Result);
+    }
+
+    [Fact]
+    public void VoidArg()
+    {
+        var resultString = _engine.EvaluateRaw(
+            """{"args":["arg0"]}""",
+            "custom_builtins/void_arg"
+            );
+
+        var result = JsonSerializer.Deserialize<PolicyEvaluationResult<bool>[]>(resultString);
+        Assert.NotNull(result);
+        Assert.Collection(result, p => Assert.True(p.Result));
+    }
+
+    [Fact]
+    public void TaskArg()
+    {
+        var resultString = _engine.EvaluateRaw(
+            """{"args":["arg0"]}""",
+            "custom_builtins/task_arg"
+            );
+
+        var result = JsonSerializer.Deserialize<PolicyEvaluationResult<bool>[]>(resultString);
+        Assert.NotNull(result);
+        Assert.Collection(result, p => Assert.True(p.Result));
+    }
+
+    [Fact]
+    public void SyncCancellationArg()
+    {
+        var result = _engine.Evaluate<object, string>(
+            new { args = new[] { "arg0" } },
+            "custom_builtins/sync_cancellation_arg"
+            );
+
+        Assert.NotNull(result);
+        Assert.Equal("hello arg0 True", result.Result);
+    }
+
+    [Fact]
+    public void AsyncCancellationArg()
+    {
+        var result = _engine.Evaluate<object, string>(
+            new { args = new[] { "arg0" } },
+            "custom_builtins/async_cancellation_arg"
+            );
+
+        Assert.NotNull(result);
+        Assert.Equal("hello arg0 True", result.Result);
+    }
 }
 
 file record ArgObj
@@ -254,6 +396,73 @@ file class CustomOpaImportsAbi(ILogger logger) : IOpaCustomBuiltins
 
     [OpaCustomBuiltin("custom.memBuiltin", Memorize = true)]
     public static DateTime DateBuiltin(string key1, int key2) => DateTime.UtcNow;
+
+    [OpaCustomBuiltin("custom.asyncBuiltin")]
+    public static async Task<string> AsyncBuiltin(string arg1)
+    {
+        await Task.Yield();
+        return $"hello async {arg1}";
+    }
+
+    [OpaCustomBuiltin("custom.asyncContextBuiltin")]
+    public static async Task<string> AsyncContextBuiltin(string arg1, IOpaCustomBuiltinsContext context)
+    {
+        await Task.Yield();
+        var camelCase = context.JsonSerializerOptions.PropertyNamingPolicy == JsonNamingPolicy.CamelCase;
+        return $"hello {arg1} {camelCase}";
+    }
+
+    [OpaCustomBuiltin("custom.asyncTwoArgBuiltin")]
+    public static async Task<string> AsyncTwoArgBuiltin(string arg1, string arg2)
+    {
+        await Task.Yield();
+        return $"hello async {arg1} {arg2}";
+    }
+
+    [OpaCustomBuiltin("custom.asyncThreeArgBuiltin")]
+    public static async Task<string> AsyncThreeArgBuiltin(string arg1, string arg2, string arg3)
+    {
+        await Task.Yield();
+        return $"hello async {arg1} {arg2} {arg3}";
+    }
+
+    [OpaCustomBuiltin("custom.asyncFourArgBuiltin")]
+    public static async Task<string> AsyncFourArgBuiltin(string arg1, string arg2, string arg3, string arg4)
+    {
+        await Task.Yield();
+        return $"hello async {arg1} {arg2} {arg3} {arg4}";
+    }
+
+    [OpaCustomBuiltin("custom.voidBuiltin")]
+    public static void VoidBuiltin(string arg1)
+    {
+        if (arg1 != "arg0")
+            throw new ArgumentException("Unexpected arg", nameof(arg1));
+    }
+
+    [OpaCustomBuiltin("custom.taskBuiltin")]
+    public static async Task TaskBuiltin(string arg1)
+    {
+        await Task.Yield();
+
+        if (arg1 != "arg0")
+            throw new ArgumentException("Unexpected arg", nameof(arg1));
+    }
+
+    [OpaCustomBuiltin("custom.syncCancellationBuiltin")]
+    public static string SyncCancellationBuiltin(string arg1, IOpaCustomBuiltinsContext context)
+    {
+        context.CancellationToken.ThrowIfCancellationRequested();
+        return $"hello {arg1} {!context.CancellationToken.IsCancellationRequested}";
+    }
+
+    [OpaCustomBuiltin("custom.asyncCancellationBuiltin")]
+    public static async Task<string> AsyncCancellationBuiltin(string arg1, IOpaCustomBuiltinsContext context)
+    {
+        await Task.Yield();
+        context.CancellationToken.ThrowIfCancellationRequested();
+        return $"hello {arg1} {!context.CancellationToken.IsCancellationRequested}";
+    }
 }
 
 file class CustomOpaImportsAbiCapabilitiesProvider : ICapabilitiesProvider
@@ -341,6 +550,78 @@ file class CustomOpaImportsAbiCapabilitiesProvider : ICapabilitiesProvider
                     "type": "function",
                     "args": [ { "type": "string" }, { "type": "number" } ],
                     "result": { "type": "object" }
+                  }
+                },
+                {
+                  "name": "custom.asyncBuiltin",
+                  "decl": {
+                    "type": "function",
+                    "args": [ { "type": "string" } ],
+                    "result": { "type": "string" }
+                  }
+                },
+                {
+                  "name": "custom.asyncContextBuiltin",
+                  "decl": {
+                    "type": "function",
+                    "args": [ { "type": "string" } ],
+                    "result": { "type": "string" }
+                  }
+                },
+                {
+                  "name": "custom.asyncTwoArgBuiltin",
+                  "decl": {
+                    "type": "function",
+                    "args": [ { "type": "string" }, { "type": "string" } ],
+                    "result": { "type": "string" }
+                  }
+                },
+                {
+                  "name": "custom.asyncThreeArgBuiltin",
+                  "decl": {
+                    "type": "function",
+                    "args": [ { "type": "string" }, { "type": "string" }, { "type": "string" } ],
+                    "result": { "type": "string" }
+                  }
+                },
+                {
+                  "name": "custom.asyncFourArgBuiltin",
+                  "decl": {
+                    "type": "function",
+                    "args": [ { "type": "string" }, { "type": "string" }, { "type": "string" }, { "type": "string" } ],
+                    "result": { "type": "string" }
+                  }
+                },
+                {
+                  "name": "custom.voidBuiltin",
+                  "decl": {
+                    "type": "function",
+                    "args": [ { "type": "string" } ],
+                    "result": { "type": "object" }
+                  }
+                },
+                {
+                  "name": "custom.taskBuiltin",
+                  "decl": {
+                    "type": "function",
+                    "args": [ { "type": "string" } ],
+                    "result": { "type": "object" }
+                  }
+                },
+                {
+                  "name": "custom.syncCancellationBuiltin",
+                  "decl": {
+                    "type": "function",
+                    "args": [ { "type": "string" } ],
+                    "result": { "type": "string" }
+                  }
+                },
+                {
+                  "name": "custom.asyncCancellationBuiltin",
+                  "decl": {
+                    "type": "function",
+                    "args": [ { "type": "string" } ],
+                    "result": { "type": "string" }
                   }
                 }
                 ]

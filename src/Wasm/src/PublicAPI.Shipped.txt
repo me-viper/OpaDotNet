@@ -112,20 +112,20 @@ OpaDotNet.Wasm.WasmBuiltinsOptions.DefaultBuiltins.set -> void
 OpaDotNet.Wasm.WasmBuiltinsOptions.WasmBuiltinsOptions() -> void
 OpaDotNet.Wasm.WasmPolicyEngineOptions
 OpaDotNet.Wasm.WasmPolicyEngineOptions.CachePath.get -> string?
-OpaDotNet.Wasm.WasmPolicyEngineOptions.CachePath.init -> void
+OpaDotNet.Wasm.WasmPolicyEngineOptions.CachePath.set -> void
 OpaDotNet.Wasm.WasmPolicyEngineOptions.ConfigureBuiltins(System.Action<OpaDotNet.Wasm.WasmBuiltinsOptions!>! configure) -> void
 OpaDotNet.Wasm.WasmPolicyEngineOptions.MaxAbiVersion.get -> System.Version?
-OpaDotNet.Wasm.WasmPolicyEngineOptions.MaxAbiVersion.init -> void
+OpaDotNet.Wasm.WasmPolicyEngineOptions.MaxAbiVersion.set -> void
 OpaDotNet.Wasm.WasmPolicyEngineOptions.MaxMemoryPages.get -> long?
-OpaDotNet.Wasm.WasmPolicyEngineOptions.MaxMemoryPages.init -> void
+OpaDotNet.Wasm.WasmPolicyEngineOptions.MaxMemoryPages.set -> void
 OpaDotNet.Wasm.WasmPolicyEngineOptions.MinMemoryPages.get -> long
-OpaDotNet.Wasm.WasmPolicyEngineOptions.MinMemoryPages.init -> void
+OpaDotNet.Wasm.WasmPolicyEngineOptions.MinMemoryPages.set -> void
 OpaDotNet.Wasm.WasmPolicyEngineOptions.SerializationOptions.get -> System.Text.Json.JsonSerializerOptions!
-OpaDotNet.Wasm.WasmPolicyEngineOptions.SerializationOptions.init -> void
+OpaDotNet.Wasm.WasmPolicyEngineOptions.SerializationOptions.set -> void
 OpaDotNet.Wasm.WasmPolicyEngineOptions.SignatureValidation.get -> OpaDotNet.Wasm.SignatureValidationOptions!
-OpaDotNet.Wasm.WasmPolicyEngineOptions.SignatureValidation.init -> void
+OpaDotNet.Wasm.WasmPolicyEngineOptions.SignatureValidation.set -> void
 OpaDotNet.Wasm.WasmPolicyEngineOptions.StrictBuiltinErrors.get -> bool
-OpaDotNet.Wasm.WasmPolicyEngineOptions.StrictBuiltinErrors.init -> void
+OpaDotNet.Wasm.WasmPolicyEngineOptions.StrictBuiltinErrors.set -> void
 OpaDotNet.Wasm.WasmPolicyEngineOptions.WasmPolicyEngineOptions() -> void
 static OpaDotNet.Wasm.OpaBundleEvaluatorFactory.Create(System.IO.Stream! source, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null) -> OpaDotNet.Wasm.IOpaEvaluator!
 static OpaDotNet.Wasm.OpaWasmEvaluatorFactory.Create(System.IO.Stream! source, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null) -> OpaDotNet.Wasm.IOpaEvaluator!

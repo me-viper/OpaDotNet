@@ -1,2 +1,7 @@
 #nullable enable
-
+OpaDotNet.Wasm.BuiltinContext.CancellationToken.get -> System.Threading.CancellationToken
+OpaDotNet.Wasm.Builtins.IOpaCustomBuiltinsContext
+OpaDotNet.Wasm.Builtins.IOpaCustomBuiltinsContext.CancellationToken.get -> System.Threading.CancellationToken
+OpaDotNet.Wasm.Builtins.IOpaCustomBuiltinsContext.JsonSerializerOptions.get -> System.Text.Json.JsonSerializerOptions!
+OpaDotNet.Wasm.WasmPolicyEngineOptions.Timeout.get -> System.TimeSpan
+OpaDotNet.Wasm.WasmPolicyEngineOptions.Timeout.set -> void

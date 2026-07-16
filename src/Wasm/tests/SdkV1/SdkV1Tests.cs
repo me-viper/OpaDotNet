@@ -247,20 +247,15 @@ public partial class SdkV1Tests : SdkTestBase
         {
             if (testCase.StrictError)
             {
-                var ex = Assert.Throws<OpaEvaluationException>(() => eval.Evaluate<object?, JsonNode>(testCase.Input));
+                var ex = Assert.Throws<OpaBuiltinException>(() => eval.Evaluate<object?, JsonNode>(testCase.Input));
 
-                Assert.NotNull(ex.InnerException);
-                Assert.IsType<OpaBuiltinException>(ex.InnerException);
-
-                var innerEx = (OpaBuiltinException)ex.InnerException;
-
-                Assert.NotNull(innerEx.Name);
+                Assert.NotNull(ex.Name);
 
                 if (!string.IsNullOrWhiteSpace(testCase.WantErrorCode))
-                    Assert.Equal(testCase.WantErrorCode, innerEx.ErrorCode);
+                    Assert.Equal(testCase.WantErrorCode, ex.ErrorCode);
 
                 Output.WriteLine("------- Exception as expected -------");
-                Output.WriteLine(innerEx.ToString());
+                Output.WriteLine(ex.ToString());
                 Output.WriteLine("");
 
                 return;

@@ -17,7 +17,7 @@ public class BuiltinsCompositionTests : OpaTestBase
     public BuiltinsCompositionTests(ITestOutputHelper output) : base(output)
     {
         var cache = new ImportsCache();
-        _imports = new CompositeImportsHandler(_default, [_ext1], cache);
+        _imports = new CompositeImportsHandler(_default, [_ext1], cache, false);
     }
 
     [Fact]
@@ -54,6 +54,78 @@ public class BuiltinsCompositionTests : OpaTestBase
     {
         _imports.Func(new() { FunctionName = "ext.do_nothing" });
     }
+
+    [Fact]
+    public void ValueTaskBuiltinNotSupported()
+    {
+        var cache = new ImportsCache();
+        Assert.Throws<NotSupportedException>(() => cache.Populate([new ValueTaskExt()], false));
+    }
+
+    [Fact]
+    public void ValueTaskOfTBuiltinNotSupported()
+    {
+        var cache = new ImportsCache();
+        Assert.Throws<NotSupportedException>(() => cache.Populate([new ValueTaskOfTExt()], false));
+    }
+
+    [Fact]
+    public void GenericBuiltinNotSupported()
+    {
+        var cache = new ImportsCache();
+        Assert.Throws<NotSupportedException>(() => cache.Populate([new GenericMethodExt()], false));
+    }
+
+    [Fact]
+    public void TooManyArgumentsNotSupported()
+    {
+        var cache = new ImportsCache();
+        Assert.Throws<NotSupportedException>(() => cache.Populate([new TooManyArgsExt()], false));
+    }
+
+    [Fact]
+    public void InvalidFifthArgumentNotSupported()
+    {
+        var cache = new ImportsCache();
+        Assert.Throws<NotSupportedException>(() => cache.Populate([new InvalidFifthArgExt()], false));
+    }
+
+    [Fact]
+    public void FourArgumentsWithContextSupported()
+    {
+        var cache = new ImportsCache();
+        var imports = new IOpaCustomBuiltins[] { new FourArgContextExt() };
+        IOpaImportsAbi handler = new CompositeImportsHandler(_default, imports, cache, false);
+
+        var result = handler.Func(
+            new() { FunctionName = "ext.four_arg_context" },
+            MakeArg("a1"),
+            MakeArg("a2"),
+            MakeArg("a3"),
+            MakeArg("a4")
+            );
+
+        Assert.Equal("a1 a2 a3 a4", result);
+    }
+
+    [Fact]
+    public void OneArgumentWithContextSupported()
+    {
+        var cache = new ImportsCache();
+        var imports = new IOpaCustomBuiltins[] { new OneArgContextExt() };
+        IOpaImportsAbi handler = new CompositeImportsHandler(_default, imports, cache, false);
+
+        var result = handler.Func(new() { FunctionName = "ext.one_arg_context" }, MakeArg("a1"));
+
+        Assert.Equal("a1", result);
+    }
+
+    [Fact]
+    public void DoubleSpecialTrailingArgumentNotSupported()
+    {
+        var cache = new ImportsCache();
+        Assert.Throws<NotSupportedException>(() => cache.Populate([new DoubleSpecialArgExt()], false));
+    }
 }
 
 file record DoMoreInput(string InA, int InB);
@@ -84,5 +156,90 @@ file class Ext(ILogger<Ext> logger) : IOpaCustomBuiltins
     public void Reset()
     {
         logger.LogDebug("{Func}", nameof(Reset));
+    }
+}
+
+file class ValueTaskExt : IOpaCustomBuiltins
+{
+    [OpaCustomBuiltin("ext.value_task")]
+    public static ValueTask ValueTaskBuiltin(string arg1) => ValueTask.CompletedTask;
+
+    public void Reset()
+    {
+    }
+}
+
+file class ValueTaskOfTExt : IOpaCustomBuiltins
+{
+    [OpaCustomBuiltin("ext.value_task_of_t")]
+    public static ValueTask<string> ValueTaskOfTBuiltin(string arg1) => ValueTask.FromResult(arg1);
+
+    public void Reset()
+    {
+    }
+}
+
+file class GenericMethodExt : IOpaCustomBuiltins
+{
+    [OpaCustomBuiltin("ext.generic")]
+    public static T GenericBuiltin<T>(T arg1) => arg1;
+
+    public void Reset()
+    {
+    }
+}
+
+file class TooManyArgsExt : IOpaCustomBuiltins
+{
+    [OpaCustomBuiltin("ext.too_many")]
+    public static string TooManyArgsBuiltin(string a1, string a2, string a3, string a4, string a5, string a6)
+        => $"{a1}{a2}{a3}{a4}{a5}{a6}";
+
+    public void Reset()
+    {
+    }
+}
+
+file class InvalidFifthArgExt : IOpaCustomBuiltins
+{
+    [OpaCustomBuiltin("ext.invalid_fifth")]
+    public static string InvalidFifthArgBuiltin(string a1, string a2, string a3, string a4, string a5)
+        => $"{a1}{a2}{a3}{a4}{a5}";
+
+    public void Reset()
+    {
+    }
+}
+
+file class FourArgContextExt : IOpaCustomBuiltins
+{
+    [OpaCustomBuiltin("ext.four_arg_context")]
+    public static string FourArgContextBuiltin(string a1, string a2, string a3, string a4, IOpaCustomBuiltinsContext context)
+        => context == null ? throw new InvalidOperationException() : $"{a1} {a2} {a3} {a4}";
+
+    public void Reset()
+    {
+    }
+}
+
+file class OneArgContextExt : IOpaCustomBuiltins
+{
+    [OpaCustomBuiltin("ext.one_arg_context")]
+    public static string OneArgContextBuiltin(string a1, IOpaCustomBuiltinsContext context)
+        => context == null ? throw new InvalidOperationException() : a1;
+
+    public void Reset()
+    {
+    }
+}
+
+file class DoubleSpecialArgExt : IOpaCustomBuiltins
+{
+    [OpaCustomBuiltin("ext.double_special")]
+    public static string DoubleSpecialBuiltin(string a1, JsonSerializerOptions opts, IOpaCustomBuiltinsContext context)
+        => a1;
+
+    public void Reset()
+    {
     }
 }

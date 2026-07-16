@@ -15,10 +15,12 @@ public class WasmPolicyEngineOptions
 
     private readonly ImportsCache _importsCache = new();
 
+    private bool _isReadOnly;
+
     /// <summary>
     /// Default engine options.
     /// </summary>
-    public static WasmPolicyEngineOptions Default { get; } = new();
+    public static WasmPolicyEngineOptions Default { get => new(); }
 
     /// <summary>
     /// Creates default engine options.
@@ -33,7 +35,7 @@ public class WasmPolicyEngineOptions
         return result;
     }
 
-    private readonly JsonSerializerOptions _jsonSerializationOptions = new()
+    private JsonSerializerOptions _jsonSerializationOptions = new()
     {
         Converters = { RegoSetJsonConverterFactory.Instance },
         Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
@@ -50,18 +52,42 @@ public class WasmPolicyEngineOptions
     /// <summary>
     /// Minimal number of 64k pages available for WASM engine.
     /// </summary>
-    public long MinMemoryPages { get; init; } = 2;
+    public long MinMemoryPages
+    {
+        get;
+        set
+        {
+            VerifyMutable();
+            field = value;
+        }
+    } = 2;
 
     /// <summary>
     /// Maximum number of 64k pages available for WASM engine.
     /// </summary>
-    public long? MaxMemoryPages { get; init; }
+    public long? MaxMemoryPages
+    {
+        get;
+        set
+        {
+            VerifyMutable();
+            field = value;
+        }
+    }
 
     /// <summary>
     /// Max ABI versions to use.
     /// Can be useful for cases when you want evaluator to use lower ABI version than policy supports.
     /// </summary>
-    public Version? MaxAbiVersion { get; init; }
+    public Version? MaxAbiVersion
+    {
+        get;
+        set
+        {
+            VerifyMutable();
+            field = value;
+        }
+    }
 
     /// <summary>
     /// Directory used to keep unpacked policies. If <c>null</c> policies will be kept in memory.
@@ -69,17 +95,55 @@ public class WasmPolicyEngineOptions
     /// <remarks>
     /// Directory must exist and requires write permissions.
     /// </remarks>
-    public string? CachePath { get; init; }
+    public string? CachePath
+    {
+        get;
+        set
+        {
+            VerifyMutable();
+            field = value;
+        }
+    }
 
     /// <summary>
     /// If <c>true</c> errors in built-in functions will be threaded as exceptions that halt policy evaluation.
     /// </summary>
-    public bool StrictBuiltinErrors { get; init; }
+    public bool StrictBuiltinErrors
+    {
+        get;
+        set
+        {
+            VerifyMutable();
+            field = value;
+        }
+    }
 
     /// <summary>
     /// OPA bundle signature validation options.
     /// </summary>
-    public SignatureValidationOptions SignatureValidation { get; init; } = new();
+    public SignatureValidationOptions SignatureValidation
+    {
+        get;
+        set
+        {
+            VerifyMutable();
+            field = value;
+        }
+    } = new();
+
+    /// <summary>
+    /// Maximum amount of time policy evaluation is allowed to run before it is cancelled.
+    /// If <c>default</c> evaluation will not be limited by timeout.
+    /// </summary>
+    public TimeSpan Timeout
+    {
+        get;
+        set
+        {
+            VerifyMutable();
+            field = value;
+        }
+    }
 
     /// <summary>
     /// JSON serialization options.
@@ -88,8 +152,10 @@ public class WasmPolicyEngineOptions
     public JsonSerializerOptions SerializationOptions
     {
         get => _jsonSerializationOptions;
-        init
+        set
         {
+            VerifyMutable();
+
             if (value == null)
                 throw new ArgumentNullException(nameof(value));
 
@@ -103,10 +169,26 @@ public class WasmPolicyEngineOptions
     private IOpaImportsAbi DefaultBuiltins()
     {
         var bo = new WasmBuiltinsOptions();
-        return new CompositeImportsHandler(bo.DefaultBuiltins, bo.CustomBuiltins.AsReadOnly(), _importsCache);
+        return new CompositeImportsHandler(
+            bo.DefaultBuiltins,
+            bo.CustomBuiltins.AsReadOnly(),
+            _importsCache,
+            Timeout > TimeSpan.Zero
+            );
     }
 
     internal IOpaImportsAbi Builtins() => _makeBuiltins();
+
+    internal void MakeReadOnly()
+    {
+        _isReadOnly = true;
+    }
+
+    internal void VerifyMutable()
+    {
+        if (_isReadOnly)
+            throw new InvalidOperationException("This instance have been used to initialize engine and can't be mutated");
+    }
 
     /// <summary>
     /// Configure OPA built-ins.
@@ -115,11 +197,18 @@ public class WasmPolicyEngineOptions
     {
         ArgumentNullException.ThrowIfNull(configure);
 
+        VerifyMutable();
+
         _makeBuiltins = () =>
         {
             var bo = new WasmBuiltinsOptions();
             configure(bo);
-            return new CompositeImportsHandler(bo.DefaultBuiltins, bo.CustomBuiltins.AsReadOnly(), _importsCache);
+            return new CompositeImportsHandler(
+                bo.DefaultBuiltins,
+                bo.CustomBuiltins.AsReadOnly(),
+                _importsCache,
+                Timeout > TimeSpan.Zero
+                );
         };
     }
 }

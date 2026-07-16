@@ -25,4 +25,9 @@ public record BuiltinContext
     /// If <c>true</c> errors in built-in functions will be threaded as exceptions that halt policy evaluation.
     /// </summary>
     public bool StrictBuiltinErrors { get; internal init; }
+
+    /// <summary>
+    /// Cancellation token.
+    /// </summary>
+    public CancellationToken CancellationToken { get; internal init; }
 }

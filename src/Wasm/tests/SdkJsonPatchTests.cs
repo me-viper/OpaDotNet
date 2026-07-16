@@ -268,7 +268,7 @@ public partial class SdkJsonPatchTests(ITestOutputHelper output) : SdkTestBase(o
             """;
 
         if (theory.Expected == null)
-            await Assert.ThrowsAsync<OpaEvaluationException>(() => RunTestCase(func, "{}", options: WasmOptions));
+            await Assert.ThrowsAsync<OpaBuiltinException>(() => RunTestCase(func, "{}", options: WasmOptions));
         else
         {
             var result = await RunTestCase(func, theory.Expected.ToJsonString(), options: WasmOptions);

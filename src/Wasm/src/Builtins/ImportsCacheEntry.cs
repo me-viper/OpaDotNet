@@ -2,6 +2,6 @@
 
 internal record ImportsCacheEntry(
     Type Type,
-    Func<IOpaCustomBuiltins, BuiltinArg[], JsonSerializerOptions, object?> Import,
-    OpaCustomBuiltinAttribute Attributes
+    Func<IOpaCustomBuiltins, BuiltinArg[], IOpaCustomBuiltinsContext, Task<object?>> Import,
+    CustomBuiltinInfo Attributes
     );

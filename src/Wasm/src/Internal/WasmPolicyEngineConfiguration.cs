@@ -17,4 +17,6 @@ internal record WasmPolicyEngineConfiguration
     public required WasmPolicyEngineOptions Options { get; init; }
 
     public required IOpaImportsAbi Imports { get; init; }
+
+    public TimeSpan Timeout { get; init; }
 }

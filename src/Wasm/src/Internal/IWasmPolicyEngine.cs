@@ -30,6 +30,8 @@ internal interface IWasmPolicyEngine : IDisposable
 
     nint Eval(ReadOnlySpan<char> inputJson, string? entrypoint = null);
 
+    void ResetEval();
+
     void Reset();
 
     string DumpData();

@@ -24,7 +24,7 @@
     <PackageReference Include="Microsoft.Extensions.Primitives" Version="10.0.0" />
     <PackageReference Include="Semver" Version="3.0.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.15.0" />
-    <PackageReference Include="Wasmtime" Version="34.0.2" />
+    <PackageReference Include="Wasmtime" Version="44.0.0" />
     <PackageReference Include="Yaml2JsonNode" Version="2.2.0" />
     <PackageReference Include="YamlDotNet" Version="16.3.0" />
 

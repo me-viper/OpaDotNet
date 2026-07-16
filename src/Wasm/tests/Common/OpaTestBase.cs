@@ -73,7 +73,7 @@ public class OpaTestBase
         return await MakeCompiler().CompileFileAsync(path, cp);
     }
 
-    protected async Task<Stream> CompileSource(string path, string[]? entrypoints = null)
+    protected async Task<Stream> CompileSource(string source, string[]? entrypoints = null)
     {
         var cp = Options ?? new CompilationParameters();
 
@@ -82,7 +82,7 @@ public class OpaTestBase
             Entrypoints = entrypoints,
         };
 
-        return await MakeCompiler().CompileSourceAsync(path, cp);
+        return await MakeCompiler().CompileSourceAsync(source, cp);
     }
 
     protected async Task<Stream> CompileBundle(Stream bundle, string[]? entrypoints = null)

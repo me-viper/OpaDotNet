@@ -29,15 +29,23 @@ internal sealed class OpaWasmEvaluator : IOpaEvaluator
 
     private readonly IOpaImportsAbi _importsAbi;
 
+    private readonly TimeSpan _timeout;
+
+    private CancellationTokenSource _cancellationTokenSource;
+
     public Version AbiVersion => _abi.AbiVersion;
 
     public Version PolicyAbiVersion { get; }
+
+    private bool IsAsync { get; }
 
     internal OpaWasmEvaluator(WasmPolicyEngineConfiguration configuration)
     {
         ArgumentNullException.ThrowIfNull(configuration);
 
         _engineOptions = configuration.Options;
+        _timeout = configuration.Timeout;
+        IsAsync = _timeout > TimeSpan.Zero;
 
         _engine = configuration.Engine;
         _linker = configuration.Linker;
@@ -45,6 +53,11 @@ internal sealed class OpaWasmEvaluator : IOpaEvaluator
         _module = configuration.Module;
         _memory = configuration.Memory;
         _importsAbi = configuration.Imports;
+
+        _cancellationTokenSource = new CancellationTokenSource();
+
+        if (IsAsync)
+            _store.SetEpochDeadline(1);
 
         SetupLinker(configuration.Imports);
 
@@ -108,6 +121,7 @@ internal sealed class OpaWasmEvaluator : IOpaEvaluator
                 OpaContext = ctx,
                 JsonSerializerOptions = JsonOptions,
                 StrictBuiltinErrors = _engineOptions.StrictBuiltinErrors,
+                CancellationToken = _cancellationTokenSource.Token,
             };
         }
 
@@ -272,6 +286,21 @@ internal sealed class OpaWasmEvaluator : IOpaEvaluator
     {
         _abi.Reset();
         _importsAbi.Reset();
+        _store.GC();
+
+       ResetCancellation();
+    }
+
+    private void ResetCancellation()
+    {
+        if (IsAsync)
+            _store.SetEpochDeadline(1);
+
+        if (_cancellationTokenSource.TryReset())
+            return;
+
+        _cancellationTokenSource.Dispose();
+        _cancellationTokenSource = new();
     }
 
     public bool TryGetFeature<TFeature>([MaybeNullWhen(false)] out TFeature feature)
@@ -333,21 +362,36 @@ internal sealed class OpaWasmEvaluator : IOpaEvaluator
     {
         try
         {
+            if (_timeout > TimeSpan.Zero)
+            {
+                _cancellationTokenSource.Token.Register(_engine.IncrementEpoch);
+                _cancellationTokenSource.CancelAfter(_timeout);
+            }
+
             return _abi.Eval(inputJson, entrypoint);
+        }
+        catch (TrapException ex)
+        {
+            if (ex.Type == TrapCode.Interrupt)
+                throw new OpaEvaluationException("Evaluation timeout", ex);
+
+            throw;
         }
         catch (WasmtimeException ex)
         {
             if (ex.InnerException is OpaEvaluationAbortedException)
                 throw ex.InnerException;
 
-            if (ex.InnerException is OpaBuiltinException)
-                throw new OpaEvaluationException("Builtin failed", ex.InnerException);
+            if (ex.InnerException is OpaBuiltinException obe)
+                throw obe;
 
             throw new OpaEvaluationException("Evaluation failed", ex);
         }
         finally
         {
             _importsAbi.Reset();
+            ResetCancellation();
+            _abi.ResetEval();
         }
     }
 
@@ -358,5 +402,6 @@ internal sealed class OpaWasmEvaluator : IOpaEvaluator
         _store.Dispose();
         _linker.Dispose();
         _engine.Dispose();
+        _cancellationTokenSource.Dispose();
     }
 }
