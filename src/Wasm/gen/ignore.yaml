@@ -33,6 +33,14 @@
 - reason: 'TODO: No easy way to parse DER certificate chain'
   regex:
   - cryptox509parsecertificates/DER, chain, b64
+
+- reason: 'TODO: No native EdDSA support'
+  regex:
+  - jwtdecodeverify/EdDSA
+  - jwtencodesign/EdDSA
+  - jwtencodesignraw/EdDSA
+  - jwtverifyeddsa/success-cert
+
 - reason: 'TODO: http.send is not implemented'
   regex:
   - invalidkeyerror/invalid keys
