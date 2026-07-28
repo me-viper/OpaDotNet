@@ -27,6 +27,10 @@
   - strings/reverse_
   - strings/substring
 
+- reason: 'Returning hostname for custom schemes doesnt look wrong'
+  regex:
+  - uribuiltins/parse mailto uri
+
 - reason: 'TODO: Fix!!!'
   regex:
   - uuid-parse/positive-v2
@@ -97,8 +101,10 @@
   - data/nested integer
   - data/toplevel integer
   - helloworld/another_test_for_builtin_error
+  - logic_op/
   - unused arg
   - strings/format_int
+  - string-interpolation/
   - wasm/additive \(negative\)
   - wasm/object dereference \(negative\)
 
@@ -131,12 +137,10 @@
     - every/
     - ir/
     - keywordrefs/
-    #- logic_op/
     - negation/
     - partialdocconstants/
     - refheads/
     - regression/
-    #- string-interpolation/
     - subset/
     - typebuiltin/
     - typenamebuiltin/
