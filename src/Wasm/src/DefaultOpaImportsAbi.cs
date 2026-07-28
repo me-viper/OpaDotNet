@@ -182,6 +182,8 @@ public partial class DefaultOpaImportsAbi : IOpaImportsAbi
                 "json.verify_schema" => JsonVerifySchema(arg1.RawJson, context.JsonSerializerOptions, out _),
                 "units.parse" => UnitsParse(arg1.As<string>()),
                 "units.parse_bytes" => UnitsParseBytes(arg1.As<string>()),
+                "uri.is_valid" => UriIsValid(arg1.As<string>()),
+                "uri.parse" => UriParse(arg1.As<string>()),
                 "internal.print" => Print(arg1.As<JsonArray>(), context.JsonSerializerOptions),
                 "glob.quote_meta" => GlobQuoteMeta(arg1.As<string>()),
                 _ => throw new NotImplementedException(context.FunctionName),

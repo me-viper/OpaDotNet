@@ -743,6 +743,93 @@ public partial class DefaultOpaImportsAbi
         }
     }
 
+    private static bool UriIsValid(string uri)
+    {
+        return Uri.TryCreate(uri, UriKind.Absolute, out _);
+    }
+
+    internal class UriParseResult
+    {
+        [JsonPropertyName("scheme")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public string? Scheme { get; set; }
+
+        [JsonPropertyName("hostname")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public string? Hostname { get; set; }
+
+        [JsonPropertyName("port")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public string? Port { get; set; }
+
+        [JsonPropertyName("path")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public string? Path { get; set; }
+
+        [JsonPropertyName("raw_path")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public string? RawPath { get; set; }
+
+        [JsonPropertyName("raw_query")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public string? RawQuery { get; set; }
+
+        [JsonPropertyName("fragment")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public string? Fragment { get; set; }
+    }
+
+    private static UriParseResult? UriParse(string uri)
+    {
+        if (string.IsNullOrWhiteSpace(uri))
+            return new();
+
+        if (!Uri.TryCreate(uri, UriKind.Absolute, out var u))
+            return null;
+
+        string? path = null;
+        string? rawPath = null;
+        string? query = null;
+
+        if (!string.IsNullOrWhiteSpace(u.PathAndQuery))
+        {
+            var pathAndQuery = u.PathAndQuery.Split('?', 2);
+
+            rawPath = pathAndQuery[0];
+
+            if (rawPath is ['/'])
+                rawPath = null;
+            else
+                path = HttpUtility.UrlDecode(rawPath);
+
+            if (pathAndQuery.Length > 1)
+                query = pathAndQuery[1];
+        }
+
+        var port = u.Port.ToString();
+
+        if (u.IsDefaultPort)
+            port = uri.Contains($":{port}") ? port : null;
+
+        var host = u.Host;
+
+        if (u.HostNameType == UriHostNameType.IPv6)
+            host = host[1..^1];
+
+        var result = new UriParseResult
+        {
+            Scheme = u.Scheme,
+            Hostname = host,
+            Port = port,
+            Path = path,
+            RawPath = rawPath,
+            RawQuery = query,
+            Fragment = string.IsNullOrWhiteSpace(u.Fragment) ? null : u.Fragment.TrimStart('#'),
+        };
+
+        return result;
+    }
+
     private static T GetValue<T>(JsonArray ar, int index)
     {
         if (ar[index] is JsonValue jv)
