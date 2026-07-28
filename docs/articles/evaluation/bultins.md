@@ -21,6 +21,10 @@ In the following sample, we define 5 custom functions:
 > [!NOTE]
 > OPA supports custom functions with up to four arguments.
 
+# [v3.2+](#tab/v32)
+
+[!code-csharp[](~/snippets/Builtins.cs#CustomBuiltinsImplv32)]
+
 # [v3.0+](#tab/v30)
 
 [!code-csharp[](~/snippets/Builtins.cs#CustomBuiltinsImplv30)]
@@ -53,6 +57,10 @@ For more information on capabilities [see](~/articles/reference/capabilities.md)
 Place policy and capabilities files into `bundle` directory.
 
 Next, we need to compile the policy bundle and make it aware of our custom built-ins:
+
+# [v3.2+](#tab/v32)
+
+[!code-csharp[](~/snippets/Builtins.cs#CustomBuiltinsCompilev32)]
 
 # [v3.0+](#tab/v30)
 
