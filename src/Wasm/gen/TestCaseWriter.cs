@@ -81,22 +81,32 @@ public partial class SdkV1Tests
         var name = $"{FormatFunctionName(testName)}_{caseN}";
 
         var note = SymbolDisplay.FormatLiteral(testCase.Note, true);
+        var explicitTest = false;
 
         if (!string.IsNullOrWhiteSpace(testCase.Skip))
         {
-            return $@"
-        [Fact(DisplayName = {note}, Skip = """"""{testCase.Skip}"""""")]
+            var dontRun = $"Skip = \"{testCase.Skip}\"";
+
+            if (testCase.Skip!.StartsWith("Explicit:"))
+                explicitTest = true;
+            else
+            {
+                return $@"
+        [Fact(DisplayName = {note}, {dontRun})]
         [System.Runtime.CompilerServices.CompilerGenerated]
         public Task {name}()
         {{
             return Task.CompletedTask;
         }}";
+            }
         }
+
+        var expl = explicitTest ? ", Explicit = true" : string.Empty;
 
         var modules = string.Join(",", testCase.Modules.Select(FormatModule));
 
         return $@"
-        [Fact(DisplayName = {note})]
+        [Fact(DisplayName = {note}{expl})]
         [System.Runtime.CompilerServices.CompilerGenerated]
         public async Task {name}()
         {{

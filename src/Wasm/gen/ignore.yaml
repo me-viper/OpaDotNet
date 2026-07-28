@@ -26,10 +26,12 @@
   - replacen/bad
   - strings/reverse_
   - strings/substring
+
 - reason: 'TODO: Fix!!!'
   regex:
   - uuid-parse/positive-v2
   - jsonpatch/set
+
 - reason: 'TODO: No easy way to parse DER certificate chain'
   regex:
   - cryptox509parsecertificates/DER, chain, b64
@@ -45,27 +47,34 @@
   - jwtencodesignraw/EdDSA
   - jwtverifyeddsa/success-cert
 
+
 - reason: 'TODO: http.send is not implemented'
   regex:
   - invalidkeyerror/invalid keys
   - invalidkeyerror/missing keys
 - reason: 'We are fine with JWE'
+
 - reason: 'TODO: For some reason dotnet hates this key'
   regex:
   - jwtverifyrsa/success-es384-key
   - jwtverifyrsa/success-es512-key
+
 - reason: 'Implemented separately'
   regex:
   - jsonpatch/json_patch_tests
+
 - reason: 'TODO: Decide how to detect bad key'
   regex:
   - jwtverifyrsa/failure-bad jwk key
+
 - reason: 'We are fine with JWE'
   regex:
   - jwtbuiltins/no-support-jwe
+
 - reason: 'Not supported: Float EXP or NBF'
   regex:
   - jwtdecodeverify/hs256-float
+
 - reason: 'Not supported: Key is too short'
   regex:
   - jwtdecodeverify/missing-iss-while-required
@@ -73,6 +82,7 @@
   - jwtverifyhs256/success
   - jwtverifyhs384/success
   - jwtverifyhs512/success
+
 - reason: Not implemented
   regex:
   - graphql_
@@ -80,6 +90,7 @@
   - providers-aws-sign_req/
   - rendertemplate/
   - regoparsemodule/
+
 - reason: WASM SDK specifics
   regex:
   - dataref/
@@ -90,6 +101,7 @@
   - strings/format_int
   - wasm/additive \(negative\)
   - wasm/object dereference \(negative\)
+
 - reason: WTF???
   regex:
   - virtualdocs/undefined
@@ -101,3 +113,32 @@
   - partialsetdoc/unexpected
   - inputvalues/loopback undefined
   - walkbuiltin/wildcard-path same values as when path provided
+
+- reason: 'Explicit: General WASM SDK tests'
+  regex:
+    - assignments/
+    - baseandvirtualdocs/
+    - comparisonexpr/
+    - completedoc/
+    - compositebasedereference/
+    - compositereferences/
+    - comprehensions/
+    - defaultkeyword/
+    - disjunction/
+    - elsekeyword/
+    - eqexpr/
+    - evaltermexpr/
+    - every/
+    - ir/
+    - keywordrefs/
+    #- logic_op/
+    - negation/
+    - partialdocconstants/
+    - refheads/
+    - regression/
+    #- string-interpolation/
+    - subset/
+    - typebuiltin/
+    - typenamebuiltin/
+    - varreferences/
+    - virtualdocs/
