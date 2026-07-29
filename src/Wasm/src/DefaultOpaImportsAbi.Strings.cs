@@ -282,4 +282,19 @@ public partial class DefaultOpaImportsAbi
 
         return count;
     }
+
+    private static string[] SplitN(string x, string delimiter, int n)
+    {
+        if (n == 0)
+            return [];
+
+        var parts = x.Split(delimiter);
+
+        if (n > 0)
+            return n > parts.Length ? parts : parts[..n];
+
+        n *= -1;
+
+        return n > parts.Length ? parts : parts[..^n];
+    }
 }

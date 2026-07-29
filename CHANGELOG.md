@@ -7,6 +7,7 @@
 * Support evaluation timeout `WasmPolicyEngineOptions.Timeout`
 * Add async built-ins support
 * Implement `uri.is_valid` and `uri.parse`
+* Implement `strings.split_n`
 * Fix `strings.count` when substring is empty
 * Fix `graph.reachable_paths`
 
