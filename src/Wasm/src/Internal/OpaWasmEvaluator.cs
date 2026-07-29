@@ -397,11 +397,11 @@ internal sealed class OpaWasmEvaluator : IOpaEvaluator
 
     public void Dispose()
     {
+        _cancellationTokenSource.Dispose();
         _abi.Dispose();
         _module.Dispose();
         _store.Dispose();
         _linker.Dispose();
         _engine.Dispose();
-        _cancellationTokenSource.Dispose();
     }
 }
