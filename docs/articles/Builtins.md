@@ -7,6 +7,7 @@ Bellow is the list of supported OPA built-in functions as for version v1.10.1 al
 | Function   | Status             | OpaDotNet version  |
 |------------|--------------------|--------------------|
 | [numbers.range_step](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-numbers-numbersrange_step) | :white_check_mark: | v2.2.0 |
+| [rand.intn](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-numbers-randintn) | :white_check_mark: | v1.1.0 |
 
 ## Strings
 
@@ -18,6 +19,7 @@ Bellow is the list of supported OPA built-in functions as for version v1.10.1 al
 | [strings.any_suffix_match](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-strings-stringsany_suffix_match)    | :white_check_mark: | v1.0.0 |
 | [strings.render_template](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-strings-stringsrender_template)    | - | - |
 | [strings.strings.count](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-strings-stringscount)    | :white_check_mark: | v3.1.0 |
+| [strings.split_n](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-strings-stringssplit_n)    | - | - |
 
 \* Inconsistent behavior with native implementation when argument is object.
 
@@ -96,6 +98,7 @@ Bellow is the list of supported OPA built-in functions as for version v1.10.1 al
 | [io.jwt.encode_sign_raw](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokensign-iojwtencode_sign_raw) | :white_check_mark: | v1.1.0 |
 | [io.jwt.decode](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtdecode) | :white_check_mark: | v1.1.0 |
 | [io.jwt.decode_verify](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtdecode_verify) | :white_check_mark: | v1.1.0 |
+| [io.jwt.verify_eddsa](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtverify_eddsa) | - | - |
 | [io.jwt.verify_es256](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtverify_es256) | :white_check_mark: | v1.1.0 |
 | [io.jwt.verify_es384](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtverify_es384) | :white_check_mark: | v1.1.0 |
 | [io.jwt.verify_es512](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtverify_es512) | :white_check_mark: | v1.1.0 |
@@ -121,7 +124,9 @@ Bellow is the list of supported OPA built-in functions as for version v1.10.1 al
 | [crypto.md5](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptomd5) | :white_check_mark: | v1.1.0 |
 | [crypto.sha1](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptosha1) | :white_check_mark: | v1.1.0 |
 | [crypto.sha256](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptosha256) | :white_check_mark: | v1.1.0 |
+| [crypto.parse_private_keys](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptoparse_private_keys) | :white_check_mark: | v2.5.0 |
 | [crypto.x509.parse_and_verify_certificates](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptox509parse_and_verify_certificates) | :white_check_mark: | v2.5.0 (*) |
+| [crypto.x509.parse_and_verify_certificates_with_options](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptox509parse_and_verify_certificates_with_options) | - | - |
 | [crypto.x509.parse_certificate_request](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptox509parse_certificate_request) | :white_check_mark: | v2.5.0 (*) |
 | [crypto.x509.parse_certificates](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptox509parse_certificates) | :white_check_mark: | v2.5.0 (*) |
 | [crypto.x509.parse_keypair](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptox509parse_keypair) | :white_check_mark: | v2.5.0 (*) |
@@ -169,6 +174,13 @@ Bellow is the list of supported OPA built-in functions as for version v1.10.1 al
 | [net.lookup_ip_addr](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-net-netlookup_ip_addr) | :white_check_mark: | v1.1.0 (*) |
 
 \* There might be inconsistent behavior with native implementation due to different DNS resolver.
+
+## URI
+
+| Function   | Status             | OpaDotNet version  |
+|------------|--------------------|--------------------|
+| [uri.is_valid](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-uri-uriis_valid) | :white_check_mark: | v3.2.0 |
+| [uri.parse](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-uri-uriparse) | :white_check_mark: | v3.2.0 |
 
 ## UUID
 
