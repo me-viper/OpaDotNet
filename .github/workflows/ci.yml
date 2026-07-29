@@ -21,7 +21,7 @@ on:
       - '**.md'
 
 env:
-  OPA_CLI_VERSION: v1.10.1
+  OPA_CLI_VERSION: v1.18.2
 
 jobs:
   native_build:
@@ -69,6 +69,8 @@ jobs:
 
     - name: Tests
       run: dotnet test --configuration Release --no-build --no-progress --filter-not-trait "Compiler=Interop" -- --coverage --coverage-output-format cobertura --coverage-output cov.xml
+      env:
+        OPA_TEST_COMPILER: cli
 
     - name: Merge Coverage
       run: dotnet coverage merge -o coveralls.xml -f cobertura ./artifacts/**/cov.xml
