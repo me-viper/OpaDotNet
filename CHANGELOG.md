@@ -1,14 +1,18 @@
 # Changelog
 
-## OpaDotNet 2025.2.2
+## OpaDotNet 2026.2.1
 
-### OpaDotNet.Wasm
+### OpaDotNet.Wasm v3.2.0
 
 * Support evaluation timeout `WasmPolicyEngineOptions.Timeout`
 * Add async built-ins support
 * Implement `uri.is_valid` and `uri.parse`
 * Fix `strings.count` when substring is empty
 * Fix `graph.reachable_paths`
+
+### OpaDotNet.Extensions.AspNetCore v3.2.0
+
+* Update `OpaDotNet.Wasm`
 
 ## OpaDotNet 2025.2.1
 
