@@ -811,10 +811,7 @@ public partial class DefaultOpaImportsAbi
         if (u.IsDefaultPort)
             port = uri.Contains($":{port}") ? port : null;
 
-        var host = u.Host;
-
-        if (u.HostNameType == UriHostNameType.IPv6)
-            host = host[1..^1];
+        var host = u.IdnHost;
 
         var result = new UriParseResult
         {
