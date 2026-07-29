@@ -29,6 +29,8 @@ items:
   href: compilation/cli.md
 - name: SDK Interop Compiler
   href: compilation/interop.md
+- name: Bundle Signature Validation
+  href: compilation/signing.md
 
 - name: Reference
 - name: Advanced Built-ins

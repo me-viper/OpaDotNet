@@ -114,6 +114,36 @@ public partial class DocSamples
     }
 
     [Fact]
+    public void EvalSignedBundle()
+    {
+        #region EvalSignedBundle
+
+        var engineOptions = new WasmPolicyEngineOptions
+        {
+            SignatureValidation = new()
+            {
+                // Fail evaluation if the bundle is not signed.
+                Validation = SignatureValidationType.Required,
+
+                // Public key used to verify the bundle signature (see "opa sign").
+                VerificationKeyPath = "data/signature/rsa_pub.pem",
+            },
+        };
+
+        // Signature is verified while the bundle is being unpacked.
+        using var engine = OpaBundleEvaluatorFactory.Create(
+            File.OpenRead("data/signature/bundle.tar.gz"),
+            engineOptions
+            );
+
+        var result = engine.EvaluatePredicate(new { }, "test_sign/allow");
+
+        #endregion
+
+        Assert.True(result.Result);
+    }
+
+    [Fact]
     public async Task CompileFileCli()
     {
         var cancellationToken = TestContext.Current.CancellationToken;

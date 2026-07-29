@@ -14,3 +14,6 @@ Which one you should be using?
 Use `OpaDotNet.Compilation.Cli` if you have `opa` CLI tool available or you need functionality besides compilation (running tests, syntax checking etc.). Suitable for web applications and/or applications running in Docker containers. See [README](https://github.com/me-viper/OpaDotNet.Compilation/blob/main/src/OpaDotNet.Compilation.Cli/README.md) for more details.
 
 Use `OpaDotNet.Compilation.Interop` if you need compilation only and want to avoid having external dependencies. Suitable for libraries, console application etc. See [README](https://github.com/me-viper/OpaDotNet.Compilation/blob/main/src/OpaDotNet.Compilation.Interop/README.md) for more details.
+
+If you sign your bundles to protect against tampering, see [Bundle Signature Validation](signing.md) for how to
+verify signatures when loading a bundle.

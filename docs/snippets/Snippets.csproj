@@ -31,6 +31,12 @@
     <None Update="data\bundle.tar.gz">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="data\signature\bundle.tar.gz">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\signature\rsa_pub.pem">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="quickstart\data.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

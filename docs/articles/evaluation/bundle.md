@@ -29,3 +29,6 @@ opa build -t wasm -b -e example/hello ./quickstart
 ## 4. The code
 
 [!code-csharp[](~/snippets/Snippets.cs#EvalBundle)]
+
+If the bundle is signed, `OpaDotNet` can verify its signature while unpacking it, see
+[Bundle Signature Validation](~/articles/compilation/signing.md).
