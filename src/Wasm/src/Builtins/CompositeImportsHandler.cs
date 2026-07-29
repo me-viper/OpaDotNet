@@ -189,6 +189,11 @@ internal sealed class CompositeImportsHandler : IOpaImportsAbi
         {
             throw;
         }
+        catch (AggregateException ex)
+        {
+            if (OnError(context, ex))
+                throw new OpaBuiltinException(OpaBuiltinException.Error) { Name = context.FunctionName };
+        }
         catch (OpaBuiltinException ex)
         {
             ex.Name = context.FunctionName;
