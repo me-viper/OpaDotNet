@@ -153,7 +153,21 @@ internal sealed class CompositeImportsHandler : IOpaImportsAbi
                 // handle task wrapping and waiting stuff in same place.
 
                 var runner = func(args, callContext);
-                runner.Wait(context.CancellationToken);
+
+                try
+                {
+                    runner.Wait(context.CancellationToken);
+                }
+                catch (AggregateException ex)
+                {
+                    var exf = ex.Flatten();
+
+                    if (ex.InnerExceptions.Count == 1)
+                        throw exf.InnerExceptions[0];
+
+                    throw;
+                }
+
                 return runner.Result;
             }
 
@@ -185,35 +199,6 @@ internal sealed class CompositeImportsHandler : IOpaImportsAbi
         catch (OperationCanceledException ex)
         {
             throw new OpaBuiltinException(OpaBuiltinException.Timeout, ex.Message, ex) { Name = context.FunctionName };
-        }
-        catch (AggregateException ex)
-        {
-            var exf = ex.Flatten();
-
-            if (exf.InnerExceptions.Count > 1)
-            {
-                if (OnError(context, exf))
-                    throw new OpaBuiltinException(OpaBuiltinException.Error, ex.Message, ex) { Name = context.FunctionName };
-            }
-            else
-            {
-                var inner = exf.InnerExceptions[0];
-
-                if (inner is OpaEvaluationAbortedException)
-                    throw inner;
-
-                if (OnError(context, inner))
-                {
-                    var code = inner is OperationCanceledException
-                        ? OpaBuiltinException.Timeout
-                        : OpaBuiltinException.Error;
-
-                    throw new OpaBuiltinException(code, inner.Message, inner)
-                    {
-                        Name = context.FunctionName,
-                    };
-                }
-            }
         }
         catch (Exception ex)
         {
