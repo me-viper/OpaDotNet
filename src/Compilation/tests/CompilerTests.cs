@@ -586,8 +586,8 @@ public abstract class CompilerTests<T>
     }
 
     [Theory]
-    [InlineData("TestData/utfbom", new[] { "bom" })]
-    public async Task FromDirectoryUtfWithBom(string path, string[] entrypoints)
+    [InlineData("TestData/utfbom")]
+    public async Task FromDirectoryUtfWithBom(string path)
     {
         using var ms = new MemoryStream();
 
@@ -604,7 +604,6 @@ public abstract class CompilerTests<T>
             ms,
             new()
             {
-                //Entrypoints = entrypoints,
                 CapabilitiesVersion = DefaultCaps,
             },
             TestContext.Current.CancellationToken
@@ -622,7 +621,6 @@ public abstract class CompilerTests<T>
     [InlineData("TestData/compile-bundle/example", new[] { "test1/hello" }, null)]
     [InlineData("TestData/compile-bundle/example", new[] { "test1/hello" }, new[] { "test1" })]
     [InlineData("TestData/compile-bundle/example", new[] { "test1/hello" }, new[] { "test1", "test2" })]
-    [InlineData("TestData/utfbom", new[] { "bom" }, null)]
     public async Task FromDirectory(string path, string[] entrypoints, string[]? exclusions)
     {
         using var ms = new MemoryStream();

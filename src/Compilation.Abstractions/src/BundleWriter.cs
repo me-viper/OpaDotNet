@@ -158,8 +158,6 @@ public sealed class BundleWriter : IDisposable, IAsyncDisposable
             var fullPath = Path.Combine(di.FullName, filePath);
 
             using var fs = new FileStream(fullPath, FileMode.Open, FileAccess.Read);
-            SkipBom(fs);
-
             writer.WriteEntry(fs, filePath);
         }
 
