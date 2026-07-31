@@ -79,6 +79,12 @@ public class BuiltinArg
                 _ => throw new OpaBuiltinException(OpaBuiltinException.Type, $"Expected {typeof(T)} but got object"),
             };
         }
+#if !NET9_0_OR_GREATER
+        catch (FormatException ex)
+        {
+            throw new OpaBuiltinException(OpaBuiltinException.Type, ex.Message);
+        }
+#endif
         catch (InvalidOperationException ex)
         {
             throw new OpaBuiltinException(OpaBuiltinException.Type, ex.Message);
