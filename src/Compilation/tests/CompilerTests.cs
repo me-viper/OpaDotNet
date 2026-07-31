@@ -586,9 +586,43 @@ public abstract class CompilerTests<T>
     }
 
     [Theory]
+    [InlineData("TestData/utfbom", new[] { "bom" })]
+    public async Task FromDirectoryUtfWithBom(string path, string[] entrypoints)
+    {
+        using var ms = new MemoryStream();
+
+        var bundleWriter = BundleWriter.FromDirectory(ms, path, null);
+
+        Assert.False(bundleWriter.IsEmpty);
+
+        await bundleWriter.DisposeAsync();
+        ms.Seek(0, SeekOrigin.Begin);
+
+        var compiler = CreateCompiler(LoggerFactory);
+
+        await using var bundle = await compiler.CompileBundleAsync(
+            ms,
+            new()
+            {
+                //Entrypoints = entrypoints,
+                CapabilitiesVersion = DefaultCaps,
+            },
+            TestContext.Current.CancellationToken
+            );
+
+        AssertBundle.DumpBundle(bundle, OutputHelper);
+
+        AssertBundle.Content(
+            bundle,
+            p => AssertBundle.HasEntry(p, "/policy.wasm")
+            );
+    }
+
+    [Theory]
     [InlineData("TestData/compile-bundle/example", new[] { "test1/hello" }, null)]
     [InlineData("TestData/compile-bundle/example", new[] { "test1/hello" }, new[] { "test1" })]
     [InlineData("TestData/compile-bundle/example", new[] { "test1/hello" }, new[] { "test1", "test2" })]
+    [InlineData("TestData/utfbom", new[] { "bom" }, null)]
     public async Task FromDirectory(string path, string[] entrypoints, string[]? exclusions)
     {
         using var ms = new MemoryStream();

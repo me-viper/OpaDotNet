@@ -158,10 +158,26 @@ public sealed class BundleWriter : IDisposable, IAsyncDisposable
             var fullPath = Path.Combine(di.FullName, filePath);
 
             using var fs = new FileStream(fullPath, FileMode.Open, FileAccess.Read);
+            SkipBom(fs);
+
             writer.WriteEntry(fs, filePath);
         }
 
         return writer;
+    }
+
+    private static void SkipBom(Stream stream)
+    {
+        Span<byte> bom = stackalloc byte[3];
+
+        // OPA doesn't like UT8 with BOM, if we see file with BOM skip first 3 bytes.
+        if (stream is { CanSeek: true, Length: > 3 })
+        {
+            stream.ReadExactly(bom);
+
+            if (!bom.SequenceEqual(Encoding.UTF8.Preamble))
+                stream.Position = 0;
+        }
     }
 
     /// <summary>
@@ -188,8 +204,13 @@ public sealed class BundleWriter : IDisposable, IAsyncDisposable
     {
         ArgumentException.ThrowIfNullOrEmpty(path);
 
+        var startIndex = 0;
+
+        if (bytes.Length > 3 && Encoding.UTF8.Preamble.SequenceEqual(bytes[..3]))
+            startIndex = 3;
+
         using var ms = new MemoryStream(bytes.Length);
-        ms.Write(bytes);
+        ms.Write(bytes[startIndex..]);
         ms.Seek(0, SeekOrigin.Begin);
 
         WriteEntry(ms, path);
@@ -210,6 +231,8 @@ public sealed class BundleWriter : IDisposable, IAsyncDisposable
             if (Path.GetPathRoot(path)?[0] != Path.DirectorySeparatorChar)
                 path = path[2..];
         }
+
+        SkipBom(stream);
 
         var entry = new PaxTarEntry(TarEntryType.RegularFile, NormalizePath(path))
         {
