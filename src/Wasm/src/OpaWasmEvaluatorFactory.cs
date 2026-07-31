@@ -36,12 +36,21 @@ public sealed class OpaWasmEvaluatorFactory : IOpaEvaluatorFactory
 
         if (string.IsNullOrWhiteSpace(options.CachePath))
         {
+            int bytesRead;
             var buffer = ArrayPool<byte>.Shared.Rent((int)source.Length);
 
-            var bytesRead = source.Read(buffer);
+            try
+            {
+                bytesRead = source.Read(buffer);
 
-            if (bytesRead < source.Length)
-                throw new OpaRuntimeException("Failed to read wasm policy stream");
+                if (bytesRead < source.Length)
+                    throw new OpaRuntimeException("Failed to read wasm policy stream");
+            }
+            catch (Exception)
+            {
+                ArrayPool<byte>.Shared.Return(buffer);
+                throw;
+            }
 
             _factory = () => OpaEvaluatorFactory.Create(buffer.AsSpan(0, bytesRead), ReadOnlySpan<byte>.Empty, options);
             _disposer = () => ArrayPool<byte>.Shared.Return(buffer);
