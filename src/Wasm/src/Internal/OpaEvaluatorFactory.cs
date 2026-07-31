@@ -64,7 +64,6 @@ internal static class OpaEvaluatorFactory
         var linker = new Linker(engine);
         var store = new Store(engine);
         var memory = new Memory(store, options.MinMemoryPages, options.MaxMemoryPages);
-        var module = Module.FromBytes(engine, "policy", policy);
 
         var config = new WasmPolicyEngineConfiguration
         {
