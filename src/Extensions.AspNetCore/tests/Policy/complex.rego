@@ -1,4 +1,4 @@
-﻿# METADATA
+# METADATA
 # entrypoint: true
 package complex
 
@@ -12,7 +12,7 @@ access if {
 
 admin if {
     access
-    some u, r in data.complex.roles 
+    some u, r in data.complex.roles
     u == input.user
     r.role == "admin"
 }
