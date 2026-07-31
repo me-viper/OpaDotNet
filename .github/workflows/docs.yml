@@ -37,11 +37,10 @@ jobs:
         fetch-depth: 0
 
     - name: Dotnet Setup
-      uses: actions/setup-dotnet@v4
+      uses: actions/setup-dotnet@v5
       with:
         dotnet-version: |
           8.0.x
-          9.0.x
 
     - name: Restore Tools
       run: dotnet tool restore

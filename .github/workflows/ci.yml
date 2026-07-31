@@ -21,7 +21,7 @@ on:
       - '**.md'
 
 env:
-  OPA_CLI_VERSION: v1.18.2
+  OPA_CLI_VERSION: v1.19.0
 
 jobs:
   native_build:
