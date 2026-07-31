@@ -66,6 +66,25 @@ public class BuiltinArg
         return result;
     }
 
+    internal T AsValue<T>(RegoValueFormat format = RegoValueFormat.Json) where T : unmanaged
+    {
+        var val = format == RegoValueFormat.Value ? Raw : RawJson;
+
+        try
+        {
+            return val switch
+            {
+                null => throw new OpaBuiltinException(OpaBuiltinException.Type, $"Expected {typeof(T)} but got null"),
+                JsonValue jv => jv.GetValue<T>(),
+                _ => throw new OpaBuiltinException(OpaBuiltinException.Type, $"Expected {typeof(T)} but got object"),
+            };
+        }
+        catch (InvalidOperationException ex)
+        {
+            throw new OpaBuiltinException(OpaBuiltinException.Type, ex.Message);
+        }
+    }
+
     private static MethodInfo _getValue = typeof(JsonValue).GetMethod(nameof(JsonValue.GetValue))!;
 
     private static readonly ConcurrentDictionary<Type, MethodInfo> GetValueCache = new();

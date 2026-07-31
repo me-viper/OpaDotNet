@@ -33,6 +33,8 @@ internal class OpaBuiltinException(string? errorCode, string? message, Exception
 
     public const string Timeout = "eval_builtin_timeout";
 
+    public const string Type = "eval_type_error";
+
     public OpaBuiltinException(string? message) : this(Error, message)
     {
     }

@@ -288,13 +288,14 @@ public partial class DefaultOpaImportsAbi
         if (n == 0)
             return [];
 
-        var parts = x.Split(delimiter);
+        var parts = string.IsNullOrEmpty(delimiter) ? [.. x.Select(p => p.ToString())] : x.Split(delimiter);
 
         if (n > 0)
             return n > parts.Length ? parts : parts[..n];
 
         n *= -1;
+        Array.Reverse(parts);
 
-        return n > parts.Length ? parts : parts[..^n];
+        return n > parts.Length ? parts : parts[..n];
     }
 }
