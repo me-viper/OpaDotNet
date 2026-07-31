@@ -144,6 +144,57 @@ public partial class DocSamples
     }
 
     [Fact]
+    public async Task BuildBundleWithBundleWriter()
+    {
+        var cancellationToken = TestContext.Current.CancellationToken;
+
+        #region BuildBundleWithBundleWriter
+
+        var policySource = """
+            package example
+
+            default hello = false
+
+            hello {
+                x := input.message
+                x == data.world
+            }
+            """;
+
+        var dataSource = """{ "world": "world" }""";
+
+        using var bundleStream = new MemoryStream();
+
+        // Assemble policy source and data files into a bundle, entirely in memory.
+        await using (var writer = new BundleWriter(bundleStream))
+        {
+            writer.WriteEntry(policySource, "policy.rego");
+            writer.WriteEntry(dataSource, "data.json");
+        }
+
+        bundleStream.Seek(0, SeekOrigin.Begin);
+
+        // The bundle still needs to be compiled to wasm before it can be evaluated.
+        var compiler = new RegoCliCompiler();
+
+        var policy = await compiler.CompileBundleAsync(
+            bundleStream,
+            new()
+            {
+                Entrypoints = ["example/hello"],
+            },
+            cancellationToken
+            );
+
+        using var engine = OpaBundleEvaluatorFactory.Create(policy);
+
+        #endregion
+
+        var result = engine.EvaluatePredicate(new { message = "world" });
+        Assert.True(result.Result);
+    }
+
+    [Fact]
     public async Task CompileFileCli()
     {
         var cancellationToken = TestContext.Current.CancellationToken;

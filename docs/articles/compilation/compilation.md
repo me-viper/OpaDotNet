@@ -17,3 +17,30 @@ Use `OpaDotNet.Compilation.Interop` if you need compilation only and want to avo
 
 If you sign your bundles to protect against tampering, see [Bundle Signature Validation](signing.md) for how to
 verify signatures when loading a bundle.
+
+## Building bundles with `BundleWriter`
+
+Both compilers accept a bundle directory path *or* a bundle as a `Stream` (`CompileBundleAsync`). If your policy
+sources and data don't live on disk as a directory - e.g. they come from a database, embedded resources, or are
+generated at runtime - use [BundleWriter](xref:OpaDotNet.Compilation.Abstractions.BundleWriter) to assemble a bundle
+`Stream` in memory instead of writing files to a temp folder first.
+
+[!code-csharp[](~/snippets/Snippets.cs#BuildBundleWithBundleWriter)]
+
+Other things [BundleWriter](xref:OpaDotNet.Compilation.Abstractions.BundleWriter) can do:
+
+- `WriteFile` - add the contents of an existing file on disk as a bundle entry.
+- `WriteManifest` / the `manifest` constructor parameter - add bundle manifest (`.manifest`: roots, revision, metadata) into the
+  bundle.
+- `WriteBundle` - merge the entries of another bundle with *sources* into this one, useful for combining several policies into a single bundle.
+- `FromDirectory` - create a `BundleWriter` pre-populated from a source directory, optionally excluding files
+  matching glob patterns.
+- `MergeCapabilities` - a static helper that merges two `capabilities.json` files (e.g. built-in capabilities plus
+  your own [custom builtins](../Builtins.md)) into one.
+
+> [!NOTE]
+> `BundleWriter` strips a UTF-8 byte-order-mark from entries content if present - `opa build` fails to parse `.rego`
+> files that have one.
+
+`BundleWriter` writes a bundle of *sources* (`.rego`/`.json`/`.yaml`), not compiled wasm - you still need to run it
+through [`RegoCliCompiler`](cli.md) or [`RegoInteropCompiler`](interop.md) to get an evaluable `policy.wasm` bundle.
