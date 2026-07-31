@@ -15,6 +15,19 @@
 
 * Update `OpaDotNet.Wasm`
 
+### OpaDotNet.Compilation.Abstractions v2.2.0
+
+* Support UTF8 entries with BOM in `BundleWriter`
+
+### OpaDotNet.Compilation.Cli v2.3.0
+
+* Update `OpaDotNet.Compilation.Abstractions`
+
+### OpaDotNet.Compilation.Interop v2.3.0
+
+* Support OPA SDK v1.19.0
+* Update `OpaDotNet.Compilation.Abstractions`
+
 ## OpaDotNet 2025.2.1
 
 .NET 10 support
