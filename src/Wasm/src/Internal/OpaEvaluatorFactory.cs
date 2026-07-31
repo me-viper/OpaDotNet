@@ -15,32 +15,53 @@ internal static class OpaEvaluatorFactory
         ArgumentNullException.ThrowIfNull(policy);
         ArgumentNullException.ThrowIfNull(options);
 
-        using var cfg = new Config();
+        OpaWasmEvaluator result;
+
+#pragma warning disable CA2000
+        var cfg = new Config();
+#pragma warning restore CA2000
 
         if (options.Timeout > TimeSpan.Zero)
             cfg.WithEpochInterruption(true);
 
-        var engine = new Engine(cfg);
-        var linker = new Linker(engine);
-        var store = new Store(engine);
-        var memory = new Memory(store, options.MinMemoryPages, options.MaxMemoryPages);
-        var module = Module.FromStream(engine, "policy", policy);
+        Engine? engine = null;
+        Linker? linker = null;
+        Store? store = null;
+        Module? module = null;
 
-        var config = new WasmPolicyEngineConfiguration
+        try
         {
-            Engine = engine,
-            Linker = linker,
-            Store = store,
-            Memory = memory,
-            Module = module,
-            Options = options,
-            Imports = options.Builtins(),
-            Timeout = options.Timeout,
-        };
+            engine = new Engine(cfg);
+            linker = new Linker(engine);
+            store = new Store(engine);
+            var memory = new Memory(store, options.MinMemoryPages, options.MaxMemoryPages);
+            module = Module.FromStream(engine, "policy", policy);
 
-        options.MakeReadOnly();
+            var config = new WasmPolicyEngineConfiguration
+            {
+                Engine = engine,
+                Linker = linker,
+                Store = store,
+                Memory = memory,
+                Module = module,
+                Options = options,
+                Imports = options.Builtins(),
+                Timeout = options.Timeout,
+            };
 
-        var result = new OpaWasmEvaluator(config);
+            options.MakeReadOnly();
+
+            result = new OpaWasmEvaluator(config);
+        }
+        catch (Exception)
+        {
+            module?.Dispose();
+            store?.Dispose();
+            linker?.Dispose();
+            engine?.Dispose();
+
+            throw;
+        }
 
         if (data != null)
             result.SetDataFromStream(data);
@@ -54,32 +75,53 @@ internal static class OpaEvaluatorFactory
         WasmPolicyEngineOptions options)
     {
         ArgumentNullException.ThrowIfNull(options);
+        OpaWasmEvaluator result;
 
-        using var cfg = new Config();
+#pragma warning disable CA2000
+        var cfg = new Config();
+#pragma warning restore CA2000
 
         if (options.Timeout > TimeSpan.Zero)
             cfg.WithEpochInterruption(true);
 
-        var engine = new Engine(cfg);
-        var linker = new Linker(engine);
-        var store = new Store(engine);
-        var memory = new Memory(store, options.MinMemoryPages, options.MaxMemoryPages);
+        Engine? engine = null;
+        Linker? linker = null;
+        Store? store = null;
+        Module? module = null;
 
-        var config = new WasmPolicyEngineConfiguration
+        try
         {
-            Engine = engine,
-            Linker = linker,
-            Store = store,
-            Memory = memory,
-            Module = module,
-            Options = options,
-            Imports = options.Builtins(),
-            Timeout = options.Timeout,
-        };
+            engine = new Engine(cfg);
+            linker = new Linker(engine);
+            store = new Store(engine);
+            var memory = new Memory(store, options.MinMemoryPages, options.MaxMemoryPages);
+            module = Module.FromBytes(engine, "policy", policy);
 
-        options.MakeReadOnly();
+            var config = new WasmPolicyEngineConfiguration
+            {
+                Engine = engine,
+                Linker = linker,
+                Store = store,
+                Memory = memory,
+                Module = module,
+                Options = options,
+                Imports = options.Builtins(),
+                Timeout = options.Timeout,
+            };
 
-        var result = new OpaWasmEvaluator(config);
+            options.MakeReadOnly();
+
+            result = new OpaWasmEvaluator(config);
+        }
+        catch (Exception)
+        {
+            module?.Dispose();
+            store?.Dispose();
+            linker?.Dispose();
+            engine?.Dispose();
+
+            throw;
+        }
 
         if (!data.IsEmpty)
             result.SetDataFromBytes(data);
