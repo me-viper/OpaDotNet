@@ -120,29 +120,29 @@
   - inputvalues/loopback undefined
   - walkbuiltin/wildcard-path same values as when path provided
 
-- reason: 'Explicit: General WASM SDK tests'
+- reason: 'General WASM SDK tests'
   regex:
-    - assignments/
-    - baseandvirtualdocs/
-    - comparisonexpr/
-    - completedoc/
-    - compositebasedereference/
-    - compositereferences/
-    - comprehensions/
-    - defaultkeyword/
-    - disjunction/
-    - elsekeyword/
-    - eqexpr/
-    - evaltermexpr/
-    - every/
-    - ir/
-    - keywordrefs/
-    - negation/
-    - partialdocconstants/
-    - refheads/
-    - regression/
-    - subset/
-    - typebuiltin/
-    - typenamebuiltin/
-    - varreferences/
-    - virtualdocs/
+  - assignments/
+  - baseandvirtualdocs/
+  - comparisonexpr/
+  - completedoc/
+  - compositebasedereference/
+  - compositereferences/
+  - comprehensions/
+  - defaultkeyword/
+  - disjunction/
+  - elsekeyword/
+  - eqexpr/
+  - evaltermexpr/
+  - every/
+  - ir/
+  - keywordrefs/
+  - negation/
+  - partialdocconstants/
+  - refheads/
+  - regression/
+  - subset/
+  - typebuiltin/
+  - typenamebuiltin/
+  - varreferences/
+  - virtualdocs/
