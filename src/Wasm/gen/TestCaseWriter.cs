@@ -19,8 +19,13 @@ internal static class TestCaseWriter
             if (i > 0)
                 sb.AppendLine();
 
-            sb.AppendLine(WriteTestCase(tc, ++i));
-            sb.AppendLine();
+            var testCase = WriteTestCase(tc, ++i);
+
+            if (!string.IsNullOrWhiteSpace(testCase))
+            {
+                sb.AppendLine(testCase);
+                sb.AppendLine();
+            }
         }
 
         return $@"namespace OpaDotNet.Wasm.Tests.SdkV1;
@@ -91,6 +96,11 @@ public partial class SdkV1Tests
                 explicitTest = true;
             else
             {
+                if (!testCase.Skip.StartsWith("TODO:"))
+                {
+                    return string.Empty;
+                }
+
                 return $@"
         [Fact(DisplayName = {note}, {dontRun})]
         [System.Runtime.CompilerServices.CompilerGenerated]
