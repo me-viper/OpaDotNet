@@ -360,11 +360,13 @@ internal sealed class OpaWasmEvaluator : IOpaEvaluator
 
     private nint EvalInternal(ReadOnlySpan<char> inputJson, string? entrypoint = null)
     {
+        CancellationTokenRegistration? registration = null;
+
         try
         {
             if (_timeout > TimeSpan.Zero)
             {
-                _cancellationTokenSource.Token.Register(_engine.IncrementEpoch);
+                registration = _cancellationTokenSource.Token.Register(_engine.IncrementEpoch);
                 _cancellationTokenSource.CancelAfter(_timeout);
             }
 
@@ -389,6 +391,7 @@ internal sealed class OpaWasmEvaluator : IOpaEvaluator
         }
         finally
         {
+            registration?.Dispose();
             _importsAbi.Reset();
             ResetCancellation();
             _abi.ResetEval();
