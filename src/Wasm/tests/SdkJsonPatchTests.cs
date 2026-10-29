@@ -16,8 +16,10 @@ public static class Ex
         var current = root;
         var kind = root.GetValueKind();
 
-        foreach (var segment in pointer)
+        for (var i = 0; i < pointer.SegmentCount; i++)
         {
+            var segment = pointer[i].ToString();
+
             switch (kind)
             {
                 case JsonValueKind.Array:

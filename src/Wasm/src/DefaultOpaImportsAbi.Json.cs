@@ -114,16 +114,17 @@ public partial class DefaultOpaImportsAbi
 
     private static JsonPointer AdjustPathForRegoSet(JsonPointer pointer, JsonNode node, bool targetMustExist = true)
     {
-        if (pointer.Count == 0)
+        if (pointer.SegmentCount == 0)
             return pointer;
 
         var result = JsonPointer.Empty;
         JsonElement? currentElement = node.ToJsonDocument().RootElement;
 
-        for (var i = 0; i < pointer.Count; i++)
+        for (var i = 0; i < pointer.SegmentCount; i++)
         {
-            result = result.Combine(pointer[i]);
-            currentElement = JsonPointer.Create(pointer[i]).Evaluate(currentElement.Value);
+            var segment = pointer[i].ToString();
+            result = result.Combine(segment);
+            currentElement = JsonPointer.Create(segment).Evaluate(currentElement.Value);
 
             if (currentElement == null)
                 throw new InvalidOperationException($"Target path '{result}' could not be reached");
@@ -131,7 +132,7 @@ public partial class DefaultOpaImportsAbi
             if (!currentElement.Value.AsNode().IsRegoSet())
                 continue;
 
-            if (i + 1 >= pointer.Count)
+            if (i + 1 >= pointer.SegmentCount)
                 continue;
 
             var setPointer = JsonPointer.Create(0, "__rego_set");
@@ -141,7 +142,7 @@ public partial class DefaultOpaImportsAbi
                 throw new InvalidOperationException("Invalid set");
 
             i++;
-            var setMember = pointer[i];
+            var setMember = pointer[i].ToString();
             var foundPosition = 0;
 
             if (targetMustExist)
@@ -191,11 +192,16 @@ public partial class DefaultOpaImportsAbi
             if (string.IsNullOrWhiteSpace(schemaString))
                 return Fail("Invalid schema");
 
-            result = JsonSchema.FromText(schemaString);
+            // Draft 2020-12 permits unknown keywords, matching OPA behavior.
+            result = JsonSchema.FromText(schemaString, new BuildOptions { Dialect = Dialect.Draft202012 });
 
             return Success();
         }
         catch (JsonException ex)
+        {
+            return Fail(ex.Message);
+        }
+        catch (JsonSchemaException ex)
         {
             return Fail(ex.Message);
         }
@@ -257,21 +263,21 @@ public partial class DefaultOpaImportsAbi
         if (sch == null)
             throw new FormatException("Invalid json schema");
 
-        var result = sch.Evaluate(document, new() { OutputFormat = OutputFormat.List });
+        var result = sch.Evaluate(JsonSerializer.SerializeToElement(document), new() { OutputFormat = OutputFormat.List });
 
         if (result.IsValid)
             return Success();
 
         var errors = new List<JsonSchemaError>();
 
-        foreach (var detail in result.Details)
+        foreach (var detail in result.Details ?? [])
         {
             if (detail.IsValid)
                 continue;
 
             var e = detail.Errors?.FirstOrDefault();
 
-            if (!detail.HasErrors || e == null)
+            if (e == null)
                 continue;
 
             var err = new JsonSchemaError

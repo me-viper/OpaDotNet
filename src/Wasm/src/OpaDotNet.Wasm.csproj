@@ -19,8 +19,8 @@
       <Aliases>Ipn</Aliases>
     </PackageReference>
 
-    <PackageReference Include="JsonPatch.Net" Version="3.3.0" />
-    <PackageReference Include="JsonSchema.Net" Version="7.4.0" />
+    <PackageReference Include="JsonPatch.Net" Version="5.0.3" />
+    <PackageReference Include="JsonSchema.Net" Version="9.5.0" />
     <PackageReference Include="Microsoft.Extensions.Primitives" Version="10.0.14" />
     <PackageReference Include="Semver" Version="3.0.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.23.0" />

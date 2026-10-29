@@ -534,7 +534,7 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
     [InlineData("""json.verify_schema({})""", "[true,null]")]
     [InlineData("""json.verify_schema("{}")""", "[true,null]")]
     [InlineData("""json.verify_schema({"a": {"foo": 1}})""", "[true,null]")]
-    [InlineData("""json.verify_schema({"properties": { "id": { "type": "UNKNOWN" } }, "required": ["id"] })""", """[false,"Could not find appropriate value for UNKNOWN in type SchemaValueType"]""")]
+    [InlineData("""json.verify_schema({"properties": { "id": { "type": "UNKNOWN" } }, "required": ["id"] })""", """[false,"'UNKNOWN' is not a valid JSON Schema value type"]""")]
     public async Task JsonVerifySchema(string func, string expected)
     {
         var result = await RunTestCase(func, expected);
