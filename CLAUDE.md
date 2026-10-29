@@ -137,5 +137,6 @@ build; update snippets there rather than inlining unchecked code samples in docs
 6. Create and push the tag `v{version}`.
 7. Ensure build was successful and all tests passed.
 8. Check if documentation changes need to be published.
-9. Publish by running the `Publish` workflow (`workflow_dispatch`) manually. Pushing the tag alone doesn't publish
+9. Check if github release exists.
+10. Publish by running the `Publish` workflow (`workflow_dispatch`) manually. Pushing the tag alone doesn't publish
    to NuGet.
