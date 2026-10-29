@@ -86,12 +86,14 @@ public abstract class PathPolicySourceTests<T> : IDisposable
             _output.WriteLine($"Checking: u{i}");
             Assert.True(result.Result);
 
+            // Subscribe before writing so a fast recompilation can't fire before we're listening.
+            var token = source.OnPolicyUpdated();
+            using var _ = token.RegisterChangeCallback(_ => tcs.TrySetResult(), null);
+
             await WritePolicy(Policy(i + 1));
 
-            var token = source.OnPolicyUpdated();
-            using var _ = token.RegisterChangeCallback(_ => tcs.SetResult(), null);
-
-            await tcs.Task.WaitAsync(TimeSpan.FromSeconds(10), TestContext.Current.CancellationToken);
+            // Polling watcher (~4s) plus MonitoringInterval (3s) can exceed 10s on slow CI runners.
+            await tcs.Task.WaitAsync(TimeSpan.FromSeconds(30), TestContext.Current.CancellationToken);
         }
 
         await source.StopAsync(CancellationToken.None);
