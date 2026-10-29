@@ -1,4 +1,5 @@
 ﻿using System.Collections.Concurrent;
+using System.Runtime.ExceptionServices;
 using System.Text.Json.Nodes;
 
 namespace OpaDotNet.Wasm.Builtins;
@@ -16,10 +17,10 @@ internal sealed class CompositeImportsHandler : IOpaImportsAbi
 
     private readonly Action<IEnumerable<string>> _print;
 
-    private readonly ConcurrentDictionary<int, object?> _valueCache = new();
+    private readonly ConcurrentDictionary<int, Lazy<object?>> _valueCache = new();
 
     /// <summary>
-    /// Creates new instance of <see cref="OpaWasmEvaluatorFactory"/>.
+    /// Creates new instance of <see cref="CompositeImportsHandler"/>.
     /// </summary>
     /// <param name="defaultImport">Default built-in functions implementation</param>
     /// <param name="imports">Custom built-in functions implementation</param>
@@ -162,8 +163,8 @@ internal sealed class CompositeImportsHandler : IOpaImportsAbi
                 {
                     var exf = ex.Flatten();
 
-                    if (ex.InnerExceptions.Count == 1)
-                        throw exf.InnerExceptions[0];
+                    if (exf.InnerExceptions.Count == 1)
+                        ExceptionDispatchInfo.Throw(exf.InnerExceptions[0]);
 
                     throw;
                 }
@@ -179,8 +180,18 @@ internal sealed class CompositeImportsHandler : IOpaImportsAbi
                     argHash = HashCode.Combine(argHash, arg.GetArgHashCode());
 
                 var callHash = HashCode.Combine(name, argHash);
+                var lazy = _valueCache.GetOrAdd(callHash, _ => new(RunAndWait));
 
-                return _valueCache.GetOrAdd(callHash, _ => RunAndWait());
+                try
+                {
+                    return lazy.Value;
+                }
+                catch
+                {
+                    // Don't memorize failures.
+                    _valueCache.TryRemove(new(callHash, lazy));
+                    throw;
+                }
             }
 
             return RunAndWait();
@@ -192,7 +203,12 @@ internal sealed class CompositeImportsHandler : IOpaImportsAbi
         catch (AggregateException ex)
         {
             if (OnError(context, ex))
-                throw new OpaBuiltinException(OpaBuiltinException.Error) { Name = context.FunctionName };
+            {
+                throw new OpaBuiltinException(OpaBuiltinException.Error, ex.Message, ex)
+                {
+                    Name = context.FunctionName,
+                };
+            }
         }
         catch (OpaBuiltinException ex)
         {

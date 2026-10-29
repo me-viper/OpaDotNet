@@ -126,6 +126,108 @@ public class BuiltinsCompositionTests : OpaTestBase
         var cache = new ImportsCache();
         Assert.Throws<NotSupportedException>(() => cache.Populate([new DoubleSpecialArgExt()], false));
     }
+
+    [Fact]
+    public void MemorizedByArgumentValues()
+    {
+        IOpaImportsAbi handler = new CompositeImportsHandler(_default, [new MemorizedExt()], new ImportsCache(), false);
+        var context = new BuiltinContext { FunctionName = "ext.mem" };
+
+        Assert.Equal("a:1", handler.Func(context, MakeArg("a")));
+        Assert.Equal("b:2", handler.Func(context, MakeArg("b")));
+        Assert.Equal("a:1", handler.Func(context, MakeArg("a")));
+    }
+
+    [Fact]
+    public void MemorizedFailureNotCached()
+    {
+        IOpaImportsAbi handler = new CompositeImportsHandler(_default, [new MemorizedExt()], new ImportsCache(), false);
+        var context = new BuiltinContext { FunctionName = "ext.mem_fail_once", StrictBuiltinErrors = true };
+
+        Assert.Throws<OpaBuiltinException>(() => handler.Func(context, MakeArg("a")));
+        Assert.Equal("a", handler.Func(context, MakeArg("a")));
+    }
+
+    [Theory]
+    [InlineData("ext.task_cancelled")]
+    [InlineData("ext.task_of_t_cancelled")]
+    public void CancelledTaskIsTimeout(string func)
+    {
+        IOpaImportsAbi handler = new CompositeImportsHandler(_default, [new FaultingTaskExt()], new ImportsCache(), false);
+
+        var ex = Assert.Throws<OpaBuiltinException>(() => handler.Func(new() { FunctionName = func }));
+
+        Assert.Equal(OpaBuiltinException.Timeout, ex.ErrorCode);
+        Assert.Equal(func, ex.Name);
+    }
+
+    [Theory]
+    [InlineData("ext.task_faulted")]
+    [InlineData("ext.task_of_t_faulted")]
+    public void FaultedTaskUnwrapped(string func)
+    {
+        IOpaImportsAbi handler = new CompositeImportsHandler(_default, [new FaultingTaskExt()], new ImportsCache(), false);
+
+        var ex = Assert.Throws<OpaBuiltinException>(() => handler.Func(new() { FunctionName = func, StrictBuiltinErrors = true })
+            );
+
+        Assert.Equal(OpaBuiltinException.Error, ex.ErrorCode);
+        Assert.Equal(func, ex.Name);
+
+        var inner = Assert.IsType<InvalidOperationException>(ex.InnerException);
+        Assert.Equal("boom", inner.Message);
+    }
+}
+
+file class MemorizedExt : IOpaCustomBuiltins
+{
+    private int _calls;
+
+    private bool _failed;
+
+    [OpaCustomBuiltin("ext.mem", Memorize = true)]
+    public string Mem(string arg) => $"{arg}:{Interlocked.Increment(ref _calls)}";
+
+    [OpaCustomBuiltin("ext.mem_fail_once", Memorize = true)]
+    public string MemFailOnce(string arg)
+    {
+        if (_failed)
+            return arg;
+
+        _failed = true;
+        throw new InvalidOperationException("boom");
+    }
+
+    public void Reset()
+    {
+    }
+}
+
+file class FaultingTaskExt : IOpaCustomBuiltins
+{
+    [OpaCustomBuiltin("ext.task_cancelled")]
+    public static Task TaskCancelled() => Task.FromCanceled(new CancellationToken(true));
+
+    [OpaCustomBuiltin("ext.task_of_t_cancelled")]
+    public static Task<string> TaskOfTCancelled() => Task.FromCanceled<string>(new CancellationToken(true));
+
+    [OpaCustomBuiltin("ext.task_faulted")]
+    public static async Task TaskFaultedAsync()
+    {
+        await Task.Yield();
+        throw new InvalidOperationException("boom");
+    }
+
+    [OpaCustomBuiltin("ext.task_of_t_faulted")]
+    public static async Task<string> TaskOfTFaultedAsync()
+    {
+        await Task.Yield();
+        throw new InvalidOperationException("boom");
+    }
+
+    public void Reset()
+    {
+    }
 }
 
 file record DoMoreInput(string InA, int InB);

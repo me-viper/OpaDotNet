@@ -1,5 +1,4 @@
-﻿using System.Collections.Concurrent;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 using System.Reflection;
 
 namespace OpaDotNet.Wasm.Builtins;
@@ -18,7 +17,7 @@ internal sealed class ImportsCache
 {
     private readonly object _lock = new();
 
-    private IReadOnlyDictionary<string, ImportsCacheEntry>? _cache;
+    private volatile IReadOnlyDictionary<string, ImportsCacheEntry>? _cache;
 
     private static readonly MethodInfo BuildArgAsMethod = typeof(BuiltinArg)
         .GetMethod(
@@ -31,15 +30,12 @@ internal sealed class ImportsCache
         .GetMethod(nameof(Task.FromResult), BindingFlags.Static | BindingFlags.Public)!
         .MakeGenericMethod(typeof(object));
 
-    private static readonly MethodInfo ContinueWithMethod = typeof(Task)
-        .GetMethod(
-            nameof(Task.ContinueWith),
-            BindingFlags.Public | BindingFlags.Instance,
-            null,
-            [typeof(Func<,>).MakeGenericType(typeof(Task), Type.MakeGenericMethodParameter(0))],
-            null
-            )!
-        .MakeGenericMethod(typeof(object));
+    private static readonly MethodInfo AwaitTaskMethod = typeof(ImportsCache)
+        .GetMethod(nameof(AwaitTaskAsync), BindingFlags.Static | BindingFlags.NonPublic, [typeof(Task)])!;
+
+    private static readonly MethodInfo AwaitTaskOfTMethod = typeof(ImportsCache)
+        .GetMethods(BindingFlags.Static | BindingFlags.NonPublic)
+        .Single(p => p.Name == nameof(AwaitTaskAsync) && p.IsGenericMethodDefinition);
 
     private static readonly MethodInfo TaskRunMethod = typeof(Task)
         .GetMethod(
@@ -50,8 +46,6 @@ internal sealed class ImportsCache
             null
             )!
         .MakeGenericMethod(typeof(object));
-
-    private static readonly ConcurrentDictionary<Type, MethodInfo> ContinueWithMethods = new();
 
     internal void Populate(IReadOnlyList<IOpaCustomBuiltins> instances, bool isAsync)
     {
@@ -90,7 +84,9 @@ internal sealed class ImportsCache
         return (args, opts) => cacheItem.Import(instance, args, opts);
     }
 
-    private static Dictionary<string, ImportsCacheEntry> BuildImportsCache(IEnumerable<IOpaCustomBuiltins> imports, bool isAsync)
+    private static Dictionary<string, ImportsCacheEntry> BuildImportsCache(
+        IEnumerable<IOpaCustomBuiltins> imports,
+        bool isAsync)
     {
         var result = new Dictionary<string, ImportsCacheEntry>();
 
@@ -193,7 +189,11 @@ internal sealed class ImportsCache
                     var jsonVar = Expression.Variable(typeof(JsonSerializerOptions), "argJsonOpts");
                     var setJsonArg = Expression.Assign(
                         jsonVar,
-                        Expression.Property(contextParam, typeof(IOpaCustomBuiltinsContext), nameof(IOpaCustomBuiltinsContext.JsonSerializerOptions))
+                        Expression.Property(
+                            contextParam,
+                            typeof(IOpaCustomBuiltinsContext),
+                            nameof(IOpaCustomBuiltinsContext.JsonSerializerOptions)
+                            )
                         );
 
                     argVars.Add(jsonVar);
@@ -223,62 +223,19 @@ internal sealed class ImportsCache
 
                 if (callable.ReturnType == typeof(Task))
                 {
-                    var resultVarExpr = Expression.Variable(typeof(Task), "result");
-
-                    var p = Expression.Parameter(typeof(Task), "p");
-                    var exceptionProp = Expression.Property(p, nameof(Task.Exception));
-
-                    var test = Expression.NotEqual(
-                        exceptionProp,
-                        Expression.Constant(null, typeof(Exception))
-                        );
-
-                    var ifFailed = Expression.Throw(exceptionProp, typeof(object));
-                    var ifSucceeded = Expression.New(typeof(object));
-
-                    var conditional = Expression.Condition(test, ifFailed, ifSucceeded);
-
-                    var continuation = Expression.Lambda(conditional, p);
-
-                    var retValue = Expression.Block(
-                        [resultVarExpr],
-                        Expression.Assign(resultVarExpr, Expression.Call(instance, callable, funcArgs)),
-                        Expression.Call(resultVarExpr, ContinueWithMethod, continuation)
-                        );
-
-                    // result.ContinueWith<object>(p => p.Exception != null ? throw p.Exception : new object());
-                    bodyBlock.Add(retValue);
+                    // AwaitTaskAsync(X());
+                    bodyBlock.Add(Expression.Call(AwaitTaskMethod, Expression.Call(instance, callable, funcArgs)));
                     isAsyncFunc = true;
                 }
-                else if (callable.ReturnType.IsAssignableTo(typeof(Task)) && callable.ReturnType.IsGenericType)
+                else if (GetTaskResultType(callable.ReturnType) is { } taskResultType)
                 {
-                    var taskType = callable.ReturnType;
-                    var resultVarExpr = Expression.Variable(taskType, "result");
-
-                    var p = Expression.Parameter(taskType, "p");
-                    var continuation = Expression.Lambda(
-                        Expression.Convert(
-                            Expression.Property(p, nameof(Task<>.Result)),
-                            typeof(object)
-                            ),
-                        p
-                        );
-
-                    var continueWith = GetContinueWith(taskType);
-
-                    var retValue = Expression.Block(
-                        [resultVarExpr],
-                        Expression.Assign(resultVarExpr, Expression.Call(instance, callable, funcArgs)),
+                    // AwaitTaskAsync<T>(X());
+                    bodyBlock.Add(
                         Expression.Call(
-                            resultVarExpr,
-                            continueWith,
-                            continuation,
-                            Expression.Constant(TaskContinuationOptions.None)
+                            AwaitTaskOfTMethod.MakeGenericMethod(taskResultType),
+                            Expression.Call(instance, callable, funcArgs)
                             )
                         );
-
-                    // result.ContinueWith<object>(p => p.Result);
-                    bodyBlock.Add(retValue);
                     isAsyncFunc = true;
                 }
                 else if (isAsync)
@@ -324,7 +281,12 @@ internal sealed class ImportsCache
 
                 var body = Expression.Block(argVars, bodyBlock);
                 var func = Expression
-                    .Lambda<Func<IOpaCustomBuiltins, BuiltinArg[], IOpaCustomBuiltinsContext, Task<object?>>>(body, instanceParam, argsParam, contextParam)
+                    .Lambda<Func<IOpaCustomBuiltins, BuiltinArg[], IOpaCustomBuiltinsContext, Task<object?>>>(
+                        body,
+                        instanceParam,
+                        argsParam,
+                        contextParam
+                        )
                     .Compile();
 
                 var cbi = new CustomBuiltinInfo
@@ -340,18 +302,24 @@ internal sealed class ImportsCache
         return result;
     }
 
-    private static MethodInfo GetContinueWith(Type taskType)
+    private static Type? GetTaskResultType(Type type)
     {
-        return ContinueWithMethods.GetOrAdd(
-            taskType,
-            static p => p.GetMethod(
-                    nameof(Task<>.ContinueWith),
-                    BindingFlags.Public | BindingFlags.Instance,
-                    null,
-                    [typeof(Func<,>).MakeGenericType(p, Type.MakeGenericMethodParameter(0)), typeof(TaskContinuationOptions)],
-                    null
-                    )!
-                .MakeGenericMethod(typeof(object))
-            );
+        for (var t = type; t != null; t = t.BaseType)
+        {
+            if (t.IsGenericType && t.GetGenericTypeDefinition() == typeof(Task<>))
+                return t.GetGenericArguments()[0];
+        }
+
+        return null;
     }
+
+    // Awaiting (instead of ContinueWith) keeps the built-in's own exception and cancellation state
+    // instead of wrapping them into AggregateException or swallowing cancellation.
+    private static async Task<object?> AwaitTaskAsync(Task task)
+    {
+        await task.ConfigureAwait(false);
+        return new object();
+    }
+
+    private static async Task<object?> AwaitTaskAsync<T>(Task<T> task) => await task.ConfigureAwait(false);
 }
