@@ -6,6 +6,8 @@ OpaDotNet.Wasm.BuiltinArg.AsOrNull<T>(System.Func<T>? defaultValue = null, OpaDo
 OpaDotNet.Wasm.BuiltinArg.Raw.get -> System.Text.Json.Nodes.JsonNode?
 OpaDotNet.Wasm.BuiltinArg.RawJson.get -> System.Text.Json.Nodes.JsonNode?
 OpaDotNet.Wasm.BuiltinContext
+OpaDotNet.Wasm.BuiltinContext.BuiltinContext() -> void
+OpaDotNet.Wasm.BuiltinContext.BuiltinContext(OpaDotNet.Wasm.BuiltinContext! original) -> void
 OpaDotNet.Wasm.BuiltinContext.CancellationToken.get -> System.Threading.CancellationToken
 OpaDotNet.Wasm.BuiltinContext.FunctionName.get -> string!
 OpaDotNet.Wasm.BuiltinContext.JsonSerializerOptions.get -> System.Text.Json.JsonSerializerOptions!
@@ -133,10 +135,19 @@ OpaDotNet.Wasm.WasmPolicyEngineOptions.StrictBuiltinErrors.set -> void
 OpaDotNet.Wasm.WasmPolicyEngineOptions.Timeout.get -> System.TimeSpan
 OpaDotNet.Wasm.WasmPolicyEngineOptions.Timeout.set -> void
 OpaDotNet.Wasm.WasmPolicyEngineOptions.WasmPolicyEngineOptions() -> void
+override OpaDotNet.Wasm.BuiltinContext.Equals(object? obj) -> bool
+override OpaDotNet.Wasm.BuiltinContext.GetHashCode() -> int
+override OpaDotNet.Wasm.BuiltinContext.ToString() -> string!
+static OpaDotNet.Wasm.BuiltinContext.operator !=(OpaDotNet.Wasm.BuiltinContext? left, OpaDotNet.Wasm.BuiltinContext? right) -> bool
+static OpaDotNet.Wasm.BuiltinContext.operator ==(OpaDotNet.Wasm.BuiltinContext? left, OpaDotNet.Wasm.BuiltinContext? right) -> bool
 static OpaDotNet.Wasm.OpaBundleEvaluatorFactory.Create(System.IO.Stream! source, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null) -> OpaDotNet.Wasm.IOpaEvaluator!
 static OpaDotNet.Wasm.OpaWasmEvaluatorFactory.Create(System.IO.Stream! source, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null) -> OpaDotNet.Wasm.IOpaEvaluator!
 static OpaDotNet.Wasm.WasmPolicyEngineOptions.Default.get -> OpaDotNet.Wasm.WasmPolicyEngineOptions!
 static OpaDotNet.Wasm.WasmPolicyEngineOptions.DefaultWithJsonOptions(System.Action<System.Text.Json.JsonSerializerOptions!>! options) -> OpaDotNet.Wasm.WasmPolicyEngineOptions!
+virtual OpaDotNet.Wasm.BuiltinContext.<Clone>$() -> OpaDotNet.Wasm.BuiltinContext!
+virtual OpaDotNet.Wasm.BuiltinContext.EqualityContract.get -> System.Type!
+virtual OpaDotNet.Wasm.BuiltinContext.Equals(OpaDotNet.Wasm.BuiltinContext? other) -> bool
+virtual OpaDotNet.Wasm.BuiltinContext.PrintMembers(System.Text.StringBuilder! builder) -> bool
 virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.Abort(string! message) -> void
 virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.Func(OpaDotNet.Wasm.BuiltinContext! context, OpaDotNet.Wasm.BuiltinArg! arg1, OpaDotNet.Wasm.BuiltinArg! arg2, OpaDotNet.Wasm.BuiltinArg! arg3, OpaDotNet.Wasm.BuiltinArg! arg4) -> object?
 virtual OpaDotNet.Wasm.DefaultOpaImportsAbi.Func(OpaDotNet.Wasm.BuiltinContext! context, OpaDotNet.Wasm.BuiltinArg! arg1, OpaDotNet.Wasm.BuiltinArg! arg2, OpaDotNet.Wasm.BuiltinArg! arg3) -> object?

@@ -1,6 +1,8 @@
 
 #nullable enable
 OpaDotNet.Compilation.Abstractions.BundleManifest
+OpaDotNet.Compilation.Abstractions.BundleManifest.BundleManifest() -> void
+OpaDotNet.Compilation.Abstractions.BundleManifest.BundleManifest(OpaDotNet.Compilation.Abstractions.BundleManifest! original) -> void
 OpaDotNet.Compilation.Abstractions.BundleManifest.Metadata.get -> System.Collections.Generic.Dictionary<string!, string!>!
 OpaDotNet.Compilation.Abstractions.BundleManifest.Revision.get -> string?
 OpaDotNet.Compilation.Abstractions.BundleManifest.Revision.init -> void
@@ -28,6 +30,8 @@ OpaDotNet.Compilation.Abstractions.CompilationParameters.CapabilitiesStream.get 
 OpaDotNet.Compilation.Abstractions.CompilationParameters.CapabilitiesStream.init -> void
 OpaDotNet.Compilation.Abstractions.CompilationParameters.CapabilitiesVersion.get -> string?
 OpaDotNet.Compilation.Abstractions.CompilationParameters.CapabilitiesVersion.set -> void
+OpaDotNet.Compilation.Abstractions.CompilationParameters.CompilationParameters() -> void
+OpaDotNet.Compilation.Abstractions.CompilationParameters.CompilationParameters(OpaDotNet.Compilation.Abstractions.CompilationParameters! original) -> void
 OpaDotNet.Compilation.Abstractions.CompilationParameters.Debug.get -> bool
 OpaDotNet.Compilation.Abstractions.CompilationParameters.Debug.set -> void
 OpaDotNet.Compilation.Abstractions.CompilationParameters.DisablePrintStatements.get -> bool
@@ -65,6 +69,8 @@ OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.GoVersion.get -> string?
 OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.GoVersion.set -> void
 OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.Platform.get -> string?
 OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.Platform.set -> void
+OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.RegoCompilerVersion() -> void
+OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.RegoCompilerVersion(OpaDotNet.Compilation.Abstractions.RegoCompilerVersion! original) -> void
 OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.Version.get -> string?
 OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.Version.set -> void
 OpaDotNet.Compilation.Abstractions.RegoVersion
@@ -72,13 +78,31 @@ OpaDotNet.Compilation.Abstractions.RegoVersion.V0 = 0 -> OpaDotNet.Compilation.A
 OpaDotNet.Compilation.Abstractions.RegoVersion.V0CompatV1 = 1 -> OpaDotNet.Compilation.Abstractions.RegoVersion
 OpaDotNet.Compilation.Abstractions.RegoVersion.V1 = 2 -> OpaDotNet.Compilation.Abstractions.RegoVersion
 OpaDotNet.Compilation.Abstractions.WasmMetadata
+OpaDotNet.Compilation.Abstractions.WasmMetadata.Deconstruct(out string! Entrypoint, out string! Module) -> void
 OpaDotNet.Compilation.Abstractions.WasmMetadata.Entrypoint.get -> string!
 OpaDotNet.Compilation.Abstractions.WasmMetadata.Entrypoint.init -> void
 OpaDotNet.Compilation.Abstractions.WasmMetadata.Module.get -> string!
 OpaDotNet.Compilation.Abstractions.WasmMetadata.Module.init -> void
+OpaDotNet.Compilation.Abstractions.WasmMetadata.WasmMetadata(OpaDotNet.Compilation.Abstractions.WasmMetadata! original) -> void
 OpaDotNet.Compilation.Abstractions.WasmMetadata.WasmMetadata(string! Entrypoint, string! Module) -> void
+override OpaDotNet.Compilation.Abstractions.BundleManifest.Equals(object? obj) -> bool
+override OpaDotNet.Compilation.Abstractions.BundleManifest.GetHashCode() -> int
+override OpaDotNet.Compilation.Abstractions.BundleManifest.ToString() -> string!
+override OpaDotNet.Compilation.Abstractions.CompilationParameters.Equals(object? obj) -> bool
+override OpaDotNet.Compilation.Abstractions.CompilationParameters.GetHashCode() -> int
+override OpaDotNet.Compilation.Abstractions.CompilationParameters.ToString() -> string!
+override OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.Equals(object? obj) -> bool
+override OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.GetHashCode() -> int
+override OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.ToString() -> string!
+override OpaDotNet.Compilation.Abstractions.WasmMetadata.Equals(object? obj) -> bool
+override OpaDotNet.Compilation.Abstractions.WasmMetadata.GetHashCode() -> int
+override OpaDotNet.Compilation.Abstractions.WasmMetadata.ToString() -> string!
+static OpaDotNet.Compilation.Abstractions.BundleManifest.operator !=(OpaDotNet.Compilation.Abstractions.BundleManifest? left, OpaDotNet.Compilation.Abstractions.BundleManifest? right) -> bool
+static OpaDotNet.Compilation.Abstractions.BundleManifest.operator ==(OpaDotNet.Compilation.Abstractions.BundleManifest? left, OpaDotNet.Compilation.Abstractions.BundleManifest? right) -> bool
 static OpaDotNet.Compilation.Abstractions.BundleWriter.FromDirectory(System.IO.Stream! stream, string! path, System.Collections.Generic.IReadOnlySet<string!>? exclusions) -> OpaDotNet.Compilation.Abstractions.BundleWriter!
 static OpaDotNet.Compilation.Abstractions.BundleWriter.MergeCapabilities(System.IO.Stream! caps1, System.IO.Stream! caps2) -> System.IO.Stream!
+static OpaDotNet.Compilation.Abstractions.CompilationParameters.operator !=(OpaDotNet.Compilation.Abstractions.CompilationParameters? left, OpaDotNet.Compilation.Abstractions.CompilationParameters? right) -> bool
+static OpaDotNet.Compilation.Abstractions.CompilationParameters.operator ==(OpaDotNet.Compilation.Abstractions.CompilationParameters? left, OpaDotNet.Compilation.Abstractions.CompilationParameters? right) -> bool
 static OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileBundle(this OpaDotNet.Compilation.Abstractions.IRegoCompiler! compiler, string! bundlePath, System.Collections.Generic.IEnumerable<string!>? entrypoints = null, string? capabilitiesFilePath = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<System.IO.Stream!>!
 static OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileBundleAsync(this OpaDotNet.Compilation.Abstractions.IRegoCompiler! compiler, string! path, OpaDotNet.Compilation.Abstractions.CompilationParameters! parameters, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<System.IO.Stream!>!
 static OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileBundleAsync(this OpaDotNet.Compilation.Abstractions.IRegoCompiler! compiler, string! path, OpaDotNet.Compilation.Abstractions.CompilationParameters! parameters) -> System.Threading.Tasks.Task<System.IO.Stream!>!
@@ -91,3 +115,23 @@ static OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileSource(t
 static OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileSourceAsync(this OpaDotNet.Compilation.Abstractions.IRegoCompiler! compiler, string! source, OpaDotNet.Compilation.Abstractions.CompilationParameters! parameters, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<System.IO.Stream!>!
 static OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileSourceAsync(this OpaDotNet.Compilation.Abstractions.IRegoCompiler! compiler, string! source, OpaDotNet.Compilation.Abstractions.CompilationParameters! parameters) -> System.Threading.Tasks.Task<System.IO.Stream!>!
 static OpaDotNet.Compilation.Abstractions.RegoCompilerExtensions.CompileStream(this OpaDotNet.Compilation.Abstractions.IRegoCompiler! compiler, System.IO.Stream! bundle, System.Collections.Generic.IEnumerable<string!>? entrypoints = null, System.IO.Stream? capabilitiesJson = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<System.IO.Stream!>!
+static OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.operator !=(OpaDotNet.Compilation.Abstractions.RegoCompilerVersion? left, OpaDotNet.Compilation.Abstractions.RegoCompilerVersion? right) -> bool
+static OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.operator ==(OpaDotNet.Compilation.Abstractions.RegoCompilerVersion? left, OpaDotNet.Compilation.Abstractions.RegoCompilerVersion? right) -> bool
+static OpaDotNet.Compilation.Abstractions.WasmMetadata.operator !=(OpaDotNet.Compilation.Abstractions.WasmMetadata? left, OpaDotNet.Compilation.Abstractions.WasmMetadata? right) -> bool
+static OpaDotNet.Compilation.Abstractions.WasmMetadata.operator ==(OpaDotNet.Compilation.Abstractions.WasmMetadata? left, OpaDotNet.Compilation.Abstractions.WasmMetadata? right) -> bool
+virtual OpaDotNet.Compilation.Abstractions.BundleManifest.<Clone>$() -> OpaDotNet.Compilation.Abstractions.BundleManifest!
+virtual OpaDotNet.Compilation.Abstractions.BundleManifest.EqualityContract.get -> System.Type!
+virtual OpaDotNet.Compilation.Abstractions.BundleManifest.Equals(OpaDotNet.Compilation.Abstractions.BundleManifest? other) -> bool
+virtual OpaDotNet.Compilation.Abstractions.BundleManifest.PrintMembers(System.Text.StringBuilder! builder) -> bool
+virtual OpaDotNet.Compilation.Abstractions.CompilationParameters.<Clone>$() -> OpaDotNet.Compilation.Abstractions.CompilationParameters!
+virtual OpaDotNet.Compilation.Abstractions.CompilationParameters.EqualityContract.get -> System.Type!
+virtual OpaDotNet.Compilation.Abstractions.CompilationParameters.Equals(OpaDotNet.Compilation.Abstractions.CompilationParameters? other) -> bool
+virtual OpaDotNet.Compilation.Abstractions.CompilationParameters.PrintMembers(System.Text.StringBuilder! builder) -> bool
+virtual OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.<Clone>$() -> OpaDotNet.Compilation.Abstractions.RegoCompilerVersion!
+virtual OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.EqualityContract.get -> System.Type!
+virtual OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.Equals(OpaDotNet.Compilation.Abstractions.RegoCompilerVersion? other) -> bool
+virtual OpaDotNet.Compilation.Abstractions.RegoCompilerVersion.PrintMembers(System.Text.StringBuilder! builder) -> bool
+virtual OpaDotNet.Compilation.Abstractions.WasmMetadata.<Clone>$() -> OpaDotNet.Compilation.Abstractions.WasmMetadata!
+virtual OpaDotNet.Compilation.Abstractions.WasmMetadata.EqualityContract.get -> System.Type!
+virtual OpaDotNet.Compilation.Abstractions.WasmMetadata.Equals(OpaDotNet.Compilation.Abstractions.WasmMetadata? other) -> bool
+virtual OpaDotNet.Compilation.Abstractions.WasmMetadata.PrintMembers(System.Text.StringBuilder! builder) -> bool

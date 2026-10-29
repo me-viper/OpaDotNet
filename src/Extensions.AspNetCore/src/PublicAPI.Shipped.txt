@@ -2,7 +2,9 @@
 #nullable enable
 abstract OpaDotNet.Extensions.AspNetCore.OpaPolicySource.CompileBundleFromSource(bool recompiling, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<System.IO.Stream?>!
 OpaDotNet.Extensions.AspNetCore.ClaimPolicyInput
+OpaDotNet.Extensions.AspNetCore.ClaimPolicyInput.ClaimPolicyInput(OpaDotNet.Extensions.AspNetCore.ClaimPolicyInput! original) -> void
 OpaDotNet.Extensions.AspNetCore.ClaimPolicyInput.ClaimPolicyInput(string! Type, string! Value) -> void
+OpaDotNet.Extensions.AspNetCore.ClaimPolicyInput.Deconstruct(out string! Type, out string! Value) -> void
 OpaDotNet.Extensions.AspNetCore.ClaimPolicyInput.Type.get -> string!
 OpaDotNet.Extensions.AspNetCore.ClaimPolicyInput.Type.init -> void
 OpaDotNet.Extensions.AspNetCore.ClaimPolicyInput.Value.get -> string!
@@ -86,6 +88,8 @@ OpaDotNet.Extensions.AspNetCore.OpaPolicyDefinitionOptions.DataJson.get -> strin
 OpaDotNet.Extensions.AspNetCore.OpaPolicyDefinitionOptions.DataJson.set -> void
 OpaDotNet.Extensions.AspNetCore.OpaPolicyDefinitionOptions.DataYaml.get -> string?
 OpaDotNet.Extensions.AspNetCore.OpaPolicyDefinitionOptions.DataYaml.set -> void
+OpaDotNet.Extensions.AspNetCore.OpaPolicyDefinitionOptions.OpaPolicyDefinitionOptions() -> void
+OpaDotNet.Extensions.AspNetCore.OpaPolicyDefinitionOptions.OpaPolicyDefinitionOptions(OpaDotNet.Extensions.AspNetCore.OpaPolicyDefinitionOptions! original) -> void
 OpaDotNet.Extensions.AspNetCore.OpaPolicyDefinitionOptions.Package.get -> string?
 OpaDotNet.Extensions.AspNetCore.OpaPolicyDefinitionOptions.Package.set -> void
 OpaDotNet.Extensions.AspNetCore.OpaPolicyDefinitionOptions.Source.get -> string?
@@ -109,6 +113,7 @@ OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.OpaPolicyProvider(Microsoft.Ex
 OpaDotNet.Extensions.AspNetCore.OpaPolicyProvider.OpaPolicyProvider(Microsoft.Extensions.Options.IOptions<Microsoft.AspNetCore.Authorization.AuthorizationOptions!>! options, Microsoft.Extensions.Options.IOptions<OpaDotNet.Extensions.AspNetCore.OpaAuthorizationOptions!>! opaOptions) -> void
 OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement
 OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.Entrypoint.get -> string!
+OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.OpaPolicyRequirement(OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement! original) -> void
 OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.OpaPolicyRequirement(string! entrypoint) -> void
 OpaDotNet.Extensions.AspNetCore.OpaPolicySource
 OpaDotNet.Extensions.AspNetCore.OpaPolicySource.CompileBundle(bool recompiling, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task!
@@ -147,20 +152,41 @@ OpaDotNet.Extensions.AspNetCore.RegoCompilerOptions.OutputPath.get -> string?
 OpaDotNet.Extensions.AspNetCore.RegoCompilerOptions.OutputPath.set -> void
 OpaDotNet.Extensions.AspNetCore.RegoCompilerOptions.PruneUnused.get -> bool
 OpaDotNet.Extensions.AspNetCore.RegoCompilerOptions.PruneUnused.set -> void
+OpaDotNet.Extensions.AspNetCore.RegoCompilerOptions.RegoCompilerOptions() -> void
+OpaDotNet.Extensions.AspNetCore.RegoCompilerOptions.RegoCompilerOptions(OpaDotNet.Extensions.AspNetCore.RegoCompilerOptions! original) -> void
 OpaDotNet.Extensions.AspNetCore.RegoCompilerOptions.RegoVersion.get -> OpaDotNet.Compilation.Abstractions.RegoVersion
 OpaDotNet.Extensions.AspNetCore.RegoCompilerOptions.RegoVersion.set -> void
 OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions
+override OpaDotNet.Extensions.AspNetCore.ClaimPolicyInput.Equals(object? obj) -> bool
+override OpaDotNet.Extensions.AspNetCore.ClaimPolicyInput.GetHashCode() -> int
+override OpaDotNet.Extensions.AspNetCore.ClaimPolicyInput.ToString() -> string!
 override OpaDotNet.Extensions.AspNetCore.ConfigurationPolicySource.CompileBundleFromSource(bool recompiling, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<System.IO.Stream?>!
 override OpaDotNet.Extensions.AspNetCore.ConfigurationPolicySource.Dispose(bool disposing) -> void
 override OpaDotNet.Extensions.AspNetCore.CoreImportsAbi.Now() -> System.DateTimeOffset
 override OpaDotNet.Extensions.AspNetCore.CoreImportsAbi.OnError(OpaDotNet.Wasm.BuiltinContext! context, System.Exception! ex) -> bool
 override OpaDotNet.Extensions.AspNetCore.CoreImportsAbi.Print(System.Collections.Generic.IEnumerable<string!>! args) -> void
+override OpaDotNet.Extensions.AspNetCore.OpaPolicyDefinitionOptions.Equals(object? obj) -> bool
+override OpaDotNet.Extensions.AspNetCore.OpaPolicyDefinitionOptions.GetHashCode() -> int
+override OpaDotNet.Extensions.AspNetCore.OpaPolicyDefinitionOptions.ToString() -> string!
 override OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler.HandleRequirementAsync(Microsoft.AspNetCore.Authorization.AuthorizationHandlerContext! context, OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement! requirement) -> System.Threading.Tasks.Task!
 override OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler<TResource>.HandleRequirementAsync(Microsoft.AspNetCore.Authorization.AuthorizationHandlerContext! context, OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement! requirement, TResource resource) -> System.Threading.Tasks.Task!
+override OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.Equals(object? obj) -> bool
+override OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.GetHashCode() -> int
 override OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.ToString() -> string!
 override OpaDotNet.Extensions.AspNetCore.PathPolicySource.Dispose(bool disposing) -> void
 override OpaDotNet.Extensions.AspNetCore.PathPolicySource.StartAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task!
 override OpaDotNet.Extensions.AspNetCore.PathPolicySource.StopAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task!
+override OpaDotNet.Extensions.AspNetCore.RegoCompilerOptions.Equals(object? obj) -> bool
+override OpaDotNet.Extensions.AspNetCore.RegoCompilerOptions.GetHashCode() -> int
+override OpaDotNet.Extensions.AspNetCore.RegoCompilerOptions.ToString() -> string!
+static OpaDotNet.Extensions.AspNetCore.ClaimPolicyInput.operator !=(OpaDotNet.Extensions.AspNetCore.ClaimPolicyInput? left, OpaDotNet.Extensions.AspNetCore.ClaimPolicyInput? right) -> bool
+static OpaDotNet.Extensions.AspNetCore.ClaimPolicyInput.operator ==(OpaDotNet.Extensions.AspNetCore.ClaimPolicyInput? left, OpaDotNet.Extensions.AspNetCore.ClaimPolicyInput? right) -> bool
+static OpaDotNet.Extensions.AspNetCore.OpaPolicyDefinitionOptions.operator !=(OpaDotNet.Extensions.AspNetCore.OpaPolicyDefinitionOptions? left, OpaDotNet.Extensions.AspNetCore.OpaPolicyDefinitionOptions? right) -> bool
+static OpaDotNet.Extensions.AspNetCore.OpaPolicyDefinitionOptions.operator ==(OpaDotNet.Extensions.AspNetCore.OpaPolicyDefinitionOptions? left, OpaDotNet.Extensions.AspNetCore.OpaPolicyDefinitionOptions? right) -> bool
+static OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.operator !=(OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement? left, OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement? right) -> bool
+static OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.operator ==(OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement? left, OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement? right) -> bool
+static OpaDotNet.Extensions.AspNetCore.RegoCompilerOptions.operator !=(OpaDotNet.Extensions.AspNetCore.RegoCompilerOptions? left, OpaDotNet.Extensions.AspNetCore.RegoCompilerOptions? right) -> bool
+static OpaDotNet.Extensions.AspNetCore.RegoCompilerOptions.operator ==(OpaDotNet.Extensions.AspNetCore.RegoCompilerOptions? left, OpaDotNet.Extensions.AspNetCore.RegoCompilerOptions? right) -> bool
 static OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddCompiler<T>(this OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder! builder, System.Func<System.IServiceProvider!, T!>! buildCompiler) -> OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder!
 static OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddCompiler<T>(this OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder! builder) -> OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder!
 static OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddConfiguration(this OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder! builder, Microsoft.Extensions.Configuration.IConfiguration! configuration) -> OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder!
@@ -173,7 +199,23 @@ static OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddFileSystem
 static OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddJsonOptions(this OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder! builder, System.Action<System.Text.Json.JsonSerializerOptions!>! jsonOptions) -> OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder!
 static OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddOpaAuthorization(this Microsoft.Extensions.DependencyInjection.IServiceCollection! services, System.Action<OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder!>! configure) -> Microsoft.Extensions.DependencyInjection.IServiceCollection!
 static OpaDotNet.Extensions.AspNetCore.ServiceCollectionExtensions.AddPolicySource<T>(this OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder! builder, System.Func<System.IServiceProvider!, T!>? buildPolicySource = null) -> OpaDotNet.Extensions.AspNetCore.IOpaAuthorizationBuilder!
+virtual OpaDotNet.Extensions.AspNetCore.ClaimPolicyInput.<Clone>$() -> OpaDotNet.Extensions.AspNetCore.ClaimPolicyInput!
+virtual OpaDotNet.Extensions.AspNetCore.ClaimPolicyInput.EqualityContract.get -> System.Type!
+virtual OpaDotNet.Extensions.AspNetCore.ClaimPolicyInput.Equals(OpaDotNet.Extensions.AspNetCore.ClaimPolicyInput? other) -> bool
+virtual OpaDotNet.Extensions.AspNetCore.ClaimPolicyInput.PrintMembers(System.Text.StringBuilder! builder) -> bool
+virtual OpaDotNet.Extensions.AspNetCore.OpaPolicyDefinitionOptions.<Clone>$() -> OpaDotNet.Extensions.AspNetCore.OpaPolicyDefinitionOptions!
+virtual OpaDotNet.Extensions.AspNetCore.OpaPolicyDefinitionOptions.EqualityContract.get -> System.Type!
+virtual OpaDotNet.Extensions.AspNetCore.OpaPolicyDefinitionOptions.Equals(OpaDotNet.Extensions.AspNetCore.OpaPolicyDefinitionOptions? other) -> bool
+virtual OpaDotNet.Extensions.AspNetCore.OpaPolicyDefinitionOptions.PrintMembers(System.Text.StringBuilder! builder) -> bool
 virtual OpaDotNet.Extensions.AspNetCore.OpaPolicyHandler.HandleRequirementAsync(Microsoft.AspNetCore.Authorization.AuthorizationHandlerContext! context, OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement! requirement, OpaDotNet.Extensions.AspNetCore.IHttpRequestPolicyInput! resource) -> System.Threading.Tasks.Task!
+virtual OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.<Clone>$() -> OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement!
+virtual OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.EqualityContract.get -> System.Type!
+virtual OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.Equals(OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement? other) -> bool
+virtual OpaDotNet.Extensions.AspNetCore.OpaPolicyRequirement.PrintMembers(System.Text.StringBuilder! builder) -> bool
 virtual OpaDotNet.Extensions.AspNetCore.OpaPolicySource.Dispose(bool disposing) -> void
 virtual OpaDotNet.Extensions.AspNetCore.OpaPolicySource.StartAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task!
 virtual OpaDotNet.Extensions.AspNetCore.OpaPolicySource.StopAsync(System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task!
+virtual OpaDotNet.Extensions.AspNetCore.RegoCompilerOptions.<Clone>$() -> OpaDotNet.Extensions.AspNetCore.RegoCompilerOptions!
+virtual OpaDotNet.Extensions.AspNetCore.RegoCompilerOptions.EqualityContract.get -> System.Type!
+virtual OpaDotNet.Extensions.AspNetCore.RegoCompilerOptions.Equals(OpaDotNet.Extensions.AspNetCore.RegoCompilerOptions? other) -> bool
+virtual OpaDotNet.Extensions.AspNetCore.RegoCompilerOptions.PrintMembers(System.Text.StringBuilder! builder) -> bool

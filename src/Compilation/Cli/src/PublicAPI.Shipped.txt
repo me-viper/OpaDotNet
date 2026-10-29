@@ -10,6 +10,8 @@ OpaDotNet.Compilation.Cli.CheckParameters.CapabilitiesFilePath.get -> string?
 OpaDotNet.Compilation.Cli.CheckParameters.CapabilitiesFilePath.init -> void
 OpaDotNet.Compilation.Cli.CheckParameters.CapabilitiesVersion.get -> string?
 OpaDotNet.Compilation.Cli.CheckParameters.CapabilitiesVersion.init -> void
+OpaDotNet.Compilation.Cli.CheckParameters.CheckParameters() -> void
+OpaDotNet.Compilation.Cli.CheckParameters.CheckParameters(OpaDotNet.Compilation.Cli.CheckParameters! original) -> void
 OpaDotNet.Compilation.Cli.CheckParameters.Format.get -> OpaDotNet.Compilation.Cli.CheckOutputFormat
 OpaDotNet.Compilation.Cli.CheckParameters.Format.init -> void
 OpaDotNet.Compilation.Cli.CheckParameters.Ignore.get -> System.Collections.Generic.IReadOnlySet<string!>!
@@ -48,6 +50,11 @@ OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.OpaToolPath.set -> void
 OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.PreserveBuildArtifacts.get -> bool
 OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.PreserveBuildArtifacts.set -> void
 OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.RegoCliCompilerOptions() -> void
+override OpaDotNet.Compilation.Cli.CheckParameters.Equals(object? obj) -> bool
+override OpaDotNet.Compilation.Cli.CheckParameters.GetHashCode() -> int
+override OpaDotNet.Compilation.Cli.CheckParameters.ToString() -> string!
+static OpaDotNet.Compilation.Cli.CheckParameters.operator !=(OpaDotNet.Compilation.Cli.CheckParameters? left, OpaDotNet.Compilation.Cli.CheckParameters? right) -> bool
+static OpaDotNet.Compilation.Cli.CheckParameters.operator ==(OpaDotNet.Compilation.Cli.CheckParameters? left, OpaDotNet.Compilation.Cli.CheckParameters? right) -> bool
 static OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckBundleAsync(this OpaDotNet.Compilation.Cli.RegoCliCompiler! compiler, string! path, OpaDotNet.Compilation.Cli.CheckParameters! parameters, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<OpaDotNet.Compilation.Cli.CheckResult!>!
 static OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckBundleAsync(this OpaDotNet.Compilation.Cli.RegoCliCompiler! compiler, string! path, OpaDotNet.Compilation.Cli.CheckParameters! parameters) -> System.Threading.Tasks.Task<OpaDotNet.Compilation.Cli.CheckResult!>!
 static OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckBundleAsync(this OpaDotNet.Compilation.Cli.RegoCliCompiler! compiler, System.IO.Stream! stream, OpaDotNet.Compilation.Cli.CheckParameters! parameters, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<OpaDotNet.Compilation.Cli.CheckResult!>!
@@ -56,3 +63,7 @@ static OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckFileAsync(this O
 static OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckFileAsync(this OpaDotNet.Compilation.Cli.RegoCliCompiler! compiler, string! sourceFilePath, OpaDotNet.Compilation.Cli.CheckParameters! parameters) -> System.Threading.Tasks.Task<OpaDotNet.Compilation.Cli.CheckResult!>!
 static OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckSourceAsync(this OpaDotNet.Compilation.Cli.RegoCliCompiler! compiler, string! source, OpaDotNet.Compilation.Cli.CheckParameters! parameters, System.Threading.CancellationToken cancellationToken) -> System.Threading.Tasks.Task<OpaDotNet.Compilation.Cli.CheckResult!>!
 static OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckSourceAsync(this OpaDotNet.Compilation.Cli.RegoCliCompiler! compiler, string! source, OpaDotNet.Compilation.Cli.CheckParameters! parameters) -> System.Threading.Tasks.Task<OpaDotNet.Compilation.Cli.CheckResult!>!
+virtual OpaDotNet.Compilation.Cli.CheckParameters.<Clone>$() -> OpaDotNet.Compilation.Cli.CheckParameters!
+virtual OpaDotNet.Compilation.Cli.CheckParameters.EqualityContract.get -> System.Type!
+virtual OpaDotNet.Compilation.Cli.CheckParameters.Equals(OpaDotNet.Compilation.Cli.CheckParameters? other) -> bool
+virtual OpaDotNet.Compilation.Cli.CheckParameters.PrintMembers(System.Text.StringBuilder! builder) -> bool
