@@ -83,18 +83,22 @@ generated output, edit the YAML or the generator instead.
 Versions are computed by Nerdbank.GitVersioning (`nbgv`) from `version.json` files, and there are two independent
 tiers of them — don't confuse the two:
 
-- **Root `version.json`** (`2026.1.2`, year.major.build) is the *release-train* version: it drives the git tag
+- **Root `version.json`** (e.g. `2026.2.1`, year.major.build) is the *release-train* version: it drives the git tag
   (`v{version}`) and release branch name (`release/v{version}`) when cutting a release, and its value is what
   `CHANGELOG.md` entries are headed with (`## OpaDotNet {version}`). `publicReleaseRefSpec` means only `main` and
   `release/v*` builds get a stable version; other branches get an unstable/prerelease version.
 - **Per-package `version.json`** (`src/Wasm/version.json`, `src/Compilation/version.json`,
   `src/Compilation.Abstractions/version.json`, `src/Extensions.AspNetCore/version.json`) each declare their own
-  independent `major.minor` (e.g. Wasm is `3.1`) — this is the actual NuGet package version. `pathFilters` scopes
+  independent `major.minor` (e.g. Wasm is `3.2`) — this is the actual NuGet package version. `pathFilters` scopes
   git-height calculation (the patch number) to commits touching that package's `src/`, so the patch component
   auto-increments only when that package actually changes. `src/Compilation/version.json`'s `pathFilters` covers
   both `Compilation/Cli/src` and `Compilation/Interop/src`, so `OpaDotNet.Compilation.Cli` and
   `OpaDotNet.Compilation.Interop` share one version number; `Compilation.Abstractions` is versioned separately even
-  though the other two packages depend on it.
+  though the other two packages depend on it. `src/Extensions.AspNetCore/version.json`'s `pathFilters` also include
+  `Wasm/src` and `Compilation.Abstractions/src`, so its patch moves whenever those change too.
+- The patch number is the git height since `major.minor` last changed, so it is **not** reset at release time: if the
+  minor bump was committed earlier, the release ships as e.g. `3.2.18`, not `3.2.0`. Changing the root `version.json`
+  (or any file outside a package's `pathFilters`) doesn't reset package heights.
 
 Practical rules:
 
@@ -127,16 +131,39 @@ build; update snippets there rather than inlining unchecked code samples in docs
 
 ## Releasing
 
+Use `gh` for GitHub steps. Find the previous release with `git describe --tags --abbrev=0 --match 'v*'` and what's
+already published with `https://api.nuget.org/v3-flatcontainer/{lowercase-package-id}/index.json`.
+
+0. Before starting, make sure the latest CI run on `main` is green (`gh run list --branch main --limit 1`). CI can
+   break without code changes (e.g. NuGet audit `NU1902` warnings-as-errors for a vulnerable transitive package, or a
+   new `ubuntu-latest` image missing legacy tzdata), so fix that first.
 1. Check if versions need a bump: run `./build/versions.ps1`, then bump `major.minor` in the `version.json` of each
-   package whose `src/` changed in a breaking or notable way. Bump the root `version.json` (release-train version).
-2. Add a `CHANGELOG.md` entry: `## OpaDotNet {root version}` with a `### {PackageName}` subsection per changed package.
+   package whose `src/` changed in a breaking or notable way — compare against the latest versions on NuGet, the
+   minor bump may already have been committed. Set the root `version.json` to the release-train version; it becomes
+   the tag, so it must match the `CHANGELOG.md` heading (the heading may have been written ahead of time with a
+   different number than `version.json`).
+2. Update the `CHANGELOG.md` entry: `## OpaDotNet {root version}` with a `### {PackageName} v{version}` subsection per
+   changed package.
+   - Use the exact `NuGetPackageVersion` from `./build/versions.ps1` in each heading (e.g. `v3.2.18`, not `v3.2.0` —
+     see the patch-number note under Versioning). The prep commit doesn't touch package `src/`, so these numbers
+     don't change after committing; re-run `versions.ps1` after the commit to confirm.
+   - Cross-check `git log v{previous}..HEAD -- src/*/src src/Compilation/*/src` for user-visible changes missing from
+     the entry, including dependency updates (e.g. Wasmtime) and fixes made after the entry was first written.
 3. Fix public APIs: run `build/api-ship.ps1` to move `PublicAPI.Unshipped.txt` entries into `PublicAPI.Shipped.txt`.
-   Confirm `dotnet build -c Release` passes.
-4. Commit as `chore: Prepare v{version} release`.
-5. Create the release branch `release/v{version}` from `main`.
-6. Create and push the tag `v{version}`.
-7. Ensure build was successful and all tests passed.
-8. Check if documentation changes need to be published.
-9. Check if github release exists.
-10. Publish by running the `Publish` workflow (`workflow_dispatch`) manually. Pushing the tag alone doesn't publish
-   to NuGet.
+   Confirm a **full-solution** `dotnet build -c Release` passes with no warnings — that's what CI runs.
+4. Commit as `chore: Prepare v{version} release` and push `main`.
+5. Create the release branch `release/v{version}` from `main` and push it.
+6. Create and push the tag `v{version}` (lightweight, like previous tags). The push reports bypassing a tag-creation
+   ruleset; that's expected for the repo admin.
+7. Ensure build was successful and all tests passed. Pushing the release branch doesn't trigger its own CI run (the
+   `paths-ignore` filter sees no new changes), so the `main` run for the same commit is the one to check. Its
+   `Get Version` and `Pack` steps show the exact package versions that will be published.
+8. Publish docs if there were documentation changes since the previous release:
+   `gh workflow run docs.yml --ref release/v{version} -f release=true`. Run it on the release branch, not the tag,
+   so nbgv computes the stable version for the site title. It deploys to the `gh-pages` branch.
+9. Create the GitHub release from the existing tag, using the `CHANGELOG.md` section (without the `##` heading) as
+   the body: `gh release create v{version} --verify-tag --title v{version} --notes-file <notes> --latest`.
+10. Publish by running the `Publish` workflow manually: `gh workflow run publish.yml --ref release/v{version}`. Pushing
+    the tag alone doesn't publish to NuGet. It reruns the full CI first (~15 min). In the `Push Nuget Symbols` step,
+    `Conflict ... already exists` for every `.snupkg` is expected — the package push already uploaded them.
+11. Confirm all packages appear on NuGet at the expected versions; indexing after the push takes ~10 minutes.
