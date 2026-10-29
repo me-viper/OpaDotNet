@@ -124,3 +124,16 @@ build; update snippets there rather than inlining unchecked code samples in docs
   disposed correctly.
 - Async methods must have an `Async` suffix (enforced as a warning via a `dotnet_naming_rule`).
 - If lambda delegate accepts single argument call it `p`.
+
+## Releasing
+
+1. Check if versions need a bump: run `./build/versions.ps1`, then bump `major.minor` in the `version.json` of each
+   package whose `src/` changed in a breaking or notable way. Bump the root `version.json` (release-train version).
+2. Add a `CHANGELOG.md` entry: `## OpaDotNet {root version}` with a `### {PackageName}` subsection per changed package.
+3. Fix public APIs: run `build/api-ship.ps1` to move `PublicAPI.Unshipped.txt` entries into `PublicAPI.Shipped.txt`.
+   Confirm `dotnet build -c Release` passes.
+4. Commit as `chore: Prepare v{version} release`.
+5. Create the release branch `release/v{version}` from `main`.
+6. Create and push the tag `v{version}`.
+7. Publish by running the `Publish` workflow (`workflow_dispatch`) manually. Pushing the tag alone doesn't publish
+   to NuGet.
