@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Advanced Built-ins | OpaDotNet 2025.1.1 </title>
+      <title>Advanced Built-ins | OpaDotNet 2026.2.1 </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Advanced Built-ins | OpaDotNet 2025.1.1 ">
+      <meta name="title" content="Advanced Built-ins | OpaDotNet 2026.2.1 ">
       
       
       <link rel="icon" href="../../favicon.ico">
@@ -16,7 +16,7 @@
       
       
       
-      <meta name="docfx:docurl" content="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/docs/articles/reference/builtins.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/me-viper/OpaDotNet/blob/release/v2026.2.1/docs/articles/reference/builtins.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -83,15 +83,106 @@
         <article data-uid="">
 <h1 id="advanced-built-ins">Advanced Built-ins</h1>
 
+<p>This page covers implementation details for <a href="../evaluation/bultins.html">custom built-in functions</a> implemented
+via <code>IOpaCustomBuiltins</code> and <code>[OpaCustomBuiltin]</code>: how arguments are bound, what a built-in may return, how errors
+propagate back into policy evaluation, and how to write built-ins whose results stay stable within a single
+evaluation.</p>
 <h2 id="arguments">Arguments</h2>
+<p>A method marked with <code>[OpaCustomBuiltin(&quot;name&quot;)]</code> may declare up to four positional parameters, matching the
+arguments OPA passes to the built-in. It may optionally declare one additional, trailing parameter of type
+<code>JsonSerializerOptions</code> or <code>IOpaCustomBuiltinsContext</code> — not both — to access evaluation-scoped state:</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Built-in arguments must be JSON-serializable.</p>
+</div>
+<pre><code class="lang-csharp">public class MyBuiltins : IOpaCustomBuiltins
+{
+    public void Reset()
+    {
+    }
+
+    // Two positional arguments, no extra parameter.
+    [OpaCustomBuiltin(&quot;my.concat&quot;)]
+    public static string Concat(string a, string b) =&gt; a + b;
+
+    // Trailing IOpaCustomBuiltinsContext gives access to the cancellation token
+    // and the JsonSerializerOptions used for the current evaluation.
+    [OpaCustomBuiltin(&quot;my.lookup&quot;)]
+    public static async Task&lt;string&gt; Lookup(string key, IOpaCustomBuiltinsContext context)
+    {
+        context.CancellationToken.ThrowIfCancellationRequested();
+        return await LookupValueAsync(key, context.JsonSerializerOptions);
+    }
+}
+</code></pre>
+<p>Methods can be <code>static</code> or instance methods; both are supported identically. Prefer instance methods when a built-in
+needs to carry state across calls (combined with <code>Reset()</code>, see <a href="#implementing-deterministic-functions">below</a>) —
+otherwise <code>static</code> avoids an unnecessary allocation per resolved built-in.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Generic built-in methods and methods with more than four positional arguments (plus the optional trailing
+parameter) are not supported.</p>
+</div>
 <h2 id="returning-results">Returning results</h2>
+<p>A <code>[OpaCustomBuiltin]</code> method may return:</p>
+<ul>
+<li>Any JSON-serializable value — serialized back to Rego.</li>
+<li><code>void</code> or <code>Task</code> — for built-ins that are called only for their side effect or to validate input; a successful
+call resolves to an empty object (<code>{}</code>) on the Rego side, and a thrown exception makes the call fail (see
+<a href="#handling-exceptions">Handling exceptions</a> below).</li>
+<li><code>Task&lt;T&gt;</code> — for asynchronous built-ins; awaited before the result is passed back into the evaluation.</li>
+</ul>
+<pre><code class="lang-csharp">[OpaCustomBuiltin(&quot;my.validate&quot;)]
+public static void Validate(string input)
+{
+    if (!IsValid(input))
+        throw new ArgumentException($&quot;invalid input: {input}&quot;);
+}
+</code></pre>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p><code>ValueTask</code> and <code>ValueTask&lt;T&gt;</code> return types are not supported. Return <code>Task</code> or
+<code>Task&lt;T&gt;</code> instead.</p>
+</div>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Due to specifics of <code>wasmtime-dotnet</code> runtime async built-ins will be forced to complete synchronously (aka <code>Task.Wait(...)</code>) before returning results back to OPA.</p>
+</div>
 <h2 id="handling-exceptions">Handling exceptions</h2>
+<p>By default (<code>WasmPolicyEngineOptions.StrictBuiltinErrors = false</code>, matching native OPA's default), an exception
+thrown from a built-in is swallowed and the built-in call — and, transitively, whatever rule depends on it — becomes
+<code>undefined</code>. Other, independent rules in the same query are unaffected.</p>
+<p>Set <code>StrictBuiltinErrors = true</code> to make built-in errors fatal instead: any exception is wrapped and re-thrown.</p>
+<pre><code class="lang-csharp">var opts = new WasmPolicyEngineOptions
+{
+    StrictBuiltinErrors = true,
+};
+</code></pre>
+<p>Two exception types are handled specially regardless of <code>StrictBuiltinErrors</code>:</p>
+<ul>
+<li><code>NotImplementedException</code> always aborts evaluation — throw it to signal &quot;this built-in is intentionally
+unimplemented,&quot; which should never be silently treated as <code>undefined</code>.</li>
+<li><code>OperationCanceledException</code> (for example from <code>context.CancellationToken.ThrowIfCancellationRequested()</code>) is
+translated into a timeout-flavored evaluation error rather than a generic built-in error.</li>
+</ul>
 <h2 id="implementing-deterministic-functions">Implementing deterministic functions</h2>
+<p>Rego expects a built-in to behave deterministically <em>within a single evaluation</em>: repeated calls with the same
+arguments during one <code>Evaluate</code> should return the same value, the way <code>time.now_ns()</code> returns a single frozen
+timestamp for the whole query rather than drifting between calls. OpaDotNet resets all built-in state — including any
+memoized values — after each evaluation completes, so caching is naturally scoped to one query.</p>
+<p>For <code>[OpaCustomBuiltin]</code> methods, set <code>Memorize = true</code> to get this for free: the arguments are hashed, and the
+result of the first call for a given argument set is cached and reused for subsequent calls with the same arguments
+during the same evaluation.</p>
+<pre><code class="lang-csharp">[OpaCustomBuiltin(&quot;my.currentBatchId&quot;, Memorize = true)]
+public static Guid CurrentBatchId() =&gt; Guid.NewGuid();
+</code></pre>
+<p>If you override <code>Reset()</code> on a custom <code>IOpaCustomBuiltins</code> implementation, call the base implementation (or otherwise
+clear your own caches) so memoized values don't leak into the next evaluation.</p>
 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/docs/articles/reference/builtins.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/me-viper/OpaDotNet/blob/release/v2026.2.1/docs/articles/reference/builtins.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

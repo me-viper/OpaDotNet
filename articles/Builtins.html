@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Built-in Functions Implementation Status | OpaDotNet 2025.1.1 </title>
+      <title>Built-in Functions Implementation Status | OpaDotNet 2026.2.1 </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Built-in Functions Implementation Status | OpaDotNet 2025.1.1 ">
+      <meta name="title" content="Built-in Functions Implementation Status | OpaDotNet 2026.2.1 ">
       
       
       <link rel="icon" href="../favicon.ico">
@@ -16,7 +16,7 @@
       
       
       
-      <meta name="docfx:docurl" content="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/docs/articles/Builtins.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/me-viper/OpaDotNet/blob/release/v2026.2.1/docs/articles/Builtins.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -83,7 +83,7 @@
         <article data-uid="">
 <h1 id="built-in-functions-implementation-status">Built-in Functions Implementation Status</h1>
 
-<p>Bellow is the list of supported OPA built-in functions as for version v0.53.1 along with their implementation status in OpaDotNet.Wasm.</p>
+<p>Bellow is the list of supported OPA built-in functions as for version v1.10.1 along with their implementation status in OpaDotNet.Wasm.</p>
 <h2 id="numbers">Numbers</h2>
 <table>
 <thead>
@@ -98,6 +98,11 @@
 <td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-numbers-numbersrange_step">numbers.range_step</a></td>
 <td>✅</td>
 <td>v2.2.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-numbers-randintn">rand.intn</a></td>
+<td>✅</td>
+<td>v1.1.0</td>
 </tr>
 </tbody>
 </table>
@@ -135,6 +140,16 @@
 <td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-strings-stringsrender_template">strings.render_template</a></td>
 <td>-</td>
 <td>-</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-strings-stringscount">strings.strings.count</a></td>
+<td>✅</td>
+<td>v3.1.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-strings-stringssplit_n">strings.split_n</a></td>
+<td>✅</td>
+<td>v3.2.0</td>
 </tr>
 </tbody>
 </table>
@@ -225,6 +240,11 @@
 <td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-object-jsonverify_schema">json.verify_schema</a></td>
 <td>✅</td>
 <td>v1.2.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/policy-reference/builtins/encoding#builtin-encoding-jsonmarshal">json.marshal_with_options</a></td>
+<td>✅</td>
+<td>v3.1.0</td>
 </tr>
 </tbody>
 </table>
@@ -400,6 +420,11 @@
 <td>v1.1.0</td>
 </tr>
 <tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtverify_eddsa">io.jwt.verify_eddsa</a></td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
 <td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-tokens-iojwtverify_es256">io.jwt.verify_es256</a></td>
 <td>✅</td>
 <td>v1.1.0</td>
@@ -483,7 +508,7 @@
 </tr>
 <tr>
 <td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptohmacsha1">crypto.hmac.sha1</a></td>
-<td>:white_check_mark:</td>
+<td>✅</td>
 <td>v1.1.0</td>
 </tr>
 <tr>
@@ -512,9 +537,19 @@
 <td>v1.1.0</td>
 </tr>
 <tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptoparse_private_keys">crypto.parse_private_keys</a></td>
+<td>✅</td>
+<td>v2.5.0</td>
+</tr>
+<tr>
 <td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptox509parse_and_verify_certificates">crypto.x509.parse_and_verify_certificates</a></td>
 <td>✅</td>
 <td>v2.5.0 (*)</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptox509parse_and_verify_certificates_with_options">crypto.x509.parse_and_verify_certificates_with_options</a></td>
+<td>-</td>
+<td>-</td>
 </tr>
 <tr>
 <td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-crypto-cryptox509parse_certificate_request">crypto.x509.parse_certificate_request</a></td>
@@ -670,6 +705,28 @@
 </tbody>
 </table>
 <p>* There might be inconsistent behavior with native implementation due to different DNS resolver.</p>
+<h2 id="uri">URI</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Status</th>
+<th>OpaDotNet version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-uri-uriis_valid">uri.is_valid</a></td>
+<td>✅</td>
+<td>v3.2.0</td>
+</tr>
+<tr>
+<td><a href="https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-uri-uriparse">uri.parse</a></td>
+<td>✅</td>
+<td>v3.2.0</td>
+</tr>
+</tbody>
+</table>
 <h2 id="uuid">UUID</h2>
 <table>
 <thead>
@@ -806,7 +863,7 @@
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/docs/articles/Builtins.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/me-viper/OpaDotNet/blob/release/v2026.2.1/docs/articles/Builtins.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

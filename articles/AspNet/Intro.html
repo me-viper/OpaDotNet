@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Integrating with ASP.Net Core | OpaDotNet 2025.1.1 </title>
+      <title>Integrating with ASP.NET Core | OpaDotNet 2026.2.1 </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Integrating with ASP.Net Core | OpaDotNet 2025.1.1 ">
+      <meta name="title" content="Integrating with ASP.NET Core | OpaDotNet 2026.2.1 ">
       
       
       <link rel="icon" href="../../favicon.ico">
@@ -16,7 +16,7 @@
       
       
       
-      <meta name="docfx:docurl" content="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/docs/articles/AspNet/Intro.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/me-viper/OpaDotNet/blob/release/v2026.2.1/docs/articles/AspNet/Intro.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -81,14 +81,278 @@
         </div>
 
         <article data-uid="">
-<h1 id="integrating-with-aspnet-core">Integrating with ASP.Net Core</h1>
+<h1 id="integrating-with-aspnet-core">Integrating with ASP.NET Core</h1>
 
-<p>See <a href="https://github.com/me-viper/OpaDotNet.Extensions/tree/main/samples">sample application</a> for more details.</p>
+<p><code>OpaDotNet.Extensions.AspNetCore</code> plugs OPA policy evaluation into ASP.NET Core's authorization system: instead of
+writing an <code>IAuthorizationHandler</code> by hand, you name a Rego rule as the policy and the package evaluates it against
+the current request (or any object you supply) using a pooled <code>IOpaEvaluator</code>.</p>
+<h2 id="how-it-works">How it works</h2>
+<ul>
+<li><code>AddOpaAuthorization</code> registers an <code>IAuthorizationPolicyProvider</code> (<code>OpaPolicyProvider</code>) that recognizes any
+authorization policy name of the form <code>Opa/{module}/{rule}</code> and turns it into an <code>OpaPolicyRequirement</code> instead of
+requiring you to pre-register every policy with <code>AddAuthorization</code>.</li>
+<li>An <code>IOpaPolicySource</code> (file system, compiled bundle, or configuration — see <a href="#policy-sources">Policy sources</a>)
+compiles or loads a policy bundle on startup and exposes it as an <code>IOpaEvaluator</code> factory.</li>
+<li><code>IOpaPolicyService</code> (<code>PooledOpaPolicyService</code>) pools evaluators created from that factory and evaluates the named
+entrypoint (<code>{module}/{rule}</code>) against an input document.</li>
+<li><code>OpaPolicyHandler</code> (or <code>OpaPolicyHandler&lt;TResource&gt;</code>) is the <code>IAuthorizationHandler</code> that builds the input document
+and calls <code>IOpaPolicyService</code> when an <code>Opa/...</code> policy requirement is evaluated.</li>
+</ul>
+<h2 id="quick-start">Quick start</h2>
+<pre><code class="lang-csharp">var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddOpaAuthorization(
+    cfg =&gt;
+    {
+        // Compile .rego sources by shelling out to the `opa` CLI.
+        cfg.AddCompiler&lt;RegoCliCompiler&gt;();
+
+        // Compile a directory of .rego files on startup (and on change, see MonitoringInterval below).
+        cfg.AddFileSystemPolicySource();
+
+        cfg.AddConfiguration(
+            p =&gt;
+            {
+                p.PolicyBundlePath = &quot;./Policy&quot;;
+                p.AllowedHeaders.Add(&quot;.*&quot;);
+            }
+            );
+    }
+    );
+
+builder.Services.AddAuthentication(/* ... */);
+builder.Services.AddAuthorization();
+
+var app = builder.Build();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+// Evaluates the `allow` rule in the `example` package (Rego: package example).
+app.MapGet(&quot;/allow&quot;, [OpaPolicyAuthorize(&quot;example&quot;, &quot;allow&quot;)]() =&gt; &quot;Hi!&quot;);
+
+app.Run();
+</code></pre>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p><code>AddOpaAuthorization</code> only wires up services — you still need <code>AddCompiler&lt;T&gt;()</code> and one policy source
+(<code>AddFileSystemPolicySource()</code>, <code>AddConfigurationPolicySource(...)</code>, or <code>AddPolicySource&lt;CompiledBundlePolicySource&gt;()</code>)
+or the evaluator has nothing to load.</p>
+</div>
+<h2 id="requesting-a-decision">Requesting a decision</h2>
+<h3 id="attribute-based-authorization">Attribute-based authorization</h3>
+<p><code>[OpaPolicyAuthorize(module, rule)]</code> builds the policy name <code>Opa/{module}/{rule}</code> for you:</p>
+<pre><code class="lang-csharp">app.MapGet(&quot;/allow&quot;, [OpaPolicyAuthorize(&quot;example&quot;, &quot;allow&quot;)]() =&gt; &quot;Hi!&quot;);
+</code></pre>
+<p>This is equivalent to the plain ASP.NET Core <code>[Authorize]</code> attribute, since <code>OpaPolicyProvider</code> recognizes the
+<code>Opa/...</code> name directly:</p>
+<pre><code class="lang-csharp">app.MapGet(&quot;/allow2&quot;, [Authorize(&quot;Opa/example/allow&quot;)]() =&gt; &quot;Hi!&quot;);
+</code></pre>
+<p>In both cases the default <code>OpaPolicyHandler</code> builds the input document from the current <code>HttpContext</code> (see
+<a href="#policy-input">Policy input</a>) and evaluates <code>example/allow</code>.</p>
+<h3 id="imperative-authorization-with-a-custom-input">Imperative authorization with a custom input</h3>
+<p>Call <code>IAuthorizationService.AuthorizeAsync</code> directly when you want to pass your own object as <code>input</code> instead of
+deriving it from the request:</p>
+<pre><code class="lang-csharp">app.MapGet(
+    &quot;/resource/{name}&quot;,
+    ([FromServices] IAuthorizationService azs, ClaimsPrincipal user, string name) =&gt;
+    {
+        var result = azs.AuthorizeAsync(user, new ResourcePolicyInput(name), &quot;opa/example/check_resource&quot;);
+        return result.Result.Succeeded ? Results.Ok($&quot;Got access to {name}&quot;) : Results.Forbid();
+    }
+    );
+
+internal record ResourcePolicyInput(string Resource);
+</code></pre>
+<p><code>ResourcePolicyInput</code> is serialized as-is and becomes <code>input</code> on the Rego side (<code>input.resource</code>).</p>
+<h3 id="handling-a-specific-resource-type">Handling a specific resource type</h3>
+<p>The default <code>OpaPolicyHandler</code> only activates for <code>HttpContext</code>/<code>HttpRequest</code> resources. To handle a specific
+resource type distinctly, register <code>OpaPolicyHandler&lt;TResource&gt;</code> (or a subclass of it) as an additional
+<code>IAuthorizationHandler</code>:</p>
+<pre><code class="lang-csharp">builder.Services.AddSingleton&lt;IAuthorizationHandler, OpaPolicyHandler&lt;ResourcePolicyInput&gt;&gt;();
+</code></pre>
+<h2 id="policy-input">Policy input</h2>
+<p>For attribute-based and <code>HttpContext</code>-based authorization, the input document is built by
+<code>IHttpRequestPolicyInput.Build(...)</code> and includes:</p>
+<ul>
+<li><code>method</code>, <code>scheme</code>, <code>host</code>, <code>pathBase</code>, <code>path</code>, <code>queryString</code>, <code>query</code>, <code>protocol</code></li>
+<li><code>connection</code> (remote/local IP and port, client certificate PEM)</li>
+<li><code>headers</code> — only headers whose name matches one of <code>OpaAuthorizationOptions.AllowedHeaders</code> (a set of regex
+patterns); by default no headers are forwarded, so you must opt in</li>
+<li><code>claims</code> — only included when <code>OpaAuthorizationOptions.IncludeClaimsInHttpRequest = true</code></li>
+</ul>
+<pre><code class="lang-csharp">p.AllowedHeaders.Add(&quot;^X-.*&quot;);   // forward custom X- headers
+p.IncludeClaimsInHttpRequest = true;
+</code></pre>
+<h2 id="policy-sources">Policy sources</h2>
+<p>A policy source is responsible for producing (and, optionally, hot-reloading) a compiled policy bundle. Three are
+built in:</p>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Registered via</th>
+<th>Loads from</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FileSystemPolicySource</code></td>
+<td><code>AddFileSystemPolicySource()</code></td>
+<td>A directory of <code>.rego</code>/<code>data.json</code>/<code>data.yaml</code> files at <code>OpaAuthorizationOptions.PolicyBundlePath</code>, compiled with the registered <code>IRegoCompiler</code>.</td>
+</tr>
+<tr>
+<td><code>CompiledBundlePolicySource</code></td>
+<td><code>AddPolicySource&lt;CompiledBundlePolicySource&gt;()</code></td>
+<td>An already-compiled <code>.tar.gz</code> wasm bundle file at <code>PolicyBundlePath</code> — no compiler needed.</td>
+</tr>
+<tr>
+<td><code>ConfigurationPolicySource</code></td>
+<td><code>AddConfigurationPolicySource(IConfiguration)</code> or <code>AddConfigurationPolicySource(Action&lt;OpaPolicyOptions&gt;)</code></td>
+<td>Policy sources embedded directly in configuration, compiled with the registered <code>IRegoCompiler</code>.</td>
+</tr>
+</tbody>
+</table>
+<p><code>ConfigurationPolicySource</code> reads a map of named policies, each with a <code>package</code>, inline Rego <code>source</code>, and optional
+<code>data.json</code>/<code>data.yaml</code>:</p>
+<pre><code class="lang-yaml">policies:
+  - name: p1
+    source: |
+      # METADATA
+      # entrypoint: true
+      package example.allow
+
+      deny if {
+        false
+      }
+</code></pre>
+<pre><code class="lang-csharp">cfg.AddConfigurationPolicySource(builder.Configuration.GetSection(&quot;policies&quot;));
+</code></pre>
+<p>All built-in sources support hot reload when <code>OpaAuthorizationOptions.MonitoringInterval &gt; TimeSpan.Zero</code>:
+<code>FileSystemPolicySource</code>/<code>CompiledBundlePolicySource</code> watch the file system for changes, <code>ConfigurationPolicySource</code>
+reacts to <code>IOptionsMonitor&lt;OpaPolicyOptions&gt;</code> changes. On a successful recompilation the evaluator pool
+(<code>PooledOpaPolicyService</code>) is swapped out atomically — in-flight evaluations on the old pool finish normally, new
+ones use the recompiled policy.</p>
+<p>You can implement <code>IOpaPolicySource</code> yourself (typically by deriving from the abstract <code>OpaPolicySource</code>, which
+handles locking, hot-reload change tokens, and pool invalidation for you — implement only
+<code>CompileBundleFromSource</code>) and register it with <code>AddPolicySource&lt;T&gt;()</code>.</p>
+<h2 id="compiler">Compiler</h2>
+<p><code>AddCompiler&lt;T&gt;()</code> registers the <code>IRegoCompiler</code> used by any policy source that compiles from <code>.rego</code> source
+(everything except <code>CompiledBundlePolicySource</code>, which needs no compiler):</p>
+<ul>
+<li><code>RegoCliCompiler</code> (<code>OpaDotNet.Compilation.Cli</code>) — shells out to the <code>opa</code> CLI binary; simplest to set up, requires
+<code>opa</code> on <code>PATH</code>.</li>
+<li><code>RegoInteropCompiler</code> (<code>OpaDotNet.Compilation.Interop</code>) — compiles in-process via the native interop library; no
+external process, but requires the native library to be built/deployed alongside your app.</li>
+</ul>
+<p>See <a href="../compilation/compilation.html">Compilation</a> for details on both backends.
+<code>OpaAuthorizationOptions.Compiler</code> (<code>RegoCompilerOptions</code>) configures entrypoints, capabilities, and other
+compiler-specific options for whichever backend you register.</p>
+<h2 id="custom-built-ins">Custom built-ins</h2>
+<p>Register custom built-in functions the same way you would for a bare <code>IOpaEvaluatorFactory</code>, via
+<code>AddCustomBuiltins&lt;T&gt;()</code> (and <code>AddCustomBuiltins&lt;TBuiltins, TCapabilities&gt;()</code> when the built-ins need a capabilities
+file merged into compilation):</p>
+<pre><code class="lang-csharp">cfg.AddCustomBuiltins&lt;MyBuiltins, MyBuiltins&gt;();
+</code></pre>
+<p>See <a href="../evaluation/bultins.html">Custom Built-in Functions</a> and <a href="../reference/builtins.html">Advanced Built-ins</a>
+for how to implement <code>IOpaCustomBuiltins</code>.</p>
+<h2 id="custom-authorization-handler">Custom authorization handler</h2>
+<p>Override <code>OpaPolicyHandler.HandleRequirementAsync</code> when a plain allow/deny isn't enough — for example, to surface
+structured deny reasons from the policy result instead of a bare boolean:</p>
+<pre><code class="lang-csharp">internal class CustomPolicyHandler : OpaPolicyHandler
+{
+    public CustomPolicyHandler(
+        IOpaPolicyService service,
+        IOptions&lt;OpaAuthorizationOptions&gt; options,
+        ILogger&lt;CustomPolicyHandler&gt; logger) : base(service, options, logger)
+    {
+    }
+
+    protected override async Task HandleRequirementAsync(
+        AuthorizationHandlerContext context,
+        OpaPolicyRequirement requirement,
+        IHttpRequestPolicyInput resource)
+    {
+        var result = await Service.Evaluate&lt;IHttpRequestPolicyInput, PolicyResult&gt;(resource, requirement.Entrypoint);
+
+        if (result.Deny.Length == 0)
+            context.Succeed(requirement);
+        else
+            Logger.LogDebug(&quot;Denied: {Reasons}&quot;, string.Join(&quot;\n&quot;, result.Deny.Select(p =&gt; p.Reason)));
+    }
+}
+
+internal record PolicyResult { public DenyReason[] Deny { get; set; } = []; }
+internal record DenyReason { public string? Reason { get; set; } }
+</code></pre>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Register a custom <code>IAuthorizationHandler</code> <em>before</em> calling <code>AddOpaAuthorization</code> — <code>AddOpaAuthorization</code> registers
+the default <code>OpaPolicyHandler</code> with <code>TryAddSingleton</code>, so registering yours first (under the same
+<code>IAuthorizationHandler</code> service) takes priority.</p>
+</div>
+<h2 id="configuration-reference">Configuration reference</h2>
+<p>Key <code>OpaAuthorizationOptions</code> (set via <code>cfg.AddConfiguration(...)</code>):</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PolicyBundlePath</code></td>
+<td>Directory (source/bundle policy sources) or file (<code>CompiledBundlePolicySource</code>) to load policies from.</td>
+</tr>
+<tr>
+<td><code>Compiler</code></td>
+<td><code>RegoCompilerOptions</code> — entrypoints, capabilities, output path, etc., passed to the registered <code>IRegoCompiler</code>.</td>
+</tr>
+<tr>
+<td><code>EngineOptions</code></td>
+<td><code>WasmPolicyEngineOptions</code> for the underlying evaluator (serialization options, strict built-in errors, timeouts).</td>
+</tr>
+<tr>
+<td><code>AllowedHeaders</code></td>
+<td>Regex patterns of request headers forwarded into policy input. Empty by default.</td>
+</tr>
+<tr>
+<td><code>IncludeClaimsInHttpRequest</code></td>
+<td>Include the current user's claims in policy input. <code>false</code> by default.</td>
+</tr>
+<tr>
+<td><code>AuthenticationSchemes</code></td>
+<td>Authentication schemes <code>Opa/...</code> policies are evaluated against.</td>
+</tr>
+<tr>
+<td><code>MonitoringInterval</code></td>
+<td>How often policy sources check for changes and hot-reload. <code>TimeSpan.Zero</code> disables hot reload.</td>
+</tr>
+<tr>
+<td><code>MaximumEvaluatorsRetained</code></td>
+<td>Max pooled <code>IOpaEvaluator</code> instances kept alive. Defaults to <code>Environment.ProcessorCount * 2</code>.</td>
+</tr>
+<tr>
+<td><code>MaximumEvaluators</code></td>
+<td>Caps concurrent evaluations; <code>0</code> (default) means unbounded.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="samples">Samples</h2>
+<p>Runnable samples live under <a href="https://github.com/me-viper/OpaDotNet/tree/main/src/Extensions.AspNetCore/samples"><code>src/Extensions.AspNetCore/samples</code></a>
+in this repository:</p>
+<ul>
+<li><strong>WebApp</strong> — attribute-based and imperative authorization, custom resource input.</li>
+<li><strong>CustomBuiltins</strong> — registering custom built-in functions with <code>AddCustomBuiltins</code>.</li>
+<li><strong>YarpApp</strong> — configuration-based policy source, a custom <code>OpaPolicyHandler</code> returning structured deny reasons, and
+gating a YARP reverse proxy behind OPA policies.</li>
+</ul>
 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/docs/articles/AspNet/Intro.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/me-viper/OpaDotNet/blob/release/v2026.2.1/docs/articles/AspNet/Intro.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

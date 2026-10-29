@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Policy Compilation | OpaDotNet 2025.1.1 </title>
+      <title>Policy Compilation | OpaDotNet 2026.2.1 </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Policy Compilation | OpaDotNet 2025.1.1 ">
+      <meta name="title" content="Policy Compilation | OpaDotNet 2026.2.1 ">
       
       
       <link rel="icon" href="../../favicon.ico">
@@ -16,7 +16,7 @@
       
       
       
-      <meta name="docfx:docurl" content="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/docs/articles/compilation/compilation.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/me-viper/OpaDotNet/blob/release/v2026.2.1/docs/articles/compilation/compilation.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -93,11 +93,76 @@
 <p>Which one you should be using?</p>
 <p>Use <code>OpaDotNet.Compilation.Cli</code> if you have <code>opa</code> CLI tool available or you need functionality besides compilation (running tests, syntax checking etc.). Suitable for web applications and/or applications running in Docker containers. See <a href="https://github.com/me-viper/OpaDotNet.Compilation/blob/main/src/OpaDotNet.Compilation.Cli/README.md">README</a> for more details.</p>
 <p>Use <code>OpaDotNet.Compilation.Interop</code> if you need compilation only and want to avoid having external dependencies. Suitable for libraries, console application etc. See <a href="https://github.com/me-viper/OpaDotNet.Compilation/blob/main/src/OpaDotNet.Compilation.Interop/README.md">README</a> for more details.</p>
+<p>If you sign your bundles to protect against tampering, see <a href="signing.html">Bundle Signature Validation</a> for how to
+verify signatures when loading a bundle.</p>
+<h2 id="building-bundles-with-bundlewriter">Building bundles with <code>BundleWriter</code></h2>
+<p>Both compilers accept a bundle directory path <em>or</em> a bundle as a <code>Stream</code> (<code>CompileBundleAsync</code>). If your policy
+sources and data don't live on disk as a directory - e.g. they come from a database, embedded resources, or are
+generated at runtime - use <a class="xref" href="../../api/OpaDotNet.Compilation.Abstractions.BundleWriter.html">BundleWriter</a> to assemble a bundle
+<code>Stream</code> in memory instead of writing files to a temp folder first.</p>
+<pre><code class="lang-csharp">
+var policySource = &quot;&quot;&quot;
+    package example
+
+    default hello = false
+
+    hello {
+        x := input.message
+        x == data.world
+    }
+    &quot;&quot;&quot;;
+
+var dataSource = &quot;&quot;&quot;{ &quot;world&quot;: &quot;world&quot; }&quot;&quot;&quot;;
+
+using var bundleStream = new MemoryStream();
+
+// Assemble policy source and data files into a bundle, entirely in memory.
+await using (var writer = new BundleWriter(bundleStream))
+{
+    writer.WriteEntry(policySource, &quot;policy.rego&quot;);
+    writer.WriteEntry(dataSource, &quot;data.json&quot;);
+}
+
+bundleStream.Seek(0, SeekOrigin.Begin);
+
+// The bundle still needs to be compiled to wasm before it can be evaluated.
+var compiler = new RegoCliCompiler();
+
+var policy = await compiler.CompileBundleAsync(
+    bundleStream,
+    new()
+    {
+        Entrypoints = [&quot;example/hello&quot;],
+    },
+    cancellationToken
+    );
+
+using var engine = OpaBundleEvaluatorFactory.Create(policy);
+
+</code></pre>
+<p>Other things <a class="xref" href="../../api/OpaDotNet.Compilation.Abstractions.BundleWriter.html">BundleWriter</a> can do:</p>
+<ul>
+<li><code>WriteFile</code> - add the contents of an existing file on disk as a bundle entry.</li>
+<li><code>WriteManifest</code> / the <code>manifest</code> constructor parameter - add bundle manifest (<code>.manifest</code>: roots, revision, metadata) into the
+bundle.</li>
+<li><code>WriteBundle</code> - merge the entries of another bundle with <em>sources</em> into this one, useful for combining several policies into a single bundle.</li>
+<li><code>FromDirectory</code> - create a <code>BundleWriter</code> pre-populated from a source directory, optionally excluding files
+matching glob patterns.</li>
+<li><code>MergeCapabilities</code> - a static helper that merges two <code>capabilities.json</code> files (e.g. built-in capabilities plus
+your own <a href="../Builtins.html">custom builtins</a>) into one.</li>
+</ul>
+<div class="NOTE">
+<h5>Note</h5>
+<p><code>BundleWriter</code> strips a UTF-8 byte-order-mark from entries content if present - <code>opa build</code> fails to parse <code>.rego</code>
+files that have one.</p>
+</div>
+<p><code>BundleWriter</code> writes a bundle of <em>sources</em> (<code>.rego</code>/<code>.json</code>/<code>.yaml</code>), not compiled wasm - you still need to run it
+through <a href="cli.html"><code>RegoCliCompiler</code></a> or <a href="interop.html"><code>RegoInteropCompiler</code></a> to get an evaluable <code>policy.wasm</code> bundle.</p>
 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/me-viper/OpaDotNet/blob/release/v2025.1.1/docs/articles/compilation/compilation.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/me-viper/OpaDotNet/blob/release/v2026.2.1/docs/articles/compilation/compilation.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

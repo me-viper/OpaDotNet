@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Bundle Signature Validation | OpaDotNet 2026.2.1 </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Bundle Signature Validation | OpaDotNet 2026.2.1 ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/me-viper/OpaDotNet/blob/release/v2026.2.1/docs/articles/compilation/signing.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.svg" alt="OpaDotNet">
+            OpaDotNet
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="bundle-signature-validation">Bundle Signature Validation</h1>
+
+<p>OPA bundles can be <a href="https://www.openpolicyagent.org/docs/latest/management-bundles/#signing">signed</a> to protect
+against tampering. A signature is a JWT (stored as <code>.signatures.json</code> in the bundle) that lists every file in the
+bundle together with its hash. <code>OpaDotNet</code> can verify that signature while unpacking a bundle, before any of its
+contents are loaded into the evaluator.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Signature validation only applies when loading a policy bundle (<code>OpaBundleEvaluatorFactory</code> /
+<code>OpaEvaluatorFactory.CreateFromBundle</code>). It has no effect when evaluating a raw compiled <code>policy.wasm</code> module.</p>
+</div>
+<h2 id="1-sign-the-bundle">1. Sign the bundle</h2>
+<p>Signing is done with the <code>opa</code> CLI, typically as part of your build pipeline:</p>
+<pre><code class="lang-sh">opa build -t wasm -b -e example/hello --signing-alg RS256 --signing-key private_key.pem -o bundle.tar.gz ./quickstart
+</code></pre>
+<p>This embeds a <code>.signatures.json</code> file into the resulting bundle, signed with the private key. Distribute the
+matching public key alongside your application so it can verify bundles at load time.</p>
+<h2 id="2-configure-validation">2. Configure validation</h2>
+<p>Signature validation is controlled by
+<a class="xref" href="../../api/OpaDotNet.Wasm.WasmPolicyEngineOptions.html#OpaDotNet_Wasm_WasmPolicyEngineOptions_SignatureValidation">WasmPolicyEngineOptions.SignatureValidation</a>,
+which is a <a class="xref" href="../../api/OpaDotNet.Wasm.SignatureValidationOptions.html">SignatureValidationOptions</a>:</p>
+<pre><code class="lang-csharp">
+var engineOptions = new WasmPolicyEngineOptions
+{
+    SignatureValidation = new()
+    {
+        // Fail evaluation if the bundle is not signed.
+        Validation = SignatureValidationType.Required,
+
+        // Public key used to verify the bundle signature (see &quot;opa sign&quot;).
+        VerificationKeyPath = &quot;data/signature/rsa_pub.pem&quot;,
+    },
+};
+
+// Signature is verified while the bundle is being unpacked.
+using var engine = OpaBundleEvaluatorFactory.Create(
+    File.OpenRead(&quot;data/signature/bundle.tar.gz&quot;),
+    engineOptions
+    );
+
+var result = engine.EvaluatePredicate(new { }, &quot;test_sign/allow&quot;);
+
+</code></pre>
+<p>Key options:</p>
+<ul>
+<li><a class="xref" href="../../api/OpaDotNet.Wasm.SignatureValidationOptions.html#OpaDotNet_Wasm_SignatureValidationOptions_Validation">Validation</a> -
+one of <a class="xref" href="../../api/OpaDotNet.Wasm.SignatureValidationType.html">SignatureValidationType</a>:
+<ul>
+<li><code>Default</code> - validate the signature if the bundle has one, skip otherwise.</li>
+<li><code>Required</code> - fail if the bundle is not signed.</li>
+<li><code>Skip</code> - never validate, even if a signature is present.</li>
+</ul>
+</li>
+<li><a class="xref" href="../../api/OpaDotNet.Wasm.SignatureValidationOptions.html#OpaDotNet_Wasm_SignatureValidationOptions_VerificationKey">VerificationKey</a> /
+<a class="xref" href="../../api/OpaDotNet.Wasm.SignatureValidationOptions.html#OpaDotNet_Wasm_SignatureValidationOptions_VerificationKeyPath">VerificationKeyPath</a> -
+the secret (HMAC) or PEM-encoded public key (RSA/ECDSA) used to verify the signature. <code>VerificationKeyPath</code> is
+ignored if <code>VerificationKey</code> is also specified.</li>
+<li><a class="xref" href="../../api/OpaDotNet.Wasm.SignatureValidationOptions.html#OpaDotNet_Wasm_SignatureValidationOptions_VerificationKeyId">VerificationKeyId</a> -
+expected key id (<code>kid</code>), matched against the token header when present (default <code>&quot;default&quot;</code>).</li>
+<li><a class="xref" href="../../api/OpaDotNet.Wasm.SignatureValidationOptions.html#OpaDotNet_Wasm_SignatureValidationOptions_SigningAlgorithm">SigningAlgorithm</a> -
+expected JWT signing algorithm (default <code>&quot;RS256&quot;</code>).</li>
+<li><a class="xref" href="../../api/OpaDotNet.Wasm.SignatureValidationOptions.html#OpaDotNet_Wasm_SignatureValidationOptions_ExcludeFiles">ExcludeFiles</a> -
+file names to exclude from verification (e.g. files added to the bundle after it was signed).</li>
+</ul>
+<h2 id="what-gets-checked">What gets checked</h2>
+<p>While unpacking the bundle, <code>OpaDotNet</code>:</p>
+<ul>
+<li>Verifies the <code>.signatures.json</code> JWT signature and, if configured, its <code>kid</code>.</li>
+<li>Recomputes the hash of every file in the bundle and compares it against the hash recorded in the signature.</li>
+<li>Fails if a file present in the bundle is missing from the signature, or vice versa (unless the file is listed in
+<code>ExcludeFiles</code>).</li>
+</ul>
+<p>Any failure raises an exception derived from <code>OpaRuntimeException</code>:</p>
+<ul>
+<li><a class="xref" href="../../api/OpaDotNet.Wasm.Validation.BundleSignatureValidationException.html">BundleSignatureValidationException</a> - general
+signature validation failures (missing/invalid key, JWT validation failure, structural mismatch between bundle and
+signature).</li>
+<li><a class="xref" href="../../api/OpaDotNet.Wasm.Validation.BundleChecksumValidationException.html">BundleChecksumValidationException</a> - a file's
+hash does not match the one recorded in the signature. Exposes <code>FileName</code>, <code>Alg</code>, <code>Expected</code> and <code>Actual</code> for
+diagnostics.</li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/me-viper/OpaDotNet/blob/release/v2026.2.1/docs/articles/compilation/signing.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

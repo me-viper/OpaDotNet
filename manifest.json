@@ -1,4 +1,5 @@
 {
+  "docfx_version": "2.81.0+ba844df625370a6bd7c1ecab0d0ec4d1d9128ac4",
   "source_base_path": "/home/runner/work/OpaDotNet/OpaDotNet/docs",
   "xrefmap": "xrefmap.yml",
   "files": [
@@ -144,6 +145,48 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Compilation.Cli.CheckOutputFormat.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Compilation.Cli.CheckOutputFormat.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Compilation.Cli.CheckOutputFormat",
+      "Summary": "<p sourcefile=\"api/OpaDotNet.Compilation.Cli.CheckOutputFormat.yml\" sourcestartlinenumber=\"1\">Check output format.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Compilation.Cli.CheckParameters.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Compilation.Cli.CheckParameters.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Compilation.Cli.CheckParameters",
+      "Summary": "<p sourcefile=\"api/OpaDotNet.Compilation.Cli.CheckParameters.yml\" sourcestartlinenumber=\"1\">Check parameters.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Compilation.Cli.CheckResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Compilation.Cli.CheckResult.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Compilation.Cli.CheckResult",
+      "Summary": "<p sourcefile=\"api/OpaDotNet.Compilation.Cli.CheckResult.yml\" sourcestartlinenumber=\"1\">Check results.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/OpaDotNet.Compilation.Cli.RegoCliCompiler.yml",
       "output": {
         ".html": {
@@ -155,6 +198,20 @@
       "IsMRef": true,
       "Title": "OpaDotNet.Compilation.Cli.RegoCliCompiler",
       "Summary": "<p sourcefile=\"api/OpaDotNet.Compilation.Cli.RegoCliCompiler.yml\" sourcestartlinenumber=\"1\">Compiles OPA bundle with opa cli tool.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions",
+      "Summary": "<p sourcefile=\"api/OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.yml\" sourcestartlinenumber=\"1\">Compilation extensions.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -253,6 +310,20 @@
       "IsMRef": true,
       "Title": "OpaDotNet.Wasm.Builtins.IOpaCustomBuiltins",
       "Summary": "<p sourcefile=\"api/OpaDotNet.Wasm.Builtins.IOpaCustomBuiltins.yml\" sourcestartlinenumber=\"1\">Custom OPA built-ins.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpaDotNet.Wasm.Builtins.IOpaCustomBuiltinsContext.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpaDotNet.Wasm.Builtins.IOpaCustomBuiltinsContext.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "OpaDotNet.Wasm.Builtins.IOpaCustomBuiltinsContext",
+      "Summary": "<p sourcefile=\"api/OpaDotNet.Wasm.Builtins.IOpaCustomBuiltinsContext.yml\" sourcestartlinenumber=\"1\">Context available to custom built-in function implementations.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -717,6 +788,16 @@
       "output": {
         ".html": {
           "relative_path": "articles/compilation/interop.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/compilation/signing.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/compilation/signing.html"
         }
       },
       "version": ""

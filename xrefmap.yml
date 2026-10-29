@@ -1315,6 +1315,345 @@ references:
   commentId: N:OpaDotNet.Compilation.Cli
   fullName: OpaDotNet.Compilation.Cli
   nameWithType: OpaDotNet.Compilation.Cli
+- uid: OpaDotNet.Compilation.Cli.CheckOutputFormat
+  name: CheckOutputFormat
+  href: api/OpaDotNet.Compilation.Cli.CheckOutputFormat.html
+  commentId: T:OpaDotNet.Compilation.Cli.CheckOutputFormat
+  fullName: OpaDotNet.Compilation.Cli.CheckOutputFormat
+  nameWithType: CheckOutputFormat
+- uid: OpaDotNet.Compilation.Cli.CheckOutputFormat.Json
+  name: Json
+  href: api/OpaDotNet.Compilation.Cli.CheckOutputFormat.html#OpaDotNet_Compilation_Cli_CheckOutputFormat_Json
+  commentId: F:OpaDotNet.Compilation.Cli.CheckOutputFormat.Json
+  fullName: OpaDotNet.Compilation.Cli.CheckOutputFormat.Json
+  nameWithType: CheckOutputFormat.Json
+- uid: OpaDotNet.Compilation.Cli.CheckOutputFormat.Pretty
+  name: Pretty
+  href: api/OpaDotNet.Compilation.Cli.CheckOutputFormat.html#OpaDotNet_Compilation_Cli_CheckOutputFormat_Pretty
+  commentId: F:OpaDotNet.Compilation.Cli.CheckOutputFormat.Pretty
+  fullName: OpaDotNet.Compilation.Cli.CheckOutputFormat.Pretty
+  nameWithType: CheckOutputFormat.Pretty
+- uid: OpaDotNet.Compilation.Cli.CheckParameters
+  name: CheckParameters
+  href: api/OpaDotNet.Compilation.Cli.CheckParameters.html
+  commentId: T:OpaDotNet.Compilation.Cli.CheckParameters
+  fullName: OpaDotNet.Compilation.Cli.CheckParameters
+  nameWithType: CheckParameters
+- uid: OpaDotNet.Compilation.Cli.CheckParameters.#ctor
+  name: CheckParameters()
+  href: api/OpaDotNet.Compilation.Cli.CheckParameters.html#OpaDotNet_Compilation_Cli_CheckParameters__ctor
+  commentId: M:OpaDotNet.Compilation.Cli.CheckParameters.#ctor
+  name.vb: New()
+  fullName: OpaDotNet.Compilation.Cli.CheckParameters.CheckParameters()
+  fullName.vb: OpaDotNet.Compilation.Cli.CheckParameters.New()
+  nameWithType: CheckParameters.CheckParameters()
+  nameWithType.vb: CheckParameters.New()
+- uid: OpaDotNet.Compilation.Cli.CheckParameters.#ctor(OpaDotNet.Compilation.Cli.CheckParameters)
+  name: CheckParameters(CheckParameters)
+  href: api/OpaDotNet.Compilation.Cli.CheckParameters.html#OpaDotNet_Compilation_Cli_CheckParameters__ctor_OpaDotNet_Compilation_Cli_CheckParameters_
+  commentId: M:OpaDotNet.Compilation.Cli.CheckParameters.#ctor(OpaDotNet.Compilation.Cli.CheckParameters)
+  name.vb: New(CheckParameters)
+  fullName: OpaDotNet.Compilation.Cli.CheckParameters.CheckParameters(OpaDotNet.Compilation.Cli.CheckParameters)
+  fullName.vb: OpaDotNet.Compilation.Cli.CheckParameters.New(OpaDotNet.Compilation.Cli.CheckParameters)
+  nameWithType: CheckParameters.CheckParameters(CheckParameters)
+  nameWithType.vb: CheckParameters.New(CheckParameters)
+- uid: OpaDotNet.Compilation.Cli.CheckParameters.#ctor*
+  name: CheckParameters
+  href: api/OpaDotNet.Compilation.Cli.CheckParameters.html#OpaDotNet_Compilation_Cli_CheckParameters__ctor_
+  commentId: Overload:OpaDotNet.Compilation.Cli.CheckParameters.#ctor
+  name.vb: New
+  fullName: OpaDotNet.Compilation.Cli.CheckParameters.CheckParameters
+  fullName.vb: OpaDotNet.Compilation.Cli.CheckParameters.New
+  nameWithType: CheckParameters.CheckParameters
+  nameWithType.vb: CheckParameters.New
+- uid: OpaDotNet.Compilation.Cli.CheckParameters.CapabilitiesBytes
+  name: CapabilitiesBytes
+  href: api/OpaDotNet.Compilation.Cli.CheckParameters.html#OpaDotNet_Compilation_Cli_CheckParameters_CapabilitiesBytes
+  commentId: P:OpaDotNet.Compilation.Cli.CheckParameters.CapabilitiesBytes
+  fullName: OpaDotNet.Compilation.Cli.CheckParameters.CapabilitiesBytes
+  nameWithType: CheckParameters.CapabilitiesBytes
+- uid: OpaDotNet.Compilation.Cli.CheckParameters.CapabilitiesBytes*
+  name: CapabilitiesBytes
+  href: api/OpaDotNet.Compilation.Cli.CheckParameters.html#OpaDotNet_Compilation_Cli_CheckParameters_CapabilitiesBytes_
+  commentId: Overload:OpaDotNet.Compilation.Cli.CheckParameters.CapabilitiesBytes
+  fullName: OpaDotNet.Compilation.Cli.CheckParameters.CapabilitiesBytes
+  nameWithType: CheckParameters.CapabilitiesBytes
+- uid: OpaDotNet.Compilation.Cli.CheckParameters.CapabilitiesFilePath
+  name: CapabilitiesFilePath
+  href: api/OpaDotNet.Compilation.Cli.CheckParameters.html#OpaDotNet_Compilation_Cli_CheckParameters_CapabilitiesFilePath
+  commentId: P:OpaDotNet.Compilation.Cli.CheckParameters.CapabilitiesFilePath
+  fullName: OpaDotNet.Compilation.Cli.CheckParameters.CapabilitiesFilePath
+  nameWithType: CheckParameters.CapabilitiesFilePath
+- uid: OpaDotNet.Compilation.Cli.CheckParameters.CapabilitiesFilePath*
+  name: CapabilitiesFilePath
+  href: api/OpaDotNet.Compilation.Cli.CheckParameters.html#OpaDotNet_Compilation_Cli_CheckParameters_CapabilitiesFilePath_
+  commentId: Overload:OpaDotNet.Compilation.Cli.CheckParameters.CapabilitiesFilePath
+  fullName: OpaDotNet.Compilation.Cli.CheckParameters.CapabilitiesFilePath
+  nameWithType: CheckParameters.CapabilitiesFilePath
+- uid: OpaDotNet.Compilation.Cli.CheckParameters.CapabilitiesVersion
+  name: CapabilitiesVersion
+  href: api/OpaDotNet.Compilation.Cli.CheckParameters.html#OpaDotNet_Compilation_Cli_CheckParameters_CapabilitiesVersion
+  commentId: P:OpaDotNet.Compilation.Cli.CheckParameters.CapabilitiesVersion
+  fullName: OpaDotNet.Compilation.Cli.CheckParameters.CapabilitiesVersion
+  nameWithType: CheckParameters.CapabilitiesVersion
+- uid: OpaDotNet.Compilation.Cli.CheckParameters.CapabilitiesVersion*
+  name: CapabilitiesVersion
+  href: api/OpaDotNet.Compilation.Cli.CheckParameters.html#OpaDotNet_Compilation_Cli_CheckParameters_CapabilitiesVersion_
+  commentId: Overload:OpaDotNet.Compilation.Cli.CheckParameters.CapabilitiesVersion
+  fullName: OpaDotNet.Compilation.Cli.CheckParameters.CapabilitiesVersion
+  nameWithType: CheckParameters.CapabilitiesVersion
+- uid: OpaDotNet.Compilation.Cli.CheckParameters.EqualityContract
+  name: EqualityContract
+  href: api/OpaDotNet.Compilation.Cli.CheckParameters.html#OpaDotNet_Compilation_Cli_CheckParameters_EqualityContract
+  commentId: P:OpaDotNet.Compilation.Cli.CheckParameters.EqualityContract
+  fullName: OpaDotNet.Compilation.Cli.CheckParameters.EqualityContract
+  nameWithType: CheckParameters.EqualityContract
+- uid: OpaDotNet.Compilation.Cli.CheckParameters.EqualityContract*
+  name: EqualityContract
+  href: api/OpaDotNet.Compilation.Cli.CheckParameters.html#OpaDotNet_Compilation_Cli_CheckParameters_EqualityContract_
+  commentId: Overload:OpaDotNet.Compilation.Cli.CheckParameters.EqualityContract
+  fullName: OpaDotNet.Compilation.Cli.CheckParameters.EqualityContract
+  nameWithType: CheckParameters.EqualityContract
+- uid: OpaDotNet.Compilation.Cli.CheckParameters.Equals(OpaDotNet.Compilation.Cli.CheckParameters)
+  name: Equals(CheckParameters?)
+  href: api/OpaDotNet.Compilation.Cli.CheckParameters.html#OpaDotNet_Compilation_Cli_CheckParameters_Equals_OpaDotNet_Compilation_Cli_CheckParameters_
+  commentId: M:OpaDotNet.Compilation.Cli.CheckParameters.Equals(OpaDotNet.Compilation.Cli.CheckParameters)
+  name.vb: Equals(CheckParameters)
+  fullName: OpaDotNet.Compilation.Cli.CheckParameters.Equals(OpaDotNet.Compilation.Cli.CheckParameters?)
+  fullName.vb: OpaDotNet.Compilation.Cli.CheckParameters.Equals(OpaDotNet.Compilation.Cli.CheckParameters)
+  nameWithType: CheckParameters.Equals(CheckParameters?)
+  nameWithType.vb: CheckParameters.Equals(CheckParameters)
+- uid: OpaDotNet.Compilation.Cli.CheckParameters.Equals(System.Object)
+  name: Equals(object?)
+  href: api/OpaDotNet.Compilation.Cli.CheckParameters.html#OpaDotNet_Compilation_Cli_CheckParameters_Equals_System_Object_
+  commentId: M:OpaDotNet.Compilation.Cli.CheckParameters.Equals(System.Object)
+  name.vb: Equals(Object)
+  fullName: OpaDotNet.Compilation.Cli.CheckParameters.Equals(object?)
+  fullName.vb: OpaDotNet.Compilation.Cli.CheckParameters.Equals(Object)
+  nameWithType: CheckParameters.Equals(object?)
+  nameWithType.vb: CheckParameters.Equals(Object)
+- uid: OpaDotNet.Compilation.Cli.CheckParameters.Equals*
+  name: Equals
+  href: api/OpaDotNet.Compilation.Cli.CheckParameters.html#OpaDotNet_Compilation_Cli_CheckParameters_Equals_
+  commentId: Overload:OpaDotNet.Compilation.Cli.CheckParameters.Equals
+  fullName: OpaDotNet.Compilation.Cli.CheckParameters.Equals
+  nameWithType: CheckParameters.Equals
+- uid: OpaDotNet.Compilation.Cli.CheckParameters.Format
+  name: Format
+  href: api/OpaDotNet.Compilation.Cli.CheckParameters.html#OpaDotNet_Compilation_Cli_CheckParameters_Format
+  commentId: P:OpaDotNet.Compilation.Cli.CheckParameters.Format
+  fullName: OpaDotNet.Compilation.Cli.CheckParameters.Format
+  nameWithType: CheckParameters.Format
+- uid: OpaDotNet.Compilation.Cli.CheckParameters.Format*
+  name: Format
+  href: api/OpaDotNet.Compilation.Cli.CheckParameters.html#OpaDotNet_Compilation_Cli_CheckParameters_Format_
+  commentId: Overload:OpaDotNet.Compilation.Cli.CheckParameters.Format
+  fullName: OpaDotNet.Compilation.Cli.CheckParameters.Format
+  nameWithType: CheckParameters.Format
+- uid: OpaDotNet.Compilation.Cli.CheckParameters.GetHashCode
+  name: GetHashCode()
+  href: api/OpaDotNet.Compilation.Cli.CheckParameters.html#OpaDotNet_Compilation_Cli_CheckParameters_GetHashCode
+  commentId: M:OpaDotNet.Compilation.Cli.CheckParameters.GetHashCode
+  fullName: OpaDotNet.Compilation.Cli.CheckParameters.GetHashCode()
+  nameWithType: CheckParameters.GetHashCode()
+- uid: OpaDotNet.Compilation.Cli.CheckParameters.GetHashCode*
+  name: GetHashCode
+  href: api/OpaDotNet.Compilation.Cli.CheckParameters.html#OpaDotNet_Compilation_Cli_CheckParameters_GetHashCode_
+  commentId: Overload:OpaDotNet.Compilation.Cli.CheckParameters.GetHashCode
+  fullName: OpaDotNet.Compilation.Cli.CheckParameters.GetHashCode
+  nameWithType: CheckParameters.GetHashCode
+- uid: OpaDotNet.Compilation.Cli.CheckParameters.Ignore
+  name: Ignore
+  href: api/OpaDotNet.Compilation.Cli.CheckParameters.html#OpaDotNet_Compilation_Cli_CheckParameters_Ignore
+  commentId: P:OpaDotNet.Compilation.Cli.CheckParameters.Ignore
+  fullName: OpaDotNet.Compilation.Cli.CheckParameters.Ignore
+  nameWithType: CheckParameters.Ignore
+- uid: OpaDotNet.Compilation.Cli.CheckParameters.Ignore*
+  name: Ignore
+  href: api/OpaDotNet.Compilation.Cli.CheckParameters.html#OpaDotNet_Compilation_Cli_CheckParameters_Ignore_
+  commentId: Overload:OpaDotNet.Compilation.Cli.CheckParameters.Ignore
+  fullName: OpaDotNet.Compilation.Cli.CheckParameters.Ignore
+  nameWithType: CheckParameters.Ignore
+- uid: OpaDotNet.Compilation.Cli.CheckParameters.IsBundle
+  name: IsBundle
+  href: api/OpaDotNet.Compilation.Cli.CheckParameters.html#OpaDotNet_Compilation_Cli_CheckParameters_IsBundle
+  commentId: P:OpaDotNet.Compilation.Cli.CheckParameters.IsBundle
+  fullName: OpaDotNet.Compilation.Cli.CheckParameters.IsBundle
+  nameWithType: CheckParameters.IsBundle
+- uid: OpaDotNet.Compilation.Cli.CheckParameters.IsBundle*
+  name: IsBundle
+  href: api/OpaDotNet.Compilation.Cli.CheckParameters.html#OpaDotNet_Compilation_Cli_CheckParameters_IsBundle_
+  commentId: Overload:OpaDotNet.Compilation.Cli.CheckParameters.IsBundle
+  fullName: OpaDotNet.Compilation.Cli.CheckParameters.IsBundle
+  nameWithType: CheckParameters.IsBundle
+- uid: OpaDotNet.Compilation.Cli.CheckParameters.MaxErrors
+  name: MaxErrors
+  href: api/OpaDotNet.Compilation.Cli.CheckParameters.html#OpaDotNet_Compilation_Cli_CheckParameters_MaxErrors
+  commentId: P:OpaDotNet.Compilation.Cli.CheckParameters.MaxErrors
+  fullName: OpaDotNet.Compilation.Cli.CheckParameters.MaxErrors
+  nameWithType: CheckParameters.MaxErrors
+- uid: OpaDotNet.Compilation.Cli.CheckParameters.MaxErrors*
+  name: MaxErrors
+  href: api/OpaDotNet.Compilation.Cli.CheckParameters.html#OpaDotNet_Compilation_Cli_CheckParameters_MaxErrors_
+  commentId: Overload:OpaDotNet.Compilation.Cli.CheckParameters.MaxErrors
+  fullName: OpaDotNet.Compilation.Cli.CheckParameters.MaxErrors
+  nameWithType: CheckParameters.MaxErrors
+- uid: OpaDotNet.Compilation.Cli.CheckParameters.PrintMembers(System.Text.StringBuilder)
+  name: PrintMembers(StringBuilder)
+  href: api/OpaDotNet.Compilation.Cli.CheckParameters.html#OpaDotNet_Compilation_Cli_CheckParameters_PrintMembers_System_Text_StringBuilder_
+  commentId: M:OpaDotNet.Compilation.Cli.CheckParameters.PrintMembers(System.Text.StringBuilder)
+  fullName: OpaDotNet.Compilation.Cli.CheckParameters.PrintMembers(System.Text.StringBuilder)
+  nameWithType: CheckParameters.PrintMembers(StringBuilder)
+- uid: OpaDotNet.Compilation.Cli.CheckParameters.PrintMembers*
+  name: PrintMembers
+  href: api/OpaDotNet.Compilation.Cli.CheckParameters.html#OpaDotNet_Compilation_Cli_CheckParameters_PrintMembers_
+  commentId: Overload:OpaDotNet.Compilation.Cli.CheckParameters.PrintMembers
+  fullName: OpaDotNet.Compilation.Cli.CheckParameters.PrintMembers
+  nameWithType: CheckParameters.PrintMembers
+- uid: OpaDotNet.Compilation.Cli.CheckParameters.RegoVersion
+  name: RegoVersion
+  href: api/OpaDotNet.Compilation.Cli.CheckParameters.html#OpaDotNet_Compilation_Cli_CheckParameters_RegoVersion
+  commentId: P:OpaDotNet.Compilation.Cli.CheckParameters.RegoVersion
+  fullName: OpaDotNet.Compilation.Cli.CheckParameters.RegoVersion
+  nameWithType: CheckParameters.RegoVersion
+- uid: OpaDotNet.Compilation.Cli.CheckParameters.RegoVersion*
+  name: RegoVersion
+  href: api/OpaDotNet.Compilation.Cli.CheckParameters.html#OpaDotNet_Compilation_Cli_CheckParameters_RegoVersion_
+  commentId: Overload:OpaDotNet.Compilation.Cli.CheckParameters.RegoVersion
+  fullName: OpaDotNet.Compilation.Cli.CheckParameters.RegoVersion
+  nameWithType: CheckParameters.RegoVersion
+- uid: OpaDotNet.Compilation.Cli.CheckParameters.Schema
+  name: Schema
+  href: api/OpaDotNet.Compilation.Cli.CheckParameters.html#OpaDotNet_Compilation_Cli_CheckParameters_Schema
+  commentId: P:OpaDotNet.Compilation.Cli.CheckParameters.Schema
+  fullName: OpaDotNet.Compilation.Cli.CheckParameters.Schema
+  nameWithType: CheckParameters.Schema
+- uid: OpaDotNet.Compilation.Cli.CheckParameters.Schema*
+  name: Schema
+  href: api/OpaDotNet.Compilation.Cli.CheckParameters.html#OpaDotNet_Compilation_Cli_CheckParameters_Schema_
+  commentId: Overload:OpaDotNet.Compilation.Cli.CheckParameters.Schema
+  fullName: OpaDotNet.Compilation.Cli.CheckParameters.Schema
+  nameWithType: CheckParameters.Schema
+- uid: OpaDotNet.Compilation.Cli.CheckParameters.Strict
+  name: Strict
+  href: api/OpaDotNet.Compilation.Cli.CheckParameters.html#OpaDotNet_Compilation_Cli_CheckParameters_Strict
+  commentId: P:OpaDotNet.Compilation.Cli.CheckParameters.Strict
+  fullName: OpaDotNet.Compilation.Cli.CheckParameters.Strict
+  nameWithType: CheckParameters.Strict
+- uid: OpaDotNet.Compilation.Cli.CheckParameters.Strict*
+  name: Strict
+  href: api/OpaDotNet.Compilation.Cli.CheckParameters.html#OpaDotNet_Compilation_Cli_CheckParameters_Strict_
+  commentId: Overload:OpaDotNet.Compilation.Cli.CheckParameters.Strict
+  fullName: OpaDotNet.Compilation.Cli.CheckParameters.Strict
+  nameWithType: CheckParameters.Strict
+- uid: OpaDotNet.Compilation.Cli.CheckParameters.ToString
+  name: ToString()
+  href: api/OpaDotNet.Compilation.Cli.CheckParameters.html#OpaDotNet_Compilation_Cli_CheckParameters_ToString
+  commentId: M:OpaDotNet.Compilation.Cli.CheckParameters.ToString
+  fullName: OpaDotNet.Compilation.Cli.CheckParameters.ToString()
+  nameWithType: CheckParameters.ToString()
+- uid: OpaDotNet.Compilation.Cli.CheckParameters.ToString*
+  name: ToString
+  href: api/OpaDotNet.Compilation.Cli.CheckParameters.html#OpaDotNet_Compilation_Cli_CheckParameters_ToString_
+  commentId: Overload:OpaDotNet.Compilation.Cli.CheckParameters.ToString
+  fullName: OpaDotNet.Compilation.Cli.CheckParameters.ToString
+  nameWithType: CheckParameters.ToString
+- uid: OpaDotNet.Compilation.Cli.CheckParameters.op_Equality(OpaDotNet.Compilation.Cli.CheckParameters,OpaDotNet.Compilation.Cli.CheckParameters)
+  name: operator ==(CheckParameters?, CheckParameters?)
+  href: api/OpaDotNet.Compilation.Cli.CheckParameters.html#OpaDotNet_Compilation_Cli_CheckParameters_op_Equality_OpaDotNet_Compilation_Cli_CheckParameters_OpaDotNet_Compilation_Cli_CheckParameters_
+  commentId: M:OpaDotNet.Compilation.Cli.CheckParameters.op_Equality(OpaDotNet.Compilation.Cli.CheckParameters,OpaDotNet.Compilation.Cli.CheckParameters)
+  name.vb: =(CheckParameters, CheckParameters)
+  fullName: OpaDotNet.Compilation.Cli.CheckParameters.operator ==(OpaDotNet.Compilation.Cli.CheckParameters?, OpaDotNet.Compilation.Cli.CheckParameters?)
+  fullName.vb: OpaDotNet.Compilation.Cli.CheckParameters.=(OpaDotNet.Compilation.Cli.CheckParameters, OpaDotNet.Compilation.Cli.CheckParameters)
+  nameWithType: CheckParameters.operator ==(CheckParameters?, CheckParameters?)
+  nameWithType.vb: CheckParameters.=(CheckParameters, CheckParameters)
+- uid: OpaDotNet.Compilation.Cli.CheckParameters.op_Equality*
+  name: operator ==
+  href: api/OpaDotNet.Compilation.Cli.CheckParameters.html#OpaDotNet_Compilation_Cli_CheckParameters_op_Equality_
+  commentId: Overload:OpaDotNet.Compilation.Cli.CheckParameters.op_Equality
+  name.vb: =
+  fullName: OpaDotNet.Compilation.Cli.CheckParameters.operator ==
+  fullName.vb: OpaDotNet.Compilation.Cli.CheckParameters.=
+  nameWithType: CheckParameters.operator ==
+  nameWithType.vb: CheckParameters.=
+- uid: OpaDotNet.Compilation.Cli.CheckParameters.op_Inequality(OpaDotNet.Compilation.Cli.CheckParameters,OpaDotNet.Compilation.Cli.CheckParameters)
+  name: operator !=(CheckParameters?, CheckParameters?)
+  href: api/OpaDotNet.Compilation.Cli.CheckParameters.html#OpaDotNet_Compilation_Cli_CheckParameters_op_Inequality_OpaDotNet_Compilation_Cli_CheckParameters_OpaDotNet_Compilation_Cli_CheckParameters_
+  commentId: M:OpaDotNet.Compilation.Cli.CheckParameters.op_Inequality(OpaDotNet.Compilation.Cli.CheckParameters,OpaDotNet.Compilation.Cli.CheckParameters)
+  name.vb: <>(CheckParameters, CheckParameters)
+  fullName: OpaDotNet.Compilation.Cli.CheckParameters.operator !=(OpaDotNet.Compilation.Cli.CheckParameters?, OpaDotNet.Compilation.Cli.CheckParameters?)
+  fullName.vb: OpaDotNet.Compilation.Cli.CheckParameters.<>(OpaDotNet.Compilation.Cli.CheckParameters, OpaDotNet.Compilation.Cli.CheckParameters)
+  nameWithType: CheckParameters.operator !=(CheckParameters?, CheckParameters?)
+  nameWithType.vb: CheckParameters.<>(CheckParameters, CheckParameters)
+- uid: OpaDotNet.Compilation.Cli.CheckParameters.op_Inequality*
+  name: operator !=
+  href: api/OpaDotNet.Compilation.Cli.CheckParameters.html#OpaDotNet_Compilation_Cli_CheckParameters_op_Inequality_
+  commentId: Overload:OpaDotNet.Compilation.Cli.CheckParameters.op_Inequality
+  name.vb: <>
+  fullName: OpaDotNet.Compilation.Cli.CheckParameters.operator !=
+  fullName.vb: OpaDotNet.Compilation.Cli.CheckParameters.<>
+  nameWithType: CheckParameters.operator !=
+  nameWithType.vb: CheckParameters.<>
+- uid: OpaDotNet.Compilation.Cli.CheckResult
+  name: CheckResult
+  href: api/OpaDotNet.Compilation.Cli.CheckResult.html
+  commentId: T:OpaDotNet.Compilation.Cli.CheckResult
+  fullName: OpaDotNet.Compilation.Cli.CheckResult
+  nameWithType: CheckResult
+- uid: OpaDotNet.Compilation.Cli.CheckResult.#ctor
+  name: CheckResult()
+  href: api/OpaDotNet.Compilation.Cli.CheckResult.html#OpaDotNet_Compilation_Cli_CheckResult__ctor
+  commentId: M:OpaDotNet.Compilation.Cli.CheckResult.#ctor
+  name.vb: New()
+  fullName: OpaDotNet.Compilation.Cli.CheckResult.CheckResult()
+  fullName.vb: OpaDotNet.Compilation.Cli.CheckResult.New()
+  nameWithType: CheckResult.CheckResult()
+  nameWithType.vb: CheckResult.New()
+- uid: OpaDotNet.Compilation.Cli.CheckResult.#ctor*
+  name: CheckResult
+  href: api/OpaDotNet.Compilation.Cli.CheckResult.html#OpaDotNet_Compilation_Cli_CheckResult__ctor_
+  commentId: Overload:OpaDotNet.Compilation.Cli.CheckResult.#ctor
+  name.vb: New
+  fullName: OpaDotNet.Compilation.Cli.CheckResult.CheckResult
+  fullName.vb: OpaDotNet.Compilation.Cli.CheckResult.New
+  nameWithType: CheckResult.CheckResult
+  nameWithType.vb: CheckResult.New
+- uid: OpaDotNet.Compilation.Cli.CheckResult.ExitCode
+  name: ExitCode
+  href: api/OpaDotNet.Compilation.Cli.CheckResult.html#OpaDotNet_Compilation_Cli_CheckResult_ExitCode
+  commentId: P:OpaDotNet.Compilation.Cli.CheckResult.ExitCode
+  fullName: OpaDotNet.Compilation.Cli.CheckResult.ExitCode
+  nameWithType: CheckResult.ExitCode
+- uid: OpaDotNet.Compilation.Cli.CheckResult.ExitCode*
+  name: ExitCode
+  href: api/OpaDotNet.Compilation.Cli.CheckResult.html#OpaDotNet_Compilation_Cli_CheckResult_ExitCode_
+  commentId: Overload:OpaDotNet.Compilation.Cli.CheckResult.ExitCode
+  fullName: OpaDotNet.Compilation.Cli.CheckResult.ExitCode
+  nameWithType: CheckResult.ExitCode
+- uid: OpaDotNet.Compilation.Cli.CheckResult.Output
+  name: Output
+  href: api/OpaDotNet.Compilation.Cli.CheckResult.html#OpaDotNet_Compilation_Cli_CheckResult_Output
+  commentId: P:OpaDotNet.Compilation.Cli.CheckResult.Output
+  fullName: OpaDotNet.Compilation.Cli.CheckResult.Output
+  nameWithType: CheckResult.Output
+- uid: OpaDotNet.Compilation.Cli.CheckResult.Output*
+  name: Output
+  href: api/OpaDotNet.Compilation.Cli.CheckResult.html#OpaDotNet_Compilation_Cli_CheckResult_Output_
+  commentId: Overload:OpaDotNet.Compilation.Cli.CheckResult.Output
+  fullName: OpaDotNet.Compilation.Cli.CheckResult.Output
+  nameWithType: CheckResult.Output
+- uid: OpaDotNet.Compilation.Cli.CheckResult.Success
+  name: Success
+  href: api/OpaDotNet.Compilation.Cli.CheckResult.html#OpaDotNet_Compilation_Cli_CheckResult_Success
+  commentId: P:OpaDotNet.Compilation.Cli.CheckResult.Success
+  fullName: OpaDotNet.Compilation.Cli.CheckResult.Success
+  nameWithType: CheckResult.Success
+- uid: OpaDotNet.Compilation.Cli.CheckResult.Success*
+  name: Success
+  href: api/OpaDotNet.Compilation.Cli.CheckResult.html#OpaDotNet_Compilation_Cli_CheckResult_Success_
+  commentId: Overload:OpaDotNet.Compilation.Cli.CheckResult.Success
+  fullName: OpaDotNet.Compilation.Cli.CheckResult.Success
+  nameWithType: CheckResult.Success
 - uid: OpaDotNet.Compilation.Cli.RegoCliCompiler
   name: RegoCliCompiler
   href: api/OpaDotNet.Compilation.Cli.RegoCliCompiler.html
@@ -1339,6 +1678,27 @@ references:
   fullName.vb: OpaDotNet.Compilation.Cli.RegoCliCompiler.New
   nameWithType: RegoCliCompiler.RegoCliCompiler
   nameWithType.vb: RegoCliCompiler.New
+- uid: OpaDotNet.Compilation.Cli.RegoCliCompiler.CheckAsync(System.IO.Stream,OpaDotNet.Compilation.Cli.CheckParameters,System.Threading.CancellationToken)
+  name: CheckAsync(Stream, CheckParameters, CancellationToken)
+  href: api/OpaDotNet.Compilation.Cli.RegoCliCompiler.html#OpaDotNet_Compilation_Cli_RegoCliCompiler_CheckAsync_System_IO_Stream_OpaDotNet_Compilation_Cli_CheckParameters_System_Threading_CancellationToken_
+  commentId: M:OpaDotNet.Compilation.Cli.RegoCliCompiler.CheckAsync(System.IO.Stream,OpaDotNet.Compilation.Cli.CheckParameters,System.Threading.CancellationToken)
+  fullName: OpaDotNet.Compilation.Cli.RegoCliCompiler.CheckAsync(System.IO.Stream, OpaDotNet.Compilation.Cli.CheckParameters, System.Threading.CancellationToken)
+  nameWithType: RegoCliCompiler.CheckAsync(Stream, CheckParameters, CancellationToken)
+- uid: OpaDotNet.Compilation.Cli.RegoCliCompiler.CheckAsync(System.String,OpaDotNet.Compilation.Cli.CheckParameters,System.Threading.CancellationToken)
+  name: CheckAsync(string, CheckParameters, CancellationToken)
+  href: api/OpaDotNet.Compilation.Cli.RegoCliCompiler.html#OpaDotNet_Compilation_Cli_RegoCliCompiler_CheckAsync_System_String_OpaDotNet_Compilation_Cli_CheckParameters_System_Threading_CancellationToken_
+  commentId: M:OpaDotNet.Compilation.Cli.RegoCliCompiler.CheckAsync(System.String,OpaDotNet.Compilation.Cli.CheckParameters,System.Threading.CancellationToken)
+  name.vb: CheckAsync(String, CheckParameters, CancellationToken)
+  fullName: OpaDotNet.Compilation.Cli.RegoCliCompiler.CheckAsync(string, OpaDotNet.Compilation.Cli.CheckParameters, System.Threading.CancellationToken)
+  fullName.vb: OpaDotNet.Compilation.Cli.RegoCliCompiler.CheckAsync(String, OpaDotNet.Compilation.Cli.CheckParameters, System.Threading.CancellationToken)
+  nameWithType: RegoCliCompiler.CheckAsync(string, CheckParameters, CancellationToken)
+  nameWithType.vb: RegoCliCompiler.CheckAsync(String, CheckParameters, CancellationToken)
+- uid: OpaDotNet.Compilation.Cli.RegoCliCompiler.CheckAsync*
+  name: CheckAsync
+  href: api/OpaDotNet.Compilation.Cli.RegoCliCompiler.html#OpaDotNet_Compilation_Cli_RegoCliCompiler_CheckAsync_
+  commentId: Overload:OpaDotNet.Compilation.Cli.RegoCliCompiler.CheckAsync
+  fullName: OpaDotNet.Compilation.Cli.RegoCliCompiler.CheckAsync
+  nameWithType: RegoCliCompiler.CheckAsync
 - uid: OpaDotNet.Compilation.Cli.RegoCliCompiler.Compile(System.IO.Stream,OpaDotNet.Compilation.Abstractions.CompilationParameters,System.Threading.CancellationToken)
   name: Compile(Stream, CompilationParameters, CancellationToken)
   href: api/OpaDotNet.Compilation.Cli.RegoCliCompiler.html#OpaDotNet_Compilation_Cli_RegoCliCompiler_Compile_System_IO_Stream_OpaDotNet_Compilation_Abstractions_CompilationParameters_System_Threading_CancellationToken_
@@ -1372,6 +1732,96 @@ references:
   commentId: Overload:OpaDotNet.Compilation.Cli.RegoCliCompiler.Version
   fullName: OpaDotNet.Compilation.Cli.RegoCliCompiler.Version
   nameWithType: RegoCliCompiler.Version
+- uid: OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions
+  name: RegoCliCompilerExtensions
+  href: api/OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.html
+  commentId: T:OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions
+  fullName: OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions
+  nameWithType: RegoCliCompilerExtensions
+- uid: OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckBundleAsync(OpaDotNet.Compilation.Cli.RegoCliCompiler,System.IO.Stream,OpaDotNet.Compilation.Cli.CheckParameters)
+  name: CheckBundleAsync(RegoCliCompiler, Stream, CheckParameters)
+  href: api/OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.html#OpaDotNet_Compilation_Cli_RegoCliCompilerExtensions_CheckBundleAsync_OpaDotNet_Compilation_Cli_RegoCliCompiler_System_IO_Stream_OpaDotNet_Compilation_Cli_CheckParameters_
+  commentId: M:OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckBundleAsync(OpaDotNet.Compilation.Cli.RegoCliCompiler,System.IO.Stream,OpaDotNet.Compilation.Cli.CheckParameters)
+  fullName: OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckBundleAsync(OpaDotNet.Compilation.Cli.RegoCliCompiler, System.IO.Stream, OpaDotNet.Compilation.Cli.CheckParameters)
+  nameWithType: RegoCliCompilerExtensions.CheckBundleAsync(RegoCliCompiler, Stream, CheckParameters)
+- uid: OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckBundleAsync(OpaDotNet.Compilation.Cli.RegoCliCompiler,System.IO.Stream,OpaDotNet.Compilation.Cli.CheckParameters,System.Threading.CancellationToken)
+  name: CheckBundleAsync(RegoCliCompiler, Stream, CheckParameters, CancellationToken)
+  href: api/OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.html#OpaDotNet_Compilation_Cli_RegoCliCompilerExtensions_CheckBundleAsync_OpaDotNet_Compilation_Cli_RegoCliCompiler_System_IO_Stream_OpaDotNet_Compilation_Cli_CheckParameters_System_Threading_CancellationToken_
+  commentId: M:OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckBundleAsync(OpaDotNet.Compilation.Cli.RegoCliCompiler,System.IO.Stream,OpaDotNet.Compilation.Cli.CheckParameters,System.Threading.CancellationToken)
+  fullName: OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckBundleAsync(OpaDotNet.Compilation.Cli.RegoCliCompiler, System.IO.Stream, OpaDotNet.Compilation.Cli.CheckParameters, System.Threading.CancellationToken)
+  nameWithType: RegoCliCompilerExtensions.CheckBundleAsync(RegoCliCompiler, Stream, CheckParameters, CancellationToken)
+- uid: OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckBundleAsync(OpaDotNet.Compilation.Cli.RegoCliCompiler,System.String,OpaDotNet.Compilation.Cli.CheckParameters)
+  name: CheckBundleAsync(RegoCliCompiler, string, CheckParameters)
+  href: api/OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.html#OpaDotNet_Compilation_Cli_RegoCliCompilerExtensions_CheckBundleAsync_OpaDotNet_Compilation_Cli_RegoCliCompiler_System_String_OpaDotNet_Compilation_Cli_CheckParameters_
+  commentId: M:OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckBundleAsync(OpaDotNet.Compilation.Cli.RegoCliCompiler,System.String,OpaDotNet.Compilation.Cli.CheckParameters)
+  name.vb: CheckBundleAsync(RegoCliCompiler, String, CheckParameters)
+  fullName: OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckBundleAsync(OpaDotNet.Compilation.Cli.RegoCliCompiler, string, OpaDotNet.Compilation.Cli.CheckParameters)
+  fullName.vb: OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckBundleAsync(OpaDotNet.Compilation.Cli.RegoCliCompiler, String, OpaDotNet.Compilation.Cli.CheckParameters)
+  nameWithType: RegoCliCompilerExtensions.CheckBundleAsync(RegoCliCompiler, string, CheckParameters)
+  nameWithType.vb: RegoCliCompilerExtensions.CheckBundleAsync(RegoCliCompiler, String, CheckParameters)
+- uid: OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckBundleAsync(OpaDotNet.Compilation.Cli.RegoCliCompiler,System.String,OpaDotNet.Compilation.Cli.CheckParameters,System.Threading.CancellationToken)
+  name: CheckBundleAsync(RegoCliCompiler, string, CheckParameters, CancellationToken)
+  href: api/OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.html#OpaDotNet_Compilation_Cli_RegoCliCompilerExtensions_CheckBundleAsync_OpaDotNet_Compilation_Cli_RegoCliCompiler_System_String_OpaDotNet_Compilation_Cli_CheckParameters_System_Threading_CancellationToken_
+  commentId: M:OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckBundleAsync(OpaDotNet.Compilation.Cli.RegoCliCompiler,System.String,OpaDotNet.Compilation.Cli.CheckParameters,System.Threading.CancellationToken)
+  name.vb: CheckBundleAsync(RegoCliCompiler, String, CheckParameters, CancellationToken)
+  fullName: OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckBundleAsync(OpaDotNet.Compilation.Cli.RegoCliCompiler, string, OpaDotNet.Compilation.Cli.CheckParameters, System.Threading.CancellationToken)
+  fullName.vb: OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckBundleAsync(OpaDotNet.Compilation.Cli.RegoCliCompiler, String, OpaDotNet.Compilation.Cli.CheckParameters, System.Threading.CancellationToken)
+  nameWithType: RegoCliCompilerExtensions.CheckBundleAsync(RegoCliCompiler, string, CheckParameters, CancellationToken)
+  nameWithType.vb: RegoCliCompilerExtensions.CheckBundleAsync(RegoCliCompiler, String, CheckParameters, CancellationToken)
+- uid: OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckBundleAsync*
+  name: CheckBundleAsync
+  href: api/OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.html#OpaDotNet_Compilation_Cli_RegoCliCompilerExtensions_CheckBundleAsync_
+  commentId: Overload:OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckBundleAsync
+  fullName: OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckBundleAsync
+  nameWithType: RegoCliCompilerExtensions.CheckBundleAsync
+- uid: OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckFileAsync(OpaDotNet.Compilation.Cli.RegoCliCompiler,System.String,OpaDotNet.Compilation.Cli.CheckParameters)
+  name: CheckFileAsync(RegoCliCompiler, string, CheckParameters)
+  href: api/OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.html#OpaDotNet_Compilation_Cli_RegoCliCompilerExtensions_CheckFileAsync_OpaDotNet_Compilation_Cli_RegoCliCompiler_System_String_OpaDotNet_Compilation_Cli_CheckParameters_
+  commentId: M:OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckFileAsync(OpaDotNet.Compilation.Cli.RegoCliCompiler,System.String,OpaDotNet.Compilation.Cli.CheckParameters)
+  name.vb: CheckFileAsync(RegoCliCompiler, String, CheckParameters)
+  fullName: OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckFileAsync(OpaDotNet.Compilation.Cli.RegoCliCompiler, string, OpaDotNet.Compilation.Cli.CheckParameters)
+  fullName.vb: OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckFileAsync(OpaDotNet.Compilation.Cli.RegoCliCompiler, String, OpaDotNet.Compilation.Cli.CheckParameters)
+  nameWithType: RegoCliCompilerExtensions.CheckFileAsync(RegoCliCompiler, string, CheckParameters)
+  nameWithType.vb: RegoCliCompilerExtensions.CheckFileAsync(RegoCliCompiler, String, CheckParameters)
+- uid: OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckFileAsync(OpaDotNet.Compilation.Cli.RegoCliCompiler,System.String,OpaDotNet.Compilation.Cli.CheckParameters,System.Threading.CancellationToken)
+  name: CheckFileAsync(RegoCliCompiler, string, CheckParameters, CancellationToken)
+  href: api/OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.html#OpaDotNet_Compilation_Cli_RegoCliCompilerExtensions_CheckFileAsync_OpaDotNet_Compilation_Cli_RegoCliCompiler_System_String_OpaDotNet_Compilation_Cli_CheckParameters_System_Threading_CancellationToken_
+  commentId: M:OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckFileAsync(OpaDotNet.Compilation.Cli.RegoCliCompiler,System.String,OpaDotNet.Compilation.Cli.CheckParameters,System.Threading.CancellationToken)
+  name.vb: CheckFileAsync(RegoCliCompiler, String, CheckParameters, CancellationToken)
+  fullName: OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckFileAsync(OpaDotNet.Compilation.Cli.RegoCliCompiler, string, OpaDotNet.Compilation.Cli.CheckParameters, System.Threading.CancellationToken)
+  fullName.vb: OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckFileAsync(OpaDotNet.Compilation.Cli.RegoCliCompiler, String, OpaDotNet.Compilation.Cli.CheckParameters, System.Threading.CancellationToken)
+  nameWithType: RegoCliCompilerExtensions.CheckFileAsync(RegoCliCompiler, string, CheckParameters, CancellationToken)
+  nameWithType.vb: RegoCliCompilerExtensions.CheckFileAsync(RegoCliCompiler, String, CheckParameters, CancellationToken)
+- uid: OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckFileAsync*
+  name: CheckFileAsync
+  href: api/OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.html#OpaDotNet_Compilation_Cli_RegoCliCompilerExtensions_CheckFileAsync_
+  commentId: Overload:OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckFileAsync
+  fullName: OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckFileAsync
+  nameWithType: RegoCliCompilerExtensions.CheckFileAsync
+- uid: OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckSourceAsync(OpaDotNet.Compilation.Cli.RegoCliCompiler,System.String,OpaDotNet.Compilation.Cli.CheckParameters)
+  name: CheckSourceAsync(RegoCliCompiler, string, CheckParameters)
+  href: api/OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.html#OpaDotNet_Compilation_Cli_RegoCliCompilerExtensions_CheckSourceAsync_OpaDotNet_Compilation_Cli_RegoCliCompiler_System_String_OpaDotNet_Compilation_Cli_CheckParameters_
+  commentId: M:OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckSourceAsync(OpaDotNet.Compilation.Cli.RegoCliCompiler,System.String,OpaDotNet.Compilation.Cli.CheckParameters)
+  name.vb: CheckSourceAsync(RegoCliCompiler, String, CheckParameters)
+  fullName: OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckSourceAsync(OpaDotNet.Compilation.Cli.RegoCliCompiler, string, OpaDotNet.Compilation.Cli.CheckParameters)
+  fullName.vb: OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckSourceAsync(OpaDotNet.Compilation.Cli.RegoCliCompiler, String, OpaDotNet.Compilation.Cli.CheckParameters)
+  nameWithType: RegoCliCompilerExtensions.CheckSourceAsync(RegoCliCompiler, string, CheckParameters)
+  nameWithType.vb: RegoCliCompilerExtensions.CheckSourceAsync(RegoCliCompiler, String, CheckParameters)
+- uid: OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckSourceAsync(OpaDotNet.Compilation.Cli.RegoCliCompiler,System.String,OpaDotNet.Compilation.Cli.CheckParameters,System.Threading.CancellationToken)
+  name: CheckSourceAsync(RegoCliCompiler, string, CheckParameters, CancellationToken)
+  href: api/OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.html#OpaDotNet_Compilation_Cli_RegoCliCompilerExtensions_CheckSourceAsync_OpaDotNet_Compilation_Cli_RegoCliCompiler_System_String_OpaDotNet_Compilation_Cli_CheckParameters_System_Threading_CancellationToken_
+  commentId: M:OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckSourceAsync(OpaDotNet.Compilation.Cli.RegoCliCompiler,System.String,OpaDotNet.Compilation.Cli.CheckParameters,System.Threading.CancellationToken)
+  name.vb: CheckSourceAsync(RegoCliCompiler, String, CheckParameters, CancellationToken)
+  fullName: OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckSourceAsync(OpaDotNet.Compilation.Cli.RegoCliCompiler, string, OpaDotNet.Compilation.Cli.CheckParameters, System.Threading.CancellationToken)
+  fullName.vb: OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckSourceAsync(OpaDotNet.Compilation.Cli.RegoCliCompiler, String, OpaDotNet.Compilation.Cli.CheckParameters, System.Threading.CancellationToken)
+  nameWithType: RegoCliCompilerExtensions.CheckSourceAsync(RegoCliCompiler, string, CheckParameters, CancellationToken)
+  nameWithType.vb: RegoCliCompilerExtensions.CheckSourceAsync(RegoCliCompiler, String, CheckParameters, CancellationToken)
+- uid: OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckSourceAsync*
+  name: CheckSourceAsync
+  href: api/OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.html#OpaDotNet_Compilation_Cli_RegoCliCompilerExtensions_CheckSourceAsync_
+  commentId: Overload:OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckSourceAsync
+  fullName: OpaDotNet.Compilation.Cli.RegoCliCompilerExtensions.CheckSourceAsync
+  nameWithType: RegoCliCompilerExtensions.CheckSourceAsync
 - uid: OpaDotNet.Compilation.Cli.RegoCliCompilerOptions
   name: RegoCliCompilerOptions
   href: api/OpaDotNet.Compilation.Cli.RegoCliCompilerOptions.html
@@ -1594,6 +2044,18 @@ references:
   fullName.vb: OpaDotNet.Wasm.BuiltinContext.New
   nameWithType: BuiltinContext.BuiltinContext
   nameWithType.vb: BuiltinContext.New
+- uid: OpaDotNet.Wasm.BuiltinContext.CancellationToken
+  name: CancellationToken
+  href: api/OpaDotNet.Wasm.BuiltinContext.html#OpaDotNet_Wasm_BuiltinContext_CancellationToken
+  commentId: P:OpaDotNet.Wasm.BuiltinContext.CancellationToken
+  fullName: OpaDotNet.Wasm.BuiltinContext.CancellationToken
+  nameWithType: BuiltinContext.CancellationToken
+- uid: OpaDotNet.Wasm.BuiltinContext.CancellationToken*
+  name: CancellationToken
+  href: api/OpaDotNet.Wasm.BuiltinContext.html#OpaDotNet_Wasm_BuiltinContext_CancellationToken_
+  commentId: Overload:OpaDotNet.Wasm.BuiltinContext.CancellationToken
+  fullName: OpaDotNet.Wasm.BuiltinContext.CancellationToken
+  nameWithType: BuiltinContext.CancellationToken
 - uid: OpaDotNet.Wasm.BuiltinContext.EqualityContract
   name: EqualityContract
   href: api/OpaDotNet.Wasm.BuiltinContext.html#OpaDotNet_Wasm_BuiltinContext_EqualityContract
@@ -1774,6 +2236,36 @@ references:
   commentId: Overload:OpaDotNet.Wasm.Builtins.IOpaCustomBuiltins.Reset
   fullName: OpaDotNet.Wasm.Builtins.IOpaCustomBuiltins.Reset
   nameWithType: IOpaCustomBuiltins.Reset
+- uid: OpaDotNet.Wasm.Builtins.IOpaCustomBuiltinsContext
+  name: IOpaCustomBuiltinsContext
+  href: api/OpaDotNet.Wasm.Builtins.IOpaCustomBuiltinsContext.html
+  commentId: T:OpaDotNet.Wasm.Builtins.IOpaCustomBuiltinsContext
+  fullName: OpaDotNet.Wasm.Builtins.IOpaCustomBuiltinsContext
+  nameWithType: IOpaCustomBuiltinsContext
+- uid: OpaDotNet.Wasm.Builtins.IOpaCustomBuiltinsContext.CancellationToken
+  name: CancellationToken
+  href: api/OpaDotNet.Wasm.Builtins.IOpaCustomBuiltinsContext.html#OpaDotNet_Wasm_Builtins_IOpaCustomBuiltinsContext_CancellationToken
+  commentId: P:OpaDotNet.Wasm.Builtins.IOpaCustomBuiltinsContext.CancellationToken
+  fullName: OpaDotNet.Wasm.Builtins.IOpaCustomBuiltinsContext.CancellationToken
+  nameWithType: IOpaCustomBuiltinsContext.CancellationToken
+- uid: OpaDotNet.Wasm.Builtins.IOpaCustomBuiltinsContext.CancellationToken*
+  name: CancellationToken
+  href: api/OpaDotNet.Wasm.Builtins.IOpaCustomBuiltinsContext.html#OpaDotNet_Wasm_Builtins_IOpaCustomBuiltinsContext_CancellationToken_
+  commentId: Overload:OpaDotNet.Wasm.Builtins.IOpaCustomBuiltinsContext.CancellationToken
+  fullName: OpaDotNet.Wasm.Builtins.IOpaCustomBuiltinsContext.CancellationToken
+  nameWithType: IOpaCustomBuiltinsContext.CancellationToken
+- uid: OpaDotNet.Wasm.Builtins.IOpaCustomBuiltinsContext.JsonSerializerOptions
+  name: JsonSerializerOptions
+  href: api/OpaDotNet.Wasm.Builtins.IOpaCustomBuiltinsContext.html#OpaDotNet_Wasm_Builtins_IOpaCustomBuiltinsContext_JsonSerializerOptions
+  commentId: P:OpaDotNet.Wasm.Builtins.IOpaCustomBuiltinsContext.JsonSerializerOptions
+  fullName: OpaDotNet.Wasm.Builtins.IOpaCustomBuiltinsContext.JsonSerializerOptions
+  nameWithType: IOpaCustomBuiltinsContext.JsonSerializerOptions
+- uid: OpaDotNet.Wasm.Builtins.IOpaCustomBuiltinsContext.JsonSerializerOptions*
+  name: JsonSerializerOptions
+  href: api/OpaDotNet.Wasm.Builtins.IOpaCustomBuiltinsContext.html#OpaDotNet_Wasm_Builtins_IOpaCustomBuiltinsContext_JsonSerializerOptions_
+  commentId: Overload:OpaDotNet.Wasm.Builtins.IOpaCustomBuiltinsContext.JsonSerializerOptions
+  fullName: OpaDotNet.Wasm.Builtins.IOpaCustomBuiltinsContext.JsonSerializerOptions
+  nameWithType: IOpaCustomBuiltinsContext.JsonSerializerOptions
 - uid: OpaDotNet.Wasm.Builtins.IOpaCustomPrinter
   name: IOpaCustomPrinter
   href: api/OpaDotNet.Wasm.Builtins.IOpaCustomPrinter.html
@@ -3092,3 +3584,15 @@ references:
   commentId: Overload:OpaDotNet.Wasm.WasmPolicyEngineOptions.StrictBuiltinErrors
   fullName: OpaDotNet.Wasm.WasmPolicyEngineOptions.StrictBuiltinErrors
   nameWithType: WasmPolicyEngineOptions.StrictBuiltinErrors
+- uid: OpaDotNet.Wasm.WasmPolicyEngineOptions.Timeout
+  name: Timeout
+  href: api/OpaDotNet.Wasm.WasmPolicyEngineOptions.html#OpaDotNet_Wasm_WasmPolicyEngineOptions_Timeout
+  commentId: P:OpaDotNet.Wasm.WasmPolicyEngineOptions.Timeout
+  fullName: OpaDotNet.Wasm.WasmPolicyEngineOptions.Timeout
+  nameWithType: WasmPolicyEngineOptions.Timeout
+- uid: OpaDotNet.Wasm.WasmPolicyEngineOptions.Timeout*
+  name: Timeout
+  href: api/OpaDotNet.Wasm.WasmPolicyEngineOptions.html#OpaDotNet_Wasm_WasmPolicyEngineOptions_Timeout_
+  commentId: Overload:OpaDotNet.Wasm.WasmPolicyEngineOptions.Timeout
+  fullName: OpaDotNet.Wasm.WasmPolicyEngineOptions.Timeout
+  nameWithType: WasmPolicyEngineOptions.Timeout
