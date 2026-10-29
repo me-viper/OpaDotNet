@@ -6,12 +6,16 @@ OpaDotNet.Wasm.BuiltinArg.AsOrNull<T>(System.Func<T>? defaultValue = null, OpaDo
 OpaDotNet.Wasm.BuiltinArg.Raw.get -> System.Text.Json.Nodes.JsonNode?
 OpaDotNet.Wasm.BuiltinArg.RawJson.get -> System.Text.Json.Nodes.JsonNode?
 OpaDotNet.Wasm.BuiltinContext
+OpaDotNet.Wasm.BuiltinContext.CancellationToken.get -> System.Threading.CancellationToken
 OpaDotNet.Wasm.BuiltinContext.FunctionName.get -> string!
 OpaDotNet.Wasm.BuiltinContext.JsonSerializerOptions.get -> System.Text.Json.JsonSerializerOptions!
 OpaDotNet.Wasm.BuiltinContext.OpaContext.get -> int
 OpaDotNet.Wasm.BuiltinContext.StrictBuiltinErrors.get -> bool
 OpaDotNet.Wasm.Builtins.IOpaCustomBuiltins
 OpaDotNet.Wasm.Builtins.IOpaCustomBuiltins.Reset() -> void
+OpaDotNet.Wasm.Builtins.IOpaCustomBuiltinsContext
+OpaDotNet.Wasm.Builtins.IOpaCustomBuiltinsContext.CancellationToken.get -> System.Threading.CancellationToken
+OpaDotNet.Wasm.Builtins.IOpaCustomBuiltinsContext.JsonSerializerOptions.get -> System.Text.Json.JsonSerializerOptions!
 OpaDotNet.Wasm.Builtins.IOpaCustomPrinter
 OpaDotNet.Wasm.Builtins.IOpaCustomPrinter.Print(System.Collections.Generic.IEnumerable<string!>! args) -> void
 OpaDotNet.Wasm.Builtins.OpaCustomBuiltinAttribute
@@ -126,6 +130,8 @@ OpaDotNet.Wasm.WasmPolicyEngineOptions.SignatureValidation.get -> OpaDotNet.Wasm
 OpaDotNet.Wasm.WasmPolicyEngineOptions.SignatureValidation.set -> void
 OpaDotNet.Wasm.WasmPolicyEngineOptions.StrictBuiltinErrors.get -> bool
 OpaDotNet.Wasm.WasmPolicyEngineOptions.StrictBuiltinErrors.set -> void
+OpaDotNet.Wasm.WasmPolicyEngineOptions.Timeout.get -> System.TimeSpan
+OpaDotNet.Wasm.WasmPolicyEngineOptions.Timeout.set -> void
 OpaDotNet.Wasm.WasmPolicyEngineOptions.WasmPolicyEngineOptions() -> void
 static OpaDotNet.Wasm.OpaBundleEvaluatorFactory.Create(System.IO.Stream! source, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null) -> OpaDotNet.Wasm.IOpaEvaluator!
 static OpaDotNet.Wasm.OpaWasmEvaluatorFactory.Create(System.IO.Stream! source, OpaDotNet.Wasm.WasmPolicyEngineOptions? options = null) -> OpaDotNet.Wasm.IOpaEvaluator!
