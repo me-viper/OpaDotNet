@@ -15,7 +15,7 @@
     <InternalsVisibleTo Include="OpaDotNet.Wasm.Tests" />
     <InternalsVisibleTo Include="OpaDotNet.Benchmarks" />
 
-    <PackageReference Include="IPNetwork2" Version="3.6.0">
+    <PackageReference Include="IPNetwork2" Version="5.0.1">
       <Aliases>Ipn</Aliases>
     </PackageReference>
 
