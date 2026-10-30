@@ -384,7 +384,8 @@ internal ref struct OpaJsonReader
                         Skip();
                         break;
                     default:
-                        if (char.IsDigit(json[i]) || json[i] == '-')
+                        // Rego keeps number literals as written, so numbers can start with '.' (e.g. .5).
+                        if (char.IsDigit(json[i]) || json[i] is '-' or '.')
                             return ReadNumber(json[i..]);
 
                         throw new InvalidOperationException($"Unexpected symbol {json[i]} at pos {_pos}");

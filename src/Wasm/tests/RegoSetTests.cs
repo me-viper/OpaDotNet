@@ -82,6 +82,19 @@ public class RegoSetTests
         Assert.Equal(expected, result);
     }
 
+    // Rego keeps number literals as written; JSON needs the leading zero.
+    [Theory]
+    [InlineData("[0.0, 100.0, .0]", "[0.0,100.0,0.0]")]
+    [InlineData("[-.5, .5e3, -.0]", "[-0.5,0.5e3,-0.0]")]
+    [InlineData("{.5}", """[{"__rego_set":[0.5]}]""")]
+    [InlineData("""{"a": -.5}""", """{"a":-0.5}""")]
+    public void FromRegoValueLeadingDotNumbers(string input, string expected)
+    {
+        var result = RegoValueHelper.JsonFromRegoValue(input);
+        Assert.Equal(expected, result);
+        Assert.NotNull(JsonNode.Parse(result));
+    }
+
     [Fact]
     public void SerializeSetOfAny()
     {
@@ -177,4 +190,3 @@ public class RegoSetTests
         Assert.Equal(expected, node.ContainsRegoSet());
     }
 }
-

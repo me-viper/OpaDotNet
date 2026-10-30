@@ -9,6 +9,9 @@ public class OpaJsonReaderTests
     [InlineData("-10.2e15")]
     [InlineData("10.2E15")]
     [InlineData("0010")]
+    [InlineData(".5")]
+    [InlineData("-.5")]
+    [InlineData(".5e3")]
     [InlineData("true")]
     [InlineData("false")]
     public void ReadValue(string val)

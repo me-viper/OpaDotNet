@@ -1,5 +1,4 @@
 ﻿using System.Text.Json.Nodes;
-using System.Text.RegularExpressions;
 
 using OpaDotNet.Wasm.Internal;
 
@@ -237,7 +236,19 @@ internal static class RegoValueHelper
                         sb.AppendQuoted(reader.Token.Buf);
                         break;
                     case OpaJsonTokenType.Value:
-                        sb.Append(reader.Token.Buf);
+                        var value = reader.Token.Buf;
+
+                        // Rego number literals can omit the leading zero (.5, -.5), JSON can't.
+                        if (value is ['-', '.', ..])
+                        {
+                            sb.Append('-');
+                            value = value[1..];
+                        }
+
+                        if (value is ['.', ..])
+                            sb.Append('0');
+
+                        sb.Append(value);
                         break;
                     default:
                         throw new InvalidOperationException($"Unexpected token: {reader.Token.TokenType}");
