@@ -6,7 +6,7 @@ Cli compiler is simple wrapper over `opa` CLI tool.
 > Internally `RegoCliCompiler` uses `opa` CLI so you need to ensure it is in your `PATH` environment variable or you provided full path in [RegoCliCompilerOptions.OpaToolPath](xref:OpaDotNet.Compilation.Cli.RegoCliCompilerOptions#OpaDotNet_Compilation_Cli_RegoCliCompilerOptions_OpaToolPath).
 
 > [!NOTE]
-> `RegoCliCompiler` requires write access to the file system to store intermediate artifacts and outputs. By default it will use parent directory if source is file (`/data/policy.rego => /data`) or bundle directory if source is bundle (`/data/policy` => `/data/policy`). You can override artifacts directory with [RegoCompilerOptions.OutputPath](xref:OpaDotNet.Compilation.Abstractions.RegoCompilerOptions#OpaDotNet_Compilation_Abstractions_RegoCompilerOptions_OutputPath) property.
+> `RegoCliCompiler` requires write access to the file system to store intermediate artifacts and outputs. By default it will use parent directory if source is file (`/data/policy.rego => /data`) or bundle directory if source is bundle (`/data/policy` => `/data/policy`). You can override artifacts directory with [CompilationParameters.OutputPath](xref:OpaDotNet.Compilation.Abstractions.CompilationParameters#OpaDotNet_Compilation_Abstractions_CompilationParameters_OutputPath) property.
 
 ## Add usings
 

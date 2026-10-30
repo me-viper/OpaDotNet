@@ -20,7 +20,7 @@ items:
 - name: Using Policy Bundle
   href: evaluation/bundle.md
 - name: Custom Built-in Functions
-  href: evaluation/bultins.md
+  href: evaluation/builtins.md
 
 - name: Compilation
 - name: Basics

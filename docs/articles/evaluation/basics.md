@@ -16,16 +16,19 @@ OPA policy module evaluation requires the following steps:
 
 There are several ways to initialize evaluator instance:
 
-- Static methods of [OpaEvaluatorFactory](xref:OpaDotNet.Wasm.OpaEvaluatorFactory)
-  - `CreateFromBundle`. Creates evaluator instance from policy bundle.
-  - `CreateFromWasm`. Creates evaluator instance from policy WASM binary.
-- [OpaBundleEvaluatorFactory](xref:OpaDotNet.Wasm.OpaBundleEvaluatorFactory). Creates evaluator instance from policy bundle.
-- [OpaWasmEvaluatorFactory](xref:OpaDotNet.Wasm.OpaWasmEvaluatorFactory). Creates evaluator instance from policy WASM binary.
+- Static `Create` methods:
+  - [OpaBundleEvaluatorFactory.Create](xref:OpaDotNet.Wasm.OpaBundleEvaluatorFactory). Creates evaluator instance from policy bundle.
+  - [OpaWasmEvaluatorFactory.Create](xref:OpaDotNet.Wasm.OpaWasmEvaluatorFactory). Creates evaluator instance from policy WASM binary.
+- Factory instances:
+  - [OpaBundleEvaluatorFactory](xref:OpaDotNet.Wasm.OpaBundleEvaluatorFactory). Creates evaluator instances from policy bundle.
+  - [OpaWasmEvaluatorFactory](xref:OpaDotNet.Wasm.OpaWasmEvaluatorFactory). Creates evaluator instances from policy WASM binary.
 
 In general you would use:
 
-- `OpaEvaluatorFactory` if you need to create single instance of `IOpaEvaluator` (e.g. cli tools, scripts etc.)
-- `OpaBundleEvaluatorFactory` or `OpaWasmEvaluatorFactory` if you need create multiply `IOpaEvaluator` instances from the same policy bundle or WASM binary (e.g. AspNetCore applications/services).
+- Static `Create` methods if you need to create single instance of `IOpaEvaluator` (e.g. cli tools, scripts etc.)
+- Factory instance (`new OpaBundleEvaluatorFactory(...)` or `new OpaWasmEvaluatorFactory(...)`) and its `Create()`
+  method if you need to create multiple `IOpaEvaluator` instances from the same policy bundle or WASM binary (e.g.
+  AspNetCore applications/services). Dispose the factory when you no longer need it.
 
 > [!CAUTION]
 > `IOpaEvaluator` instances are NOT thread safe.
@@ -54,4 +57,4 @@ OpaDotNet provides several methods:
 - `IOpaEvaluator.EvaluateRaw`. Useful when you want control JSON serialization/deserialization manually.
 
 > [!NOTE]
-> You can use the same `IOpaEvaluator` instance to evaluate multiply consequent policy queries as long as it's done from the single thread.
+> You can use the same `IOpaEvaluator` instance to evaluate multiple consecutive policy queries as long as it's done from the single thread.
