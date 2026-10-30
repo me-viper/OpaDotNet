@@ -146,6 +146,10 @@ Practical rules:
   disposed correctly.
 - Async methods must have an `Async` suffix (enforced as a warning via a `dotnet_naming_rule`).
 - If lambda delegate accepts single argument call it `p`.
+- Code that exists only on some target frameworks (e.g. `#if NET9_0_OR_GREATER` around `Base64Url`) needs its
+  `using` wrapped in the same `#if`. `jb cleanupcode` analyzes one target framework and deletes usings that look
+  unused there, which breaks the build for the others. After running it, build all target frameworks
+  (`dotnet build -c Release`), not just one.
 
 ## Releasing
 
