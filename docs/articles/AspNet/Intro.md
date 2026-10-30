@@ -55,6 +55,12 @@ app.Run();
 ```
 
 > [!IMPORTANT]
+> Call `AddOpaAuthorization` *before* `AddAuthorization`, `AddControllers` or anything else that registers ASP.NET
+> Core authorization services. `AddOpaAuthorization` registers `OpaPolicyProvider` and `OpaPolicyHandler` with
+> `TryAdd*`, so if the default `IAuthorizationPolicyProvider` or any `IAuthorizationHandler` is already registered,
+> they are silently skipped and `Opa/...` policies won't be resolved.
+
+> [!IMPORTANT]
 > `AddOpaAuthorization` only wires up services — you still need `AddCompiler<T>()` and one policy source
 > (`AddFileSystemPolicySource()`, `AddConfigurationPolicySource(...)`, or `AddPolicySource<CompiledBundlePolicySource>()`)
 > or the evaluator has nothing to load.
@@ -190,7 +196,7 @@ file merged into compilation):
 cfg.AddCustomBuiltins<MyBuiltins, MyBuiltins>();
 ```
 
-See [Custom Built-in Functions](~/articles/evaluation/bultins.md) and [Advanced Built-ins](~/articles/reference/builtins.md)
+See [Custom Built-in Functions](~/articles/evaluation/builtins.md) and [Advanced Built-ins](~/articles/reference/builtins.md)
 for how to implement `IOpaCustomBuiltins`.
 
 ## Custom authorization handler
@@ -228,8 +234,8 @@ internal record DenyReason { public string? Reason { get; set; } }
 
 > [!IMPORTANT]
 > Register a custom `IAuthorizationHandler` *before* calling `AddOpaAuthorization` — `AddOpaAuthorization` registers
-> the default `OpaPolicyHandler` with `TryAddSingleton`, so registering yours first (under the same
-> `IAuthorizationHandler` service) takes priority.
+> the default `OpaPolicyHandler` with `TryAddSingleton`, so if any `IAuthorizationHandler` is already registered the
+> default handler is not registered at all and yours is the only one handling `Opa/...` requirements.
 
 ## Configuration reference
 

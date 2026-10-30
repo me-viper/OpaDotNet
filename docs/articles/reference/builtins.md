@@ -1,6 +1,6 @@
 # Advanced Built-ins
 
-This page covers implementation details for [custom built-in functions](~/articles/evaluation/bultins.md) implemented
+This page covers implementation details for [custom built-in functions](~/articles/evaluation/builtins.md) implemented
 via `IOpaCustomBuiltins` and `[OpaCustomBuiltin]`: how arguments are bound, what a built-in may return, how errors
 propagate back into policy evaluation, and how to write built-ins whose results stay stable within a single
 evaluation.
@@ -108,5 +108,6 @@ during the same evaluation.
 public static Guid CurrentBatchId() => Guid.NewGuid();
 ```
 
-If you override `Reset()` on a custom `IOpaCustomBuiltins` implementation, call the base implementation (or otherwise
-clear your own caches) so memoized values don't leak into the next evaluation.
+Memoized values are cleared by OpaDotNet itself, you don't need to do anything in `Reset()` for them. Use
+`IOpaCustomBuiltins.Reset()` (it has an empty default implementation) to clear any state your own built-ins keep, so it
+doesn't leak into the next evaluation.

@@ -4,7 +4,7 @@ In this sample `OpaDotNet` will use policy compiled as OPA policy bundle.
 
 ## 1. Create policy and data files
 
-Create policy file `quickstart/policy.rego` with the following contents:
+Create policy file `quickstart/example.rego` with the following contents:
 
 [!code-rego[](~/snippets/quickstart/example.rego)]
 

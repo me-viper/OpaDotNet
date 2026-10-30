@@ -8,7 +8,10 @@ Using custom built-in functions involves providing a declaration and implementat
 
 ## Implementation
 
-Usually, you will extend `DefaultOpaImportsAbi` class to add new built-in functions:
+Implement [IOpaCustomBuiltins](xref:OpaDotNet.Wasm.Builtins.IOpaCustomBuiltins) and mark built-in methods with
+[OpaCustomBuiltin](xref:OpaDotNet.Wasm.Builtins.OpaCustomBuiltinAttribute) attribute (v3.0+). In v2.5 custom built-ins
+were implemented by extending `DefaultOpaImportsAbi` class. See [Advanced Built-ins](~/articles/reference/builtins.md)
+for details on supported arguments and return types.
 
 In the following sample, we define 5 custom functions:
 
@@ -37,7 +40,7 @@ In the following sample, we define 5 custom functions:
 
 ## Declaration
 
-To make OPA aware of custom built-ins we need to add [capabilities](https://www.openpolicyagent.org/docs/latest/deployments/#capabilities)](https://www.openpolicyagent.org/docs/latest/deployments/#capabilities) file containing the types for declarations and runtime objects passed to your implementation.
+To make OPA aware of custom built-ins we need to add [capabilities](https://www.openpolicyagent.org/docs/latest/deployments/#capabilities) file containing the types for declarations and runtime objects passed to your implementation.
 
 > [!IMPORTANT]
 > Custom built-ins are supported only for policy bundles.

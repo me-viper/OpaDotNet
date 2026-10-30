@@ -7,7 +7,7 @@ contents are loaded into the evaluator.
 
 > [!NOTE]
 > Signature validation only applies when loading a policy bundle (`OpaBundleEvaluatorFactory` /
-> `OpaEvaluatorFactory.CreateFromBundle`). It has no effect when evaluating a raw compiled `policy.wasm` module.
+> `OpaBundleEvaluatorFactory.Create`). It has no effect when evaluating a raw compiled `policy.wasm` module.
 
 ## 1. Sign the bundle
 

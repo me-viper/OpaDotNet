@@ -1,6 +1,6 @@
 # Built-in Functions Implementation Status
 
-Bellow is the list of supported OPA built-in functions as for version v1.10.1 along with their implementation status in OpaDotNet.Wasm.
+Below is the list of supported OPA built-in functions as for version v1.10.1 along with their implementation status in OpaDotNet.Wasm.
 
 ## Numbers
 
@@ -15,10 +15,10 @@ Bellow is the list of supported OPA built-in functions as for version v1.10.1 al
 |------------|--------------------|--------------------|
 | [indexof_n](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-strings-indexof_n)  | :white_check_mark: | v1.0.0 |
 | [sprintf](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-strings-sprintf)    | :white_check_mark: | v1.1.0 (*) |
-| [strings.strings.any_prefix_match](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-strings-stringsany_prefix_match)    | :white_check_mark: | v1.0.0 |
+| [strings.any_prefix_match](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-strings-stringsany_prefix_match)    | :white_check_mark: | v1.0.0 |
 | [strings.any_suffix_match](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-strings-stringsany_suffix_match)    | :white_check_mark: | v1.0.0 |
 | [strings.render_template](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-strings-stringsrender_template)    | - | - |
-| [strings.strings.count](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-strings-stringscount)    | :white_check_mark: | v3.1.0 |
+| [strings.count](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-strings-stringscount)    | :white_check_mark: | v3.1.0 |
 | [strings.split_n](https://www.openpolicyagent.org/docs/latest/policy-reference/#builtin-strings-stringssplit_n)    | :white_check_mark: | v3.2.0 |
 
 \* Inconsistent behavior with native implementation when argument is object.

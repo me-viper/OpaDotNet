@@ -4,7 +4,7 @@ In this sample `OpaDotNet` will use policy compiled as WASM binary.
 
 ## 1. Create policy
 
-Create policy file `quickstart/policy.rego` with the following contents:
+Create policy file `quickstart/example.rego` with the following contents:
 
 [!code-rego[](~/snippets/quickstart/example.rego)]
 
@@ -26,8 +26,8 @@ tar -zxvf bundle.tar.gz /policy.wasm
 
 ## 3. Add usings
 
-[!code-csharp[](../../snippets/Snippets.cs#Usings)]
+[!code-csharp[](~/snippets/Snippets.cs#Usings)]
 
 ## 4. The code
 
-[!code-csharp[](../../snippets/Snippets.cs#EvalWasm)]
+[!code-csharp[](~/snippets/Snippets.cs#EvalWasm)]

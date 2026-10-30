@@ -17,6 +17,14 @@ using OpaDotNet.Compilation.Cli;
 
 #endregion
 
+#region CompilationInteropUsings
+
+using OpaDotNet.Wasm;
+using OpaDotNet.Compilation.Abstractions;
+using OpaDotNet.Compilation.Interop;
+
+#endregion
+
 #pragma warning restore CS0105
 
 namespace Snippets;
@@ -70,7 +78,34 @@ public partial class DocSamples
         #region QuickStartCompilation
 
         var compiler = new RegoCliCompiler();
-        var policyStream = await compiler.CompileFileAsync("quickstart/example.rego", new() { Entrypoints = ["example/hello"] }, cancellationToken);
+        var parameters = new CompilationParameters { Entrypoints = ["example/hello"] };
+
+        await using var policyStream = await compiler.CompileFileAsync("quickstart/example.rego", parameters, cancellationToken);
+
+        // Use compiled policy.
+        using var engine = OpaBundleEvaluatorFactory.Create(policyStream);
+
+        #endregion
+
+        const string data = "{ \"world\": \"world\" }";
+        engine.SetDataFromRawJson(data);
+
+        var result = engine.EvaluatePredicate(new { message = "world" });
+
+        Assert.True(result.Result);
+    }
+
+    [Fact]
+    public async Task QuickStartCompileInterop()
+    {
+        var cancellationToken = TestContext.Current.CancellationToken;
+
+        #region QuickStartCompilationInterop
+
+        var compiler = new RegoInteropCompiler();
+        var parameters = new CompilationParameters { Entrypoints = ["example/hello"] };
+
+        await using var policyStream = await compiler.CompileFileAsync("quickstart/example.rego", parameters, cancellationToken);
 
         // Use compiled policy.
         using var engine = OpaBundleEvaluatorFactory.Create(policyStream);
