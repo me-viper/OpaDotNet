@@ -135,9 +135,7 @@ Practical rules:
 
 ## Docs
 
-`docs/` is a DocFX site (guide content in `docs/articles/`, API reference auto-generated into `docs/api/` — don't
-hand-edit those `.yml` files). `docs/snippets/` is a compiled project so example code in the guide is guaranteed to
-build; update snippets there rather than inlining unchecked code samples in docs.
+`docs/` is a DocFX site; see `.claude/rules/docs.md` for layout, snippet conventions and publishing.
 
 ## Style notes
 
