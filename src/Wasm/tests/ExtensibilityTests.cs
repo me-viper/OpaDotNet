@@ -70,6 +70,31 @@ public class ExtensibilityTests : IAsyncLifetime
         Assert.True(gotExtension);
     }
 
+    [Theory]
+    [InlineData("simple-1.2.wasm")]
+    [InlineData("simple-1.3.wasm")]
+    public void SetDataRepeatedly(string policy)
+    {
+        using var wasm = File.OpenRead(Path.Combine(BasePath, policy));
+        using var engine = (OpaWasmEvaluator)OpaWasmEvaluatorFactory.Create(wasm);
+
+        engine.SetDataFromRawJson("{\"world\":\"a\"}");
+        Assert.True(engine.EvaluatePredicate(new { message = "a" }).Result);
+
+        engine.SetDataFromRawJson("{\"world\":\"b\"}");
+        Assert.True(engine.EvaluatePredicate(new { message = "b" }).Result);
+
+        using (var ms = new MemoryStream("{\"world\":\"c\"}"u8.ToArray()))
+            engine.SetDataFromStream(ms);
+
+        Assert.True(engine.EvaluatePredicate(new { message = "c" }).Result);
+
+        engine.SetData(new { world = "d" });
+        Assert.True(engine.EvaluatePredicate(new { message = "d" }).Result);
+        Assert.False(engine.EvaluatePredicate(new { message = "c" }).Result);
+        Assert.Equal("{\"world\":\"d\"}", engine.DumpData());
+    }
+
     [Fact]
     public void UpdateData()
     {

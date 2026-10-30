@@ -14,9 +14,25 @@ internal class EngineImpl<TAbi> : V12.EngineImpl<TAbi>, IUpdateDataFeature
     {
     }
 
+    // Base implementations reset heap to the pointer taken before previous stash, so it must be dropped first.
     public override void SetData(ReadOnlySpan<char> dataJson)
     {
+        Abi.HeapBlocksStashClear();
         base.SetData(dataJson);
+        Abi.HeapBlocksStash();
+    }
+
+    public override void SetDataFromBytes(ReadOnlySpan<byte> data)
+    {
+        Abi.HeapBlocksStashClear();
+        base.SetDataFromBytes(data);
+        Abi.HeapBlocksStash();
+    }
+
+    public override void SetData(Stream? data)
+    {
+        Abi.HeapBlocksStashClear();
+        base.SetData(data);
         Abi.HeapBlocksStash();
     }
 

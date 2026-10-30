@@ -10,6 +10,8 @@
 * Fix `yaml.is_valid` and `yaml.unmarshal` with multi-document YAML
 * Fix `uuid.parse` to return time, clock sequence, node and DCE id/domain for version 1 and 2 UUIDs, and to accept
   an uppercase `URN:UUID:` prefix
+* Fix calling `SetData*` more than once failing with `opa_heap_blocks_stash() consistency check failed` for ABI 1.3
+  policies
 
 ### OpaDotNet.Extensions.AspNetCore
 
