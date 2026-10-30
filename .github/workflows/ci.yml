@@ -43,12 +43,12 @@ jobs:
       version: ${{ steps.get_version.outputs.version }}
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
       with:
         fetch-depth: 0
 
     - name: Setup .NET
-      uses: actions/setup-dotnet@v5
+      uses: actions/setup-dotnet@v6
       with:
         dotnet-version: |
           8.0.x
@@ -56,7 +56,7 @@ jobs:
           10.0.x
 
     - name: Cache NuGet
-      uses: actions/cache@v4
+      uses: actions/cache@v6
       with:
         path: ~/.nuget/packages
         key: nuget-${{ runner.os }}-${{ hashFiles('**/*.csproj', '**/Directory.Build.props', '.config/dotnet-tools.json') }}
@@ -73,7 +73,7 @@ jobs:
         echo "version=$(dotnet nbgv get-version -v NuGetPackageVersion)" >> $env:GITHUB_OUTPUT
 
     - name: get_opa_lib
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v8
       with:
         name: opa-native
         path: ./src/Compilation/Interop/lib
@@ -102,7 +102,7 @@ jobs:
         OPA_TEST_COMPILER: cli
 
     - name: Upload Test Results
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       if: ${{ failure() }}
       with:
         name: test-results
@@ -121,7 +121,7 @@ jobs:
     - name: Pack
       run: dotnet pack -c Release --no-build
 
-    - uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v7
       with:
         name: artifacts
         path: ./artifacts/package/release/*
