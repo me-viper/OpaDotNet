@@ -135,6 +135,13 @@ app.Run();
 </code></pre>
 <div class="IMPORTANT">
 <h5>Important</h5>
+<p>Call <code>AddOpaAuthorization</code> <em>before</em> <code>AddAuthorization</code>, <code>AddControllers</code> or anything else that registers ASP.NET
+Core authorization services. <code>AddOpaAuthorization</code> registers <code>OpaPolicyProvider</code> and <code>OpaPolicyHandler</code> with
+<code>TryAdd*</code>, so if the default <code>IAuthorizationPolicyProvider</code> or any <code>IAuthorizationHandler</code> is already registered,
+they are silently skipped and <code>Opa/...</code> policies won't be resolved.</p>
+</div>
+<div class="IMPORTANT">
+<h5>Important</h5>
 <p><code>AddOpaAuthorization</code> only wires up services — you still need <code>AddCompiler&lt;T&gt;()</code> and one policy source
 (<code>AddFileSystemPolicySource()</code>, <code>AddConfigurationPolicySource(...)</code>, or <code>AddPolicySource&lt;CompiledBundlePolicySource&gt;()</code>)
 or the evaluator has nothing to load.</p>
@@ -254,7 +261,7 @@ compiler-specific options for whichever backend you register.</p>
 file merged into compilation):</p>
 <pre><code class="lang-csharp">cfg.AddCustomBuiltins&lt;MyBuiltins, MyBuiltins&gt;();
 </code></pre>
-<p>See <a href="../evaluation/bultins.html">Custom Built-in Functions</a> and <a href="../reference/builtins.html">Advanced Built-ins</a>
+<p>See <a href="../evaluation/builtins.html">Custom Built-in Functions</a> and <a href="../reference/builtins.html">Advanced Built-ins</a>
 for how to implement <code>IOpaCustomBuiltins</code>.</p>
 <h2 id="custom-authorization-handler">Custom authorization handler</h2>
 <p>Override <code>OpaPolicyHandler.HandleRequirementAsync</code> when a plain allow/deny isn't enough — for example, to surface
@@ -288,8 +295,8 @@ internal record DenyReason { public string? Reason { get; set; } }
 <div class="IMPORTANT">
 <h5>Important</h5>
 <p>Register a custom <code>IAuthorizationHandler</code> <em>before</em> calling <code>AddOpaAuthorization</code> — <code>AddOpaAuthorization</code> registers
-the default <code>OpaPolicyHandler</code> with <code>TryAddSingleton</code>, so registering yours first (under the same
-<code>IAuthorizationHandler</code> service) takes priority.</p>
+the default <code>OpaPolicyHandler</code> with <code>TryAddSingleton</code>, so if any <code>IAuthorizationHandler</code> is already registered the
+default handler is not registered at all and yours is the only one handling <code>Opa/...</code> requirements.</p>
 </div>
 <h2 id="configuration-reference">Configuration reference</h2>
 <p>Key <code>OpaAuthorizationOptions</code> (set via <code>cfg.AddConfiguration(...)</code>):</p>

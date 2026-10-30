@@ -83,6 +83,62 @@
         <article data-uid="">
 <h1 id="migration-guide">Migration guide</h1>
 
+<h2 id="from-v2x-to-3x">From v2.x to 3.x</h2>
+<h3 id="evaluator-factories">Evaluator factories</h3>
+<p>Static <code>OpaEvaluatorFactory</code> class has been removed. Use static <code>Create</code> methods of <code>OpaBundleEvaluatorFactory</code> or
+<code>OpaWasmEvaluatorFactory</code> instead (see <a href="evaluation/basics.html">Policy Evaluation</a>):</p>
+<pre><code class="lang-diff">-using var engine = OpaEvaluatorFactory.CreateFromBundle(policyStream);
++using var engine = OpaBundleEvaluatorFactory.Create(policyStream);
+</code></pre>
+<pre><code class="lang-diff">-using var engine = OpaEvaluatorFactory.CreateFromWasm(policyStream);
++using var engine = OpaWasmEvaluatorFactory.Create(policyStream);
+</code></pre>
+<h3 id="custom-built-ins">Custom built-ins</h3>
+<p><code>DefaultBuiltinsFactory</code> has been removed. The recommended way to implement custom built-ins is <code>IOpaCustomBuiltins</code>
+with methods marked with <code>[OpaCustomBuiltin(&quot;name&quot;)]</code> instead of extending <code>DefaultOpaImportsAbi</code> and overriding
+<code>Func(...)</code> overloads. Register the implementation via <code>WasmPolicyEngineOptions</code>:</p>
+<pre><code class="lang-diff">-public class CustomBuiltinsSample : DefaultOpaImportsAbi
+-{
+-    public override object? Func(BuiltinContext context, BuiltinArg arg1)
+-    {
+-        if (string.Equals(&quot;custom.oneArgBuiltin&quot;, context.FunctionName, StringComparison.Ordinal))
+-            return $&quot;hello {arg1.AsOrNull&lt;string&gt;()}&quot;;
+-
+-        return base.Func(context, arg1);
+-    }
+-}
++public class OpaCustomBuiltins : IOpaCustomBuiltins
++{
++    [OpaCustomBuiltin(&quot;custom.oneArgBuiltin&quot;)]
++    public static string OneArgBuiltin(string arg1) =&gt; $&quot;hello {arg1}&quot;;
++}
+</code></pre>
+<pre><code class="lang-diff">-using var factory = new OpaBundleEvaluatorFactory(
+-    policy,
+-    null,
+-    new DefaultBuiltinsFactory(() =&gt; new CustomBuiltinsSample())
+-    );
++var opts = new WasmPolicyEngineOptions();
++opts.ConfigureBuiltins(p =&gt; p.CustomBuiltins.Add(new OpaCustomBuiltins()));
++
++using var factory = new OpaBundleEvaluatorFactory(policy, opts);
+</code></pre>
+<p>If you want to keep existing <code>DefaultOpaImportsAbi</code> subclass, assign it to <code>WasmBuiltinsOptions.DefaultBuiltins</code>
+instead of using <code>DefaultBuiltinsFactory</code>:</p>
+<pre><code class="lang-diff">-using var factory = new OpaBundleEvaluatorFactory(
+-    policy,
+-    null,
+-    new DefaultBuiltinsFactory(() =&gt; new CustomBuiltinsSample())
+-    );
++var opts = new WasmPolicyEngineOptions();
++opts.ConfigureBuiltins(p =&gt; p.DefaultBuiltins = new CustomBuiltinsSample());
++
++using var factory = new OpaBundleEvaluatorFactory(policy, opts);
+</code></pre>
+<p>See <a href="evaluation/builtins.html">Custom Built-in Functions</a> for the complete sample.</p>
+<h3 id="compilation-packages">Compilation packages</h3>
+<p><code>OpaDotNet.Compilation.*</code> packages have moved into the <a href="https://github.com/me-viper/OpaDotNet">OpaDotNet</a> repository.
+Package names and namespaces are unchanged.</p>
 <h2 id="from-v1x-to-2x">From v1.x to 2.x</h2>
 <p>In <code>2.x</code> release compilation related logic have been moved out <code>OpaDotNet.Wasm</code> into separate assembly <code>OpaDotNet.Compilation.Cli</code>.
 If you were using types from <code>OpaDotNet.Wasm.Compilation</code> namespace you will need to do the following changes:</p>
@@ -97,7 +153,7 @@ var policyStream = await compiler.CompileFile(&quot;example.rego&quot;, new[] { 
 // Use compiled policy.
 using var engine = OpaEvaluatorFactory.CreateFromBundle(policyStream);
 </code></pre>
-<p>You might also want to check out new <a href="https://github.com/me-viper/OpaDotNet.Compilation/tree/main/src/OpaDotNet.Compilation.Interop">alternative</a> to the Cli compiler.</p>
+<p>You might also want to check out new <a href="compilation/interop.html">alternative</a> to the Cli compiler.</p>
 
 </article>
 

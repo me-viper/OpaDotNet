@@ -83,7 +83,71 @@
         <article data-uid="">
 <h1 id="what-is-opadotnet">What is OpaDotNet?</h1>
 
-<p>This is SDK for using WebAssembly (wasm) compiled <a href="https://www.openpolicyagent.org/">Open Policy Agent</a> Rego policies with dotnet core.</p>
+<p>OpaDotNet is a .NET SDK for evaluating <a href="https://www.openpolicyagent.org/">Open Policy Agent</a> (OPA) policies in-process.
+You write policies in <a href="https://www.openpolicyagent.org/docs/latest/policy-language/">Rego</a>, compile them to
+WebAssembly (WASM), and evaluate them directly inside your application - no OPA server, sidecar or network round-trip
+required.</p>
+<h2 id="why-opadotnet">Why OpaDotNet?</h2>
+<ul>
+<li><strong>In-process evaluation.</strong> Policies run inside your process via <a href="https://wasmtime.dev/">Wasmtime</a>, so a decision is
+a method call rather than an HTTP request.</li>
+<li><strong>OPA WASM ABI support.</strong> Policies compiled for OPA WASM ABI up to 1.3 are supported. See
+<a href="ABI.html">ABI</a> for details.</li>
+<li><strong>OPA built-ins in .NET.</strong> Built-in functions that OPA doesn't compile into WASM (strings, time, crypto, JWT, network,
+JSON, YAML and more) are implemented in .NET and checked against OPA's own test suite. See
+<a href="Builtins.html">Built-in Functions</a> for the full list.</li>
+<li><strong>Custom built-ins.</strong> Extend Rego with your own functions written in C#. See
+<a href="evaluation/builtins.html">Custom Built-in Functions</a>.</li>
+<li><strong>Compilation from .NET.</strong> Compile <code>.rego</code> sources and bundles to WASM from your code, at build time or at runtime.</li>
+<li><strong>ASP.NET Core integration.</strong> Use Rego policies as ASP.NET Core authorization policies.</li>
+</ul>
+<h2 id="packages">Packages</h2>
+<table>
+<thead>
+<tr>
+<th>Package</th>
+<th>Use it to</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.nuget.org/packages/OpaDotNet.Wasm/"><code>OpaDotNet.Wasm</code></a></td>
+<td>Load compiled policies (<code>policy.wasm</code> or a bundle) and evaluate them. This is the core package.</td>
+</tr>
+<tr>
+<td><a href="https://www.nuget.org/packages/OpaDotNet.Compilation.Cli/"><code>OpaDotNet.Compilation.Cli</code></a></td>
+<td>Compile Rego to WASM using the <code>opa</code> CLI tool.</td>
+</tr>
+<tr>
+<td><a href="https://www.nuget.org/packages/OpaDotNet.Compilation.Interop/"><code>OpaDotNet.Compilation.Interop</code></a></td>
+<td>Compile Rego to WASM in-process using a bundled native OPA SDK library (<code>linux-x64</code> and <code>windows-x64</code> only).</td>
+</tr>
+<tr>
+<td><a href="https://www.nuget.org/packages/OpaDotNet.Extensions.AspNetCore/"><code>OpaDotNet.Extensions.AspNetCore</code></a></td>
+<td>Authorize ASP.NET Core requests with Rego policies.</td>
+</tr>
+</tbody>
+</table>
+<p>You only need <code>OpaDotNet.Wasm</code> if your policies are already compiled, for example with
+<code>opa build -t wasm</code> in your CI pipeline. Add a compilation package if you want to compile policies from your
+application. See <a href="compilation/compilation.html">Policy Compilation</a> for help choosing between the CLI and Interop
+compilers.</p>
+<h2 id="how-it-works">How it works</h2>
+<ol>
+<li><strong>Write</strong> a policy in Rego.</li>
+<li><strong>Compile</strong> it to a WASM module or OPA bundle - with <code>opa build -t wasm</code>, or with <code>OpaDotNet.Compilation.Cli</code> or
+<code>OpaDotNet.Compilation.Interop</code>.</li>
+<li><strong>Load</strong> the compiled policy with <code>OpaDotNet.Wasm</code> to get an <code>IOpaEvaluator</code>.</li>
+<li><strong>Evaluate</strong> the policy's entrypoints against your input and data.</li>
+</ol>
+<h2 id="next-steps">Next steps</h2>
+<ul>
+<li><a href="HowToStart.html">Quick Start</a> - install the package and evaluate your first policy.</li>
+<li><a href="evaluation/basics.html">Evaluation Basics</a> - loading policies, external data, input and evaluation.</li>
+<li><a href="compilation/compilation.html">Policy Compilation</a> - compile Rego from .NET.</li>
+<li><a href="AspNet/Intro.html">ASP.NET Core</a> - use Rego policies for request authorization.</li>
+<li><a href="migration.html">Migration</a> - upgrading from a previous major version.</li>
+</ul>
 
 </article>
 

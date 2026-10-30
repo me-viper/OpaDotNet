@@ -16,7 +16,7 @@
       
       
       
-      <meta name="docfx:docurl" content="https://github.com/me-viper/OpaDotNet/blob/release/v2026.2.1/docs/articles/evaluation/bultins.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/me-viper/OpaDotNet/blob/release/v2026.2.1/docs/articles/evaluation/builtins.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -87,7 +87,10 @@
 <p>OPA supports built-in functions for simple operations like string manipulation and arithmetic as well as more complex operations like JWT verification and executing HTTP requests. If you need to extend OPA with custom built-in functions for use cases or integrations that are not supported out-of-the-box you can supply the function definitions when you prepare queries.</p>
 <p>Using custom built-in functions involves providing a declaration and implementation. The declaration tells OPA the function’s type signature and the implementation provides the callback that OPA can execute during query evaluation.</p>
 <h2 id="implementation">Implementation</h2>
-<p>Usually, you will extend <code>DefaultOpaImportsAbi</code> class to add new built-in functions:</p>
+<p>Implement <a class="xref" href="../../api/OpaDotNet.Wasm.Builtins.IOpaCustomBuiltins.html">IOpaCustomBuiltins</a> and mark built-in methods with
+<a class="xref" href="../../api/OpaDotNet.Wasm.Builtins.OpaCustomBuiltinAttribute.html">OpaCustomBuiltin</a> attribute (v3.0+). In v2.5 custom built-ins
+were implemented by extending <code>DefaultOpaImportsAbi</code> class. See <a href="../reference/builtins.html">Advanced Built-ins</a>
+for details on supported arguments and return types.</p>
 <p>In the following sample, we define 5 custom functions:</p>
 <ul>
 <li><code>custom.zeroArgBuiltin</code></li>
@@ -232,7 +235,7 @@ public class CustomBuiltinsSample : DefaultOpaImportsAbi
 </code></pre></section>
 </div>
 <h2 id="declaration">Declaration</h2>
-<p>To make OPA aware of custom built-ins we need to add <a href="https://www.openpolicyagent.org/docs/latest/deployments/#capabilities">capabilities</a>](<a href="https://www.openpolicyagent.org/docs/latest/deployments/#capabilities">https://www.openpolicyagent.org/docs/latest/deployments/#capabilities</a>) file containing the types for declarations and runtime objects passed to your implementation.</p>
+<p>To make OPA aware of custom built-ins we need to add <a href="https://www.openpolicyagent.org/docs/latest/deployments/#capabilities">capabilities</a> file containing the types for declarations and runtime objects passed to your implementation.</p>
 <div class="IMPORTANT">
 <h5>Important</h5>
 <p>Custom built-ins are supported only for policy bundles.</p>
@@ -526,7 +529,7 @@ hello arg0 arg1 arg2 arg3
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/me-viper/OpaDotNet/blob/release/v2026.2.1/docs/articles/evaluation/bultins.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/me-viper/OpaDotNet/blob/release/v2026.2.1/docs/articles/evaluation/builtins.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

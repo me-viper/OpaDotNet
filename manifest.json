@@ -814,10 +814,10 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "articles/evaluation/bultins.md",
+      "source_relative_path": "articles/evaluation/builtins.md",
       "output": {
         ".html": {
-          "relative_path": "articles/evaluation/bultins.html"
+          "relative_path": "articles/evaluation/builtins.html"
         }
       },
       "version": ""

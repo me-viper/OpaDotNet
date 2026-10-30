@@ -84,53 +84,77 @@
 <h1 id="policy-capabilities">Policy Capabilities</h1>
 
 <p>The capabilities define the built-in functions and other language features that policies may depend on.</p>
-<p>OpaDotNet allows you to define OPA capabilities during compilation in three ways:</p>
-<h2 id="capabilitiesversion-option">CapabilitiesVersion option</h2>
+<p>OpaDotNet allows you to define OPA capabilities during compilation in three ways, all of them configured via
+<a class="xref" href="../../api/OpaDotNet.Compilation.Abstractions.CompilationParameters.html">CompilationParameters</a>:</p>
+<pre><code class="lang-csharp">
+using OpaDotNet.Wasm;
+using OpaDotNet.Compilation.Abstractions;
+using OpaDotNet.Compilation.Cli;
+
+</code></pre><h2 id="capabilitiesversion-option">CapabilitiesVersion option</h2>
 <p>Defines <a href="https://www.openpolicyagent.org/docs/latest/cli/#capabilities">capabilities</a> used to validate policies against a specific version of OPA.</p>
 <p>For example:</p>
-<pre><code class="lang-csharp">var opts = new RegoCliCompilerOptions
+<pre><code class="lang-csharp">
+var compiler = new RegoCliCompiler();
+
+var parameters = new CompilationParameters
 {
-    CapabilitiesVersion = &quot;v0.22.0&quot;
+    // Validate policies against built-ins available in OPA v0.53.1.
+    CapabilitiesVersion = &quot;v0.53.1&quot;,
+    Entrypoints = [&quot;example/hello&quot;],
 };
 
-var compiler = new RegoCliCompiler(new OptionsWrapper&lt;RegoCliCompilerOptions&gt;(opts));
+await using var policy = await compiler.CompileBundleAsync(&quot;quickstart&quot;, parameters, cancellationToken);
+
 </code></pre>
 <p>Is equivalent to the following command:</p>
-<pre><code class="lang-bash">opa build -t wasm ./ --capabilities v0.22.0
+<pre><code class="lang-bash">opa build -t wasm -b ./quickstart -e example/hello --capabilities v0.53.1
 </code></pre>
 <h2 id="custom-capabilities-file">Custom capabilities file</h2>
 <p>Defines <a href="https://www.openpolicyagent.org/docs/latest/cli/#capabilities">capabilities</a> file used to validate policies against.</p>
-<pre><code class="lang-csharp">var compiler = new RegoCliCompiler();
+<pre><code class="lang-csharp">
+var compiler = new RegoCliCompiler();
 
-await using var policy = await compiler.CompileBundle(
-  &quot;./policy-bundle&quot;,
-  &quot;example&quot;,
-  &quot;mycaps.json&quot;
-  );
+var parameters = new CompilationParameters
+{
+    // Validate policies against built-ins defined in the capabilities file only.
+    CapabilitiesFilePath = Path.Combine(&quot;builtins&quot;, &quot;capabilities.json&quot;),
+    Entrypoints = [&quot;custom_builtins/zero_arg&quot;],
+};
+
 </code></pre>
 <div class="IMPORTANT">
 <h5>Important</h5>
 <p>Capabilities file applicable only to policy bundles.</p>
 </div>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Capabilities file used on its own replaces the whole list of available built-ins, so it must declare every built-in
+the policy uses, including operators like <code>=</code> (<code>eq</code>). To only add built-ins atop of standard ones use
+<a href="#merged-capabilities">merged capabilities</a>.</p>
+</div>
 <p>Is equivalent to the following command:</p>
-<pre><code class="lang-bash">opa build -t wasm ./policy-bundle -e example --capabilities mycaps.json
+<pre><code class="lang-bash">opa build -t wasm -b ./builtins -e custom_builtins/zero_arg --capabilities builtins/capabilities.json
 </code></pre>
 <h2 id="merged-capabilities">Merged capabilities</h2>
 <p>If you want to add capabilities (for example, custom built-in functions) atop of standard capabilities you can use both options described above:</p>
-<pre><code class="lang-csharp">var opts = new RegoCliCompilerOptions
+<pre><code class="lang-csharp">
+var compiler = new RegoCliCompiler();
+
+var parameters = new CompilationParameters
 {
-    CapabilitiesVersion = &quot;v0.53.1&quot;
+    // Built-ins from OPA v0.53.1 capabilities...
+    CapabilitiesVersion = &quot;v0.53.1&quot;,
+
+    // ...merged with built-ins defined in the capabilities file.
+    CapabilitiesFilePath = Path.Combine(&quot;builtins&quot;, &quot;capabilities.json&quot;),
+    Entrypoints = [&quot;custom_builtins/zero_arg&quot;],
 };
 
-var compiler = new RegoCliCompiler(new OptionsWrapper&lt;RegoCliCompilerOptions&gt;(opts));
+await using var policy = await compiler.CompileBundleAsync(&quot;builtins&quot;, parameters, cancellationToken);
 
-await using var policy = await compiler.CompileBundle(
-  &quot;./policy-bundle&quot;,
-  &quot;example&quot;,
-  &quot;mycaps.json&quot;
-  );
 </code></pre>
-<p>In this case OpaDotNet will merge <code>v0.53.1</code> capabilities with capabilities defined in <code>mycaps.json</code> file.</p>
+<p>In this case OpaDotNet will merge <code>v0.53.1</code> capabilities with capabilities defined in <code>capabilities.json</code> file.</p>
 <div class="IMPORTANT">
 <h5>Important</h5>
 <p>Merged capabilities applicable only to policy bundles.</p>

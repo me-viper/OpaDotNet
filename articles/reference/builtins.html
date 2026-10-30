@@ -83,7 +83,7 @@
         <article data-uid="">
 <h1 id="advanced-built-ins">Advanced Built-ins</h1>
 
-<p>This page covers implementation details for <a href="../evaluation/bultins.html">custom built-in functions</a> implemented
+<p>This page covers implementation details for <a href="../evaluation/builtins.html">custom built-in functions</a> implemented
 via <code>IOpaCustomBuiltins</code> and <code>[OpaCustomBuiltin]</code>: how arguments are bound, what a built-in may return, how errors
 propagate back into policy evaluation, and how to write built-ins whose results stay stable within a single
 evaluation.</p>
@@ -176,8 +176,9 @@ during the same evaluation.</p>
 <pre><code class="lang-csharp">[OpaCustomBuiltin(&quot;my.currentBatchId&quot;, Memorize = true)]
 public static Guid CurrentBatchId() =&gt; Guid.NewGuid();
 </code></pre>
-<p>If you override <code>Reset()</code> on a custom <code>IOpaCustomBuiltins</code> implementation, call the base implementation (or otherwise
-clear your own caches) so memoized values don't leak into the next evaluation.</p>
+<p>Memoized values are cleared by OpaDotNet itself, you don't need to do anything in <code>Reset()</code> for them. Use
+<code>IOpaCustomBuiltins.Reset()</code> (it has an empty default implementation) to clear any state your own built-ins keep, so it
+doesn't leak into the next evaluation.</p>
 
 </article>
 

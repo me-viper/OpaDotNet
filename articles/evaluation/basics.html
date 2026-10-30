@@ -98,19 +98,25 @@
 <h2 id="initialize-evaluator-instance">Initialize evaluator instance</h2>
 <p>There are several ways to initialize evaluator instance:</p>
 <ul>
-<li>Static methods of <a href="xref:OpaDotNet.Wasm.OpaEvaluatorFactory">OpaEvaluatorFactory</a>
+<li>Static <code>Create</code> methods:
 <ul>
-<li><code>CreateFromBundle</code>. Creates evaluator instance from policy bundle.</li>
-<li><code>CreateFromWasm</code>. Creates evaluator instance from policy WASM binary.</li>
+<li><a class="xref" href="../../api/OpaDotNet.Wasm.OpaBundleEvaluatorFactory.html">OpaBundleEvaluatorFactory.Create</a>. Creates evaluator instance from policy bundle.</li>
+<li><a class="xref" href="../../api/OpaDotNet.Wasm.OpaWasmEvaluatorFactory.html">OpaWasmEvaluatorFactory.Create</a>. Creates evaluator instance from policy WASM binary.</li>
 </ul>
 </li>
-<li><a class="xref" href="../../api/OpaDotNet.Wasm.OpaBundleEvaluatorFactory.html">OpaBundleEvaluatorFactory</a>. Creates evaluator instance from policy bundle.</li>
-<li><a class="xref" href="../../api/OpaDotNet.Wasm.OpaWasmEvaluatorFactory.html">OpaWasmEvaluatorFactory</a>. Creates evaluator instance from policy WASM binary.</li>
+<li>Factory instances:
+<ul>
+<li><a class="xref" href="../../api/OpaDotNet.Wasm.OpaBundleEvaluatorFactory.html">OpaBundleEvaluatorFactory</a>. Creates evaluator instances from policy bundle.</li>
+<li><a class="xref" href="../../api/OpaDotNet.Wasm.OpaWasmEvaluatorFactory.html">OpaWasmEvaluatorFactory</a>. Creates evaluator instances from policy WASM binary.</li>
+</ul>
+</li>
 </ul>
 <p>In general you would use:</p>
 <ul>
-<li><code>OpaEvaluatorFactory</code> if you need to create single instance of <code>IOpaEvaluator</code> (e.g. cli tools, scripts etc.)</li>
-<li><code>OpaBundleEvaluatorFactory</code> or <code>OpaWasmEvaluatorFactory</code> if you need create multiply <code>IOpaEvaluator</code> instances from the same policy bundle or WASM binary (e.g. AspNetCore applications/services).</li>
+<li>Static <code>Create</code> methods if you need to create single instance of <code>IOpaEvaluator</code> (e.g. cli tools, scripts etc.)</li>
+<li>Factory instance (<code>new OpaBundleEvaluatorFactory(...)</code> or <code>new OpaWasmEvaluatorFactory(...)</code>) and its <code>Create()</code>
+method if you need to create multiple <code>IOpaEvaluator</code> instances from the same policy bundle or WASM binary (e.g.
+AspNetCore applications/services). Dispose the factory when you no longer need it.</li>
 </ul>
 <div class="CAUTION">
 <h5>Caution</h5>
@@ -136,7 +142,7 @@ OpaDotNet provides several methods:</p>
 </ul>
 <div class="NOTE">
 <h5>Note</h5>
-<p>You can use the same <code>IOpaEvaluator</code> instance to evaluate multiply consequent policy queries as long as it's done from the single thread.</p>
+<p>You can use the same <code>IOpaEvaluator</code> instance to evaluate multiple consecutive policy queries as long as it's done from the single thread.</p>
 </div>
 
 </article>

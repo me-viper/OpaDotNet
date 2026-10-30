@@ -125,7 +125,7 @@ else
 }
 
 </code></pre>
-<p>More samples <a href="https://github.com/me-viper/OpaDotNet/tree/main/samples">here</a></p>
+<p>More samples <a href="https://github.com/me-viper/OpaDotNet/tree/main/src/Extensions.AspNetCore/samples">here</a></p>
 <h2 id="writing-policy">Writing policy</h2>
 <p>See <a href="https://www.openpolicyagent.org/docs/latest/how-do-i-write-policies/">writing policy</a></p>
 <h3 id="compiling-policy">Compiling policy</h3>
@@ -140,15 +140,14 @@ hello {
     x == data.world
 }
 </code></pre><h3 id="manually">Manually</h3>
-<p>Either use the Compile REST API or opa build CLI tool.</p>
-<p>For example, with OPA v0.20.5+:</p>
+<p>Either use the Compile REST API or opa build CLI tool:</p>
 <pre><code class="lang-sh">opa build -t wasm -e example/hello example.rego
 </code></pre>
 <p>Which is compiling the <code>example.rego</code> policy file.
-The result will be an OPA bundle with the <code>policy.wasm</code> binary included. See <a href="https://github.com/me-viper/OpaDotNet/tree/main/samples">samples</a> for a more comprehensive example.</p>
+The result will be an OPA bundle with the <code>policy.wasm</code> binary included. See <a href="https://github.com/me-viper/OpaDotNet/tree/main/src/Extensions.AspNetCore/samples">samples</a> for a more comprehensive example.</p>
 <p>See <code>opa build --help</code> for more details.</p>
 <h3 id="with-opadotnetcompilation">With OpaDotNet.Compilation</h3>
-<p>You can use SDK to do compilation for you. For more information see <a href="https://github.com/me-viper/OpaDotNet.Compilation">OpaDotNet.Compilation</a>.</p>
+<p>You can use SDK to do compilation for you. For more information see <a href="compilation/compilation.html">Compilation</a>.</p>
 <h4 id="opadotnetcompilationcli">OpaDotNet.Compilation.Cli</h4>
 <div class="IMPORTANT">
 <h5>Important</h5>
@@ -156,28 +155,38 @@ The result will be an OPA bundle with the <code>policy.wasm</code> binary includ
 </div>
 <pre><code class="lang-bash">dotnet add package OpaDotNet.Compilation.Cli
 </code></pre>
-<pre><code class="lang-csharp">using OpaDotNet.Wasm;
+<pre><code class="lang-csharp">
+using OpaDotNet.Wasm;
+using OpaDotNet.Compilation.Abstractions;
 using OpaDotNet.Compilation.Cli;
 
+</code></pre><pre><code class="lang-csharp">
 var compiler = new RegoCliCompiler();
-var policyStream = await compiler.CompileFile(&quot;example.rego&quot;, new[] { &quot;example/hello&quot; });
+var parameters = new CompilationParameters { Entrypoints = [&quot;example/hello&quot;] };
+
+await using var policyStream = await compiler.CompileFileAsync(&quot;quickstart/example.rego&quot;, parameters, cancellationToken);
 
 // Use compiled policy.
-using var engine = OpaEvaluatorFactory.CreateFromBundle(policyStream);
-</code></pre>
-<h4 id="opadotnetcompilationinterop">OpaDotNet.Compilation.Interop</h4>
+using var engine = OpaBundleEvaluatorFactory.Create(policyStream);
+
+</code></pre><h4 id="opadotnetcompilationinterop">OpaDotNet.Compilation.Interop</h4>
 <pre><code class="lang-bash">dotnet add package OpaDotNet.Compilation.Interop
 </code></pre>
-<pre><code class="lang-csharp">using OpaDotNet.Wasm;
+<pre><code class="lang-csharp">
+using OpaDotNet.Wasm;
+using OpaDotNet.Compilation.Abstractions;
 using OpaDotNet.Compilation.Interop;
 
+</code></pre><pre><code class="lang-csharp">
 var compiler = new RegoInteropCompiler();
-var policyStream = await compiler.CompileFile(&quot;example.rego&quot;, new[] { &quot;example/hello&quot; });
+var parameters = new CompilationParameters { Entrypoints = [&quot;example/hello&quot;] };
+
+await using var policyStream = await compiler.CompileFileAsync(&quot;quickstart/example.rego&quot;, parameters, cancellationToken);
 
 // Use compiled policy.
-using var engine = OpaEvaluatorFactory.CreateFromBundle(policyStream);
-</code></pre>
+using var engine = OpaBundleEvaluatorFactory.Create(policyStream);
 
+</code></pre>
 </article>
 
         <div class="contribution d-print-none">

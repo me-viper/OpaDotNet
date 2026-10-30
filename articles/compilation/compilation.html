@@ -87,12 +87,12 @@
 <p>You can compile them manually with <code>opa build -t wasm ...</code> <a href="https://www.openpolicyagent.org/docs/latest/cli/#opa-build">command</a> or ask OpaDotNet do that for you.</p>
 <p>OpaDotNet provides two options for policy compilation:</p>
 <ul>
-<li><a href="https://github.com/me-viper/OpaDotNet.Compilation/tree/main/src/OpaDotNet.Compilation.Cli"><code>OpaDotNet.Compilation.Cli</code></a> - wrapper over <code>opa</code> CLI <a href="https://www.openpolicyagent.org/docs/latest/cli">tool</a>.</li>
-<li><a href="https://github.com/me-viper/OpaDotNet.Compilation/tree/main/src/OpaDotNet.Compilation.Interop"><code>OpaDotNet.Compilation.Interop</code></a> - wrapper over OPA SDK.</li>
+<li><a href="cli.html"><code>OpaDotNet.Compilation.Cli</code></a> - wrapper over <code>opa</code> CLI <a href="https://www.openpolicyagent.org/docs/latest/cli">tool</a>.</li>
+<li><a href="interop.html"><code>OpaDotNet.Compilation.Interop</code></a> - wrapper over OPA SDK.</li>
 </ul>
 <p>Which one you should be using?</p>
-<p>Use <code>OpaDotNet.Compilation.Cli</code> if you have <code>opa</code> CLI tool available or you need functionality besides compilation (running tests, syntax checking etc.). Suitable for web applications and/or applications running in Docker containers. See <a href="https://github.com/me-viper/OpaDotNet.Compilation/blob/main/src/OpaDotNet.Compilation.Cli/README.md">README</a> for more details.</p>
-<p>Use <code>OpaDotNet.Compilation.Interop</code> if you need compilation only and want to avoid having external dependencies. Suitable for libraries, console application etc. See <a href="https://github.com/me-viper/OpaDotNet.Compilation/blob/main/src/OpaDotNet.Compilation.Interop/README.md">README</a> for more details.</p>
+<p>Use <code>OpaDotNet.Compilation.Cli</code> if you have <code>opa</code> CLI tool available or you need functionality besides compilation (running tests, syntax checking etc.). Suitable for web applications and/or applications running in Docker containers. See <a href="cli.html">Cli Compiler</a> for more details.</p>
+<p>Use <code>OpaDotNet.Compilation.Interop</code> if you need compilation only and want to avoid having external dependencies. Suitable for libraries, console application etc. See <a href="interop.html">SDK Interop Compiler</a> for more details.</p>
 <p>If you sign your bundles to protect against tampering, see <a href="signing.html">Bundle Signature Validation</a> for how to
 verify signatures when loading a bundle.</p>
 <h2 id="building-bundles-with-bundlewriter">Building bundles with <code>BundleWriter</code></h2>
@@ -149,7 +149,7 @@ bundle.</li>
 <li><code>FromDirectory</code> - create a <code>BundleWriter</code> pre-populated from a source directory, optionally excluding files
 matching glob patterns.</li>
 <li><code>MergeCapabilities</code> - a static helper that merges two <code>capabilities.json</code> files (e.g. built-in capabilities plus
-your own <a href="../Builtins.html">custom builtins</a>) into one.</li>
+your own <a href="../evaluation/builtins.html">custom builtins</a>) into one.</li>
 </ul>
 <div class="NOTE">
 <h5>Note</h5>
