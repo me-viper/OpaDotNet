@@ -4,6 +4,11 @@ using OpaDotNet.Wasm.Tests.Common;
 
 namespace OpaDotNet.Wasm.Tests;
 
+// Timeouts are timing-sensitive: run after all other tests, not alongside them.
+[CollectionDefinition(nameof(CancellationTests), DisableParallelization = true)]
+public class CancellationTestsCollection;
+
+[Collection(nameof(CancellationTests))]
 public class CancellationTests : SdkTestBase
 {
     private const string Entrypoint = "timeout/result";
