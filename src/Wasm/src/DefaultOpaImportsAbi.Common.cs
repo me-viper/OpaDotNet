@@ -1,4 +1,6 @@
-﻿using System.Buffers.Text;
+﻿#if NET9_0_OR_GREATER
+using System.Buffers.Text;
+#endif
 using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
@@ -12,6 +14,7 @@ using Json.More;
 
 using Microsoft.Extensions.Primitives;
 
+using OpaDotNet.Wasm.GoCompat;
 using OpaDotNet.Wasm.Rego;
 
 using Semver;
@@ -734,7 +737,7 @@ public partial class DefaultOpaImportsAbi
                         else
                         {
                             reached.Add(root);
-                            Path(graph, edge, [..path], reached, result);
+                            Path(graph, edge, [.. path], reached, result);
                             reached.Remove(edge);
                         }
                     }
@@ -745,7 +748,7 @@ public partial class DefaultOpaImportsAbi
 
     private static bool UriIsValid(string uri)
     {
-        return Uri.TryCreate(uri, UriKind.Absolute, out _);
+        return Uri.TryCreate(uri, UriKind.Absolute, out _) && GoUrl.CheckAuthority(uri) == null;
     }
 
     internal class UriParseResult
@@ -784,6 +787,9 @@ public partial class DefaultOpaImportsAbi
         if (string.IsNullOrWhiteSpace(uri))
             return new();
 
+        if (GoUrl.CheckAuthority(uri) is { } error)
+            throw new OpaBuiltinException(GoUrl.ParseError(uri, error));
+
         if (!Uri.TryCreate(uri, UriKind.Absolute, out var u))
             return null;
 
@@ -804,6 +810,20 @@ public partial class DefaultOpaImportsAbi
 
             if (pathAndQuery.Length > 1)
                 query = pathAndQuery[1];
+        }
+
+        // Hierarchical URLs: take the path as written (System.Uri normalizes it) and apply Go's net/url rules,
+        // raw_path is the decoded path unless the input used a non-default encoding.
+        if (GoUrl.GetRawPath(uri) is { } inputPath)
+        {
+            path = null;
+            rawPath = null;
+
+            if (inputPath.Length > 0)
+            {
+                (path, var goRawPath) = GoUrl.SetPath(inputPath);
+                rawPath = goRawPath.Length > 0 ? goRawPath : path;
+            }
         }
 
         var port = u.Port.ToString();
