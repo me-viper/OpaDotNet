@@ -78,8 +78,12 @@ jobs:
         name: opa-native
         path: ./src/Compilation/Interop/lib
 
+    # Configuration matters for restore: NuGet audit warnings are errors in Release.
+    - name: Restore
+      run: dotnet restore -p:Configuration=Release
+
     - name: Build
-      run: dotnet build -c Release
+      run: dotnet build -c Release --no-restore
 
     # Use the same OPA version the Interop native library is built against.
     - name: Download OPA CLI
