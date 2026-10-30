@@ -53,6 +53,9 @@ internal static class TestCaseParser
             testCase.Category = category;
             testCase.Name = testCaseName;
 
+            // Query-only cases (e.g. built-in calls) have no modules.
+            testCase.Modules ??= Array.Empty<string>();
+
             var skipReason = filter.SkipReason(testCase.Note);
 
             if (!string.IsNullOrEmpty(skipReason))

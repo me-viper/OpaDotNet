@@ -1,6 +1,7 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using System.Text.Json.Nodes;
+using System.Text.RegularExpressions;
 using System.Web;
 
 using OpaDotNet.Compilation.Abstractions;
@@ -161,6 +162,9 @@ public partial class SdkV1Tests : SdkTestBase
         return result.ToString();
     }
 
+    [GeneratedRegex(@"^\s*(?<func>[A-Za-z_][\w.]*)\((?<args>.*),\s*(?<out>[A-Za-z_]\w*)\s*\)\s*$", RegexOptions.Singleline)]
+    private static partial Regex BuiltinCallQueryRegex();
+
     private async Task RunTestCase(SdkV1TestCase testCase)
     {
         var engineOpts = new WasmPolicyEngineOptions
@@ -185,13 +189,21 @@ public partial class SdkV1Tests : SdkTestBase
 
         var srcParts = new StringBuilder();
 
-        var queryParts = testCase.Query.Split(['=', ';'], StringSplitOptions.TrimEntries);
+        // Built-in call with the output variable as the last argument: `f(args, x)`.
+        var call = BuiltinCallQueryRegex().Match(testCase.Query);
 
-        if (queryParts.Length % 2 != 0)
-            throw new NotSupportedException($"Invalid test case: {testCase}");
+        if (call.Success)
+            srcParts.AppendLine($"{call.Groups["out"].Value} := {call.Groups["func"].Value}({call.Groups["args"].Value})");
+        else
+        {
+            var queryParts = testCase.Query.Split(['=', ';'], StringSplitOptions.TrimEntries);
 
-        for (var i = 0; i < queryParts.Length; i += 2)
-            srcParts.AppendLine($"{queryParts[i + 1]} := {queryParts[i]}");
+            if (queryParts.Length % 2 != 0)
+                throw new NotSupportedException($"Invalid test case: {testCase}");
+
+            for (var i = 0; i < queryParts.Length; i += 2)
+                srcParts.AppendLine($"{queryParts[i + 1]} := {queryParts[i]}");
+        }
 
         var src = $$"""
             package run_test
