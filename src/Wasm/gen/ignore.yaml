@@ -31,6 +31,14 @@
   regex:
   - uribuiltins/parse mailto uri
 
+- reason: 'System.Uri rejects "]" in a reg-name host, Go net/url allows it'
+  regex:
+  - uribuiltins/(parse|is_valid) unmatched bracket in reg-name host
+
+- reason: 'YamlDotNet accepts tab indentation, go-yaml rejects it'
+  regex:
+  - jsonbuiltins/yaml is_valid unreachable content
+
 - reason: 'TODO: Fix!!!'
   regex:
   - uuid-parse/positive-v2
@@ -107,6 +115,7 @@
   - string-interpolation/
   - wasm/additive \(negative\)
   - wasm/object dereference \(negative\)
+  - jsonbuiltins/unmarshal number (beyond the supported|with too big an) exponent is undefined
 
 - reason: WTF???
   regex:

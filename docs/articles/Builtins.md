@@ -1,6 +1,6 @@
 # Built-in Functions Implementation Status
 
-Below is the list of supported OPA built-in functions as for version v1.19.0 along with their implementation status in OpaDotNet.Wasm.
+Below is the list of supported OPA built-in functions as for version v1.22.0 along with their implementation status in OpaDotNet.Wasm.
 
 ## Numbers
 

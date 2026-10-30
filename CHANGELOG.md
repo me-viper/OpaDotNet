@@ -1,5 +1,22 @@
 # Changelog
 
+## OpaDotNet 2026.2.2
+
+### OpaDotNet.Wasm
+
+* Fix `uri.parse` and `uri.is_valid` to match Go `net/url`: validate userinfo, host escapes and port, and report
+  `raw_path` like OPA
+* Fix built-in arguments with number literals without a leading zero (e.g. `.5`) evaluating as undefined
+* Fix `yaml.is_valid` and `yaml.unmarshal` with multi-document YAML
+
+### OpaDotNet.Extensions.AspNetCore
+
+* Update `OpaDotNet.Wasm`
+
+### OpaDotNet.Compilation.Interop
+
+* Support OPA SDK v1.22.0
+
 ## OpaDotNet 2026.2.1
 
 ### OpaDotNet.Wasm v3.2.18
