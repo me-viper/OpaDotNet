@@ -43,6 +43,16 @@ hasYAMLWarning {
 	yaml.unmarshal("%FOO\n---bar\n")
 }
 
+# Results match OPA: the first document is returned, the rest of the stream still has to parse.
+canUnmarshalMultiDocument {
+	yaml.unmarshal("a: 1\n---\nb: 2\n") == {"a": 1}
+	yaml.unmarshal("a: 1\n---\n") == {"a": 1}
+}
+
+hasSyntaxErrorInSecondDocument {
+	yaml.unmarshal("a: 1\n---\nfoo: {")
+}
+
 canMarshalYAML[x] {
 	string := yaml.marshal(input)
 	x := yaml.unmarshal(string)
@@ -52,4 +62,7 @@ isValidYAML {
 	yaml.is_valid(fixture) == true
 	yaml.is_valid("foo: {") == false
 	yaml.is_valid("{\"foo\": \"bar\"}") == true
+	yaml.is_valid("a: 1\n---\nb: 2\n") == true
+	yaml.is_valid("a: 1\n---\n---\n") == true
+	yaml.is_valid("a: 1\n---\nfoo: {") == false
 }

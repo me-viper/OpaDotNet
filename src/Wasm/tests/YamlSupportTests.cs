@@ -20,6 +20,8 @@ public class YamlSupportTests(ITestOutputHelper output) : OpaTestBase(output), I
                 "yaml/support/hasYAMLWarning",
                 "yaml/support/canMarshalYAML",
                 "yaml/support/isValidYAML",
+                "yaml/support/canUnmarshalMultiDocument",
+                "yaml/support/hasSyntaxErrorInSecondDocument",
             ]
             );
 
@@ -66,6 +68,20 @@ public class YamlSupportTests(ITestOutputHelper output) : OpaTestBase(output), I
         // This is NOT compatible with OPA native behaviour.
         var result = _engine.EvaluatePredicate<object?>(null, "yaml/support/hasYAMLWarning");
         Assert.True(result.Result);
+    }
+
+    [Fact]
+    public void UnmarshalMultiDocument()
+    {
+        var result = _engine.EvaluatePredicate<object?>(null, "yaml/support/canUnmarshalMultiDocument");
+        Assert.True(result.Result);
+    }
+
+    [Fact]
+    public void IgnoreSyntaxErrorInSecondDocument()
+    {
+        var result = _engine.EvaluatePredicate<object?>(null, "yaml/support/hasSyntaxErrorInSecondDocument");
+        Assert.False(result.Result);
     }
 
     [Fact]

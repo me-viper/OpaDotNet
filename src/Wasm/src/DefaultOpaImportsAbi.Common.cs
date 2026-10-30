@@ -22,6 +22,7 @@ using Semver;
 using Yaml2JsonNode;
 
 using YamlDotNet.Core;
+using YamlDotNet.Core.Events;
 using YamlDotNet.RepresentationModel;
 using YamlDotNet.Serialization;
 
@@ -365,8 +366,8 @@ public partial class DefaultOpaImportsAbi
             if (!jv.TryGetValue<string>(out var yaml))
                 return false;
 
-            var deserializer = new DeserializerBuilder().Build();
-            _ = deserializer.Deserialize<object>(yaml);
+            // Parse every document: OPA rejects syntax errors anywhere in the stream, not just in the first document.
+            new YamlStream().Load(new StringReader(yaml));
 
             return true;
         }
@@ -398,7 +399,27 @@ public partial class DefaultOpaImportsAbi
             return null;
 
         var deserializer = new DeserializerBuilder().WithAttemptingUnquotedStringTypeDeserialization().Build();
-        var result = deserializer.Deserialize(new StringReader(yamlString));
+        var parser = new Parser(new StringReader(yamlString));
+
+        parser.Consume<StreamStart>();
+
+        object? result = null;
+        var first = true;
+
+        // OPA returns the first document, but the rest of the stream still has to parse.
+        while (parser.Accept<DocumentStart>(out _))
+        {
+            var doc = deserializer.Deserialize(parser);
+
+            if (first)
+            {
+                result = doc;
+                first = false;
+            }
+        }
+
+        parser.Consume<StreamEnd>();
+
         return result?.ToJsonDocument();
     }
 
