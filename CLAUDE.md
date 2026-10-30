@@ -141,7 +141,9 @@ Practical rules:
 
 ## Style notes
 
-- File-scoped namespaces, `max_line_length = 130` (see `.editorconfig` for the full rule set).
+- File-scoped namespaces, `max_line_length = 130` for C# (set in `.editorconfig`'s `[*.{cs,vb}]` section; long
+  string literals such as test data may exceed it).
+- Markdown: wrap prose at about 120 characters. It's a soft guide, not enforced; tables and URLs can run longer.
 - `CA2000` (dispose objects before losing scope) is enforced as a warning — evaluators, streams, etc. must be
   disposed correctly.
 - Async methods must have an `Async` suffix (enforced as a warning via a `dotnet_naming_rule`).
