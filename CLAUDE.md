@@ -40,6 +40,24 @@ Open `OpaDotNet.slnx` (not a `.sln`). Projects under `src/`:
   between the CLI and Interop compiler backend at test time based on env vars (see Testing below).
 - **`Common`** — tiny shared internal utility (`NopDisposable`), used across projects.
 
+Other top-level folders:
+
+- **`build/`** — PowerShell helper scripts:
+  - `versions.ps1` — prints what nbgv computes for every `version.json` (see Versioning).
+  - `api-ship.ps1` — moves `PublicAPI.Unshipped.txt` entries into `PublicAPI.Shipped.txt` (release prep only).
+  - `sync-opa-tests.ps1` — re-syncs `src/Wasm/tests/SdkV1/v1` from OPA's upstream test suite; defaults to the OPA
+    version pinned in `src/Compilation/Interop/opa-native/go.mod` (override with `-Ref`).
+  - `publish.ps1` — local `dotnet pack` + NuGet push (CI's `Publish` workflow is the normal path).
+  - `qodana.ps1` — runs a local Qodana scan in Docker.
+- **`docs/`** — DocFX site (`docfx.json`, `toc.yml`): guide content in `articles/`, generated API reference in `api/`,
+  compiled code samples in `snippets/`, site theme overrides in `template/`. `_site/` is build output (gitignored).
+  See Docs below.
+- **`.github/workflows/`** — `ci.yml` (build/test/pack, reused by `publish.yml`), `publish.yml` (manual NuGet
+  publish), `docs.yml` (DocFX → `gh-pages`), `opa-native.yaml` (reusable job building the Interop native lib),
+  `code-quality.yaml` (Qodana).
+- **`.config/dotnet-tools.json`** — local dotnet tools (`nbgv`, `dotnet-coverage`); run `dotnet tool restore` first.
+- **`artifacts/`**, **`TestResults/`** — build/pack and test output (gitignored).
+
 Public API surface (`Wasm`, `Compilation.Abstractions`, `Compilation/Cli`, `Compilation/Interop`,
 `Extensions.AspNetCore`) is tracked with Roslyn's public API analyzer (`PublicAPI.Shipped.txt` /
 `PublicAPI.Unshipped.txt` per project). Adding/removing/changing a public member requires updating the project's
@@ -117,9 +135,7 @@ Practical rules:
 
 ## Docs
 
-`docs/` is a DocFX site (guide content in `docs/articles/`, API reference auto-generated into `docs/api/` — don't
-hand-edit those `.yml` files). `docs/snippets/` is a compiled project so example code in the guide is guaranteed to
-build; update snippets there rather than inlining unchecked code samples in docs.
+`docs/` is a DocFX site; see `.claude/rules/docs.md` for layout, snippet conventions and publishing.
 
 ## Style notes
 
