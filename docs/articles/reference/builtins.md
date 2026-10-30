@@ -44,6 +44,22 @@ otherwise `static` avoids an unnecessary allocation per resolved built-in.
 > Generic built-in methods and methods with more than four positional arguments (plus the optional trailing
 > parameter) are not supported.
 
+### Sets and RegoValueFormat
+
+JSON has no set type, so by default a Rego set is passed to a built-in as a plain array. Typed `[OpaCustomBuiltin]`
+parameters always get this JSON form. If you override `DefaultOpaImportsAbi.Func` instead and receive `BuiltinArg`,
+you can choose the format with
+[RegoValueFormat](xref:OpaDotNet.Wasm.RegoValueFormat) in `BuiltinArg.As<T>` and `BuiltinArg.AsOrNull<T>`:
+
+- `RegoValueFormat.Json` (default) - sets are converted to arrays, so `{"a", "b"}` and `["a", "b"]` look the same.
+  `BuiltinArg.RawJson` holds this form.
+- `RegoValueFormat.Value` - sets are marked as `[{"__rego_set": ["a", "b"]}]`, so you can tell them apart from arrays.
+  `BuiltinArg.Raw` holds this form.
+
+[!code-csharp[](~/snippets/ValueFormat.cs#ValueFormatUsings)]
+
+[!code-csharp[](~/snippets/ValueFormat.cs#ValueFormatBuiltin)]
+
 ## Returning results
 
 A `[OpaCustomBuiltin]` method may return:

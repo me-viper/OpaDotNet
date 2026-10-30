@@ -15,6 +15,10 @@ items:
 - name: Evaluation
 - name: Basics
   href: evaluation/basics.md
+- name: Engine Options
+  href: evaluation/options.md
+- name: Error Handling
+  href: evaluation/errors.md
 - name: Using WASM Binary
   href: evaluation/wasm.md
 - name: Using Policy Bundle

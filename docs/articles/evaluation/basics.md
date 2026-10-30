@@ -33,28 +33,61 @@ In general you would use:
 > [!CAUTION]
 > `IOpaEvaluator` instances are NOT thread safe.
 
-You can customize `IOpaEvaluator` behavior by providing [WasmPolicyEngineOptions](xref:OpaDotNet.Wasm.WasmPolicyEngineOptions).
+You can customize `IOpaEvaluator` behavior by providing [WasmPolicyEngineOptions](xref:OpaDotNet.Wasm.WasmPolicyEngineOptions),
+see [Engine Options](options.md).
 
 ## Set optional external data
 
 If policy does not use external data or policy bundle already contains `data.json` file you can skip this step.
 
-You can initialize external data with any of `IOpaEvaluator.SetData*` methods.
+[!code-csharp[](~/snippets/Evaluation.cs#EvaluationUsings)]
 
-> [!NOTE]
-> You can call `IOpaEvaluator.SetData*` if you need external data changed between policy evaluations.
+[!code-csharp[](~/snippets/Evaluation.cs#EvaluationSetData)]
 
-You can reset `IOpaEvaluator` instance to "initial state" (aka no external data) by calling `IOpaEvaluator.Reset`.
+- `SetData<T>` serializes the object with
+  [SerializationOptions](options.md#json-serialization).
+- `SetDataFromRawJson` passes a JSON string as is.
+- `SetDataFromStream` reads UTF-8 JSON from a seekable stream (it uses `Stream.Length`). The evaluator doesn't dispose
+  the stream.
+
+Each call replaces the whole external data document, including data loaded from the bundle's `data.json`. You can call
+them between evaluations to change the data.
+
+`IOpaEvaluator.Reset` returns the evaluator to its initial state with no external data, including no bundle data:
+
+[!code-csharp[](~/snippets/Evaluation.cs#EvaluationReset)]
+
+On ABI 1.3+ policies you can also change part of the data without replacing all of it through
+[IUpdateDataFeature](xref:OpaDotNet.Wasm.Features.IUpdateDataFeature), available from
+`IOpaEvaluator.TryGetFeature`.
 
 ## Evaluate policy with optional input
 
 Once `IOpaEvaluator` instance created and external data have been initialized you can issue policy query evaluations.
-You can provide optional input and optional entrypoint (`package` or `package/rule`). If entrypoint is not provided, default entrypoint is used.
-OpaDotNet provides several methods:
+You can provide optional input and optional entrypoint (`package/rule`, as passed to the compiler). If entrypoint is
+not provided, the first entrypoint the policy was compiled with is used.
 
-- `IOpaEvaluator.EvaluatePredicate`. Useful when policy result is `true` or `false`.
-- `IOpaEvaluator.Evaluate`. Useful when policy returns complex object.
-- `IOpaEvaluator.EvaluateRaw`. Useful when you want control JSON serialization/deserialization manually.
+Input and results are serialized with [SerializationOptions](options.md#json-serialization). The example below uses
+camel case naming, so `UserInfo.Name` is matched with `name` in the policy output:
+
+[!code-rego[](~/snippets/evaluation/policy.rego)]
+
+[!code-csharp[](~/snippets/Evaluation.cs#EvaluationOutput)]
+
+[!code-csharp[](~/snippets/Evaluation.cs#EvaluationMethods)]
+
+| Method                               | Use when                                        |
+|--------------------------------------|-------------------------------------------------|
+| `EvaluatePredicate<TInput>`          | The rule is a boolean decision.                 |
+| `Evaluate<TInput, TOutput>`          | The rule returns a value and must be defined.   |
+| `EvaluateOrDefault<TInput, TOutput>` | The rule returns a value and may be undefined.  |
+| `EvaluateRaw`                        | You want to handle JSON serialization yourself. |
+
+The typed methods return [PolicyEvaluationResult&lt;T&gt;](xref:OpaDotNet.Wasm.PolicyEvaluationResult`1), with the
+rule value in its `Result` property. It mirrors an element of OPA's result set, `{"result": ...}`. `EvaluateRaw`
+returns the whole result set as a JSON string, for example `[{"result":true}]`, or `[]` if the rule is undefined.
+
+See [Error Handling](errors.md) for what these methods return for undefined results and which exceptions they throw.
 
 > [!NOTE]
 > You can use the same `IOpaEvaluator` instance to evaluate multiple consecutive policy queries as long as it's done from the single thread.

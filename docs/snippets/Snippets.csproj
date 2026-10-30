@@ -46,6 +46,12 @@
     <None Update="builtins\custom-builtins-policy.rego">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="evaluation\policy.rego">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="evaluation\data.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
