@@ -9,10 +9,14 @@ on:
 
   workflow_dispatch:
   workflow_call:
-   inputs:
+    inputs:
       release:
         required: false
         type: boolean
+    outputs:
+      version:
+        description: NuGet package version computed by nbgv
+        value: ${{ jobs.build.outputs.version }}
 
   pull_request:
     branches: [ main ]
@@ -20,8 +24,12 @@ on:
       - 'docs/**'
       - '**.md'
 
-env:
-  OPA_CLI_VERSION: v1.19.0
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   native_build:
@@ -30,11 +38,29 @@ jobs:
   build:
     runs-on: ubuntu-latest
     needs: [ native_build ]
+    timeout-minutes: 30
+    outputs:
+      version: ${{ steps.get_version.outputs.version }}
 
     steps:
     - uses: actions/checkout@v4
       with:
         fetch-depth: 0
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v5
+      with:
+        dotnet-version: |
+          8.0.x
+          9.0.x
+          10.0.x
+
+    - name: Cache NuGet
+      uses: actions/cache@v4
+      with:
+        path: ~/.nuget/packages
+        key: nuget-${{ runner.os }}-${{ hashFiles('**/*.csproj', '**/Directory.Build.props', '.config/dotnet-tools.json') }}
+        restore-keys: nuget-${{ runner.os }}-
 
     - name: Restore Tools
       run: dotnet tool restore
@@ -46,12 +72,6 @@ jobs:
         ./build/versions.ps1
         echo "version=$(dotnet nbgv get-version -v NuGetPackageVersion)" >> $env:GITHUB_OUTPUT
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v5
-      with:
-        dotnet-version: |
-          10.0.x
-
     - name: get_opa_lib
       uses: actions/download-artifact@v4
       with:
@@ -61,16 +81,29 @@ jobs:
     - name: Build
       run: dotnet build -c Release
 
+    # Use the same OPA version the Interop native library is built against.
     - name: Download OPA CLI
       run: |
+        OPA_CLI_VERSION=$(grep -oP 'github.com/open-policy-agent/opa \Kv[0-9.]+' ./src/Compilation/Interop/opa-native/go.mod)
         echo "Downloading OPA ${OPA_CLI_VERSION}"
-        curl -L --fail -o /usr/local/bin/opa https://openpolicyagent.org/downloads/${OPA_CLI_VERSION}/opa_linux_amd64_static
-        chmod 755 /usr/local/bin/opa
+        cd "$RUNNER_TEMP"
+        curl -L --fail -O https://openpolicyagent.org/downloads/${OPA_CLI_VERSION}/opa_linux_amd64_static
+        curl -L --fail -O https://openpolicyagent.org/downloads/${OPA_CLI_VERSION}/opa_linux_amd64_static.sha256
+        sha256sum -c opa_linux_amd64_static.sha256
+        sudo install -m 755 opa_linux_amd64_static /usr/local/bin/opa
 
     - name: Tests
       run: dotnet test --configuration Release --no-build --no-progress --filter-not-trait "Compiler=Interop" -- --coverage --coverage-output-format cobertura
       env:
         OPA_TEST_COMPILER: cli
+
+    - name: Upload Test Results
+      uses: actions/upload-artifact@v4
+      if: ${{ failure() }}
+      with:
+        name: test-results
+        path: ./TestResults
+        retention-days: 7
 
     - name: Merge Coverage
       run: dotnet coverage merge -o coveralls.xml -f cobertura ./TestResults/*.cobertura.xml
@@ -85,7 +118,7 @@ jobs:
       run: dotnet pack -c Release --no-build
 
     - uses: actions/upload-artifact@v4
-      if: ${{ inputs.release }}
       with:
         name: artifacts
         path: ./artifacts/package/release/*
+        retention-days: 7

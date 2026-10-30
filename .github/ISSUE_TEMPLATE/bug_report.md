@@ -15,9 +15,9 @@ A clear and concise description of what the bug is.
 ```rego
 package example
 
-default hello = false
+default hello := false
 
-hello {
+hello if {
     x := input.message
     x == data.world
 }
@@ -33,7 +33,8 @@ using var engine = factory.CreateWithJsonData(
     "{ \"world\": \"world\" }"
     );
 
-var result = engine.EvaluatePredicate(inp);
+var input = new { message = "world" };
+var result = engine.EvaluatePredicate(input);
 ```
 
 **Expected behavior**

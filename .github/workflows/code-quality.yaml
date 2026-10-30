@@ -5,7 +5,7 @@ on:
   push:
     branches:
       - main
-      - 'releases/v*'
+      - 'release/v*'
     paths:
       - 'src/**'
       - '.github/workflows/code-quality.yaml'
@@ -16,17 +16,19 @@ jobs:
 
   qodana:
     runs-on: ubuntu-latest
+    needs: [ native_build ]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
         with:
           dotnet-version: |
             8.0.x
             9.0.x
+            10.0.x
 
       - name: 'Qodana Setup'
         shell: pwsh
@@ -42,7 +44,7 @@ jobs:
         run: dotnet build -c Release ./qodana.sln
 
       - name: 'Qodana Scan'
-        uses: JetBrains/qodana-action@v2024.3
+        uses: JetBrains/qodana-action@v2026.2.2
         with:
           args: --no-build
           #args: --solution,./qodana.sln,--linter,jetbrains/qodana-cdnet,--configuration,Release
