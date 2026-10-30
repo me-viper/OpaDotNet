@@ -328,6 +328,52 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
     [InlineData("""uuid.parse("f47ac10b-58cc-7372-8567-0e02b2c3d479")""", """{"variant":"RFC4122","version":7}""")]
     [InlineData("""uuid.parse("f47ac10b-58cc-b372-8567-0e02b2c3d479")""", """{"variant":"RFC4122","version":11}""")]
     [InlineData("""uuid.parse("urn:uuid:f47ac10b-58cc-b372-8567-0e02b2c3d479")""", """{"variant":"RFC4122","version":11}""")]
+    // Expected values below are uuid.parse results from OPA v1.22.0.
+    [InlineData(
+        """uuid.parse("000003e8-48b9-21ee-b200-325096b39f47")""",
+        """
+        {"clocksequence": 12800, "domain": "Person", "id": 1000, "macvariables": "local:unicast",
+        "nodeid": "32-50-96-b3-9f-47", "time": 1693566990121469600, "variant": "RFC4122", "version": 2}
+        """
+        )]
+    [InlineData(
+        """uuid.parse("6ba7b810-9dad-11d1-80b4-00c04fd430c8")""",
+        """
+        {"clocksequence": 180, "macvariables": "global:unicast", "nodeid": "00-c0-4f-d4-30-c8",
+        "time": 886630433151182400, "variant": "RFC4122", "version": 1}
+        """
+        )]
+    [InlineData(
+        """uuid.parse("URN:UUID:6ba7b810-9dad-11d1-80b4-00c04fd430c8")""",
+        """
+        {"clocksequence": 180, "macvariables": "global:unicast", "nodeid": "00-c0-4f-d4-30-c8",
+        "time": 886630433151182400, "variant": "RFC4122", "version": 1}
+        """
+        )]
+    [InlineData(
+        """uuid.parse("000001f4-48b9-21ee-b201-335096b39f47")""",
+        """
+        {"clocksequence": 12801, "domain": "Group", "id": 500, "macvariables": "local:multicast",
+        "nodeid": "33-50-96-b3-9f-47", "time": 1693566990121419600, "variant": "RFC4122", "version": 2}
+        """
+        )]
+    [InlineData(
+        """uuid.parse("00000000-0000-2000-8002-010000000000")""",
+        """
+        {"clocksequence": 2, "domain": "Org", "id": 0, "macvariables": "global:multicast",
+        "nodeid": "01-00-00-00-00-00", "time": 6227451273709551616, "variant": "RFC4122", "version": 2}
+        """
+        )]
+    [InlineData(
+        """uuid.parse("00000000-0000-2000-8007-030000000000")""",
+        """
+        {"clocksequence": 7, "domain": "Domain7", "id": 0, "macvariables": "local:multicast",
+        "nodeid": "03-00-00-00-00-00", "time": 6227451273709551616, "variant": "RFC4122", "version": 2}
+        """
+        )]
+    [InlineData("""uuid.parse("00000000-0000-4000-c000-000000000000")""", """{"variant":"Microsoft","version":4}""")]
+    [InlineData("""uuid.parse("00000000-0000-4000-e000-000000000000")""", """{"variant":"Future","version":4}""")]
+    [InlineData("""uuid.parse("00000000-0000-4000-0000-000000000000")""", """{"variant":"Reserved","version":4}""")]
     public async Task UuidParse(string func, string expected, bool fails = false)
     {
         var result = await RunTestCase(func, expected, fails);

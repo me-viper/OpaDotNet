@@ -41,7 +41,6 @@
 
 - reason: 'TODO: Fix!!!'
   regex:
-  - uuid-parse/positive-v2
   - jsonpatch/set
 
 - reason: 'TODO: No easy way to parse DER certificate chain'

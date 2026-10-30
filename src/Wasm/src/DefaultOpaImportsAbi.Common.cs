@@ -1,6 +1,7 @@
 ﻿#if NET9_0_OR_GREATER
 using System.Buffers.Text;
 #endif
+using System.Buffers.Binary;
 using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
@@ -80,36 +81,114 @@ public partial class DefaultOpaImportsAbi
         string Variant,
         [property: JsonPropertyName("version")]
         int Version
-        );
+        )
+    {
+        [JsonPropertyName("time")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public long? Time { get; init; }
 
+        [JsonPropertyName("clocksequence")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public int? ClockSequence { get; init; }
+
+        [JsonPropertyName("nodeid")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public string? NodeId { get; init; }
+
+        [JsonPropertyName("macvariables")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public string? MacVariables { get; init; }
+
+        [JsonPropertyName("id")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public uint? Id { get; init; }
+
+        [JsonPropertyName("domain")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public string? Domain { get; init; }
+    }
+
+    // Mirrors OPA's internal/uuid.Parse (github.com/google/uuid): version and variant for every UUID, plus the
+    // decodable time, clock sequence and node for versions 1 and 2, and the DCE id and domain for version 2.
     private UuidParseResult? UuidParse(ReadOnlySpan<char> uuid)
     {
-        var index = 0;
+        const string urnPrefix = "urn:uuid:";
 
-        if (uuid.StartsWith("urn:uuid:"))
-            index = "urn:uuid:".Length;
+        if (uuid.StartsWith(urnPrefix, StringComparison.OrdinalIgnoreCase))
+            uuid = uuid[urnPrefix.Length..];
 
-        if (!Guid.TryParse(uuid[index..], out var guid))
+        if (!Guid.TryParse(uuid, out var guid))
             return null;
 
+        // RFC 4122 byte order, so indices match Go's uuid.UUID.
         Span<byte> bytes = stackalloc byte[16];
 
-        if (!guid.TryWriteBytes(bytes))
+        if (!guid.TryWriteBytes(bytes, bigEndian: true, out _))
             return null;
 
-        var ver = bytes[7] >> 4;
-        string? type;
+        var version = bytes[6] >> 4;
+        string variant;
 
         if ((bytes[8] & 0xc0) == 0x80)
-            type = "RFC4122";
+            variant = "RFC4122";
         else if ((bytes[8] & 0xe0) == 0xc0)
-            type = "Microsoft";
+            variant = "Microsoft";
         else if ((bytes[8] & 0xe0) == 0xe0)
-            type = "Future";
+            variant = "Future";
         else
-            type = "Reserved";
+            variant = "Reserved";
 
-        return new(type, ver);
+        var result = new UuidParseResult(variant, version);
+
+        if (version is not (1 or 2))
+            return result;
+
+        var nodeId = bytes[10..];
+
+        result = result with
+        {
+            Time = UuidUnixNanoseconds(bytes),
+            ClockSequence = BinaryPrimitives.ReadUInt16BigEndian(bytes[8..]) & 0x3fff,
+            NodeId = string.Join('-', nodeId.ToArray().Select(p => p.ToString("x2", CultureInfo.InvariantCulture))),
+            MacVariables = (nodeId[0] & 0b11) switch
+            {
+                0b11 => "local:multicast",
+                0b01 => "global:multicast",
+                0b10 => "local:unicast",
+                _ => "global:unicast",
+            },
+        };
+
+        if (version == 2)
+        {
+            result = result with
+            {
+                Id = BinaryPrimitives.ReadUInt32BigEndian(bytes),
+                Domain = bytes[9] switch
+                {
+                    0 => "Person",
+                    1 => "Group",
+                    2 => "Org",
+                    var d => $"Domain{d}",
+                },
+            };
+        }
+
+        return result;
+    }
+
+    // Go's uuid.Time().UnixTime() and OPA's nanoUnix, including their int64 overflow for dates before 1970.
+    private static long UuidUnixNanoseconds(ReadOnlySpan<byte> bytes)
+    {
+        const long g1582Ns100 = 122192928000000000; // 100ns intervals from 1582-10-15 to 1970-01-01.
+
+        var time = (long)BinaryPrimitives.ReadUInt32BigEndian(bytes)
+            | (long)BinaryPrimitives.ReadUInt16BigEndian(bytes[4..]) << 32
+            | (long)(BinaryPrimitives.ReadUInt16BigEndian(bytes[6..]) & 0xfff) << 48;
+
+        var sinceEpoch = time - g1582Ns100;
+
+        return unchecked((sinceEpoch / 10_000_000 * 1_000_000_000) + (sinceEpoch % 10_000_000 * 100));
     }
 
     private static string Base64UrlEncode(string x)

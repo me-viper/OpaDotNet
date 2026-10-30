@@ -8,6 +8,8 @@
   `raw_path` like OPA
 * Fix built-in arguments with number literals without a leading zero (e.g. `.5`) evaluating as undefined
 * Fix `yaml.is_valid` and `yaml.unmarshal` with multi-document YAML
+* Fix `uuid.parse` to return time, clock sequence, node and DCE id/domain for version 1 and 2 UUIDs, and to accept
+  an uppercase `URN:UUID:` prefix
 
 ### OpaDotNet.Extensions.AspNetCore
 
