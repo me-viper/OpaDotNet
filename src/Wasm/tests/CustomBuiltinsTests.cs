@@ -9,8 +9,14 @@ using OpaDotNet.Wasm.Tests.Common;
 
 namespace OpaDotNet.Wasm.Tests;
 
-[UsedImplicitly]
 [CollectionDefinition("CapabilitiesProvider", DisableParallelization = true)]
+public class CapabilitiesProviderCollection;
+
+[CollectionDefinition("FileCapabilities", DisableParallelization = true)]
+public class FileCapabilitiesCollection;
+
+[UsedImplicitly]
+[Collection("CapabilitiesProvider")]
 public class CapabilitiesProviderTests : CustomBuiltinsTests
 {
     public CapabilitiesProviderTests(ITestOutputHelper output) : base(output)
@@ -22,7 +28,7 @@ public class CapabilitiesProviderTests : CustomBuiltinsTests
 }
 
 [UsedImplicitly]
-[CollectionDefinition("FileCapabilities", DisableParallelization = true)]
+[Collection("FileCapabilities")]
 public class SimpleCustomBuiltinsTests(ITestOutputHelper output) : CustomBuiltinsTests(output)
 {
     protected override Stream Caps() => File.OpenRead(Path.Combine(BasePath, "capabilities.json"));
