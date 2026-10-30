@@ -275,7 +275,8 @@ public partial class SdkV1Tests : SdkTestBase
 
             if (string.Equals("eval_conflict_error", testCase.WantErrorCode, StringComparison.Ordinal))
             {
-                Assert.Throws<OpaEvaluationAbortedException>(() => eval.Evaluate<object?, JsonNode>(testCase.Input));
+                var ex = Assert.Throws<OpaEvaluationException>(() => eval.Evaluate<object?, JsonNode>(testCase.Input));
+                Assert.StartsWith("Aborted: ", ex.Message);
                 return;
             }
 

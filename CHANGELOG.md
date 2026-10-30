@@ -12,6 +12,8 @@
   an uppercase `URN:UUID:` prefix
 * Fix calling `SetData*` more than once failing with `opa_heap_blocks_stash() consistency check failed` for ABI 1.3
   policies
+* Throw `OpaEvaluationException` instead of an internal exception type when policy evaluation is aborted (e.g.
+  conflicting rule values)
 
 ### OpaDotNet.Extensions.AspNetCore
 

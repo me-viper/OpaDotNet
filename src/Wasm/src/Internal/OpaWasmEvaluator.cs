@@ -381,8 +381,8 @@ internal sealed class OpaWasmEvaluator : IOpaEvaluator
         }
         catch (WasmtimeException ex)
         {
-            if (ex.InnerException is OpaEvaluationAbortedException)
-                throw ex.InnerException;
+            if (ex.InnerException is OpaEvaluationAbortedException aborted)
+                throw new OpaEvaluationException(aborted.Message, ex);
 
             if (ex.InnerException is OpaBuiltinException obe)
                 throw obe;
