@@ -45,6 +45,8 @@ Other top-level folders:
 - **`build/`** — PowerShell helper scripts:
   - `versions.ps1` — prints what nbgv computes for every `version.json` (see Versioning).
   - `api-ship.ps1` — moves `PublicAPI.Unshipped.txt` entries into `PublicAPI.Shipped.txt` (release prep only).
+  - `update-opa.ps1` — bumps the OPA Go dependency in `src/Compilation/Interop/opa-native/go.mod` (latest or
+    `-Version`); the full OPA upgrade procedure is the `update-opa` skill.
   - `sync-opa-tests.ps1` — re-syncs `src/Wasm/tests/SdkV1/v1` from OPA's upstream test suite; defaults to the OPA
     version pinned in `src/Compilation/Interop/opa-native/go.mod` (override with `-Ref`).
   - `publish.ps1` — local `dotnet pack` + NuGet push (CI's `Publish` workflow is the normal path).
