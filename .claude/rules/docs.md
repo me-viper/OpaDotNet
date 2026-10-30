@@ -41,6 +41,7 @@ paths:
 - `articles/Builtins.md` tracks built-in implementation status per OPA version: when implementing a new built-in,
   add/update its row (link to the OPA policy reference, `:white_check_mark:`, and the `OpaDotNet.Wasm` version that
   first ships it — check `./build/versions.ps1`), and bump the "as for version vX.Y.Z" line if the OPA version changed.
+  The `update-builtins` skill checks the table against the code and the pinned OPA version.
 - `articles/ABI.md` lists supported OPA wasm ABI versions; update it when ABI support changes.
 - Breaking changes to public API need an entry in `articles/migration.md`.
 - Link to upstream OPA docs (`https://www.openpolicyagent.org/docs/...`) rather than re-explaining Rego semantics.
