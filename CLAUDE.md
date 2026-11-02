@@ -103,13 +103,13 @@ generated output, edit the YAML or the generator instead.
 Versions are computed by Nerdbank.GitVersioning (`nbgv`) from `version.json` files, and there are two independent
 tiers of them — don't confuse the two:
 
-- **Root `version.json`** (e.g. `2026.2.1`, year.major.build) is the *release-train* version: it drives the git tag
-  (`v{version}`) and release branch name (`release/v{version}`) when cutting a release, and its value is what
-  `CHANGELOG.md` entries are headed with (`## OpaDotNet {version}`). `publicReleaseRefSpec` means only `main` and
-  `release/v*` builds get a stable version; other branches get an unstable/prerelease version.
+- **Root `version.json`** (e.g. `2026.2.2-preview`, year.major.build) is the *release-train* version: it drives the git
+  tag (`v{version}`) and release branch name (`release/v{version}`) when cutting a release, and its value (without
+  `-preview`) is what `CHANGELOG.md` entries are headed with (`## OpaDotNet {version}`). On `main` it holds the
+  *next* release-train version.
 - **Per-package `version.json`** (`src/Wasm/version.json`, `src/Compilation/version.json`,
   `src/Compilation.Abstractions/version.json`, `src/Extensions.AspNetCore/version.json`) each declare their own
-  independent `major.minor` (e.g. Wasm is `3.2`) — this is the actual NuGet package version. `pathFilters` scopes
+  independent `major.minor` (e.g. Wasm is `3.2-preview`) — this is the actual NuGet package version. `pathFilters` scopes
   git-height calculation (the patch number) to commits touching that package's `src/`, so the patch component
   auto-increments only when that package actually changes. `src/Compilation/version.json`'s `pathFilters` covers
   both `Compilation/Cli/src` and `Compilation/Interop/src`, so `OpaDotNet.Compilation.Cli` and
@@ -119,11 +119,17 @@ tiers of them — don't confuse the two:
 - The patch number is the git height since `major.minor` last changed, so it is **not** reset at release time: if the
   minor bump was committed earlier, the release ships as e.g. `3.2.18`, not `3.2.0`. Changing the root `version.json`
   (or any file outside a package's `pathFilters`) doesn't reset package heights.
+- **Stable vs. preview:** every `version.json` on `main` carries a `-preview` prerelease tag, so `main` builds produce
+  preview packages (e.g. `3.2.25-preview`). Only the `release/v*` branch strips it, giving stable packages (`3.2.25`).
+  Changing only the prerelease tag doesn't reset git height, so a preview and its release share the same patch number.
+  `publicReleaseRefSpec` (`main`, `release/v*`) only controls the `-g{commit}` suffix: builds of other branches get
+  it, while builds of these two branches don't.
 
 Practical rules:
 
-- Only bump a package's `major.minor` in its own `version.json` for a breaking change or notable feature — the patch
-  number takes care of itself via git height. Don't bump a package's version for changes that don't touch its `src/`.
+- Only bump a package's `major.minor` in its own `version.json` for a breaking change or notable feature, and keep the
+  `-preview` tag on `main` (e.g. `3.2-preview` → `3.3-preview`). The patch number takes care of itself via git height.
+  Don't bump a package's version for changes that don't touch its `src/`.
 - Inspect what nbgv currently computes for every project with `./build/versions.ps1` (wraps
   `dotnet nbgv get-version --project <dir>` for each `version.json` in the repo) before deciding what to bump.
 - When preparing a release: bump the relevant package `version.json`(s), bump the root `version.json`, and add a
@@ -163,25 +169,28 @@ already published with `https://api.nuget.org/v3-flatcontainer/{lowercase-packag
    new `ubuntu-latest` image missing legacy tzdata), so fix that first.
 1. Check if versions need a bump: run `./build/versions.ps1`, then bump `major.minor` in the `version.json` of each
    package whose `src/` changed in a breaking or notable way — compare against the latest versions on NuGet, the
-   minor bump may already have been committed. Set the root `version.json` to the release-train version; it becomes
-   the tag, so it must match the `CHANGELOG.md` heading (the heading may have been written ahead of time with a
-   different number than `version.json`).
+   minor bump may already have been committed. Keep the `-preview` tag on `main`. Set the root `version.json` to
+   `{version}-preview`, where `{version}` is the release-train version; it becomes the tag, so it must match the
+   `CHANGELOG.md` heading (the heading may have been written ahead of time with a different number than
+   `version.json`).
 2. Update the `CHANGELOG.md` entry: `## OpaDotNet {root version}` with a `### {PackageName} v{version}` subsection per
    changed package.
-   - Use the exact `NuGetPackageVersion` from `./build/versions.ps1` in each heading (e.g. `v3.2.18`, not `v3.2.0` —
-     see the patch-number note under Versioning). The prep commit doesn't touch package `src/`, so these numbers
+   - Use the exact `NuGetPackageVersion` from `./build/versions.ps1`, without `-preview`, in each heading (e.g.
+     `v3.2.18`, not `v3.2.0` or `v3.2.18-preview` — see the patch-number note under Versioning). The prep commit doesn't touch package `src/`, so these numbers
      don't change after committing; re-run `versions.ps1` after the commit to confirm.
    - Cross-check `git log v{previous}..HEAD -- src/*/src src/Compilation/*/src` for user-visible changes missing from
      the entry, including dependency updates (e.g. Wasmtime) and fixes made after the entry was first written.
 3. Fix public APIs: run `build/api-ship.ps1` to move `PublicAPI.Unshipped.txt` entries into `PublicAPI.Shipped.txt`.
    Confirm a **full-solution** `dotnet build -c Release` passes with no warnings — that's what CI runs.
 4. Commit as `chore: Prepare v{version} release` and push `main`.
-5. Create the release branch `release/v{version}` from `main` and push it.
-6. Create and push the tag `v{version}` (lightweight, like previous tags). The push reports bypassing a tag-creation
-   ruleset; that's expected for the repo admin.
-7. Ensure build was successful and all tests passed. Pushing the release branch doesn't trigger its own CI run (the
-   `paths-ignore` filter sees no new changes), so the `main` run for the same commit is the one to check. Its
-   `Get Version` and `Pack` steps show the exact package versions that will be published.
+5. Create the release branch `release/v{version}` from `main`. On it, remove the `-preview` tag from every
+   `version.json` (root and packages), run `./build/versions.ps1` to confirm the stable versions match the
+   `CHANGELOG.md` headings, commit as `chore: Release v{version}`, and push the branch. This commit only touches
+   `version.json` files, which are outside every package's `pathFilters`, so the patch numbers don't change.
+6. Create the tag `v{version}` on that release-branch commit, not on `main`, and push it. Use a lightweight tag, like
+   previous tags. The push reports bypassing a tag-creation ruleset; that's expected for the repo admin.
+7. Make sure the CI run for the release branch passes, including all tests. Its `Get Version` and `Pack` steps show the
+   exact package versions that will be published. They must have no `-preview` suffix.
 8. Publish docs if there were documentation changes since the previous release:
    `gh workflow run docs.yml --ref release/v{version} -f release=true`. Run it on the release branch, not the tag,
    so nbgv computes the stable version for the site title. It deploys to the `gh-pages` branch.
@@ -191,3 +200,6 @@ already published with `https://api.nuget.org/v3-flatcontainer/{lowercase-packag
     the tag alone doesn't publish to NuGet. It reruns the full CI first (~15 min). In the `Push Nuget Symbols` step,
     `Conflict ... already exists` for every `.snupkg` is expected — the package push already uploaded them.
 11. Confirm all packages appear on NuGet at the expected versions; indexing after the push takes ~10 minutes.
+12. Start the next release train on `main`: bump the root `version.json` to the next `{version}-preview` (e.g.
+    `2026.2.2-preview` → `2026.2.3-preview`), commit as `chore: Start v{next} development` and push. Package
+    `version.json` files stay on `-preview` and need no change.
