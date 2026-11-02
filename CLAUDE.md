@@ -111,11 +111,19 @@ tiers of them — don't confuse the two:
   `src/Compilation.Abstractions/version.json`, `src/Extensions.AspNetCore/version.json`) each declare their own
   independent `major.minor` (e.g. Wasm is `3.2-preview`) — this is the actual NuGet package version.
   `pathFilters` scopes git-height calculation (the patch number) to commits touching that package's `src/`, so the
-  patch component auto-increments only when that package actually changes. `src/Compilation/version.json`'s `pathFilters` covers
-  both `Compilation/Cli/src` and `Compilation/Interop/src`, so `OpaDotNet.Compilation.Cli` and
-  `OpaDotNet.Compilation.Interop` share one version number; `Compilation.Abstractions` is versioned separately even
-  though the other two packages depend on it. `src/Extensions.AspNetCore/version.json`'s `pathFilters` also include
-  `Wasm/src` and `Compilation.Abstractions/src`, so its patch moves whenever those change too.
+  patch component auto-increments only when that package actually changes. A package's filters also list the `src/` of
+  its in-repo dependencies, so its patch moves whenever those change too:
+  - `src/Wasm/version.json` covers `Wasm/src` and `Wasm/Directory.Build.props` (global usings for `Wasm/src`).
+  - `src/Compilation/version.json` covers `Compilation/Cli/src`, `Compilation/Interop/src`,
+    `Compilation/Interop/opa-native` (Go source of the native lib) and `Compilation.Abstractions/src`, so
+    `OpaDotNet.Compilation.Cli` and `OpaDotNet.Compilation.Interop` share one version number.
+  - `src/Compilation.Abstractions/version.json` covers only its own `src/`; it is versioned separately even though
+    the Compilation packages depend on it.
+  - `src/Extensions.AspNetCore/version.json` covers its own `src/` plus `Wasm/src`, `Wasm/Directory.Build.props`
+    and `Compilation.Abstractions/src`.
+
+  When adding a project reference or a file that affects a package's build output (e.g. a nested
+  `Directory.Build.props`), add it to the `pathFilters` of that package and of every package depending on it.
 - The patch number is the git height since `major.minor` last changed, so it is **not** reset at release time: if the
   minor bump was committed earlier, the release ships as e.g. `3.2.18`, not `3.2.0`. Changing the root `version.json`
   (or any file outside a package's `pathFilters`) doesn't reset package heights.
