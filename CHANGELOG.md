@@ -12,6 +12,11 @@
   an uppercase `URN:UUID:` prefix
 * Fix calling `SetData*` more than once failing with `opa_heap_blocks_stash() consistency check failed` for ABI 1.3
   policies
+* Fix `net.cidr_contains_matches` not matching a bare IP against CIDRs with a prefix longer than /24 (e.g.
+  `10.0.0.5/32`); a bare IP is now a single host
+* Fix `net.cidr_merge` with bare IPv4 addresses to use the classful default mask like OPA (e.g. `10.0.0.1` →
+  `10.0.0.1/8`) instead of always /24
+* Fix `net.cidr_expand` accepting a bare IP address; like OPA it now requires a prefix length
 * Throw `OpaEvaluationException` instead of an internal exception type when policy evaluation is aborted (e.g.
   conflicting rule values)
 

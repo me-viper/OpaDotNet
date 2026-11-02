@@ -444,6 +444,25 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
     }
 
     [Theory]
+    [InlineData("""net.cidr_contains_matches(["10.0.0.0/25"], "10.0.0.1")""", """{[0, "10.0.0.1"]}""")]
+    [InlineData("""net.cidr_contains_matches(["10.0.0.5/32"], "10.0.0.5")""", """{[0, "10.0.0.5"]}""")]
+    [InlineData("""net.cidr_contains_matches(["10.0.0.5/32"], ["10.0.0.5"])""", "{[0, 0]}")]
+    [InlineData("""net.cidr_contains_matches(["10.0.0.128/25"], "10.0.0.200")""", """{[0, "10.0.0.200"]}""")]
+    [InlineData("""net.cidr_contains_matches(["10.0.0.128/25"], "10.0.0.100")""", "set()")]
+    [InlineData("""net.cidr_contains_matches(["10.0.0.5/32"], "10.0.0.6")""", "set()")]
+    [InlineData("""net.cidr_contains_matches(["10.0.0.0/24"], "10.0.0.1")""", """{[0, "10.0.0.1"]}""")]
+    [InlineData("""net.cidr_contains_matches(["10.0.0.5/32"], "10.0.0.5/32")""", """{[0, "10.0.0.5/32"]}""")]
+    [InlineData("""net.cidr_contains_matches(["2001:db8::/25"], "2001:db8::1")""", """{[0, "2001:db8::1"]}""")]
+    [InlineData("""net.cidr_contains_matches(["2001:db8::5/128"], "2001:db8::5")""", """{[0, "2001:db8::5"]}""")]
+    [InlineData("""net.cidr_contains_matches(["2001:db8::5/128"], "2001:db8::6")""", "set()")]
+    [InlineData("""net.cidr_contains_matches(["2001:db8::/24"], "2001:db8::1")""", """{[0, "2001:db8::1"]}""")]
+    public async Task NetCidrContainsMatchesHost(string func, string expected)
+    {
+        var result = await RunTestCase(func, expected);
+        Assert.True(result.Assert);
+    }
+
+    [Theory]
     [InlineData("""net.cidr_merge(["192.0.128.0/24", "192.0.129.0/24"])""", """{"192.0.128.0/23"}""")]
     [InlineData("net.cidr_is_valid(\"192.168.0.0/30\")", "true")]
     [InlineData("net.cidr_is_valid(\"192.168.0.500/30\")", "false")]
@@ -454,9 +473,32 @@ public class SdkBuiltinsTests(ITestOutputHelper output) : SdkTestBase(output)
         Assert.True(result.Assert);
     }
 
+    [Fact]
+    public async Task NetCidrExpandBareIpFails()
+    {
+        var result = await RunTestCase("""net.cidr_expand("10.0.0.1")""", "set()", fails: true);
+        Assert.True(result.Assert);
+    }
+
     [Theory]
     [InlineData("""net.cidr_merge(["192.0.128.0/24", "192.0.129.0/24"])""", """{"192.0.128.0/23"}""")]
     [InlineData("""net.cidr_merge(["2001:0db8::/32", "2001:0db9::/32"])""", """{"2001:db8::/31"}""")]
+
+    // Expected values below are net.cidr_merge results from OPA v1.19.0.
+    [InlineData("""net.cidr_merge(["10.0.0.1"])""", """{"10.0.0.1/8"}""")]
+    [InlineData("""net.cidr_merge(["172.16.0.1"])""", """{"172.16.0.1/16"}""")]
+    [InlineData("""net.cidr_merge(["192.168.1.1"])""", """{"192.168.1.1/24"}""")]
+    [InlineData("""net.cidr_merge(["224.0.0.1"])""", """{"224.0.0.1/24"}""")]
+    [InlineData("""net.cidr_merge(["10.0.0.1", "192.168.1.1"])""", """{"10.0.0.1/8", "192.168.1.1/24"}""")]
+    [InlineData("""net.cidr_merge(["10.0.0.1", "10.0.0.2"])""", """{"10.0.0.0/8"}""")]
+    [InlineData("""net.cidr_merge(["10.0.0.1", "10.0.0.1"])""", """{"10.0.0.0/8"}""")]
+    [InlineData("""net.cidr_merge(["10.0.0.1", "11.0.0.1"])""", """{"10.0.0.0/7"}""")]
+    [InlineData("""net.cidr_merge(["10.0.0.1", "10.1.0.0/16"])""", """{"10.0.0.0/8"}""")]
+    [InlineData("""net.cidr_merge(["11.0.0.1", "12.0.0.0/8"])""", """{"11.0.0.0/8", "12.0.0.0/8"}""")]
+    [InlineData("""net.cidr_merge(["10.0.0.1", "12.0.0.0/8"])""", """{"10.0.0.1/8", "12.0.0.0/8"}""")]
+    [InlineData("""net.cidr_merge(["192.168.1.1", "192.168.0.5"])""", """{"192.168.0.0/23"}""")]
+    [InlineData("""net.cidr_merge(["192.168.1.1", "192.168.3.0/24"])""", """{"192.168.1.1/24", "192.168.3.0/24"}""")]
+    [InlineData("""net.cidr_merge(["10.0.0.5/24"])""", """{"10.0.0.0/24"}""")]
     public async Task NetCidrMerge(string func, string expected)
     {
         var result = await RunTestCase(func, expected);

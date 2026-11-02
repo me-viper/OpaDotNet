@@ -1,6 +1,7 @@
 ﻿extern alias Ipn;
 using System.Net;
 using System.Net.Sockets;
+using System.Numerics;
 using System.Text.Json.Nodes;
 
 using OpaDotNet.Wasm.Rego;
@@ -125,7 +126,8 @@ public partial class DefaultOpaImportsAbi
 
     private static RegoSet<string> CidrExpand(string cidr)
     {
-        if (!TryParseNetwork(cidr, out var result))
+        // OPA requires a prefix length here; a bare IP address is an error.
+        if (!cidr.Contains('/') || !IPNetwork2.TryParse(cidr, out var result))
             throw new ArgumentException("Invalid CIDR address", nameof(cidr));
 
         var r = result.ListIPAddress().Select(p => p.ToString());
@@ -146,9 +148,44 @@ public partial class DefaultOpaImportsAbi
         if (addresses.Length == 0)
             return new JsonArray();
 
-        var nets = addresses.Select(ParseNetworkStrict).ToArray();
-        var result = IPNetwork2.Supernet(nets).Select(p => p.ToString()).ToArray();
+        var nets = addresses.Select(ParseMergeNetwork).ToArray();
+        var result = IPNetwork2.Supernet(nets.Select(p => p.Net).ToArray()).Select(p => p.ToString()).ToList();
+
+        // Like OPA, a bare IP that nothing merges with keeps its own address: "10.0.0.1" -> "10.0.0.1/8".
+        for (var i = 0; i < nets.Length; i++)
+        {
+            var (net, ip) = nets[i];
+
+            if (ip == null || nets.Where((_, j) => j != i).Any(p => Touches(net, p.Net)))
+                continue;
+
+            var idx = result.IndexOf(net.ToString());
+
+            if (idx >= 0)
+                result[idx] = $"{ip}/{net.Cidr}";
+        }
+
         return new RegoSet<string>(result);
+    }
+
+    private static bool Touches(IPNetwork2 a, IPNetwork2 b)
+    {
+        if (a.AddressFamily != b.AddressFamily)
+            return false;
+
+        var (aFirst, aLast) = Range(a);
+        var (bFirst, bLast) = Range(b);
+
+        // Overlapping or adjacent ranges.
+        return aFirst <= bLast + 1 && bFirst <= aLast + 1;
+    }
+
+    private static (BigInteger First, BigInteger Last) Range(IPNetwork2 net)
+    {
+        var bytes = net.Network.GetAddressBytes();
+        var first = new BigInteger(bytes, true, true);
+        var size = BigInteger.One << (bytes.Length * 8 - net.Cidr);
+        return (first, first + size - 1);
     }
 
     private static RegoSet<string>? LookupIpAddress(string name)
@@ -173,17 +210,26 @@ public partial class DefaultOpaImportsAbi
         }
     }
 
-    private static IPNetwork2 ParseNetworkStrict(string cidr)
+    private static (IPNetwork2 Net, IPAddress? Ip) ParseMergeNetwork(string cidr)
     {
         if (IPAddress.TryParse(cidr, out var ip))
         {
             if (ip.AddressFamily == AddressFamily.InterNetworkV6)
                 throw new FormatException("IPv6 invalid: needs prefix length");
 
-            return new IPNetwork2(ip, 24);
+            // OPA uses Go's net.IP.DefaultMask(): the classful mask of the address.
+            var first = ip.GetAddressBytes()[0];
+            byte prefix = first switch
+            {
+                < 0x80 => 8,
+                < 0xC0 => 16,
+                _ => 24,
+            };
+
+            return (new IPNetwork2(ip, prefix), ip);
         }
 
-        return IPNetwork2.Parse(cidr);
+        return (IPNetwork2.Parse(cidr), null);
     }
 
     private static IPNetwork2 ParseNetwork(string cidrOrIp)
@@ -198,9 +244,10 @@ public partial class DefaultOpaImportsAbi
     {
         result = null;
 
+        // A bare IP address is a single host, not a network.
         if (IPAddress.TryParse(cidrOrIp, out var ip))
         {
-            result = new IPNetwork2(ip, 24);
+            result = new IPNetwork2(ip, (byte)(ip.GetAddressBytes().Length * 8));
             return true;
         }
 
