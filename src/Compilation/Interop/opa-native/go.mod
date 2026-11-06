@@ -2,7 +2,7 @@ module main
 
 go 1.26.0
 
-require github.com/open-policy-agent/opa v1.22.0
+require github.com/open-policy-agent/opa v1.22.2
 
 require (
 	github.com/agnivade/levenshtein v1.2.1 // indirect

@@ -26,7 +26,7 @@
 
 ### OpaDotNet.Compilation.Interop
 
-* Support OPA SDK v1.22.0
+* Support OPA SDK v1.22.2
 
 ## OpaDotNet 2026.2.1
 
