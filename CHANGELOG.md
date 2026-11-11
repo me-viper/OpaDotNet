@@ -4,6 +4,9 @@
 
 ### OpaDotNet.Wasm
 
+* Support net11.0
+* Fix `units.parse` and `units.parse_bytes` returning imprecise results for fractional amounts (e.g.
+  `units.parse("1.2")` returned `1.1999999999999999555910790150` on .NET 11)
 * Fix `uri.parse` and `uri.is_valid` to match Go `net/url`: validate userinfo, host escapes and port, and report
   `raw_path` like OPA
 * Fix built-in arguments with number literals without a leading zero (e.g. `.5`) evaluating as undefined
@@ -22,10 +25,12 @@
 
 ### OpaDotNet.Extensions.AspNetCore
 
+* Support net11.0
 * Update `OpaDotNet.Wasm`
 
 ### OpaDotNet.Compilation.Interop
 
+* Support net11.0
 * Support OPA SDK v1.22.2
 
 ## OpaDotNet 2026.2.1

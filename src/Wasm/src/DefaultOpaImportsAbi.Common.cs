@@ -525,7 +525,7 @@ public partial class DefaultOpaImportsAbi
 
         const decimal milli = 0.001m;
 
-        var num = double.NaN;
+        decimal? num = null;
         var unit = string.Empty;
 
         x = x.Replace("\"", "");
@@ -541,8 +541,9 @@ public partial class DefaultOpaImportsAbi
             if (x[i] == ' ')
                 throw new FormatException("Spaces not allowed in resource strings");
 
-            if (!double.TryParse(x[.. (i + 1)], CultureInfo.InvariantCulture, out num))
-                throw new FormatException("Could not parse amount to a number");
+            // Parse straight to decimal: going through double leaks binary rounding errors (e.g. 1.2 => 1.19999...),
+            // and since .NET 11 the double => decimal conversion no longer rounds them away.
+            num = ParseUnitsAmount(x[.. (i + 1)], "Could not parse amount to a number");
 
             if (i + 1 < x.Length)
             {
@@ -553,7 +554,7 @@ public partial class DefaultOpaImportsAbi
             break;
         }
 
-        if (double.IsNaN(num))
+        if (num == null)
             throw new FormatException("No amount provided");
 
         decimal? n = unit switch
@@ -575,7 +576,21 @@ public partial class DefaultOpaImportsAbi
             _ => throw new FormatException("No amount provided"),
         };
 
-        return n.Value * (decimal)num;
+        return n.Value * num.Value;
+    }
+
+    private static decimal ParseUnitsAmount(string s, string error)
+    {
+        const NumberStyles styles = NumberStyles.Float | NumberStyles.AllowThousands;
+
+        if (decimal.TryParse(s, styles, CultureInfo.InvariantCulture, out var d))
+            return d;
+
+        // Out of decimal range or not a number at all: keep the previous behavior.
+        if (!double.TryParse(s, styles, CultureInfo.InvariantCulture, out var num))
+            throw new FormatException(error);
+
+        return (decimal)num;
     }
 
     private static ulong? UnitsParseBytes(string x)
@@ -583,7 +598,7 @@ public partial class DefaultOpaImportsAbi
         if (string.IsNullOrWhiteSpace(x))
             throw new ArgumentException("No byte amount provided", nameof(x));
 
-        var num = double.NaN;
+        decimal? num = null;
         var unit = string.Empty;
 
         x = x.Replace("\"", "");
@@ -599,8 +614,7 @@ public partial class DefaultOpaImportsAbi
             if (x[i] == ' ')
                 throw new FormatException("Spaces not allowed in resource strings");
 
-            if (!double.TryParse(x[.. (i + 1)], CultureInfo.InvariantCulture, out num))
-                throw new FormatException("Could not parse byte amount to a number");
+            num = ParseUnitsAmount(x[.. (i + 1)], "Could not parse byte amount to a number");
 
             if (i + 1 < x.Length)
                 unit = x[(i + 1) ..].ToLowerInvariant();
@@ -608,7 +622,7 @@ public partial class DefaultOpaImportsAbi
             break;
         }
 
-        if (double.IsNaN(num))
+        if (num == null)
             throw new FormatException("No byte amount provided");
 
         ulong? n = unit switch
@@ -629,7 +643,7 @@ public partial class DefaultOpaImportsAbi
             _ => throw new FormatException("No byte amount provided"),
         };
 
-        var result = n.Value * (decimal)num;
+        var result = n.Value * num.Value;
 
         return decimal.ToUInt64(result);
     }

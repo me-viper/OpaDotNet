@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 .NET SDK for evaluating WebAssembly-compiled [Open Policy Agent](https://www.openpolicyagent.org/) (OPA/Rego) policies
 in-process, plus tooling to compile `.rego` sources into `.wasm` bundles and an ASP.NET Core authorization integration.
-Multi-targets `net10.0;net9.0;net8.0`.
+Multi-targets `net11.0;net10.0;net9.0;net8.0`.
 
 ## Solution layout
 
