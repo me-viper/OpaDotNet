@@ -58,7 +58,7 @@ Other top-level folders:
   publish), `docs.yml` (DocFX → `gh-pages`), `opa-native.yaml` (reusable job building the Interop native lib),
   `code-quality.yaml` (Qodana).
 - **`.config/dotnet-tools.json`** — local dotnet tools (`nbgv`, `dotnet-coverage`); run `dotnet tool restore` first.
-- **`artifacts/`**, **`TestResults/`** — build/pack and test output (gitignored).
+- **`artifacts/`** — build/pack output and, under `artifacts/test/`, test results and coverage (gitignored).
 
 Public API surface (`Wasm`, `Compilation.Abstractions`, `Compilation/Cli`, `Compilation/Interop`,
 `Extensions.AspNetCore`) is tracked with Roslyn's public API analyzer (`PublicAPI.Shipped.txt` /
